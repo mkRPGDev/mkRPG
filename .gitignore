@@ -8,3 +8,10 @@
 *.o
 *.class
 *.pyc
+
+# Fichiers genérés par TeX
+spec/*.aux
+spec/*.bbl
+spec/*.blg
+spec/*.log
+spec/*.pdf

@@ -1,10 +1,6 @@
-# Fichiers de swap Vim/Emacs
-.*.swp
-.*.swo
-.#*
-*~
-
-# Fichiers compilés
-*.o
-*.class
-*.pyc
+# Fichiers de TeX
+*.aux
+*.blg
+*.bbl
+*.pdf
+*.log

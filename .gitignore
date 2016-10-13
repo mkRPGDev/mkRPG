@@ -1,0 +1,10 @@
+# Fichiers de swap Vim/Emacs
+.*.swp
+.*.swo
+.#*
+*~
+
+# Fichiers compilés
+*.o
+*.class
+*.pyc

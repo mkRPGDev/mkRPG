@@ -10,7 +10,7 @@ class Cell(pygame.sprite.Sprite):
     
     image_cache = {}
     
-    def __init__(self, index, scale):
+    def __init__(self, index, scale=1):
         pygame.sprite.Sprite.__init__(self)
         self.scale = scale
         

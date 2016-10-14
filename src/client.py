@@ -17,7 +17,7 @@ class Client():
         self.screen_size = (self.get_conf("width", int), self.get_conf("height", int))
         screen = pygame.display.set_mode(self.screen_size)
 
-        self.current_map = Map(self.screen_size, const.IMG_PATH+"map1.png")
+        self.current_map = Map(self.screen_size, const.IMG_PATH+"map0.png")
         
         self.background = pygame.Surface(self.screen_size)
         self.background = self.background.convert()

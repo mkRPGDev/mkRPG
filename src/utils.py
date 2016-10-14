@@ -14,7 +14,7 @@ def load_png(name, scale=1):
         image = pygame.transform.scale(image, (int(width*scale), int(height*scale)))
         return image
 
-def get_image(cache, key, scale):
+def get_image(cache, key, scale=1):
     if not key in cache.keys():
       cache[key] = load_png(key, 1)
     return pygame.transform.scale(cache[key],

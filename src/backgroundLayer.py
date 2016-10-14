@@ -16,11 +16,14 @@ class BackgroundLayer(Layer):
         self.scale = scale
         
         self.path = path
+        
+        self.image = pygame.sprite.Sprite()       
         self.bitmap = get_image(BackgroundLayer.image_cache, path, scale)
-        self.image = pygame.sprite.Sprite()
         self.image.image = self.bitmap
         self.width, self.height = self.image.image.get_size()
         self.image.rect = Rect((0,0), (self.width, self.height))
+        self.image.image = self.bitmap
+                
     
     def render(self):
         self.empty()

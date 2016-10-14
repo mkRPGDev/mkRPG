@@ -4,3 +4,6 @@
 *.bbl
 *.pdf
 *.log
+
+# Fichiers temp
+*.*~

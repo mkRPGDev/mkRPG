@@ -5,7 +5,7 @@ import configparser
 import pygame
 from pygame.locals import *
 
-from map import Map
+from world import World
 import const
 
 class Client():
@@ -16,8 +16,8 @@ class Client():
         pygame.display.init()
         self.screen_size = (self.get_conf("width", int), self.get_conf("height", int))
         screen = pygame.display.set_mode(self.screen_size)
-
-        self.current_map = Map(self.screen_size, const.IMG_PATH+"map0.png")
+        
+        self.world = World(self.screen_size)
         
         self.background = pygame.Surface(self.screen_size)
         self.background = self.background.convert()
@@ -27,32 +27,62 @@ class Client():
         font = pygame.font.Font(None, 18)
         
         clock = pygame.time.Clock()
+        
+        mov_speed_x = 0
+        mov_speed_y = 0
+        zoom_speed = 0
 
         while(1):
-            clock.tick(60)
+            deltat = clock.tick(60)/1000
             
             for event in pygame.event.get():
                 if event.type == QUIT:
                     exit(0)
                 elif event.type == MOUSEBUTTONDOWN and event.button == 4:
-                    self.current_map.zoom(1+self.get_conf("zoom_step",float))
+                    if (zoom_speed == 0 or zoom_speed > 0) and zoom_speed < self.get_conf("max_zoom_speed", float):
+                        zoom_speed += self.get_conf("zoom_speed",float)*deltat
+                    else:
+                        zoom_speed = 0
                 elif event.type == MOUSEBUTTONDOWN and event.button == 5:
-                    self.current_map.zoom(1-self.get_conf("zoom_step",float))
-                elif event.type == KEYDOWN:
-                    if event.key == K_LEFT:
-                        self.current_map.move(-self.get_conf("mov_step", int), 0)
-                    elif event.key == K_RIGHT:
-                        self.current_map.move(self.get_conf("mov_step", int), 0)
-                    elif event.key == K_UP:
-                        self.current_map.move(0, self.get_conf("mov_step", int))
-                    elif event.key == K_DOWN:
-                        self.current_map.move(0, -self.get_conf("mov_step", int))
+                    if (zoom_speed == 0 or zoom_speed < 0) and zoom_speed > -self.get_conf("max_zoom_speed", float):
+                        zoom_speed -= self.get_conf("zoom_speed",float)*deltat
+                    else:
+                        zoom_speed = 0
+            (posx,posy) = pygame.mouse.get_pos()
+            if posx < const.MOV_OFFSET:
+                if (mov_speed_x == 0 or mov_speed_x > 0) and mov_speed_x < self.get_conf("max_mov_speed", int):
+                    mov_speed_x += int(self.get_conf("mov_speed", int)*deltat)
+                else:
+                    mov_speed_x = 0
+            elif posx > self.screen_size[0]-const.MOV_OFFSET:
+                if (mov_speed_x == 0 or mov_speed_x < 0) and mov_speed_x > -self.get_conf("max_mov_speed", int):
+                    mov_speed_x -= int(self.get_conf("mov_speed", int)*deltat)
+                else:
+                    mov_speed_x = 0
+            else:
+                mov_speed_x = 0
+                
+            if posy > self.screen_size[1]-const.MOV_OFFSET:
+                if (mov_speed_y == 0 or mov_speed_y < 0) and mov_speed_y < self.get_conf("max_mov_speed", int):
+                    mov_speed_y -= int(self.get_conf("mov_speed", int)*deltat)
+                else:
+                    mov_speed_y = 0
+            elif posy < const.MOV_OFFSET:
+                if (mov_speed_y == 0 or mov_speed_y > 0) and mov_speed_y > -self.get_conf("max_mov_speed", int):
+                    mov_speed_y += int(self.get_conf("mov_speed", int)*deltat)
+                else:
+                    mov_speed_y = 0
+            else:
+                mov_speed_y = 0
+            
+            self.world.current_map.move(mov_speed_x, mov_speed_y)
+            self.world.current_map.zoom(1+zoom_speed)
             
             text = font.render("FPS : %d" % clock.get_fps(), 1, (255,0,0))
-            self.current_map.update()
+            self.world.current_map.update()
             
             screen.blit(self.background, (0,0))
-            screen.blit(self.current_map.render(), self.current_map.pos_offset)
+            screen.blit(self.world.current_map.render(), self.world.current_map.pos_offset)
             screen.blit(text, (10,10))
             
             pygame.display.update(Rect((0,0), self.screen_size))
@@ -66,4 +96,6 @@ class Client():
     def get_conf(self, conf, type=str):
         return type(self.conf.get("CURRENT", conf))
 
-client = Client()
+        
+if __name__ == "__main__":
+    client = Client()

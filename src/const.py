@@ -1,2 +1,7 @@
 IMG_PATH = "../content/imgs/"
-GRID_SCALE = 0.2
+BG_PATH = "../content/bg/"
+GRID_SCALE = 1
+CELL_WIDTH = 64
+CELL_HEIGHT = 33
+BG_IMGSET = {1:"ground.png", 2:"grass.png"}
+MOV_OFFSET = 20

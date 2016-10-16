@@ -1,0 +1,148 @@
+
+******** Explications et compléments ********
+
+
+## Lecture du diagramme
+
+  Classes en jaune : squelette qui devra être rempli à l'aide des
+descriptions XML pour chaque jeu
+  Flèches triagulaires : héritage
+  Flèches avec un losange : Appartenance
+  Flèches simples : échange d'objets entre méthodes
+
+  
+## Dualité Monde Serveur/Monde Client
+
+Pour éviter la duplication de code entre les représentations du jeu cotés 
+serveur et client, les deux partagent une même implémentation, dont
+seule la classe de base Object diffère. (Une implémentation possible est
+proposée à la fin)
+
+Ici, la classe Object représente l'une des deux classes ServerObject et
+ClientObject, selon la partie concernée. Elle permet juste de rassembler
+les flèches pour augmenter la lisibilité.
+Ces deux classes possèdent tout de même classe de base contenant un
+identifiant et les paramètres, ainsi qu'une méthode de traitement d'ordre
+qui leur est commune.
+
+
+## Représentation du jeu
+
+Pour assurer une très grande flexibilité, les éléments du monde héritent
+tous de Object, et n'ont de particulier que les objets qu'ils peuvent
+contenir. Tout le reste est paramètres. Cela permet de de faciliter grandement l'implémentation des événements et modifications.
+Chaque type contient obligatoirement certains paramètres, qui peuvent être
+définis comme constant (cf taille des cartes).
+
+Paramètres obligatoires (Liste non exhaustive)
+- World
+    timeMode
+    time
+- Map
+    height, width (en nombre de cases)
+    alpha1, alpha2 angles de la représentation en 3d isométrique
+- Box
+    boxType
+- Object
+    objectType
+- Entity:
+    entityType
+    position
+    
+La classe Object représente à la fois les objets et les quêtes, qui sont
+des objets particuliers, avec un paramètre d'avancement, ainsi que tout ce
+qui peut sortir de l'imagination débordante du MJ.
+
+Placer le type dans les paramètres permettra à une case banquise de fondre et à l'alchimiste de transformer un gisement de plomb en mine d'or, tout 
+cela de la manière la plus simple possible.
+
+
+## Interactivité
+
+Le système de simulation du jeu utilise principalement trois classes:
+Interaction, Event et Order
+
+ # Distinction importante : Événements(Event)/Interactions(Interaction)
+  Les interactions représentent les différents modes d'entrée des commandes
+des joueurs (principalement clavier et souris). La classe est en jaune car
+il faut décrire dans le XML comment relier ces interactions aux évenements.
+  Les événements représentent événements internes (et abstraits) du jeu 
+(une case a été sélectionnée, un objet est utilisé, un paramètre est
+modifié, ...)
+
+Les interactions n'existent que dans le client, qui doit pouvoir, grâce à
+buildEvent() créer un événement leur correspondant. C'est là que peut être
+vérifié que l'on essaie pas de marcher sur l'eau.
+
+ # Ordres
+  Les effets visibles sont traduit par des ordres dont il existe
+principalement deux types:
+- ajout/suppression d'éléments
+- modification de paramètres
+
+  Le lien entre événements et ordres se fait grâce aux actions, qui ne sont
+connues que du serveur.
+  
+ # Communications réseau
+  En laissant de côté les communications d'initialisation et de mise à
+jour, les communications réseau se résument à :
+Serveur ----Order----> Clients
+Clients ----Event----> Serveur
+  
+ # Effets en cascades
+  Pour pouvoir réveiller et faire s'envoler les oiseaux qui nichaient
+paisiblement dans l'arbre que le nain barbu (pléonasme ?) abat brutalement,
+les éléments du jeux doivent déclencher de nouveaux événements lors de
+l'exécution d'un ordre.
+Traduites dans le diagramme par la classe Condition, ces relations relient
+les ordres à la création de nouveaux événements.
+ 
+
+## Divers
+
+ # Éléments cachés aux joueurs :
+  Pour cacher aux joueurs que leur personnage possède une valeur
+d'arrogance, qui, lorsqu'elle atteint un seuil critique, fait exploser les 
+chevilles, il suffira de ne pas mentionner dans le XML client ce paramètre.
+De même, les objets cachés ne seront décrits que dans le XML serveur.
+    
+ # Temporalité
+  Le mode de défilement du temps peut s'implémenter dans les paramètres.
+Les nombreuses actions qui en découlent pourront être cachées par l'éditeur
+au MJ dans un modèle prédéfini. 
+
+ # Limitation du trafique inutile
+  Dans la description du monde pour le serveur, il faudra indiquer si les
+éléments et paramètres sont visibles pour les clients, et n'envoyer que les
+ordres modifiants réellement ce qui est visible.
+
+ # Affichage
+  Il faudrait définir précisément ce qui est configurable et comment dans
+l'affichage côté client !!
+
+ # AVIS AUX ANGLOPHONES :
+Je cherche un joli terme pour "grimoire" (livre des quêtes) et "baluchon" !
+
+
+## Implémentation des versions client/serveur de Object :
+
+*object.py*
+
+class ServerObject:
+    pass
+class ClientObject:
+    pass
+def createClassObject(bool server):
+    return ServerObject if server else ClientObject
+    
+    
+*server.py*
+
+Object = createClassObject(True)
+... 
+
+
+*client.py*
+
+Object = createClassObject(False)
+...

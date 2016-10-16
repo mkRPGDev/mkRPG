@@ -3,7 +3,7 @@
   <Param>
     <Taille val="1.2"/>
   </Param>
-</Objet>
+</TypeObjet>
 
 
 <TypeCase nom="Prairie_verdoyante">

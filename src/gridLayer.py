@@ -23,8 +23,8 @@ class GridLayer(Layer):
         self.cache_cells(img_set)
         self.make_grid(img_set, cells, GridLayer.image_cache)
     
-    def update(self, **kwargs):
-        self.mouseover_update(kwargs['pos_offset'])
+    def update(self):
+        self.mouseover_update()
     
     def cache_cells(self, img_set):
         points = [
@@ -32,22 +32,20 @@ class GridLayer(Layer):
                     (const.CELL_WIDTH//2, 0),
                     (const.CELL_WIDTH, const.CELL_HEIGHT//2),
                     (const.CELL_WIDTH//2, const.CELL_HEIGHT),
-                    (0,const.CELL_HEIGHT//2)
                  ]
         mask_points = [
                     (4, const.CELL_HEIGHT//2),
                     (const.CELL_WIDTH//2, 2),
                     (const.CELL_WIDTH-4, const.CELL_HEIGHT//2),
                     (const.CELL_WIDTH//2, const.CELL_HEIGHT-2),
-                    (4,const.CELL_HEIGHT//2)
                  ]
                  
         cell_image_default = pygame.Surface((const.CELL_WIDTH, const.CELL_HEIGHT), pygame.SRCALPHA)
         cell_image_default.convert_alpha()
-        pygame.gfxdraw.aapolygon(cell_image_default, points, (40,40,40))
+        pygame.draw.aalines(cell_image_default, (60,60,60), True, points)
         cell_image_selected = pygame.Surface((const.CELL_WIDTH, const.CELL_HEIGHT), pygame.SRCALPHA)
         cell_image_selected.convert_alpha()
-        pygame.gfxdraw.filled_polygon(cell_image_selected, points+mask_points, (200,200,200))
+        pygame.draw.lines(cell_image_selected, (200,200,200), True, points, 4)
         cell_image_mask = pygame.Surface((const.CELL_WIDTH, const.CELL_HEIGHT), pygame.SRCALPHA)
         cell_image_mask.convert_alpha()
         pygame.gfxdraw.filled_polygon(cell_image_mask, mask_points, (255,255,255))
@@ -59,12 +57,18 @@ class GridLayer(Layer):
     def render(self):
         pass
         
-    def mouseover_update(self, pos_offset):
+    def mouseover_update(self):
         for line in self.cells:
             for c in line:
                 if c is not None:
-                    c.mouseover_test(self.scale, pos_offset)
+                    c.mouseover_test(self.scale, self.map_pos_offset)
     
     def zoom(self, dz):
         self.scale *= dz
         self.__init__(self.g_width, self.g_height, self.scale)
+    
+    def propagate_trigger(self, event):
+        if event.type == MOUSEBUTTONUP and event.button == 1:
+            for line in self.cells:
+                for c in line:
+                    c.click_test(self.scale, self.map_pos_offset)

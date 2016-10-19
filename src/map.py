@@ -34,7 +34,7 @@ class Map(pygame.Surface):
     def zoom(self, dz):
         if (self.size[0] > self.screen_size[0] and\
             self.size[1] > self.screen_size[1] and dz < 1) or \
-           (self.scale < 2 and dz > 1):
+           (self.scale < 1.3 and dz > 1):
             for layer in self.layers:
                 self.scale *= dz
                 layer.zoom(dz)
@@ -57,6 +57,9 @@ class Map(pygame.Surface):
                 self.pos_offset = (self.pos_offset[0], const.MOV_OFFSET)
             else:
                 self.pos_offset = (self.pos_offset[0], self.screen_size[1]-self.size[1]-const.MOV_OFFSET)
+        
+        for layer in self.layers:
+            layer.map_pos_offset = self.pos_offset
     
     def render(self):
         self.fill((0,0,0))
@@ -66,6 +69,11 @@ class Map(pygame.Surface):
         
         return self
         
-    def update(self):
-        for layer in self.layers:
-            layer.update(pos_offset=self.pos_offset)
+    def update(self, **kwargs):
+        # Background layer
+        self.layers[0].update()
+        # Grid Layer
+        self.layers[1].update()
+    
+    def propagate_trigger(self, event):
+        self.layers[1].propagate_trigger(event)

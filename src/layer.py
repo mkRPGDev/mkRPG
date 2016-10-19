@@ -18,11 +18,12 @@ class Layer(pygame.sprite.Group):
         self.height = 0
         self.g_width = 0
         self.g_height = 0
+        self.map_pos_offset = (0,0)
     
     def render(self):
         pass
     
-    def update(self, **kwargs):
+    def update(self):
         pass
     
     def create_cell_line(self, c_line, line, img_set, image_cache):

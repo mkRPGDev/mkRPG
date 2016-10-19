@@ -48,6 +48,8 @@ class Client():
                         zoom_speed -= self.get_conf("zoom_speed",float)*deltat
                     else:
                         zoom_speed = 0
+                elif event.type == MOUSEBUTTONUP and event.button == 1:
+                    self.propagate_trigger(event)
             (posx,posy) = pygame.mouse.get_pos()
             if posx < const.MOV_OFFSET:
                 if (mov_speed_x == 0 or mov_speed_x > 0) and mov_speed_x < self.get_conf("max_mov_speed", int):
@@ -75,14 +77,14 @@ class Client():
             else:
                 mov_speed_y = 0
             
-            self.world.current_map.move(mov_speed_x, mov_speed_y)
-            self.world.current_map.zoom(1+zoom_speed)
+            self.world.move(mov_speed_x, mov_speed_y)
+            self.world.zoom(1+zoom_speed)
             
             text = font.render("FPS : %d" % clock.get_fps(), 1, (255,0,0))
-            self.world.current_map.update()
+            self.world.update()
             
             screen.blit(self.background, (0,0))
-            screen.blit(self.world.current_map.render(), self.world.current_map.pos_offset)
+            screen.blit(self.world.render(), (0,0))
             screen.blit(text, (10,10))
             
             pygame.display.update(Rect((0,0), self.screen_size))
@@ -95,6 +97,9 @@ class Client():
     
     def get_conf(self, conf, type=str):
         return type(self.conf.get("CURRENT", conf))
+        
+    def propagate_trigger(self, event):
+        self.world.propagate_trigger(event)
 
         
 if __name__ == "__main__":

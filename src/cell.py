@@ -5,6 +5,9 @@ from pygame.locals import *
 import pygame.gfxdraw
 
 from utils import load_png, get_image
+
+from triggers import MoveTrigger
+
 import const
 
 class Cell(pygame.sprite.Sprite):
@@ -32,16 +35,24 @@ class Cell(pygame.sprite.Sprite):
             self.image = get_image(self.image_cache, self.img_set['selected'], self.scale)
             self.selected = True
     
-    def mouseover_test(self, scale, pos_offset):
+    def collision_test(self, scale, pos_offset):
         pos = pygame.mouse.get_pos()
         pos = (pos[0]-pos_offset[0], pos[1]-pos_offset[1])
         if self.rect.collidepoint(pos):
             offset = (pos[0]-self.rect.x, pos[1]-self.rect.y)
             collision = self.mask.get_at(offset)
-            if collision==1 and not self.selected:
-                self.toggle_selected()
-            elif collision==0 and self.selected:
-                self.toggle_selected()
-        else:
-            if self.selected:
-                self.toggle_selected()
+            if collision==1:
+                return True
+        return False
+    
+    def mouseover_test(self, scale, pos_offset):
+        collision = self.collision_test(scale, pos_offset)
+        if collision and not self.selected:
+            self.toggle_selected()
+        elif not collision and self.selected:
+            self.toggle_selected()
+    
+    def click_test(self, scale, pos_offset):
+        collision = self.collision_test(scale, pos_offset)
+        if collision:
+            raise MoveTrigger(self.index)

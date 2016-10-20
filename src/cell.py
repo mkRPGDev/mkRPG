@@ -4,35 +4,35 @@ import pygame
 from pygame.locals import *
 import pygame.gfxdraw
 
-from utils import load_png, get_image
-
-from triggers import MoveTrigger
+from utils import load_png
+from cache import ImageCache
 
 import const
 
-class Cell(pygame.sprite.Sprite):
+class Cell(pygame.sprite.DirtySprite):
     
-    def __init__(self, index, img_set, default, image_cache, scale=1):
+    def __init__(self, index, img_set, default, scale=1):
         pygame.sprite.Sprite.__init__(self)
         self.scale = scale
         self.img_set = img_set
         self.default = default
-        self.image_cache = image_cache
         
-        self.image = get_image(self.image_cache, img_set[default], scale)
+        self.image = ImageCache.get_image(img_set[default], scale)
         self.rect = self.image.get_rect()
         if 'mask' in img_set:
-            self.mask = pygame.mask.from_surface(get_image(self.image_cache, img_set['mask'], scale))
+            self.mask = ImageCache.get_mask(img_set['mask'], self.scale)
         self.index = index
 
         self.selected = False
     
     def toggle_selected(self):
         if self.selected:
-            self.image = get_image(self.image_cache, self.img_set[self.default], self.scale)
+            self.image = ImageCache.get_image(self.img_set[self.default], self.scale)
+            self.dirty = 1
             self.selected = False
         else:
-            self.image = get_image(self.image_cache, self.img_set['selected'], self.scale)
+            self.image = ImageCache.get_image(self.img_set['selected'], self.scale)
+            self.dirty = 1
             self.selected = True
     
     def collision_test(self, scale, pos_offset):
@@ -55,4 +55,5 @@ class Cell(pygame.sprite.Sprite):
     def click_test(self, scale, pos_offset):
         collision = self.collision_test(scale, pos_offset)
         if collision:
-            raise MoveTrigger(self.index)
+            return "MOVE "+str(self.index)
+        return ""

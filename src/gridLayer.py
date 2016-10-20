@@ -42,3 +42,7 @@ class GridLayer(Layer):
                 for c in line:
                     res += c.click_test(self.scale, self.map_pos_offset)
         return res
+    
+    def make_walkables(self):
+        return [[c.walkable if c is not None else False for c in c_line]\
+                 for c_line in self.cells]

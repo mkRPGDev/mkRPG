@@ -52,7 +52,7 @@ class Character():
     
     def move(self):
         if len(self.path)>0:
-            next_pos = get_cell_pos_by_index(self.path[0])
+            next_pos = self.get_cell_pos_by_index(self.path[0])
             
             distx = next_pos[0]-self.pos_offset[0]
             disty = next_pos[1]-self.pos_offset[1]

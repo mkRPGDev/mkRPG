@@ -83,5 +83,5 @@ class World():
     def propagate_trigger(self, event):
         message = self.current_map.propagate_trigger(event)
         if message != "":
-            return self.main_char+" "+message
+            return message
         return ""

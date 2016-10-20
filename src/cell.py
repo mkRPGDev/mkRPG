@@ -16,6 +16,7 @@ class Cell(pygame.sprite.DirtySprite):
         self.scale = scale
         self.img_set = img_set
         self.default = default
+        self.walkable = True
         
         self.image = ImageCache.get_image(img_set[default], scale)
         self.rect = self.image.get_rect()
@@ -55,5 +56,5 @@ class Cell(pygame.sprite.DirtySprite):
     def click_test(self, scale, pos_offset):
         collision = self.collision_test(scale, pos_offset)
         if collision:
-            return "MOVE "+str(self.index)
+            return "MOVE "+str(self.index[0])+","+str(self.index[1])
         return ""

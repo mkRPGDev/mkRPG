@@ -3,7 +3,7 @@
 import pygame
 from pygame.locals import *
 
-from utils import load_png
+from utils import load_png, WalkableGraph
 from backgroundLayer import BackgroundLayer
 from gridLayer import GridLayer
 from cell import Cell
@@ -21,6 +21,7 @@ class Map(pygame.Surface):
         self.layers.append(GridLayer(g_width, g_height, const.GRID_SCALE))
         self.screen_size = size
         self.original_size = self.size
+        self.walkablesGraph = WalkableGraph(self.layers[1].make_walkables())
         
         pygame.Surface.__init__(self, self.size)
         
@@ -62,4 +63,4 @@ class Map(pygame.Surface):
         return self.layers[1].propagate_trigger(event)
     
     def compute_path(self, start_pos, end_pos):
-        pass
+        return self.walkablesGraph.get_path(start_pos, end_pos)

@@ -104,7 +104,17 @@ class Client():
     def propagate_trigger(self, event):
         message = self.world.propagate_trigger(event)
         if message != "":
-            print(message)
+            self.send_msg(message)
+    
+    def send_msg(self, message):
+        print(message)
+        self.get_msg(message+" Helyder")
+    
+    def get_msg(self, message):
+        parse = message.split(" ")
+        if parse[0] == "MOVE":
+            endpos = tuple([int(s) for s in parse[1].split(",")])
+            self.world.move_char(parse[2], endpos)
     
     def init_cache(self):
         ImageCache.init_images(const.BG_IMGSET.values())

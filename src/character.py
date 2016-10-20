@@ -36,18 +36,19 @@ class Character():
         self.path = path
     
     def get_cell_pos_by_index(self, index):
-        c_w, c_h = index
-        if c_w % 2 == 0:
-            return (int(const.CELL_WIDTH*self.scale*c_h+\
-                            const.CELL_WIDTH//2-10), 
-                        int(const.CELL_HEIGHT*self.scale/2*c_w+\
-                            const.CELL_HEIGHT//2-10))
+        c_h, c_w = index
+        w, h = self.image.get_size()
+        if c_h % 2 == 0:
+            return (int(const.CELL_WIDTH*self.scale*c_w+\
+                            const.CELL_WIDTH*self.scale/2-w/2), 
+                        int(const.CELL_HEIGHT*self.scale/2*c_h+\
+                            const.CELL_HEIGHT*self.scale/2-h/2))
         else:
             return (int(const.CELL_WIDTH*self.scale/2+\
-                            const.CELL_WIDTH*self.scale*c_h+\
-                            const.CELL_WIDTH//2-10), 
-                        int(const.CELL_HEIGHT*self.scale/2*c_w+\
-                            const.CELL_HEIGHT//2-10))
+                            const.CELL_WIDTH*self.scale*c_w+\
+                            const.CELL_WIDTH*self.scale/2-w/2), 
+                        int(const.CELL_HEIGHT*self.scale/2*c_h+\
+                            const.CELL_HEIGHT*self.scale/2-h/2))
     
     def move(self):
         if len(self.path)>0:

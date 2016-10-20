@@ -13,8 +13,6 @@ import const
 
 class BackgroundLayer(Layer):
     
-    image_cache = {}
-    
     def __init__(self, path, scale=1):
         Layer.__init__(self, scale)
         

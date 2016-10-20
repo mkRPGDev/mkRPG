@@ -7,7 +7,7 @@ import const
 
 class Character():
     
-    def __init__(self, name):
+    def __init__(self, name, start_pos):
         self.skin = pygame.Surface((20,20), pygame.SRCALPHA)
         self.skin.convert_alpha()
         pygame.draw.circle(self.skin, (0,0,0), (10,10), 10)
@@ -15,11 +15,9 @@ class Character():
         self.name = name
         self.scale = 1
         
-        self.current_cell = (0,0)
+        self.current_cell = start_pos
         self.path = []
-        self.pos_offset = (const.CELL_WIDTH//2-10, const.CELL_HEIGHT//2-10)
-        
-        self.path = [(1,0), (1,1), (2,2), (3,2), (2,2), (1,1), (1,0), (0,0)]
+        self.pos_offset = self.get_cell_pos_by_index(self.current_cell)
     
     def render(self):
         return self.image
@@ -28,28 +26,32 @@ class Character():
         self.move()
     
     def zoom(self, dz):
-        self.scale *= dz
+        self.scale += dz
         self.image = pygame.transform.scale(self.skin,
                                     (int(self.skin.get_size()[0]*self.scale),
                                     int(self.skin.get_size()[1]*self.scale)))
+        self.pos_offset = self.get_cell_pos_by_index(self.current_cell)
     
-    def compute_path(self, index):
-        print("Path")
+    def set_path(self, path):
+        self.path = path
+    
+    def get_cell_pos_by_index(self, index):
+        c_w, c_h = index
+        if c_w % 2 == 0:
+            return (int(const.CELL_WIDTH*self.scale*c_h+\
+                            const.CELL_WIDTH//2-10), 
+                        int(const.CELL_HEIGHT*self.scale/2*c_w+\
+                            const.CELL_HEIGHT//2-10))
+        else:
+            return (int(const.CELL_WIDTH*self.scale/2+\
+                            const.CELL_WIDTH*self.scale*c_h+\
+                            const.CELL_WIDTH//2-10), 
+                        int(const.CELL_HEIGHT*self.scale/2*c_w+\
+                            const.CELL_HEIGHT//2-10))
     
     def move(self):
         if len(self.path)>0:
-            c_w, c_h = self.path[0]
-            if c_w % 2 == 0:
-                next_pos = (int(const.CELL_WIDTH*self.scale*c_h+\
-                                const.CELL_WIDTH//2-10), 
-                            int(const.CELL_HEIGHT*self.scale/2*c_w+\
-                                const.CELL_HEIGHT//2-10))
-            else:
-                next_pos = (int(const.CELL_WIDTH*self.scale/2+\
-                                const.CELL_WIDTH*self.scale*c_h+\
-                                const.CELL_WIDTH//2-10), 
-                            int(const.CELL_HEIGHT*self.scale/2*c_w+\
-                                const.CELL_HEIGHT//2-10))
+            next_pos = get_cell_pos_by_index(self.path[0])
             
             distx = next_pos[0]-self.pos_offset[0]
             disty = next_pos[1]-self.pos_offset[1]

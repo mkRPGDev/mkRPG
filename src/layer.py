@@ -3,12 +3,12 @@
 import pygame
 from pygame.locals import *
 
-from multiprocessing import Pool
+import time
 
 from cell import Cell
 import const
 
-class Layer(pygame.sprite.Group):
+class Layer(pygame.sprite.RenderUpdates):
     
     def __init__(self, scale=1):
         pygame.sprite.Group.__init__(self)
@@ -26,12 +26,12 @@ class Layer(pygame.sprite.Group):
     def update(self):
         pass
     
-    def create_cell_line(self, c_line, line, img_set, image_cache):
+    def create_cell_line(self, c_line, line, img_set):
             cell_line = []
             col = 0
             for cell in c_line:
                 if cell is not None:
-                    cell_line.append(Cell((line,col+line%2),img_set,cell,image_cache,self.scale))
+                    cell_line.append(Cell((line,col+line%2),img_set,cell,self.scale))
                     if line%2 == 0:
                         cell_line[-1].rect = cell_line[-1].rect.move((int(const.CELL_WIDTH*self.scale*col), int(const.CELL_HEIGHT*self.scale/2*line)))
                     else:
@@ -41,17 +41,20 @@ class Layer(pygame.sprite.Group):
                 cell_line = [None] + cell_line
             return cell_line
     
-    def make_grid(self, img_set, cell_ids, image_cache):
-        self.empty()
-        
+    def make_grid(self, img_set, cell_ids):
         line = 0
+        times = []
         for c_line in cell_ids:
-            cell_line = self.create_cell_line(c_line, line, img_set, image_cache)
+            start_time = time.time()
+            cell_line = self.create_cell_line(c_line, line, img_set)
+            times.append(time.time()-start_time)
             for c in cell_line:
                 if c is not None:
                     self.add(c)
             self.cells.append(cell_line)
             line += 1
+            
+        print(type(self).__name__+".make_grid:", sum(times)/len(times))
     
     def zoom(self, dz):
         pass

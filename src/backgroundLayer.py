@@ -5,8 +5,10 @@ from pygame.locals import *
 
 import struct
 
+from cache import ImageCache
+
 from layer import Layer
-from utils import load_png, get_image
+from utils import load_png
 import const
 
 class BackgroundLayer(Layer):
@@ -19,8 +21,7 @@ class BackgroundLayer(Layer):
         self.path = path
         self.cell_ids = self.load_bg(const.BG_PATH+path)
         
-        self.make_grid(const.BG_IMGSET, self.cell_ids, BackgroundLayer.image_cache)
-        
+        self.make_grid(const.BG_IMGSET, self.cell_ids)
         
         self.g_width = len(self.cell_ids[0])
         self.g_height = len(self.cell_ids)
@@ -57,10 +58,7 @@ class BackgroundLayer(Layer):
                 found0 = False
         
         return cells
-        
-    def render(self):
-        pass
     
     def zoom(self, dz):
-        self.scale *= dz
+        self.scale += dz
         self.__init__(self.path, self.scale)

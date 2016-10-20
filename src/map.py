@@ -32,42 +32,25 @@ class Map(pygame.Surface):
         pygame.Surface.__init__(self, self.size)
     
     def zoom(self, dz):
-        if (self.size[0] > self.screen_size[0] and\
-            self.size[1] > self.screen_size[1] and dz < 1) or \
-           (self.scale < 1.3 and dz > 1):
-            for layer in self.layers:
-                self.scale *= dz
-                layer.zoom(dz)
-                self.update_size()
+        for layer in self.layers:
+            self.scale *= dz
+            layer.zoom(dz)
+            self.update_size()
     
-    def move(self, dx, dy):
-        newx = self.pos_offset[0]+dx
-        newy = self.pos_offset[1]+dy
-        if newx >= self.screen_size[0]-self.size[0]-const.MOV_OFFSET and newx <= const.MOV_OFFSET:
-            self.pos_offset = (newx, self.pos_offset[1])
-        else:
-            if dx > 0 :
-                self.pos_offset = (const.MOV_OFFSET, self.pos_offset[1])
-            else:
-                self.pos_offset = (self.screen_size[0]-self.size[0]-const.MOV_OFFSET, self.pos_offset[1])
-        if newy >= self.screen_size[1]-self.size[1]-const.MOV_OFFSET and newy <= const.MOV_OFFSET:                            
-            self.pos_offset = (self.pos_offset[0], newy)
-        else:
-            if dy > 0 :
-                self.pos_offset = (self.pos_offset[0], const.MOV_OFFSET)
-            else:
-                self.pos_offset = (self.pos_offset[0], self.screen_size[1]-self.size[1]-const.MOV_OFFSET)
+    def move_to(self, newx, newy):
+        self.pos_offset = (newx, newy)
         
         for layer in self.layers:
             layer.map_pos_offset = self.pos_offset
     
     def render(self):
         self.fill((0,0,0))
+        res = []
         for layer in self.layers:
             layer.render()
-            layer.draw(self)
+            res += layer.draw(self)
         
-        return self
+        return self, res
         
     def update(self, **kwargs):
         # Background layer
@@ -76,4 +59,7 @@ class Map(pygame.Surface):
         self.layers[1].update()
     
     def propagate_trigger(self, event):
-        self.layers[1].propagate_trigger(event)
+        return self.layers[1].propagate_trigger(event)
+    
+    def compute_path(self, start_pos, end_pos):
+        pass

@@ -134,8 +134,6 @@ class Client():
         cell_image_mask.convert_alpha()
         pygame.gfxdraw.filled_polygon(cell_image_mask, mask_points, (255,255,255))
         
-        print("Saving")
-        
         pygame.image.save(cell_image_default, 
                           const.IMG_PATH+"cell.png")
         pygame.image.save(cell_image_selected, 

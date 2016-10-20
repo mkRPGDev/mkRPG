@@ -3,8 +3,6 @@
 import pygame
 from pygame.locals import *
 
-import time
-
 from cell import Cell
 import const
 
@@ -43,18 +41,13 @@ class Layer(pygame.sprite.RenderUpdates):
     
     def make_grid(self, img_set, cell_ids):
         line = 0
-        times = []
         for c_line in cell_ids:
-            start_time = time.time()
             cell_line = self.create_cell_line(c_line, line, img_set)
-            times.append(time.time()-start_time)
             for c in cell_line:
                 if c is not None:
                     self.add(c)
             self.cells.append(cell_line)
             line += 1
-            
-        print(type(self).__name__+".make_grid:", sum(times)/len(times))
     
     def zoom(self, dz):
         pass

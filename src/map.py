@@ -33,7 +33,7 @@ class Map(pygame.Surface):
     
     def zoom(self, dz):
         for layer in self.layers:
-            self.scale *= dz
+            self.scale += dz
             layer.zoom(dz)
             self.update_size()
     

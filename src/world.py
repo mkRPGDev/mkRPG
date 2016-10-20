@@ -70,6 +70,7 @@ class World():
             (self.current_map.size[0] > self.screen_size[0] and\
             self.current_map.size[1] > self.screen_size[1] and dz < 0) or \
             (self.scale < 1.3 and dz > 0):
+            self.scale += dz
             self.current_map.zoom(dz)
             for character in self.characters.values():
                 character.zoom(dz)

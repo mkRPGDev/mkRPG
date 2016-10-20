@@ -10,8 +10,6 @@ import const
 
 class GridLayer(Layer):
 
-    image_cache = {}
-
     def __init__(self, width, height, scale=0.5):
         Layer.__init__(self, scale)
         

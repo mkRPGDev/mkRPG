@@ -52,8 +52,15 @@ class ImageCache(GlobalCache):
         for image in images:
             if type(image) == str:
                 ImageCache.init_image_from_file(image)
+                key = image
             else:
                 ImageCache.init_image_from_surface(image[0], image[1])
+                key = image[0]
+            
+            scale = 0.2
+            while scale < 1.4:
+                scale += 0.1
+                ImageCache.get_image(image, scale)
     
     @staticmethod
     def init_mask(mask):
@@ -71,9 +78,10 @@ class ImageCache(GlobalCache):
         ImageCache.free_cache()
     
     def add_scaled_mask(mask, scale):
-        if scale not in ImageCache.get(mask).keys():
+        if scale not in ImageCache.get("mask_"+mask).keys():
             GlobalCache.cache["mask_"+mask][scale] =\
                 pygame.mask.from_surface(ImageCache.get_image(mask, scale))
+
     @staticmethod
     def remove(image, scale):
         del GlobalCache.cache[image][scale]

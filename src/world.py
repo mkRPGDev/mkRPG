@@ -17,8 +17,10 @@ class World():
         self.scale = 1
         
         self.main_char = "Helyder"        
-        self.characters = { "Helyder" : Character("Helyder", start_pos=(0,0)),
-                            "Gu1ness" : Character("Gu1ness", start_pos=(3,6))
+        self.characters = { "Helyder" : Character("Helyder", start_pos=(0,0), 
+                            skin=const.IMG_PATH+"character_skin.png"),
+                            "Gu1ness" : Character("Gu1ness", start_pos=(3,6), 
+                            skin=const.IMG_PATH+"skeleton_skin.png")
                           }
     
     def update(self):
@@ -68,7 +70,8 @@ class World():
     def zoom(self, dz):
         if dz != 0 and\
             (self.current_map.size[0] > self.screen_size[0] and\
-            self.current_map.size[1] > self.screen_size[1] and dz < 0) or \
+            self.current_map.size[1] > self.screen_size[1] and\
+            self.scale > 0.3 and dz < 0) or \
             (self.scale < 1.3 and dz > 0):
             self.scale += dz
             self.current_map.zoom(dz)

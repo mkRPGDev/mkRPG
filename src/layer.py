@@ -33,7 +33,7 @@ class Layer(pygame.sprite.RenderUpdates):
                     if line%2 == 0:
                         cell_line[-1].rect = cell_line[-1].rect.move((int(const.CELL_WIDTH*self.scale*col), int(const.CELL_HEIGHT*self.scale/2*line)))
                     else:
-                        cell_line[-1].rect = cell_line[-1].rect.move((int(const.CELL_WIDTH*self.scale/2+const.CELL_WIDTH*self.scale*col), int(const.CELL_HEIGHT*self.scale/2*line)))     
+                        cell_line[-1].rect = cell_line[-1].rect.move((int(const.CELL_WIDTH*self.scale/2+const.CELL_WIDTH*self.scale*col), int(const.CELL_HEIGHT*self.scale/2*line)))
                     col += 1
             if len(cell_line) < len(cell_line):
                 cell_line = [None] + cell_line

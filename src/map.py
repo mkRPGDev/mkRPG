@@ -33,10 +33,10 @@ class Map(pygame.Surface):
         pygame.Surface.__init__(self, self.size)
     
     def zoom(self, dz):
+        self.scale += dz
         for layer in self.layers:
-            self.scale += dz
             layer.zoom(dz)
-            self.update_size()
+        self.update_size()
     
     def move_to(self, newx, newy):
         self.pos_offset = (newx, newy)

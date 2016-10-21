@@ -18,7 +18,7 @@ class BackgroundLayer(Layer):
         
         self.path = path
         self.cell_ids = self.load_bg(const.BG_PATH+path)
-        
+
         self.make_grid(const.BG_IMGSET, self.cell_ids)
         
         self.g_width = len(self.cell_ids[0])

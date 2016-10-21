@@ -22,7 +22,7 @@ class Cell(pygame.sprite.DirtySprite):
         self.rect = self.image.get_rect()
         if 'mask' in img_set:
             self.mask = ImageCache.get_mask(img_set['mask'], self.scale)
-        self.index = index
+        self.index = index if index[0]%2 == 0 else (index[0],index[1]-1)
 
         self.selected = False
     

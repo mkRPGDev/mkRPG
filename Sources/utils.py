@@ -53,4 +53,4 @@ def fakeWorldServ():
 if __name__=="__main__":
     # tests
     verbose = True
-    print(readXml("../mkRPG/descr0.xml"))
+    print(readXml("../Test/world.xml"))

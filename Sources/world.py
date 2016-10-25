@@ -191,5 +191,5 @@ evl = {"maps":Map, "entities":Entity, "cells":Cell, "objects":MagicObject,
 if __name__=="__main__":
     verbose = True
     w = World()
-    w.load("../testw/")
+    w.load("../Test/")
 

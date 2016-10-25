@@ -1,6 +1,6 @@
 VERBOSE = False
 
-PATH = "../testw/" #et on oublie pas le dernier /
+PATH = "../Test/" #et on oublie pas le dernier /
 
 # Réseau
 HOST = "localhost"

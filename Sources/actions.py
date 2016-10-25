@@ -23,4 +23,4 @@ def registerActions(path):
     return l
 
 if __name__=="__main__":
-    print(registerActions("../testw/")[0])
+    print(registerActions("../Test/")[0])

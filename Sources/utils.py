@@ -31,25 +31,6 @@ def readXml(path):
         pars.ParseFile(file)
     return curDir.list[0] #retrait des sur-emballages ça pollue
 
-def loadWorld(path):
-    world = World()
-    world.load(readXml(path+"world.xml"))
-    for m in os.listdir("maps"):
-        ma = Map()
-        ma.load(readXml(path+"maps/"+m))
-        world.maps.add(ma)
-    for m in os.listdir("entities"):
-        ma = Entity()
-        ma.load(readXml(path+"entities/"+m))
-        world.entities.add(ma)
-    return world
-
-def fakeWorldServ():
-    w = World()
-    m = Map()
-    w.maps.add(m)
-    
-
 if __name__=="__main__":
     # tests
     verbose = True

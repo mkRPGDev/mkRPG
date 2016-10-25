@@ -17,8 +17,7 @@ class Client():
         self.win = curses.initscr()
         curses.cbreak()
         self.win.keypad(True)
-        self.world = world.World()
-        self.world.load(path)
+        self.world = world.loadGame(path)
         self.mv=MapViewer(world.BaseObject.ids[self.world.currentMap], self.world)
         self.interactions = interactions.registerInteractions(PATH)
         

@@ -11,9 +11,8 @@ import world
 class Server():
     def __init__(self, path):
         self.net = NetworkServer(self.handleEvent)
-        self.world = world.World()
-        self.world.load(path)
-        self.actions = registerActions(PATH)
+        self.world = world.loadGame(path)
+        self.actions = registerActions(path)
         
         self.persos = self.world.entities[0] # XXX bricolage
 

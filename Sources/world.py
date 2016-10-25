@@ -12,6 +12,20 @@ verbose = False
 named = {}
 toResolve = []
 
+def loadGame(path):
+    dat = readXml(path + "game.xml")
+    assert dat.name == "Game"
+    lw = []
+    for d in dat.list:
+        if d.name == "World":
+            lw.extend(d.list)
+    for f in lw:
+        dat = readXml(path+f.args["file"])
+        eval(dat.name)().subload(dat)
+    w = named["world"]
+    for m in w.maps: m.fill()
+    return w
+
 class BaseObject:
     ident = 0
     ids = {} # liste si sans deletion, RIP fetch
@@ -52,7 +66,7 @@ class BaseObject:
             n = d.name
             if n=="Params": #peut gérer plusieurs def de params
                 for np, ap, _ in d.list:
-                    if "val"in ap:
+                    if "val" in ap:
                         self.params[np] = int(ap["val"]) # on a supposé un int
                     else:
                         toResolve.append((ap["id"], self.params, np, True))
@@ -67,15 +81,11 @@ class BaseObject:
                         toResolve.append((dat.args["id"], li, len(li), False))
                         li.append(None)
                     else:
-                        obj = C()
-                        obj.subload(dat)
-                        li.append(obj)
+                        li.append(C().subload(dat))
             elif n.endswith("Type") and type(eval(n[:-4]))==type and "name" in d.args:
-                obj = ObjectType(eval(n[:-4]))
-                obj.subload(d)
+                ObjectType(eval(n[:-4])).subload(d)
             elif type(eval(n))==type and "name" in d.args:
-                obj = eval(n)()
-                obj.subload(d)
+                eval(n)().subload(d)
                 
         if "name" in data.args:
             named[data.args["name"]] = self
@@ -86,6 +96,8 @@ class BaseObject:
             if verbose: print(nm, "->", named[nm], named[nm].ident)
             if bo: li[ln] = named[nm].ident # dico
             else:  li[ln] = named[nm]       # liste
+        
+        return self
     
     def treatOrder(self, order): #TODO traitement formules
         if order.type == OrderType.Set:
@@ -147,19 +159,21 @@ class Map(MagicObject):
         self.cells = []
         
        #! load et subload    
-    def subload(self, data):
-        super().subload(data)
-        self.cellsGrid = [[None] * self.params["height"] 
-                            for _ in range(self.params["width"])]
+#    def subload(self, data):
+#        super().subload(data)
+        
+    def fill(self):
+        self.cellsGrid = [[None] * self.height
+                            for _ in range(self.width)]
         for c in self.cells:
-            self.cellsGrid[c.params["x"]][c.params["y"]] = c
+            self.cellsGrid[c.x][c.y] = c
         for i,l in enumerate(self.cellsGrid):
             for j,e in enumerate(l):
                 if not e: 
-                    cell = BaseObject.ids[self.params["defaultCell"]].create()
+                    cell = BaseObject.ids[self.defaultCell].create()
                     l[j] = cell
                     self.cells.append(cell)
-                    cell.params["x"] = i; cell.params["y"] = j
+                    cell.x = i; cell.y = j
     
 #    def computeLOV(self, pos):
 #        pass

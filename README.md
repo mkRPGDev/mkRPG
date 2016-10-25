@@ -3,6 +3,7 @@
 Cette branche contient le serveur, son monde et de quoi le tester (client console, communication naïve, monde xml dans Test/).
 
 Aucun module supplémentaire n'est requis.
+
 L'utilisation de chemins "/" ne garantit pas le bon fonctionnement sous Windows®.
 
 L'organisation du Xml a été repensée depuis, elle n'est pas contractuelle.

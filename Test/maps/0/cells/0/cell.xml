@@ -1,0 +1,11 @@
+<Cell>
+    <Params>
+        <x val="10"/>
+        <y val="10"/>
+        <picture val="79"/>
+    </Params>
+    
+    <Entities>
+        <Entity id="joey"/>
+    </Entities>
+</Cell>

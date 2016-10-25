@@ -1,0 +1,26 @@
+<World>
+    <Params>
+        <currentMap id="main"/>
+    </Params>
+    
+<!--
+    <Maps>
+        <Map id="principale"/>
+    </Maps>
+-->
+
+    <Entities>
+        <Entity id="joey"/>
+    </Entities>
+
+<!--
+    <Map name="principale">
+        <Params>
+            <height val="0"/>
+            <width val="0"/>
+            <blah val="12"/>
+            <self id="principale"/>
+        </Params>
+    </Map>
+-->
+</World>

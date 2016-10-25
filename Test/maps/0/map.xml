@@ -1,0 +1,14 @@
+<Map name="main">
+    <Params>
+        <height val="20"/>
+        <width val="20"/>
+        <defaultCell id="defc"/>
+    </Params>
+    
+    <CellType name="defc">
+        <Params>
+            <altitude val="8"/>
+            <picture val="32"/>
+        </Params>
+    </CellType>
+</Map>

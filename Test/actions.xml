@@ -1,0 +1,34 @@
+<Actions>
+    <Action> <!-- x+=1 -->
+        <Event val="moveright"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="x"/>
+            <value val="(self.x + 1)%20"/>
+        </Order>    
+    </Action>
+    <Action> <!-- x-=1 -->
+        <Event val="moveleft"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="x"/>
+            <value val="(self.x - 1)%20"/>
+        </Order>    
+    </Action>
+    <Action> <!-- y+=1 -->
+        <Event val="moveup"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="y"/>
+            <value val="(self.y + 1)%20"/>
+        </Order>    
+    </Action>
+    <Action> <!-- y-=1 -->
+        <Event val="movedown"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="y"/>
+            <value val="(self.y - 1)%20"/>
+        </Order>    
+    </Action>
+</Actions>

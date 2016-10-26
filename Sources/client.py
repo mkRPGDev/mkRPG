@@ -19,7 +19,7 @@ class Client():
         self.win.keypad(True)
         self.world = world.loadGame(path)
         self.mv=MapViewer(self.world.currentMap, self.world)
-        self.interactions = interactions.registerInteractions(PATH)
+        self.interactions = interactions.registerInteractions(path)
         
         self.perso = self.world.entities[0] # XXX bricolage
         self.orderDispatcher = OrderDispatcher(self.world, None)

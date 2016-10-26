@@ -4,6 +4,7 @@
         <xml file="maps/map.xml"/>
         <xml file="maps/cell.xml"/>
         <xml file="entities/entity0.xml"/>
+        <xml file="types/corps.xml"/>
     </World>
     <Actions file="actions.xml"/>
     <Interactions file="interactions.xml"/>

@@ -1,0 +1,98 @@
+<Actions>
+    <Action>
+        <Event val="start"/>
+
+        <Order type="timer">
+            <event val="tick"/>
+            <value val="2"/>
+        </Order>  
+
+<!--
+        <Order type="create">
+            <base id="corps"/>
+            <init val="obj.x=12; obj.y=6" />
+            <event val="initcorps"/>
+        </Order>
+        
+-->
+    </Action>
+    
+    <Action>
+        <Event val="tick"/>
+        <Order type="timer">
+            <event val="tick"/>
+            <value val="0.1"/>
+        </Order>
+        <Order type="event">
+            <target val="entities[0]"/>
+            <event val="move"/>
+        </Order>
+    </Action>
+    
+    <Action>
+        <Event val="move"/>
+        <Order type="create">
+            <base id="corps"/>
+            <init val="obj.x=emitter.x; obj.y=emitter.y" />
+            <event val="initcorps"/>
+        </Order>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="x"/>
+            <value val="(self.x + [-1,1,0,0][self.dir])%20"/>
+        </Order>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="y"/>
+            <value val="(self.y + [0,0,-1,1][self.dir])%20"/>
+        </Order>
+    </Action>
+
+    <Action>
+        <Event val="initcorps"/>
+        <Order type="timer">
+            <value val="2"/>
+            <event val="detruitcorps"/>
+        </Order>
+    </Action>
+
+    <Action>
+        <Event val="detruitcorps"/>
+        <Order type="destroy">
+        </Order>
+    </Action>
+
+    
+    <Action> <!-- x+=1 -->
+        <Event val="moveright"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="dir"/>
+            <value val="1 if self.dir!=0 else 0"/>
+        </Order>    
+    </Action>
+    <Action> <!-- x-=1 -->
+        <Event val="moveleft"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="dir"/>
+            <value val="0 if self.dir!=1 else 1"/>
+        </Order>    
+    </Action>
+    <Action> <!-- y+=1 -->
+        <Event val="moveup"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="dir"/>
+            <value val="3 if self.dir!=2 else 2"/>
+        </Order>    
+    </Action>
+    <Action> <!-- y-=1 -->
+        <Event val="movedown"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="dir"/>
+            <value val="2 if self.dir!=3 else 3"/>
+        </Order>    
+    </Action>
+</Actions>

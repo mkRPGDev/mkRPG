@@ -1,10 +1,8 @@
 <Entity name="joey">
     <Params>
-        <Poids val="42"/>
-        <Poids val="43"/>
-        <Poi val="42"/>
+        <dir val="1"/>
         
-        <picture val="42"/>
+        <picture val="79"/>
         
         <x val="10"/>
         <y val="10"/>

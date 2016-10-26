@@ -20,6 +20,11 @@ puis
 
     python3 client.py
 
+### Snake
+Essayez donc
+    python3 server.py ../Snake
+    python3 client.py ../Snake
+
 ### À faire ou à revoir:
 - protocole d'initialisation
 - structure de données events

@@ -8,3 +8,8 @@
 *.o
 *.class
 *.pyc
+
+
+# Des fichiers que je ne veux pas voir.
+.directory
+Sources/build-RPGEditor-Desktop_Qt_5_6_1_GCC_64bit-Debug/

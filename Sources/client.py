@@ -49,7 +49,7 @@ class Client():
         self.orderDispatcher.treat(emitter, order)
         # TODO limiter les actualisations
         self.mv.display(self.win)
-        self.win.addstr(25,0,str(self.world.entities[0].x))
+        self.win.addstr(25,0,str(self.world.entities[0].dir))
         self.win.refresh()
 
 class CellViewer:
@@ -57,7 +57,7 @@ class CellViewer:
         self.cell = cell
     
     def display(self, win):
-        win.addch(self.cell.x, self.cell.y, self.cell.picture)
+        win.addch(self.cell.x+1, self.cell.y+1, self.cell.picture)
 #        for ent in self.cell.entities:
 #            win.addch(self.cell.x, self.cell.y, ent.picture)
 #        for obj in self.cell.objects:
@@ -72,9 +72,19 @@ class MapViewer:
     def display(self, win):
         win.clear()
         #image de fond
+        
+        for x in range(self.map.width+3):
+            win.addch(x, 0, 35)
+            win.addch(x, self.map.height+2, 35)
+        for y in range(1, self.map.height+2):
+            win.addch(0, y, 35)
+            win.addch(self.map.width+2, y, 35)
+        #items
         for c in self.cellViews: c.display(win)
         for ent in self.world.entities:
-            win.addch(ent.y, ent.x, ent.picture)
+            win.addch(ent.y+1, ent.x+1, ent.picture)
+        for ent in self.world.objects:
+            win.addch(ent.y+1, ent.x+1, ent.picture)
         #win.refresh()
 
 cli = Client(argv[1] if len(argv)>1 else PATH)

@@ -153,6 +153,7 @@ class World(MagicObject):
         MagicObject.__init__(self)
         self.maps = [] # une liste c'est mieux non ?
         self.entities = []
+        self.objects = []
     
         
 class Map(MagicObject):

@@ -13,7 +13,7 @@ class Server():
     def __init__(self, path):
         self.net = NetworkServer(self.handle)
         self.world = world.loadGame(path)
-        self.actions = registerActions(path)
+        self.actions = registerActions(path, world.named) # FIXME -> game
         
         self.persos = self.world.entities[0] # XXX bricolage
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent)

@@ -8,3 +8,7 @@
 *.o
 *.class
 *.pyc
+
+# Fichiers de logs
+
+*.log

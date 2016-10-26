@@ -6,9 +6,11 @@
 #include "options.h"
 #include "newgame.h"
 #include "Game/xmlhandler.h"
+#include "Tabs/welcome.h"
+#include "Tabs/worldeditor.h"
 #include "Tabs/mapseditor.h"
 
-
+const QString SHARED = "SharedFileRPGEditor";
 
 /*
  * Modes :
@@ -32,7 +34,7 @@ class Editor : public QMainWindow, private Ui::Editor
     Q_OBJECT
 
 public:
-    explicit Editor(QWidget *parent = 0);
+    explicit Editor(QStringList args, QWidget *parent = 0);
 
 private slots:
     void on_actionRolePlayGame_triggered();
@@ -44,6 +46,9 @@ private slots:
     void saveGeom();
 
 private:
+    void addTab(const QString& n, const QPixmap& p, QWidget* w);
+
+
     void newGame(QString name, QString dir, bool createFolder);
     Game* open(QString fileName);
 

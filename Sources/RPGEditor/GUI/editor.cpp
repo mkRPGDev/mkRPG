@@ -1,21 +1,33 @@
 #include "editor.h"
 
-Editor::Editor(QWidget *parent) :
+Editor::Editor(QStringList args, QWidget *parent) :
     QMainWindow(parent)
 {
     setupUi(this);
-    QPalette p(tabs->palette());
+    QPalette p(tabBar->palette());
     p.setColor(QPalette::Window, p.color(QPalette::Shadow));
-    tabs->setPalette(p);
+    tabBar->setPalette(p);
     hidden->setHidden(true);
+    connect(tabBar, SIGNAL(currentTabChanged(int)), stackedWidget, SLOT(setCurrentIndex(int)));
+
     mapsEditor = new MapsEditor;
-    stackedWidget->addWidget(mapsEditor);
-    stackedWidget->setCurrentIndex(0);
+
+    addTab(tr("Welcome"), QPixmap(":Icons/main.png"), new Welcome);
+    addTab(tr("Game"), QPixmap(":Icons/main.png"), new WorldEditor);
+    addTab(tr("Maps"), QPixmap(":Icons/main.png"), mapsEditor);
 
     loadDefault();
+
+    tabBar->setTabsEnabled(false);
+    qDebug() << args.length();
 }
 
 
+void Editor::addTab(const QString &n, const QPixmap &p, QWidget *w){
+    stackedWidget->addWidget(w);
+    tabBar->addTabAcces(n,p);
+
+}
 
 void Editor::loadDefault(){
     Options &options(Options::options());
@@ -83,6 +95,7 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 Game* Editor::open(QString fileName){
     Game* g = new Game();
     g->world()->addMap(new Map(g));
+    tabBar->setTabsEnabled(true);
     return g;
     /* AVANT XML */
 

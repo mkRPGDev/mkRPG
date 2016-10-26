@@ -7,7 +7,9 @@
 
 
 
-
+/*!
+ * \brief The World class
+ */
 class World : public Object
 {
 public:
@@ -18,7 +20,13 @@ private:
 };
 
 
-
+/*!
+ * \brief The Game class gather the differents parts needed
+ * to describe a game
+ *
+ * It contains mainly the World, and the ressources used by it
+ * (images and strings)
+ */
 class Game
 {
 public:

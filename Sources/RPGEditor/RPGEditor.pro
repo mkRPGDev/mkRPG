@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     GUI/newgame.cpp \
     GUI/Tabs/mapseditor.cpp \
     GUI/Tabs/mapviewer.cpp \
-    GUI/Tabs/worldeditor.cpp
+    GUI/Tabs/worldeditor.cpp \
+    GUI/options.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -32,10 +33,14 @@ HEADERS  += \
     GUI/newgame.h \
     GUI/Tabs/mapseditor.h \
     GUI/Tabs/mapviewer.h \
-    GUI/Tabs/worldeditor.h
+    GUI/Tabs/worldeditor.h \
+    GUI/options.h
 
 FORMS    += \
     GUI/editor.ui \
     GUI/newgame.ui \
     GUI/Tabs/mapseditor.ui \
     GUI/Tabs/worldeditor.ui
+
+RESOURCES += \
+    Icons/ressources.qrc

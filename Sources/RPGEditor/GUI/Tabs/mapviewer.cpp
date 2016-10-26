@@ -28,6 +28,7 @@ void MapViewer::updateViewParameters(){
 
 
 void MapViewer::wheelEvent(QWheelEvent *we){
+    if(map == nullptr) return;
     we->accept();
     if(zooming) return;
     zooming = true;
@@ -56,6 +57,7 @@ void MapViewer::mousePosChecking(){
 }
 
 void MapViewer::checkMousePos(){
+    if(map == nullptr) return;
     if(!ti->isActive()) ti->start(100);
     else ti->setInterval(100);
     mousePosChecking();
@@ -73,7 +75,6 @@ void MapViewer::resizeEvent(QResizeEvent *re){
 
 void MapViewer::paintEvent(QPaintEvent *pe){
     QWidget::paintEvent(pe);
-    if(!map) return;
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
     paint(p);
@@ -120,6 +121,7 @@ MapViewer::MapViewer(QWidget *parent) :
 
 
 void MapViewer::paint(QPainter &p){
+    if(map == nullptr) return;
     int iMin = std::max(0.,ptToCoo(pxlToPt(QPointF(0,he))).x());
     int iMax = std::min(nbCellX+0.,ptToCoo(pxlToPt(QPointF(wi,0))).x()+1);
     int jMin = std::max(0.,ptToCoo(pxlToPt(QPointF(wi,he))).y());
@@ -218,6 +220,7 @@ void MapViewer::mouseOutEvent(){
 
 
 bool MapViewer::updateMousePos(QPointF p){
+    if(map == nullptr) false;
     int i = iSelCell;
     int j = jSelCell;
     QPointF bInd = ptToCoo(p);
@@ -234,6 +237,7 @@ bool MapViewer::updateMousePos(QPointF p){
 
 
 void MapViewer::mousePressEvent(QMouseEvent *me){
+    if(map == nullptr) return;
     clickPos = me->pos();
     ms = me->button() == Qt::MiddleButton ? MClick :
          me->button() == Qt::RightButton ? RClick : LClick;
@@ -250,6 +254,7 @@ void MapViewer::mousePressEvent(QMouseEvent *me){
 }
 
 void MapViewer::mouseMoveEvent(QMouseEvent *me){
+    if(map == nullptr) return;
     if(ms == RClick){
         ti->stop();
         center = QPointF(xCenter, yCenter);
@@ -297,6 +302,7 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
 }
 
 void MapViewer::mouseReleaseEvent(QMouseEvent *me){
+    if(map == nullptr) return;
     checkMousePos();
     ms = Rest;
     updateRequest();

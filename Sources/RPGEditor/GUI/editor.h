@@ -1,11 +1,13 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include "ui_editor.h"
 #include <QtWidgets>
+#include "ui_editor.h"
+#include "options.h"
 #include "newgame.h"
 #include "Game/xmlhandler.h"
 #include "Tabs/mapseditor.h"
+
 
 
 /*
@@ -38,9 +40,19 @@ private slots:
     void on_actionQuit_triggered();
 
 
+private slots:
+    void saveGeom();
+
 private:
     void newGame(QString name, QString dir, bool createFolder);
     Game* open(QString fileName);
+
+
+    void loadDefault();
+    void saveDefault();
+    void resizeEvent(QResizeEvent *re);
+    void moveEvent(QMoveEvent *me);
+    void closeEvent(QCloseEvent *ce);
 
     MapsEditor *mapsEditor;
 

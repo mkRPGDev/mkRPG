@@ -11,11 +11,24 @@ Editor::Editor(QWidget *parent) :
     mapsEditor = new MapsEditor;
     stackedWidget->addWidget(mapsEditor);
     stackedWidget->setCurrentIndex(0);
+
+    loadDefault();
 }
 
-void Editor::on_actionQuit_triggered(){
-    close();
+
+
+void Editor::loadDefault(){
+    Options &options(Options::options());
+    move(options.load<QPoint>(WIN, "Position"));
+    resize(options.load<QSize>(WIN, "Size"));
+    if(options.load<bool>(WIN, "Maximized")) showMaximized();
 }
+
+void Editor::saveDefault(){
+    Options &options(Options::options());
+    options.save(WIN, "Maximized", isMaximized());
+}
+
 
 void Editor::on_actionOpen_triggered(){
     QString f(QFileDialog::getOpenFileName(this, "Open a game project", QDir::homePath(), "Game file *game"));
@@ -85,4 +98,36 @@ Game* Editor::open(QString fileName){
         QMessageBox::critical(this, "Impossible opening", "Impossible to read the game \n\""+fileName+"\". Syntax error.");
     }
     return g;
+}
+
+
+
+
+void Editor::on_actionQuit_triggered(){
+    close();
+}
+
+
+void Editor::saveGeom(){
+    if(!isMaximized() && !isMinimized()){
+        Options &options(Options::options());
+        options.save(WIN, "Size", size());
+        options.save(WIN, "Position", pos());
+    }
+}
+
+void Editor::resizeEvent(QResizeEvent *re){
+    QMainWindow::resizeEvent(re);
+    QTimer::singleShot(100, this, SLOT(saveGeom()));
+}
+
+void Editor::moveEvent(QMoveEvent *me){
+    QMainWindow::moveEvent(me);
+    QTimer::singleShot(100, this, SLOT(saveGeom()));
+
+}
+
+void Editor::closeEvent(QCloseEvent *ce){
+    saveDefault();
+    QMainWindow::closeEvent(ce);
 }

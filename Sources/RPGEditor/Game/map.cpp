@@ -5,7 +5,8 @@
 
 
 Cell::Cell(Game* g) :
-    Object(g)
+    Object(g),
+    select(false)
 {
     setCellType(nullptr);
 }

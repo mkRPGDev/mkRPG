@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Editor</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../Icons/ressources.qrc">
+    <normaloff>:/Icons/main.png</normaloff>:/Icons/main.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
@@ -179,6 +183,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../Icons/ressources.qrc"/>
+ </resources>
  <connections/>
 </ui>

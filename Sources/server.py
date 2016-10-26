@@ -1,7 +1,8 @@
+from sys import argv
 from const import *
 from network import NetworkServer
 from actions import registerActions
-from orders import OrderType
+from orders import OrderDispatcher
 
 # TODO qui dit mieux ?
 with open("isserver.py","w") as file:
@@ -10,33 +11,34 @@ import world
 
 class Server():
     def __init__(self, path):
-        self.net = NetworkServer(self.handleEvent)
+        self.net = NetworkServer(self.handle)
         self.world = world.loadGame(path)
         self.actions = registerActions(path)
         
         self.persos = self.world.entities[0] # XXX bricolage
+        self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent)
 
     def __del__(self):
         print("Killing server")
         self.net.kill()
 
     def run(self):
+        print("Server started")
+        self.net.waitForSomeone()
+        self.handleEvent(self.world, "start")
         self.net.start()
-        while 1:
-            pass
+        while 1: pass
     
-    def handleEvent(self, m):
-        ident = m[0]*256+m[1]
-        event = m[2:].decode(CODING) # TODO dans network
-        for act in self.actions:
-            if act.event == event:
-                for order in act.orders: # TODO c'est nul -> OrderDispatcher ?
-                    if order.type==OrderType.Set and order.args[0]=="emitter":
-                        world.BaseObject.ids[ident].treatOrder(order)
-                        self.net.broadcast(bytes((ident//256, ident%256)) + order.toBytes())
-                        # TODO n'envoyer que les infos non secrètes et en ayant
-                        # évalué les formules
-#                    elif order.type==OrderType.Create
-       
-ser = Server(PATH)
+    def handle(self, ident, event):
+        self.handleEvent(world.BaseObject.ids[ident], event)
+    
+    def handleEvent(self, emitter, event):
+        for act in filter(lambda act: act.event == event, self.actions):
+            for order in act.orders:
+                if self.orderDispatcher.treat(emitter, order):
+                    self.net.sendOrder(emitter.ident, order)
+                # TODO n'envoyer que les infos non secrètes et en ayant
+                # évalué les formules
+
+ser = Server(argv[1] if len(argv)>1 else PATH)
 ser.run()

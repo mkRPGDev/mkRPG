@@ -1,5 +1,6 @@
 VERBOSE = False
 
+# ! PATH par défaut en l'absence d'argument
 PATH = "../Test/" #et on oublie pas le dernier /
 
 # Réseau

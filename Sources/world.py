@@ -69,7 +69,7 @@ class BaseObject:
                     if "val" in ap:
                         self.params[np] = int(ap["val"]) # on a supposé un int
                     else:
-                        toResolve.append((ap["id"], self.params, np, True))
+                        toResolve.append((ap["id"], self.params, np))#, True))
             elif n==self.__class__.__name__+"Type": # ObjectType
                 pass
             elif (n.lower() in self.__dict__ and 
@@ -78,7 +78,7 @@ class BaseObject:
                 C = evl[n.lower()]
                 for dat in d.list:
                     if "id" in dat.args:
-                        toResolve.append((dat.args["id"], li, len(li), False))
+                        toResolve.append((dat.args["id"], li, len(li)))#, False))
                         li.append(None)
                     else:
                         li.append(C().subload(dat))
@@ -90,19 +90,21 @@ class BaseObject:
         if "name" in data.args:
             named[data.args["name"]] = self
             #return data.args["name"]
-        for nm, li, ln, bo in toResolve: #TODO a opti
-            #assert nm in named, nm+" non résolu" FIXME
+        for nm, li, ln in toResolve: #TODO a opti
             if nm not in named: continue
-            if verbose: print(nm, "->", named[nm], named[nm].ident)
-            if bo: li[ln] = named[nm].ident # dico
-            else:  li[ln] = named[nm]       # liste
-        
+            if verbose: print(nm, "->", named[nm])
+            li[ln] = named[nm]
+            #assert nm in named, nm+" non résolu" FIXME
+#            if bo: li[ln] = named[nm].ident # dico
+#            else:  li[ln] = named[nm]       # liste
         return self
     
     def treatOrder(self, order): #TODO traitement formules
         if order.type == OrderType.Set:
-            #print(order.args[1], "changed", self.__class__.__name__)
-            self.params[order.args[1]] = eval(order.args[2])
+            if verbose: print(self.__class__.__name__, order.param, "changed", order.value)
+            #self.params[order.param] = eval(order.value)
+            # FIXME pour résoudre les . (entities[0].x)
+            exec("self."+order.param+"="+order.value)
         else:
             raise NotImplemented
 #        if order.type == OrderType.Add:

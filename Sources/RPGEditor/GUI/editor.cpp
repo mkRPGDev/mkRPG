@@ -10,16 +10,22 @@ Editor::Editor(QStringList args, QWidget *parent) :
     hidden->setHidden(true);
     connect(tabBar, SIGNAL(currentTabChanged(int)), stackedWidget, SLOT(setCurrentIndex(int)));
 
+    worldEditor = new WorldEditor;
     mapsEditor = new MapsEditor;
 
     addTab(tr("Welcome"), QPixmap(":Icons/main.png"), new Welcome);
-    addTab(tr("Game"), QPixmap(":Icons/main.png"), new WorldEditor);
+    addTab(tr("Game"), QPixmap(":Icons/main.png"), worldEditor);
     addTab(tr("Maps"), QPixmap(":Icons/main.png"), mapsEditor);
 
     loadDefault();
 
     tabBar->setTabsEnabled(false);
     qDebug() << args.length();
+
+    Game * g = open("f");
+    mapsEditor->setGame(g);
+    worldEditor->setGame(g);
+
 }
 
 
@@ -94,6 +100,7 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 
 Game* Editor::open(QString fileName){
     Game* g = new Game();
+    g->world()->addMap(new Map(g));
     g->world()->addMap(new Map(g));
     tabBar->setTabsEnabled(true);
     return g;

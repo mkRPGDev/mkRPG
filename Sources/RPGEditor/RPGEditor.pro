@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     GUI/options.cpp \
     GUI/tabacces.cpp \
     GUI/tabbar.cpp \
-    GUI/Tabs/welcome.cpp
+    GUI/Tabs/welcome.cpp \
+    Game/mapslistmodel.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -40,7 +41,8 @@ HEADERS  += \
     GUI/options.h \
     GUI/tabacces.h \
     GUI/tabbar.h \
-    GUI/Tabs/welcome.h
+    GUI/Tabs/welcome.h \
+    Game/mapslistmodel.h
 
 FORMS    += \
     GUI/editor.ui \

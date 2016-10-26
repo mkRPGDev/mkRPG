@@ -59,6 +59,7 @@ private:
     void moveEvent(QMoveEvent *me);
     void closeEvent(QCloseEvent *ce);
 
+    WorldEditor *worldEditor;
     MapsEditor *mapsEditor;
 
 };

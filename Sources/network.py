@@ -9,16 +9,20 @@ class NetworkClient(Thread):
     def __init__(self, handle):
         Thread.__init__(self)
         self.handle = handle
-        self.soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.soc = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
         self.alive = True
         
     def run(self):
-        self.soc.bind((HOST, PORT))
+        try:
+            self.soc.bind((HOST, PORT))
+        except OSError:
+            raise Exception((HOST, PORT))
         while self.alive:
             msg, addr = self.soc.recvfrom(BUFF)
             ident = msg[0]*256 + msg[1]
             order = Order().fromBytes(msg[2:])
-            self.handle(ident, order)
+            if self.alive:
+                self.handle(ident, order)
             
     def send(self, m):
         self.soc.sendto(m, (HOST, PORT+1))
@@ -27,13 +31,15 @@ class NetworkClient(Thread):
         m = bytes([obj.ident//256, obj.ident%256]) + bytes(eve, CODING)
         self.soc.sendto(m, (HOST, PORT+1))
     
-    def kill(self): self.alive = False
+    def kill(self):
+        self.soc.close()
+        self.alive = False
 
 class NetworkServer(Thread):
     def __init__(self, handle):
         Thread.__init__(self)
         self.handle = handle
-        self.soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.soc = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
         self.soc.bind((HOST, PORT+1))
         self.alive = True
 

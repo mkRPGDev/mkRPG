@@ -3,36 +3,56 @@ from threading import Timer
 
 from const import *
 
-OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Move Activate')
+OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition Move Setobj Activate')
 
 class Order:
     # Attention aux collisions avec args et type
-    params = [None] * len(OrderType)
+    params = [None] * (len(OrderType)+1) #XXX c'pas top 
     params[OrderType.Set] = ["target", "param", "value"]
     params[OrderType.Timer] = ["event", "value"]
     params[OrderType.Event] = ["event", "target"]
     params[OrderType.Create] = ["event", "base", "init"]
     params[OrderType.Destroy] = []
+    params[OrderType.Condition] = ["event", "value"]
+    params[OrderType.Move] = ["source", "dest", "param"]
+    params[OrderType.Setobj] = ["target", "param", "value"]
 
     def __init__(self):
         self.type = None
         self.args = []
     
-    def __getattribute__(self, attr):
-        try:
-            return super().__getattribute__(attr)
-        except AttributeError:
-            if attr in self.params[self.type]:
-                return self.args[self.params[self.type].index(attr)]
-            raise
+#    def __getattribute__(self, attr):
+#        try:
+#            return object.__getattribute__(self, attr)
+#        except AttributeError:
+#            if attr in self.params[self.type]:
+#                return self.args[self.params[self.type].index(attr)]
+#            raise
 
+#    def __setattr__(self, attr, val):
+#        if attr in self.params[self.type]:
+#            self.args[self.params[self.type].index(attr)] = val
+#        else:
+##        try:
+#           object.__setattr__(self, attr, val)
+# #       except AttributeError:
+#  #          raise
+    
+    def __getattr__(self, attr):
+        return self.args[self.params[self.type].index(attr)]
+    
     def __setattr__(self, attr, val):
-        try:
-            super().__setattr__(attr, val)
-        except AttributeError:
-            if attr in self.params[self.type]:
-                self.args[self.params[self.type].index(attr)] = val
-            raise
+        if attr in ("type", "args") or attr not in self.params[self.type]:
+            object.__setattr__(self, attr, val)
+        else:
+            self.args[self.params[self.type].index(attr)] = val
+    
+    def copy(self):
+        # une copy.deepcopy aurait copié params
+        obj = Order()
+        obj.type = self.type
+        obj.args = self.args[:]
+        return obj
     
     def load(self, dat, named):
         assert dat.name == "Order"
@@ -80,39 +100,60 @@ class OrderDispatcher:
         self.handle = handle
 
     def treat(self, emitter, order):
-        """ -> transmission nécessaire """
-        # TODO modifier les champs avant de les renvoyer
-        # et ne pas envoyer les set x=x
+        """ -> ordre à retransmettre """
         if order.type==OrderType.Set:
-            if order.target=="emitter":
-                emitter.treatOrder(order)
-            elif order.target=="world":
-                self.world.treatOrder(order)
-            return True
+            target = emitter if order.target=="emitter" else self.world
+            val = target.contextEval(order.value)
+            preval = eval("target."+order.param)
+            if val!=preval:
+                exec("target."+order.param+"=val")
+                returnOrder = order.copy()
+                returnOrder.value = str(val)
+                return returnOrder
+            return None
         if order.type==OrderType.Timer:
             # les Timer transmettent leur contexte
-            Timer(float(order.value), self.handle, args=[emitter, order.event]).start()
-            return False
+            if emitter:
+                Timer(emitter.contextEval(order.value), self.handle, args=[emitter, order.event]).start()
+            else:
+                Timer(float(order.value), self.handle, args=[emitter, order.event]).start()
+            return None
         if order.type==OrderType.Event:
-            self.handle(eval('emitter.'+order.target), order.event)
-            return False
+            if order.target:
+                self.handle(eval('emitter.'+order.target), order.event)
+            else:
+                self.handle(emitter, order.event)
+            return None
         if order.type==OrderType.Create:
             obj = self.world.ids[int(order.base)].create()
             self.world.objects.append(obj)
             exec(order.init)
-            # FIXME utiliser une file d'évènements
             if self.handle:
-                Timer(0.001, self.handle, args=[obj, order.event]).start()
+                self.handle(obj, order.event)
             #print("created", obj.ident)
-            return True
+            return order
         if order.type==OrderType.Destroy:
-            # TODO HELP ME !!!
+            # TODO HELP ME !
             self.world.objects.remove(emitter)
-#            emitter.picture = 32
-#            emitter.x = 21
-#            emitter.y = 21
-            return True
-
+            return order
+        if order.type==OrderType.Condition:
+            if emitter.contextEval(order.value):
+                self.handle(emitter, order.event)
+            return None
+        if order.type==OrderType.Move:
+            eval(order.source+"."+order.param).remove(emitter)
+            eval(order.dest+"."+order.param).append(emitter)
+            return order
+        if order.type==OrderType.Setobj: # TODO à améliorer ressemble à Set
+            # FIXME plante avec un aléa
+            target = emitter if order.target=="emitter" else self.world
+            val = target.contextEval(order.value)
+            preval = eval("target."+order.param)
+            if val!=preval:
+                exec("target."+order.param+"=val")
+                return order
+            return None
+                       
 if __name__=="__main__":
     o = Order()
     o.type = OrderType.Set

@@ -11,12 +11,16 @@ with open("isserver.py","w") as file:
     file.write("SERVER = False\n")
 import world
 
+interface = True
+
 class Client():
     def __init__(self, path):
         self.net = NetworkClient(self.handleOrder)
-        self.win = curses.initscr()
-        curses.cbreak()
-        self.win.keypad(True)
+        if interface:
+            self.win = curses.initscr()
+            curses.cbreak()
+            curses.noecho()
+            self.win.keypad(True)
         self.world = world.loadGame(path)
         self.mv=MapViewer(self.world.currentMap, self.world)
         self.interactions = interactions.registerInteractions(path)
@@ -25,20 +29,25 @@ class Client():
         self.orderDispatcher = OrderDispatcher(self.world, None)
         
     def __del__(self):
-        print("Killing client")
         self.net.kill()
+        curses.endwin()
+        print("Client killed")
 
     def run(self):
         self.net.start()
-        self.mv.display(self.win)
+        if interface: self.mv.display(self.win)
         self.net.send("hello".encode(CODING))
         
         while 1:
+            if not interface: continue
             k = self.win.getch()
             if k==ord('q'):
                 curses.endwin()
-                #self.net.kill()
+                self.net.kill()
+                print("Exited properly")
                 break
+            if k==ord('b'):
+                1/0
             for inte in self.interactions:
                 if (inte.type == interactions.InteractionType.Key and
                     inte.key == k):
@@ -48,16 +57,18 @@ class Client():
         emitter = world.BaseObject.ids[ident]
         self.orderDispatcher.treat(emitter, order)
         # TODO limiter les actualisations
-        self.mv.display(self.win)
-        self.win.addstr(25,0,str(self.world.entities[0].dir))
-        self.win.refresh()
+        if interface:
+            self.mv.display(self.win)
+            # TODO insérer ici le xml d'interface
+            self.win.addstr(26,0,"Score "+str(self.world.entities[0].score))
+            self.win.refresh()
 
 class CellViewer:
     def __init__(self, cell):
         self.cell = cell
     
     def display(self, win):
-        win.addch(self.cell.x+1, self.cell.y+1, self.cell.picture)
+        win.addch(self.cell.y+1, self.cell.x+1, self.cell.picture)
 #        for ent in self.cell.entities:
 #            win.addch(self.cell.x, self.cell.y, ent.picture)
 #        for obj in self.cell.objects:
@@ -74,11 +85,11 @@ class MapViewer:
         #image de fond
         
         for x in range(self.map.width+3):
-            win.addch(x, 0, 35)
-            win.addch(x, self.map.height+2, 35)
+            win.addch(0, x, 35)
+            win.addch(self.map.height+2, x, 35)
         for y in range(1, self.map.height+2):
-            win.addch(0, y, 35)
-            win.addch(self.map.width+2, y, 35)
+            win.addch(y, 0, 35)
+            win.addch(y, self.map.width+2, 35)
         #items
         for c in self.cellViews: c.display(win)
         for ent in self.world.entities:
@@ -91,5 +102,5 @@ cli = Client(argv[1] if len(argv)>1 else PATH)
 try:
     cli.run()
 except:
-    curses.endwin()
+    del cli
     raise

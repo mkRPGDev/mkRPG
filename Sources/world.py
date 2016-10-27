@@ -1,5 +1,5 @@
 from enum import IntEnum
-import os
+from random import randint
 
 from isserver import SERVER
 from utils import readXml
@@ -12,7 +12,10 @@ verbose = False
 named = {}
 toResolve = []
 
+world = None
+
 def loadGame(path):
+    global world
     dat = readXml(path + "game.xml")
     assert dat.name == "Game"
     lw = []
@@ -22,9 +25,9 @@ def loadGame(path):
     for f in lw:
         dat = readXml(path+f.args["file"])
         eval(dat.name)().subload(dat)
-    w = named["world"]
-    for m in w.maps: m.fill()
-    return w
+    world = named["world"]
+    for m in world.maps: m.fill()
+    return world
 
 class BaseObject:
     ident = 0
@@ -36,28 +39,33 @@ class BaseObject:
         self.ident = BaseObject.ident
         self.params = {}
     
-    def __getattribute__(self, attr):
-        try:
-            return super().__getattribute__(attr)
-        except AttributeError:
-            if attr in self.params:
-                return self.params[attr]
-            raise
+#    def __getattribute__(self, attr):
+#        try:
+#            return super().__getattribute__(attr)
+#        except AttributeError:
+#            if attr in self.params:
+#                return self.params[attr]
+#            raise
     
-    def load(self, path):
-        if verbose: print(path)
-        dirs = os.listdir(path)
-        for nm, ty in self.__dict__.items():
-            if type(ty) is not list or nm not in dirs: continue
-            #C = eval(nm[:-1].capitalize()) # TODO trouver mieux
-            C = evl[nm]# sapristi
-            assert(type(C)==type)
-            for m in os.listdir(path+nm):
-                obj = C() 
-                obj.load(path+nm+"/"+m+"/")
-                ty.append(obj)
-        data = readXml(path + self.__class__.__name__.lower() + ".xml")
-        self.subload(data) # en bas pour l'héritage
+    def __getattr__(self, attr):
+        if attr in self.params:
+            return self.params[attr]
+        raise AttributeError(attr)
+    
+#    def load(self, path):
+#        if verbose: print(path)
+#        dirs = os.listdir(path)
+#        for nm, ty in self.__dict__.items():
+#            if type(ty) is not list or nm not in dirs: continue
+#            #C = eval(nm[:-1].capitalize()) # TODO trouver mieux
+#            C = evl[nm]# sapristi
+#            assert(type(C)==type)
+#            for m in os.listdir(path+nm):
+#                obj = C() 
+#                obj.load(path+nm+"/"+m+"/")
+#                ty.append(obj)
+#        data = readXml(path + self.__class__.__name__.lower() + ".xml")
+#        self.subload(data) # en bas pour l'héritage
         
     def subload(self, data):
         if verbose: print(data.name)
@@ -98,6 +106,9 @@ class BaseObject:
 #            if bo: li[ln] = named[nm].ident # dico
 #            else:  li[ln] = named[nm]       # liste
         return self
+    
+    def contextEval(self, value):
+        return eval(value)
     
     def treatOrder(self, order): #TODO traitement formules
         if order.type == OrderType.Set:
@@ -173,7 +184,7 @@ class Map(MagicObject):
         for i,l in enumerate(self.cellsGrid):
             for j,e in enumerate(l):
                 if not e: 
-                    cell = BaseObject.ids[self.defaultCell].create()
+                    cell = self.defaultCell.create()
                     l[j] = cell
                     self.cells.append(cell)
                     cell.x = i; cell.y = j

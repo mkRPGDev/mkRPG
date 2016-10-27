@@ -21,9 +21,8 @@ puis
     python3 client.py
 
 ### Snake
-Essayez donc
-    python3 server.py ../Snake
-    python3 client.py ../Snake
+
+Plus d'informations dans Test/Snake/README.md...
 
 ### À faire ou à revoir:
 - protocole d'initialisation
@@ -31,3 +30,5 @@ Essayez donc
 - destruction d'objets
 - vrai réseau
 - distinction grille/cellules
+
+_Le code reste en chantier et ne suit donc pas à la lettre les conventions, je m'en excuse..._

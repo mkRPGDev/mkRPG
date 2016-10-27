@@ -2,10 +2,11 @@
     <Params>
         <x val="10"/>
         <y val="10"/>
-        <picture val="42"/>
+        <picture val="32"/>
+        <mortelle val="0"/>
     </Params>
     
     <Entities>
-        <Entity id="joey"/>
+        <Entity id="serpent"/>
     </Entities>
 </Cell>

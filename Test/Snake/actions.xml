@@ -1,20 +1,32 @@
 <Actions>
     <Action>
         <Event val="start"/>
-
         <Order type="timer">
             <event val="tick"/>
             <value val="2"/>
-        </Order>  
-
-<!--
-        <Order type="create">
-            <base id="corps"/>
-            <init val="obj.x=12; obj.y=6" />
-            <event val="initcorps"/>
         </Order>
-        
--->
+        <Order type="event">
+            <target val=""/>
+            <event val="repom"/>
+        </Order>
+    </Action>
+    
+    <Action>
+        <Event val="repom"/>
+        <Order type="set">
+            <target val="world"/>
+            <param val="pomme.x"/>
+            <value val="randint(0,19)"/>
+        </Order>
+        <Order type="set">
+            <target val="world"/>
+            <param val="pomme.y"/>
+            <value val="randint(0,19)"/>
+        </Order>
+        <Order type="condition">
+            <value val="world.currentMap.cellsGrid[world.pomme.x][world.pomme.y].mortelle"/>
+            <event val="repom"/>
+        </Order>        
     </Action>
     
     <Action>
@@ -30,38 +42,73 @@
     </Action>
     
     <Action>
-        <Event val="move"/>
-        <Order type="create">
-            <base id="corps"/>
-            <init val="obj.x=emitter.x; obj.y=emitter.y" />
-            <event val="initcorps"/>
+        <Event val="grandit"/>
+        <Order type="event">
+            <target val=""/>
+            <event val="repom"/>
         </Order>
         <Order type="set">
             <target val="emitter"/>
+            <param val="score"/>
+            <value val="self.score + 1"/>
+        </Order>
+    </Action>
+    
+    <Action>
+        <Event val="move"/>
+        <Order type="condition">
+            <value val="self.x==world.pomme.x and self.y==world.pomme.y"/>
+            <event val="grandit"/>
+        </Order>        
+        <Order type="create">
+            <base id="corps"/>
+            <init val="obj.x=emitter.x; obj.y=emitter.y; obj.case=emitter.case; obj.temps=emitter.score/5"/>
+            <event val="initcorps"/>
+        </Order>   
+        <Order type="set">
+            <target val="emitter"/>
             <param val="x"/>
-            <value val="(self.x + [-1,1,0,0][self.dir])%20"/>
+            <value val="(self.x + [-1,1,0,0][self.dir])%self.map.width"/>
         </Order>
         <Order type="set">
             <target val="emitter"/>
             <param val="y"/>
-            <value val="(self.y + [0,0,-1,1][self.dir])%20"/>
+            <value val="(self.y + [0,0,-1,1][self.dir])%self.map.height"/>
+        </Order>
+        <Order type="setObj">
+            <target val="emitter"/>
+            <param val="case"/>
+            <value val="self.map.cellsGrid[self.x][self.y]"/>
+        </Order>
+        <Order type="condition">
+            <value val="self.case.mortelle"/>
+            <event val="end"/>
         </Order>
     </Action>
 
     <Action>
         <Event val="initcorps"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="case.mortelle"/>
+            <value val="1"/>
+        </Order>
         <Order type="timer">
-            <value val="2"/>
-            <event val="detruitcorps"/>
+            <value val="self.temps"/>
+            <event val="detruit"/>
         </Order>
     </Action>
 
     <Action>
-        <Event val="detruitcorps"/>
+        <Event val="detruit"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="case.mortelle"/>
+            <value val="0"/>
+        </Order>
         <Order type="destroy">
         </Order>
     </Action>
-
     
     <Action> <!-- x+=1 -->
         <Event val="moveright"/>

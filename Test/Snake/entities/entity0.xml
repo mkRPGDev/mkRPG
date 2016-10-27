@@ -1,4 +1,4 @@
-<Entity name="joey">
+<Entity name="serpent">
     <Params>
         <dir val="1"/>
         
@@ -6,5 +6,8 @@
         
         <x val="10"/>
         <y val="10"/>
+        <case id="cell0"/>
+        <map id="main"/>
+        <score val="1"/>
     </Params>
 </Entity>

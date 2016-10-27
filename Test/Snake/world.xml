@@ -1,19 +1,20 @@
 <World name="world">
     <Params>
         <currentMap id="main"/>
+        <pomme id="pomme"/>
     </Params>
     
-<!--
     <Maps>
-        <Map id="principale"/>
+        <Map id="main"/>
     </Maps>
--->
 
     <Entities>
-        <Entity id="joey"/>
+        <Entity id="serpent"/>
     </Entities>
 
-    
+    <Objects>
+        <MagicObject id="pomme"/>
+    </Objects>
 <!--
     <Map name="principale">
         <Params>

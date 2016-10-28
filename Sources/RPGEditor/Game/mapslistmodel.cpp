@@ -7,12 +7,12 @@ MapsListModel::MapsListModel(World* w, QObject* parent) :
 }
 
 int MapsListModel::rowCount(const QModelIndex &parent) const{
-    qDebug() << maps.length() << parent.isValid() << parent.model() << parent;
+    //qDebug() << maps.length() << parent.isValid() << parent.model() << parent;
     return maps.length();
 }
 
 QVariant MapsListModel::data(const QModelIndex &index, int role) const{
-    qDebug() << "data" << role;
+    //qDebug() << "data" << role;
     if(index.isValid()){
         switch (role) {
         case Qt::DisplayRole:

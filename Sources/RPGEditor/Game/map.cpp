@@ -56,3 +56,6 @@ Cell& Map::cell(int i, int j) const{
     assert(i>=0 && i<width() && j>=0 && j<height());
     return cells[i+j*width()];
 }
+Cell& Map::cell(const QPoint &p) const{
+    return cell(p.x(), p.y());
+}

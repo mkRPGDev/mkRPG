@@ -34,13 +34,15 @@ public:
     inline World* world(){return &w;}
     inline int newIdent(){return ++idDisp;}
 
+    void addImage(Image *im);
+
 private:
 
 
     int idDisp;
 
     World w;
-    QMap<int, Image> picts;
+    QMap<int, Image*> picts;
     QMap<int, QString> strings;
 };
 

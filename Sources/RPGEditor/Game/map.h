@@ -6,7 +6,7 @@
 class CellType : public Object
 {
 public:
-    CellType();
+    CellType(Game *g);
     ParamObj(image,Image,ct)
 private:
 };

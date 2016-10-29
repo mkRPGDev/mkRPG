@@ -2,6 +2,14 @@
 
 
 
+CellType::CellType(Game *g) :
+    Object(g)
+{
+
+}
+
+
+
 
 
 Cell::Cell(Game* g) :

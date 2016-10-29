@@ -111,6 +111,7 @@ private:
     inline void changeBackgroundSize();
     inline void changeBackgroundDistortion();
     inline void changeParameter();
+    QImage &getBackground(CellType *ct);
 
     Map* map;
     QMatrix isometricTransform; // Matrix of the image transformation
@@ -123,6 +124,7 @@ private:
     double centerVarX, centerVarY;
     double viewScale;
     double ratioFactor;
+    QSize cellSize;
 
 
     PtCoords *intersec;

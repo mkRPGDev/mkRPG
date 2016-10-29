@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>768</width>
+    <width>937</width>
     <height>565</height>
    </rect>
   </property>
@@ -39,18 +39,33 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2" rowspan="3">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>GroupBox</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="2">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Cellules</string>
+      <string>Map</string>
      </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QSlider" name="angleX">
+        <property name="maximum">
+         <number>900</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QSlider" name="angleY">
+        <property name="maximum">
+         <number>900</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="0" column="1" rowspan="2">
@@ -70,11 +85,21 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>683</width>
+        <width>679</width>
         <height>68</height>
        </rect>
       </property>
      </widget>
+    </widget>
+   </item>
+   <item row="1" column="2" rowspan="3">
+    <widget class="QListView" name="cellTypes">
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
     </widget>
    </item>
   </layout>

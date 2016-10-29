@@ -57,10 +57,16 @@ ClCoords MapPainter::pxlToCoo(PxCoords p) const{
 
 
 void MapPainter::updateViewParameters(){
+    double nf(std::min((double)pWidth/mapWidth,
+                       (double)pHeight/mapHeight));
+    if(nf != ratioFactor) cellBackgrounds.clear();
+    ratioFactor = nf;
     centerVarX = std::max(0.,(1-pWidth/ratioFactor/mapWidth/viewScale)/2);
     centerVarY = std::max(0.,(1-pHeight/ratioFactor/mapHeight/viewScale)/2);
     centerX = MINMAX(.5-centerVarX,centerX,.5+centerVarX);
     centerY = MINMAX(.5-centerVarY,centerY,.5+centerVarY);
+    cellSize = QSize((-ptToPxl(indToPt(0,1))+ptToPxl(indToPt(1,0))).x()+1,
+                     (-ptToPxl(indToPt(1,1))+ptToPxl(indToPt(0,0))).y()+1);
 }
 
 
@@ -84,8 +90,8 @@ void MapPainter::updateMap(){
     for(int i(0); i<=nbCellsX; ++i)
         for(int j(0); j<=nbCellsY; ++j)
             intersec[i+(nbCellsX+1)*j] = cooToPt(ClCoords(i,j));
-    isometricTransform.setMatrix(cos(angleX), -sin(angleX),
-                                 cos(angleY), -sin(angleY),
+    isometricTransform.setMatrix(-cos(angleX), +sin(angleX),
+                                 -cos(angleY), +sin(angleY),
                                  0,0);
 
 
@@ -106,14 +112,19 @@ void MapPainter::resize(QSize s){
 void MapPainter::resize(int w, int h){
     pWidth = w;
     pHeight = h;
-    double nf(std::min((double)pWidth/mapWidth,
-                       (double)pHeight/mapHeight));
-    if(nf != ratioFactor) cellBackgrounds.clear();
-    ratioFactor = nf;
     updateViewParameters();
 }
 
-
+QImage& MapPainter::getBackground(CellType *ct){
+    assert(ct != nullptr);
+    int id = ct->ident();
+    if(scaledCellBackgrounds.contains(id))
+        return scaledCellBackgrounds[id];
+    if(!cellBackgrounds.contains(id))
+        cellBackgrounds[id] = ct->image()->image().transformed(isometricTransform,Qt::SmoothTransformation);
+    scaledCellBackgrounds[id] = cellBackgrounds[id].scaled(cellSize,Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    return scaledCellBackgrounds[id];
+}
 
 
 void MapPainter::paint(QPainter &p){
@@ -125,29 +136,30 @@ void MapPainter::paint(QPainter &p){
     int jMin = std::max(0.,ptToCoo(pxlToPt(PxCoords(pWidth,pHeight))).y());
     int jMax = std::min(nbCellsY+0.,ptToCoo(pxlToPt(PxCoords(0,0))).y()+1);
 
-    QImage hr(herbeR.scaled((-ptToPxl(indToPt(0,1))+ptToPxl(indToPt(1,0))).x()+1,
-                            (-ptToPxl(indToPt(1,1))+ptToPxl(indToPt(0,0))).y()+1));
     QBrush b1(QColor(0,0,0,0));
     QBrush b2(QColor(255,180,0,60));
-    p.setPen(QColor(80,80,80));
+    p.setPen(QColor(80,80,80, 0));
+    CellType *ct;
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
             p.setBrush(map->cell(i,j).isSelected() ? b2 : b1);
             // Tester map cellBackgrounds.
-            p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), hr);
+            ct = map->cell(i,j).cellType();
+            if(ct)
+                p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(ct));
             p.drawConvexPolygon(QVector<QPointF>({ptToPxl(indToPt(i,j)),
                                                   ptToPxl(indToPt(i,j+1)),
                                                   ptToPxl(indToPt(i+1,j+1)),
                                                   ptToPxl(indToPt(i+1,j))}));
         }
-    /*p.setPen(QColor(80,80,80));
+    p.setPen(QColor(80,80,80));
     p.setBrush(Qt::NoBrush);
-    for(int i(0); i<=nbCellX; ++i)
-        p.drawLine(ptToPxl(indToPt(i,0)),
-                   ptToPxl(indToPt(i,nbCellY)));
-    for(int i(0); i<=nbCellY; ++i)
-        p.drawLine(ptToPxl(indToPt(0,i)),
-                   ptToPxl(indToPt(nbCellX,i)));*/
+    for(int i(0); i<=nbCellsX; ++i)
+        p.drawLine(ptToPxl(indToPt(i,jMin)),
+                   ptToPxl(indToPt(i,jMax)));
+    for(int i(0); i<=nbCellsY; ++i)
+        p.drawLine(ptToPxl(indToPt(iMin,i)),
+                   ptToPxl(indToPt(iMax,i)));
     if(0<=selCellX && selCellX<nbCellsX && 0<=selCellY && selCellY<=nbCellsY){
         p.setPen(QColor(255,255,20));
         p.drawPolygon(QVector<QPointF>({ptToPxl(indToPt(selCellX,selCellY)),
@@ -256,7 +268,10 @@ void MapPainter::changeParameter(){
 
 
 
-
+void MapViewer::updateMap(){
+    mp.updateMap();
+    updateRequest();
+}
 
 void MapViewer::wheelEvent(QWheelEvent *we){
     if(map == nullptr) return;

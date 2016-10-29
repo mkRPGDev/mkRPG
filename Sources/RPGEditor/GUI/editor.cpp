@@ -23,6 +23,9 @@ Editor::Editor(QStringList args, QWidget *parent) :
     qDebug() << args.length();
 
     Game * g = open("f");
+
+
+
     mapsEditor->setGame(g);
     worldEditor->setGame(g);
 
@@ -98,15 +101,42 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 }
 
 
-Game* Editor::open(QString fileName){
+Game* Editor::open(QString fileName){ // NOTE : temporaire
     Game* g = new Game();
+    Map *m = new Map(g);
+    g->world()->addMap(m);
     g->world()->addMap(new Map(g));
-    g->world()->addMap(new Map(g));
+    Image *im;
+    CellType *ct1, *ct2, *ct3;
+    im = new Image(g, ":/Icons/herbe.png");
+    g->addImage(im);
+    ct1 = new CellType(g);
+    ct1->setImage(im);
+    g->world()->addCellType(ct1);
+    m->cell(10,10).setCellType(ct1);
+    im = new Image(g, ":/Icons/glace.png");
+    g->addImage(im);
+    ct2 = new CellType(g);
+    ct2->setImage(im);
+    g->world()->addCellType(ct2);
+    m->cell(11,11).setCellType(ct2);
+    im = new Image(g, ":/Icons/mer.png");
+    g->addImage(im);
+    ct3 = new CellType(g);
+    ct3->setImage(im);
+    g->world()->addCellType(ct3);
+    int l = m->width();
+    int h = m->height();
+    for(int i(0); i<l; ++i)
+        for(int j(0); j<h; ++j){
+            double o = 3.*j/h+((qrand()%65536)/65536.-.5);
+            m->cell(i,j).setCellType(o<1 ? ct1 : o<2 ? ct2 : ct3);
+        }
     tabBar->setTabsEnabled(true);
     return g;
     /* AVANT XML */
 
-    QXmlSimpleReader xmlReader;
+    /*QXmlSimpleReader xmlReader;
     //Game* g = new Game;
     XmlHandler h(g);
     xmlReader.setErrorHandler(&h);
@@ -117,7 +147,7 @@ Game* Editor::open(QString fileName){
     if(!xmlReader.parse(&s)){
         QMessageBox::critical(this, "Impossible opening", "Impossible to read the game \n\""+fileName+"\". Syntax error.");
     }
-    return g;
+    return g;*/
 }
 
 

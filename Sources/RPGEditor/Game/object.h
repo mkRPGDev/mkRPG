@@ -5,6 +5,7 @@
 #include <QtGui>
 #include <assert.h>
 
+class Game;
 #define Editing lastEdit = QDateTime::currentDateTime()
 #define Getter(name) inline int name() const{return params[#name];}
 #define Param(name,Name) Getter(name) \
@@ -29,14 +30,13 @@ public:
     ObjectsMapC(ini##body##sg, ini##body##pl, Ini##body##sg, Ini##body##pl, pref,ini)
 
 
-class Game;
 class Object
 {
 public:
     Object(Game *g = nullptr);
     void init(Game *g);
     int ident() const{return id;}
-    bool isValid() const{return id;}
+    virtual bool isValid() const{return id;}
     inline const QDateTime& lastModification() const{return lastEdit;}
     inline int getParam(const QString &p){return params[p];}
 
@@ -48,13 +48,16 @@ protected:
     QDateTime lastEdit;
 };
 
+
+
+
 class Image : public Object
 {
 public:
-    Image(int id, const QString &fileName);
-    void update();
-    inline const QImage& image() const{
-        return im;}
+    Image(Game*g, const QString &fileName);
+    inline bool isValid() const{Object::isValid() && !im.isNull();}
+    inline const QImage& image() const{return im;}
+    inline const QSize& size() const{return im.size();}
 private:
     QImage im;
 };

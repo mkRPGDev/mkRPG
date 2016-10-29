@@ -14,3 +14,11 @@ void Object::init(Game *g){
         id = g->newIdent();
     }
 }
+
+
+Image::Image(Game *g, const QString &fileName) :
+    Object(g)
+{
+    im.load(fileName);
+}
+

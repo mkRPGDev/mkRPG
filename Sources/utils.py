@@ -2,11 +2,11 @@ from collections import namedtuple
 from time import process_time
 from xml.parsers.expat import ParserCreate
 
-#TODO mettre une grammaire sur tout ce petit monde
 verbose = False
 
 Node = namedtuple("Node", "name args list")
 
+#TODO mettre une grammaire sur le Xml
 def readXml(path):
     """ Lit un fichier Xml et renvoie des Nodes imbriqués """
     dirStack = [] #TODO stackiser
@@ -32,7 +32,7 @@ def readXml(path):
 
     with open(path, 'rb') as file:
         pars.ParseFile(file)
-    return curDir.list[0] #retrait des sur-emballages ça pollue
+    return curDir.list[0] #retrait des sur-emballages
 
 class Perf:
     """ Calcule les performances d'un morceau de code """

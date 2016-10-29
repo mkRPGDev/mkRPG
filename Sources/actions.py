@@ -18,10 +18,13 @@ def loadAction(dat, named):
 def registerActions(path, named):
     dat = readXml(path + "actions.xml")
     assert dat.name == "Actions"
-    l = []
+    actions = {}
     for d in dat.list:
-        l.append(loadAction(d, named))
-    return l
+        act = loadAction(d, named)
+        if act.event not in actions:
+            actions[act.event] = []
+        actions[act.event].append(act)
+    return actions
 
 if __name__=="__main__":
-    print(registerActions("../Test/")[0])
+    print(registerActions("../Test/Snake/")[0])

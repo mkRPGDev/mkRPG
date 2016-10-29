@@ -3,7 +3,7 @@ from threading import Timer
 
 from const import *
 
-OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition Move Setobj Activate')
+OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition Move Setobj')
 
 class Order:
     # Attention aux collisions avec args et type
@@ -20,23 +20,6 @@ class Order:
     def __init__(self):
         self.type = None
         self.args = []
-    
-#    def __getattribute__(self, attr):
-#        try:
-#            return object.__getattribute__(self, attr)
-#        except AttributeError:
-#            if attr in self.params[self.type]:
-#                return self.args[self.params[self.type].index(attr)]
-#            raise
-
-#    def __setattr__(self, attr, val):
-#        if attr in self.params[self.type]:
-#            self.args[self.params[self.type].index(attr)] = val
-#        else:
-##        try:
-#           object.__setattr__(self, attr, val)
-# #       except AttributeError:
-#  #          raise
     
     def __getattr__(self, attr):
         return self.args[self.params[self.type].index(attr)]
@@ -90,9 +73,6 @@ class Order:
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
         return self
     
-    def dispatch(self, context):
-        pass
-
 class OrderDispatcher:
     """ pour diminuer la redondance de code client/serveur """
     def __init__(self, world, handle):
@@ -130,10 +110,9 @@ class OrderDispatcher:
             exec(order.init)
             if self.handle:
                 self.handle(obj, order.event)
-            #print("created", obj.ident)
             return order
         if order.type==OrderType.Destroy:
-            # TODO HELP ME !
+            # TODO nécessite de trouver tous les pointeurs ??
             self.world.objects.remove(emitter)
             return order
         if order.type==OrderType.Condition:

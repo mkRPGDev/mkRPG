@@ -40,17 +40,14 @@ class Server():
         while True:
             emitter, event = self.events.get()
             perf.tic()
-            if event == "end": break # TODO unsafe
-            for act in filter(lambda act: act.event == event, self.actions):
+            if event == "end": break # TODO gérer la fin
+            for act in self.actions[event]:
                 for order in act.orders:
                     returnOrder = self.orderDispatcher.treat(emitter, order)
                     if returnOrder:
-                   #     if returnOrder.type==1: print(returnOrder.value)
                         self.net.sendOrder(emitter.ident, returnOrder)
+                    # TODO n'envoyer que les infos non secrètes
             perf.toc()
-                # TODO n'envoyer que les infos non secrètes et en ayant
-                # évalué les formules
-
     
     def handle(self, ident, event):
         self.handleEvent(world.BaseObject.ids[ident], event)

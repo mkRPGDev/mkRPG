@@ -7,7 +7,7 @@ from orders import Order # XXX à sa place ?
 
 FAM = socket.AF_INET6 if IPV6 else socket.AF_INET
 
-#TODO héritage
+#TODO héritage ?
 class NetworkClient(Thread):
     def __init__(self, handle):
         Thread.__init__(self)
@@ -17,10 +17,6 @@ class NetworkClient(Thread):
         
     def run(self):
         self.send("hello".encode(CODING))
-#        try:
-#            self.soc.bind((HOST, PORT))
-#        except OSError:
-#            raise Exception((HOST, PORT))
         while self.alive:
             msg, addr = self.soc.recvfrom(BUFF)
             ident = msg[0]*256 + msg[1]
@@ -64,8 +60,6 @@ class NetworkServer(Thread):
     
     def sendOrder(self, ident, order):
         self.broadcast(bytes((ident//256, ident%256)) + order.toBytes())
-    
-#    def send(self, m, dest): self.soc.sendto(m, (HOST, PORT))
     
     def broadcast(self, m): self.soc.sendto(m, self.addr)
 

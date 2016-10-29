@@ -16,12 +16,12 @@
         <Order type="set">
             <target val="world"/>
             <param val="pomme.x"/>
-            <value val="randint(0,19)"/>
+            <value val="randint(0,world.currentMap.width-1)"/>
         </Order>
         <Order type="set">
             <target val="world"/>
             <param val="pomme.y"/>
-            <value val="randint(0,19)"/>
+            <value val="randint(0,world.currentMap.height-1)"/>
         </Order>
         <Order type="condition">
             <value val="world.currentMap.cellsGrid[world.pomme.x][world.pomme.y].mortelle"/>

@@ -1,10 +1,14 @@
 import curses
 from sys import argv
 from const import *
-from network import NetworkClient
 import interactions
 from orders import OrderDispatcher
-from time import sleep
+from time import sleep, time
+
+if USETCP:
+    from network import NetworkClient
+else:
+    from networkudp import NetworkClient
 
 #TODO trouver mieux cf world
 with open("isserver.py","w") as file:
@@ -21,12 +25,14 @@ class Client():
             curses.cbreak()
             curses.noecho()
             self.win.keypad(True)
+            curses.curs_set(0)
         self.world = world.loadGame(path)
         self.mv=MapViewer(self.world.currentMap, self.world)
         self.interactions = interactions.registerInteractions(path)
         
         self.perso = self.world.entities[0] # XXX bricolage
         self.orderDispatcher = OrderDispatcher(self.world, None)
+        self.lastupd = 0
         
     def __del__(self):
         self.net.kill()
@@ -36,7 +42,6 @@ class Client():
     def run(self):
         self.net.start()
         if interface: self.mv.display(self.win)
-        self.net.send("hello".encode(CODING))
         
         while 1:
             if not interface: continue
@@ -57,11 +62,15 @@ class Client():
         emitter = world.BaseObject.ids[ident]
         self.orderDispatcher.treat(emitter, order)
         # TODO limiter les actualisations
-        if interface:
+        if interface and time() - self.lastupd > MAXFPS:
             self.mv.display(self.win)
             # TODO insérer ici le xml d'interface
             self.win.addstr(26,0,"Score "+str(self.world.entities[0].score))
             self.win.refresh()
+            self.lastupd = MAXFPS
+
+#class UiManager:
+    
 
 class CellViewer:
     def __init__(self, cell):
@@ -81,6 +90,7 @@ class MapViewer:
         self.cellViews = [CellViewer(c) for c in self.map.cells]
         
     def display(self, win):
+        
         win.clear()
         #image de fond
         
@@ -91,7 +101,7 @@ class MapViewer:
             win.addch(y, 0, 35)
             win.addch(y, self.map.width+2, 35)
         #items
-        for c in self.cellViews: c.display(win)
+        #for c in self.cellViews: c.display(win)
         for ent in self.world.entities:
             win.addch(ent.y+1, ent.x+1, ent.picture)
         for ent in self.world.objects:

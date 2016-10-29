@@ -2,13 +2,21 @@ from sys import argv
 from queue import Queue
 
 from const import *
-from network import NetworkServer
 from actions import registerActions
 from orders import OrderDispatcher
+from utils import Perf
+
+if USETCP:
+    from network import NetworkServer
+else:
+    from networkudp import NetworkServer
+
 # TODO qui dit mieux ?
 with open("isserver.py","w") as file:
     file.write("SERVER = True")
 import world
+
+perf = Perf()
 
 class Server():
     def __init__(self, path):
@@ -26,11 +34,12 @@ class Server():
 
     def run(self):
         print("Server started")
-        self.net.waitForSomeone()
-        self.handleEvent(self.world, "start")
         self.net.start()
+        self.net.waitForClients(1)
+        self.handleEvent(self.world, "start")
         while True:
             emitter, event = self.events.get()
+            perf.tic()
             if event == "end": break # TODO unsafe
             for act in filter(lambda act: act.event == event, self.actions):
                 for order in act.orders:
@@ -38,6 +47,7 @@ class Server():
                     if returnOrder:
                    #     if returnOrder.type==1: print(returnOrder.value)
                         self.net.sendOrder(emitter.ident, returnOrder)
+            perf.toc()
                 # TODO n'envoyer que les infos non secrètes et en ayant
                 # évalué les formules
 
@@ -49,4 +59,8 @@ class Server():
         self.events.put((emitter, event))
 
 ser = Server(argv[1] if len(argv)>1 else PATH)
-ser.run()
+try:
+    ser.run()
+except KeyboardInterrupt:
+    perf.show()
+    print("Exited")

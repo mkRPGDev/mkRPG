@@ -13,10 +13,17 @@ public:
     void setGame(Game* g);
 
 private slots:
+    void mapSizeChanged(QSize s);
+    void viewCenterChanged(QPoint p);
+    void viewSizeChanged(QSize s);
     void on_angleX_valueChanged(int i);
     void on_angleY_valueChanged(int i);
+    void on_mapHScrollBar_valueChanged(int);
+    void on_mapVScrollBar_valueChanged(int);
 
 private:
+    void checkScrollBarUtility();
+    void updateViewCenterPosition();
     Game *game;
     Map *currentMap;
 };

@@ -6,7 +6,7 @@
 
 
 
-MapPainter::MapPainter() :
+MapPainter::MapPainter(QObject *parent) : QObject(parent),
     map(nullptr), pWidth(42), pHeight(42), nbCellsX(0),
     mapWidth(1), mapHeight(1), selCellX(-1), selCellY(-1),
     angleX(0), angleY(0), centerX(.5), centerY(-5),
@@ -17,8 +17,8 @@ MapPainter::MapPainter() :
 
 }
 
-MapPainter::MapPainter(Map *m) :
-    MapPainter()
+MapPainter::MapPainter(Map *m, QObject *parent) :
+    MapPainter(parent)
 {
     setMap(m);
 }
@@ -59,22 +59,32 @@ ClCoords MapPainter::pxlToCoo(PxCoords p) const{
 void MapPainter::updateViewParameters(){
     double nf(std::min((double)pWidth/mapWidth,
                        (double)pHeight/mapHeight));
-    if(nf != ratioFactor) cellBackgrounds.clear();
+    if(nf != ratioFactor) changeBackgroundSize();
     ratioFactor = nf;
-    centerVarX = std::max(0.,(1-pWidth/ratioFactor/mapWidth/viewScale)/2);
-    centerVarY = std::max(0.,(1-pHeight/ratioFactor/mapHeight/viewScale)/2);
+    double fWidth = ratioFactor*mapWidth*viewScale;
+    double fHeight = ratioFactor*mapHeight*viewScale;
+    centerVarX = std::max(0.,(1-pWidth/fWidth)/2);
+    centerVarY = std::max(0.,(1-pHeight/fHeight)/2);
     centerX = MINMAX(.5-centerVarX,centerX,.5+centerVarX);
     centerY = MINMAX(.5-centerVarY,centerY,.5+centerVarY);
-    cellSize = QSize((-ptToPxl(indToPt(0,1))+ptToPxl(indToPt(1,0))).x()+1,
-                     (-ptToPxl(indToPt(1,1))+ptToPxl(indToPt(0,0))).y()+1);
+    for(int i(0); i<=nbCellsX; ++i)
+        for(int j(0); j<=nbCellsY; ++j)
+            intersec[i+(nbCellsX+1)*j] = cooToPt(ClCoords(i,j));
+    cellSize = QSize((-ptToPxl(indToPt(0,1))+ptToPxl(indToPt(1,0))).x()+.5,
+                     (-ptToPxl(indToPt(1,1))+ptToPxl(indToPt(0,0))).y()+.5);
+    emit mapSizeChanged(QSize(fWidth + .5, fHeight + .5));
+    emit viewCenterChanged(QPoint(fWidth*centerX + .5 - pWidth/2., fHeight*centerY + .5 - pHeight/2.));
 }
 
 
 void MapPainter::updateMap(){
-    if(map == nullptr) return;
+    if(map == nullptr || lastMapUpdate>map->lastModification()) return;
     lastMapUpdate = QDateTime::currentDateTime();
     double angX = M_PI*map->angleX()/1800.;
     double angY = M_PI*(std::min(900+map->angleY(), 1800))/1800.;
+    isometricTransform.setMatrix(-cos(angX), +sin(angX),
+                                 -cos(angY), +sin(angY),
+                                 0,0);
     if(angX != angleX || angY != angleY) changeBackgroundDistortion();
     angleX = angX;
     angleY = angY;
@@ -87,20 +97,13 @@ void MapPainter::updateMap(){
     mapWidth = cooToPt(ClCoords(nbCellsX+2, -2)).x()+.5;
     mapHeight = cooToPt(ClCoords(nbCellsX+2, nbCellsY+2)).y()+.5;
     updateViewParameters();
-    for(int i(0); i<=nbCellsX; ++i)
-        for(int j(0); j<=nbCellsY; ++j)
-            intersec[i+(nbCellsX+1)*j] = cooToPt(ClCoords(i,j));
-    isometricTransform.setMatrix(-cos(angleX), +sin(angleX),
-                                 -cos(angleY), +sin(angleY),
-                                 0,0);
-
-
-    herbeR = herbe.transformed(isometricTransform,Qt::SmoothTransformation);
+    QTimer::singleShot(10, this, SLOT(updateMap()));
 }
 
 void MapPainter::setMap(Map* m){
     map = m;
-    updateMap();
+    changeBackgroundDistortion();
+    lastMapUpdate = m->lastModification();
 }
 
 
@@ -129,8 +132,7 @@ QImage& MapPainter::getBackground(CellType *ct){
 
 void MapPainter::paint(QPainter &p){
     if(map == nullptr) return;
-    // look for changes in map
-    //qDebug() << ratioFactor << viewScale;
+    updateMap();
     int iMin = std::max(0.,ptToCoo(pxlToPt(PxCoords(0,pHeight))).x());
     int iMax = std::min(nbCellsX+0.,ptToCoo(pxlToPt(PxCoords(pWidth,0))).x()+1);
     int jMin = std::max(0.,ptToCoo(pxlToPt(PxCoords(pWidth,pHeight))).y());
@@ -143,10 +145,8 @@ void MapPainter::paint(QPainter &p){
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
             p.setBrush(map->cell(i,j).isSelected() ? b2 : b1);
-            // Tester map cellBackgrounds.
             ct = map->cell(i,j).cellType();
-            if(ct)
-                p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(ct));
+            if(ct) p.drawImage(ptToPxl(indToPt(i,j+1)).x()+.5, ptToPxl(indToPt(i+1,j+1)).y()+.5, getBackground(ct));
             p.drawConvexPolygon(QVector<QPointF>({ptToPxl(indToPt(i,j)),
                                                   ptToPxl(indToPt(i,j+1)),
                                                   ptToPxl(indToPt(i+1,j+1)),
@@ -192,10 +192,18 @@ void MapPainter::setViewCenter(double relativeCenterX, double relativeCenterY){
     centerX = MINMAX(.5-centerVarX, relativeCenterX, .5+centerVarX);
     centerY = MINMAX(.5-centerVarY, relativeCenterY, .5+centerVarY);
     changeParameter();
+    emit viewCenterChanged(QPoint(ratioFactor*mapWidth*viewScale*centerX + .5 - pWidth/2.,
+                                  ratioFactor*mapHeight*viewScale*centerY + .5 - pHeight/2.));
 }
 
 QPointF MapPainter::viewCenter() const{
     return QPointF(centerX, centerY);
+}
+
+void MapPainter::setRelativeCenterPosition(double x, double y){
+    centerX = .5 + (2*MINMAX(0.,x,1.) - 1)*centerVarX;
+    centerY = .5 + (2*MINMAX(0.,y,1.) - 1)*centerVarY;
+    changeParameter();
 }
 
 bool MapPainter::setHighlightedCell(const ClCoords& p){
@@ -224,7 +232,7 @@ bool MapPainter::hasHighlightedCell() const{
 
 void MapPainter::zoom(double factor, QPointF fixedPoint){
     QPointF d = fixedPoint-QPointF(pWidth/2.,pHeight/2.);
-    factor = MINMAX(1./viewScale, factor,10./viewScale);
+    factor = MINMAX(1/viewScale, factor,40./viewScale);
     d.setX(d.x()/mapWidth);
     d.setY(d.y()/mapHeight);
     changeBackgroundSize();
@@ -243,8 +251,8 @@ QPair<bool,bool> MapPainter::move(QPoint delta, QPointF center){
 
 
 void MapPainter::changeBackgroundDistortion(){
-    cellBackgrounds.clear();
     changeBackgroundSize();
+    cellBackgrounds.clear();
 }
 void MapPainter::changeBackgroundSize(){
     scaledCellBackgrounds.clear();
@@ -269,7 +277,6 @@ void MapPainter::changeParameter(){
 
 
 void MapViewer::updateMap(){
-    mp.updateMap();
     updateRequest();
 }
 
@@ -303,10 +310,11 @@ void MapViewer::checkMousePos(){
 
 
 void MapViewer::resizeEvent(QResizeEvent *re){
-    QWidget::resizeEvent(re);
     mp.resize(re->size());
     wi = re->size().width();
     he = re->size().height();
+    QWidget::resizeEvent(re);
+    emit viewSizeChanged(re->size());
 }
 
 void MapViewer::paintEvent(QPaintEvent *pe){
@@ -330,6 +338,7 @@ MapViewer::MapViewer(QWidget *parent) :
     QWidget(parent), ms(Rest)
 {
     setAutoFillBackground(true);
+
     QPalette p(palette());
     p.setColor(QPalette::Window, QColor(0,0,20));
     setPalette(p);
@@ -337,7 +346,6 @@ MapViewer::MapViewer(QWidget *parent) :
     ti = new QTimer(this);
     connect(ti, SIGNAL(timeout()), this, SLOT(mousePosChecking()));
     ti->setSingleShot(true);
-    zooming = false;
 
     tiUp = new QTimer(this);
     tiUp->setInterval(10);
@@ -360,15 +368,9 @@ void MapViewer::mouseOutEvent(){
 
 bool MapViewer::updateMousePos(PtCoords p){
     if(map == nullptr) false;
-/*    QPoint p = mp.highlightedCell();;
-    QPointF bInd = mp.ptToCoo(p);
-    QPoint np(bInd.x() < 0 ? -1 : bInd.x(),
-              bInd.y() < 0 ? -1 : bInd.y());
-    if(!(0<=np.x() && iSelCell<nbCellX && 0<=jSelCell && jSelCell<nbCellY)){
-        iSelCell = -1;
-        jSelCell = -1;
-    }*/
-    if(mp.setHighlightedCell(mp.ptToCoo(p))) updateRequest();
+    bool in = mp.setHighlightedCell(mp.ptToCoo(p));
+    if(in || mouseIn) updateRequest();
+    mouseIn = in;
     return mp.hasHighlightedCell();
 }
 

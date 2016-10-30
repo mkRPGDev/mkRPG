@@ -129,7 +129,7 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     int h = m->height();
     for(int i(0); i<l; ++i)
         for(int j(0); j<h; ++j){
-            double o = 3.*j/h+((qrand()%65536)/65536.-.5);
+            double o = 3.*j/h+(1.8-8.*(i-l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
             m->cell(i,j).setCellType(o<1 ? ct1 : o<2 ? ct2 : ct3);
         }
     tabBar->setTabsEnabled(true);

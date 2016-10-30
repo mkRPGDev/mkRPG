@@ -8,9 +8,9 @@
 class Game;
 #define Editing lastEdit = QDateTime::currentDateTime()
 #define Getter(name) inline int name() const{return params[#name];}
-#define Param(name,Name) Getter(name) \
-    inline void set##Name(int name##Value){params[#name] = name##Value;}
 #define ParamDef(name,value) params[#name] = value; Editing
+#define Param(name,Name) Getter(name) \
+    inline void set##Name(int name##Value){ParamDef(name, name##Value);}
 #define ParamObj(name,Name,pref) \
     Name* name() const{return pref##Name;} \
     void set##Name(Name* name##Obj){pref##Name = name##Obj; \

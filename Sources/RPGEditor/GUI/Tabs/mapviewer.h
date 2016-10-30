@@ -63,13 +63,14 @@ public:
  * Each view is adapt to the size of the MapPainter and can be scale or moved.
  *
  */
-class MapPainter{
+class MapPainter : public QObject
+{
+    Q_OBJECT
 public:
-    MapPainter();
-    MapPainter(Map *m);
+    MapPainter(QObject *parent = 0);
+    MapPainter(Map *m, QObject *parent = 0);
 
     void setMap(Map* m);
-    void updateMap();           /**< Check if the map has changed*/
     void paint(QPainter& p);    /**< Draw the map in the QPaintDevice*/
     QImage& render();           /**< Provide a QImage with a view of the map*/
 
@@ -77,6 +78,7 @@ public:
     QPointF viewCenter() const;
     void setViewCenter(QPointF relativeCenter);
     void setViewCenter(double relativeCenterX, double relativeCenterY);
+    void setRelativeCenterPosition(double x, double y);
 
     double scale() const;
     void setScale(double scale);
@@ -103,6 +105,14 @@ public:
     PxCoords cooToPxl(ClCoords p) const;
     ClCoords pxlToCoo(PxCoords p) const;
     PtCoords indToPt(int i, int j) const; /*< Convert to coordinates*/
+
+signals:
+    void mapSizeChanged(QSize);
+    void viewCenterChanged(QPoint);
+
+
+private slots:
+    void updateMap();           /**< Check if the map has changed*/
 
 private:
     inline bool isUpdated() const;
@@ -153,51 +163,51 @@ enum MouseState{Rest, RClick, LClick, MClick, Moving};
 class MapViewer : public QWidget
 {
     enum MouseTrackingPolicy{Adsdj};
-        Q_OBJECT
-    public:
-        explicit MapViewer(QWidget *parent = 0);
-        void setMap(Map* m);
-        //void adjustView();
-        void updateMap();
+    Q_OBJECT
+public:
+    explicit MapViewer(QWidget *parent = 0);
+    void setMap(Map* m);
+    //void adjustView();
+    void updateMap();
 
-    signals:
-        void currentViewCenterChanged();
+    inline MapPainter& mapPainter() {return mp;}
 
-    public slots:
-        void updateRequest();
+signals:
+    void viewSizeChanged(QSize);
 
-    private slots:
-        void mousePosChecking();
+public slots:
+    void updateRequest();
 
-    private:
+private slots:
+    void mousePosChecking();
 
+private:
+// NOTE now, Update IS NOT private !
 
-        void wheelEvent(QWheelEvent* we);
-        void mousePressEvent(QMouseEvent* me);
-        void mouseMoveEvent(QMouseEvent* me);
-        void mouseReleaseEvent(QMouseEvent* me);
-        bool updateMousePos(PtCoords p);
-        void mouseOutEvent();
-        void paintEvent(QPaintEvent* pe);
-        void resizeEvent(QResizeEvent* re);
-        void checkMousePos();
-
-
-        MapPainter mp;
-
-        bool zomming;
-        Map* map;
+    void wheelEvent(QWheelEvent* we);
+    void mousePressEvent(QMouseEvent* me);
+    void mouseMoveEvent(QMouseEvent* me);
+    void mouseReleaseEvent(QMouseEvent* me);
+    bool updateMousePos(PtCoords p);
+    void mouseOutEvent();
+    void paintEvent(QPaintEvent* pe);
+    void resizeEvent(QResizeEvent* re);
+    void checkMousePos();
 
 
-        MouseState ms;
-        int wi,he;
+    MapPainter mp;
 
-        QTimer *ti, *tiUp;
-        QPoint clickPos;
-        QPointF center;
-        bool mouseIn;
+    Map* map;
 
-        bool zooming;
+
+    MouseState ms;
+    int wi,he;
+
+    QTimer *ti, *tiUp;
+    QPoint clickPos;
+    QPointF center;
+    bool mouseIn;
+
 
 };
 

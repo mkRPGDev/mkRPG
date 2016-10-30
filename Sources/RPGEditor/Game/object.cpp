@@ -3,7 +3,7 @@
 
 
 Object::Object(Game* g) :
-    game(g), id(g ? g->newIdent() : 0)
+    game(g), id(g ? g->newIdent() : 0), lastEdit(QDateTime::currentDateTime())
 {
 
 }

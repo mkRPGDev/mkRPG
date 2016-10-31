@@ -52,12 +52,12 @@ void MapsEditor::checkScrollBarUtility(){
 }
 
 void MapsEditor::on_mapHScrollBar_valueChanged(int){
-    if(mapHScrollBar->isSliderDown()) updateViewCenterPosition();
+    if(mapHScrollBar->underMouse()) updateViewCenterPosition();
 }
 
 
 void MapsEditor::on_mapVScrollBar_valueChanged(int){
-    if(mapVScrollBar->isSliderDown()) updateViewCenterPosition();
+    if(mapVScrollBar->underMouse()) updateViewCenterPosition();
 }
 
 void MapsEditor::updateViewCenterPosition(){

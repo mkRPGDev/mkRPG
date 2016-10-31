@@ -67,3 +67,7 @@ Cell& Map::cell(int i, int j) const{
 Cell& Map::cell(const QPoint &p) const{
     return cell(p.x(), p.y());
 }
+
+
+
+

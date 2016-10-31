@@ -55,9 +55,9 @@ class Image : public Object
 {
 public:
     Image(Game*g, const QString &fileName);
-    inline bool isValid() const{Object::isValid() && !im.isNull();}
+    inline bool isValid() const{return Object::isValid() && !im.isNull();}
     inline const QImage& image() const{return im;}
-    inline const QSize& size() const{return im.size();}
+    inline const QSize size() const{return im.size();}
 private:
     QImage im;
 };

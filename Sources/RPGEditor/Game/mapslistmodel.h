@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include "game.h"
+#include "mappainter.h"
 
 
 class MapsListModel : public QAbstractListModel
@@ -15,8 +16,13 @@ public:
     bool insertRows(int row, int count, const QModelIndex &parent) Q_DECL_OVERRIDE;
     bool removeRows(int row, int count, const QModelIndex &parent) Q_DECL_OVERRIDE;
 
+public slots:
+    void update();
+
 private:
+    QImage viewOf(Map *m) const;
     QList<Map*> maps; // WARNING : à mettre à jour !
+    QMap<int, MapPainter*> mps; // WARNING : supprimer les cartes enlevées !
 };
 
 

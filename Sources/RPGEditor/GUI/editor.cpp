@@ -105,9 +105,9 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     Game* g = new Game();
     Map *m = new Map(g);
     g->world()->addMap(m);
-    g->world()->addMap(new Map(g));
     Image *im;
     CellType *ct1, *ct2, *ct3;
+
     im = new Image(g, ":/Icons/herbe.png");
     g->addImage(im);
     ct1 = new CellType(g);
@@ -130,6 +130,17 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     for(int i(0); i<l; ++i)
         for(int j(0); j<h; ++j){
             double o = 3.*j/h+(1.8-8.*(i-l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
+            m->cell(i,j).setCellType(o<1 ? ct1 : o<2 ? ct2 : ct3);
+        }
+    tabBar->setTabsEnabled(true);
+
+    m = new Map(g);
+    g->world()->addMap(m);
+    l = m->width();
+    h = m->height();
+    for(int i(0); i<l; ++i)
+        for(int j(0); j<h; ++j){
+            double o = 3.*j/h+(1.8-8.*(l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
             m->cell(i,j).setCellType(o<1 ? ct1 : o<2 ? ct2 : ct3);
         }
     tabBar->setTabsEnabled(true);

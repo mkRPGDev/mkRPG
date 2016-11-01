@@ -27,7 +27,14 @@ SOURCES += main.cpp\
     GUI/tabbar.cpp \
     GUI/Tabs/welcome.cpp \
     Game/mapslistmodel.cpp \
-    Game/mappainter.cpp
+    Game/mappainter.cpp \
+    GUI/Tabs/Docks/bdock.cpp \
+    GUI/Tabs/Docks/intertie.cpp \
+    GUI/Tabs/Docks/bvdockszone.cpp \
+    GUI/Tabs/Docks/bdockszone.cpp \
+    GUI/Tabs/bdockwidget.cpp \
+    GUI/Tabs/celltypesdock.cpp \
+    GUI/Tabs/mapdock.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -44,7 +51,14 @@ HEADERS  += \
     GUI/tabbar.h \
     GUI/Tabs/welcome.h \
     Game/mapslistmodel.h \
-    Game/mappainter.h
+    Game/mappainter.h \
+    GUI/Tabs/Docks/bdock.h \
+    GUI/Tabs/Docks/intertie.h \
+    GUI/Tabs/Docks/bvdockszone.h \
+    GUI/Tabs/Docks/bdockszone.h \
+    GUI/Tabs/bdockwidget.h \
+    GUI/Tabs/celltypesdock.h \
+    GUI/Tabs/mapdock.h
 
 FORMS    += \
     GUI/editor.ui \
@@ -52,7 +66,11 @@ FORMS    += \
     GUI/Tabs/mapseditor.ui \
     GUI/Tabs/worldeditor.ui \
     GUI/tabacces.ui \
-    GUI/Tabs/welcome.ui
+    GUI/Tabs/welcome.ui \
+    GUI/Tabs/celltypesdock.ui \
+    GUI/Tabs/mapdock.ui
 
 RESOURCES += \
     Icons/ressources.qrc
+
+DISTFILES +=

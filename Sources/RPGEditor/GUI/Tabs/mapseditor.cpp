@@ -7,24 +7,30 @@ MapsEditor::MapsEditor(QWidget *parent) :
     connect(mapViewer, SIGNAL(viewSizeChanged(QSize)), this, SLOT(viewSizeChanged(QSize)));
     connect(&mapViewer->mapPainter(), SIGNAL(mapSizeChanged(QSize)), this, SLOT(mapSizeChanged(QSize)));
     connect(&mapViewer->mapPainter(), SIGNAL(viewCenterChanged(QPoint)), this, SLOT(viewCenterChanged(QPoint)));
+
+    MapDock *md = new MapDock;
+    docksW.append(md);
+    docks->addDock(tr("Map"), md);
+    connect(md, SIGNAL(gameModified()), this, SLOT(updateGame()));
+    CellTypesDock *ctd = new CellTypesDock;
+    docksW.append(ctd);
+    docks->addDock(tr("Cell types"), ctd);
+    connect(ctd, SIGNAL(gameModified()), this, SLOT(updateGame()));
+
 }
 
 void MapsEditor::setGame(Game *g){
     game = g;
     currentMap = g->world()->maps().first();
     mapViewer->setMap(currentMap);
-    cellTypes->setModel(new CellTypeListModel(g->world(), this));
-
+    for(BDockWidget *d : docksW)
+        d->setGame(g);
 }
 
-void MapsEditor::on_angleX_valueChanged(int i){
-    currentMap->setAngleX(i);
-    mapViewer->updateMap();
-}
-
-void MapsEditor::on_angleY_valueChanged(int i){
-    currentMap->setAngleY(i);
-    mapViewer->updateMap();
+void MapsEditor::updateGame(){
+    mapViewer->updateRequest();
+    for(BDockWidget *d : docksW)
+        d->updateGame();
 }
 
 void MapsEditor::mapSizeChanged(QSize s){

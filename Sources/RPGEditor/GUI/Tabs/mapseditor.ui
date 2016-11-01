@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="1,2,0,0" columnstretch="1,0,0">
+  <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,0">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -29,28 +29,7 @@
    <property name="spacing">
     <number>0</number>
    </property>
-   <item row="0" column="0" rowspan="2">
-    <widget class="MapViewer" name="mapViewer" native="true">
-     <zorder>mapHScrollBar</zorder>
-     <zorder>mapVScrollBar</zorder>
-     <zorder>groupBox</zorder>
-    </widget>
-   </item>
-   <item row="0" column="1" rowspan="2">
-    <widget class="QScrollBar" name="mapVScrollBar">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0">
-    <widget class="QScrollBar" name="mapHScrollBar">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -60,85 +39,38 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>771</width>
+        <width>963</width>
         <height>68</height>
        </rect>
       </property>
      </widget>
     </widget>
    </item>
-   <item row="1" column="2" rowspan="3">
-    <widget class="QListView" name="cellTypes">
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
+   <item row="0" column="1">
+    <widget class="QScrollBar" name="mapVScrollBar">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
     </widget>
    </item>
-   <item row="0" column="2">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>Map parameters</string>
+   <item row="1" column="0">
+    <widget class="QScrollBar" name="mapHScrollBar">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <property name="leftMargin">
-       <number>3</number>
-      </property>
-      <property name="topMargin">
-       <number>3</number>
-      </property>
-      <property name="rightMargin">
-       <number>3</number>
-      </property>
-      <property name="bottomMargin">
-       <number>3</number>
-      </property>
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <item row="1" column="0" colspan="2">
-       <widget class="QSlider" name="angleX">
-        <property name="maximum">
-         <number>900</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>X angle :</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Y angle :</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QSlider" name="angleY">
-        <property name="maximum">
-         <number>900</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEdit_2"/>
-      </item>
-     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="MapViewer" name="mapViewer" native="true"/>
+   </item>
+   <item row="0" column="2" rowspan="3">
+    <widget class="BVDocksZone" name="docks" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>50</width>
+       <height>0</height>
+      </size>
+     </property>
     </widget>
    </item>
   </layout>
@@ -147,7 +79,13 @@
   <customwidget>
    <class>MapViewer</class>
    <extends>QWidget</extends>
-   <header location="global">GUI/Tabs/mapviewer.h</header>
+   <header>GUI/Tabs/mapviewer.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BVDocksZone</class>
+   <extends>QWidget</extends>
+   <header>GUI/Tabs/Docks/bvdockszone.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -4,5 +4,14 @@
         <file>herbe.png</file>
         <file>glace.png</file>
         <file>mer.png</file>
+        <file>agrandir.png</file>
+        <file>fermer.png</file>
+        <file>fermer2.png</file>
+        <file>fermer3.png</file>
+        <file>fermer4.png</file>
+        <file>fermer5.png</file>
+        <file>rassembler.png</file>
+        <file>separer.png</file>
+        <file>reduire.png</file>
     </qresource>
 </RCC>

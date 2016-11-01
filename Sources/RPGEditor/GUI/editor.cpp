@@ -5,7 +5,7 @@ Editor::Editor(QStringList args, QWidget *parent) :
 {
     setupUi(this);
     QPalette p(tabBar->palette());
-    p.setColor(QPalette::Window, p.color(QPalette::Shadow));
+    p.setColor(QPalette::Window, p.color(QPalette::Mid));
     tabBar->setPalette(p);
     hidden->setHidden(true);
     connect(tabBar, SIGNAL(currentTabChanged(int)), stackedWidget, SLOT(setCurrentIndex(int)));
@@ -105,6 +105,7 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     Game* g = new Game();
     Map *m = new Map(g);
     g->world()->addMap(m);
+    g->setCurrentMap(m);
     Image *im;
     CellType *ct1, *ct2, *ct3;
 

@@ -31,8 +31,10 @@ class Game
 {
 public:
     Game();
-    inline World* world(){return &w;}
     inline int newIdent(){return ++idDisp;}
+    inline World* world(){return &w;}
+    inline Map* currentMap(){return map;}
+    void setCurrentMap(Map *m);
 
     void addImage(Image *im);
 
@@ -42,6 +44,7 @@ private:
     int idDisp;
 
     World w;
+    Map *map;
     QMap<int, Image*> picts;
     QMap<int, QString> strings;
 };

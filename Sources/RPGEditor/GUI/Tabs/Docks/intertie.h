@@ -71,7 +71,8 @@ signals:
 
 public slots:
     void swap(); // Pas de SIGNAL(echange(bool))
-    void define(bool v); // SIGNAL(echange(bool))
+    void setPositive(bool p); // SIGNAL(echange(bool))
+    void setNegative(bool n);
 
 private:
     QState *yes, *no;

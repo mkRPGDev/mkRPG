@@ -5,6 +5,8 @@
 #include "intertie.h"
 #include "bdock.h"
 
+#include "GUI/options.h"
+
 
 class BLayout : public QWidget
 {
@@ -47,7 +49,6 @@ class BDocksZone : public QWidget
 public:
     explicit BDocksZone(QWidget *parent = 0);
     void setUnfold(bool u, bool anim = true);
-    void swap(bool anim = true);
     const BinaryStateMachine* states() const;
     int length() const;
     void setLength(int t);
@@ -58,8 +59,14 @@ public:
 
 signals:
 
+public slots:
+    void swap(bool anim = true);
+
 protected slots:
     virtual void setCurrentLenght(int t) = 0;
+
+private slots:
+    void foldingChanged(bool f);
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *);

@@ -80,7 +80,6 @@ BDocksZone::BDocksZone(QWidget *parent) : QWidget(parent)
     lMax = 400;
     inLength = new Intertie(this);
     lay = new QGridLayout;
-    lId = 200;
     setLayout(lay);
     lay->setContentsMargins(1,0,0,0);
     lay->setSpacing(0);
@@ -95,13 +94,20 @@ BDocksZone::BDocksZone(QWidget *parent) : QWidget(parent)
     dockArea->setCursor(Qt::ArrowCursor);
     dockArea->setFrameShape(QFrame::NoFrame);
     dockArea->setAutoFillBackground(true);
+
+    Options &options(Options::options());
+    lId = options.load<int>(MAP, "DocksLength");
+    inLength->setValue(lId);
+    if(!options.load<bool>(MAP, "DocksVisible"))
+        QTimer::singleShot(10,this, SLOT(swap()));
+    connect(&unfoldStates, SIGNAL(swapped(bool)), this, SLOT(foldingChanged(bool)));
     /*QPalette p(espace->palette());
     p.setColor(QPalette::Window, QColor(150,150,150));
     espace->setPalette(p);*/
 }
 
 void BDocksZone::setUnfold(bool u, bool anim){
-    unfoldStates.define(u);
+    unfoldStates.setPositive(u);
 }
 
 void BDocksZone::swap(bool anim){
@@ -125,12 +131,16 @@ void BDocksZone::baseLength(int pos){
 void BDocksZone::newLength(int pos){
     lId = MinMax(lMin, lBase - (pos-base) - BUTTON, lMax) + BUTTON;
     inLength->setValue(lId, false);
+    Options::options().save(MAP, "DocksLength", lId);
+}
+
+void BDocksZone::foldingChanged(bool f){
+    Options::options().save(MAP, "DocksVisible", f);
 }
 
 void BDocksZone::addDock(QString title, QWidget *dock){
     docks->insert(new BDock(title, dock, docks));
 }
-
 
 
 

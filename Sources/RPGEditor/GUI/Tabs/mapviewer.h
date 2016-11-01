@@ -9,16 +9,13 @@
 
 
 
-enum MouseState{Rest, RClick, LClick, MClick, Moving};
-
-
 /*!
  * \brief The MapViewer class provides a widget to display and edit a Map
  * using a MapPainter
  */
 class MapViewer : public QWidget
 {
-    enum MouseTrackingPolicy{Adsdj};
+    enum MouseState{Rest, RClick, LClick, MClick, Moving, ContinuousSelection};
     Q_OBJECT
 public:
     explicit MapViewer(QWidget *parent = 0);
@@ -36,6 +33,7 @@ public slots:
 
 private slots:
     void mousePosChecking();
+    void selectionOut();
 
 private:
 // NOTE currently, Update IS NOT private !
@@ -59,8 +57,8 @@ private:
     MouseState ms;
     int wi,he;
 
-    QTimer *ti, *tiUp;
-    QPoint clickPos;
+    QTimer *ti, *tiUp, *tiSel;
+    QPoint clickPos, selectPos;
     QPointF center;
     bool mouseIn;
 

@@ -89,9 +89,13 @@ void BinaryStateMachine::swap(){
     emit __swap();
 }
 
-void BinaryStateMachine::define(bool v){
-    if(configuration().contains(yes) ^ v)
+void BinaryStateMachine::setPositive(bool p){
+    if(configuration().contains(yes) ^ p)
         emit __swap();
+}
+
+void BinaryStateMachine::setNegative(bool n){
+    setPositive(!n);
 }
 
 void BinaryStateMachine::defineProperty(QObject* obj, const char* prop){

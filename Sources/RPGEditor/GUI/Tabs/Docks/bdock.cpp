@@ -96,7 +96,7 @@ bool BDock::unfold() const{
 }
 
 void BDock::setUnfold(bool v){
-    dUnfold.define(v);
+    dUnfold.setPositive(v);
     zoneSize.setValue(v*wHeight);
 }
 

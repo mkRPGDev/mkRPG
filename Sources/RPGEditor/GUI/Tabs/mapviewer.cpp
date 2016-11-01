@@ -22,6 +22,10 @@ MapViewer::MapViewer(QWidget *parent) :
     connect(tiUp, SIGNAL(timeout()), this, SLOT(update()));
 
 
+
+    tiSel = new QTimer(this);
+    tiSel->setInterval(10);
+    connect(tiSel, SIGNAL(timeout()), this, SLOT(selectionOut()));
 }
 
 
@@ -46,7 +50,7 @@ void MapViewer::mousePosChecking(){
     QPoint pt(mapFromGlobal(cursor().pos()));
     bool b = mouseIn;
     mouseIn = pt.x()>=0 && pt.x() < wi && pt.y() >=0 && pt.y() < he;
-    if(mouseIn){ if(updateMousePos(mp.pxlToPt(pt))) ti->start(100);}
+    if(mouseIn || ms == ContinuousSelection){ if(updateMousePos(mp.pxlToPt(pt))) ti->start(100);}
     else if(b) mouseOutEvent();
 
 }
@@ -109,6 +113,8 @@ void MapViewer::mousePressEvent(QMouseEvent *me){
         if(mp.hasHighlightedCell()){
             map->cell(mp.highlightedCell()).invertSelected();
         }
+        // TODO avec Ctrl : sélection de zone
+        ms = ContinuousSelection;
     }
     else if(ms == RClick){
         mp.setHighlightedCell(-1,-1);
@@ -118,6 +124,7 @@ void MapViewer::mousePressEvent(QMouseEvent *me){
 
 void MapViewer::mouseMoveEvent(QMouseEvent *me){
     if(map == nullptr) return;
+    tiSel->stop();
     if(ms == RClick){
         ti->stop();
         center = mp.viewCenter();
@@ -149,20 +156,38 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
             change = true;
         }
         updateRequest();
+        mp.setHighlightedCell(-1,-1);
     }
     else if(ms==Rest){
         checkMousePos();
     }
+    else if(ms==ContinuousSelection){
+        int dx = std::max(0,x-wi)+std::min(x,0);
+        int dy = std::max(0,y-he)+std::min(y,0);
+        if(dx || dy){
+            auto f = [](double x)->double{return atan(x)*8;};
+            selectPos = QPoint(f(dx),f(dy));
+            tiSel->start();
+            mp.move(-selectPos, mp.viewCenter());
+            checkMousePos();
+        }
+        checkMousePos();
+        if(mp.hasHighlightedCell()) map->cell(mp.highlightedCell()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
+    }
     if(change)
         cursor().setPos(mapToGlobal(QPoint(x,y)));
-    //qDebug() <<  "Bouge" << (int) ms;
-    if(ms == Moving) mp.setHighlightedCell(-1,-1);
-    else if(mp.hasHighlightedCell()){
-            if(me->modifiers() & Qt::AltModifier) map->cell(mp.highlightedCell()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
-        }
+    updateRequest();
+
+}
+
+void MapViewer::selectionOut(){
+    mp.move(-selectPos, mp.viewCenter());
+    checkMousePos();
+    if(mp.hasHighlightedCell()) map->cell(mp.highlightedCell()).setSelected(true); // TODO Voir avec shift...
 }
 
 void MapViewer::mouseReleaseEvent(QMouseEvent *me){
+    tiSel->stop();
     if(map == nullptr) return;
     checkMousePos();
     ms = Rest;

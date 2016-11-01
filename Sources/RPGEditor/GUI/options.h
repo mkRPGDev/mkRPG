@@ -15,6 +15,7 @@ const QString VAL("Valeur");
 
 #define WIN "Window"
 #define DIR "Directories"
+#define MAP "MapsTab"
 
 /*!
  * \brief Classe singleton encapsulant la gestion des options permanentes.
@@ -40,13 +41,13 @@ struct Options{
         if(a.value(opt+ADAPT, defaultValues[group][opt].second).toBool())
             a.setValue(opt+VAL, val);
         a.endGroup();
-    }
+    }/* // NOTE inutile ?
     template<class T>
     void defDefaut(QString group, QString opt, T val){
         a.beginGroup(group);
         a.setValue(opt+VAL,val);
         a.endGroup();
-    }
+    }*/
     bool isAdaptaive(QString group, QString opt, bool adapt = true);
     void setAdaptaive(QString group, QString opt, bool adapt);
 

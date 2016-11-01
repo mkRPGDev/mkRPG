@@ -14,6 +14,8 @@ Options::Options(){
     Default(WIN, "Position", QPoint(0,0)); // TODO pos...
     Default(WIN, "Size", QSize(1000,742));
     Default(WIN, "Maximized", false);
+    Default(MAP, "DocksVisible", true);
+    Default(MAP, "DocksLength", 200);
 
     Default(DIR, "New", QDir::homePath());
     Default(DIR, "Open", QDir::homePath());

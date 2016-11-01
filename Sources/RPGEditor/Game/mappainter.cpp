@@ -157,12 +157,12 @@ void MapPainter::updateBackground(){
     if(displayed & Grid){
         p.setPen(QColor(80,80,80));
         p.setBrush(Qt::NoBrush);
-        for(int i(0); i<=nbCellsX; ++i)
+        for(int i(iMin); i<=iMax; ++i)
             p.drawLine(ptToPxl(indToPt(i,jMin)),
                        ptToPxl(indToPt(i,jMax)));
-        for(int i(0); i<=nbCellsY; ++i)
-            p.drawLine(ptToPxl(indToPt(iMin,i)),
-                       ptToPxl(indToPt(iMax,i)));
+        for(int j(jMin); j<=jMax; ++j)
+            p.drawLine(ptToPxl(indToPt(iMin,j)),
+                       ptToPxl(indToPt(iMax,j)));
     }
 }
 

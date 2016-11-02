@@ -17,13 +17,13 @@ public:
     explicit BDockWidget(QWidget *parent = 0);
 
     void setGame(Game *g);
-    virtual void updateGame(){}
 
 signals:
     void gameModified();
     void changeDockName(QString);
 
 public slots:
+    virtual void updateGame(){}
 
 protected:
     Game *game;

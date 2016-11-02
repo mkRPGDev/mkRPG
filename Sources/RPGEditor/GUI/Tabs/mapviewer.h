@@ -27,6 +27,7 @@ public:
 
 signals:
     void viewSizeChanged(QSize);
+    void selectionChanged();
 
 public slots:
     void updateRequest();

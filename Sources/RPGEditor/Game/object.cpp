@@ -15,6 +15,11 @@ void Object::init(Game *g){
     }
 }
 
+void Object::touch(){
+    Editing;
+}
+
+
 
 Image::Image(Game *g, const QString &fileName) :
     Object(g)

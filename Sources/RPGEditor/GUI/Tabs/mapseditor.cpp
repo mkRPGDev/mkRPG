@@ -13,6 +13,7 @@ MapsEditor::MapsEditor(QWidget *parent) :
     docks->addDock(tr("Map"), md);
     connect(md, SIGNAL(gameModified()), this, SLOT(updateGame()));
     CellDock *cd = new CellDock;
+    connect(mapViewer, SIGNAL(selectionChanged()), cd, SLOT(selectionChanged()));
     docksW.append(cd);
     docks->addDock(tr("Cell (0 selected)"), cd);
     connect(cd, SIGNAL(gameModified()), this, SLOT(updateGame()));

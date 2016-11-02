@@ -20,6 +20,8 @@ QVariant MapsListModel::data(const QModelIndex &index, int role) const{
             return QVariant(QString("Map ") +QString::number(maps.at(index.row())->ident()));
         case Qt::DecorationRole:
             return QVariant(viewOf(maps.at(index.row())));
+        case Qt::UserRole:
+            return QVariant(maps.at(index.row())->ident());
         default:
             break;
         }
@@ -85,6 +87,8 @@ QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
             return QVariant(QString("Ident : ")+QString::number(ct->ident()));
         case Qt::DecorationRole:
             return QVariant(QPixmap::fromImage(ct->image()->image().scaled(32,32)));
+        case Qt::UserRole:
+            return QVariant(ct->ident());
         default:
             break;
         }

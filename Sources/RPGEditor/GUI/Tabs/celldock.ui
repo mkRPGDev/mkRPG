@@ -35,7 +35,7 @@
     <widget class="QColumnView" name="columnView"/>
    </item>
    <item row="0" column="1">
-    <widget class="QComboBox" name="comboBox"/>
+    <widget class="QComboBox" name="cellTypes"/>
    </item>
    <item row="3" column="0" colspan="2">
     <widget class="QLabel" name="label_3">

@@ -110,6 +110,7 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
+
     im = new Image(g, ":/Icons/herbe.png");
     g->addImage(im);
     ct1 = new CellType(g);

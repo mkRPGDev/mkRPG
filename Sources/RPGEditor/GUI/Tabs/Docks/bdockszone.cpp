@@ -9,7 +9,7 @@ BLayout::BLayout(QWidget *parent) :
     len = width(); // TEMPORAIRE ?
     space = 2;
     resize(len,0);
-    setCursor(Qt::SizeVerCursor);
+    setCursor(Qt::SplitVCursor);
 }
 
 void BLayout::setOrientation(Qt::Orientation o){

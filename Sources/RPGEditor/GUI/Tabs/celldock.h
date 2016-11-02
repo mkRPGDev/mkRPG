@@ -3,6 +3,7 @@
 
 #include "ui_celldock.h"
 #include "Docks/bdockwidget.h"
+#include "Game/mapslistmodel.h"
 
 class CellDock : public BDockWidget, private Ui::CellDock
 {
@@ -10,6 +11,16 @@ class CellDock : public BDockWidget, private Ui::CellDock
 
 public:
     explicit CellDock(QWidget *parent = 0);
+
+public slots:
+    void updateGame();
+    void selectionChanged();
+
+private slots:
+    void on_cellTypes_currentIndexChanged(int i);
+
+private:
+    Map *map;
 };
 
 #endif // CELLDOCK_H

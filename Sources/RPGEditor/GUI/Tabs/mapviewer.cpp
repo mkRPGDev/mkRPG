@@ -112,6 +112,7 @@ void MapViewer::mousePressEvent(QMouseEvent *me){
     if(ms == LClick){
         if(mp.hasHighlightedCell()){
             map->cell(mp.highlightedCell()).invertSelected();
+            emit selectionChanged();
         }
         // TODO avec Ctrl : sélection de zone
         ms = ContinuousSelection;
@@ -172,7 +173,10 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
             checkMousePos();
         }
         checkMousePos();
-        if(mp.hasHighlightedCell()) map->cell(mp.highlightedCell()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
+        if(mp.hasHighlightedCell()){
+            map->cell(mp.highlightedCell()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
+            emit selectionChanged();
+        }
     }
     if(change)
         cursor().setPos(mapToGlobal(QPoint(x,y)));
@@ -183,7 +187,10 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
 void MapViewer::selectionOut(){
     mp.move(-selectPos, mp.viewCenter());
     checkMousePos();
-    if(mp.hasHighlightedCell()) map->cell(mp.highlightedCell()).setSelected(true); // TODO Voir avec shift...
+    if(mp.hasHighlightedCell()){
+        map->cell(mp.highlightedCell()).setSelected(true); // TODO Voir avec shift...
+        emit selectionChanged();
+    }
 }
 
 void MapViewer::mouseReleaseEvent(QMouseEvent *me){

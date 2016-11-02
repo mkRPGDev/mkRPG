@@ -72,6 +72,7 @@ public:
     virtual bool isValid() const{return id;} /**< return true if the object has been initialised*/
     inline const QDateTime& lastModification() const{return lastEdit;} /**< return the last time of modification*/
     inline int getParam(const QString &p){return params[p];}
+    void touch();
 
 protected:
     Game *game;

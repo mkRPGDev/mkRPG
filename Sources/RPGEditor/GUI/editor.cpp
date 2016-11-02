@@ -20,7 +20,8 @@ Editor::Editor(QStringList args, QWidget *parent) :
     loadDefault();
 
     tabBar->setTabsEnabled(false);
-    qDebug() << args.length();
+
+    //qDebug() << args.length();
 
     Game * g = open("f");
 

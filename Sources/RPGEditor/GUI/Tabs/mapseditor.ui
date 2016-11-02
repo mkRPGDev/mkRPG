@@ -47,7 +47,7 @@
     <widget class="MapViewer" name="mapViewer" native="true"/>
    </item>
    <item row="0" column="2" rowspan="3">
-    <widget class="BVDocksZone" name="docks" native="true">
+    <widget class="BDocksZone" name="docks" native="true">
      <property name="minimumSize">
       <size>
        <width>50</width>
@@ -83,9 +83,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>BVDocksZone</class>
+   <class>BDocksZone</class>
    <extends>QWidget</extends>
-   <header>GUI/Tabs/Docks/bvdockszone.h</header>
+   <header>GUI/Tabs/Docks/bdockszone.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -56,6 +56,7 @@ void Intertie::setValue(int v, bool inert){
             ti->start();
     }
     else{
+        ti->stop();
         currentValue = v;
         emit valueChanged(currentValue);
         emit modificationFinished(currentValue);
@@ -101,10 +102,12 @@ void BinaryStateMachine::setNegative(bool n){
 void BinaryStateMachine::defineProperty(QObject* obj, const char* prop){
     yes->assignProperty(obj, prop, true);
     no->assignProperty(obj, prop, false);
+    obj->setProperty(prop, isPositive());
 }
 void BinaryStateMachine::defineProperty(QObject* obj, const char* prop, QVariant yesValue, QVariant noValue){
     yes->assignProperty(obj, prop, yesValue);
     no->assignProperty(obj, prop, noValue);
+    obj->setProperty(prop, isPositive() ? yesValue : noValue);
 }
 
 bool BinaryStateMachine::isPositive() const{

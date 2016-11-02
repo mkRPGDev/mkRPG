@@ -30,11 +30,11 @@ SOURCES += main.cpp\
     Game/mappainter.cpp \
     GUI/Tabs/Docks/bdock.cpp \
     GUI/Tabs/Docks/intertie.cpp \
-    GUI/Tabs/Docks/bvdockszone.cpp \
     GUI/Tabs/Docks/bdockszone.cpp \
-    GUI/Tabs/bdockwidget.cpp \
     GUI/Tabs/celltypesdock.cpp \
-    GUI/Tabs/mapdock.cpp
+    GUI/Tabs/mapdock.cpp \
+    GUI/Tabs/celldock.cpp \
+    GUI/Tabs/Docks/bdockwidget.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -54,11 +54,11 @@ HEADERS  += \
     Game/mappainter.h \
     GUI/Tabs/Docks/bdock.h \
     GUI/Tabs/Docks/intertie.h \
-    GUI/Tabs/Docks/bvdockszone.h \
     GUI/Tabs/Docks/bdockszone.h \
-    GUI/Tabs/bdockwidget.h \
     GUI/Tabs/celltypesdock.h \
-    GUI/Tabs/mapdock.h
+    GUI/Tabs/mapdock.h \
+    GUI/Tabs/celldock.h \
+    GUI/Tabs/Docks/bdockwidget.h
 
 FORMS    += \
     GUI/editor.ui \
@@ -68,7 +68,8 @@ FORMS    += \
     GUI/tabacces.ui \
     GUI/Tabs/welcome.ui \
     GUI/Tabs/celltypesdock.ui \
-    GUI/Tabs/mapdock.ui
+    GUI/Tabs/mapdock.ui \
+    GUI/Tabs/celldock.ui
 
 RESOURCES += \
     Icons/ressources.qrc

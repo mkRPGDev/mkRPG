@@ -2,7 +2,7 @@
 #define MAPDOCK_H
 
 #include "ui_mapdock.h"
-#include "bdockwidget.h"
+#include "Docks/bdockwidget.h"
 
 class MapDock : public BDockWidget, private Ui::MapDock
 {

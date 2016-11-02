@@ -214,7 +214,7 @@ double MapPainter::scale()const{
 
 
 
-void MapPainter::setViewCenter(QPointF relativeCenter){
+void MapPainter::setViewCenter(RlCoords relativeCenter){
     setViewCenter(relativeCenter.x(), relativeCenter.y());
 }
 
@@ -226,11 +226,11 @@ void MapPainter::setViewCenter(double relativeCenterX, double relativeCenterY){
                                   ratioFactor*mapHeight*viewScale*centerY + .5 - pHeight/2.));
 }
 
-QPointF MapPainter::viewCenter() const{
-    return QPointF(centerX, centerY);
+RlCoords MapPainter::viewCenter() const{
+    return RlCoords(centerX, centerY);
 }
 
-void MapPainter::setRelativeCenterPosition(double x, double y){
+void MapPainter::setViewCenterQuiet(double x, double y){
     centerX = .5 + (2*MINMAX(0.,x,1.) - 1)*centerVarX;
     centerY = .5 + (2*MINMAX(0.,y,1.) - 1)*centerVarY;
     globalViewChanged();
@@ -269,10 +269,10 @@ void MapPainter::zoom(double factor, QPointF fixedPoint){
     viewScale *= factor; // NOTE ici ?
     //qDebug() << viewScale;
     updateViewParameters();
-    setViewCenter(viewCenter()-(1-factor)*d/viewScale/ratioFactor);
+    setViewCenter(RlCoords(viewCenter()-(1-factor)*d/viewScale/ratioFactor));
 }
 
-QPair<bool,bool> MapPainter::move(QPoint delta, QPointF center){
+QPair<bool,bool> MapPainter::move(PxCoords delta, QPointF center){
     double newCX = center.x() - delta.x()/viewScale/ratioFactor/mapWidth;
     double newCY = center.y() - delta.y()/viewScale/ratioFactor/mapHeight;
     setViewCenter(newCX, newCY);

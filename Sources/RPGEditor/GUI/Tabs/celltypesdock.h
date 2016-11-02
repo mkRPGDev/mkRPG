@@ -2,7 +2,7 @@
 #define CELLTYPESLIST_H
 
 #include "ui_celltypesdock.h"
-#include "bdockwidget.h"
+#include "Docks/bdockwidget.h"
 #include "Game/mapslistmodel.h"
 
 class CellTypesDock : public BDockWidget, private Ui::CellTypesDock

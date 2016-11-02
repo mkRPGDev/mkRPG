@@ -5,7 +5,10 @@
 #include "game.h"
 #include "mappainter.h"
 
-
+/*!
+ * \brief The MapsListModel class provides a presentation class
+ * for the Qt Model-View framework.
+ */
 class MapsListModel : public QAbstractListModel
 {
     Q_OBJECT

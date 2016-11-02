@@ -3,6 +3,8 @@
 
 #include <QtWidgets>
 #include "intertie.h"
+#include "bdockwidget.h"
+
 
 class BDock : public QFrame
 {
@@ -10,7 +12,7 @@ class BDock : public QFrame
     Q_PROPERTY(bool unfold READ unfold WRITE setUnfold)
     Q_PROPERTY(int currentSize READ currentSize WRITE setCurrentSize)
 public:
-    explicit BDock(QString title, QWidget *dock, QWidget *parent = 0);
+    explicit BDock(QString title, BDockWidget *dock, QWidget *parent = 0);
     bool unfold() const;
     void setUnfold(bool v);
     int currentSize() const;
@@ -19,6 +21,7 @@ public:
 signals:
 
 public slots:
+    void setTitle(QString s);
 
 private slots:
     void mouseDoubleClickEvent(QMouseEvent *me);
@@ -28,7 +31,7 @@ private slots:
 private:
     int wHeight;
     Intertie zoneSize;
-    QWidget *dock;
+    BDockWidget *dock;
     QLabel *name;
     QVBoxLayout *lay;
     QHBoxLayout *button;

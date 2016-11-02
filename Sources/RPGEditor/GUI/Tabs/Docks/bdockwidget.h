@@ -5,7 +5,7 @@
 #include "Game/game.h"
 
 /*!
- * \brief The DockWidget class is the base class for
+ * \brief The BDockWidget class is the base class for
  * game-related docks.
  *
  * It provides common functions for set game, update, ...
@@ -21,6 +21,7 @@ public:
 
 signals:
     void gameModified();
+    void changeDockName(QString);
 
 public slots:
 

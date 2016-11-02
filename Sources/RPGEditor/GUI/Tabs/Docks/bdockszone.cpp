@@ -138,7 +138,7 @@ void BDocksZone::foldingChanged(bool f){
     Options::options().save(MAP, "DocksVisible", f);
 }
 
-void BDocksZone::addDock(QString title, QWidget *dock){
+void BDocksZone::addDock(QString title, BDockWidget *dock){
     docks->insert(new BDock(title, dock, docks));
 }
 

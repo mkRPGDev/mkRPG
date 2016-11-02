@@ -3,8 +3,16 @@
 
 #include "ui_mapseditor.h"
 #include "celltypesdock.h"
+#include "celldock.h"
 #include "mapdock.h"
 
+
+/*!
+ * \brief The MapsEditor class is the tab offering map editing
+ * facilities
+ *
+ *
+ */
 class MapsEditor : public QWidget, private Ui::MapsEditor
 {
     Q_OBJECT

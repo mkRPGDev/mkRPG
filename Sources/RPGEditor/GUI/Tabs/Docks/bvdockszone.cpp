@@ -14,6 +14,8 @@ BVDocksZone::BVDocksZone(QWidget *parent) :
                              QIcon("/home/baptiste/ENS/Stage/Epidev/Icones/fermer.png"));
     unfoldStates.defineProperty(this, "length", lId, BUTTON);
     unfoldStates.defineProperty(this, "cursor", QCursor(Qt::SplitHCursor), QCursor(Qt::ArrowCursor));
+    unfoldStates.defineProperty(this, "toolTip", "", "Double clic to extend");
+
 
     dockArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     dockArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);

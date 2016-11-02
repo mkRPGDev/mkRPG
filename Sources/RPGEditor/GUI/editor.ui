@@ -95,7 +95,14 @@
     <addaction name="separator"/>
     <addaction name="actionAbout_RPGEditor"/>
    </widget>
+   <widget class="QMenu" name="menuEdition">
+    <property name="title">
+     <string>Edition</string>
+    </property>
+    <addaction name="actionSelect_All"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdition"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -178,6 +185,11 @@
   <action name="actionAbout_RPGEditor">
    <property name="text">
     <string>About RPGEditor</string>
+   </property>
+  </action>
+  <action name="actionSelect_All">
+   <property name="text">
+    <string>Select All</string>
    </property>
   </action>
  </widget>

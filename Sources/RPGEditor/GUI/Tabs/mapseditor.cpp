@@ -12,6 +12,10 @@ MapsEditor::MapsEditor(QWidget *parent) :
     docksW.append(md);
     docks->addDock(tr("Map"), md);
     connect(md, SIGNAL(gameModified()), this, SLOT(updateGame()));
+    CellDock *cd = new CellDock;
+    docksW.append(cd);
+    docks->addDock(tr("Cell (0 selected)"), cd);
+    connect(cd, SIGNAL(gameModified()), this, SLOT(updateGame()));
     CellTypesDock *ctd = new CellTypesDock;
     docksW.append(ctd);
     docks->addDock(tr("Cell types"), ctd);
@@ -67,7 +71,7 @@ void MapsEditor::on_mapVScrollBar_valueChanged(int){
 }
 
 void MapsEditor::updateViewCenterPosition(){
-    mapViewer->mapPainter().setRelativeCenterPosition(
+    mapViewer->mapPainter().setViewCenterQuiet(
                 (double) mapHScrollBar->value()/mapHScrollBar->maximum(),
                 (double) mapVScrollBar->value()/mapVScrollBar->maximum());
     mapViewer->updateRequest();

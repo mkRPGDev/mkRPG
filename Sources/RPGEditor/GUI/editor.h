@@ -10,6 +10,11 @@
 #include "Tabs/worldeditor.h"
 #include "Tabs/mapseditor.h"
 
+/*!
+ * \brief The constant SHARED is used to open
+ * shared memory between different instances
+ * of the application
+ */
 const QString SHARED = "SharedFileRPGEditor";
 
 /*
@@ -28,7 +33,11 @@ const QString SHARED = "SharedFileRPGEditor";
  */
 
 
-
+/*!
+ * \brief The Editor class is the main window of the Editor.
+ *
+ * It is composed of tabs that offer editing facilities.
+ */
 class Editor : public QMainWindow, private Ui::Editor
 {
     Q_OBJECT

@@ -55,7 +55,7 @@ public:
 
     virtual int currentLength() const = 0;
 
-    void addDock(QString title, QWidget *dock); // TODO temporaire
+    void addDock(QString title, BDockWidget *dock); // TODO temporaire
 
 signals:
 

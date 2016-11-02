@@ -2,7 +2,7 @@
 
 // TODO option : bords de fenetres natifs si dock séparé
 
-BDock::BDock(QString title, QWidget* dock, QWidget *parent) :
+BDock::BDock(QString title, BDockWidget *dock, QWidget *parent) :
     QFrame(parent),
     dock(dock)
 {
@@ -35,6 +35,7 @@ BDock::BDock(QString title, QWidget* dock, QWidget *parent) :
                              QIcon("/home/baptiste/ENS/Stage/Epidev/Icones/separer.png"),
                              QIcon("/home/baptiste/ENS/Stage/Epidev/Icones/rassembler.png"));
     connect(bLinked, SIGNAL(pressed()), &dLinked, SLOT(swap()));
+    connect(dock, SIGNAL(changeDockName(QString)), this, SLOT(setTitle(QString)));
 
     zoneSize.link(this, "currentSize");
 
@@ -70,6 +71,10 @@ BDock::BDock(QString title, QWidget* dock, QWidget *parent) :
 void BDock::mouseDoubleClickEvent(QMouseEvent *me){
     if(name->underMouse())
         dUnfold.swap();
+}
+
+void BDock::setTitle(QString s){
+    name->setText(s);
 }
 
 void BDock::paintEvent(QPaintEvent *pe){

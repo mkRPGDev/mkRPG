@@ -23,9 +23,8 @@ const QString VAL("Valeur");
  * Ajoute à QSettings quelques fonctionnalités :
  *
  * La possiblité de définir si les options s'adaptent lors de la modificatoin
- * ou non (par exemple, la taille de la fenêtre), voir \ref estAdaptatif, \ref defAdaptatif
+ * ou non (par exemple, la taille de la fenêtre), voir \ref isAdaptaive, \ref setAdaptaive
  *
- * La gestion des gradients chargés, disponibles à tout moment et en tout lieu dans l'application.
  */
 struct Options{
     template<class T>

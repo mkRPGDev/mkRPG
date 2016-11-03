@@ -4,7 +4,7 @@ import pygame
 from pygame.locals import *
 
 from cache import ImageCache
-from utils import load_png
+from utils import load_png, add_to_rect_list, merge_rect_lists
 
 import const
 
@@ -37,9 +37,7 @@ class Character():
         return self.image
     
     def update(self):
-        self.move()
-        
-        self.update_skin()
+        return merge_rect_lists(self.move(), self.update_skin())
     
     def update_skin(self):
         if self.action is not None:
@@ -63,6 +61,8 @@ class Character():
                         self.scale                   )
                     self.current_image = self.skin[key][self.orientation][self.anim_frame_count]
                 self.game_frame_count += 1
+        
+            return [self.image.get_rect()]
             
     
     def zoom(self, dz):
@@ -151,6 +151,7 @@ class Character():
     
     def move(self):
         if len(self.path)>0:
+            old_rect = self.image.get_rect().move(self.pos_offset)
             next_pos = self.get_cell_pos_by_index(self.path[0])
             self.action = "moving"
             
@@ -199,3 +200,5 @@ class Character():
                 del self.path[0]
                 if len(self.path) == 0:
                     self.action = "standby"
+        
+            return add_to_rect_list([old_rect], self.image.get_rect().move(self.pos_offset))

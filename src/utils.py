@@ -17,6 +17,28 @@ def load_png(name, scale=1):
         if scale != 1:
             image = pygame.transform.scale(image, (int(width*scale), int(height*scale)))
         return image
+
+def add_to_rect_list(list, rect):
+    rect_arr = list
+    if rect is not None:
+        addrect = True
+        for rect2 in rect_arr:
+            if rect.contains(rect2):
+                rect_arr.remove(rect2)
+            if rect2.contains(rect):
+                addrect = False
+        if addrect : rect_arr.append(rect)
+    return rect_arr
+
+def merge_rect_lists(list1, list2):
+    res = list1
+    if list2 is not None:
+        for rect in list2:
+            res = add_to_rect_list(res, rect)
+    return res
+
+def sublist(l, i1, i2, j1, j2):
+    return [[l[i][j] for j in range(j1,j2)] for i in range(i1,i2)]
         
 class WalkableGraph():
     def __init__(self, walkables):

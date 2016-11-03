@@ -2,11 +2,11 @@
 
 import sys
 
-sys.path.append('../parsing/')
+sys.path.append('../../src/parsing/')
 import map_parser
 
 def test_map_parser():
-    map_parser.map_parser("../../Test/maps/map.xml")
+    map_parser.map_parser("maps/map.xml")
 
 
 if __name__=="__main__":

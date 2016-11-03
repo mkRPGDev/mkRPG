@@ -6,6 +6,7 @@ import pygame
 from pygame.locals import *
 
 from world import World
+from utils import add_to_rect_list
 import const
 
 class Client():
@@ -14,25 +15,24 @@ class Client():
         self.get_conf_file("client_conf.ini")
         
         pygame.display.init()
-        self.screen_size = (self.get_conf("width", int), self.get_conf("height", int))
+        self.screen_size = const.SCREEN_WIDTH, const.SCREEN_HEIGHT
         screen = pygame.display.set_mode(self.screen_size)
         
-        self.make_cells()
+        pygame.font.init()
+        font = pygame.font.Font(None, 18)
         
-        self.world = World(self.screen_size)
+        self.world = World()
         
         self.background = pygame.Surface(self.screen_size)
         self.background = self.background.convert()
         self.background.fill((0, 0, 0))
         
-        pygame.font.init()
-        font = pygame.font.Font(None, 18)
-        
         clock = pygame.time.Clock()
         
         mov_speed_x = 0
         mov_speed_y = 0
-        zoom_speed = 0
+        
+        refresh_counter = self.frame_counter(60)
 
         while(1):
             deltat = clock.tick(60)/1000
@@ -41,58 +41,84 @@ class Client():
             for event in pygame.event.get():
                 if event.type == QUIT:
                     exit(0)
+                elif event.type == KEYUP and event.key == K_ESCAPE:
+                    exit(0)
                 elif event.type == MOUSEBUTTONDOWN and event.button == 4:
-                    if (zoom_speed == 0 or zoom_speed > 0) and zoom_speed < self.get_conf("max_zoom_speed", float):
-                        zoom_speed += self.get_conf("zoom_speed",float)
+                    zoom_speed += const.ZOOM_STEP
                 elif event.type == MOUSEBUTTONDOWN and event.button == 5:
-                    if (zoom_speed == 0 or zoom_speed < 0) and zoom_speed > -self.get_conf("max_zoom_speed", float):
-                        zoom_speed -= self.get_conf("zoom_speed",float)
+                    zoom_speed -= const.ZOOM_STEP
                 elif event.type == MOUSEBUTTONUP and event.button == 1:
                     self.propagate_trigger(event)
-            (posx,posy) = pygame.mouse.get_pos()
-            if posx < const.MOV_OFFSET:
-                if (mov_speed_x == 0 or mov_speed_x > 0) and mov_speed_x < self.get_conf("max_mov_speed", int):
-                    mov_speed_x += int(self.get_conf("mov_speed", int)*deltat)
-                else:
-                    mov_speed_x = 0
-            elif posx > self.screen_size[0]-const.MOV_OFFSET:
-                if (mov_speed_x == 0 or mov_speed_x < 0) and mov_speed_x > -self.get_conf("max_mov_speed", int):
-                    mov_speed_x -= int(self.get_conf("mov_speed", int)*deltat)
-                else:
-                    mov_speed_x = 0
-            else:
-                mov_speed_x = 0
-                
-            if posy > self.screen_size[1]-const.MOV_OFFSET:
-                if (mov_speed_y == 0 or mov_speed_y < 0) and mov_speed_y < self.get_conf("max_mov_speed", int):
-                    mov_speed_y -= int(self.get_conf("mov_speed", int)*deltat)
-                else:
-                    mov_speed_y = 0
-            elif posy < const.MOV_OFFSET:
-                if (mov_speed_y == 0 or mov_speed_y > 0) and mov_speed_y > -self.get_conf("max_mov_speed", int):
-                    mov_speed_y += int(self.get_conf("mov_speed", int)*deltat)
-                else:
-                    mov_speed_y = 0
-            else:
-                    mov_speed_y = 0
             
-            self.world.move(mov_speed_x, mov_speed_y)
-            self.world.zoom(zoom_speed)
+            mov_speed_x, mov_speed_y, rect_list = self.update_view(pygame.mouse.get_pos(), 
+                                                        mov_speed_x, 
+                                                        mov_speed_y,
+                                                        deltat)
+            
+            # rect_list = self.world.zoom(zoom_speed) if rect_list is None else rect_list
             
             text = font.render("FPS : %d" % clock.get_fps(), 1, (255,0,0))
-            self.world.update()
             
-            image, rect_list = self.world.render()
+            new_rect_list = self.world.update()
+            
+            if rect_list is None:
+                rect_list = new_rect_list
+                
+            rect_list = add_to_rect_list(rect_list, text.get_rect().move(10,10))
+            
+            image = self.world.render()
             
             screen.blit(self.background, (0,0))
             screen.blit(image, (0,0))
             screen.blit(text, (10,10))
             
-            #print(len(rect_list))
-            
-            pygame.display.update(Rect((0,0), self.screen_size))
+            if next(refresh_counter) : pygame.display.flip()
+            else : pygame.display.update(rect_list)
         
         pygame.display.quit()
+    
+    def frame_counter(self, n):
+        i = n
+        while 1:
+            if i == n:
+                i = 0
+                yield True
+            else:
+                i += 1
+                yield False
+        
+    def update_view(self, mouse_pos, mov_speed_x, mov_speed_y, deltat):
+        posx,posy = mouse_pos
+    
+        if posx < const.MOV_OFFSET:
+            if (mov_speed_x == 0 or mov_speed_x > 0) and mov_speed_x < self.get_conf("max_mov_speed", int):
+                mov_speed_x += int(self.get_conf("mov_speed", int)*deltat)
+            else:
+                mov_speed_x = 0
+        elif posx > self.screen_size[0]-const.MOV_OFFSET:
+            if (mov_speed_x == 0 or mov_speed_x < 0) and mov_speed_x > -self.get_conf("max_mov_speed", int):
+                mov_speed_x -= int(self.get_conf("mov_speed", int)*deltat)
+            else:
+                mov_speed_x = 0
+        else:
+            mov_speed_x = 0
+            
+        if posy > self.screen_size[1]-const.MOV_OFFSET:
+            if (mov_speed_y == 0 or mov_speed_y < 0) and mov_speed_y < self.get_conf("max_mov_speed", int):
+                mov_speed_y -= int(self.get_conf("mov_speed", int)*deltat)
+            else:
+                mov_speed_y = 0
+        elif posy < const.MOV_OFFSET:
+            if (mov_speed_y == 0 or mov_speed_y > 0) and mov_speed_y > -self.get_conf("max_mov_speed", int):
+                mov_speed_y += int(self.get_conf("mov_speed", int)*deltat)
+            else:
+                mov_speed_y = 0
+        else:
+                mov_speed_y = 0
+
+        rect = self.world.move(mov_speed_x, mov_speed_y)
+        
+        return mov_speed_x, mov_speed_y, rect
     
     def get_conf_file(self, path):
         self.conf = configparser.ConfigParser()
@@ -118,38 +144,7 @@ class Client():
     
     def init_cache(self):
         ImageCache.init_images(const.BG_IMGSET.values())
-        ImageCache.init_images(const.GRID_IMGSET)
-    
-    def make_cells(self):
-        points = [
-                    (0, const.CELL_HEIGHT//2),
-                    (const.CELL_WIDTH//2, 0),
-                    (const.CELL_WIDTH, const.CELL_HEIGHT//2),
-                    (const.CELL_WIDTH//2, const.CELL_HEIGHT),
-                 ]
-        mask_points = [
-                    (4, const.CELL_HEIGHT//2),
-                    (const.CELL_WIDTH//2, 2),
-                    (const.CELL_WIDTH-4, const.CELL_HEIGHT//2),
-                    (const.CELL_WIDTH//2, const.CELL_HEIGHT-2),
-                 ]
-                 
-        cell_image_default = pygame.Surface((const.CELL_WIDTH, const.CELL_HEIGHT), pygame.SRCALPHA)
-        cell_image_default.convert_alpha()
-        pygame.draw.aalines(cell_image_default, (60,60,60), True, points)
-        cell_image_selected = pygame.Surface((const.CELL_WIDTH, const.CELL_HEIGHT), pygame.SRCALPHA)
-        cell_image_selected.convert_alpha()
-        pygame.draw.lines(cell_image_selected, (200,200,200), True, points, 4)
-        cell_image_mask = pygame.Surface((const.CELL_WIDTH, const.CELL_HEIGHT), pygame.SRCALPHA)
-        cell_image_mask.convert_alpha()
-        pygame.gfxdraw.filled_polygon(cell_image_mask, mask_points, (255,255,255))
-        
-        pygame.image.save(cell_image_default, 
-                          const.IMG_PATH+"cell.png")
-        pygame.image.save(cell_image_selected, 
-                          const.IMG_PATH+"cell_selected.png")
-        pygame.image.save(cell_image_mask, 
-                          const.IMG_PATH+"mask.png")
+        ImageCache.init_images(const.GRID_IMGSET.values())
 
         
 if __name__ == "__main__":

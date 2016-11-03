@@ -3,64 +3,193 @@
 import pygame
 from pygame.locals import *
 
-from utils import load_png, WalkableGraph
-from backgroundLayer import BackgroundLayer
-from gridLayer import GridLayer
-from cell import Cell
+import struct
+
+from utils import merge_rect_lists, sublist, WalkableGraph
+from cache import ChunkCache
 
 import const
 
-class Map(pygame.Surface):
+class Map(pygame.sprite.Group):
     
-    def __init__(self, size, path):
-        self.layers = [BackgroundLayer(path)]
+    def __init__(self, path):
+        pygame.sprite.Group.__init__(self)
         
-        self.update_size()
-        g_width = self.layers[0].g_width
-        g_height = self.layers[0].g_height
-        self.layers.append(GridLayer(g_width, g_height, const.GRID_SCALE))
-        self.screen_size = size
-        self.original_size = self.size
-        self.walkablesGraph = WalkableGraph(self.layers[1].make_walkables())
-        
-        pygame.Surface.__init__(self, self.size)
-        
+        bg = self.load_bg(const.BG_PATH+path)
         self.scale = 1
+        
+        self.cm_width, self.cm_height = self.load_chunks(bg)
+        self.width = int(len(bg[0])*const.CELL_WIDTH*self.scale)
+        self.height = int((len(bg)+2)*const.CELL_HEIGHT/2*self.scale)
+        self.walkablesGraph = self.make_walkables(bg)
+        
+        self.current_chunk = (0,0)
         self.pos_offset = (0,0)
     
-    def update_size(self):
-        self.size = (self.layers[0].width, self.layers[0].height)
-        pygame.Surface.__init__(self, self.size)
+    def load_chunks(self, bg):
+        line = 0
+        col = 0
+        
+        map_width = len(bg[0])
+        map_height = len(bg)
+        
+        chunks = []
+        
+        while (line+1)*const.CHUNK_GRID_HEIGHT <= map_height:
+            while (col+1)*const.CHUNK_GRID_WIDTH <= map_width:
+                cells = sublist(bg, 
+                                line*const.CHUNK_GRID_HEIGHT, 
+                                (line+1)*const.CHUNK_GRID_HEIGHT, 
+                                col*const.CHUNK_GRID_WIDTH, 
+                                (col+1)*const.CHUNK_GRID_WIDTH)
+                chunks.append(((line, col), cells))
+                col += 1
+            if col*const.CHUNK_GRID_WIDTH < map_width:
+                cells = sublist(bg,
+                                line*const.CHUNK_GRID_HEIGHT,
+                                (line+1)*const.CHUNK_GRID_HEIGHT,
+                                col*const.CHUNK_GRID_WIDTH,
+                                map_width)
+                chunks.append(((line,col), cells))
+            line += 1
+            col = 0
+            
+        if line*const.CHUNK_GRID_HEIGHT < map_height:
+            while (col+1)*const.CHUNK_GRID_WIDTH < map_width:
+                cells = sublist(bg, 
+                                line*const.CHUNK_GRID_HEIGHT, 
+                                map_height, 
+                                col*const.CHUNK_GRID_WIDTH, 
+                                (col+1)*const.CHUNK_GRID_WIDTH)
+                chunks.append(((line, col), cells))
+                col += 1
+            if col*const.CHUNK_GRID_WIDTH < map_width:
+                cells = sublist(bg,
+                                line*const.CHUNK_GRID_HEIGHT,
+                                map_height,
+                                col*const.CHUNK_GRID_WIDTH,
+                                map_width)
+                chunks.append(((line,col), cells))
+        
+        self.chunks_state = ChunkCache.init_chunks(chunks)
+        
+        return len(self.chunks_state[0]), len(self.chunks_state)
+        
+    def make_walkables(self, bg):
+        return WalkableGraph([[True for c in c_line] for c_line in bg])
     
     def zoom(self, dz):
-        self.scale += dz
-        for layer in self.layers:
-            layer.zoom(dz)
-        self.update_size()
+        pass
     
-    def move_to(self, newx, newy):
-        self.pos_offset = (newx, newy)
+    def move(self, dx, dy):
+        predicted_new_pos = (self.pos_offset[0]+dx, self.pos_offset[1]+dy)
         
-        for layer in self.layers:
-            layer.map_pos_offset = self.pos_offset
+        if predicted_new_pos[0] < const.MOV_OFFSET and\
+           predicted_new_pos[0] > -self.width+const.SCREEN_WIDTH-const.MOV_OFFSET:
+           new_pos_x = predicted_new_pos[0]
+        else:
+           new_pos_x = self.pos_offset[0]
+        
+        if predicted_new_pos[1] < const.MOV_OFFSET and\
+           predicted_new_pos[1] > -self.height+const.SCREEN_HEIGHT-const.MOV_OFFSET:
+           new_pos_y = predicted_new_pos[1]
+        else:
+           new_pos_y = self.pos_offset[1]
+        
+        self.current_chunk = (max(-new_pos_x//(const.CHUNK_WIDTH*self.scale),0),
+                              max(-new_pos_y//(const.CHUNK_HEIGHT*self.scale),0))
+        self.pos_offset = (new_pos_x, new_pos_y)
     
     def render(self):
-        self.fill((0,0,0))
+        sprites = self.sprites()
+        rect = sprites[0].rect
+        size = rect.unionall([s.rect for s in sprites[1:]]).size
+        
+        res = pygame.Surface(size)
+        res.convert_alpha()
+        res.fill((0,0,0))
+        
+        for sprite in self.sprites():
+            sprite.render()
+        
+        self.draw(res)
+        
+        return res
+     
+    def neighbors_chunk(self, chunk):
         res = []
-        for layer in self.layers:
-            layer.render()
-            res += layer.draw(self)
-        
-        return self, res
-        
-    def update(self, **kwargs):
-        # Background layer
-        self.layers[0].update()
-        # Grid Layer
-        self.layers[1].update()
+        for i in range(-1,2):
+           for j in range(-1,2):
+               line = chunk[0]+i
+               col = chunk[1]+j
+               if line >= 0 and line < self.cm_height:
+                   if col >= 0 and col < self.cm_width:
+                       res.append((line,col))
+        return res
+         
+    def onscreen_chunks(self):
+        return [index for index in self.neighbors_chunk(self.current_chunk)]
+    
+    def update(self):
+        self.empty()
+        mouse_pos = pygame.mouse.get_pos()
+        rel_m_pos = (mouse_pos[0]-self.pos_offset[0], 
+                     mouse_pos[1]-self.pos_offset[1])
+        rect_arr = []
+       
+        for line,col in self.onscreen_chunks():
+            chunk = ChunkCache.get_chunk((line,col), self.scale)
+            
+            if chunk.rect.collidepoint(rel_m_pos):
+                m_pos_upd = rel_m_pos
+            else:
+                m_pos_upd = None
+            
+            self.chunks_state[line][col], rects = chunk.update(self.chunks_state[line][col], m_pos_upd)
+            rect_arr = merge_rect_lists(rect_arr, rects)
+            self.add(chunk)
+        for i in range(len(rect_arr)):
+            rect_arr[i] = rect_arr[i].move(self.pos_offset)
+        return rect_arr
     
     def propagate_trigger(self, event):
-        return self.layers[1].propagate_trigger(event)
+        if event.type == MOUSEBUTTONUP and event.button == 1:
+            mouse_pos = pygame.mouse.get_pos()
+            rel_m_pos = (mouse_pos[0]-self.pos_offset[0], 
+                         mouse_pos[1]-self.pos_offset[1])
+                     
+            for line,col in self.onscreen_chunks():
+                chunk = ChunkCache.get_chunk((line,col), self.scale)
+            
+                if chunk.rect.collidepoint(rel_m_pos):
+                    return chunk.click_trigger(rel_m_pos)
+        return ''
     
     def compute_path(self, start_pos, end_pos):
         return self.walkablesGraph.get_path(start_pos, end_pos)
+    
+    def load_bg(self, path):
+        bg = open(path, 'rb')
+        
+        cells = []
+        
+        cont = True
+        found0 = False
+        cell_line = []
+        while cont:
+            next = struct.unpack('@B', bg.read(1))[0]
+            if next == 0:
+                if found0:
+                    cont = False
+                else:
+                    found0 = True
+                    cells.append(cell_line)
+                    cell_line = []
+            elif next == 255:
+                cell_line.append(None)
+                found0 = False
+            else:
+                cell_line.append(next)
+                found0 = False
+        
+        return cells

@@ -5,16 +5,15 @@ from pygame.locals import *
 
 from map import Map
 from character import Character
-
+from utils import merge_rect_lists
+from cache import ImageCache
 import const
 
 class World():
 
-    def __init__(self, screen_size):
-        self.screen_size = screen_size
-        self.current_map = Map(self.screen_size, "bg0.bg")
-        
-        self.scale = 1
+    def __init__(self):
+        self.screen_size = const.SCREEN_WIDTH, const.SCREEN_HEIGHT
+        self.current_map = Map("bg0.bg")
         
         self.main_char = "Helyder"        
         self.characters = { "Helyder" : Character("Helyder", start_pos=(0,0), 
@@ -24,59 +23,43 @@ class World():
                           }
     
     def update(self):
-        self.current_map.update()
+        rect_arr = self.current_map.update()
+        charac_rects = []
         for character in self.characters.values():
-            character.update()
+            rects = character.update()
+            if rects is not None:
+                for i in range(len(rects)):
+                    rects[i] = rects[i].move(self.current_map.pos_offset)
+                charac_rects = merge_rect_lists(charac_rects, rects)
+            
+        return merge_rect_lists(charac_rects, rect_arr)
     
     def render(self):
         res = pygame.Surface(self.screen_size)
         res.convert_alpha()
-        image, rect_list = self.current_map.render()
+        image = self.current_map.render()
         res.blit(image, self.current_map.pos_offset)
         for character in self.characters.values():
             char_offset = (self.current_map.pos_offset[0]+character.pos_offset[0],
                            self.current_map.pos_offset[1]+character.pos_offset[1])
             res.blit(character.render(), char_offset)
-            rect_list.append(character.image.get_rect())
-        return res, rect_list
+        return res
     
     def move(self, dx, dy):
-        newx = self.current_map.pos_offset[0]+dx
-        newy = self.current_map.pos_offset[1]+dy
-        movx = self.current_map.pos_offset[0]
-        movy = self.current_map.pos_offset[1]
-        if newx >= self.screen_size[0]-self.current_map.size[0]-\
-           const.MOV_OFFSET and newx <= const.MOV_OFFSET:
-            movx = newx
-        else:
-            if dx > 0 :
-                movx = const.MOV_OFFSET
-            else:
-                movx = self.screen_size[0]-self.current_map.size[0]-\
-                       const.MOV_OFFSET
-        if newy >= self.screen_size[1]-self.current_map.size[1]-\
-           const.MOV_OFFSET and newy <= const.MOV_OFFSET:
-            movy = newy
-        else:
-            if dy > 0 :
-                movy = const.MOV_OFFSET
-            else:
-                movy = self.screen_size[1]-self.current_map.size[1]-\
-                       const.MOV_OFFSET
-        
-        self.current_map.move_to(movx, movy)
+        if dx != 0 or dy != 0:
+            self.current_map.move(dx, dy)
+            return [Rect((0,0),self.screen_size)]
         
     
     def zoom(self, dz):
         if dz != 0 and\
-            (self.current_map.size[0] > self.screen_size[0] and\
-            self.current_map.size[1] > self.screen_size[1] and\
-            self.scale > 0.3 and dz < 0) or \
-            (self.scale < 1.3 and dz > 0):
-            self.scale += dz
+           ((self.scale > const.MIN_ZOOM and dz < 0) or \
+            (self.scale < const.MAX_ZOOM and dz > 0)):
             self.current_map.zoom(dz)
             for character in self.characters.values():
                 character.zoom(dz)
+                
+            return [Rect((0,0),self.screen_size)]
         
     def move_char(self, char_name, end_pos):
         start_pos = self.characters[char_name].current_cell
@@ -84,7 +67,4 @@ class World():
         self.characters[char_name].set_path(path)
     
     def propagate_trigger(self, event):
-        message = self.current_map.propagate_trigger(event)
-        if message != "":
-            return message
-        return ""
+        return self.current_map.propagate_trigger(event)

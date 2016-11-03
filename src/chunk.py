@@ -52,7 +52,9 @@ class Chunk(pygame.sprite.Sprite):
                 cell_x, cell_y = [int(i) for i in message.split(" ")[1].split(",")]
                 cell = (self.index[0]*const.CHUNK_GRID_HEIGHT+cell_x,
                         self.index[1]*const.CHUNK_GRID_WIDTH+cell_y)
-                res += "MOVE "+str(cell[0])+","+str(cell[1])
+                if cell[0] >= 0 and cell[0] < const.CHUNK_GRID_WIDTH and\
+                   cell[1] >= 0 and cell[1] < const.CHUNK_GRID_HEIGHT:
+                    res += "MOVE "+str(cell[0])+","+str(cell[1])
             else:
                 res += message     
         return res

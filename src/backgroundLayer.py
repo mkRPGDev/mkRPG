@@ -41,7 +41,7 @@ class BackgroundLayer(Layer):
         cell_col = mouse_pos[0]//cell_size[0]
         
         if cell_line >= 0 and cell_line < self.g_height and\
-           cell_col >= 0 and cell_col < self.g_width-cell_line%2:
+           cell_col >= 0 and cell_col < self.g_width:
             
             pixel_col = self.mouse_iso.get_at(cell_pos)
             
@@ -66,9 +66,7 @@ class BackgroundLayer(Layer):
             else:
                 print("Couleur introuvable %s" % str(pixel_col))
                 
-            if cell_line >= 0 and cell_line < self.g_height and\
-               cell_col >= 0 and cell_col < self.g_width-cell_line%2:
-                return cell_line, cell_col
+        return cell_line, cell_col
     
     def click_update(self, mouse_pos):
         cell = self.collision_test(mouse_pos)

@@ -9,7 +9,6 @@
 *.class
 *.pyc
 
-
 # Fichiers de logs
 *.log
 
@@ -22,4 +21,3 @@ src/isserver.py
 
 # Fichiers de cache Python
 src/__pycache__
-

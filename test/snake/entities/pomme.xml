@@ -1,0 +1,7 @@
+<MagicObject name="pomme">
+    <Params>
+        <x val="0"/>
+        <y val="0"/>
+        <picture val="120"/>
+    </Params>
+</MagicObject>

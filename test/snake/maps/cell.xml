@@ -1,0 +1,12 @@
+<Cell name="cell0">
+    <Params>
+        <x val="10"/>
+        <y val="10"/>
+        <picture val="32"/>
+        <mortelle val="0"/>
+    </Params>
+    
+    <Entities>
+        <Entity id="serpent"/>
+    </Entities>
+</Cell>

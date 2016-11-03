@@ -1,0 +1,9 @@
+<ObjectType name="corps">
+    <Params>
+        <dir val="1"/>
+        <picture val="111"/>
+        <x val="2"/>
+        <y val="12"/>
+        <case id="cell0"/>
+    </Params>
+</ObjectType>

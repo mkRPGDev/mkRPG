@@ -10,8 +10,8 @@
 *.pyc
 
 
-# Des fichiers que je ne veux pas voir.
+# Fichiers de l'éditeur
 .directory
 src/build-RPGEditor-Desktop_Qt_5_6_1_GCC_64bit-Debug/
-src/RPGEditor/RPGEditor.pro.user
-
+src/editor/RPGEditor.pro.user
+src/editor/doc.doxy

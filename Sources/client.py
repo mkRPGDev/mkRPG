@@ -16,7 +16,9 @@ with open("isserver.py","w") as file:
     file.write("SERVER = False\n")
 import world
 
-interface = True # permet de désactiver ncurses pour débugguer
+#interface = argv[2] if len(argv)==3 else False
+interface = True
+# permet de désactiver ncurses pour débugguer
 
 class Client():
     def __init__(self, path):
@@ -37,7 +39,7 @@ class Client():
         
     def __del__(self):
         self.net.kill()
-        curses.endwin()
+        if interface: curses.endwin()
         print("Client killed")
 
     def run(self):
@@ -62,7 +64,7 @@ class Client():
         if interface and time() - self.lastUpdate > MAXFPS:
             self.mv.display(self.win)
             # TODO insérer ici le xml d'interface
-            self.win.addstr(26,0,"Score "+str(self.world.entities[0].score))
+            self.win.addstr(26,0,"Score "+str(self.world.entities[0].score)+'\n')
             self.win.refresh()
             self.lastUpdate = MAXFPS
 

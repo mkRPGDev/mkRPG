@@ -11,7 +11,7 @@ HOST = "localhost"#"ip6-localhost"
 #HOST = "paquebot.ens.fr"
 PORT = 12345
 IPV6 = False#True
-USETCP = False
+USETCP = True
 BUFF = 1024
 CODING = "ascii"
 

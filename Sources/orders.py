@@ -71,7 +71,7 @@ class Order:
         self.type = b[0]
         i = 1
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
-        return self
+        return self, i
     
 class OrderDispatcher:
     """ pour diminuer la redondance de code client/serveur """

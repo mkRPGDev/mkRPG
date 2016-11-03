@@ -16,11 +16,19 @@ class NetworkClient(Thread):
         self.soc.connect((HOST, PORT))
         while self.alive:
             msg = self.soc.recv(BUFF)
-            ident = msg[0]*256 + msg[1]
-            order = Order().fromBytes(msg[2:])
-            if self.alive:
-                self.handle(ident, order)
-            
+            #print("recieved: " + str(msg))
+            if not msg:
+                print("Connexion lost\n")
+                self.alive = False
+            size = 0
+            while size < len(msg):
+                ident = msg[size]*256 + msg[size+1]
+                order, i = Order().fromBytes(msg[size+2:])
+                if self.alive:
+                    self.handle(ident, order)
+                #print(msg[size+2:size+2+i])
+                size += i + 2
+
     def send(self, m):
         self.soc.sendall(m)
     
@@ -62,7 +70,7 @@ class NetworkServer(Thread):
         while len(self.co)<n: sleep(0.1)
 
     def run(self):
-        self.soc.listen()
+        self.soc.listen(1024)
         while self.alive:
             soc, addr = self.soc.accept()
             print(addr, "connected")

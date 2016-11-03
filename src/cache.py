@@ -3,7 +3,6 @@
 import enum
 
 import pygame
-from pygame.locals import *
 
 from utils import load_png
 import const

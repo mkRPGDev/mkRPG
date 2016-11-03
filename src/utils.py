@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-from pygame.locals import *
 
 from heapq import heappush, heappop
 from math import sqrt

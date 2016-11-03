@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-from pygame.locals import *
+from pygame.locals import Rect
 
 from map import Map
 from character import Character
@@ -9,7 +9,7 @@ from utils import merge_rect_lists
 from cache import ImageCache
 import const
 
-class World():
+class PrintWorld():
 
     def __init__(self):
         self.screen_size = const.SCREEN_WIDTH, const.SCREEN_HEIGHT

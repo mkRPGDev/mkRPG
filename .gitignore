@@ -9,10 +9,8 @@
 *.class
 *.pyc
 
-
-<<<<<<< HEAD
 src/__make_cells.py
-=======
+
 # Fichiers de logs
 *.log
 
@@ -26,4 +24,5 @@ src/isserver.py
 # Fichiers de cache Python
 src/__pycache__
 
->>>>>>> refs/remotes/origin/master
+# Fichiers PyCharm
+.idea

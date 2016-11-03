@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # -*- coding: utf-8 -*-
 
 import pygame
@@ -94,7 +93,7 @@ class WalkableGraph():
                    heappush(openCell, (v_heur, v))
                    parents[v] = u
         
-=======
+
 from collections import namedtuple
 from time import process_time
 from xml.parsers.expat import ParserCreate
@@ -162,4 +161,3 @@ if __name__=="__main__":
     perff = Perf()
     print(readXml("../Test/Snake/world.xml"))
     perff.show()
->>>>>>> refs/remotes/origin/master

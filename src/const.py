@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 IMG_PATH = "../content/imgs/"
 BG_PATH = "../content/bg/"
 GRID_SCALE = 1
@@ -21,7 +20,7 @@ MAX_CACHE_SIZE = 50
 MIN_ZOOM = 0.9
 MAX_ZOOM = 1.3
 ZOOM_STEP = 0.1
-=======
+
 VERBOSE = False
 
 # ! PATH par défaut en l'absence d'argument
@@ -38,8 +37,3 @@ IPV6 = False#True
 USETCP = False
 BUFF = 1024
 CODING = "ascii"
-
-#sudo tcpdump -i lo -X port 13245 or 12346
-#sudo netstat -apn | grep 12345
-
->>>>>>> refs/remotes/origin/master

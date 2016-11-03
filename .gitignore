@@ -9,6 +9,7 @@
 *.class
 *.pyc
 
+
 # Fichiers de logs
 *.log
 
@@ -18,3 +19,7 @@ src/editor/RPGEditor.pro.user
 
 # Fichier de lancement du serveur
 src/isserver.py
+
+# Fichiers de cache Python
+src/__pycache__
+

@@ -3,9 +3,10 @@
 import configparser
 
 import pygame
-from pygame.locals import *
+from pygame.locals import QUIT, K_ESCAPE, KEYUP, MOUSEBUTTONDOWN, MOUSEBUTTONUP
+from pygame.locals import Rect
 
-from world import World
+from printWorld import PrintWorld
 from utils import add_to_rect_list
 import const
 
@@ -21,7 +22,7 @@ class Client():
         pygame.font.init()
         font = pygame.font.Font(None, 18)
         
-        self.world = World()
+        self.world = PrintWorld()
         
         self.background = pygame.Surface(self.screen_size)
         self.background = self.background.convert()

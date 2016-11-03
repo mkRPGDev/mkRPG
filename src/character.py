@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-from pygame.locals import *
+from pygame.locals import Rect
 
 from cache import ImageCache
 from utils import load_png, add_to_rect_list, merge_rect_lists

@@ -204,7 +204,7 @@ void BDocksZone::setScrollBarMode(ScrollBarMode m){
 void BDocksZone::resizeEvent(QResizeEvent *event){
     QWidget::resizeEvent(event);
     if(event->oldSize().height() != event->size().height()){
-        docks->resize(lId, docks->height()+25); // Pas très joli... désolé
+        docks->resize(lId, docks->height()*4); // Pas très joli... désolé
         QTimer::singleShot(10,this,SLOT(updateDockLength()));
     }
 }

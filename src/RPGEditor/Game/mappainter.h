@@ -122,80 +122,115 @@ public:
         Objects = 16,           /**< The objects that lay on the \ref Cell "cells"*/
         All = 31                /**< Represent all elements*/
     };
-    /**
+    MapPainter(QObject *parent = 0); /**<
      * Constructs a new MapPainter with a default size of (42,42).
      */
-    MapPainter(QObject *parent = 0);
-    /**
+    MapPainter(Map *m, QObject *parent = 0); /**<
      * Constructs a new MapPainter with a default size of (42,42), and loads the \ref Map "map" m.
      */
-    MapPainter(Map *m, QObject *parent = 0);
 
-    void setPaintedElement(Element e, bool painted = true); /**< Enables or disables the render of an \ref Element "element". \n\n See also \ref setPaintedElements*/
-    void setPaintedElements(Element e); /**< set the rendered \ref Element "elements". \n\n See also \ref setPaintedElement*/
+    void setPaintedElement(Element e, bool painted = true); /**<
+     * Enables or disables the render of an \ref Element "element".
+     *
+     * See also \ref setPaintedElements.
+     */
+    void setPaintedElements(Element e); /**<
+     * Set the rendered \ref Element "elements".
+     *
+     * See also \ref setPaintedElement.
+     */
 
-    /**
+    void setMap(Map* m); /**<
      * Loads the \ref Map "map", computing the new size of the view area.
      */
-    void setMap(Map* m);
-    void paint(QPainter& p);    /**< Draws the map in the QPaintDevice. \n\n See also \ref render.*/
-    const QImage& render();     /**< Provides a QImage with a view of the map.\n\n See also \ref paint.*/
+    void paint(QPainter& p); /**<
+     * Draws the map in the QPaintDevice.
+     *
+     * See also \ref render.
+     */
+    const QImage& render(); /**<
+     * Provides a QImage with a view of the map.
+     *
+     * See also \ref paint.
+     */
 
-    /**
+    RlCoords viewCenter() const; /**<
      * Return the relative coordinates of the current view center.
      *
      * See also \ref setViewCenter.
      */
-    RlCoords viewCenter() const;
-    /**
+    void setViewCenter(RlCoords relativeCenter); /**<
      * Change the view center, using relative coordinates.
      *
      * If the new center is invalid (the view exceed the map area), the closest valid center is used.
      *
      * See also \ref viewCenter.
      */
-    void setViewCenter(RlCoords relativeCenter);
-    void setViewCenter(double relativeCenterX, double relativeCenterY); /**< This is an overload function, see \ref setViewCenter.*/
-    void setViewCenterQuiet(double x, double y); /**< does the same as \ref setViewCenter, without emitting the signal viewCenterChanged to avoid event loop.*/
+    void setViewCenter(double relativeCenterX, double relativeCenterY); /**<
+     * This is an overload function, see \ref setViewCenter.
+     */
+    void setViewCenterQuiet(double x, double y); /**<
+     * does the same as \ref setViewCenter, without emitting the signal viewCenterChanged to avoid event loop.
+     */
 
-    /**
+    double scale() const; /**<
      * Returns the current scale of the view.
      *
      * See also \ref setScale.
      */
-    double scale() const;
-    void setScale(double scale); /**< Set the current view scale. This closest value in the scale domain will be used. \n\n See also \ref scale and \ref setScaleDomain.*/
-    void setScaleDomain(double scaleMin, double scaleMax); /**< Set the valid values for the scale. \n\n See also \ref scale and \ref setScale.*/
+    void setScale(double scale); /**<
+     * Set the current view scale. This closest value in the scale domain will be used.
+     *
+     * See also \ref scale and \ref setScaleDomain.
+     */
+    void setScaleDomain(double scaleMin, double scaleMax); /**<
+     * Set the valid values for the scale.
+     *
+     * See also \ref scale and \ref setScale.
+     */
 
-    bool setHighlightedCell(const ClCoords& p); /**< Set the highligthed \ref Cell "cell" to the one at the ClCoords p \n\n See also \ref highlightedCell and \ref hasHighlightedCell.*/
-    bool setHighlightedCell(int i, int j); /**< This is an overload function, see \ref setViewCenter.*/
-    QPoint highlightedCell() const; /**< Returns the integer index of the \ref Cell "cell" the is highlighted. See also \ref sethighlightedCell and \ref hasHighlightedCell.*/
-    bool hasHighlightedCell() const; /**< Returns true if a \ref Cell "cell" is highligthed.\n\n See also \ref highlightedCell and \ref setHighlightedCell.*/
+    bool setHighlightedCell(const ClCoords& p); /**<
+     * Set the highligthed \ref Cell "cell" to the one at the ClCoords p
+     *
+     * See also \ref highlightedCell and \ref hasHighlightedCell.
+     */
+    bool setHighlightedCell(int i, int j); /**<
+     * This is an overload function, see \ref setViewCenter.
+     */
+    QPoint highlightedCell() const; /**<
+     * Returns the integer index of the \ref Cell "cell" the is highlighted.
+     *
+     * See also \ref sethighlightedCell and \ref hasHighlightedCell.
+     */
+    bool hasHighlightedCell() const; /**<
+     * Returns true if a \ref Cell "cell" is highligthed.
+     *
+     * See also \ref highlightedCell and \ref setHighlightedCell.
+     */
 
-    /**
+    void resize(QSize s); /**<
      * Change the size of the view, <i> ie </i> the rectangle in which
      * the map will be render.
      *
      * See also \ref size.
      */
-    void resize(QSize s);
-    void resize(int wi, int he);/**< This is an overload function, see \ref resize*/
-    /**
+    void resize(int wi, int he); /**<
+     * This is an overload function, see \ref resize
+     */
+    QSize size() const; /**<
      * Return the size of the rectangle in which the map is render.
      * This is also the size of the image returned by \ref render.
      *
      * See also \ref resize.
      */
-    QSize size() const;
-    /**
+    void zoom(double factor, QPointF fixedPoint); /**<
      * Multiplying the scale of the view by factor, trying to leave the
      * point center at the same position.
      * \note It is not always possible to keep this point fixed, in particulary
      * when the view is resulting view would exceed the map region.
      * In that case, the center is adapt to minimise the difference.
      */
-    void zoom(double factor, QPointF fixedPoint);
-    /**
+    QPair<bool,bool> move(PxCoords delta, QPointF center); /**<
      * Change the center position from the given center and a pixel difference.
      *
      * The return value indicate if the expected center was valid (regarding x or y
@@ -203,36 +238,51 @@ public:
      *
      * See also setViewCenter.
      */
-    QPair<bool,bool> move(PxCoords delta, QPointF center);
 
-    QSize virtualSize() const; /**< Computes the total size of the image of the map*/
+    QSize virtualSize() const; /**<
+     * Computes the total size of the image of the map
+     */
 
-    PxCoords ptToPxl(PtCoords p) const; /**< Converts virtual point to real pixel coordinates*/
-    PtCoords pxlToPt(PxCoords p) const; /**< Converts real pixel to virtual point coordinates*/
-    PtCoords cooToPt(ClCoords p) const; /**< Converts cells indice to virtual point coordinates*/
-    ClCoords ptToCoo(PtCoords p) const; /**< Converts virtual point to cell indice*/
-    PxCoords cooToPxl(ClCoords p) const; /**< Convenient function equivalent to \ref ptToPxl(\ref cooToPt "cooToPt"(p))*/
-    ClCoords pxlToCoo(PxCoords p) const; /**< Convenient function equivalent to \ref ptToCoo(\ref pxlToPt "pxlToPt"(p))*/
-    PtCoords indToPt(int i, int j) const; /**< Converts to coordinates*/
+    PxCoords ptToPxl(PtCoords p) const; /**<
+     * Converts virtual point to real pixel coordinates
+     */
+    PtCoords pxlToPt(PxCoords p) const; /**<
+     * Converts real pixel to virtual point coordinates
+     */
+    PtCoords cooToPt(ClCoords p) const; /**<
+     * Converts cells indice to virtual point coordinates
+     */
+    ClCoords ptToCoo(PtCoords p) const; /**<
+     * Converts virtual point to cell indice
+     */
+    PxCoords cooToPxl(ClCoords p) const; /**<
+     * Convenient function equivalent to \ref ptToPxl(\ref cooToPt "cooToPt"(p))
+     */
+    ClCoords pxlToCoo(PxCoords p) const; /**<
+     * Convenient function equivalent to \ref ptToCoo(\ref pxlToPt "pxlToPt"(p))
+     */
+    PtCoords indToPt(int i, int j) const; /**<
+     * Converts to coordinates
+     */
 
 signals:
-    /**
+    void mapSizeChanged(QSize); /**<
      * This signal is emitted when the total size of the \ref Map "map"'s view change.
      *
      * It appends mainly during scale change and modification on the \ref Map "map" (resize,
      * angles setting, ...).
      */
-    void mapSizeChanged(QSize);
-    /**
+    void viewCenterChanged(QPoint); /**<
      * This signal is emitted when the center of the \ref Map "map" change.
      *
      * It appends mainly during moving on the view and zooming.
      */
-    void viewCenterChanged(QPoint);
 
 
 private slots:
-    void updateMap();           /**< Checks if the map has changed*/
+    void updateMap(); /**<
+     * Checks if the map has changed
+     */
 
 private:
     inline void globalViewChanged();
@@ -270,12 +320,22 @@ private:
 
 
 };
-/*! \brief The operator | is the flag OR operation. La suite*/
-inline MapPainter::Element operator|(MapPainter::Element a, MapPainter::Element b){return static_cast<MapPainter::Element>(static_cast<int>(a)|static_cast<int>(b));}
-/*! \brief The operator & is the flag AND operation*/
-inline MapPainter::Element operator&(MapPainter::Element a, MapPainter::Element b){return static_cast<MapPainter::Element>(static_cast<int>(a)&static_cast<int>(b));}
-/*! \brief The operator ^ is the flag substraction operation. \warning This is not a XOR operation, it corresponds to a&!b*/
-inline MapPainter::Element operator^(MapPainter::Element a, MapPainter::Element b){return static_cast<MapPainter::Element>(static_cast<int>(a)&!static_cast<int>(b));}
+inline MapPainter::Element operator|(MapPainter::Element a, MapPainter::Element b){
+    return static_cast<MapPainter::Element>(static_cast<int>(a)|static_cast<int>(b));
+}/*!<
+ * \brief The operator | is the flag OR operation.
+ */
+inline MapPainter::Element operator&(MapPainter::Element a, MapPainter::Element b){
+    return static_cast<MapPainter::Element>(static_cast<int>(a)&static_cast<int>(b));
+}/*!<
+ * \brief The operator & is the flag AND operation
+ */
+inline MapPainter::Element operator^(MapPainter::Element a, MapPainter::Element b){
+    return static_cast<MapPainter::Element>(static_cast<int>(a)&!static_cast<int>(b));
+}/*!<
+ * \brief The operator ^ is the flag substraction operation.
+ * \warning This is not a XOR operation, it corresponds to a&!b
+ */
 
 
 #endif // MAPPAINTER_H

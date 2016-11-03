@@ -8,3 +8,5 @@
 *.o
 *.class
 *.pyc
+
+__pycache__

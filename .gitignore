@@ -8,3 +8,6 @@
 *.o
 *.class
 *.pyc
+
+# Fichiers de cache Python
+src/__pycache__

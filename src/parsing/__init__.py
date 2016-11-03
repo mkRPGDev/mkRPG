@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 This is the main module file.
 This file mainlky handle the global loading of the world from the xml files.
@@ -58,8 +60,5 @@ def game_parser(game_xml):
             entities_file = entities_file.text.replace("/", sep)
         # Gets the available actions.
         actions_file = root.find('World').find('Actions')
+        # Gets the available interactions.
         interactions_file = root.find('World').find('Interactions')
-
-
-
-

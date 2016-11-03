@@ -9,4 +9,16 @@
 *.class
 *.pyc
 
-__pycache__
+
+# Fichiers de logs
+*.log
+
+# Fichiers d'éditeur
+src/build-RPGEditor-Desktop_Qt_5_6_1_GCC_64bit-Debug/
+src/editor/RPGEditor.pro.user
+
+# Fichier de lancement du serveur
+src/isserver.py
+
+# Fichiers de cache Python
+src/__pycache__

@@ -1,0 +1,28 @@
+<World name="world">
+    <Params>
+        <currentMap id="main"/>
+        <pomme id="pomme"/>
+    </Params>
+    
+    <Maps>
+        <Map id="main"/>
+    </Maps>
+
+    <Entities>
+        <Entity id="serpent"/>
+    </Entities>
+
+    <Objects>
+        <MagicObject id="pomme"/>
+    </Objects>
+<!--
+    <Map name="principale">
+        <Params>
+            <height val="0"/>
+            <width val="0"/>
+            <blah val="12"/>
+            <self id="principale"/>
+        </Params>
+    </Map>
+-->
+</World>

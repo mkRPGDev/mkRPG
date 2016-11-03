@@ -29,7 +29,7 @@ class Client():
             self.win.keypad(True)
             curses.curs_set(0)
             self.mv=MapViewer(self.world.currentMap, self.world)
-        self.interactions = interactions.registerInteractions(path)
+        self.interactions = registerInteractions(path)
         
         self.perso = self.world.entities[0] # XXX bricolage
         self.orderDispatcher = OrderDispatcher(self.world, None)
@@ -52,7 +52,7 @@ class Client():
                 print("Exited properly")
                 break
             for inte in self.interactions:
-                if (inte.type == interactions.InteractionType.Key and
+                if (inte.type == InteractionType.Key and
                     inte.key == key):
                     self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
     
@@ -95,5 +95,4 @@ class MapViewer:
             win.addch(ent.y+1, ent.x+1, ent.picture)
         # TODO gérer plusieurs cartes
         
-Client(argv[1] if len(argv)>1 else PATH).run()
-
+cli = Client(argv[1] if len(argv)>1 else PATH).run()

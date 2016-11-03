@@ -10,4 +10,4 @@
 *.pyc
 
 # Fichier de lancement
-Sources/isserver.py
+src/isserver.py

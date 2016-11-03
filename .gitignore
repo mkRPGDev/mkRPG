@@ -21,3 +21,6 @@ src/isserver.py
 
 # Fichiers de cache Python
 src/__pycache__
+
+#Fichers mac
+.DS_Store

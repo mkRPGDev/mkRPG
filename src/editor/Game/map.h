@@ -42,6 +42,8 @@ public:
     Param(angleY,AngleY)
     Cell& cell(int i, int j) const;
     Cell& cell(const QPoint &p) const;
+    void selectAll();
+    void unSelectAll();
 
 private:
     Cell* cells;

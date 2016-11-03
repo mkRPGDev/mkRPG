@@ -15,7 +15,16 @@
  */
 class MapViewer : public QWidget
 {
-    enum MouseState{Rest, RClick, LClick, MClick, Moving, ContinuousSelection};
+    enum MouseState{
+        Rest,
+        RClick,
+        LClick,
+        MClick,
+        Moving,
+        ContinuousSelection,
+        RectangleSelection,
+        RegionSelection
+    };
     Q_OBJECT
 public:
     explicit MapViewer(QWidget *parent = 0);
@@ -60,6 +69,7 @@ private:
 
     QTimer *ti, *tiUp, *tiSel;
     QPoint clickPos, selectPos;
+    QPointF cellClicked;
     QPointF center;
     bool mouseIn;
 

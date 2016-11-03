@@ -68,6 +68,16 @@ Cell& Map::cell(const QPoint &p) const{
     return cell(p.x(), p.y());
 }
 
+void Map::selectAll(){
+    int nbCell = width()*height();
+    for(int i(0); i<nbCell; cells[i++].setSelected(true));
+    Editing;
+}
 
+void Map::unSelectAll(){
+    int nbCell = width()*height();
+    for(int i(0); i<nbCell; cells[i++].setSelected(false));
+    Editing;
+}
 
 

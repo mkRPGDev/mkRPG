@@ -3,13 +3,23 @@
 
 #include "ui_selectiondock.h"
 #include "Docks/bdockwidget.h"
-
+#include "mapviewer.h"
 class SelectionDock : public BDockWidget, private Ui::SelectionDock
 {
     Q_OBJECT
 
 public:
-    explicit SelectionDock(QWidget *parent = 0);
+    explicit SelectionDock(MapViewer *mv, QWidget *parent = 0);
+
+private slots:
+    void on_pencil_toggled(bool b);
+    void on_rectangle_toggled(bool b);
+    void on_region_toggled(bool b);
+    void on_selectColor_colorChanged(const QColor &c);
+
+private:
+    void updateSelectionMode();
+    MapViewer *mv;
 };
 
 #endif // SELECTIONDOCK_H

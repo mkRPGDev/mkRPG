@@ -14,17 +14,19 @@ CellType::CellType(Game *g, Object *parent) :
 
 Cell::Cell(Game* g, Object *parent) :
     Object(g, parent),
-    select(false), nbSel(0)
+    select(false), nbSel(0), selectMod(false)
 {
     setCellType(nullptr);
 }
 
 void Cell::setSelected(bool s){
     select = s;
+    selectMod = true;
 }
 
 void Cell::invertSelected(){
     select = !select;
+    selectMod = true;
 }
 
 bool Cell::isSelected() const{
@@ -38,16 +40,18 @@ void Cell::addSelection(){
 }
 
 bool Cell::isPreSelected() const{
-    return nbSel%2;
+    return nbSel%2 && !selectMod;
 }
 
 void Cell::confirmPreSelection(bool add){
     select = add ? select|(nbSel%2) : select&!(nbSel%2);
     clearPreSelection();
+    selectMod = false;
 }
 
 void Cell::clearPreSelection(){
     nbSel = 0;
+    selectMod = false;
 }
 
 

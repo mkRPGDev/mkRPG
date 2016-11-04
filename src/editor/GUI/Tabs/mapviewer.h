@@ -45,7 +45,7 @@ public:
      * Three modes of selection exists :
      */
     enum SelectionMode{
-        PencilSelection,    /**< The \ref Cell "cells" under cursor are selected*/
+        PencilSelection,    /**< The \ref Cell "cells" under the cursor are selected*/
         RectangleSelection, /**< The \ref Cell "cells" inside the rectangle defined by the clicked cell and the cell under the cursor are selected*/
         RegionSelection     /**< The \ref Cell "cells" inside the region drawn by cursor's moves are selected*/
     };
@@ -58,6 +58,10 @@ public:
     void updateMap();
 
     inline MapPainter& mapPainter() {return mp;}
+
+
+    void setSelectionMode(SelectionMode m);
+    inline SelectionMode selectionMode() const{return sm;}
 
 signals:
     void viewSizeChanged(QSize);
@@ -95,10 +99,9 @@ private:
     SelectionMode sm;
     MouseState ms;
     int wi,he;
-    ClCoords clClick, clMove;
+    ClCoords cellClicked, cellMove;
     QTimer *ti, *tiUp, *tiSel;
     QPoint clickPos, selectPos;
-    QPointF cellClicked;
     QPointF center;
     bool mouseIn;
 

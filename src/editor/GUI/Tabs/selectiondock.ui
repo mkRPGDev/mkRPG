@@ -30,7 +30,7 @@
     <number>2</number>
    </property>
    <item row="0" column="2">
-    <widget class="QToolButton" name="toolButton_2">
+    <widget class="QToolButton" name="rectangle">
      <property name="toolTip">
       <string>Rectangle Selection</string>
      </property>
@@ -50,7 +50,7 @@
     </widget>
    </item>
    <item row="0" column="3">
-    <widget class="QToolButton" name="toolButton_3">
+    <widget class="QToolButton" name="region">
      <property name="toolTip">
       <string>Region Selection</string>
      </property>
@@ -69,13 +69,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="4">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Selection Color :</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
@@ -84,7 +77,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QToolButton" name="toolButton">
+    <widget class="QToolButton" name="pencil">
      <property name="toolTip">
       <string>Pencil Selection</string>
      </property>
@@ -124,8 +117,33 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Selection Color :</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="3">
+    <widget class="BColor" name="selectColor">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>BColor</class>
+   <extends>QFrame</extends>
+   <header location="global">GUI/Tabs/bcolor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../Icons/ressources.qrc"/>
  </resources>

@@ -2,6 +2,9 @@
 #define MAPPAINTER_H
 
 
+// Hint : before to read this file, fold all comments blocks/
+// all blocks and unfold the class you want to see. :)
+
 
 /*! \file mappainter.h
  * \brief Definition of the class used to render maps
@@ -14,6 +17,7 @@
 
 
 #include "map.h"
+#include "GUI/options.h"
 
 #define MINMAX(a,x,b) std::min(std::max(a,x),b)
 
@@ -268,6 +272,27 @@ public:
      * Converts to coordinates
      */
 
+    const QColor &selectedCellColor() const; /**<
+     * Returns the color of the filter that is applied to selected cells.
+     *
+     * See also \ref setSelectedCellColor, \ref preSelectedCellColor.
+     */
+    const QColor &preSelectedCellColor() const; /**<
+     * Returns the color of the filter that is applied to pre-selected cells.
+     *
+     * See also \ref setPreSelectedCellColor, \ref selectedCellColor.
+     */
+    void setSelectedCellColor(const QColor &c); /**<
+     * Set the color of the  filter that is applied to selected cells.
+     *
+     * See also \ref selectedCellColor, \ref setPreSelectedCellColor.
+     */
+    void setPreSelectedCellColor(const QColor &c); /**<
+     * Set the color of the  filter that is applied to pre-selected cells.
+     *
+     * See also \ref preSelectedCellColor, \ref setSelectedCellColor.
+     */
+
 signals:
     void mapSizeChanged(QSize); /**<
      * This signal is emitted when the total size of the \ref Map "map"'s view change.
@@ -310,6 +335,7 @@ private:
     double ratioFactor;
     QSize cellSize;
 
+    QColor selColor, preSelColor;
 
     PtCoords *intersec;
     bool changesOccured;

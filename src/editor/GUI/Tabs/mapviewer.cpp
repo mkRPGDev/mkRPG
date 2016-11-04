@@ -21,7 +21,7 @@ MapViewer::MapViewer(QWidget *parent) :
     tiUp->setSingleShot(true);
     connect(tiUp, SIGNAL(timeout()), this, SLOT(update()));
 
-    sm = RegionSelection;
+    sm = PencilSelection;
 
 
     tiSel = new QTimer(this);
@@ -107,8 +107,8 @@ bool MapViewer::updateMousePos(PtCoords p){
 void MapViewer::mousePressEvent(QMouseEvent *me){
     if(map == nullptr) return;
     clickPos = me->pos();
-    clClick = mp.pxlToCoo(clickPos);
-    clMove = clClick;
+    cellClicked = mp.pxlToCoo(clickPos);
+    cellMove = cellClicked;
     ms = me->button() == Qt::MiddleButton ? MClick :
          me->button() == Qt::RightButton ? RClick : LClick;
     if(ms == LClick){
@@ -117,6 +117,7 @@ void MapViewer::mousePressEvent(QMouseEvent *me){
             map->cell(mp.highlightedCell()).invertSelected();
         }
         emit selectionChanged();
+        map->confirmPreSelection();
     }
     updateRequest();
 }
@@ -133,8 +134,9 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
         setCursor(Qt::ClosedHandCursor);
     }
     else if(ms == LClick){
+        map->cell(cellClicked.x(), cellClicked.y()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
         ms = Selection;
-        cellClicked = mp.pxlToCoo(clickPos);
+        //cellClicked = mp.pxlToCoo(clickPos);
     }
     int x = me->pos().x();
     int y = me->pos().y();
@@ -197,12 +199,13 @@ void MapViewer::updateSelection(ClCoords pos){
         if(mp.hasHighlightedCell())
             map->cell(mp.highlightedCell()).setSelected(!reverse);
         if(sm == RegionSelection){
-            selectCellBetween(clClick, clMove, pos);
-            clMove = pos;
+            selectCellBetween(cellClicked, cellMove, pos);
+            cellMove = pos;
         }
     }
     else{
         map->clearPreSelection();
+        map->cell(cellClicked.x(), cellClicked.y()).setSelected(!reverse);
         int px = std::max((int)std::min(pos.x(), cellClicked.x()),0);
         int py = std::max((int)std::min(pos.y(), cellClicked.y()),0);
         int qx = std::min((int)std::max(pos.x(), cellClicked.x())+1,map->width());
@@ -226,20 +229,12 @@ void MapViewer::selectCellBetween(ClCoords p0, ClCoords p1, ClCoords p2){
     double xMax = std::min((double)w,1+std::max(std::max(p0.x(), p1.x()), p2.x()));
     double yMax = std::min((double)map->height(),1+std::max(std::max(p0.y(), p1.y()), p2.y()));
     auto f = [](double x, double y, double z)->bool{return x*y>=0 && y*z>=0;};
-    int px = p2.x();
-    int py = p2.y();
-    int apx = p1.x();
-    int apy = p1.y();
     for(int i(xMin); i<xMax; ++i)
         for(int j(yMin); j<yMax; ++j)
             if(f((i+.5-p0.x())*(p1.y()-p0.y()) - (j+.5-p0.y())*(p1.x()-p0.x()),
                  (i+.5-p1.x())*(p2.y()-p1.y()) - (j+.5-p1.y())*(p2.x()-p1.x()),
                  (i+.5-p2.x())*(p0.y()-p2.y()) - (j+.5-p2.y())*(p0.x()-p2.x()))) // NOTE Temporaire ?
                 cells[i+j*w].addSelection();
-    if(0 && !f((px+.5-p0.x())*(p1.y()-p0.y()) - (py+.5-p0.y())*(p1.x()-p0.x()),
-          (px+.5-p1.x())*(p2.y()-p1.y()) - (py+.5-p1.y())*(p2.x()-p1.x()),
-          (px+.5-p2.x())*(p0.y()-p2.y()) - (py+.5-p2.y())*(p0.x()-p2.x()))) // NOTE Temporaire ?
-        cells[px+py*w].addSelection();
 }
 
 
@@ -257,4 +252,8 @@ void MapViewer::setMap(Map *m){
     mp.setMap(m);
     map = m;
     updateRequest();
+}
+
+void MapViewer::setSelectionMode(SelectionMode m){
+    sm = m;
 }

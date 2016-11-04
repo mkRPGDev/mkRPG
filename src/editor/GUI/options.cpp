@@ -16,6 +16,8 @@ Options::Options(){
     Default(WIN, "Maximized", false);
     Default(MAP, "DocksVisible", true);
     Default(MAP, "DocksLength", 200);
+    Default(MAP, "SelColor", QColor(255,180,0,60));
+    Default(MAP, "PreSelColor", QColor(255,0,0,60));
 
     Default(DIR, "New", QDir::homePath());
     Default(DIR, "Open", QDir::homePath());

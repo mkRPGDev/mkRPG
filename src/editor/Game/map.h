@@ -44,6 +44,7 @@ public:
 private:
     bool select;
     int nbSel;
+    bool selectMod;
 };
 
 

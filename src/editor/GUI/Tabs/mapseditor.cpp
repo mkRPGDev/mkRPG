@@ -8,6 +8,10 @@ MapsEditor::MapsEditor(QWidget *parent) :
     connect(&mapViewer->mapPainter(), SIGNAL(mapSizeChanged(QSize)), this, SLOT(mapSizeChanged(QSize)));
     connect(&mapViewer->mapPainter(), SIGNAL(viewCenterChanged(QPoint)), this, SLOT(viewCenterChanged(QPoint)));
 
+    SelectionDock *sd = new SelectionDock;
+    docksW.append(sd);
+    docks->addDock(tr("Selection options"), sd);
+    connect(sd, SIGNAL(gameModified()), this, SLOT(updateGame()));
     MapDock *md = new MapDock;
     docksW.append(md);
     docks->addDock(tr("Map"), md);

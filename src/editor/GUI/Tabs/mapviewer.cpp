@@ -21,6 +21,7 @@ MapViewer::MapViewer(QWidget *parent) :
     tiUp->setSingleShot(true);
     connect(tiUp, SIGNAL(timeout()), this, SLOT(update()));
 
+    sm = RegionSelection;
 
 
     tiSel = new QTimer(this);
@@ -50,7 +51,7 @@ void MapViewer::mousePosChecking(){
     QPoint pt(mapFromGlobal(cursor().pos()));
     bool b = mouseIn;
     mouseIn = pt.x()>=0 && pt.x() < wi && pt.y() >=0 && pt.y() < he;
-    if(mouseIn || ms == ContinuousSelection){ if(updateMousePos(mp.pxlToPt(pt))) ti->start(100);}
+    if(mouseIn || ms == Selection){ if(updateMousePos(mp.pxlToPt(pt))) ti->start(100);}
     else if(b) mouseOutEvent();
 
 }
@@ -94,7 +95,7 @@ void MapViewer::mouseOutEvent(){
 
 
 bool MapViewer::updateMousePos(PtCoords p){
-    if(map == nullptr) false;
+    if(map == nullptr) return false;
     bool in = mp.setHighlightedCell(mp.ptToCoo(p));
     if(in || mouseIn) updateRequest();
     mouseIn = in;
@@ -110,14 +111,12 @@ void MapViewer::mousePressEvent(QMouseEvent *me){
     clMove = clClick;
     ms = me->button() == Qt::MiddleButton ? MClick :
          me->button() == Qt::RightButton ? RClick : LClick;
-    //qDebug() << "Clic" << (int) ms;
     if(ms == LClick){
         if(!(me->modifiers() & Qt::ControlModifier)) map->unSelectAll();
         if(mp.hasHighlightedCell()){
             map->cell(mp.highlightedCell()).invertSelected();
         }
         emit selectionChanged();
-        // TODO avec Ctrl + Alt : sélection de zone
     }
     updateRequest();
 }
@@ -125,6 +124,7 @@ void MapViewer::mousePressEvent(QMouseEvent *me){
 void MapViewer::mouseMoveEvent(QMouseEvent *me){
     if(map == nullptr) return;
     tiSel->stop();
+    checkMousePos();
     if(ms == RClick){
         mp.setHighlightedCell(-1,-1);
         ti->stop();
@@ -133,14 +133,13 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
         setCursor(Qt::ClosedHandCursor);
     }
     else if(ms == LClick){
-        //if(me->modifiers()&Qt::ControlModifier) ms = ContinuousSelection;
-        /*else*/ ms = RectangleSelection;
+        ms = Selection;
         cellClicked = mp.pxlToCoo(clickPos);
     }
     int x = me->pos().x();
     int y = me->pos().y();
-    bool change = false;
     if(ms == Moving){
+        bool change = false;
         QPair<bool,bool> real(mp.move(me->pos()-clickPos, center));
         if(x<=0 && real.first){
             x += wi-2;
@@ -164,47 +163,21 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
         }
         updateRequest();
         mp.setHighlightedCell(-1,-1);
+        if(change)
+            cursor().setPos(mapToGlobal(QPoint(x,y)));
     }
-    else if(ms==Rest){
-        if(me->modifiers() & Qt::AltModifier){
-            //if(!(me->modifiers() & Qt::ControlModifier)) map->unSelectAll();
-            int dx = std::max(0,x-wi)+std::min(x,0);
-            int dy = std::max(0,y-he)+std::min(y,0);
-            if(dx || dy){
-                auto f = [](double x)->double{return atan(x)*8;};
-                selectPos = QPoint(f(dx),f(dy));
-                tiSel->start();
-                mp.move(-selectPos, mp.viewCenter());
-                checkMousePos();
-            }
+    else if(ms == Selection){
+        int dx = std::max(0,x-wi)+std::min(x,0);
+        int dy = std::max(0,y-he)+std::min(y,0);
+        if(dx || dy){
+            auto f = [](double x)->double{return atan(x)*8;};
+            selectPos = QPoint(f(dx),f(dy));
+            tiSel->start();
+            mp.move(-selectPos, mp.viewCenter());
             checkMousePos();
-            if(me->modifiers() & Qt::ControlModifier){
-                ClCoords c(mp.pxlToCoo(me->pos()));
-                selectCellBetween(clClick, clMove, c);
-                clMove = c;
-                emit selectionChanged();
-            }
-            if(mp.hasHighlightedCell()){
-                map->cell(mp.highlightedCell()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
-                emit selectionChanged();
-            }
         }
-        else checkMousePos();
+        updateSelection(mp.pxlToCoo(me->pos()));
     }
-    else if(ms == RectangleSelection){
-        if(!(me->modifiers() & Qt::ControlModifier)) map->unSelectAll();
-        QPointF pos = mp.pxlToCoo(me->pos());
-        int px = std::max((int)std::min(pos.x(), cellClicked.x()),0);
-        int py = std::max((int)std::min(pos.y(), cellClicked.y()),0);
-        int qx = std::min((int)std::max(pos.x(), cellClicked.x())+1,map->width());
-        int qy = std::min((int)std::max(pos.y(), cellClicked.y())+1,map->height());
-        for(int i(px); i<qx; ++i)
-            for(int j(py); j<qy; ++j)
-                map->cell(i,j).setSelected(!(me->modifiers() & Qt::ShiftModifier));
-        emit selectionChanged();
-    }
-    if(change)
-        cursor().setPos(mapToGlobal(QPoint(x,y)));
     updateRequest();
 
 }
@@ -218,6 +191,33 @@ void MapViewer::selectionOut(){
     }
 }
 
+void MapViewer::updateSelection(ClCoords pos){
+    bool reverse = QApplication::keyboardModifiers() & Qt::ShiftModifier;
+    if(sm == PencilSelection || sm == RegionSelection){
+        if(mp.hasHighlightedCell())
+            map->cell(mp.highlightedCell()).setSelected(!reverse);
+        if(sm == RegionSelection){
+            selectCellBetween(clClick, clMove, pos);
+            clMove = pos;
+        }
+    }
+    else{
+        map->clearPreSelection();
+        int px = std::max((int)std::min(pos.x(), cellClicked.x()),0);
+        int py = std::max((int)std::min(pos.y(), cellClicked.y()),0);
+        int qx = std::min((int)std::max(pos.x(), cellClicked.x())+1,map->width());
+        int qy = std::min((int)std::max(pos.y(), cellClicked.y())+1,map->height());
+        for(int i(px); i<qx; ++i)
+            for(int j(py); j<qy; ++j)
+                map->cell(i,j).addSelection();
+    }
+
+    emit selectionChanged();
+
+}
+
+
+
 void MapViewer::selectCellBetween(ClCoords p0, ClCoords p1, ClCoords p2){
     Cell* cells = &map->cell(0,0); // Sorry Sorry Sorry...
     int w = map->width();
@@ -226,13 +226,20 @@ void MapViewer::selectCellBetween(ClCoords p0, ClCoords p1, ClCoords p2){
     double xMax = std::min((double)w,1+std::max(std::max(p0.x(), p1.x()), p2.x()));
     double yMax = std::min((double)map->height(),1+std::max(std::max(p0.y(), p1.y()), p2.y()));
     auto f = [](double x, double y, double z)->bool{return x*y>=0 && y*z>=0;};
+    int px = p2.x();
+    int py = p2.y();
+    int apx = p1.x();
+    int apy = p1.y();
     for(int i(xMin); i<xMax; ++i)
         for(int j(yMin); j<yMax; ++j)
             if(f((i+.5-p0.x())*(p1.y()-p0.y()) - (j+.5-p0.y())*(p1.x()-p0.x()),
                  (i+.5-p1.x())*(p2.y()-p1.y()) - (j+.5-p1.y())*(p2.x()-p1.x()),
                  (i+.5-p2.x())*(p0.y()-p2.y()) - (j+.5-p2.y())*(p0.x()-p2.x()))) // NOTE Temporaire ?
                 cells[i+j*w].addSelection();
-
+    if(0 && !f((px+.5-p0.x())*(p1.y()-p0.y()) - (py+.5-p0.y())*(p1.x()-p0.x()),
+          (px+.5-p1.x())*(p2.y()-p1.y()) - (py+.5-p1.y())*(p2.x()-p1.x()),
+          (px+.5-p2.x())*(p0.y()-p2.y()) - (py+.5-p2.y())*(p0.x()-p2.x()))) // NOTE Temporaire ?
+        cells[px+py*w].addSelection();
 }
 
 
@@ -241,12 +248,9 @@ void MapViewer::mouseReleaseEvent(QMouseEvent *me){
     if(map == nullptr) return;
     checkMousePos();
     ms = Rest;
+    map->confirmPreSelection(!(me->modifiers() & Qt::ShiftModifier));
     updateRequest();
     setCursor(Qt::ArrowCursor);
-
-    for(int i(0); i<map->width(); ++i)
-        for(int j(0); j<map->height(); ++j)
-            map->cell(i,j).confirmPreSelection();
 }
 
 void MapViewer::setMap(Map *m){

@@ -99,7 +99,17 @@
     <property name="title">
      <string>Edition</string>
     </property>
+    <widget class="QMenu" name="menuSelection_mode">
+     <property name="title">
+      <string>Selection mode</string>
+     </property>
+     <addaction name="actionPencil"/>
+     <addaction name="actionRectangle"/>
+     <addaction name="actionRegion"/>
+    </widget>
     <addaction name="actionSelect_All"/>
+    <addaction name="actionUnselect_All"/>
+    <addaction name="menuSelection_mode"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -190,6 +200,56 @@
   <action name="actionSelect_All">
    <property name="text">
     <string>Select All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionUnselect_All">
+   <property name="text">
+    <string>Unselect All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+A</string>
+   </property>
+  </action>
+  <action name="actionPencil">
+   <property name="icon">
+    <iconset resource="../Icons/ressources.qrc">
+     <normaloff>:/Icons/selPen.png</normaloff>:/Icons/selPen.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pencil</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
+  </action>
+  <action name="actionRectangle">
+   <property name="icon">
+    <iconset resource="../Icons/ressources.qrc">
+     <normaloff>:/Icons/selRec.png</normaloff>:/Icons/selRec.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rectangle</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
+   </property>
+  </action>
+  <action name="actionRegion">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../Icons/ressources.qrc">
+     <normaloff>:/Icons/selReg.png</normaloff>:/Icons/selReg.png</iconset>
+   </property>
+   <property name="text">
+    <string>Region</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+3</string>
    </property>
   </action>
  </widget>

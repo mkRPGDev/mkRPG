@@ -17,6 +17,10 @@ private:
 
 
 
+/*!
+ * Usefull macro to set up a for on the cells
+ */
+#define forCells int nbCell = width()*height(); for(int i(0); i<nbCell; ++i)
 
 /*!
  * \brief The Cell class
@@ -29,10 +33,11 @@ public:
     void setSelected(bool s = true);
     void invertSelected();
 
-    void initSelection();
+
     void addSelection();
     bool isPreSelected() const;
-    void confirmPreSelection();
+    void confirmPreSelection(bool add = true);
+    void clearPreSelection();
 
     ParamObj(cellType, CellType, c)
     ObjectsMap(c,o,O,bject,,s)
@@ -60,6 +65,9 @@ public:
     Cell& cell(const QPoint &p) const;
     void selectAll();
     void unSelectAll();
+
+    void confirmPreSelection(bool add = true);
+    void clearPreSelection();
 
 private:
     Cell* cells;

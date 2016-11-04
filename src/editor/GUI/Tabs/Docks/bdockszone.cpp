@@ -79,7 +79,8 @@ void BLayout::setLength(int t){
 
 
 
-BDocksZone::BDocksZone(QWidget *parent) : QWidget(parent)
+BDocksZone::BDocksZone(QWidget *parent) :
+    QWidget(parent), resizing(false)
 {
     lMin = 150;
     lMax = 400;

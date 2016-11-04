@@ -753,7 +753,7 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = "/media/baptiste/Données/Documents/ENS/M1/Info/Génie logiciel/Projet/Sources/RPGEditor"
+INPUT                  = "/media/baptiste/Données/Documents/ENS/M1/Info/Génie logiciel/Projet/src/editor"
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

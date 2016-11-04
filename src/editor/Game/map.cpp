@@ -32,9 +32,6 @@ bool Cell::isSelected() const{
 }
 
 
-void Cell::initSelection(){
-    nbSel = 0;
-}
 
 void Cell::addSelection(){
     ++nbSel;
@@ -44,11 +41,14 @@ bool Cell::isPreSelected() const{
     return nbSel%2;
 }
 
-void Cell::confirmPreSelection(){
-    select |= nbSel%2;
-    initSelection();
+void Cell::confirmPreSelection(bool add){
+    select = add ? select|(nbSel%2) : select&!(nbSel%2);
+    clearPreSelection();
 }
 
+void Cell::clearPreSelection(){
+    nbSel = 0;
+}
 
 
 
@@ -85,17 +85,21 @@ Cell& Map::cell(const QPoint &p) const{
     return cell(p.x(), p.y());
 }
 
+
 void Map::selectAll(){
-    int nbCell = width()*height();
-    for(int i(0); i<nbCell; cells[i++].setSelected(true));
+    forCells cells[i].setSelected(true);
     Editing;
 }
 
 void Map::unSelectAll(){
-    int nbCell = width()*height();
-    for(int i(0); i<nbCell; cells[i++].setSelected(false));
+    forCells cells[i].setSelected(false);
     Editing;
 }
 
+void Map::clearPreSelection(){
+    forCells cells[i].clearPreSelection();
+}
 
-
+void Map::confirmPreSelection(bool add){
+    forCells cells[i].confirmPreSelection(add);
+}

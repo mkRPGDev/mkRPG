@@ -178,15 +178,15 @@ void MapPainter::paint(QPainter &p){
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
             Cell &c (map->cell(i,j));
-            if(c.isSelected()){
-                p.setBrush(b2);
+            if(c.isPreSelected()){
+                p.setBrush(b3);
                 p.drawConvexPolygon(QVector<QPointF>({ptToPxl(indToPt(i,j)),
                                                       ptToPxl(indToPt(i,j+1)),
                                                       ptToPxl(indToPt(i+1,j+1)),
                                                       ptToPxl(indToPt(i+1,j))}));
             }
-            else if(c.isPreSelected()){
-                p.setBrush(b3);
+            else if(c.isSelected()){
+                p.setBrush(b2);
                 p.drawConvexPolygon(QVector<QPointF>({ptToPxl(indToPt(i,j)),
                                                       ptToPxl(indToPt(i,j+1)),
                                                       ptToPxl(indToPt(i+1,j+1)),

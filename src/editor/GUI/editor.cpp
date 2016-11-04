@@ -104,28 +104,28 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 
 Game* Editor::open(QString fileName){ // NOTE : temporaire
     Game* g = new Game();
-    Map *m = new Map(g);
+    Map *m = new Map(g, g->world());
     g->world()->addMap(m);
     g->setCurrentMap(m);
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
 
-    im = new Image(g, ":/Icons/herbe.png");
+    im = new Image(g, g, ":/Icons/herbe.png");
     g->addImage(im);
-    ct1 = new CellType(g);
+    ct1 = new CellType(g, g);
     ct1->setImage(im);
     g->world()->addCellType(ct1);
     m->cell(10,10).setCellType(ct1);
-    im = new Image(g, ":/Icons/glace.png");
+    im = new Image(g, g, ":/Icons/glace.png");
     g->addImage(im);
-    ct2 = new CellType(g);
+    ct2 = new CellType(g, g);
     ct2->setImage(im);
     g->world()->addCellType(ct2);
     m->cell(11,11).setCellType(ct2);
-    im = new Image(g, ":/Icons/mer.png");
+    im = new Image(g, g, ":/Icons/mer.png");
     g->addImage(im);
-    ct3 = new CellType(g);
+    ct3 = new CellType(g, g);
     ct3->setImage(im);
     g->world()->addCellType(ct3);
     int l = m->width();
@@ -137,7 +137,7 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
         }
     tabBar->setTabsEnabled(true);
 
-    m = new Map(g);
+    m = new Map(g, g->world());
     g->world()->addMap(m);
     l = m->width();
     h = m->height();

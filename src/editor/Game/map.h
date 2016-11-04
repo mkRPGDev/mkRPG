@@ -3,26 +3,42 @@
 
 #include "object.h"
 
+
 class CellType : public Object
 {
 public:
-    CellType(Game *g);
+    CellType(Game *g, Object *parent);
     ParamObj(image,Image,ct)
 private:
+
+
 };
 
+
+
+
+
+/*!
+ * \brief The Cell class
+ */
 class Cell : public Object
 {
 public:
-    Cell(Game* g = nullptr);
+    Cell(Game* g = nullptr, Object *parent = nullptr);
     bool isSelected() const;
     void setSelected(bool s = true);
     void invertSelected();
+
+    void initSelection();
+    void addSelection();
+    bool isPreSelected() const;
+    void confirmPreSelection();
 
     ParamObj(cellType, CellType, c)
     ObjectsMap(c,o,O,bject,,s)
 private:
     bool select;
+    int nbSel;
 };
 
 
@@ -31,7 +47,7 @@ private:
 class Map : public Object
 {
 public:
-    Map(Game* g = nullptr);
+    Map(Game* g, Object *parent);
     Getter(width)
     Getter(height)
     QSize size() const{return QSize(width(),height());}

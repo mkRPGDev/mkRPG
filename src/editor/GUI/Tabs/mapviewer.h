@@ -59,6 +59,8 @@ private:
     void checkMousePos();
 
 
+    void selectCellBetween(ClCoords p0, ClCoords p1, ClCoords p2);
+
     MapPainter mp;
 
     Map* map;
@@ -66,7 +68,7 @@ private:
 
     MouseState ms;
     int wi,he;
-
+    ClCoords clClick, clMove;
     QTimer *ti, *tiUp, *tiSel;
     QPoint clickPos, selectPos;
     QPointF cellClicked;

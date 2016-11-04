@@ -172,15 +172,26 @@ void MapPainter::paint(QPainter &p){
     updateBackground();
     p.drawImage(0,0,im);
     QBrush b2(QColor(255,180,0,60));
+    QBrush b3(QColor(255,0,0,60));
     p.setPen(QColor(80,80,80, 0));
-    p.setBrush(b2);
+    //p.setBrush(b2);
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
-            if(map->cell(i,j).isSelected())
+            Cell &c (map->cell(i,j));
+            if(c.isSelected()){
+                p.setBrush(b2);
                 p.drawConvexPolygon(QVector<QPointF>({ptToPxl(indToPt(i,j)),
                                                       ptToPxl(indToPt(i,j+1)),
                                                       ptToPxl(indToPt(i+1,j+1)),
                                                       ptToPxl(indToPt(i+1,j))}));
+            }
+            else if(c.isPreSelected()){
+                p.setBrush(b3);
+                p.drawConvexPolygon(QVector<QPointF>({ptToPxl(indToPt(i,j)),
+                                                      ptToPxl(indToPt(i,j+1)),
+                                                      ptToPxl(indToPt(i+1,j+1)),
+                                                      ptToPxl(indToPt(i+1,j))}));
+            }
         }
     p.setBrush(Qt::NoBrush);
     if(0<=selCellX && selCellX<nbCellsX && 0<=selCellY && selCellY<=nbCellsY){

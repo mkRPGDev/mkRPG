@@ -106,6 +106,8 @@ bool MapViewer::updateMousePos(PtCoords p){
 void MapViewer::mousePressEvent(QMouseEvent *me){
     if(map == nullptr) return;
     clickPos = me->pos();
+    clClick = mp.pxlToCoo(clickPos);
+    clMove = clClick;
     ms = me->button() == Qt::MiddleButton ? MClick :
          me->button() == Qt::RightButton ? RClick : LClick;
     //qDebug() << "Clic" << (int) ms;
@@ -176,6 +178,12 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
                 checkMousePos();
             }
             checkMousePos();
+            if(me->modifiers() & Qt::ControlModifier){
+                ClCoords c(mp.pxlToCoo(me->pos()));
+                selectCellBetween(clClick, clMove, c);
+                clMove = c;
+                emit selectionChanged();
+            }
             if(mp.hasHighlightedCell()){
                 map->cell(mp.highlightedCell()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
                 emit selectionChanged();
@@ -210,6 +218,24 @@ void MapViewer::selectionOut(){
     }
 }
 
+void MapViewer::selectCellBetween(ClCoords p0, ClCoords p1, ClCoords p2){
+    Cell* cells = &map->cell(0,0); // Sorry Sorry Sorry...
+    int w = map->width();
+    double xMin = std::max(0.,std::min(std::min(p0.x(), p1.x()), p2.x()));
+    double yMin = std::max(0.,std::min(std::min(p0.y(), p1.y()), p2.y()));
+    double xMax = std::min((double)w,1+std::max(std::max(p0.x(), p1.x()), p2.x()));
+    double yMax = std::min((double)map->height(),1+std::max(std::max(p0.y(), p1.y()), p2.y()));
+    auto f = [](double x, double y, double z)->bool{return x*y>=0 && y*z>=0;};
+    for(int i(xMin); i<xMax; ++i)
+        for(int j(yMin); j<yMax; ++j)
+            if(f((i+.5-p0.x())*(p1.y()-p0.y()) - (j+.5-p0.y())*(p1.x()-p0.x()),
+                 (i+.5-p1.x())*(p2.y()-p1.y()) - (j+.5-p1.y())*(p2.x()-p1.x()),
+                 (i+.5-p2.x())*(p0.y()-p2.y()) - (j+.5-p2.y())*(p0.x()-p2.x()))) // NOTE Temporaire ?
+                cells[i+j*w].addSelection();
+
+}
+
+
 void MapViewer::mouseReleaseEvent(QMouseEvent *me){
     tiSel->stop();
     if(map == nullptr) return;
@@ -217,6 +243,10 @@ void MapViewer::mouseReleaseEvent(QMouseEvent *me){
     ms = Rest;
     updateRequest();
     setCursor(Qt::ArrowCursor);
+
+    for(int i(0); i<map->width(); ++i)
+        for(int j(0); j<map->height(); ++j)
+            map->cell(i,j).confirmPreSelection();
 }
 
 void MapViewer::setMap(Map *m){

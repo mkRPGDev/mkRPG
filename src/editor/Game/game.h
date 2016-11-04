@@ -13,7 +13,7 @@
 class World : public Object
 {
 public:
-    World(Game *g = nullptr);
+    World(Game *g, Object *parent);
     ObjectsMap(w,m,M,ap,,s) /**< Set of maps*/
     ObjectsMap(w,c,C,ellType,,s) /**< Set of cell types*/
 private:
@@ -30,7 +30,7 @@ private:
  * For editing purposes, it contains also the active map (the
  * one being editing)
  */
-class Game
+class Game : public Object
 {
 public:
     Game();

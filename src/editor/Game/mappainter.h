@@ -27,6 +27,7 @@
 class RlCoords : public QPointF
 {
 public:
+    RlCoords() : QPointF(0,0){}
     explicit RlCoords(qreal x, qreal y) : QPointF(x,y){}
     explicit RlCoords(const QPointF &p) : QPointF(p){}
 };
@@ -42,6 +43,7 @@ public:
 class ClCoords : public QPointF
 {
 public:
+    ClCoords() : QPointF(0,0){}
     explicit ClCoords(qreal x, qreal y) : QPointF(x,y){}
     explicit ClCoords(const QPointF &p) : QPointF(p){}
 };
@@ -57,7 +59,7 @@ public:
 class PtCoords : public QPointF
 {
 public:
-    explicit PtCoords() : QPointF(){}
+    PtCoords() : QPointF(0,0){}
     explicit PtCoords(qreal x, qreal y) : QPointF(x,y){}
     explicit PtCoords(const QPointF &p) : QPointF(p){}
 };
@@ -72,6 +74,7 @@ public:
 class PxCoords : public QPointF
 {
 public:
+    PxCoords() : QPointF(0,0){}
     explicit PxCoords(qreal x, qreal y) : QPointF(x,y){}
     explicit PxCoords(const QPointF &p) : QPointF(p){}
     PxCoords(const QPoint &p) : QPointF(p){}

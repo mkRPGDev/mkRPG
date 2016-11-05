@@ -2,8 +2,8 @@
 
 
 
-CellType::CellType(Game *g) :
-    Object(g)
+CellType::CellType(Game *g, Object *parent) :
+    Object(g, parent)
 {
 
 }
@@ -12,19 +12,21 @@ CellType::CellType(Game *g) :
 
 
 
-Cell::Cell(Game* g) :
-    Object(g),
-    select(false)
+Cell::Cell(Game* g, Object *parent) :
+    Object(g, parent),
+    select(false), nbSel(0), selectMod(false)
 {
     setCellType(nullptr);
 }
 
 void Cell::setSelected(bool s){
     select = s;
+    selectMod = true;
 }
 
 void Cell::invertSelected(){
     select = !select;
+    selectMod = true;
 }
 
 bool Cell::isSelected() const{
@@ -33,10 +35,29 @@ bool Cell::isSelected() const{
 
 
 
+void Cell::addSelection(){
+    ++nbSel;
+}
+
+bool Cell::isPreSelected() const{
+    return nbSel%2 && !selectMod;
+}
+
+void Cell::confirmPreSelection(bool add){
+    select = add ? select|(nbSel%2) : select&!(nbSel%2);
+    clearPreSelection();
+    selectMod = false;
+}
+
+void Cell::clearPreSelection(){
+    nbSel = 0;
+    selectMod = false;
+}
 
 
-Map::Map(Game *g) :
-    Object(g),
+
+Map::Map(Game *g, Object *parent) :
+    Object(g, parent),
     cells(nullptr)
 {
     resize(100,75);
@@ -47,7 +68,7 @@ Map::Map(Game *g) :
 void Map::resize(int w, int h){
     if(cells) delete[] cells;
     cells = new Cell[w*h];
-    for(int i(0); i<w*h; cells[i++].init(game));
+    for(int i(0); i<w*h; cells[i++].init(game, parent));
     ParamDef(width, w);
     ParamDef(height, h);
 }
@@ -69,5 +90,20 @@ Cell& Map::cell(const QPoint &p) const{
 }
 
 
+void Map::selectAll(){
+    forCells cells[i].setSelected(true);
+    Editing;
+}
 
+void Map::unSelectAll(){
+    forCells cells[i].setSelected(false);
+    Editing;
+}
 
+void Map::clearPreSelection(){
+    forCells cells[i].clearPreSelection();
+}
+
+void Map::confirmPreSelection(bool add){
+    forCells cells[i].confirmPreSelection(add);
+}

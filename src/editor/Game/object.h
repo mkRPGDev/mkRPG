@@ -5,10 +5,15 @@
 #include <QtGui>
 #include <assert.h>
 
-/*! \file object.h
+/*!
+ * \file object.h
+ *
  * \brief This header defines the base class Object and Image.
  *
  * Blablabla.
+ *
+ *
+ * \author Baptiste Pauget
  */
 
 
@@ -66,8 +71,8 @@ public:
 class Object
 {
 public:
-    Object(Game *g = nullptr);
-    void init(Game *g); /**< initialise the object in case it had been construct with a NULL pointer (array of objects)*/
+    Object(Game *g = nullptr, Object *parent = nullptr);
+    void init(Game *g, Object *p); /**< initialise the object in case it had been construct with a NULL pointer (array of objects)*/
     int ident() const{return id;}
     virtual bool isValid() const{return id;} /**< return true if the object has been initialised*/
     inline const QDateTime& lastModification() const{return lastEdit;} /**< return the last time of modification*/
@@ -75,6 +80,7 @@ public:
     void touch();
 
 protected:
+    Object *parent;
     Game *game;
     int id;
     QMap<QString, int> params;
@@ -91,7 +97,7 @@ protected:
 class Image : public Object
 {
 public:
-    Image(Game*g, const QString &fileName);
+    Image(Game*g, Object *parent, const QString &fileName);
     inline bool isValid() const{return Object::isValid() && !im.isNull();}
     inline const QImage& image() const{return im;}
     inline const QSize size() const{return im.size();}

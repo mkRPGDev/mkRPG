@@ -12,9 +12,6 @@
 # Fichiers de logs
 *.log
 
-# Fichiers d'éditeur
-src/build-RPGEditor-Desktop_Qt_5_6_1_GCC_64bit-Debug/
-src/editor/RPGEditor.pro.user
 
 # Fichier de lancement du serveur
 src/isserver.py
@@ -24,3 +21,9 @@ src/__pycache__
 
 #Fichers mac
 .DS_Store
+
+# Fichiers de l'éditeur
+.directory
+src/build-RPGEditor-Desktop_Qt_5_6_1_GCC_64bit-Debug/
+src/editor/RPGEditor.pro.user
+src/editor/doc.doxy

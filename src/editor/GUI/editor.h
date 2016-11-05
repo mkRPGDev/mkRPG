@@ -79,13 +79,5 @@ private:
  *
  */
 
-class BHandler : public QXmlDefaultHandler
-{
-public:
-    bool startElement(const QString &namespaceURI, const QString &localName, const QString &qName, const QXmlAttributes &atts){
-        qDebug() << "ElemD" << localName << atts.count() << atts.localName(0) << atts.value(0); return true;}
-    bool endElement(const QString &namespaceURI, const QString &localName, const QString &qName){qDebug() << "ElemF"  << localName; return true;}
-
-};
 
 #endif // EDITOR_H

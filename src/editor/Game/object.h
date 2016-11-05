@@ -5,10 +5,15 @@
 #include <QtGui>
 #include <assert.h>
 
-/*! \file object.h
+/*!
+ * \file object.h
+ *
  * \brief This header defines the base class Object and Image.
  *
  * Blablabla.
+ *
+ *
+ * \author Baptiste Pauget
  */
 
 

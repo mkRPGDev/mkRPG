@@ -1,5 +1,6 @@
 #include "bcolor.h"
 
+
 BColor::BColor(QWidget *parent) :
     QFrame(parent), n(tr("Color chooser"))
 {
@@ -8,7 +9,14 @@ BColor::BColor(QWidget *parent) :
     setColor(QColor(255,255,255));
 }
 
-void BColor::setColor(const QColor &c){
+BColor::BColor(QColor c, QWidget *parent) :
+    BColor(parent)
+{
+    setColor(c);
+}
+
+
+void BColor::setColorQuiet(const QColor &c){
     coul = c;
     QPalette p(palette());
     p.setColor(QPalette::Window, coul);
@@ -16,12 +24,21 @@ void BColor::setColor(const QColor &c){
     update();
 }
 
+void BColor::setColor(const QColor &c){
+    setColorQuiet(c);
+    emit colorChanged(c);
+}
+
 const QColor &BColor::color() const{
     return coul;
 }
 
-void BColor::setName(const QString &s){
+void BColor::setNameQuiet(const QString &s){
     n = s;
+}
+void BColor::setName(const QString &s){
+    setNameQuiet(s);
+    emit nameChanged(s);
 }
 
 const QString &BColor::name() const{

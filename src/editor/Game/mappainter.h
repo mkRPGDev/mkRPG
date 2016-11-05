@@ -6,13 +6,18 @@
 // all blocks and unfold the class you want to see. :)
 
 
-/*! \file mappainter.h
+/*!
+ * \file mappainter.h
+ *
  * \brief Definition of the class used to render maps
  *
  * This file defines four types of coordinates : RlCoords, ClCoords,
  * PtCoords and PxCoords. They all inherit from QPointF, and
  * give a static type checking for the consistency of the
  * coordinates which are used.
+ *
+ *
+ * \author Baptiste Pauget
  */
 
 
@@ -26,7 +31,7 @@
  *
  * Theses coordinates have values in \f$[0,1]\f$, for every point in the view.
  *
- * See also ClCoords, PtCoords and PxCoords
+ * \see ClCoords PtCoords, PxCoords
  */
 class RlCoords : public QPointF
 {
@@ -42,7 +47,7 @@ public:
  * Theses coordinates describe each point relatively to the cell grid. They
  * correspond to the isometric 3D world.
  *
- * See also RlCoords, PtCoords and PxCoords
+ * \see RlCoords, PtCoords, PxCoords
  */
 class ClCoords : public QPointF
 {
@@ -58,7 +63,7 @@ public:
  * Theses coordinates describe each point relatively to the view. They
  * correspond to a point in the image containing the entire map.
  *
- * See also RlCoords, ClCoords and PxCoords
+ * \see RlCoords, ClCoords, PxCoords
  */
 class PtCoords : public QPointF
 {
@@ -73,7 +78,7 @@ public:
  *
  * Theses coordinates describe the pixel position.
  *
- * See also RlCoords, ClCoords and PtCoords
+ * \see RlCoords, ClCoords, PtCoords
  */
 class PxCoords : public QPointF
 {
@@ -118,7 +123,7 @@ public:
      * Element value can be used as flags using the operators
      * \ref operator| "|", \ref operator| "&", \ref operator| "^".
      *
-     * See also Cell, CellType
+     * \see Cell, CellType
      */
     enum Element{
         Nothing = 0,            /**< Represent no elements*/
@@ -139,12 +144,12 @@ public:
     void setPaintedElement(Element e, bool painted = true); /**<
      * Enables or disables the render of an \ref Element "element".
      *
-     * See also \ref setPaintedElements.
+     * \see \ref setPaintedElements
      */
     void setPaintedElements(Element e); /**<
-     * Set the rendered \ref Element "elements".
+     * Sets the rendered \ref Element "elements".
      *
-     * See also \ref setPaintedElement.
+     * \see \ref setPaintedElement
      */
 
     void setMap(Map* m); /**<
@@ -153,25 +158,25 @@ public:
     void paint(QPainter& p); /**<
      * Draws the map in the QPaintDevice.
      *
-     * See also \ref render.
+     * \see \ref render
      */
     const QImage& render(); /**<
      * Provides a QImage with a view of the map.
      *
-     * See also \ref paint.
+     * \see \ref paint
      */
 
     RlCoords viewCenter() const; /**<
      * Return the relative coordinates of the current view center.
      *
-     * See also \ref setViewCenter.
+     * \see \ref setViewCenter
      */
     void setViewCenter(RlCoords relativeCenter); /**<
      * Change the view center, using relative coordinates.
      *
      * If the new center is invalid (the view exceed the map area), the closest valid center is used.
      *
-     * See also \ref viewCenter.
+     * \see \ref viewCenter
      */
     void setViewCenter(double relativeCenterX, double relativeCenterY); /**<
      * This is an overload function, see \ref setViewCenter.
@@ -183,23 +188,23 @@ public:
     double scale() const; /**<
      * Returns the current scale of the view.
      *
-     * See also \ref setScale.
+     * \see \ref setScale
      */
     void setScale(double scale); /**<
-     * Set the current view scale. This closest value in the scale domain will be used.
+     * Sets the current view scale. This closest value in the scale domain will be used.
      *
-     * See also \ref scale and \ref setScaleDomain.
+     * \see \ref scale, \ref setScaleDomain
      */
     void setScaleDomain(double scaleMin, double scaleMax); /**<
-     * Set the valid values for the scale.
+     * Sets the valid values for the scale.
      *
-     * See also \ref scale and \ref setScale.
+     * \see \ref scale, \ref setScale
      */
 
     bool setHighlightedCell(const ClCoords& p); /**<
-     * Set the highligthed \ref Cell "cell" to the one at the ClCoords p
+     * Sets the highligthed \ref Cell "cell" to the one at the ClCoords p
      *
-     * See also \ref highlightedCell and \ref hasHighlightedCell.
+     * \see \ref highlightedCell, \ref hasHighlightedCell
      */
     bool setHighlightedCell(int i, int j); /**<
      * This is an overload function, see \ref setViewCenter.
@@ -207,19 +212,19 @@ public:
     QPoint highlightedCell() const; /**<
      * Returns the integer index of the \ref Cell "cell" the is highlighted.
      *
-     * See also \ref sethighlightedCell and \ref hasHighlightedCell.
+     * \see \ref sethighlightedCell, \ref hasHighlightedCell
      */
     bool hasHighlightedCell() const; /**<
      * Returns true if a \ref Cell "cell" is highligthed.
      *
-     * See also \ref highlightedCell and \ref setHighlightedCell.
+     * \see \ref highlightedCell, \ref setHighlightedCell
      */
 
     void resize(QSize s); /**<
      * Change the size of the view, <i> ie </i> the rectangle in which
      * the map will be render.
      *
-     * See also \ref size.
+     * \see \ref size
      */
     void resize(int wi, int he); /**<
      * This is an overload function, see \ref resize
@@ -228,7 +233,7 @@ public:
      * Return the size of the rectangle in which the map is render.
      * This is also the size of the image returned by \ref render.
      *
-     * See also \ref resize.
+     * \see \ref resize
      */
     void zoom(double factor, QPointF fixedPoint); /**<
      * Multiplying the scale of the view by factor, trying to leave the
@@ -243,7 +248,7 @@ public:
      * The return value indicate if the expected center was valid (regarding x or y
      * coordinate).
      *
-     * See also setViewCenter.
+     * \see \ref setViewCenter
      */
 
     QSize virtualSize() const; /**<
@@ -275,22 +280,22 @@ public:
     const QColor &selectedCellColor() const; /**<
      * Returns the color of the filter that is applied to selected cells.
      *
-     * See also \ref setSelectedCellColor, \ref preSelectedCellColor.
+     * \see \ref setSelectedCellColor, \ref preSelectedCellColor
      */
     const QColor &preSelectedCellColor() const; /**<
      * Returns the color of the filter that is applied to pre-selected cells.
      *
-     * See also \ref setPreSelectedCellColor, \ref selectedCellColor.
+     * \see \ref setPreSelectedCellColor, \ref selectedCellColor
      */
     void setSelectedCellColor(const QColor &c); /**<
-     * Set the color of the  filter that is applied to selected cells.
+     * Sets the color of the  filter that is applied to selected cells.
      *
-     * See also \ref selectedCellColor, \ref setPreSelectedCellColor.
+     * \see \ref selectedCellColor, \ref setPreSelectedCellColor
      */
     void setPreSelectedCellColor(const QColor &c); /**<
-     * Set the color of the  filter that is applied to pre-selected cells.
+     * Sets the color of the  filter that is applied to pre-selected cells.
      *
-     * See also \ref preSelectedCellColor, \ref setSelectedCellColor.
+     * \see \ref preSelectedCellColor, \ref setSelectedCellColor
      */
 
 signals:

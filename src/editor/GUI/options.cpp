@@ -41,7 +41,8 @@ void Options::setAdaptaive(QString group, QString opt, bool adapt){
 
 
 
-void Options::reinitialise(){
+void Options::reinitialise(QString group){
+    // TODO par group !
     a.clear();
 }
 

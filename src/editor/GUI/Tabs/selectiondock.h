@@ -16,6 +16,8 @@ private slots:
     void on_rectangle_toggled(bool b);
     void on_region_toggled(bool b);
     void on_selectColor_colorChanged(const QColor &c);
+    void on_selectOpacity_valueChanged(int v);
+    void on_autoPreSelect_toggled(bool b);
 
 private:
     void updateSelectionMode();

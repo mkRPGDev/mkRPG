@@ -8,8 +8,6 @@ Options &Options::options(){
 }
 
 
-#define DefaultF(gr, id, val) defaultValues[gr][id] = QPair<QVariant, bool>(val, false)
-#define Default(gr, id, val) defaultValues[gr][id] = QPair<QVariant, bool>(val, true)
 Options::Options(){
     Default(WIN, "Position", QPoint(0,0)); // TODO pos...
     Default(WIN, "Size", QSize(1000,742));
@@ -24,18 +22,18 @@ Options::Options(){
     Default(DIR, "Save",QDir::homePath());
 }
 
-bool Options::isAdaptaive(QString group, QString opt, bool adapt){
+bool Options::isAdjustable(QString group, QString opt, bool adjust){
     a.beginGroup(group);
     if(!a.contains(opt+ADAPT))
-        a.setValue(opt+ADAPT, adapt);
+        a.setValue(opt+ADAPT, adjust);
     bool val = a.value(opt+ADAPT).toBool();
     a.endGroup();
     return val;
 }
 
-void Options::setAdaptaive(QString group, QString opt, bool adapt){
+void Options::setAdjustable(QString group, QString opt, bool adjust){
     a.beginGroup(group);
-    a.setValue(opt+ADAPT,adapt);
+    a.setValue(opt+ADAPT,adjust);
     a.endGroup();
 }
 

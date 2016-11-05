@@ -18,6 +18,8 @@ private slots:
     void on_selectColor_colorChanged(const QColor &c);
     void on_selectOpacity_valueChanged(int v);
     void on_autoPreSelect_toggled(bool b);
+    void on_preSelectColor_colorChanged(const QColor &c);
+    void on_preSelectOpacity_valueChanged(int v);
 
 private:
     void updateSelectionMode();

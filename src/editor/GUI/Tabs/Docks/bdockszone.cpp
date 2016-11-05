@@ -2,7 +2,7 @@
 
 
 BLayout::BLayout(QWidget *parent) :
-    QWidget(parent), orient(Qt::Vertical)
+    QWidget(parent), orient(Qt::Vertical), movingDock(nullptr)
 {
 //    lay = orient == Qt::Vertical ? new QVBoxLayout : new QHBoxLayout;
 //    setLayout(lay);
@@ -10,6 +10,9 @@ BLayout::BLayout(QWidget *parent) :
     space = 2;
     resize(len,0);
     setCursor(Qt::SplitVCursor);
+    //setAutoFillBackground(true);
+    repainting = false;
+    initPos = 0;
 }
 
 void BLayout::setOrientation(Qt::Orientation o){
@@ -17,24 +20,52 @@ void BLayout::setOrientation(Qt::Orientation o){
 }
 
 void BLayout::insert(BDock *d, int ind){
-    if(ind==-1) ind = docks.length();
-    ind = Min(docks.length(), ind);
+    if(ind<0 || ind > docks.length()) ind = docks.length();
     docks.insert(ind, d);
+    d->setIndex(ind);
     d->setParent(this);
     d->setCursor(Qt::ArrowCursor);
+    placement.insert(ind, QPair<int, int>(0,0));
     adjust();
+
+    connect(d, SIGNAL(mouseClick(int,QPoint)), this, SLOT(dockClick(int,QPoint)));
+    connect(d, SIGNAL(mouseMove(int,QPoint)), this, SLOT(dockMove(int,QPoint)));
+    connect(d, SIGNAL(mouseRelease(int,QPoint)), this, SLOT(dockRelease(int,QPoint)));
+    connect(d, SIGNAL(movementFinished(int)), this, SLOT(dockStopped(int)));
 }
 
 void BLayout::paintEvent(QPaintEvent *event){
     adjust();
+    QWidget::paintEvent(event);
+    if(movingDock){
+        QPainter p(this);
+        int k = movingDock->index();
+        int min = k ? docks[k-1]->y() + placement[k-1].second + 2 : 0;
+        int max = k==docks.length()-1 ? size : docks[k+1]->y() - 2;
+        --max;
+        p.setBrush(QBrush(QColor(100,200,255)));
+        p.drawRect(0,min,len-1,max-min);
+        p.setPen(palette().color(QPalette::Window));
+        p.drawPoint(0,min);
+        p.drawPoint(0,max);
+        p.drawPoint(len-1,min);
+        p.drawPoint(len-1,max);
+        if(!repainting) update();
+        repainting = !repainting;
+        //QTimer::singleShot(40, this, SLOT(update()));
+    }
 }
 
 void BLayout::adjust(){
-    int i(1);
+    int i(0);
     if(orient == Qt::Vertical){
         for(BDock *d : docks){
-            d->setGeometry(0,i,len, d->sizeHint().height());
-            i+=d->sizeHint().height()+space;
+            int h = d->sizeHint().height();
+            if(d!=movingDock) d->moveTo(i, movingDock != nullptr);
+            d->setLength(len);
+            //d->setGeometry(0,i,len, h);
+            placement[d->index()] = QPair<int,int>(i,h);
+            i+=h+space;
             //qDebug() << i;
         }
         //qDebug() << docks;
@@ -65,14 +96,80 @@ void BLayout::resizeEvent(QResizeEvent *re){
     adjust();
 }
 
-void BLayout::mouseDoubleClickEvent(QMouseEvent *){
-
+void BLayout::mouseDoubleClickEvent(QMouseEvent *me){
+    me->accept();
 }
 
 void BLayout::setLength(int t){
     orient == Qt::Vertical ? setFixedWidth(t-1)
                            : setFixedHeight(t-1);
 }
+
+
+
+void BLayout::dockClick(int i, const QPoint &p){
+    clPos = p.y();
+    movingDock = docks[i];
+    initPos = placement[i].first;
+    movingDock->raise();
+}
+
+void BLayout::dockMove(int k,const QPoint &p){
+    if(movingDock == nullptr) return;
+    int h = movingDock->height();
+    int newPos = MinMax(0, initPos + p.y() - clPos, size - h);
+    movingDock->moveTo(newPos, false);
+    int endPos = newPos + h;
+    emit showPoint(0,endPos);
+    emit showPoint(0,newPos);
+
+    if(newPos<placement[k].first){
+        int i(0);
+        while(i<k && placement[i].first + placement[i].second/2<newPos) ++i;
+        if(i!=k){
+            placement[k].first = placement[i].first - placement[i].second + placement[k].second;
+            docks.move(k,i);
+            placement.move(k,i);
+            movingDock->setIndex(i);
+            movingDock->setIndex(i);
+            for(;i++<k;){
+                placement[i].first += h+2;
+                docks[i]->moveTo(placement[i].first);
+                docks[i]->setIndex(i);
+            }
+        }
+    }
+    else{
+        int i(docks.length()-1);
+        while(i>k && placement[i].first + placement[i].second/2>endPos) --i;
+        if(i!=k){
+            placement[k].first = placement[i].first;
+            docks.move(k,i);
+            placement.move(k,i);
+            movingDock->setIndex(i);
+            movingDock->setIndex(i);
+            for(;i-->k;){
+                placement[i].first -= h+2;
+                docks[i]->moveTo(placement[i].first);
+                docks[i]->setIndex(i);
+            }
+        }
+    }
+}
+
+void BLayout::dockRelease(int i, const QPoint &p){
+    if(movingDock == nullptr) return;
+    movingDock->moveTo(placement[i].first);
+    initPos = -1;
+}
+
+void BLayout::dockStopped(int i){
+    if(initPos == -1 && i == movingDock->index()){
+        initPos = 0;
+        movingDock = nullptr;
+    }
+}
+
 
 
 
@@ -110,6 +207,8 @@ BDocksZone::BDocksZone(QWidget *parent) :
     connect(&unfoldStates, SIGNAL(swapped(bool)), this, SLOT(foldingChanged(bool)));
     connect(docks, SIGNAL(sizeChanged(int)), this, SLOT(docksSizeChanged()));
 
+    connect(docks, SIGNAL(showPoint(int,int)), this, SLOT(showPoint(int,int)));
+
     bUnfold->setFixedSize(BUTTON-1,24);
     bUnfold->setIconSize(QSize(5,20));
     lay->addWidget(bUnfold, 0,0,1,1);
@@ -120,6 +219,7 @@ BDocksZone::BDocksZone(QWidget *parent) :
     unfoldStates.defineProperty(this, "cursor", QCursor(Qt::SplitHCursor), QCursor(Qt::ArrowCursor));
     unfoldStates.defineProperty(this, "toolTip", "", "Double clic to extend");
 
+    connect(dockArea->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(updateMousePos()));
 
     dockArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     dockArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -237,4 +337,14 @@ void BDocksZone::setDockLength(int le, bool inert){
     unfoldStates.defineProperty(this, "length", l, BUTTON);
     if(!inert)
         inLength->setValue(l,false);
+}
+
+void BDocksZone::showPoint(int x, int y){
+    dockArea->ensureVisible(x, y, 4, 4);
+}
+void BDocksZone::updateMousePos(){
+    QCursor c(cursor());
+    QPoint p(c.pos());
+    c.setPos(p-QPoint(1,0));
+    c.setPos(p);
 }

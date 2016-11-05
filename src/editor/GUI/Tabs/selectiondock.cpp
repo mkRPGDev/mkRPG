@@ -53,7 +53,6 @@ void SelectionDock::on_selectOpacity_valueChanged(int v){
     selectColor->setColor(QColor(c.red(),c.green(),c.blue(), v));
     if(autoPreSelect->isChecked())
         preSelectOpacity->setValue(c.alpha());
-    qDebug() << "Alpha modif";
 }
 
 void SelectionDock::on_autoPreSelect_toggled(bool b){
@@ -61,5 +60,16 @@ void SelectionDock::on_autoPreSelect_toggled(bool b){
     preSelectOpacity->setEnabled(!b);
     label_4->setEnabled(!b);
     label_5->setEnabled(!b);
-    //if(b) on_selectColor_colorChanged(selectColor->color());
+    if(b) on_selectColor_colorChanged(selectColor->color());
+}
+
+void SelectionDock::on_preSelectColor_colorChanged(const QColor &c){
+    mv->mapPainter().setPreSelectedCellColor(c);
+    preSelectOpacity->setValue(c.alpha());
+    emit gameModified();
+}
+
+void SelectionDock::on_preSelectOpacity_valueChanged(int v){
+    const QColor &c(preSelectColor->color());
+    preSelectColor->setColor(QColor(c.red(),c.green(),c.blue(), v));
 }

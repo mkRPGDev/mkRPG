@@ -3,8 +3,8 @@
 
 
 
-World::World(Game *g, Object *parent) :
-    Object(g, parent)
+World::World(Game *g, BaseObject *parent) :
+    BaseObject(g, parent)
 {
 }
 
@@ -13,6 +13,7 @@ World::World(Game *g, Object *parent) :
 
 
 Game::Game() :
+    BaseObject(this),
     idDisp(0), w(World(this, this)), map(nullptr)
 {
 

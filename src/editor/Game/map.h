@@ -4,11 +4,11 @@
 #include "object.h"
 
 
-class CellType : public Object
+class CellType : public BaseObject
 {
 public:
-    CellType(Game *g, Object *parent);
-    ParamObj(image,Image,ct)
+    CellType(Game *g, BaseObject *parent);
+    C0(AttrT, i,I,mage)
 private:
 
 
@@ -25,10 +25,10 @@ private:
 /*!
  * \brief The Cell class
  */
-class Cell : public Object
+class Cell : public BaseObject
 {
 public:
-    Cell(Game* g = nullptr, Object *parent = nullptr);
+    Cell(Game* g = nullptr, BaseObject *parent = nullptr);
     bool isSelected() const;
     void setSelected(bool s = true);
     void invertSelected();
@@ -39,7 +39,7 @@ public:
     void confirmPreSelection(bool add = true);
     void clearPreSelection();
 
-    ParamObj(cellType, CellType, c)
+    C0(AttrT,c,C,ellType)
     ObjectsMap(c,o,O,bject,,s)
 private:
     bool select;
@@ -50,18 +50,18 @@ private:
 
 
 
-class Map : public Object
+class Map : public BaseObject
 {
 public:
-    Map(Game* g, Object *parent);
-    Getter(width)
-    Getter(height)
+    Map(Game* g, BaseObject *parent);
+    ParamGetter(width)
+    ParamGetter(height)
     QSize size() const{return QSize(width(),height());}
     void setWidth(int w);
     void setHeight(int h);
     void resize(int w, int h);
-    Param(angleX,AngleX)
-    Param(angleY,AngleY)
+    C0(Param,a,A,ngleX)
+    C0(Param,a,A,ngleY)
     Cell& cell(int i, int j) const;
     Cell& cell(const QPoint &p) const;
     void selectAll();

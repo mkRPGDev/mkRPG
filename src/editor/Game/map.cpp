@@ -2,8 +2,8 @@
 
 
 
-CellType::CellType(Game *g, Object *parent) :
-    Object(g, parent)
+CellType::CellType(Game *g, BaseObject *parent) :
+    BaseObject(g, parent)
 {
 
 }
@@ -12,8 +12,8 @@ CellType::CellType(Game *g, Object *parent) :
 
 
 
-Cell::Cell(Game* g, Object *parent) :
-    Object(g, parent),
+Cell::Cell(Game* g, BaseObject *parent) :
+    BaseObject(g, parent),
     select(false), nbSel(0), selectMod(false)
 {
     setCellType(nullptr);
@@ -56,21 +56,21 @@ void Cell::clearPreSelection(){
 
 
 
-Map::Map(Game *g, Object *parent) :
-    Object(g, parent),
+Map::Map(Game *g, BaseObject *parent) :
+    BaseObject(g, parent),
     cells(nullptr)
 {
     resize(100,75);
-    ParamDef(angleX, 0);
-    ParamDef(angleY, 0);
+    SetParam(angleX, 0);
+    SetParam(angleY, 0);
 }
 
 void Map::resize(int w, int h){
     if(cells) delete[] cells;
     cells = new Cell[w*h];
     for(int i(0); i<w*h; cells[i++].init(game, parent));
-    ParamDef(width, w);
-    ParamDef(height, h);
+    SetParam(width, w);
+    SetParam(height, h);
 }
 
 void Map::setWidth(int w){
@@ -92,12 +92,12 @@ Cell& Map::cell(const QPoint &p) const{
 
 void Map::selectAll(){
     forCells cells[i].setSelected(true);
-    Editing;
+    touch();
 }
 
 void Map::unSelectAll(){
     forCells cells[i].setSelected(false);
-    Editing;
+    touch();
 }
 
 void Map::clearPreSelection(){

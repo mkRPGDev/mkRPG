@@ -10,10 +10,10 @@
 /*!
  * \brief The World class is an Object
  */
-class World : public Object
+class World : public BaseObject
 {
 public:
-    World(Game *g, Object *parent);
+    World(Game *g, BaseObject *parent);
     ObjectsMap(w,m,M,ap,,s) /**< Set of maps*/
     ObjectsMap(w,c,C,ellType,,s) /**< Set of cell types*/
 private:
@@ -30,7 +30,7 @@ private:
  * For editing purposes, it contains also the active map (the
  * one being editing)
  */
-class Game : public Object
+class Game : public BaseObject
 {
 public:
     Game();

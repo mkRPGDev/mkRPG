@@ -20,3 +20,4 @@ void TabAcces::setActive(bool a){
 void TabAcces::mousePressEvent(QMouseEvent *){
     setActive(true);
 }
+

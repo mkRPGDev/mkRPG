@@ -143,13 +143,13 @@ struct Options{
     bool isAdjustable(QString group, QString opt, bool adjust = true); /**<
      * Returns ```true``` if the option defined by its group and name is adjustable, ```false``` elsewhere.
      *
-     * \see setAdjustable
+     * \see \ref setAdjustable
      */
 
     void setAdjustable(QString group, QString opt, bool adjust); /**<
      * Sets if the option defined by its group and name is adjustable.
      *
-     * \see isAdjustable
+     * \see \ref isAdjustable
      */
 
 

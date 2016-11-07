@@ -1,12 +1,15 @@
-<Entity name="joey">
-    <Params>
-        <Poids val="42"/>
-        <Poids val="43"/>
-        <Poi val="42"/>
-
-        <picture val="42"/>
-
-        <x val="10"/>
-        <y val="10"/>
-    </Params>
-</Entity>
+<Entities>
+    <Entity name="joey">
+        <Position>
+            <x>10</x>
+            <y>12</y>
+        </Position>
+        <Params>
+            <Picture>42</Picture>
+        </Params>
+        <Characteristics>
+            <Poids>43</Poids>
+            <Life>10</Life>
+        </Characteristics>
+    </Entity>
+</Entities>

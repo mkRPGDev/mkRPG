@@ -31,6 +31,22 @@ def _fail_not_found(tag):
     print("Tag %s not found" % tag)
     sys.exit(1)
 
+def get_characteristics(_characteristics):
+    """
+    Iterate over all characteristics.
+    Be careful ! This assume that each characteristic is a leaf of the
+    tree. Is it legit?
+    It returns a dictionnary which keys are characteristic names, and values
+    are the characteristics.
+    Each characteristic should be an integer.
+    """
+    characteristics = {}
+    for _characteristic in _characteristics.getchildren():
+        value = _format_type(_characteristic.text)
+        if type(value) == int:
+            characteristics.update({ _characteristic.tag: value })
+    return characteristics
+
 def parse_entity(entity_element):
     """
     Parses an entity element from the xml tree.
@@ -53,17 +69,9 @@ def parse_entity(entity_element):
     if picture is None:
         _fail_not_found("Picture")
     answer.update({'picture': picture.text})
-    _characteristics = entity_element.find('Characteristics')
-    if _characteristics is not None:
-        characteristics = {}
-        # Iterate over all characteristics.
-        # Be careful ! This assume that each characteristic is a leaf of the
-        # tree. Is it legit ?
-        for _characteristic in _characteristics.getchildren():
-            characteristics.update({
-                _characteristic.tag: _format_type(_characteristic.text)
-                })
-        answer.update({'characteristics': characteristics})
+    _characs = entity_element.find('Characteristics')
+    if _characs is not None:
+        answer.update({'characteristics': get_characteristics(_characs)})
     return(answer)
 
 

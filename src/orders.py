@@ -1,9 +1,11 @@
 from enum import IntEnum
-from threading import Timer
+#from threading import Timer
+from utils import Timer
 
 from const import *
 
-OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition Move Setobj')
+OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition '
+                                 'Move Setobj Watchdog')
 
 class Order:
     # Attention aux collisions avec args et type
@@ -16,6 +18,7 @@ class Order:
     params[OrderType.Condition] = ["event", "value"]
     params[OrderType.Move] = ["source", "dest", "param"]
     params[OrderType.Setobj] = ["target", "param", "value"]
+    params[OrderType.Watchdog] = ["target", "param", "value", "event", "once"]
 
     def __init__(self):
         self.type = None
@@ -78,25 +81,32 @@ class OrderDispatcher:
     def __init__(self, world, handle):
         self.world = world
         self.handle = handle
+        self.timer = Timer()
+        self.timer.start()
 
     def treat(self, emitter, order):
         """ -> ordre à retransmettre """
+        world = self.world
         if order.type==OrderType.Set:
-            target = emitter if order.target=="emitter" else self.world
+            target = emitter if order.target=="emitter" else eval(order.target)
             val = target.contextEval(order.value)
-            preval = eval("target."+order.param)
+            preval = target.params[order.param]#eval("target."+order.param)
             if val!=preval:
-                exec("target."+order.param+"=val")
+                # FIXME
+                #exec("target."+order.param+"=val")
+                target.params[order.param] = val
                 returnOrder = order.copy()
                 returnOrder.value = str(val)
+                for eventTarget, event, once in target.conditions[order.param][val]:
+                    self.handle(eventTarget, event) # TODO gérér le once
                 return returnOrder
             return None
         if order.type==OrderType.Timer:
             # les Timer transmettent leur contexte
             if emitter:
-                Timer(emitter.contextEval(order.value), self.handle, args=[emitter, order.event]).start()
+                self.timer.add(emitter.contextEval(order.value), self.handle, args=[emitter, order.event])
             else:
-                Timer(float(order.value), self.handle, args=[emitter, order.event]).start()
+                self.timer.add(int(order.value), self.handle, args=[emitter, order.event])
             return None
         if order.type==OrderType.Event:
             if order.target:
@@ -131,6 +141,10 @@ class OrderDispatcher:
             if val!=preval:
                 exec("target."+order.param+"=val")
                 return order
+            return None
+        if order.type==OrderType.Watchdog:
+            val = emitter.contextEval(order.value)
+            eval(order.target).conditions[order.param][val].append((emitter, order.event, order.once))
             return None
                        
 if __name__=="__main__":

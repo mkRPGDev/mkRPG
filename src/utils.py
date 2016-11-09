@@ -1,6 +1,9 @@
 from collections import namedtuple
-from time import process_time
+from time import process_time, time, sleep
 from xml.parsers.expat import ParserCreate
+from threading import Thread
+from heapq import heappush, heappop
+from queue import Queue
 
 verbose = False
 
@@ -57,11 +60,46 @@ class Perf:
     def show(self):
         """ Affiche le rapport """
         if self.num:
-            print("Temps moyen %es, minimum %es, maximum %es sur %d éxécutions." % (self.avg, self.min, self.max, self.num))
+            print("Temps moyen %es, minimum %es, maximum %es sur %d éxécutions."
+                  % (self.avg, self.min, self.max, self.num))
+
+class Timer(Thread):
+    """ Thread qui déclenche des appels différés de fontion """
+    def __init__(self):
+        super().__init__()
+        self.dt = 0.001
+        self.step = 0
+        self.atd = Queue()
+        self.heap = []
+        self.count = 0
+    
+    def add(self, time, func, args):
+        """ Inscrit l'appel de func avec les arguments args """
+        self.count += 1
+        self.atd.put((time + self.step, self.count, (func, args)))
+    
+    def run(self):
+        while True:
+            begin = time()
+            while not self.atd.empty():
+                heappush(self.heap, self.atd.get_nowait())
+            self.step += 1
+            while self.heap and self.heap[0][0] == self.step:
+                func, args = heappop(self.heap)[2]
+                func(*args)
+            sleep(self.dt - time() + begin)
+    
 
 if __name__=="__main__":
     # tests
-    verbose = True
-    perff = Perf()
-    print(readXml("../Test/Snake/world.xml"))
-    perff.show()
+    #verbose = True
+    #perff = Perf()
+    #print(readXml("../Test/Snake/world.xml"))
+    #perff.show()
+    
+    t = Timer()
+    t.dt = 1
+    t.start()
+    t.add(1, print, [1])
+    t.add(2, print, [2])
+    t.add(1, print, [11])

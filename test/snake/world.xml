@@ -2,6 +2,7 @@
     <Params>
         <currentMap id="main"/>
         <pomme id="pomme"/>
+        <step val="0"/>
     </Params>
     
     <Maps>

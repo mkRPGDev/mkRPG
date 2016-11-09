@@ -3,7 +3,7 @@
         <Event val="start"/>
         <Order type="timer">
             <event val="tick"/>
-            <value val="2"/>
+            <value val="2000"/>
         </Order>
         <Order type="event">
             <target val=""/>
@@ -14,13 +14,13 @@
     <Action>
         <Event val="repom"/>
         <Order type="set">
-            <target val="world"/>
-            <param val="pomme.x"/>
+            <target val="world.pomme"/>
+            <param val="x"/>
             <value val="randint(0,world.currentMap.width-1)"/>
         </Order>
         <Order type="set">
-            <target val="world"/>
-            <param val="pomme.y"/>
+            <target val="world.pomme"/>
+            <param val="y"/>
             <value val="randint(0,world.currentMap.height-1)"/>
         </Order>
         <Order type="condition">
@@ -33,11 +33,16 @@
         <Event val="tick"/>
         <Order type="timer">
             <event val="tick"/>
-            <value val="0.1"/>
+            <value val="150"/>
         </Order>
         <Order type="event">
             <target val="entities[0]"/>
             <event val="move"/>
+        </Order>
+        <Order type="set">
+            <target val="world"/>
+            <param val="step"/>
+            <value val="world.step + 1"/>
         </Order>
     </Action>
     
@@ -62,7 +67,7 @@
         </Order>        
         <Order type="create">
             <base id="corps"/>
-            <init val="obj.x=emitter.x; obj.y=emitter.y; obj.case=emitter.case; obj.temps=emitter.score/5"/>
+            <init val="obj.x=emitter.x; obj.y=emitter.y; obj.case=emitter.case; obj.size=emitter.score*2+3"/>
             <event val="initcorps"/>
         </Order>   
         <Order type="set">
@@ -89,21 +94,30 @@
     <Action>
         <Event val="initcorps"/>
         <Order type="set">
-            <target val="emitter"/>
-            <param val="case.mortelle"/>
+            <target val="emitter.case"/>
+            <param val="mortelle"/>
             <value val="1"/>
         </Order>
+<!--
         <Order type="timer">
             <value val="self.temps"/>
             <event val="detruit"/>
+        </Order>
+-->
+        <Order type="watchdog">
+            <target val="world"/>
+            <param val="step"/>
+            <value val="world.step+self.size"/>
+            <event val="detruit"/>
+            <once val="True"/>
         </Order>
     </Action>
 
     <Action>
         <Event val="detruit"/>
         <Order type="set">
-            <target val="emitter"/>
-            <param val="case.mortelle"/>
+            <target val="emitter.case"/>
+            <param val="mortelle"/>
             <value val="0"/>
         </Order>
         <Order type="destroy">

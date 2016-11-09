@@ -13,7 +13,7 @@
 *.log
 
 # Fichiers d'éditeur
-src/build-RPGEditor-Desktop_Qt_5_6_1_GCC_64bit-Debug/
+src/build-RPGEditor-*
 src/editor/RPGEditor.pro.user
 
 # Fichier de lancement du serveur

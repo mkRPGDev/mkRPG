@@ -1,4 +1,5 @@
 from enum import IntEnum
+from collections import defaultdict
 from random import randint
 
 from isserver import SERVER
@@ -36,15 +37,20 @@ class BaseObject:
     def __init__(self):
         BaseObject.ident += 1
         BaseObject.ids[BaseObject.ident] = self
+        self.params = {} # Ne pas déplacer =)
         self.ident = BaseObject.ident
-        self.params = {}
+        self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
     
     def __getattr__(self, attr):
         if attr in self.params:
             return self.params[attr]
         raise AttributeError(attr)
 
-    # TODO utiliser un setattr ?
+    def __setattr__(self, attr, val):
+        if attr is "params" or attr not in self.params:
+            object.__setattr__(self, attr, val)
+        else:
+            self.params[attr] = val
     
     def load(self, data):
         if verbose: print(data.name)
@@ -89,7 +95,10 @@ class BaseObject:
     # TODO traitement d'ordres ?
 
 # TODO à enlever ?
-class ServerObject(BaseObject): pass    
+class ServerObject(BaseObject): pass
+#    def __init__(self):
+#        super().__init__()
+        
 class ClientObject(BaseObject): pass
 
 MagicObject = ServerObject if SERVER else ClientObject

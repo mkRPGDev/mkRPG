@@ -24,30 +24,21 @@ class Client():
     def __init__(self, path):
         self.net = NetworkClient(self.handleOrder)
         self.world = world.loadGame(path)
-        if interface:
-            self.win = curses.initscr()
-            curses.cbreak()
-            curses.noecho()
-            self.win.keypad(True)
-            curses.curs_set(0)
-            self.mv=MapViewer(self.world.currentMap, self.world)
-        self.interactions = registerInteractions(path)
-        
+        self.interface = (Curses if interface else Interface)(self.world)
+        self.interactions = registerInteractions(path)        
         self.perso = self.world.entities[0] # XXX bricolage
         self.orderDispatcher = OrderDispatcher(self.world, None)
-        self.lastUpdate = 0
         
     def __del__(self):
         self.net.kill()
-        if interface: curses.endwin()
+        self.interface.end()
         print("Client killed")
 
     def run(self):
         self.net.start()
-        if interface: self.mv.display(self.win)
+        self.interface.update()
         while True:
-            if not interface: continue
-            key = self.win.getch()
+            key = self.interface.getEvent()
             if key==ord('q'):
                 curses.endwin()
                 self.net.kill()
@@ -61,19 +52,42 @@ class Client():
     def handleOrder(self, ident, order):
         emitter = world.BaseObject.ids[ident]
         self.orderDispatcher.treat(emitter, order)
+        self.interface.update()
+
+
+class Interface: # XXX inutile en python
+    def __init__(self, w):
+        assert type(w) == world.World
+        self.world = w
+    def update(self): pass
+    def end(self): pass
+    def getEvent(self):
+        while True: sleep(1)
+
+class Curses(Interface):
+    def __init__(self, w):
+        super().__init__(w)
+        self.win = curses.initscr()
+        curses.cbreak()
+        curses.noecho()
+        self.win.keypad(True)
+        curses.curs_set(0)
+        self.mv=MapViewer(self.world.currentMap, self.world)
+        self.lastUpdate = 0
+
+    def update(self):
         if interface and time() - self.lastUpdate > MAXFPS:
             self.mv.display(self.win)
             # TODO insérer ici le xml d'interface
             self.win.addstr(26,0,"Score "+str(self.world.entities[0].score)+'\n')
             self.win.refresh()
-            self.lastUpdate = MAXFPS
+            self.lastUpdate = MAXFPS        
 
-class CellViewer:
-    def __init__(self, cell):
-        self.cell = cell
-    
-    def display(self, win):
-        win.addch(self.cell.y+1, self.cell.x+1, self.cell.picture)
+    def end(self):
+        curses.endwin()
+
+    def getEvent(self):
+        return self.win.getch()
 
 class MapViewer:
     def __init__(self, m, w):
@@ -96,5 +110,12 @@ class MapViewer:
         for ent in self.world.objects:
             win.addch(ent.y+1, ent.x+1, ent.picture)
         # TODO gérer plusieurs cartes
+
+class CellViewer:
+    def __init__(self, cell):
+        self.cell = cell
+    
+    def display(self, win):
+        win.addch(self.cell.y+1, self.cell.x+1, self.cell.picture)
         
 cli = Client(argv[1] if len(argv)>1 else PATH).run()

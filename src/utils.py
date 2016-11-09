@@ -35,7 +35,7 @@ def readXml(path):
 
     with open(path, 'rb') as file:
         pars.ParseFile(file)
-    return curDir.list[0] #retrait des sur-emballages
+    return curDir.list[0]
 
 class Perf:
     """ Calcule les performances d'un morceau de code """

@@ -1,5 +1,4 @@
 from enum import IntEnum
-#from threading import Timer
 from utils import Timer
 
 from const import *
@@ -8,6 +7,7 @@ OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition '
                                  'Move Setobj Watchdog')
 
 class Order:
+    """ Représente une modification à apporter au monde """
     # Attention aux collisions avec args et type
     params = [None] * (len(OrderType)+1) #XXX c'pas top 
     params[OrderType.Set] = ["target", "param", "value"]
@@ -41,6 +41,7 @@ class Order:
         return obj
     
     def load(self, dat, named):
+        """ Initialise l'ordre avec une structure provenant d'un Xml """
         assert dat.name == "Order"
         self.type = OrderType.__members__[dat.args["type"].capitalize()]
         self.args = [0]*len(self.params[self.type])
@@ -54,8 +55,9 @@ class Order:
         return self
     
     def toBytes(self): # TODO éliminer tt les str => ids de param
+        """ Bytes pour envoyer l'ordre sur le réseau """
         def addStr(s):
-            assert len(s) < 665536
+            assert len(s) < 1<<16
             b.append(len(s)//256)
             b.append(len(s)%256)
             b.extend(s.encode(CODING))
@@ -65,6 +67,7 @@ class Order:
         return bytes(b)
         
     def fromBytes(self, b):
+        """ Récupère l'ordre à partir d'un bytes réseau """
         def getStr():
             nonlocal i
             l = 256*b[i] + b[i+1]
@@ -77,7 +80,7 @@ class Order:
         return self, i
     
 class OrderDispatcher:
-    """ pour diminuer la redondance de code client/serveur """
+    """ Traite les ordres pour le client ou le serveur """
     def __init__(self, world, handle):
         self.world = world
         self.handle = handle
@@ -85,7 +88,7 @@ class OrderDispatcher:
         self.timer.start()
 
     def treat(self, emitter, order):
-        """ -> ordre à retransmettre """
+        """ Traite un ordre et renvoie l'éventuel ordre à retransmettre """
         world = self.world
         if order.type==OrderType.Set:
             target = emitter if order.target=="emitter" else eval(order.target)

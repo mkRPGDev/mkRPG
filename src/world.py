@@ -16,6 +16,7 @@ toResolve = []
 world = None
 
 def loadGame(path):
+    """ Lit le game.xml et renvoie le monde chargé """
     global world
     dat = readXml(path + "game.xml")
     assert dat.name == "Game"
@@ -31,6 +32,7 @@ def loadGame(path):
     return world
 
 class BaseObject:
+    """ Tout objet du monde """
     ident = 0
     ids = {} # liste si sans deletion
 
@@ -53,8 +55,8 @@ class BaseObject:
             self.params[attr] = val
     
     def load(self, data):
+        """ Charge l'objet depuis une structure Xml """
         if verbose: print(data.name)
-        #assert(data.name == self.__class__.__name__)
         for d in data.list:
             n = d.name
             if n=="Params": #peut gérer plusieurs def de params
@@ -90,26 +92,27 @@ class BaseObject:
         return self
     
     def contextEval(self, value):
+        """ Évalue une expression dans le contexte de l'objet pour les ordres """
         return eval(value)
     
     # TODO traitement d'ordres ?
 
 # TODO à enlever ?
-class ServerObject(BaseObject): pass
-#    def __init__(self):
-#        super().__init__()
-        
-class ClientObject(BaseObject): pass
+#class ServerObject(BaseObject): pass
+#class ClientObject(BaseObject): pass
 
-MagicObject = ServerObject if SERVER else ClientObject
+MagicObject = BaseObject
+#ServerObject if SERVER else ClientObject
 # pour éviter la confusion avec object
 
 class ObjectType(MagicObject):
+    """ Les types d'objets (au sens informatique) """
     def __init__(self, typ = MagicObject):
         super().__init__()
         self.type = typ
     
     def create(self):
+        """ Instanticiation d'un objet à partir du type """
         instance = self.type()
         for p,v in self.params.items():
             instance.params[p] = v

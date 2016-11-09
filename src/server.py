@@ -1,5 +1,6 @@
 from sys import argv
 from queue import Queue
+from argparse import ArgumentParser
 
 from const import *
 from actions import registerActions
@@ -19,6 +20,8 @@ import world
 perf = Perf()
 
 class Server():
+    """ Classe principale du processus serveur, concilie réseau, monde, actions et timer """
+
     def __init__(self, path):
         self.net = NetworkServer(self.handle)
         self.world = world.loadGame(path)
@@ -55,7 +58,11 @@ class Server():
     def handleEvent(self, emitter, event):
         self.events.put((emitter, event))
 
-ser = Server(argv[1] if len(argv)>1 else PATH)
+parser = ArgumentParser(description="Generic game server.")
+parser.add_argument("-p", "--path", default=PATH, help="Path of the game directory, should contain game.xml."
+"If this argument is not present, const.py will be used.")
+args = parser.parse_args()
+ser = Server(args.path)
 try:
     ser.run()
 except KeyboardInterrupt:

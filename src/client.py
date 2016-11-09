@@ -1,6 +1,6 @@
 import curses
-from sys import argv
 from time import sleep, time
+from argparse import ArgumentParser
 
 from const import *
 from interactions import registerInteractions, InteractionType
@@ -16,11 +16,9 @@ with open("isserver.py","w") as file:
     file.write("SERVER = False\n")
 import world
 
-#interface = argv[2] if len(argv)==3 else False
-interface = True
-# permet de désactiver ncurses pour débugguer
-
 class Client():
+    """ Classe principale du processus client, concilie interface, monde et réseau """
+    """ Main class of the client process, gathering interface, world and networking"""
     def __init__(self, path):
         self.net = NetworkClient(self.handleOrder)
         self.world = world.loadGame(path)
@@ -54,8 +52,9 @@ class Client():
         self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
-
-class Interface: # XXX inutile en python
+class Interface:
+    """ Classe mère des UI qui sert également d'implémentation triviale """
+    """ UI base-class """
     def __init__(self, w):
         assert type(w) == world.World
         self.world = w
@@ -65,6 +64,7 @@ class Interface: # XXX inutile en python
         while True: sleep(1)
 
 class Curses(Interface):
+    """ Implémentation d'interface utilisateur basée sur ncurses """
     def __init__(self, w):
         super().__init__(w)
         self.win = curses.initscr()
@@ -117,5 +117,11 @@ class CellViewer:
     
     def display(self, win):
         win.addch(self.cell.y+1, self.cell.x+1, self.cell.picture)
-        
-cli = Client(argv[1] if len(argv)>1 else PATH).run()
+
+parser = ArgumentParser(description="Generic game client.")
+parser.add_argument("-p", "--path", default=PATH, help="Path of the game directory, should contain game.xml."
+"If this argument is not present, const.py will be used.")
+parser.add_argument("-n", "--noui", help="Hide UI for debug purposes", action="store_true")
+args = parser.parse_args()
+interface = not args.noui
+cli = Client(args.path).run()

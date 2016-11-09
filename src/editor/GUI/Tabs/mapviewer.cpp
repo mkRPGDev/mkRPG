@@ -134,7 +134,8 @@ void MapViewer::mouseMoveEvent(QMouseEvent *me){
         setCursor(Qt::ClosedHandCursor);
     }
     else if(ms == LClick){
-        map->cell(cellClicked.x(), cellClicked.y()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
+        if(mp.isCell(cellClicked))
+            map->cell(cellClicked.x(), cellClicked.y()).setSelected(!(me->modifiers() & Qt::ShiftModifier));
         ms = Selection;
         //cellClicked = mp.pxlToCoo(clickPos);
     }
@@ -205,7 +206,8 @@ void MapViewer::updateSelection(ClCoords pos){
     }
     else{
         map->clearPreSelection();
-        map->cell(cellClicked.x(), cellClicked.y()).setSelected(!reverse);
+        if(mp.isCell(cellClicked))
+            map->cell(cellClicked.x(), cellClicked.y()).setSelected(!reverse);
         int px = std::max((int)std::min(pos.x(), cellClicked.x()),0);
         int py = std::max((int)std::min(pos.y(), cellClicked.y()),0);
         int qx = std::min((int)std::max(pos.x(), cellClicked.x())+1,map->width());

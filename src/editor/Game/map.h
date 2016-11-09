@@ -3,11 +3,21 @@
 
 #include "object.h"
 
+/**
+ * \file map.h
+ * \brief Definition of the Map, Cell and CellType classes.
+ *
+ *
+ */
 
-class CellType : public BaseObject
+
+/*!
+ * \brief The CellType class
+ */
+class CellType : public GameObject
 {
 public:
-    CellType(Game *g, BaseObject *parent);
+    CellType(Game *g, GameObject *parent);
     C0(AttrT, i,I,mage)
 private:
 
@@ -20,15 +30,15 @@ private:
 /*!
  * Usefull macro to set up a for on the cells
  */
-#define forCells int nbCell = width()*height(); for(int i(0); i<nbCell; ++i)
+#define forCells(i) int nbCell = width()*height(); for(int i(0); i<nbCell; ++i)
 
 /*!
  * \brief The Cell class
  */
-class Cell : public BaseObject
+class Cell : public GameObject
 {
 public:
-    Cell(Game* g = nullptr, BaseObject *parent = nullptr);
+    Cell(Game* g = nullptr, GameObject *parent = nullptr);
     bool isSelected() const;
     void setSelected(bool s = true);
     void invertSelected();
@@ -39,8 +49,12 @@ public:
     void confirmPreSelection(bool add = true);
     void clearPreSelection();
 
+
+    C0(Flag, a,A,ccessible)
+
     C0(AttrT,c,C,ellType)
-    ObjectsMap(c,o,O,bject,,s)
+    ObjectListD(o,O,bject,,s,Object)
+//    ObjectsMap(c,o,O,bject,,s)
 private:
     bool select;
     int nbSel;
@@ -49,11 +63,14 @@ private:
 
 
 
-
-class Map : public BaseObject
+/*!
+ * \brief The Map class
+ */
+class Map : public GameObject
 {
 public:
-    Map(Game* g, BaseObject *parent);
+    Map(Game* g, GameObject *parent);
+    ~Map();
     ParamGetter(width)
     ParamGetter(height)
     QSize size() const{return QSize(width(),height());}

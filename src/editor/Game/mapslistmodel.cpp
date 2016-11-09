@@ -111,3 +111,39 @@ bool CellTypeListModel::removeRows(int row, int count, const QModelIndex &parent
     endInsertRows();
     return true;
 }
+
+
+
+
+
+
+ObjectParamTableModel::ObjectParamTableModel(GameObject *obj, QObject *parent) :
+    QAbstractTableModel(parent),
+    obj(obj)
+{
+}
+
+int ObjectParamTableModel::rowCount(const QModelIndex &parent) const{
+    return obj->params().length();
+}
+
+int ObjectParamTableModel::columnCount(const QModelIndex &parent) const{
+    return 2;
+}
+
+QVariant ObjectParamTableModel::data(const QModelIndex &index, int role) const{
+    if(role == Qt::DisplayRole){
+        if(index.column() == 1) return QVariant(obj->getParam(obj->params().at(index.row())));
+        if(index.column() == 0) return QVariant(obj->params().at(index.row()));
+    }
+    return QVariant();
+}
+
+Qt::ItemFlags ObjectParamTableModel::flags(const QModelIndex &index) const{
+    return QAbstractTableModel::flags(index) | ((index.column() == 1) ? Qt::ItemIsEditable : Qt::NoItemFlags);
+}
+
+bool ObjectParamTableModel::setData(const QModelIndex &index, const QVariant &value, int role){
+    obj->setParam(obj->params().at(index.row()), value.toInt());
+    return true;
+}

@@ -8,16 +8,16 @@
 /*!
  * \file object.h
  *
- * \brief This header defines the base class Object and Image.
+ * \brief Definition of the base class GameObject, and some inherited classes.
  *
  * ## The objects structure
  *
- *
+ * ### %Objects destructors
  *
  *
  * ## The Macro System
  *
- * To add conveniently attributes and flags to BaseObject subclassed objects,
+ * To add conveniently attributes and flags to GameObject subclassed objects,
  * a set of macro is provided.
  *
  * ### Name conventions
@@ -44,7 +44,7 @@
  * -----------------------------|-----------------------|-------------|------------
  * Flags (bool)                 | #Flag                 |#FlagGetter  |#FlagSetter
  * Parameters (int)             | #Param                |#ParamGetter |#ParamSetter
- * BaseObject based Attributes  | #Attr                 |#AttrGetter  |#AttrSetter
+ * GameObject based Attributes  | #Attr                 |#AttrGetter  |#AttrSetter
  *
  *
  * **The case of attributes**
@@ -64,22 +64,29 @@
 
 
 
-/*! Internal used only
-  */
+
 #define ObjectsMapC(name,names,Type,Types,pref,arg) \
 private: \
     QMap<int, Type*> pref##Types; \
 public: \
     void add##Type(Type* arg){pref##Types[arg->ident()] = arg; touch();} \
     void remove##Type(Type* arg){if(pref##Types.contains(arg->ident()))pref##Types.remove(arg->ident()); touch();} \
-    inline Type* name(int id) const{return pref##Types.contains(id) ? pref##Types[id] : nullptr;} \
-    inline QList<Type*> names() const{return pref##Types.values();}
-/*! The macro ObjectsMap define the methods necessary to
- * manipulate a set of objects
- */
+    inline Type* name(int id) const{return pref##Types.value(id, nullptr);} \
+    inline QList<Type*> names() const{return pref##Types.values();} /**< \deprecated*/
 #define ObjectsMap(pref,ini,Ini,body,sg,pl) \
-    ObjectsMapC(ini##body##sg, ini##body##pl, Ini##body##sg, Ini##body##pl, pref,ini)
+    ObjectsMapC(ini##body##sg, ini##body##pl, Ini##body##sg, Ini##body##pl, pref,ini) /**< \deprecated*/
 
+
+#define ObjectListDef(Objects,Type) private: QMap<int, Type*> a##Objects; public:
+#define ObjectListAdd(Object,Objects, Type) void add##Object(Type* new##Object){a##Objects[new##Object->ident()] = new##Object; touch();}
+#define ObjectListTake(Object, Objects, Type) Type* take##Object(int id){touch(); return a##Objects.take(id);}
+#define ObjectListGetter(object,Objects, Type) inline Type* object(int id) const{return a##Objects.value(id, nullptr);}
+#define ObjectListValues(objects,Objects, Type) inline QList<Type*> objects() const{return a##Objects.values();}
+#define ObjectListGetters(object,Object,objects,Objects,Type) ObjectListGetter(object,Objects, Type) ObjectListValues(objects,Objects, Type)
+#define ObjectListModifiers(Object, Objects, Type) ObjectListAdd(Object,Objects, Type) ObjectListTake(Object, Objects, Type)
+#define ObjectList(object,Object,objects,Objects,Type) \
+    ObjectListDef(Objects,Type) ObjectListGetters(object,Object,objects,Objects,Type) ObjectListModifiers(Object, Objects, Type)
+#define ObjectListD(init,Init,body,sg,pl,Type) ObjectList(init##body##sg,Init##body##sg,init##body##pl,Init##body##pl,Type)
 
 #define C(Macro, init,Init,body, ...) Macro(init##body, Init##body, ##__VA_ARGS__) /*!<
  * The C macro calls the Macro argument with argument tokens formed by the concatenation
@@ -103,8 +110,8 @@ public: \
  * C(Param,w,W,idth)
  *     --> Param(width, Width)
  *
- * C(Attr, p,P,arent, BaseObject)
- *     --> Attr(parent, Parent, BaseObject)
+ * C(Attr, p,P,arent, GameObject)
+ *     --> Attr(parent, Parent, GameObject)
  * \endcode
  *
  * \see \ref object.h
@@ -129,8 +136,8 @@ public: \
  * not totally supported by some IDE.
  * \b Example
  * \code{.cpp}
- * C(Attr, p,P,arent, BaseObject)
- *     --> Attr(parent, Parent, BaseObject)
+ * C(Attr, p,P,arent, GameObject)
+ *     --> Attr(parent, Parent, GameObject)
  * \endcode
  *
  * \see C0
@@ -141,8 +148,8 @@ public: \
  * This is usefull in custom setters, to avoid call loops.
  *
  * \warning
- * The \ref BaseObject::touch "touch" function isn't called. After this macro use,
- * the \ref BaseObject "object" is no longer synchronised.
+ * The \ref GameObject::touch "touch" function isn't called. After this macro use,
+ * the \ref GameObject "object" is no longer synchronised.
  *
  * \b Example
  * \code{.cpp}
@@ -202,8 +209,8 @@ public: \
  * This is usefull in custom setters, to avoid call loops.
  *
  * \warning
- * The \ref BaseObject::touch "touch" function isn't called. After this macro use,
- * the \ref BaseObject "object" is no longer synchronised.
+ * The \ref GameObject::touch "touch" function isn't called. After this macro use,
+ * the \ref GameObject "object" is no longer synchronised.
  *
  * \b Example
  * \code{.cpp}
@@ -256,7 +263,7 @@ public: \
  * \endcode
  * \see ParamGetter, ParamSetter, C
  */
-#define AttrGetter(attr, Attr, Type) inline Type *attr() const{return a##Attr;} /*!<
+#define AttrGetter(attr, Attr, Type) inline Type* attr() const{return a##Attr;} /*!<
  * The AttrGetter macro defines a generic getter method for the attribute named \c attr of type \c Type.
  *
  * With respect to the \ref object.h "name convention", this macro needs the attribute's name with lower and upper
@@ -264,12 +271,14 @@ public: \
  *
  * \b Example
  * \code{.cpp}
- * AttrGetter(parent,Parent,BaseObject)
- *     --> inline BaseObject* parent() const{return aParent;}
+ * AttrGetter(parent,Parent,GameObject)
+ *     --> inline GameObject* parent() const{return aParent;}
  * \endcode
  * \see Attr, AttrSetter, C
  */
-#define AttrSetter(attr, Attr, Type) inline void set##Attr(Type *attr##Object){a##Attr = attr##Object; touch();} /*!<
+#define AttrFree(Attr) if(a##Attr) a##Attr->removeReference();
+#define AttrLink(Attr) if(a##Attr) a##Attr->addReference(); //TODO mise à jour doc.
+#define AttrSetter(attr, Attr, Type) inline void set##Attr(Type* new##Attr){AttrFree(Attr); a##Attr = new##Attr; AttrLink(Attr); touch();} /*!<
  * The AttrSetter macro defines a generic setter method for the attribute named \c attr of type \c Type.
  *
  * With respect to the \ref object.h "name convention", this macro needs the attribute's name with lower and upper
@@ -277,12 +286,12 @@ public: \
  *
  * \b Example
  * \code{.cpp}
- * AttrSetter(parent,parent,BaseObject)
- *     --> inline void setParent(BaseObject* parentObject){aParent = parentObject; touch();}
+ * AttrSetter(parent,Parent,GameObject)
+ *     --> inline void setParent(GameObject* &parentObject){aParent = parentObject; touch();}
  * \endcode
  * \see Attr, AttrGetter, C
  */
-#define AttrDef(Attr, Type) private: Type *a##Attr; public: /*!<
+#define AttrDef(Attr, Type) private: Type* a##Attr = nullptr; public: /*!<
  * The AttrDef macro defines a private attribute name <a\c Attr>.
  *
  * \note
@@ -295,10 +304,10 @@ public: \
  *
  * \b Example
  * \code{.cpp}
- * Attr(Parent,BaseObject)
+ * Attr(Parent,GameObject)
  *     -->
  *     private:
- *         BaseObject *aParent;
+ *         GameObject *aParent;
  *     public:
  * \endcode
  *
@@ -312,13 +321,13 @@ public: \
  *
  * \b Example
  * \code{.cpp}
- * Attr(parent,Parent, BaseObject)
+ * Attr(parent,Parent, GameObject)
  *     -->
  *     private:
- *         BaseObject *aParent;
+ *         GameObject *aParent;
  *     public:
- *         inline BaseObject* parent() const{return aParent;}
- *         inline void setParent(BaseObject* parentObject){aParent = parentObject; touch();}
+ *         inline GameObject* parent() const{return aParent;}
+ *         inline void setParent(GameObject* parentObject){aParent = parentObject; touch();}
  * \endcode
  *
  * \see AttrT, AttrDef, AttrSetter, AttrGetter, C
@@ -345,72 +354,163 @@ public: \
 
 
 
+
 class Game;
 
 /*!
- * \brief The BaseObject class is the base class for every part
+ * \brief The GameObject class is the base class for every part
  * of games.
  *
  * Each instance is identified by a game-wide unique
  * identifier.
  *
- * On each modification, the lastEdit attribute has to be updated, in order that
- * other \ref Object "objects" can see that modifications occured.
+ *
+ *
+ * ## %Object edition notification mechanism
+ *
+ * To make the edition easier, each GameObject contains two QDateTime values :
+ * - The most recent edition time, which is updated by the \ref touch method
+ * - The most recent chidl edition time, also updated by the \ref touch method
+ *
+ * \note
+ * If the changes that are made in the object have to be detected by display/edition
+ * widgets, the \ref touch function should be called.
+ * \note
+ * To prevent the notification chain to be broken, the existing objects should always
+ * have a parent (except for the root object). This can be acheived using the \ref init
+ * or \ref setParent method, when the parent have not been given in the constructor.
+ * (see \ref object.h for details)
+ *
+ *
+ * ## References count
+ *
+ *
+ * \todo
+ *
+ *
  */
-class BaseObject
+class GameObject
 {
 public:
-    BaseObject(Game *g = nullptr, BaseObject *parent = nullptr);
-    void init(Game *g, BaseObject *p); /**< initialise the object in case it had been construct with a NULL pointer (array of objects)*/
-    int ident() const{return id;}
-    virtual bool isValid() const{return id;} /**< return true if the object has been initialised*/
-    inline const QDateTime& lastModification() const{return lastEdit;} /**< return the last time of modification*/
 
-    inline int getParam(const QString &p) const {assert(hasParam(p)); return aParams[p];} /**<
+
+    GameObject(Game *g = nullptr, GameObject *parent = nullptr); /**<
+     * Constructs a new GameObject with parent \c parent and the reference to the game \c g.
+     *
+     * \note
+     * If these objects cannot be given to the constructor (case of an array of objects), the
+     * \ref init method must be called after the creation to make the GameObject valid.
+     */
+    virtual ~GameObject();
+
+    void init(Game *g, GameObject *p); /**<
+     * Initialises the object in case it had been construct with a NULL pointer (array of objects)
+     *
+     * \see isValid, \ref GameObject::GameObject "GameObject"
+     */
+    virtual bool isValid() const{return id;} /**<
+     * Returns true if the object has been initialised
+     *
+     * \see init, \ref GameObject::GameObject "GameObject"
+     */
+    int ident() const{return id;} /**<
+     * Returns the name wide unique identifier of the object.
+     *
+     * \see init, \ref GameObject::GameObject "GameObject"
+     */
+
+    inline const QDateTime& lastInternalEdition() const{return lastEdit;} /**<
+     * Returns the last edition time.
+     *
+     * \see lastEdition, lastChildrenEdition
+     */
+    inline const QDateTime& lastChildrenEdition() const{return lastChildEdit;} /**<
+     * Returns the last time one of the object's children has been modified.
+     *
+     * \see lastEdition, lastInternalEdition
+     */
+    inline const QDateTime& lastEdition() const{return lastEdit > lastChildEdit ? lastEdit : lastChildEdit;} /**<
+     * Returns the last time a modification was made on the object or one of its children.
+     *
+     * \see lastInternalEdition, lastChildrenEdition
+     */
+
+    inline int getParam(const QString &p) const {return aParams.value(p, 0);} /**<
      * Returns the value of the \c p parameter.
      *
-     * \warning
-     * This method assumes that the requested parameter exists.
+     * \note
+     * If the requested parameter does not exists, a null value is returned, and the parameters
+     * map stay unchanged
      *
-     * \see params, hasParam, getFlag
+     * \see params, hasParam, setParam, getFlag
+     */
+    inline void setParam(const QString &p, int v) {aParams[p] = v; touch();} /**<
+     * Set the value of the \c p parameter.
+     *
+     * \note
+     * If the requested parameter does not exists, it is created.
+     *
+     * \see params, hasParam, getParam, setFlag
      */
     inline bool hasParam(const QString &p) const{return  aParams.contains(p);} /**<
      * Returns true if the parameter \p is register in the object's parameters.
      *
-     * \see getParam, hasFlag
+     * \see getParam, setParam, hasFlag
      */
-    inline QList<QString> &params() const{return aParams.keys();}/**<
+    inline QList<QString> params() const{return aParams.keys();} /**<
      * Returns the list of the registered paramters
      *
-     * \see getParam, flags
+     * \see getParam, setParam, flags
      */
-    inline bool getFlag(const QString &f) const{return aFlags[f];} /**<
+    inline bool getFlag(const QString &f) const{return aFlags.value(f,false);} /**<
      * Returns the value of the \c f flag.
      *
-     * \warning
-     * This method assumes that the requested flag exists.
+     * \note
+     * If the requested parameter does not exists, a \c false value is returned, and the flags
+     * map stay unchanged
      *
-     * \see flags, hasFlag, getParam
+     * \see flags, hasFlag, setFlag, getParam
+     */
+    inline void setFlag(const QString &f, bool v) {aFlags[f] = v; touch();} /**<
+     * Set the value of the \c f flag.
+     *
+     * \note
+     * If the requested flag does not exists, it is created.
+     *
+     * \see flags, hasFlag, getFlag, setParam
      */
     inline bool hasFlag(const QString &f) const{return aFlags.contains(f);} /**<
      * Returns true if the falg \c f is register in the object's flags.
      *
-     * \see getFlag, hasParam
+     * \see getFlag, setFlag, hasParam
      */
-    inline QList<QString> &flags() const{return aFlags.keys();} /**<
+    inline QList<QString> flags() const{return aFlags.keys();} /**<
      * Returns the list of the registered flags
      *
-     * \see getFlag, params
+     * \see getFlag, setFlag, params
      */
 
-    void touch();/**< As expected */
+    void touch(); /**<
+     * Notify the object and its parent that it has been modified.
+     *
+     * \see lastInternalEdition, lastChildrenEdition, lastEdition.
+     */
+    void addReference();
+    void removeReference();
 
+    void setParent(GameObject *p);
 
 
 protected:
-    BaseObject *parent;
+    void addChild(GameObject *c);
+    void removeChild(GameObject *c);
+    void childrenTouched(const QDateTime &d);
+
+    GameObject *parent;
+    QMap<int, GameObject*> children;
     Game *game;
     int id;
+    int nbRef;
     QMap<QString, int> aParams;
     QMap<QString, bool> aFlags;
     QString fileName;
@@ -423,30 +523,37 @@ protected:
 
 
 
-
-class Object : public BaseObject
-{
-public:
-    Object(Game *g, BaseObject *parent);
-    C0(Flag, v,V,visible)
-
-};
-
-
 /*!
  * \brief The Image class stores an external file in a QImage, and
  * gives each image ressources a unique identifier.
  */
-class Image : public BaseObject
+class Image : public GameObject
 {
 public:
-    Image(Game*g, BaseObject *parent, const QString &fileName);
-    inline bool isValid() const{return BaseObject::isValid() && !im.isNull();}
+    Image(Game*g, GameObject *parent, const QString &fileName);
+    inline bool isValid() const{return GameObject::isValid() && !im.isNull();}
     inline const QImage& image() const{return im;}
     inline const QSize size() const{return im.size();}
     void update(){} // TODO
 private:
     QImage im;
+};
+
+
+/*!
+ * \brief The Object class
+ */
+class Object : public GameObject
+{
+public:
+    Object(Game *g, GameObject *parent);
+
+    C0(Flag, v,V,visible)
+    C0(Flag, m,M,ovable)
+    C0(Flag, i,I,nteractive)
+    C0(AttrT,i,I,mage)
+
+
 };
 
 

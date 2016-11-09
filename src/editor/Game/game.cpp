@@ -3,8 +3,8 @@
 
 
 
-World::World(Game *g, BaseObject *parent) :
-    BaseObject(g, parent)
+World::World(Game *g, GameObject *parent) :
+    GameObject(g, parent)
 {
 }
 
@@ -13,10 +13,10 @@ World::World(Game *g, BaseObject *parent) :
 
 
 Game::Game() :
-    BaseObject(this),
+    GameObject(),
     idDisp(0), w(World(this, this)), map(nullptr)
 {
-
+    init(this,nullptr);
 }
 
 void Game::addImage(Image *im){

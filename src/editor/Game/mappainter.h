@@ -6,10 +6,11 @@
 // all blocks and unfold the class you want to see. :)
 
 
-/*!
+/**
  * \file mappainter.h
  *
- * \brief Definition of the class used to render maps
+ * \brief Definition of the MapPainter class and other related classes to
+ * render \ref Map "maps".
  *
  * This file defines four types of coordinates : RlCoords, ClCoords,
  * PtCoords and PxCoords. They all inherit from QPointF, and
@@ -212,12 +213,15 @@ public:
     QPoint highlightedCell() const; /**<
      * Returns the integer index of the \ref Cell "cell" the is highlighted.
      *
-     * \see \ref sethighlightedCell, \ref hasHighlightedCell
+     * \see \ref setHighlightedCell, \ref hasHighlightedCell
      */
     bool hasHighlightedCell() const; /**<
      * Returns true if a \ref Cell "cell" is highligthed.
      *
      * \see \ref highlightedCell, \ref setHighlightedCell
+     */
+    bool isCell(ClCoords &c) const; /**<
+     * Returns true if the coordinate \c c correspond to a \ref Cell "cell".
      */
 
     void resize(QSize s); /**<

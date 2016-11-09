@@ -4,18 +4,25 @@
 #include "object.h"
 #include "map.h"
 
+/**
+ * \file game.h
+ * \brief Definition of the Game and World classes.
+ */
 
 
 
 /*!
- * \brief The World class is an Object
+ * \brief The World class
  */
-class World : public BaseObject
+class World : public GameObject
 {
 public:
-    World(Game *g, BaseObject *parent);
-    ObjectsMap(w,m,M,ap,,s) /**< Set of maps*/
-    ObjectsMap(w,c,C,ellType,,s) /**< Set of cell types*/
+    World(Game *g, GameObject *parent);
+    ObjectListD(m,M,ap,,s, Map) /**< Set of maps*/
+    //ObjectsMap(w,c,C,ellType,,s) /**< Set of cell types*/
+    ObjectListD(o,O,bject,,s, Object)
+    ObjectListD(c,C,ellType,,s, CellType)
+
 private:
 };
 
@@ -30,11 +37,17 @@ private:
  * For editing purposes, it contains also the active map (the
  * one being editing)
  */
-class Game : public BaseObject
+class Game : public GameObject
 {
 public:
     Game();
     inline int newIdent(){return ++idDisp;}
+    /**<
+     * Returns a new unused identifiers
+     *
+     * \note
+     * It should only be used by GameObject methods \ref GameObject::init and GameObject::GameObject.
+     */
     inline World* world(){return &w;}
     inline Map* currentMap(){return map;}
     void setCurrentMap(Map *m);

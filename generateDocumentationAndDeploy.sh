@@ -69,6 +69,13 @@ ls
 doxygen Doxyfile
 echo 'DOXYGEN TEST DOXYFILE'
 ls
+#On le renomme pour préparer au changement de branche
+mv html html_new
+mv latex latex_new
+git checkout gh-pages
+mv latex_new html
+mv latex_new html
+
 
 ################################################################################
 ##### Upload the documentation to the gh-pages branch of the repository.   #####

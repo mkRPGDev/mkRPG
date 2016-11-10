@@ -46,7 +46,7 @@ cd code_docs
 # Get the current gh-pages branch
 echo "GIT CLONE TRAVIS"
 echo ${GH_REPO_REF}
-git clone -b travis "https://${GH_REPO_REF}"
+git clone -b travis "https://github.com/mkRPGDev/mkRPG.git/"
 cd $GH_REPO_NAME
 
 ##### Configure git.
@@ -107,5 +107,5 @@ echo ${GH_REPO_TOKEN}
 echo "{GH_REPO_REF} = "
 echo ${GH_REPO_REF}
 echo "on va essayer de pusher : "
-git push -v --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}"
+git push -v --force "https://${GH_REPO_TOKEN}@github.com/mkRPGDev/mkRPG.git/"
 echo "git push passed"

@@ -70,6 +70,9 @@ mv doc doc_new
 git checkout gh-pages
 mv doc_new doc
 
+cd doc/latex
+make
+
 
 ################################################################################
 ##### Upload the documentation to the gh-pages branch of the repository.   #####

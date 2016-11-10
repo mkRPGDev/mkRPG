@@ -9,9 +9,10 @@
 *.class
 *.pyc
 
+src/__make_cells.py
+
 # Fichiers de logs
 *.log
-
 
 # Fichier de lancement du serveur
 src/isserver.py
@@ -24,6 +25,9 @@ src/__pycache__
 
 # Fichiers de l'éditeur
 .directory
-src/build-RPGEditor-Desktop_Qt_5_6_1_GCC_64bit-Debug/
+src/build-RPGEditor-*
 src/editor/RPGEditor.pro.user
 src/editor/doc.doxy
+
+# Fichiers PyCharm
+.idea

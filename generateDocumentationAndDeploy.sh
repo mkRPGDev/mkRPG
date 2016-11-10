@@ -44,7 +44,8 @@ mkdir code_docs
 cd code_docs
 
 # Get the current gh-pages branch
-git clone -b travis $GH_REPO_REF
+echo "GIT CLONE TRAVIS"
+git clone -b travis "https://${GH_REPO_REF}"
 cd $GH_REPO_NAME
 
 ##### Configure git.
@@ -105,5 +106,5 @@ echo ${GH_REPO_TOKEN}
 echo "{GH_REPO_REF} = "
 echo ${GH_REPO_REF}
 echo "on va essayer de pusher : "
-git push -v --force "${GH_REPO_TOKEN}@${GH_REPO_REF}"
+git push -v --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}"
 echo "git push passed"

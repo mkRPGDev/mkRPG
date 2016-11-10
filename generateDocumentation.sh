@@ -53,12 +53,14 @@ echo 'Generating Doxygen code documentation...'
 doxygen Doxyfile
 
 #On le renomme pour préparer au changement de branche
-mv "doc" "doc_new"
-#On change de branche
-git checkout gh-pages
-#On écrase l'ancienne documentation
-rm -r doc
-mv "doc_new" "doc"
+if [ ${GH_BRANCH} = "travis" ]; then
+  mv "doc" "doc_new"
+  #On change de branche si on est dans master
+  git checkout gh-pages
+  #On écrase l'ancienne documentation
+  rm -r doc
+  mv "doc_new" "doc"
+fi
 
 #On compile le tex
 echo 'Compiling tex documentation ... '

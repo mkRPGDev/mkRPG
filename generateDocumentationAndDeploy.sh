@@ -45,6 +45,9 @@ cd code_docs
 
 # Get the current gh-pages branch
 git clone -b gh-pages $GH_REPO_REF
+
+ls -a
+
 cd $GH_REPO_NAME
 
 ##### Configure git.

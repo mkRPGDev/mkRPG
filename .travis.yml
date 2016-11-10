@@ -21,7 +21,7 @@ env:
   global:
     - GH_REPO_NAME: mkRPG
     - DOXYFILE: $TRAVIS_BUILD_DIR
-    - GH_REPO_REF: https://github.com/mkRPGDev/mkRPG.git
+    - GH_REPO_REF: github.com/mkRPGDev/mkRPG.git
 
 # Install dependencies
 addons:

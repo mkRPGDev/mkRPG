@@ -66,8 +66,6 @@ echo "" > .nojekyll
 ##### Generate the Doxygen code documentation and log the output.          #####
 echo 'Generating Doxygen code documentation...'
 
-ls
-# Redirect both stderr and stdout to the log file AND the console.
 doxygen Doxyfile
 echo 'DOXYGEN TEST DOXYFILE'
 ls
@@ -102,10 +100,6 @@ echo "git commit passed"
 # Force push to the remote gh-pages branch.
 # The ouput is redirected to /dev/null to hide any sensitive credential data
 # that might otherwise be exposed.
-echo "GH_REPO_TOKEN = "
-echo ${GH_REPO_TOKEN}
-echo "{GH_REPO_REF} = "
-echo ${GH_REPO_REF}
-echo "on va essayer de pusher : "
+
 git push -v --force "https://${GH_REPO_TOKEN}@github.com/mkRPGDev/mkRPG.git/"
 echo "git push passed"

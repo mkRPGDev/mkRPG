@@ -45,12 +45,7 @@ cd code_docs
 
 # Get the current gh-pages branch
 git clone -b travis $GH_REPO_REF
-
-ls -a
-
 cd $GH_REPO_NAME
-
-ls -a
 
 ##### Configure git.
 # Set the push default to simple i.e. push only the current branch.
@@ -58,13 +53,6 @@ git config --global push.default simple
 # Pretend to be an user called Travis CI.
 git config user.name "Travis CI"
 git config user.email "travis@travis-ci.org"
-
-# Remove everything currently in the gh-pages branch.
-# GitHub is smart enough to know which files have changed and which files have
-# stayed the same and will only update the changed files. So the gh-pages branch
-# can be safely cleaned, and it is sure that everything pushed later is the new
-# documentation.
-rm -rf *
 
 # Need to create a .nojekyll file to allow filenames starting with an underscore
 # to be seen on the gh-pages site. Therefore creating an empty .nojekyll file.

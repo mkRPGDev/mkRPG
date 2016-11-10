@@ -44,7 +44,7 @@ mkdir code_docs
 cd code_docs
 
 # Get the current gh-pages branch
-git clone -b gh-pages $GH_REPO_REF
+git clone -b travis $GH_REPO_REF
 
 ls -a
 
@@ -77,6 +77,7 @@ echo "" > .nojekyll
 echo 'Generating Doxygen code documentation...'
 
 ls -a
+echo $DOXYFILE
 # Redirect both stderr and stdout to the log file AND the console.
 doxygen $DOXYFILE 2>&1 | tee doxygen.log
 

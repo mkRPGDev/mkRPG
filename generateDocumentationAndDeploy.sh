@@ -50,6 +50,8 @@ ls -a
 
 cd $GH_REPO_NAME
 
+ls -a
+
 ##### Configure git.
 # Set the push default to simple i.e. push only the current branch.
 git config --global push.default simple

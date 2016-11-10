@@ -36,6 +36,8 @@ BDock::BDock(QString title, BDockWidget *dock, QWidget *parent) :
                              QIcon("/home/baptiste/ENS/Stage/Epidev/Icones/rassembler.png"));
     connect(bLinked, SIGNAL(pressed()), &dLinked, SLOT(swap()));
     connect(dock, SIGNAL(changeDockName(QString)), this, SLOT(setTitle(QString)));
+    connect(&position, SIGNAL(valueChanged(int)), this, SLOT(setPosition(int)));
+    connect(&position, SIGNAL(modificationFinished(int)), this, SLOT(endOfMovement()));
 
     zoneSize.link(this, "currentSize");
 
@@ -117,4 +119,40 @@ void BDock::setCurrentSize(int t){
 void BDock::resizeEvent(QResizeEvent *re){
     QFrame::resizeEvent(re);
     dock->setFixedWidth(re->size().width()-2);
+}
+
+void BDock::mousePressEvent(QMouseEvent *me){
+    if(me->y()<name->height()){
+        setCursor(Qt::ClosedHandCursor);
+        emit mouseClick(ind, mapToParent(me->pos()));
+    }
+}
+
+void BDock::mouseMoveEvent(QMouseEvent *me){
+    emit mouseMove(ind, mapToParent(me->pos()));
+}
+
+void BDock::mouseReleaseEvent(QMouseEvent *me){
+    setCursor(Qt::ArrowCursor);
+    emit mouseRelease(ind, mapToParent(me->pos()));
+}
+
+void BDock::setIndex(int i){
+    ind = i;
+}
+
+void BDock::moveTo(int i, bool inert){
+    position.setValue(i, inert);
+}
+
+void BDock::setPosition(int i){
+    move(0,i);
+}
+
+void BDock::endOfMovement(){
+    emit movementFinished(ind);
+}
+
+void BDock::setLength(int l){
+    setFixedWidth(l);
 }

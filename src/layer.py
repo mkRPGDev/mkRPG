@@ -4,6 +4,8 @@ import pygame
 
 from cache import ImageCache
 import const
+import utils
+from math import pi
 
 class Layer(pygame.sprite.Sprite):
     
@@ -22,13 +24,14 @@ class Layer(pygame.sprite.Sprite):
         pass
         
     def get_cell_pos(self, c_line, c_col, size_image):
-        if c_line%2 == 0:
-            pos = (int((const.CELL_WIDTH*c_col-size_image[0]+const.CELL_WIDTH)*self.scale), 
-                   int((const.CELL_HEIGHT/2*c_line-size_image[1]+const.CELL_HEIGHT)*self.scale))
-        else:
-            pos = (int(((1+2*c_col)*const.CELL_WIDTH/2-size_image[0]+const.CELL_WIDTH)*self.scale), 
-                   int((const.CELL_HEIGHT/2*c_line-size_image[1]+const.CELL_HEIGHT)*self.scale))
-        return pos
+        #if c_line%2 == 0:
+        #    pos = (int((const.CELL_WIDTH*c_col-size_image[0]+const.CELL_WIDTH)*self.scale), 
+        #           int((const.CELL_HEIGHT/2*c_line-size_image[1]+const.CELL_HEIGHT)*self.scale))
+        #else:
+        #    pos = (int(((1+2*c_col)*const.CELL_WIDTH/2-size_image[0]+const.CELL_WIDTH)*self.scale), 
+        #           int((const.CELL_HEIGHT/2*c_line-size_image[1]+const.CELL_HEIGHT)*self.scale))
+        (a,b) = utils.cell_to_point(c_line, c_col, const.ANGLE_X*pi/1800, (const.ANGLE_X+900)*pi/1800, const.CHUNK_GRID_HEIGHT)
+        return (int(a+.5),int(b+.5))
     
     def make_grid(self, img_set, cell_ids):
         res = pygame.Surface(self.size, pygame.SRCALPHA)
@@ -39,7 +42,11 @@ class Layer(pygame.sprite.Sprite):
                     cell_image = ImageCache.get_image(img_set[cell_ids[c_line][c_col]], self.scale)
                     size_image = cell_image.get_size()
                     pos = self.get_cell_pos(c_line, c_col, size_image)
-                    res.blit(cell_image, pos)
+                    pygame.draw.polygon(res, 0xffffff00,
+                                        [utils.cell_to_point(c_line,c_col),utils.cell_to_point(c_line+1,c_col),
+                                         utils.cell_to_point(c_line+1,c_col+1),utils.cell_to_point(c_line,c_col+1)],
+                                        1)
+                    #res.blit(cell_image, pos)
         return res
     
     def update_cell(self, c_line, c_col, new_line, new_col):

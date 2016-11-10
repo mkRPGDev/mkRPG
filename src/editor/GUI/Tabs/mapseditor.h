@@ -3,6 +3,7 @@
 
 #include "ui_mapseditor.h"
 #include "celltypesdock.h"
+#include "selectiondock.h"
 #include "celldock.h"
 #include "mapdock.h"
 

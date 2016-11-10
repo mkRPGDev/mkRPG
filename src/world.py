@@ -2,7 +2,7 @@ from enum import IntEnum
 from random import randint
 
 from isserver import SERVER
-from utils import readXml
+from tools import readXml
 from orders import Order, OrderType
 #l'autre solution est de tout mettre dans une fonction
 # qui écrasera des classes bidon en global

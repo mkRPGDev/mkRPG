@@ -19,4 +19,9 @@
         <target val="perso"/>
         <event val="moveright"/>
     </Interaction>
+    <Interaction>
+        <button val="1"/><!-- right click -->
+        <target val="map"/>
+        <event val="move"/>
+    </Interaction>
 </Interactions>

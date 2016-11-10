@@ -66,9 +66,11 @@ doxygen Doxyfile
 echo 'DOXYGEN TEST DOXYFILE'
 ls
 #On le renomme pour préparer au changement de branche
-mv doc doc_new
+mv "doc" "doc_new"
 git checkout gh-pages
-mv doc_new doc
+ls -a
+
+mv "doc_new" "doc"
 
 ls -a
 

@@ -8,6 +8,7 @@
 #include <QStyledItemDelegate>
 #include <QItemEditorFactory>
 #include <QSpinBox>
+#include <QSplitter>
 
 class ParamItemDelegate : public QStyledItemDelegate
 {
@@ -29,6 +30,7 @@ class ObjectEditor : public QWidget, private Ui::ObjectEditor
 public:
     explicit ObjectEditor(QWidget *parent = 0);
     void setGame(Game *g);
+
 };
 
 #endif // OBJECTEDITOR_H

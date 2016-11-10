@@ -220,7 +220,7 @@ public:
      *
      * \see \ref highlightedCell, \ref setHighlightedCell
      */
-    bool isCell(ClCoords &c) const; /**<
+    bool isCell(const ClCoords &c) const; /**<
      * Returns true if the coordinate \c c correspond to a \ref Cell "cell".
      */
 

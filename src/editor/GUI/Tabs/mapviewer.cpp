@@ -197,12 +197,46 @@ void MapViewer::selectionOut(){
 void MapViewer::updateSelection(ClCoords pos){
     bool reverse = QApplication::keyboardModifiers() & Qt::ShiftModifier;
     if(sm == PencilSelection || sm == RegionSelection){
-        if(mp.hasHighlightedCell())
-            map->cell(mp.highlightedCell()).setSelected(!reverse);
-        if(sm == RegionSelection){
-            selectCellBetween(cellClicked, cellMove, pos);
-            cellMove = pos;
+        int xb = cellMove.x();
+        int yb = cellMove.y();
+        int xe = pos.x();
+        int ye = pos.y();
+        if(abs(xe-xb) > abs(ye-yb)){
+            if(xe>xb){
+                for(int i(xe); i>xb; --i){
+                    int j(ye+(yb-ye)*(xe-i)/(xe-xb)+.5);
+                    if(mp.isCell(ClCoords(i,j)))
+                        map->cell(i,j).setSelected(!reverse);
+                }
+            }
+            else{
+                for(int i(xe); i<xb; ++i){
+                    int j(ye+(yb-ye)*(xe-i)/(xe-xb)+.5);
+                    if(mp.isCell(ClCoords(i,j)))
+                        map->cell(i,j).setSelected(!reverse);
+                }
+            }
         }
+        else{
+            if(ye>yb){
+                for(int j(ye); j>yb; --j){
+                    int i(xe+(xb-xe)*(ye-j)/(ye-yb)+.5);
+                    if(mp.isCell(ClCoords(i,j)))
+                        map->cell(i,j).setSelected(!reverse);
+                }
+            }
+            else{
+                for(int j(ye); j<yb; ++j){
+                    int i(xe+(xb-xe)*(ye-j)/(ye-yb)+.5);
+                    if(mp.isCell(ClCoords(i,j)))
+                        map->cell(i,j).setSelected(!reverse);
+                }
+            }
+
+        }
+        if(sm == RegionSelection)
+            selectCellBetween(cellClicked, cellMove, pos);
+        cellMove = pos;
     }
     else{
         map->clearPreSelection();
@@ -248,6 +282,7 @@ void MapViewer::mouseReleaseEvent(QMouseEvent *me){
     map->confirmPreSelection(!(me->modifiers() & Qt::ShiftModifier));
     updateRequest();
     setCursor(Qt::ArrowCursor);
+    emit selectionChanged();
 }
 
 void MapViewer::setMap(Map *m){

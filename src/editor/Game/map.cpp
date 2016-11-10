@@ -64,6 +64,8 @@ Map::Map(Game *g, GameObject *parent) :
     resize(100,75);
     SetParam(angleX, 0);
     SetParam(angleY, 0);
+
+    SetFlag(inutile, false);
 }
 
 Map::~Map(){

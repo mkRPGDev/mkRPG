@@ -274,7 +274,7 @@ bool MapPainter::hasHighlightedCell() const{
     return selCellX+1 && selCellY+1;
 }
 
-bool MapPainter::isCell(ClCoords &c) const{
+bool MapPainter::isCell(const ClCoords &c) const{
     return c.x() >= 0 && c.x() < nbCellsX && c.y() >= 0 && c.y() < nbCellsY;
 }
 

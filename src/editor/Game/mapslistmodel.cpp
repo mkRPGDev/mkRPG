@@ -68,20 +68,22 @@ bool MapsListModel::removeRows(int row, int count, const QModelIndex &parent){
 
 
 CellTypeListModel::CellTypeListModel(World* w, QObject* parent) :
-    QAbstractListModel(parent), cellTypes(w->cellTypes())
+    QAbstractListModel(parent), cellTypes(w->cellTypes()), empty(QPixmap(32,32))
 {
-
+    empty.fill(QColor(0,0,0,0));
 }
 
 int CellTypeListModel::rowCount(const QModelIndex &parent) const{
     //qDebug() << maps.length() << parent.isValid() << parent.model() << parent;
-    return cellTypes.length();
+    return cellTypes.length()+1;
 }
 
 QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
     //qDebug() << "data" << role;
     if(index.isValid()){
-        CellType *ct = cellTypes.at(index.row());
+        if(index.row() == 0) return role == Qt::DisplayRole ? QVariant(tr("EmptyType")) :
+                                    role == Qt::DecorationRole ? QVariant(empty) : QVariant();
+        CellType *ct = cellTypes.at(index.row()-1);
         switch (role) {
         case Qt::DisplayRole:
             return QVariant(QString("Ident : ")+QString::number(ct->ident()));
@@ -146,4 +148,58 @@ Qt::ItemFlags ObjectParamTableModel::flags(const QModelIndex &index) const{
 bool ObjectParamTableModel::setData(const QModelIndex &index, const QVariant &value, int role){
     obj->setParam(obj->params().at(index.row()), value.toInt());
     return true;
+}
+
+QVariant ObjectParamTableModel::headerData(int section, Qt::Orientation orientation, int role) const{
+    if(orientation == Qt::Horizontal && role == Qt::DisplayRole){
+        if(section == 0) return QVariant(tr("Parameter"));
+        if(section == 1) return QVariant(tr("Value"));
+    }
+    return QVariant();
+}
+
+
+
+
+
+
+
+
+ObjectFlagTableModel::ObjectFlagTableModel(GameObject *obj, QObject *parent) :
+    QAbstractTableModel(parent),
+    obj(obj)
+{
+}
+
+int ObjectFlagTableModel::rowCount(const QModelIndex &parent) const{
+    return obj->flags().length();
+}
+
+int ObjectFlagTableModel::columnCount(const QModelIndex &parent) const{
+    return 2;
+}
+
+QVariant ObjectFlagTableModel::data(const QModelIndex &index, int role) const{
+    if(role == Qt::DisplayRole){
+        if(index.column() == 1) return QVariant(obj->getFlag(obj->flags().at(index.row())));
+        if(index.column() == 0) return QVariant(obj->flags().at(index.row()));
+    }
+    return QVariant();
+}
+
+Qt::ItemFlags ObjectFlagTableModel::flags(const QModelIndex &index) const{
+    return QAbstractTableModel::flags(index) | ((index.column() == 1) ? Qt::ItemIsEditable : Qt::NoItemFlags);
+}
+
+bool ObjectFlagTableModel::setData(const QModelIndex &index, const QVariant &value, int role){
+    obj->setFlag(obj->flags().at(index.row()), value.toInt());
+    return true;
+}
+
+QVariant ObjectFlagTableModel::headerData(int section, Qt::Orientation orientation, int role) const{
+    if(orientation == Qt::Horizontal && role == Qt::DisplayRole){
+        if(section == 0) return QVariant(tr("Flag"));
+        if(section == 1) return QVariant(tr("Value"));
+    }
+    return QVariant();
 }

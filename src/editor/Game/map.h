@@ -84,6 +84,8 @@ public:
     void selectAll();
     void unSelectAll();
 
+    C0(Flag, i,I,nutile)
+
     void confirmPreSelection(bool add = true);
     void clearPreSelection();
 

@@ -31,9 +31,11 @@ mkdir code_docs
 cd code_docs
 
 # Get the current master branch
-echo "GIT CLONE TRAVIS"
+echo "Get a clone of master"
 echo ${GH_REPO_REF}
-git clone -b travis "https://github.com/mkRPGDev/mkRPG.git/"
+echo ${GH_BRANCH}
+
+git clone -b travis "https://${GH_REPO_REF}"
 cd $GH_REPO_NAME
 
 ##### Configure git.
@@ -59,6 +61,7 @@ rm -r doc
 mv "doc_new" "doc"
 
 #On compile le tex
+echo 'Compiling tex documentation ... '
 cd doc/latex
 make
 
@@ -87,5 +90,5 @@ echo "Status : git commit has passed"
 # The ouput is redirected to /dev/null to hide any sensitive credential data
 # that might otherwise be exposed.
 
-git push -v --force "https://${GH_REPO_TOKEN}@github.com/mkRPGDev/mkRPG.git/"
+git push -v --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}"
 echo "Status : git push has passed"

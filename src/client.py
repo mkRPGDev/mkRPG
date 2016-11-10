@@ -69,7 +69,7 @@ class Client():
         print("Ready to begin")
 
         while True:
-            deltat = clock.tick(60)/1000
+            deltat = clock.tick(MAXFPS)/1000
             events = self.interface.get_event()
             for event in events:
                 if event.type == QUIT or\
@@ -122,12 +122,14 @@ class Client():
         posx,posy = mouse_pos
 
         if posx < MOV_OFFSET:
-            if (mov_speed_x == 0 or mov_speed_x > 0) and mov_speed_x < self.get_conf("max_mov_speed", int):
+            if (mov_speed_x == 0 or mov_speed_x > 0) and mov_speed_x <\
+               self.get_conf("max_mov_speed", int):
                 mov_speed_x += int(self.get_conf("mov_speed", int)*deltat)
             else:
                 mov_speed_x = 0
         elif posx > self.screen_size[0]-MOV_OFFSET:
-            if (mov_speed_x == 0 or mov_speed_x < 0) and mov_speed_x > -self.get_conf("max_mov_speed", int):
+            if (mov_speed_x == 0 or mov_speed_x < 0) and mov_speed_x >\
+               -self.get_conf("max_mov_speed", int):
                 mov_speed_x -= int(self.get_conf("mov_speed", int)*deltat)
             else:
                 mov_speed_x = 0
@@ -135,12 +137,14 @@ class Client():
             mov_speed_x = 0
 
         if posy > self.screen_size[1]-MOV_OFFSET:
-            if (mov_speed_y == 0 or mov_speed_y < 0) and mov_speed_y < self.get_conf("max_mov_speed", int):
+            if (mov_speed_y == 0 or mov_speed_y < 0) and mov_speed_y <\
+               self.get_conf("max_mov_speed", int):
                 mov_speed_y -= int(self.get_conf("mov_speed", int)*deltat)
             else:
                 mov_speed_y = 0
         elif posy < MOV_OFFSET:
-            if (mov_speed_y == 0 or mov_speed_y > 0) and mov_speed_y > -self.get_conf("max_mov_speed", int):
+            if (mov_speed_y == 0 or mov_speed_y > 0) and mov_speed_y >\
+               -self.get_conf("max_mov_speed", int):
                 mov_speed_y += int(self.get_conf("mov_speed", int)*deltat)
             else:
                 mov_speed_y = 0

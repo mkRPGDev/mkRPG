@@ -73,8 +73,8 @@ ls
 mv html html_new
 mv latex latex_new
 git checkout gh-pages
-mv latex_new html
-mv latex_new html
+mv html_new html
+mv latex_new latex
 
 
 ################################################################################

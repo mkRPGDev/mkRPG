@@ -13,7 +13,6 @@
 *.aux
 *.blg
 *.bbl
-*.pdf
 *.log
 *.gz
 

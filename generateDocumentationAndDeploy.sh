@@ -45,6 +45,7 @@ cd code_docs
 
 # Get the current gh-pages branch
 echo "GIT CLONE TRAVIS"
+echo ${GH_REPO_REF}
 git clone -b travis "https://${GH_REPO_REF}"
 cd $GH_REPO_NAME
 

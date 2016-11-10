@@ -33,7 +33,9 @@ cd code_docs
 # Get the current master branch
 echo "Get a clone of master"
 echo ${GH_REPO_REF}
-echo ${GH_BRANCH}
+# On recupère le nom de la branche dans laquelle on se trouve
+$GH_BRANCH = (git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
+echo $GH_BRANCH
 
 git clone -b travis "https://${GH_REPO_REF}"
 cd $GH_REPO_NAME

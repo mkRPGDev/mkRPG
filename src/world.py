@@ -4,7 +4,7 @@ from random import randint
 from isserver import SERVER
 from utils import readXml
 from orders import Order, OrderType
-#l'autre solution est de tout mettre dans une fonction 
+#l'autre solution est de tout mettre dans une fonction
 # qui écrasera des classes bidon en global
 
 verbose = False
@@ -38,14 +38,14 @@ class BaseObject:
         BaseObject.ids[BaseObject.ident] = self
         self.ident = BaseObject.ident
         self.params = {}
-    
+
     def __getattr__(self, attr):
         if attr in self.params:
             return self.params[attr]
         raise AttributeError(attr)
 
     # TODO utiliser un setattr ?
-    
+
     def load(self, data):
         if verbose: print(data.name)
         #assert(data.name == self.__class__.__name__)
@@ -59,7 +59,7 @@ class BaseObject:
                         toResolve.append((ap["id"], self.params, np))
             elif n==self.__class__.__name__+"Type": # ObjectType
                 pass
-            elif (n.lower() in self.__dict__ and 
+            elif (n.lower() in self.__dict__ and
                  type(self.__dict__[n.lower()])==list):
                 li = self.__dict__[n.lower()]
                 C = plurals[n.lower()]
@@ -73,7 +73,7 @@ class BaseObject:
                 ObjectType(eval(n[:-4])).load(d)
             elif type(eval(n))==type and "name" in d.args:
                 eval(n)().load(d)
-                
+
         if "name" in data.args:
             named[data.args["name"]] = self
         for nm, li, ln in toResolve: #TODO a optimiser
@@ -82,14 +82,14 @@ class BaseObject:
             li[ln] = named[nm]
             #assert nm in named, nm+" non résolu" FIXME
         return self
-    
+
     def contextEval(self, value):
         return eval(value)
-    
+
     # TODO traitement d'ordres ?
 
 # TODO à enlever ?
-class ServerObject(BaseObject): pass    
+class ServerObject(BaseObject): pass
 class ClientObject(BaseObject): pass
 
 MagicObject = ServerObject if SERVER else ClientObject
@@ -99,25 +99,28 @@ class ObjectType(MagicObject):
     def __init__(self, typ = MagicObject):
         super().__init__()
         self.type = typ
-    
+
     def create(self):
         instance = self.type()
         for p,v in self.params.items():
             instance.params[p] = v
         return instance
-    
+
+    def __str__(self):
+        return str(self.params)
+
 class World(MagicObject):
     def __init__(self):
         MagicObject.__init__(self)
         self.maps = [] # une liste c'est mieux non ?
         self.entities = []
         self.objects = []
-        
+
 class Map(MagicObject):
     def __init__(self):
         MagicObject.__init__(self)
         self.cells = []
-        
+
     def fill(self):
         """ Complète les cases par défaut """
         self.cellsGrid = [[None] * self.height
@@ -126,24 +129,24 @@ class Map(MagicObject):
             self.cellsGrid[c.x][c.y] = c
         for i,l in enumerate(self.cellsGrid):
             for j,e in enumerate(l):
-                if not e: 
+                if not e:
                     cell = self.defaultCell.create()
                     l[j] = cell
                     self.cells.append(cell)
                     cell.x = i; cell.y = j
-    
+
 class Cell(MagicObject):
     def __init__(self):
         MagicObject.__init__(self)
         self.entities = []
         self.objects = []
-        
+
 class Entity(MagicObject):
     def __init__(self):
         MagicObject.__init__(self)
         self.quests = []
         self.inventory = []
-    
+
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":MagicObject,
        "types":ObjectType, "inventory":MagicObject, "quests":MagicObject}
 
@@ -151,4 +154,3 @@ if __name__=="__main__":
     verbose = True
     w = World()
     w.load("../Test/") # désuet
-

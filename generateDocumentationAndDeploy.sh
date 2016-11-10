@@ -70,8 +70,7 @@ mv doc doc_new
 git checkout gh-pages
 mv doc_new doc
 
-cd doc/latex
-make
+ls -a
 
 
 ################################################################################

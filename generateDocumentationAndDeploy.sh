@@ -105,5 +105,5 @@ echo ${GH_REPO_TOKEN}
 echo "{GH_REPO_REF} = "
 echo ${GH_REPO_REF}
 echo "on va essayer de pusher : "
-git push -v --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}" > /dev/null 2>&1
+git push -v --force "${GH_REPO_TOKEN}@${GH_REPO_REF}"
 echo "git push passed"

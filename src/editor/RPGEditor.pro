@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     GUI/Tabs/celldock.cpp \
     GUI/Tabs/Docks/bdockwidget.cpp \
     GUI/Tabs/selectiondock.cpp \
-    GUI/Tabs/bcolor.cpp
+    GUI/Tabs/bcolor.cpp \
+    GUI/Tabs/objecteditor.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -62,7 +63,8 @@ HEADERS  += \
     GUI/Tabs/celldock.h \
     GUI/Tabs/Docks/bdockwidget.h \
     GUI/Tabs/selectiondock.h \
-    GUI/Tabs/bcolor.h
+    GUI/Tabs/bcolor.h \
+    GUI/Tabs/objecteditor.h
 
 FORMS    += \
     GUI/editor.ui \
@@ -74,7 +76,8 @@ FORMS    += \
     GUI/Tabs/celltypesdock.ui \
     GUI/Tabs/mapdock.ui \
     GUI/Tabs/celldock.ui \
-    GUI/Tabs/selectiondock.ui
+    GUI/Tabs/selectiondock.ui \
+    GUI/Tabs/objecteditor.ui
 
 RESOURCES += \
     Icons/ressources.qrc

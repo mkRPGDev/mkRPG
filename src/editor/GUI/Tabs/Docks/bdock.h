@@ -1,11 +1,28 @@
-#ifndef BDOCKS_H
-#define BDOCKS_H
+#ifndef BDOCK_H
+#define BDOCK_H
 
 #include <QtWidgets>
 #include "intertie.h"
 #include "bdockwidget.h"
 
+/*!
+ * \file bdock.h
+ * \brief Definition of the BDock class
+ *
+ */
 
+
+
+/*!
+ * \brief The BDock class is the container for widget to display
+ * in a BDocksZone.
+ *
+ * A BDock is composed of a title and a QScrollArea in which
+ * a BDockWidget is displayed.
+ *
+ * This container is movable within the BDocksZone it belongs to,
+ * and it can be hide.
+ */
 class BDock : public QFrame
 {
     Q_OBJECT
@@ -55,4 +72,4 @@ private:
     BinaryStateMachine dLinked, dUnfold;
 };
 
-#endif // BDOCKS_H
+#endif // BDOCK_H

@@ -83,7 +83,7 @@ void MapPainter::updateViewParameters(){
 
 
 void MapPainter::updateMap(){
-    if(map == nullptr || lastMapUpdate>map->lastModification()) return;
+    if(map == nullptr || lastMapUpdate>map->lastEdition()) return;
     lastMapUpdate = QDateTime::currentDateTime();
     double angX = M_PI*map->angleX()/1800.;
     double angY = M_PI*(std::min(900+map->angleY(), 1800))/1800.;
@@ -108,7 +108,7 @@ void MapPainter::updateMap(){
 void MapPainter::setMap(Map* m){
     map = m;
     changeBackgroundDistortion();
-    lastMapUpdate = m->lastModification();
+    lastMapUpdate = m->lastEdition();
 }
 
 
@@ -272,6 +272,10 @@ QPoint MapPainter::highlightedCell() const{
 
 bool MapPainter::hasHighlightedCell() const{
     return selCellX+1 && selCellY+1;
+}
+
+bool MapPainter::isCell(const ClCoords &c) const{
+    return c.x() >= 0 && c.x() < nbCellsX && c.y() >= 0 && c.y() < nbCellsY;
 }
 
 void MapPainter::zoom(double factor, QPointF fixedPoint){

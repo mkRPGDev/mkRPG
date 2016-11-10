@@ -112,6 +112,7 @@ void BLayout::dockClick(int i, const QPoint &p){
     movingDock = docks[i];
     initPos = placement[i].first;
     movingDock->raise();
+    prev = p;
 }
 
 void BLayout::dockMove(int k,const QPoint &p){
@@ -120,7 +121,9 @@ void BLayout::dockMove(int k,const QPoint &p){
     int newPos = MinMax(0, initPos + p.y() - clPos, size - h);
     movingDock->moveTo(newPos, false);
     int endPos = newPos + h;
-    emit showPoint(0,endPos);
+    if(p.y() > prev.y())
+        emit showPoint(0,endPos);
+    prev = p;
     emit showPoint(0,newPos);
 
     if(newPos<placement[k].first){

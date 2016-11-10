@@ -10,6 +10,7 @@ class WorldEditor : public QWidget, private Ui::WorldEditor
 
 public:
     explicit WorldEditor(QWidget *parent = 0);
+    ~WorldEditor();
 
     void setGame(Game* g);
 

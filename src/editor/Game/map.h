@@ -3,12 +3,22 @@
 
 #include "object.h"
 
+/**
+ * \file map.h
+ * \brief Definition of the Map, Cell and CellType classes.
+ *
+ *
+ */
 
-class CellType : public Object
+
+/*!
+ * \brief The CellType class
+ */
+class CellType : public GameObject
 {
 public:
-    CellType(Game *g, Object *parent);
-    ParamObj(image,Image,ct)
+    CellType(Game *g, GameObject *parent);
+    C0(AttrT, i,I,mage)
 private:
 
 
@@ -20,15 +30,15 @@ private:
 /*!
  * Usefull macro to set up a for on the cells
  */
-#define forCells int nbCell = width()*height(); for(int i(0); i<nbCell; ++i)
+#define forCells(i) int nbCell = width()*height(); for(int i(0); i<nbCell; ++i)
 
 /*!
  * \brief The Cell class
  */
-class Cell : public Object
+class Cell : public GameObject
 {
 public:
-    Cell(Game* g = nullptr, Object *parent = nullptr);
+    Cell(Game* g = nullptr, GameObject *parent = nullptr);
     bool isSelected() const;
     void setSelected(bool s = true);
     void invertSelected();
@@ -39,8 +49,12 @@ public:
     void confirmPreSelection(bool add = true);
     void clearPreSelection();
 
-    ParamObj(cellType, CellType, c)
-    ObjectsMap(c,o,O,bject,,s)
+
+    C0(Flag, a,A,ccessible)
+
+    C0(AttrT,c,C,ellType)
+    ObjectListD(o,O,bject,,s,Object)
+//    ObjectsMap(c,o,O,bject,,s)
 private:
     bool select;
     int nbSel;
@@ -49,23 +63,28 @@ private:
 
 
 
-
-class Map : public Object
+/*!
+ * \brief The Map class
+ */
+class Map : public GameObject
 {
 public:
-    Map(Game* g, Object *parent);
-    Getter(width)
-    Getter(height)
+    Map(Game* g, GameObject *parent);
+    ~Map();
+    ParamGetter(width)
+    ParamGetter(height)
     QSize size() const{return QSize(width(),height());}
     void setWidth(int w);
     void setHeight(int h);
     void resize(int w, int h);
-    Param(angleX,AngleX)
-    Param(angleY,AngleY)
+    C0(Param,a,A,ngleX)
+    C0(Param,a,A,ngleY)
     Cell& cell(int i, int j) const;
     Cell& cell(const QPoint &p) const;
     void selectAll();
     void unSelectAll();
+
+    C0(Flag, i,I,nutile)
 
     void confirmPreSelection(bool add = true);
     void clearPreSelection();

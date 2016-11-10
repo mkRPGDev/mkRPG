@@ -43,6 +43,7 @@ private:
     int initPos;
     bool repainting;
     //QBoxLayout *lay;
+    QPoint prev;
     Qt::Orientation orient;
     BDock *movingDock;
     QVector<BDock*> docks;

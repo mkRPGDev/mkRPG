@@ -69,7 +69,8 @@ ls
 mv "doc" "doc_new"
 git checkout gh-pages
 ls -a
-
+rm -r doc
+ls -a
 mv "doc_new" "doc"
 
 ls -a

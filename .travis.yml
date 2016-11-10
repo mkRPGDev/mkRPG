@@ -38,6 +38,8 @@ script:
   - cd $TRAVIS_BUILD_DIR
   - chmod +x generateDocumentationAndDeploy.sh
   - ./generateDocumentationAndDeploy.sh
+  - cd doc/latex
+  - make
 # Generate and deploy documentation
 #after_success:
 #  - cd $TRAVIS_BUILD_DIR

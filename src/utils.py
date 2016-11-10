@@ -38,11 +38,11 @@ def merge_rect_lists(list1, list2):
 
 def sublist(l, i1, i2, j1, j2):
     return [[l[i][j] for j in range(j1,j2)] for i in range(i1,i2)]
-        
+
 class WalkableGraph():
     def __init__(self, walkables):
         self.walkables = walkables
-    
+
     def get_neighbors(self, index):
         u,v = index
         neighbors = [
@@ -61,20 +61,20 @@ class WalkableGraph():
                j<len(self.walkables[0]) and self.walkables[i][j]:
                 res.append((i,j,c))
         return res
-        
+
     def dist(self, u,v):
         x1,y1 = u
         x2,y2 = v
         return sqrt((x2-x1)**2+(y2-y1)**2)
-        
+
     def get_path(self, source, dest):
         d_x, d_y = dest
-        
+
         openCell = []
         costs = {source:0}
         parents = {source:None}
         heappush(openCell, (0, source))
-        
+
         while openCell != []:
             u_heur, u = heappop(openCell)
             if u[0] == d_x and u[1] == d_y:
@@ -92,7 +92,7 @@ class WalkableGraph():
                    v_heur = costs[v] + self.dist(v, dest)
                    heappush(openCell, (v_heur, v))
                    parents[v] = u
-        
+
 
 from collections import namedtuple
 from time import process_time
@@ -115,7 +115,7 @@ def readXml(path):
         dirStack.append(curDir)
         curDir = curDir.list[-1]
         #perff.toc()
-        
+
     def end(name):
         nonlocal curDir
         if verbose: print('End element:', name)
@@ -137,11 +137,11 @@ class Perf:
         self.avg = 0
         self.min = 1000000
         self.max = 0
-    
+
     def tic(self):
         """ À lancer avant la fonction """
         self.t = process_time()
-    
+
     def toc(self):
         """ À lancer après la fonction """
         dt = process_time()-self.t
@@ -149,7 +149,7 @@ class Perf:
         self.avg += (dt-self.avg)/self.num
         self.max = max(self.max, dt)
         self.min = min(self.min, dt)
-    
+
     def show(self):
         """ Affiche le rapport """
         if self.num:

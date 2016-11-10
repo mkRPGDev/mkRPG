@@ -9,10 +9,10 @@ CHUNK_GRID_WIDTH = 25
 CHUNK_GRID_HEIGHT = 50
 CHUNK_WIDTH = CHUNK_GRID_WIDTH*CELL_WIDTH
 CHUNK_HEIGHT = CHUNK_GRID_HEIGHT*CELL_HEIGHT//2+1
-BG_IMGSET = {1:"ground.png", 2:"grass.png"}
+BG_IMGSET = {1:"ground.png", 2:"grass.png", 32:"ground.png"}
 GRID_IMGSET = {"default":"cell.png", "selected":"cell_selected.png",
                "mouse_iso":"cell_mouse_iso.png"}
-CELL_MATCH = {1:"default", 2:"default", None:None}
+CELL_MATCH = {1:"default", 2:"default", 32:"default", None:None}
 MOV_OFFSET = 40
 CHAR_MOV_SPEED = 10 # pixels/second
 CHAR_ANIM_SPEED = 1 # frames between images

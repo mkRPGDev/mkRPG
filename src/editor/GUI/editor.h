@@ -9,6 +9,7 @@
 #include "Tabs/welcome.h"
 #include "Tabs/worldeditor.h"
 #include "Tabs/mapseditor.h"
+#include "Tabs/objecteditor.h"
 
 /*!
  * \brief The constant SHARED is used to open
@@ -70,6 +71,7 @@ private:
 
     WorldEditor *worldEditor;
     MapsEditor *mapsEditor;
+    ObjectEditor *objectEditor;
 
 };
 

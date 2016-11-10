@@ -10,6 +10,7 @@ bool XmlHandler::startElement(const QString &, const QString &localName, const Q
     QMap<QString, QString> attrs;
     for(int i(0); i<atts.count(); ++i) attrs[atts.uri(i)] = atts.value(i);
     if(fc == FCUnknown) return recogniseFileContent(localName, attrs);
+    return true;
 }
 
 bool XmlHandler::endElement(const QString &, const QString &localName, const QString &){

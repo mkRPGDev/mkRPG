@@ -12,10 +12,12 @@ Editor::Editor(QStringList args, QWidget *parent) :
 
     worldEditor = new WorldEditor;
     mapsEditor = new MapsEditor;
+    objectEditor = new ObjectEditor;
 
     addTab(tr("Welcome"), QPixmap(":Icons/main.png"), new Welcome);
     addTab(tr("Game"), QPixmap(":Icons/main.png"), worldEditor);
     addTab(tr("Maps"), QPixmap(":Icons/main.png"), mapsEditor);
+    addTab(tr("Objects"), QPixmap(":Icons/main.png"), objectEditor);
 
     loadDefault();
 
@@ -29,6 +31,7 @@ Editor::Editor(QStringList args, QWidget *parent) :
 
     mapsEditor->setGame(g);
     worldEditor->setGame(g);
+    objectEditor->setGame(g);
 
 }
 

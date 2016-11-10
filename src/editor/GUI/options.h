@@ -9,10 +9,10 @@
 
 /*!
  * \file options.h
- * \brief This file defines the Options class, and the constants
+ * \brief Definition of the Options class, and the constants
  * that are used in this class.
  *
- * The headers of types which are used in the appoication must be include here.
+ * The headers of types which are used in the application must be include here.
  * See Options for details.
  *
  * \author Baptiste Pauget
@@ -20,8 +20,8 @@
 
 // TODO vérifier que les noms existent !
 
-const QString ADAPT("Adjustable");
-const QString VAL("Value");
+const QString ADAPT = "Adjustable";
+const QString VAL = "Value";
 
 #define WIN "Window" /**<
  * Group of window related options.
@@ -143,13 +143,13 @@ struct Options{
     bool isAdjustable(QString group, QString opt, bool adjust = true); /**<
      * Returns ```true``` if the option defined by its group and name is adjustable, ```false``` elsewhere.
      *
-     * \see setAdjustable
+     * \see \ref setAdjustable
      */
 
     void setAdjustable(QString group, QString opt, bool adjust); /**<
      * Sets if the option defined by its group and name is adjustable.
      *
-     * \see isAdjustable
+     * \see \ref isAdjustable
      */
 
 

@@ -7,7 +7,7 @@
 /*!
  * \file bcolor.h
  *
- * \brief This file define the BColor class.
+ * \brief Definition of the BColor class.
  *
  *
  * \author Baptiste Pauget

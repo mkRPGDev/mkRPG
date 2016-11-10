@@ -76,10 +76,11 @@ echo "" > .nojekyll
 ##### Generate the Doxygen code documentation and log the output.          #####
 echo 'Generating Doxygen code documentation...'
 
-ls -a
-echo $DOXYFILE
+ls
 # Redirect both stderr and stdout to the log file AND the console.
 doxygen Doxyfile
+echo 'DOXYGEN TEST DOXYFILE'
+ls
 
 ################################################################################
 ##### Upload the documentation to the gh-pages branch of the repository.   #####

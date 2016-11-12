@@ -8,6 +8,8 @@ from queue import Queue
 verbose = False
 
 Node = namedtuple("Node", "name args list")
+Node.__doc__ = """ Xml node with the name of the markup,
+               its embedded parameters and a list of sub-nodes """
 
 #TODO mettre une grammaire sur le Xml
 def readXml(path):
@@ -72,6 +74,7 @@ class Timer(Thread):
         self.atd = Queue()
         self.heap = []
         self.count = 0
+        self.pause = False
     
     def add(self, time, func, args):
         """ Inscrit l'appel de func avec les arguments args """
@@ -80,6 +83,7 @@ class Timer(Thread):
     
     def run(self):
         while True:
+            while self.pause: sleep(self.dt)
             begin = time()
             while not self.atd.empty():
                 heappush(self.heap, self.atd.get_nowait())
@@ -87,7 +91,7 @@ class Timer(Thread):
             while self.heap and self.heap[0][0] == self.step:
                 func, args = heappop(self.heap)[2]
                 func(*args)
-            sleep(self.dt - time() + begin)
+            sleep(max(0, self.dt - time() + begin))
     
 
 if __name__=="__main__":

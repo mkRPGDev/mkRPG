@@ -33,10 +33,14 @@
         <Event val="tick"/>
         <Order type="timer">
             <event val="tick"/>
-            <value val="150"/>
+            <value val="20"/>
         </Order>
         <Order type="event">
             <target val="entities[0]"/>
+            <event val="move"/>
+        </Order>
+        <Order type="event">
+            <target val="entities[1]"/>
             <event val="move"/>
         </Order>
         <Order type="set">
@@ -73,12 +77,12 @@
         <Order type="set">
             <target val="emitter"/>
             <param val="x"/>
-            <value val="(self.x + [-1,1,0,0][self.dir])%self.map.width"/>
+            <value val="(self.x + [-1,1,0,0,0][self.dir])%self.map.width"/>
         </Order>
         <Order type="set">
             <target val="emitter"/>
             <param val="y"/>
-            <value val="(self.y + [0,0,-1,1][self.dir])%self.map.height"/>
+            <value val="(self.y + [0,0,-1,1,0][self.dir])%self.map.height"/>
         </Order>
         <Order type="setObj">
             <target val="emitter"/>
@@ -87,7 +91,21 @@
         </Order>
         <Order type="condition">
             <value val="self.case.mortelle"/>
-            <event val="end"/>
+            <event val="kill"/>
+        </Order>
+    </Action>
+
+    <Action>
+        <Event val="kill"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="dir"/>
+            <value val="4"/>
+        </Order>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="score"/>
+            <value val="0"/>
         </Order>
     </Action>
 

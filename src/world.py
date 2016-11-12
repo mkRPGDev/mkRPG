@@ -155,6 +155,7 @@ class Entity(MagicObject):
         MagicObject.__init__(self)
         self.quests = []
         self.inventory = []
+        self.user = None
     
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":MagicObject,
        "types":ObjectType, "inventory":MagicObject, "quests":MagicObject}

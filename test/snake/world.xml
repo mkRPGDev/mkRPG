@@ -11,6 +11,7 @@
 
     <Entities>
         <Entity id="serpent"/>
+        <Entity id="serpent2"/>
     </Entities>
 
     <Objects>

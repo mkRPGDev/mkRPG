@@ -24,8 +24,9 @@ class Client():
         self.world = world.loadGame(path)
         self.interface = (Curses if interface else Interface)(self.world)
         self.interactions = registerInteractions(path)        
-        self.perso = self.world.entities[0] # XXX bricolage
+        self.perso = None # self.world.entities[0] # XXX bricolage
         self.orderDispatcher = OrderDispatcher(self.world, None)
+        print(self.world.entities)
         
     def __del__(self):
         self.net.kill()
@@ -33,6 +34,13 @@ class Client():
         print("Client killed")
 
     def run(self):
+        for ent in self.world.entities:
+            if self.net.askEntity(ent):
+                self.perso = ent
+                break
+        else:
+            print("Aucun perso disponible !")
+            return
         self.net.start()
         self.interface.update()
         while True:
@@ -42,13 +50,19 @@ class Client():
                 self.net.kill()
                 print("Exited properly")
                 break
+            elif key==ord('p'): self.net.sendEvent(self.world, "pause")
+            # TODO relayer l'affichage
+            elif key==ord('r'): self.net.sendEvent(self.world, "resume")
             for inte in self.interactions:
                 if (inte.type == InteractionType.Key and
                     inte.key == key):
                     self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
     
     def handleOrder(self, ident, order):
+#        try:
         emitter = world.BaseObject.ids[ident]
+#        except KeyError: # disparaitra avec un processus d'initialisation
+#            return
         self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
@@ -76,12 +90,12 @@ class Curses(Interface):
         self.lastUpdate = 0
 
     def update(self):
-        if interface and time() - self.lastUpdate > MAXFPS:
+        if interface and time() - self.lastUpdate > 1/MAXFPS:
             self.mv.display(self.win)
             # TODO insérer ici le xml d'interface
             self.win.addstr(26,0,"Score "+str(self.world.entities[0].score)+'\n')
             self.win.refresh()
-            self.lastUpdate = MAXFPS        
+            self.lastUpdate = time()        
 
     def end(self):
         curses.endwin()

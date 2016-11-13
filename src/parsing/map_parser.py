@@ -28,12 +28,21 @@ def parse_cell(cell_object):
     return answer
 
 def parse_all_cells(cell_xml):
+    """ Parses all cells defined in the given file."""
     root = ET.parse(cell_xml)
     cells = root.findall("CellType")
     dict_cells = {}
     for cell in cells:
         dict_cells.update(parse_cell(cell))
     return dict_cells
+
+def collect_cells_data(cell_files):
+    """ Collects all cells descriptions in the given files."""
+    cells_data = {}
+    for cell_file in cell_files:
+        data = parse_all_cells(cell_file)
+        cells_data.update(data)
+    return cells_data
 
 def map_parser(map_xml):
     """
@@ -47,7 +56,7 @@ def map_parser(map_xml):
     answer.update({'size': map_size})
     available_cells = {}
     for cell in root.findall('CellType'):
-        available_cells = { **available_cells, **parse_cell(cell) }
+        available_cells = {**available_cells, **parse_cell(cell)}
     answer.update({'default cells': available_cells})
     return (name, answer)
 
@@ -60,8 +69,6 @@ def get_size(tree):
     width = int(tree.find('width').text)
     return (height, width)
 
-def gen_map(cells_specs):
-    print("Unimplemented")
 
 def collect_map_data(map_files):
     """ Collects all map descriptions in the given files."""

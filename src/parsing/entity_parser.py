@@ -43,8 +43,8 @@ def get_characteristics(_characteristics):
     characteristics = {}
     for _characteristic in _characteristics.getchildren():
         value = _format_type(_characteristic.text)
-        if type(value) == int:
-            characteristics.update({ _characteristic.tag: value })
+        if isinstance(value, int):
+            characteristics.update({_characteristic.tag: value})
     return characteristics
 
 def parse_entity(entity_element):
@@ -58,10 +58,10 @@ def parse_entity(entity_element):
     answer = {'name': name}
     _position = entity_element.find('Position')
     if _position is not None:
-        x, y = _position.find('x'), _position.find('y')
-        if x is None or y is None:
+        posx, posy = _position.find('x'), _position.find('y')
+        if posx is None or posy is None:
             _fail_not_found("x or y")
-        answer.update({'position':(int(x.text), int(y.text))})
+        answer.update({'position':(int(posx.text), int(posy.text))})
     _params = entity_element.find('Params')
     if _params is None:
         _fail_not_found("Params")
@@ -72,12 +72,15 @@ def parse_entity(entity_element):
     _characs = entity_element.find('Characteristics')
     if _characs is not None:
         answer.update({'characteristics': get_characteristics(_characs)})
-    return(answer)
+    return answer
 
 def get_names(entities):
+    """Get the names of the entities."""
     return entities.keys()
 
 def parse_entities(entity_xml):
+    """ Parses an entity file, and returns the entities described in the file.
+    """
     parsed = ET.parse(entity_xml)
     if parsed is None:
         print("Couldn't load or parse file")
@@ -87,4 +90,4 @@ def parse_entities(entity_xml):
     entities = {}
     for entity in _entities:
         entities.update({entity.attrib['name']: parse_entity(entity)})
-    return(entities)
+    return entities

@@ -1,0 +1,24 @@
+<Cells>
+    <CellType name="cell2">
+        <Params>
+            <x>10</x>
+            <y>10</y>
+            <picture>79</picture>
+        </Params>
+
+        <Entities>
+            <Entity>joey</Entity>
+        </Entities>
+    </CellType>
+    <CellType name="cell3">
+        <Params>
+            <x>11</x>
+            <y>11</y>
+            <picture>80</picture>
+        </Params>
+
+        <Entities>
+            <Entity>jojo</Entity>
+        </Entities>
+    </CellType>
+</Cells>

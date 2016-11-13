@@ -8,9 +8,10 @@ The most important methods are the game_parser one and the save_xml.
 
 import xml.etree.ElementTree as ET
 from os.path import abspath
-from os import sep
 import sys
-import map_parser, entity_parser, world_parser
+import map_parser
+import entity_parser
+import world_parser
 
 def check_entity(entities_found, entities_listed):
     """Checks if all entities found in files world.xml, and cell.xml and others
@@ -35,7 +36,7 @@ def collect_data(key, *args):
         for arg in args:
             if key in arg:
                 collection |= set(arg[key])
-            elif type(arg) == dict:
+            elif isinstance(arg, dict):
                 for sub_key in arg:
                     collection |= collect_data(key, arg[sub_key])
     return collection
@@ -77,34 +78,29 @@ def game_parser(game_xml):
     if world_tag is not None:
         # Parsing the world tag. We here get the paths of the xml files
         # that handle the map, the cells, the entities...
-        world_files = world_tag.findall('file')
-        # Getting the file names
-        world_files = [element.text.replace('/', sep)
-                       for element in world_files]
-        world = world_tag.find('World')
-        if world is None:
+        world_file = world_tag.find("World")
+        if world_file is None:
             _fail_not_found("World")
         map_files = world_tag.findall('Map')
-        if map_files == []:
+        if not map_files:
             _fail_not_found("Map")
         cells = world_tag.findall('Cell')
-        if cell == []:
+        if not cells:
             _fail_not_found("Cell")
-    # Gets the available actions.
+    # Gets the available actions files.
     action_tag = root.find('Actions')
     if action_tag is not None:
         action_files = action_tag.findall('file')
-        # Getting the file names
-        action_files = [element.text.replace('/', sep)
-                        for element in action_files]
-    # Gets the available interactions.
+    # Gets the available interactions files.
     interactions_tag = root.find('Interactions')
     if interactions_tag is not None:
         interaction_files = interactions_tag.findall('file')
-        # Getting the file names
-        interaction_files = [element.text.replace('/', sep)
-                             for element in interaction_files]
 
-    map_data = map_parser.collect_map_data(map_files)
-    world_parser.parse_world(world_file)
-    available_cells = cell_parser(cell_file)
+    map_data = map_parser.collect_map_data(
+        [map_file.text for map_file in map_files]
+    )
+    world_data = world_parser.parse_world(world_file.text)
+    available_cells = map_parser.collect_cells_data(
+        [cell_file.text for cell_file in cells]
+    )
+    return(map_data, world_data, available_cells)

@@ -14,13 +14,13 @@ def parse_world(world_file):
     dictionnaries.
     """
 
-    try :
+    try:
         root = ET.parse(world_file)
-    except IOError as exception:
+    except IOError as _:
         print("Couldn't find or open file %s. Are you in the good directory ?"
               % abspath(world_file))
         sys.exit(1)
-    except ET.ParseError as except_parse:
+    except ET.ParseError as _:
         print("Couldn't parse file %s. Are you sure it is true xml?"
               % abspath(world_file))
         sys.exit(1)

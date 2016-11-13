@@ -58,6 +58,11 @@ def test_collect_map_data():
     collected = map_parser.collect_map_data(map_files)
     formatter(collected)
 
+def test_game_parser():
+    print("Testing main game parser")
+    data = global_parsing.game_parser("game.xml")
+    formatter(data)
+
 if __name__=="__main__":
     test_map_parser()
     test_cell_parser()
@@ -66,3 +71,4 @@ if __name__=="__main__":
     test_check_entity()
     test_collect_data()
     test_collect_map_data()
+    test_game_parser()

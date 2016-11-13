@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 from os.path import abspath
 from os import sep
 import sys
-import map_parser, entity_parser
+import map_parser, entity_parser, world_parser
 
 def check_entity(entities_found, entities_listed):
     """Checks if all entities found in files world.xml, and cell.xml and others
@@ -27,7 +27,9 @@ def check_entity(entities_found, entities_listed):
         return False
 
 def collect_data(key, *args):
-    """ Collects all items corresponding to key argument in *args."""
+    """ Collects all items corresponding to key argument in *args.  It realizes
+    a depth-first travel of the dictionary, calling itself recursively on the
+    structures."""
     collection = set()
     if args:
         for arg in args:
@@ -82,11 +84,11 @@ def game_parser(game_xml):
         world = world_tag.find('World')
         if world is None:
             _fail_not_found("World")
-        map_file = world_tag.find('Map')
-        if map_file is None:
+        map_files = world_tag.findall('Map')
+        if map_files == []:
             _fail_not_found("Map")
-        cell = world_tag('Cell')
-        if cell is None:
+        cells = world_tag.findall('Cell')
+        if cell == []:
             _fail_not_found("Cell")
     # Gets the available actions.
     action_tag = root.find('Actions')
@@ -103,6 +105,6 @@ def game_parser(game_xml):
         interaction_files = [element.text.replace('/', sep)
                              for element in interaction_files]
 
-    map_parser(map_file)
-    # world_parser(world_file)
+    map_data = map_parser.collect_map_data(map_files)
+    world_parser.parse_world(world_file)
     available_cells = cell_parser(cell_file)

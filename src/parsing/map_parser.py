@@ -1,5 +1,6 @@
 """
 This module handles xml parsing for maps description files.
+There should be one map description per xml file.
 """
 
 # -*- coding : utf-8 -*-
@@ -38,7 +39,9 @@ def map_parser(map_xml):
     """
     The main parser for the map xml file.
     """
-    root = ET.parse(map_xml)
+    parsed = ET.parse(map_xml)
+    root = parsed.getroot()
+    name = root.attrib['name']
     answer = {}
     map_size = get_size(root.find('Params'))
     answer.update({'size': map_size})
@@ -46,7 +49,7 @@ def map_parser(map_xml):
     for cell in root.findall('CellType'):
         available_cells = { **available_cells, **parse_cell(cell) }
     answer.update({'default cells': available_cells})
-    return answer
+    return (name, answer)
 
 
 def get_size(tree):
@@ -59,3 +62,12 @@ def get_size(tree):
 
 def gen_map(cells_specs):
     print("Unimplemented")
+
+def collect_map_data(map_files):
+    """ Collects all map descriptions in the given files."""
+    map_data = {}
+    for map_file in map_files:
+        name, data = map_parser(map_file)
+        map_data.update({name : data})
+    return map_data
+

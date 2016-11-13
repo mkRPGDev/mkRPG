@@ -4,7 +4,7 @@ import sys
 import itertools
 sys.path.append('../../src/parsing/')
 
-import map_parser, entity_parser, world, global_parsing
+import map_parser, entity_parser, world_parser, global_parsing
 
 def formatter(l):
     """ Formats the output, to check tests """
@@ -32,7 +32,7 @@ def test_entity_parser():
 
 def test_world_parser():
     print("Testing world parser")
-    parsed = world.parse_world("world.xml")
+    parsed = world_parser.parse_world("world.xml")
     formatter(parsed)
 
 def test_check_entity():
@@ -48,11 +48,15 @@ def test_check_entity():
 def test_collect_data():
     print("Testing data collection")
     cells = map_parser.parse_all_cells("maps/cell.xml")
-    worlds = world.parse_world("world.xml")
+    worlds = world_parser.parse_world("world.xml")
     entities = global_parsing.collect_data('entities', cells, worlds)
     formatter(entities)
 
-
+def test_collect_map_data():
+    print("Testing to collect different map definitions")
+    map_files = ["maps/map.xml", "maps/map2.xml"]
+    collected = map_parser.collect_map_data(map_files)
+    formatter(collected)
 
 if __name__=="__main__":
     test_map_parser()
@@ -61,3 +65,4 @@ if __name__=="__main__":
     test_world_parser()
     test_check_entity()
     test_collect_data()
+    test_collect_map_data()

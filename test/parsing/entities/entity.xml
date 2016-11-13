@@ -12,4 +12,18 @@
             <Life>10</Life>
         </Characteristics>
     </Entity>
+
+    <Entity name="jojo">
+        <Position>
+            <x>11</x>
+            <y>12</y>
+        </Position>
+        <Params>
+            <Picture>43</Picture>
+        </Params>
+        <Characteristics>
+            <Poids>43</Poids>
+            <Life>10</Life>
+        </Characteristics>
+    </Entity>
 </Entities>

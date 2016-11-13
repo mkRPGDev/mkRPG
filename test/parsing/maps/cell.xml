@@ -10,4 +10,15 @@
             <Entity>joey</Entity>
         </Entities>
     </CellType>
+    <CellType name="cell1">
+        <Params>
+            <x>11</x>
+            <y>11</y>
+            <picture>80</picture>
+        </Params>
+
+        <Entities>
+            <Entity>jojo</Entity>
+        </Entities>
+    </CellType>
 </Cells>

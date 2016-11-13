@@ -55,13 +55,13 @@ def parse_entity(entity_element):
     if name is None:
         # No name, exit now and alert the user.
         _fail_not_found("name")
-    answer = {name : []}
+    answer = {'name': name}
     _position = entity_element.find('Position')
     if _position is not None:
         x, y = _position.find('x'), _position.find('y')
         if x is None or y is None:
             _fail_not_found("x or y")
-        answer[name] += [(int(x.text), int(y.text))]
+        answer.update({'position':(int(x.text), int(y.text))})
     _params = entity_element.find('Params')
     if _params is None:
         _fail_not_found("Params")
@@ -74,6 +74,8 @@ def parse_entity(entity_element):
         answer.update({'characteristics': get_characteristics(_characs)})
     return(answer)
 
+def get_names(entities):
+    return entities.keys()
 
 def parse_entities(entity_xml):
     parsed = ET.parse(entity_xml)

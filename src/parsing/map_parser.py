@@ -12,18 +12,18 @@ def parse_cell(cell_object):
     Parses a CellType attribute.
     """
     name = cell_object.attrib['name']
-    answer = {name : []}
+    answer = {name : {}}
     cell_params = cell_object.find('Params')
     _altitude = cell_params.find('altitude')
     if _altitude:
         altitude = int(_altitude.text)
-        answer = {name: [altitude,]}
+        answer[name].update({'altitude' : altitude})
     picture = cell_params.find('picture').text
-    answer[name] += [picture]
+    answer[name].update({'picture': picture})
     _entities = cell_object.find("Entities")
     if _entities:
         entities = _entities.findall("Entity")
-        answer[name] += entities
+        answer[name].update({'entities': [entity.text for entity in entities]})
     return answer
 
 def parse_all_cells(cell_xml):

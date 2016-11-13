@@ -1,6 +1,6 @@
 <World>
     <Params>
-        <currentMap id="main"/>
+        <currentMap>main</currentMap>
     </Params>
 
     <!--
@@ -10,7 +10,7 @@
     -->
 
     <Entities>
-        <Entity id="joey"/>
+        <Entity>joey</Entity>
     </Entities>
 
     <!--

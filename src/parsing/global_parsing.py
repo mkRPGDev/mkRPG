@@ -26,9 +26,6 @@ def check_entity(entities_found, entities_listed):
         print("Entity %s not found in defined entities" % entity)
         return False
 
-import sys
-sys.setrecursionlimit(100)
-
 def collect_data(key, *args):
     """ Collects all items corresponding to key argument in *args."""
     collection = set()

@@ -1,0 +1,14 @@
+<Map name="toto">
+    <Params>
+        <height>30</height>
+        <width>30</width>
+        <defaultCell id="defc"/>
+    </Params>
+
+    <CellType name="defc">
+        <Params>
+            <altitude>8</altitude>
+            <picture>toto.png</picture>
+        </Params>
+    </CellType>
+</Map>

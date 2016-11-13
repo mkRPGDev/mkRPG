@@ -3,24 +3,9 @@
         <currentMap>main</currentMap>
     </Params>
 
-    <!--
-        <Maps>
-            <Map id="principale"/>
-        </Maps>
-    -->
 
     <Entities>
         <Entity>joey</Entity>
     </Entities>
 
-    <!--
-        <Map name="principale">
-            <Params>
-                <height val="0"/>
-                <width val="0"/>
-                <blah val="12"/>
-                <self id="principale"/>
-            </Params>
-        </Map>
-    -->
 </World>

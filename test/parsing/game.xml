@@ -2,6 +2,7 @@
     <World>
         <World>world.xml</World>
         <Map>maps/map.xml</Map>
+        <Map>maps/map2.xml</Map>
         <Cell>maps/cell.xml</Cell>
         <Entities>entities/entity0.xml</Entities>
     </World>

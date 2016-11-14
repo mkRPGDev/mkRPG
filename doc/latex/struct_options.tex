@@ -1,0 +1,178 @@
+\hypertarget{struct_options}{\section{\-Options \-Struct \-Reference}
+\label{struct_options}\index{\-Options@{\-Options}}
+}
+
+
+\-The \hyperlink{struct_options}{\-Options} class provides session-\/independant options and preferences.  
+
+
+
+
+{\ttfamily \#include $<$options.\-h$>$}
+
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\\-T \hyperlink{struct_options_ada32d485296bd6ba73a1d95bd6260c1a}{load} (\-Q\-String group, \-Q\-String opt)
+\item 
+{\footnotesize template$<$class T $>$ }\\void \hyperlink{struct_options_ad20146ff9544f6229bb1696ea5bf643d}{save} (\-Q\-String group, \-Q\-String opt, \-T val)
+\item 
+{\footnotesize template$<$class T $>$ }\\void \hyperlink{struct_options_ab1d167bd93bce7dd453fcbb93acf12e4}{set\-Default} (\-Q\-String group, \-Q\-String opt, \-T val)
+\item 
+bool \hyperlink{struct_options_a1188a188db82d70c96af44679d2cbbf9}{is\-Adjustable} (\-Q\-String group, \-Q\-String opt, bool adjust=true)
+\item 
+void \hyperlink{struct_options_a086db8fe7688ddcb3b74db85262a5ba0}{set\-Adjustable} (\-Q\-String group, \-Q\-String opt, bool adjust)
+\item 
+void \hyperlink{struct_options_a336da0a8bbd1b849a1783bb110904d9f}{reinitialise} (\-Q\-String group=\char`\"{}\char`\"{})
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{struct_options}{\-Options} \& \hyperlink{struct_options_aa3dd7609fbc5d54af65992632bff842a}{options} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-The \hyperlink{struct_options}{\-Options} class provides session-\/independant options and preferences. 
+
+\#\# \-Features
+
+\-The \hyperlink{struct_options}{\-Options} class aims at storing global options, that are available at any place in the entire application. \-The preferences are permanantly stored and remain bewteen the separate sessions and windows.
+
+\-Two sorts of options exist \-:
+\begin{DoxyItemize}
+\item \-The adjustable ones \-: the value of the option change when \hyperlink{struct_options_ad20146ff9544f6229bb1696ea5bf643d}{save} is called.
+\item \-The non-\/adjustable ones \-: the value of the option doesn't change is \hyperlink{struct_options_ad20146ff9544f6229bb1696ea5bf643d}{save} is called, the option must be modified with .
+\end{DoxyItemize}
+
+\-The sort of option can be set with the \hyperlink{struct_options_a086db8fe7688ddcb3b74db85262a5ba0}{set\-Adjustable} function.
+
+\#\# \-Design
+
+\-The \hyperlink{struct_options}{\-Options} class is designed following the \-\_\-\-\_\-\-Singleton design pattern\-\_\-\-\_\-. \-The constructor is thus private, and the only \hyperlink{struct_options}{\-Options} instance is created at the first call of \hyperlink{struct_options_aa3dd7609fbc5d54af65992632bff842a}{options}.
+
+\-Q\-Setting is used internaly, see \-Qt's documentation for details about the storing mechanisms.
+
+\#\# \-Reading and writting existing options
+
+\-To read or write options, the \hyperlink{struct_options}{\-Options} instance must be retreived, using the \hyperlink{struct_options_aa3dd7609fbc5d54af65992632bff842a}{options} function, then the \hyperlink{struct_options_ada32d485296bd6ba73a1d95bd6260c1a}{load} and \hyperlink{struct_options_ad20146ff9544f6229bb1696ea5bf643d}{save} functions can be called.
+
+\#\# \-Adding options
+
+\-To add a new option, it is only needed to add a default hard coded value, uisng the \hyperlink{options_8h_a37c44b1e71afed084dbe855181c444e2}{\-Default} and \hyperlink{options_8h_a39f3ee28f306ee663a9985433ef2d01c}{\-Default\-F} macros in the \hyperlink{struct_options}{\-Options} constructor.
+
+\-It is strongly advice to use macro to define new options group (see \hyperlink{options_8h_a43105771f16e2da3078149f0de528e9b}{\-W\-I\-N}, for an example).
+
+\begin{DoxyNote}{\-Note}
+\-To use \hyperlink{struct_options}{\-Options} with custom types (other than ```\-C++``` standard), the defining header of the type must be included at the top of the \hyperlink{options_8h}{options.\-h} file, in order to be used in the default value declaration.
+\end{DoxyNote}
+\begin{DoxyWarning}{\-Warning}
+\-Pointer objects are not supported, and the result of the use of the \hyperlink{struct_options}{\-Options} class with such values is undefined.
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{options_8h}{options.\-h} 
+\end{DoxySeeAlso}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{struct_options_a1188a188db82d70c96af44679d2cbbf9}{\index{\-Options@{\-Options}!is\-Adjustable@{is\-Adjustable}}
+\index{is\-Adjustable@{is\-Adjustable}!Options@{\-Options}}
+\subsubsection[{is\-Adjustable}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Options\-::is\-Adjustable} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{group, }
+\item[{\-Q\-String}]{opt, }
+\item[{bool}]{adjust = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{struct_options_a1188a188db82d70c96af44679d2cbbf9}
+\-Returns ```true``` if the option defined by its group and name is adjustable, ```false``` elsewhere.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{struct_options_a086db8fe7688ddcb3b74db85262a5ba0}{set\-Adjustable} 
+\end{DoxySeeAlso}
+\hypertarget{struct_options_ada32d485296bd6ba73a1d95bd6260c1a}{\index{\-Options@{\-Options}!load@{load}}
+\index{load@{load}!Options@{\-Options}}
+\subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ \-T {\bf \-Options\-::load} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{group, }
+\item[{\-Q\-String}]{opt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{struct_options_ada32d485296bd6ba73a1d95bd6260c1a}
+\-Reads an option defined by its group and name.
+
+\begin{DoxyNote}{\-Note}
+\-The template argument must be precised since it can't be deduced from arguments' types.
+\end{DoxyNote}
+\begin{DoxyWarning}{\-Warning}
+\-If the option type and the reading type mismatch, an default null value is returned.
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{struct_options_ad20146ff9544f6229bb1696ea5bf643d}{save} 
+\end{DoxySeeAlso}
+\hypertarget{struct_options_aa3dd7609fbc5d54af65992632bff842a}{\index{\-Options@{\-Options}!options@{options}}
+\index{options@{options}!Options@{\-Options}}
+\subsubsection[{options}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Options} \& {\bf \-Options\-::options} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{struct_options_aa3dd7609fbc5d54af65992632bff842a}
+\-Returns the unique \hyperlink{struct_options}{\-Options} instance. \hypertarget{struct_options_a336da0a8bbd1b849a1783bb110904d9f}{\index{\-Options@{\-Options}!reinitialise@{reinitialise}}
+\index{reinitialise@{reinitialise}!Options@{\-Options}}
+\subsubsection[{reinitialise}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Options\-::reinitialise} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{group = {\ttfamily \char`\"{}\char`\"{}}}
+\end{DoxyParamCaption}
+)}}\label{struct_options_a336da0a8bbd1b849a1783bb110904d9f}
+\-Clear all options from the group. \-If ```group == \char`\"{}\char`\"{}```, all entries are deleted. \hypertarget{struct_options_ad20146ff9544f6229bb1696ea5bf643d}{\index{\-Options@{\-Options}!save@{save}}
+\index{save@{save}!Options@{\-Options}}
+\subsubsection[{save}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf \-Options\-::save} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{group, }
+\item[{\-Q\-String}]{opt, }
+\item[{\-T}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{struct_options_ad20146ff9544f6229bb1696ea5bf643d}
+\-Writes the new value of the options defined by its group and name, if the option is adjustable. \-See \hyperlink{struct_options}{\-Options} for details about options types.
+
+\begin{DoxyNote}{\-Note}
+\-The template argument can be omitted since it would be deduced from the value argument.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{struct_options_ab1d167bd93bce7dd453fcbb93acf12e4}{set\-Default}, \hyperlink{struct_options_ada32d485296bd6ba73a1d95bd6260c1a}{load} 
+\end{DoxySeeAlso}
+\hypertarget{struct_options_a086db8fe7688ddcb3b74db85262a5ba0}{\index{\-Options@{\-Options}!set\-Adjustable@{set\-Adjustable}}
+\index{set\-Adjustable@{set\-Adjustable}!Options@{\-Options}}
+\subsubsection[{set\-Adjustable}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Options\-::set\-Adjustable} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{group, }
+\item[{\-Q\-String}]{opt, }
+\item[{bool}]{adjust}
+\end{DoxyParamCaption}
+)}}\label{struct_options_a086db8fe7688ddcb3b74db85262a5ba0}
+\-Sets if the option defined by its group and name is adjustable.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{struct_options_a1188a188db82d70c96af44679d2cbbf9}{is\-Adjustable} 
+\end{DoxySeeAlso}
+\hypertarget{struct_options_ab1d167bd93bce7dd453fcbb93acf12e4}{\index{\-Options@{\-Options}!set\-Default@{set\-Default}}
+\index{set\-Default@{set\-Default}!Options@{\-Options}}
+\subsubsection[{set\-Default}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf \-Options\-::set\-Default} (
+\begin{DoxyParamCaption}
+\item[{\-Q\-String}]{group, }
+\item[{\-Q\-String}]{opt, }
+\item[{\-T}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{struct_options_ab1d167bd93bce7dd453fcbb93acf12e4}
+\-Writes the new value of the options defined by its group and name, whatever the option type is. \-See \hyperlink{struct_options}{\-Options} for details about options types.
+
+\begin{DoxyNote}{\-Note}
+\-The template argument can be omitted since it would be deduced from the value argument.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{struct_options_ad20146ff9544f6229bb1696ea5bf643d}{save}, \hyperlink{struct_options_ada32d485296bd6ba73a1d95bd6260c1a}{load} 
+\end{DoxySeeAlso}
+
+
+\-The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/editor/\-G\-U\-I/\hyperlink{options_8h}{options.\-h}\item 
+src/editor/\-G\-U\-I/options.\-cpp\end{DoxyCompactItemize}

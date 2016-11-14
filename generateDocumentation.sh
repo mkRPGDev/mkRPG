@@ -34,7 +34,8 @@ echo $branch_name
 mkdir code_docs
 cd code_docs
 
-
+GH_REPO_NAME="mkRPG"
+GH_REPO_REF="github.com/mkRPGDev/mkRPG.git"
 
 # Get the current master branch
 echo "Get a clone of $branch_name"
@@ -61,7 +62,7 @@ doxygen Doxyfile
 
 #Si on se trouve dans master, on génère la doc dans gh-pages sinon dans la
 #branche courante
-if [ $branch_name = "travis" ]; then
+if [ ${branch_name} = "travis" ]; then
   echo 'We are in the master branch, generating in gh-pages'
   #On le renomme pour préparer au changement de branche
   mv "doc" "doc_new"

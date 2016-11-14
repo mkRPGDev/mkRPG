@@ -16,6 +16,7 @@ signals:
 
 private:
     void mousePressEvent(QMouseEvent *);
+    // TODO : préactivation si la souris passe dessus.
 
     int id;
     QColor c;

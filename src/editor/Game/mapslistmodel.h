@@ -2,8 +2,15 @@
 #define MAPSLISTMODEL_H
 
 #include <QAbstractListModel>
+#include <QAbstractTableModel>
 #include "game.h"
 #include "mappainter.h"
+
+/**
+ * \file mapslistmodel.h
+ * \brief Definition of Model/View presentation classes.
+ */
+
 
 /*!
  * \brief The MapsListModel class provides a presentation class
@@ -29,6 +36,9 @@ private:
 };
 
 
+/*!
+ * \brief The CellTypeListModel class
+ */
 class CellTypeListModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -41,6 +51,44 @@ public:
 
 private:
     QList<CellType*> cellTypes;
+    QPixmap empty;
+};
+
+
+
+
+class ObjectParamTableModel : public QAbstractTableModel
+{
+    Q_OBJECT
+public:
+    explicit ObjectParamTableModel(GameObject *obj, QObject *parent = 0);
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+
+
+private:
+    GameObject *obj;
+};
+
+class ObjectFlagTableModel : public QAbstractTableModel
+{
+    Q_OBJECT
+public:
+    explicit ObjectFlagTableModel(GameObject *obj, QObject *parent = 0);
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+
+
+private:
+    GameObject *obj;
 };
 
 

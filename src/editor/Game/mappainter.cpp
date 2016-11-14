@@ -14,6 +14,9 @@ MapPainter::MapPainter(QObject *parent) : QObject(parent),
     angleX(0), angleY(0), centerX(.5), centerY(-5),
     viewScale(1), intersec(new PtCoords[1]), changesOccured(true)
 {
+    Options &options(Options::options());
+    selColor = options.load<QColor>(MAP, "SelColor");
+    preSelColor = options.load<QColor>(MAP, "PreSelColor");
 
 }
 
@@ -80,7 +83,7 @@ void MapPainter::updateViewParameters(){
 
 
 void MapPainter::updateMap(){
-    if(map == nullptr || lastMapUpdate>map->lastModification()) return;
+    if(map == nullptr || lastMapUpdate>map->lastEdition()) return;
     lastMapUpdate = QDateTime::currentDateTime();
     double angX = M_PI*map->angleX()/1800.;
     double angY = M_PI*(std::min(900+map->angleY(), 1800))/1800.;
@@ -105,7 +108,7 @@ void MapPainter::updateMap(){
 void MapPainter::setMap(Map* m){
     map = m;
     changeBackgroundDistortion();
-    lastMapUpdate = m->lastModification();
+    lastMapUpdate = m->lastEdition();
 }
 
 
@@ -171,16 +174,27 @@ void MapPainter::paint(QPainter &p){
     if(map == nullptr) return;
     updateBackground();
     p.drawImage(0,0,im);
-    QBrush b2(QColor(255,180,0,60));
+    QBrush b2(selColor);
+    QBrush b3(preSelColor);
     p.setPen(QColor(80,80,80, 0));
-    p.setBrush(b2);
+    //p.setBrush(b2);
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
-            if(map->cell(i,j).isSelected())
+            Cell &c (map->cell(i,j));
+            if(c.isPreSelected()){
+                p.setBrush(b3);
                 p.drawConvexPolygon(QVector<QPointF>({ptToPxl(indToPt(i,j)),
                                                       ptToPxl(indToPt(i,j+1)),
                                                       ptToPxl(indToPt(i+1,j+1)),
                                                       ptToPxl(indToPt(i+1,j))}));
+            }
+            else if(c.isSelected()){
+                p.setBrush(b2);
+                p.drawConvexPolygon(QVector<QPointF>({ptToPxl(indToPt(i,j)),
+                                                      ptToPxl(indToPt(i,j+1)),
+                                                      ptToPxl(indToPt(i+1,j+1)),
+                                                      ptToPxl(indToPt(i+1,j))}));
+            }
         }
     p.setBrush(Qt::NoBrush);
     if(0<=selCellX && selCellX<nbCellsX && 0<=selCellY && selCellY<=nbCellsY){
@@ -260,6 +274,10 @@ bool MapPainter::hasHighlightedCell() const{
     return selCellX+1 && selCellY+1;
 }
 
+bool MapPainter::isCell(const ClCoords &c) const{
+    return c.x() >= 0 && c.x() < nbCellsX && c.y() >= 0 && c.y() < nbCellsY;
+}
+
 void MapPainter::zoom(double factor, QPointF fixedPoint){
     QPointF d = fixedPoint-QPointF(pWidth/2.,pHeight/2.);
     factor = MINMAX(1/viewScale, factor,40./viewScale);
@@ -296,4 +314,24 @@ void MapPainter::setPaintedElements(Element e){
 
 void MapPainter::setPaintedElement(MapPainter::Element e, bool painted){
     setPaintedElements(painted ? displayed | e : displayed ^ e);
+}
+
+const QColor &MapPainter::selectedCellColor() const{
+    return selColor;
+}
+
+const QColor &MapPainter::preSelectedCellColor() const{
+    return preSelColor;
+}
+
+void MapPainter::setSelectedCellColor(const QColor &c){
+    selColor = c;
+    Options::options().save(MAP, "SelColor", c);
+    globalViewChanged();
+}
+
+void MapPainter::setPreSelectedCellColor(const QColor &c){
+    preSelColor = c;
+    Options::options().save(MAP, "PreSelColor", c);
+    globalViewChanged();
 }

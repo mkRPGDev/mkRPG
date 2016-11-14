@@ -4,7 +4,7 @@ from queue import Queue
 from const import *
 from actions import registerActions
 from orders import OrderDispatcher
-from utils import Perf
+from tools import Perf
 
 if USETCP:
     from network import NetworkServer
@@ -23,7 +23,7 @@ class Server():
         self.net = NetworkServer(self.handle)
         self.world = world.loadGame(path)
         self.actions = registerActions(path, world.named) # FIXME -> game
-        
+
         self.persos = self.world.entities[0] # XXX bricolage
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent)
         self.events = Queue()
@@ -48,10 +48,10 @@ class Server():
                         self.net.sendOrder(emitter.ident, returnOrder)
                     # TODO n'envoyer que les infos non secrètes
             perf.toc()
-    
+
     def handle(self, ident, event):
         self.handleEvent(world.BaseObject.ids[ident], event)
-    
+
     def handleEvent(self, emitter, event):
         self.events.put((emitter, event))
 

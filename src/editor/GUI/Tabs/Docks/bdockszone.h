@@ -22,20 +22,32 @@ public:
 
 signals:
     void sizeChanged(int);
+    void showPoint(int, int);
 
 private slots:
     void adjust();
+    void dockClick(int i, const QPoint &p);
+    void dockMove(int k, const QPoint &p);
+    void dockRelease(int i, const QPoint &p);
+    void dockStopped(int i);
 
 private:
     void paintEvent(QPaintEvent *event);
     void resizeEvent(QResizeEvent *re);
-    void mouseDoubleClickEvent(QMouseEvent *);
+    void mouseDoubleClickEvent(QMouseEvent *me);
 
     int len, size;
     int space;
+
+    int clPos;
+    int initPos;
+    bool repainting;
     //QBoxLayout *lay;
+    QPoint prev;
     Qt::Orientation orient;
-    QList<BDock*> docks;
+    BDock *movingDock;
+    QVector<BDock*> docks;
+    QVector<QPair<int,int>> placement;
 };
 
 
@@ -56,7 +68,7 @@ class BDocksZone : public QWidget
      */
     enum ScrollBarMode{
         AlwaysVisible,  /**< Always show the scroll bar, even if it is usless*/
-        Adaptative,     /**< Show the scroll bar when needed, adaptating the docks length*/
+        Adjustable,     /**< Show the scroll bar when needed, adaptating the docks length*/
         Fixed           /**< Show the scroll bar when needed, keeping the docks length fixed*/
     };
 
@@ -82,6 +94,7 @@ protected slots:
     void setCurrentLenght(int t);
 
 private slots:
+    void showPoint(int x, int y);
     void foldingChanged(bool f);
     void docksSizeChanged();
     void paintEvent(QPaintEvent *event);
@@ -89,6 +102,7 @@ private slots:
     void mouseMoveEvent(QMouseEvent *me);
     void resizeEvent(QResizeEvent *event);
     void updateDockLength();
+    void updateMousePos();
 
 private:
     void mouseDoubleClickEvent(QMouseEvent *);

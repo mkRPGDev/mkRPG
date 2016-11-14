@@ -11,3 +11,7 @@ void WorldEditor::setGame(Game *g){
     game = g;
     mapsView->setModel(new MapsListModel(g->world(), this));
 }
+
+WorldEditor::~WorldEditor(){
+    delete game;
+}

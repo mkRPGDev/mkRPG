@@ -34,9 +34,6 @@ echo $branch_name
 mkdir code_docs
 cd code_docs
 
-GH_REPO_NAME="mkRPG"
-GH_REPO_REF="github.com/mkRPGDev/mkRPG.git"
-
 # Get the current master branch
 echo "Get a clone of $branch_name"
 echo ${GH_REPO_REF}

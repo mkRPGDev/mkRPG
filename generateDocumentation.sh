@@ -28,8 +28,8 @@ set -e
 
 
 # On recupère le nom de la branche dans laquelle on se trouve
-#branch_name="$( git branch -a --no-color  | grep -E '^\*' | sed 's/\*[^a-z]*//g')"
-#echo $branch_name
+branch_name="$( git branch -a --no-color  | awk '/^\*/{getline; print}' | sed 's/\*[^a-z]*//g')"
+echo $branch_name
 
 # Create a clean working directory for this script.
 mkdir code_docs
@@ -41,7 +41,7 @@ echo "Get a clone of master"
 echo ${GH_REPO_REF}
 
 
-
+#git clone -b $branch_name "https://${GH_REPO_REF}"
 git clone -b travis "https://${GH_REPO_REF}"
 cd $GH_REPO_NAME
 

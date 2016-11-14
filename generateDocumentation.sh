@@ -26,6 +26,9 @@ echo 'Setting up the script...'
 # Exit with nonzero exit code if anything fails
 set -e
 
+echo "GIT BRANCH"
+git branch
+
 # On recupère le nom de la branche dans laquelle on se trouve
 branch_name="$( git branch -a --no-color  | grep -E '^\*' | sed 's/\*[^a-z]*//g')"
 echo $branch_name
@@ -59,7 +62,7 @@ doxygen Doxyfile
 
 #Si on se trouve dans master, on génère la doc dans gh-pages sinon dans la
 #branche courante
-#if [ ${branch_name} == "travis" ]; then
+#if [ "${branch_name}" == travis ]; then
 
 echo 'We are in the master branch, generating in gh-pages'
 #On le renomme pour préparer au changement de branche
@@ -69,7 +72,6 @@ git checkout gh-pages
 #On écrase l'ancienne documentation
 rm -r doc
 mv "doc_new" "doc"
-
 #fi
 
 #On compile le tex

@@ -5,3 +5,6 @@ set -e
 
 branch_name="$( git branch -a --no-color  | awk '/^\*/{getline; print}' | sed 's/\*[^a-z]*//g')"
 echo $branch_name
+if [ ${branch_name} == "travis" ]; then
+  echo "YEEEEES"
+fi

@@ -26,19 +26,18 @@ echo 'Setting up the script...'
 # Exit with nonzero exit code if anything fails
 set -e
 
-echo "GIT BRANCH"
-git branch
 
 # On recupère le nom de la branche dans laquelle on se trouve
-branch_name="$( git branch -a --no-color  | grep -E '^\*' | sed 's/\*[^a-z]*//g')"
-echo $branch_name
+#branch_name="$( git branch -a --no-color  | grep -E '^\*' | sed 's/\*[^a-z]*//g')"
+#echo $branch_name
 
 # Create a clean working directory for this script.
 mkdir code_docs
 cd code_docs
 
 # Get the current master branch
-echo "Get a clone of $branch_name"
+#echo "Get a clone of $branch_name"
+echo "Get a clone of master"
 echo ${GH_REPO_REF}
 
 
@@ -62,7 +61,7 @@ doxygen Doxyfile
 
 #Si on se trouve dans master, on génère la doc dans gh-pages sinon dans la
 #branche courante
-#if [ "${branch_name}" == travis ]; then
+#if [ "${branch_name}" == master ]; then
 
 echo 'We are in the master branch, generating in gh-pages'
 #On le renomme pour préparer au changement de branche

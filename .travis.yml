@@ -27,12 +27,12 @@ env:
 addons:
   apt:
     packages:
-    #  - texlive-full
-    #  - doxygen
-    #  - doxygen-doc
+      - texlive-full
+      - doxygen
+      - doxygen-doc
     #  - doxygen-latex
     #  - doxygen-gui
-    #  - graphviz
+      - graphviz
 
 # Build your code e.g. by calling make
 script:

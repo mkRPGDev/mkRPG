@@ -55,18 +55,14 @@ git config user.email "travis@travis-ci.org"
 echo 'Generating Doxygen code documentation...'
 doxygen Doxyfile
 
-#Si on se trouve dans master, on génère la doc dans gh-pages sinon dans la
-#branche courante
-if [ ${branch_name} == "travis" ]; then
-  echo 'We are in the master branch, generating in gh-pages'
-  #On le renomme pour préparer au changement de branche
-  mv "doc" "doc_new"
-  #On change de branche si on est dans master
-  git checkout gh-pages
-  #On écrase l'ancienne documentation
-  rm -r doc
-  mv "doc_new" "doc"
-fi
+#On le renomme pour préparer au changement de branche
+mv "doc" "doc_new"
+#On change de branche si on est dans master
+git checkout gh-pages
+#On écrase l'ancienne documentation
+rm -r doc
+mv "doc_new" "doc"
+
 
 #On compile le tex
 echo 'Compiling tex documentation ... '

@@ -37,10 +37,8 @@ addons:
 # Build your code e.g. by calling make
 script:
   - cd $TRAVIS_BUILD_DIR
-#  - chmod +x generateDocumentation.sh
-  - chmod +x test.sh
-  - ./test.sh
-#  - ./generateDocumentation.sh
+  - chmod +x generateDocumentation.sh
+  - ./generateDocumentation.sh
 # Generate and deploy documentation
 #after_success:
 #  - cd $TRAVIS_BUILD_DIR

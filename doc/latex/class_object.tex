@@ -3,7 +3,7 @@
 }
 
 
-\-The \hyperlink{class_object}{\-Object} class is the base class for every part of games.  
+\-The \hyperlink{class_object}{\-Object} class.  
 
 
 
@@ -19,78 +19,13 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_object_acab6f688bc461241145d692a3e1eb7c3}{{\bfseries \-Object} (\hyperlink{class_game}{\-Game} $\ast$g=nullptr)}\label{class_object_acab6f688bc461241145d692a3e1eb7c3}
-
-\item 
-void \hyperlink{class_object_afa66336bbc104f8ffa0fdad930c864d2}{init} (\hyperlink{class_game}{\-Game} $\ast$g)
-\item 
-\hypertarget{class_object_af170b1d9340b79e8ef8f261d4667b2e8}{int {\bfseries ident} () const }\label{class_object_af170b1d9340b79e8ef8f261d4667b2e8}
-
-\item 
-virtual bool \hyperlink{class_object_a2ea6a84458109aea71c167ed01b6469d}{is\-Valid} () const 
-\item 
-const \-Q\-Date\-Time \& \hyperlink{class_object_aa37d8a2ecc8d63963ed62ba811e0ed90}{last\-Modification} () const 
-\item 
-\hypertarget{class_object_ad259e3b7740c10b5c0f542247e80320e}{int {\bfseries get\-Param} (const \-Q\-String \&p)}\label{class_object_ad259e3b7740c10b5c0f542247e80320e}
-
-\item 
-\hypertarget{class_object_a357b924d7e6c34d26959451f04b6755d}{void {\bfseries touch} ()}\label{class_object_a357b924d7e6c34d26959451f04b6755d}
-
-\end{DoxyCompactItemize}
-\subsection*{\-Protected \-Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\hypertarget{class_object_a04630e51809267a79255e0a1ac955ab3}{\hyperlink{class_game}{\-Game} $\ast$ {\bfseries game}}\label{class_object_a04630e51809267a79255e0a1ac955ab3}
-
-\item 
-\hypertarget{class_object_aa7caf12457afb8b79152cfaf0158c827}{int {\bfseries id}}\label{class_object_aa7caf12457afb8b79152cfaf0158c827}
-
-\item 
-\hypertarget{class_object_af13073ee1a09c15a3a029fa269e07b63}{\-Q\-Map$<$ \-Q\-String, int $>$ {\bfseries params}}\label{class_object_af13073ee1a09c15a3a029fa269e07b63}
-
-\item 
-\hypertarget{class_object_aa8324b8446985d4eb1334b3ee69486d7}{\-Q\-String {\bfseries file\-Name}}\label{class_object_aa8324b8446985d4eb1334b3ee69486d7}
-
-\item 
-\hypertarget{class_object_a48a973e349405e298059e82f0db4568b}{\-Q\-Date\-Time {\bfseries last\-Edit}}\label{class_object_a48a973e349405e298059e82f0db4568b}
+\hypertarget{class_object_a5e05d43825eadd0b6868544c22bc4269}{{\bfseries \-Object} (\hyperlink{class_game}{\-Game} $\ast$g, \hyperlink{class_game_object}{\-Game\-Object} $\ast$parent)}\label{class_object_a5e05d43825eadd0b6868544c22bc4269}
 
 \end{DoxyCompactItemize}
 
 
 \subsection{\-Detailed \-Description}
-\-The \hyperlink{class_object}{\-Object} class is the base class for every part of games. 
-
-\-Each instance is identified by a game-\/wide unique identifier.
-
-\-On each modification, the last\-Edit attribute has to be updated, in order that other \hyperlink{class_object}{objects} can see that modifications occured. 
-
-\subsection{\-Member \-Function \-Documentation}
-\hypertarget{class_object_afa66336bbc104f8ffa0fdad930c864d2}{\index{\-Object@{\-Object}!init@{init}}
-\index{init@{init}!Object@{\-Object}}
-\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Object\-::init} (
-\begin{DoxyParamCaption}
-\item[{{\bf \-Game} $\ast$}]{g}
-\end{DoxyParamCaption}
-)}}\label{class_object_afa66336bbc104f8ffa0fdad930c864d2}
-initialise the object in case it had been construct with a \-N\-U\-L\-L pointer (array of objects) \hypertarget{class_object_a2ea6a84458109aea71c167ed01b6469d}{\index{\-Object@{\-Object}!is\-Valid@{is\-Valid}}
-\index{is\-Valid@{is\-Valid}!Object@{\-Object}}
-\subsubsection[{is\-Valid}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool {\bf \-Object\-::is\-Valid} (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{class_object_a2ea6a84458109aea71c167ed01b6469d}
-return true if the object has been initialised 
-
-\-Reimplemented in \hyperlink{class_image_a0bc052fef9ea98e416e11af385cd93b4}{\-Image}.
-
-\hypertarget{class_object_aa37d8a2ecc8d63963ed62ba811e0ed90}{\index{\-Object@{\-Object}!last\-Modification@{last\-Modification}}
-\index{last\-Modification@{last\-Modification}!Object@{\-Object}}
-\subsubsection[{last\-Modification}]{\setlength{\rightskip}{0pt plus 5cm}const \-Q\-Date\-Time\& {\bf \-Object\-::last\-Modification} (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_object_aa37d8a2ecc8d63963ed62ba811e0ed90}
-return the last time of modification 
+\-The \hyperlink{class_object}{\-Object} class. 
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 

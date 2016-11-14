@@ -1,6 +1,15 @@
 \hypertarget{class_cell}{\section{\-Cell \-Class \-Reference}
 \label{class_cell}\index{\-Cell@{\-Cell}}
 }
+
+
+\-The \hyperlink{class_cell}{\-Cell} class.  
+
+
+
+
+{\ttfamily \#include $<$map.\-h$>$}
+
 \-Inheritance diagram for \-Cell\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -10,7 +19,7 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_cell_aa838bde28d59df35b2fd6db54013ed40}{{\bfseries \-Cell} (\hyperlink{class_game}{\-Game} $\ast$g=nullptr)}\label{class_cell_aa838bde28d59df35b2fd6db54013ed40}
+\hypertarget{class_cell_ad2edfbf561021e72a464888921c0b576}{{\bfseries \-Cell} (\hyperlink{class_game}{\-Game} $\ast$g=nullptr, \hyperlink{class_game_object}{\-Game\-Object} $\ast$parent=nullptr)}\label{class_cell_ad2edfbf561021e72a464888921c0b576}
 
 \item 
 \hypertarget{class_cell_a394830e18401f3b414c3dde4a2b4e2e8}{bool {\bfseries is\-Selected} () const }\label{class_cell_a394830e18401f3b414c3dde4a2b4e2e8}
@@ -22,24 +31,34 @@
 \hypertarget{class_cell_ad8310bd5ddbdcb3ab3036356556b32b3}{void {\bfseries invert\-Selected} ()}\label{class_cell_ad8310bd5ddbdcb3ab3036356556b32b3}
 
 \item 
-\hypertarget{class_cell_a6ea8829d05c8cf869e60d321e7649c6e}{{\bfseries \-Param\-Obj} (cell\-Type, \hyperlink{class_cell_type}{\-Cell\-Type}, c) \hyperlink{object_8h_a36f4eef4198c2aec7010e22c6223d13d}{\-Objects\-Map}(c}\label{class_cell_a6ea8829d05c8cf869e60d321e7649c6e}
+\hypertarget{class_cell_a9801c2d435d44834bd14a80fba778618}{void {\bfseries add\-Selection} ()}\label{class_cell_a9801c2d435d44834bd14a80fba778618}
+
+\item 
+\hypertarget{class_cell_aa7456089022c5d2dabd4325d03007759}{bool {\bfseries is\-Pre\-Selected} () const }\label{class_cell_aa7456089022c5d2dabd4325d03007759}
+
+\item 
+\hypertarget{class_cell_a16f6d41be75c42ad20ad29d0b5725ece}{void {\bfseries confirm\-Pre\-Selection} (bool add=true)}\label{class_cell_a16f6d41be75c42ad20ad29d0b5725ece}
+
+\item 
+\hypertarget{class_cell_aa0704872b8d4ae7f40022cfebfa48944}{void {\bfseries clear\-Pre\-Selection} ()}\label{class_cell_aa0704872b8d4ae7f40022cfebfa48944}
 
 \end{DoxyCompactItemize}
 \subsection*{\-Public \-Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_cell_a3dc39362ff9a256688437f0ae40a2e84}{{\bfseries o}}\label{class_cell_a3dc39362ff9a256688437f0ae40a2e84}
+\hypertarget{class_cell_a70f60ede53fb663eb11dd543211bf4cf}{\-Object\-List\-D(o, \-O, bject,, s, \*
+\hyperlink{class_object}{\-Object}) private int {\bfseries nb\-Sel}}\label{class_cell_a70f60ede53fb663eb11dd543211bf4cf}
 
 \item 
-\hypertarget{class_cell_a15fa482b8681ad7c84ba18ab7965651e}{{\bfseries \-O}}\label{class_cell_a15fa482b8681ad7c84ba18ab7965651e}
-
-\item 
-\hypertarget{class_cell_a7ad68870ec79073a5b94eb733f74336b}{{\bfseries bject}}\label{class_cell_a7ad68870ec79073a5b94eb733f74336b}
+\hypertarget{class_cell_a5891847674379c2fd25a4d08962a21ba}{bool {\bfseries select\-Mod}}\label{class_cell_a5891847674379c2fd25a4d08962a21ba}
 
 \end{DoxyCompactItemize}
 
 
+\subsection{\-Detailed \-Description}
+\-The \hyperlink{class_cell}{\-Cell} class. 
+
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-src/editor/\-Game/map.\-h\item 
+src/editor/\-Game/\hyperlink{map_8h}{map.\-h}\item 
 src/editor/\-Game/map.\-cpp\end{DoxyCompactItemize}

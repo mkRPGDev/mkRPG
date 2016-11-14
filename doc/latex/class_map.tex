@@ -1,6 +1,15 @@
 \hypertarget{class_map}{\section{\-Map \-Class \-Reference}
 \label{class_map}\index{\-Map@{\-Map}}
 }
+
+
+\-The \hyperlink{class_map}{\-Map} class.  
+
+
+
+
+{\ttfamily \#include $<$map.\-h$>$}
+
 \-Inheritance diagram for \-Map\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -10,10 +19,10 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_map_a3153fcba3c619fac862f301385be66a4}{{\bfseries \-Map} (\hyperlink{class_game}{\-Game} $\ast$g=nullptr)}\label{class_map_a3153fcba3c619fac862f301385be66a4}
+\hypertarget{class_map_a9779d0a2a759441c5e8d51b0a9c4cd40}{{\bfseries \-Map} (\hyperlink{class_game}{\-Game} $\ast$g, \hyperlink{class_game_object}{\-Game\-Object} $\ast$parent)}\label{class_map_a9779d0a2a759441c5e8d51b0a9c4cd40}
 
 \item 
-\hypertarget{class_map_a345bff808e25aa259775751f685b4e4d}{{\bfseries \-Getter} (width) \-Getter(height) \-Q\-Size size() const }\label{class_map_a345bff808e25aa259775751f685b4e4d}
+\hypertarget{class_map_a7361b86ab9523ed38bda3a7bbd131426}{{\bfseries \-Param\-Getter} (width) \-Param\-Getter(height) \-Q\-Size size() const }\label{class_map_a7361b86ab9523ed38bda3a7bbd131426}
 
 \item 
 \hypertarget{class_map_a2915ccde4d8a2ba8142677baea803467}{void {\bfseries set\-Width} (int w)}\label{class_map_a2915ccde4d8a2ba8142677baea803467}
@@ -25,18 +34,30 @@
 \hypertarget{class_map_a5f7c31af6620d00ce8a812c8710345ab}{void {\bfseries resize} (int w, int h)}\label{class_map_a5f7c31af6620d00ce8a812c8710345ab}
 
 \item 
-\hypertarget{class_map_a7dcf1a44f62d1aac156e500299e0fe45}{{\bfseries \-Param} (angle\-X, \-Angle\-X) \-Param(angle\-Y}\label{class_map_a7dcf1a44f62d1aac156e500299e0fe45}
-
-\item 
-\hypertarget{class_map_a6c94b3e99490efa0f170db132dc9f5b8}{\-Angle\-Y \hyperlink{class_cell}{\-Cell} \& {\bfseries cell} (int i, int j) const }\label{class_map_a6c94b3e99490efa0f170db132dc9f5b8}
+\hypertarget{class_map_a6c94b3e99490efa0f170db132dc9f5b8}{\hyperlink{class_cell}{\-Cell} \& {\bfseries cell} (int i, int j) const }\label{class_map_a6c94b3e99490efa0f170db132dc9f5b8}
 
 \item 
 \hypertarget{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}{\hyperlink{class_cell}{\-Cell} \& {\bfseries cell} (const \-Q\-Point \&p) const }\label{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}
 
+\item 
+\hypertarget{class_map_a16aea6b5c9de3a26b094d964885b33b7}{void {\bfseries select\-All} ()}\label{class_map_a16aea6b5c9de3a26b094d964885b33b7}
+
+\item 
+\hypertarget{class_map_a5b85190575503a09c5c6de012da64f7c}{void {\bfseries un\-Select\-All} ()}\label{class_map_a5b85190575503a09c5c6de012da64f7c}
+
+\item 
+\hypertarget{class_map_a89cab58d82e08dacfe0b97899bab5501}{void {\bfseries confirm\-Pre\-Selection} (bool add=true)}\label{class_map_a89cab58d82e08dacfe0b97899bab5501}
+
+\item 
+\hypertarget{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}{void {\bfseries clear\-Pre\-Selection} ()}\label{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}
+
 \end{DoxyCompactItemize}
 
 
+\subsection{\-Detailed \-Description}
+\-The \hyperlink{class_map}{\-Map} class. 
+
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-src/editor/\-Game/map.\-h\item 
+src/editor/\-Game/\hyperlink{map_8h}{map.\-h}\item 
 src/editor/\-Game/map.\-cpp\end{DoxyCompactItemize}

@@ -1,11 +1,15 @@
+from collections import namedtuple
 from enum import IntEnum
-from threading import Timer
+from utils import Timer
 
 from const import *
 
-OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition Move Setobj')
+OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition '
+                                 'Move Setobj Watchdog')
+Condition = namedtuple("Condition", "target event once")
 
 class Order:
+    """ Représente une modification à apporter au monde """
     # Attention aux collisions avec args et type
     params = [None] * (len(OrderType)+1) #XXX c'pas top 
     params[OrderType.Set] = ["target", "param", "value"]
@@ -16,6 +20,7 @@ class Order:
     params[OrderType.Condition] = ["event", "value"]
     params[OrderType.Move] = ["source", "dest", "param"]
     params[OrderType.Setobj] = ["target", "param", "value"]
+    params[OrderType.Watchdog] = ["target", "param", "value", "event", "once"]
 
     def __init__(self):
         self.type = None
@@ -38,6 +43,7 @@ class Order:
         return obj
     
     def load(self, dat, named):
+        """ Initialise l'ordre avec une structure provenant d'un Xml """
         assert dat.name == "Order"
         self.type = OrderType.__members__[dat.args["type"].capitalize()]
         self.args = [0]*len(self.params[self.type])
@@ -51,8 +57,9 @@ class Order:
         return self
     
     def toBytes(self): # TODO éliminer tt les str => ids de param
+        """ Bytes pour envoyer l'ordre sur le réseau """
         def addStr(s):
-            assert len(s) < 665536
+            assert len(s) < 1<<16
             b.append(len(s)//256)
             b.append(len(s)%256)
             b.extend(s.encode(CODING))
@@ -62,6 +69,7 @@ class Order:
         return bytes(b)
         
     def fromBytes(self, b):
+        """ Récupère l'ordre à partir d'un bytes réseau """
         def getStr():
             nonlocal i
             l = 256*b[i] + b[i+1]
@@ -71,32 +79,43 @@ class Order:
         self.type = b[0]
         i = 1
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
-        return self
+        return self, i
     
 class OrderDispatcher:
-    """ pour diminuer la redondance de code client/serveur """
+    """ Traite les ordres pour le client ou le serveur """
     def __init__(self, world, handle):
         self.world = world
         self.handle = handle
+        self.timer = Timer()
+        self.timer.start()
 
     def treat(self, emitter, order):
-        """ -> ordre à retransmettre """
+        """ Traite un ordre et renvoie l'éventuel ordre à retransmettre """
+        world = self.world
         if order.type==OrderType.Set:
-            target = emitter if order.target=="emitter" else self.world
+            target = emitter if order.target=="emitter" else eval(order.target)
             val = target.contextEval(order.value)
-            preval = eval("target."+order.param)
+            preval = target.params[order.param]
             if val!=preval:
-                exec("target."+order.param+"=val")
+                target.params[order.param] = val
                 returnOrder = order.copy()
                 returnOrder.value = str(val)
+                for condition in target.conditions[order.param][val]:
+                    self.handle(condition.target, condition.event)
+                # XXX pas fameux
+                target.conditions[order.param][val] = \
+                    list(filter(lambda x:not x.once, target.conditions[order.param][val]))
+                if not target.conditions[order.param][val]:
+                    del target.conditions[order.param][val]
                 return returnOrder
             return None
         if order.type==OrderType.Timer:
             # les Timer transmettent leur contexte
             if emitter:
-                Timer(emitter.contextEval(order.value), self.handle, args=[emitter, order.event]).start()
+                self.timer.add(emitter.contextEval(order.value), self.handle,
+                               args=[emitter, order.event])
             else:
-                Timer(float(order.value), self.handle, args=[emitter, order.event]).start()
+                self.timer.add(int(order.value), self.handle, args=[emitter, order.event])
             return None
         if order.type==OrderType.Event:
             if order.target:
@@ -114,6 +133,7 @@ class OrderDispatcher:
         if order.type==OrderType.Destroy:
             # TODO nécessite de trouver tous les pointeurs ??
             self.world.objects.remove(emitter)
+            self.world.ids.pop(emitter.ident)
             return order
         if order.type==OrderType.Condition:
             if emitter.contextEval(order.value):
@@ -131,6 +151,11 @@ class OrderDispatcher:
             if val!=preval:
                 exec("target."+order.param+"=val")
                 return order
+            return None
+        if order.type==OrderType.Watchdog:
+            val = emitter.contextEval(order.value)
+            conds = eval(order.target).conditions[order.param][val]
+            conds.append(Condition(emitter, order.event, order.once))
             return None
                        
 if __name__=="__main__":

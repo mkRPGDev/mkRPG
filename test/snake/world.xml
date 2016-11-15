@@ -2,6 +2,7 @@
     <Params>
         <currentMap id="main"/>
         <pomme id="pomme"/>
+        <step val="0"/>
     </Params>
     
     <Maps>
@@ -10,6 +11,7 @@
 
     <Entities>
         <Entity id="serpent"/>
+        <Entity id="serpent2"/>
     </Entities>
 
     <Objects>

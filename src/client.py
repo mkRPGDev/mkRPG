@@ -1,6 +1,5 @@
-import curses
-from sys import argv
 from time import sleep, time
+from argparse import ArgumentParser
 
 from const import *
 from interactions import registerInteractions, InteractionType
@@ -11,46 +10,58 @@ if USETCP:
 else:
     from networkudp import NetworkClient
 
-#TODO trouver mieux cf world
-with open("isserver.py","w") as file:
-    file.write("SERVER = False\n")
 import world
 
-interface = True # permet de désactiver ncurses pour débugguer
+def interface(args):
+    """ Import the correct interface according to user choice """
+    if args.curses:
+        from cursescli import Curses as Interface
+    elif args.noui:
+        from interface import Interface
+    elif args.pygame:
+        from pygamecli import A as Interface
+    else:
+        # choix par défaut
+        args.curses = True
+        return interface(args)
+    return Interface
 
 class Client():
-    def __init__(self, path):
+    """ Main class of the client process, gathering interface, world and networking"""
+    def __init__(self, path, Interface):
         self.net = NetworkClient(self.handleOrder)
         self.world = world.loadGame(path)
-        if interface:
-            self.win = curses.initscr()
-            curses.cbreak()
-            curses.noecho()
-            self.win.keypad(True)
-            curses.curs_set(0)
-            self.mv=MapViewer(self.world.currentMap, self.world)
-        self.interactions = registerInteractions(path)
-        
-        self.perso = self.world.entities[0] # XXX bricolage
+        self.interface = Interface(self.world)
+        self.interactions = registerInteractions(path)        
+        self.perso = None
         self.orderDispatcher = OrderDispatcher(self.world, None)
-        self.lastUpdate = 0
+        print(self.world.entities)
         
     def __del__(self):
         self.net.kill()
-        curses.endwin()
+        self.interface.end()
         print("Client killed")
 
     def run(self):
+        for ent in self.world.entities:
+            if self.net.askEntity(ent):
+                self.perso = ent
+                break
+        else:
+            print("Aucun perso disponible !")
+            return
         self.net.start()
-        if interface: self.mv.display(self.win)
+        self.interface.update()
         while True:
-            if not interface: continue
-            key = self.win.getch()
+            key = self.interface.getEvent()
             if key==ord('q'):
                 curses.endwin()
                 self.net.kill()
                 print("Exited properly")
                 break
+            elif key==ord('p'): self.net.sendEvent(self.world, "pause")
+            # TODO relayer l'affichage
+            elif key==ord('r'): self.net.sendEvent(self.world, "resume")
             for inte in self.interactions:
                 if (inte.type == InteractionType.Key and
                     inte.key == key):
@@ -59,40 +70,21 @@ class Client():
     def handleOrder(self, ident, order):
         emitter = world.BaseObject.ids[ident]
         self.orderDispatcher.treat(emitter, order)
-        if interface and time() - self.lastUpdate > MAXFPS:
-            self.mv.display(self.win)
-            # TODO insérer ici le xml d'interface
-            self.win.addstr(26,0,"Score "+str(self.world.entities[0].score))
-            self.win.refresh()
-            self.lastUpdate = MAXFPS
+        self.interface.update()
 
-class CellViewer:
-    def __init__(self, cell):
-        self.cell = cell
-    
-    def display(self, win):
-        win.addch(self.cell.y+1, self.cell.x+1, self.cell.picture)
+parser = ArgumentParser(description="Generic game client.")
+parser.add_argument("-p", "--path", default=PATH,
+                    help="Path of the game directory, should contain game.xml."
+                    "If this argument is not present, const.py will be used.")
 
-class MapViewer:
-    def __init__(self, m, w):
-        self.map = m
-        self.world = w
-        self.cellViews = [CellViewer(c) for c in self.map.cells]
-        
-    def display(self, win):
-        win.clear()
-        # image de fond ici
-        for x in range(self.map.width+3):
-            win.addch(0, x, 35)
-            win.addch(self.map.height+2, x, 35)
-        for y in range(1, self.map.height+2):
-            win.addch(y, 0, 35)
-            win.addch(y, self.map.width+2, 35)
-        #for c in self.cellViews: c.display(win)
-        for ent in self.world.entities:
-            win.addch(ent.y+1, ent.x+1, ent.picture)
-        for ent in self.world.objects:
-            win.addch(ent.y+1, ent.x+1, ent.picture)
-        # TODO gérer plusieurs cartes
-        
-cli = Client(argv[1] if len(argv)>1 else PATH).run()
+uimode = parser.add_mutually_exclusive_group()
+uimode.add_argument("-c", "--curses", action="store_true",
+                    help="Use ncurses (requires Unix) instead of PyGame.")
+uimode.add_argument("-g", "--pygame", action="store_true",
+                    help="Use PyGame interface. (default)")
+uimode.add_argument("-n", "--noui", action="store_true",
+                    help="Hide UI for debug purposes")
+
+args = parser.parse_args()
+cli = Client(args.path, interface(args)).run()
+

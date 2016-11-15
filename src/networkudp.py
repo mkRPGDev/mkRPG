@@ -20,7 +20,7 @@ class NetworkClient(Thread):
         while self.alive:
             msg, addr = self.soc.recvfrom(BUFF)
             ident = msg[0]*256 + msg[1]
-            order = Order().fromBytes(msg[2:])
+            order = Order().fromBytes(msg[2:])[0]
             if self.alive:
                 self.handle(ident, order)
             

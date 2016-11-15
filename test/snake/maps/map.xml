@@ -7,6 +7,7 @@
     
     <Cells>
         <Cell id="cell0"/>
+        <Cell id="cell1"/>
     </Cells>
     
     <CellType name="defc">

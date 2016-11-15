@@ -12,9 +12,6 @@ if USETCP:
 else:
     from networkudp import NetworkServer
 
-# TODO qui dit mieux ?
-with open("isserver.py","w") as file:
-    file.write("SERVER = True")
 import world
 
 perf = Perf()
@@ -27,7 +24,6 @@ class Server():
         self.world = world.loadGame(path)
         self.actions = registerActions(path, world.named) # FIXME -> game
         
-        #self.persos = self.world.entities[0] # XXX bricolage
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent)
         self.events = Queue()
         self.pause = False
@@ -68,8 +64,9 @@ class Server():
         self.events.put((emitter, event))
 
 parser = ArgumentParser(description="Generic game server.")
-parser.add_argument("-p", "--path", default=PATH, help="Path of the game directory, should contain game.xml."
-"If this argument is not present, const.py will be used.")
+parser.add_argument("-p", "--path", default=PATH,
+    help="Path of the game directory, should contain game.xml."
+    "If this argument is not present, const.py will be used.")
 args = parser.parse_args()
 ser = Server(args.path)
 try:

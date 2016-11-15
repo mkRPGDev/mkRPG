@@ -2,7 +2,6 @@ from enum import IntEnum
 from collections import defaultdict
 from random import randint
 
-from isserver import SERVER
 from utils import readXml
 from orders import Order, OrderType
 #l'autre solution est de tout mettre dans une fonction 
@@ -114,6 +113,7 @@ class ObjectType(MagicObject):
     def create(self):
         """ Instanticiation d'un objet à partir du type """
         instance = self.type()
+        instance.type = self
         for p,v in self.params.items():
             instance.params[p] = v
         return instance

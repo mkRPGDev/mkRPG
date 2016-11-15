@@ -1,4 +1,3 @@
-import curses
 from time import sleep, time
 from argparse import ArgumentParser
 
@@ -11,20 +10,30 @@ if USETCP:
 else:
     from networkudp import NetworkClient
 
-#TODO trouver mieux cf world
-with open("isserver.py","w") as file:
-    file.write("SERVER = False\n")
 import world
 
+def interface(args):
+    """ Import the correct interface according to user choice """
+    if args.curses:
+        from cursescli import Curses as Interface
+    elif args.noui:
+        from interface import Interface
+    elif args.pygame:
+        from pygamecli import A as Interface
+    else:
+        # choix par défaut
+        args.curses = True
+        return interface(args)
+    return Interface
+
 class Client():
-    """ Classe principale du processus client, concilie interface, monde et réseau """
     """ Main class of the client process, gathering interface, world and networking"""
-    def __init__(self, path):
+    def __init__(self, path, Interface):
         self.net = NetworkClient(self.handleOrder)
         self.world = world.loadGame(path)
-        self.interface = (Curses if interface else Interface)(self.world)
+        self.interface = Interface(self.world)
         self.interactions = registerInteractions(path)        
-        self.perso = None # self.world.entities[0] # XXX bricolage
+        self.perso = None
         self.orderDispatcher = OrderDispatcher(self.world, None)
         print(self.world.entities)
         
@@ -59,83 +68,23 @@ class Client():
                     self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
     
     def handleOrder(self, ident, order):
-#        try:
         emitter = world.BaseObject.ids[ident]
-#        except KeyError: # disparaitra avec un processus d'initialisation
-#            return
         self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
-class Interface:
-    """ Classe mère des UI qui sert également d'implémentation triviale """
-    """ UI base-class """
-    def __init__(self, w):
-        assert type(w) == world.World
-        self.world = w
-    def update(self): pass
-    def end(self): pass
-    def getEvent(self):
-        while True: sleep(1)
-
-class Curses(Interface):
-    """ Implémentation d'interface utilisateur basée sur ncurses """
-    def __init__(self, w):
-        super().__init__(w)
-        self.win = curses.initscr()
-        curses.cbreak()
-        curses.noecho()
-        self.win.keypad(True)
-        curses.curs_set(0)
-        self.mv=MapViewer(self.world.currentMap, self.world)
-        self.lastUpdate = 0
-
-    def update(self):
-        if interface and time() - self.lastUpdate > 1/MAXFPS:
-            self.mv.display(self.win)
-            # TODO insérer ici le xml d'interface
-            self.win.addstr(26,0,"Score "+str(self.world.entities[0].score)+'\n')
-            self.win.refresh()
-            self.lastUpdate = time()        
-
-    def end(self):
-        curses.endwin()
-
-    def getEvent(self):
-        return self.win.getch()
-
-class MapViewer:
-    def __init__(self, m, w):
-        self.map = m
-        self.world = w
-        self.cellViews = [CellViewer(c) for c in self.map.cells]
-        
-    def display(self, win):
-        win.clear()
-        # image de fond ici
-        for x in range(self.map.width+3):
-            win.addch(0, x, 35)
-            win.addch(self.map.height+2, x, 35)
-        for y in range(1, self.map.height+2):
-            win.addch(y, 0, 35)
-            win.addch(y, self.map.width+2, 35)
-        #for c in self.cellViews: c.display(win)
-        for ent in self.world.entities:
-            win.addch(ent.y+1, ent.x+1, ent.picture)
-        for ent in self.world.objects:
-            win.addch(ent.y+1, ent.x+1, ent.picture)
-        # TODO gérer plusieurs cartes
-
-class CellViewer:
-    def __init__(self, cell):
-        self.cell = cell
-    
-    def display(self, win):
-        win.addch(self.cell.y+1, self.cell.x+1, self.cell.picture)
-
 parser = ArgumentParser(description="Generic game client.")
-parser.add_argument("-p", "--path", default=PATH, help="Path of the game directory, should contain game.xml."
-"If this argument is not present, const.py will be used.")
-parser.add_argument("-n", "--noui", help="Hide UI for debug purposes", action="store_true")
+parser.add_argument("-p", "--path", default=PATH,
+                    help="Path of the game directory, should contain game.xml."
+                    "If this argument is not present, const.py will be used.")
+
+uimode = parser.add_mutually_exclusive_group()
+uimode.add_argument("-c", "--curses", action="store_true",
+                    help="Use ncurses (requires Unix) instead of PyGame.")
+uimode.add_argument("-g", "--pygame", action="store_true",
+                    help="Use PyGame interface. (default)")
+uimode.add_argument("-n", "--noui", action="store_true",
+                    help="Hide UI for debug purposes")
+
 args = parser.parse_args()
-interface = not args.noui
-cli = Client(args.path).run()
+cli = Client(args.path, interface(args)).run()
+

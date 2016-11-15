@@ -95,7 +95,7 @@ class ServerConnection(Thread):
                 event = msg[3:3+length].decode(CODING)
                 assert ident in BaseObject.ids
                 emitter = BaseObject.ids[ident]
-                if self.entity and self.entity.ident == ident:
+                if self.entity: # TODO and self.entity.ident == ident:
                     self.handle(emitter, event)
                 else:
                     assert event == "acquire"

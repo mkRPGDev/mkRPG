@@ -1,3 +1,4 @@
+from collections import namedtuple
 from enum import IntEnum
 from utils import Timer
 
@@ -5,6 +6,7 @@ from const import *
 
 OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition '
                                  'Move Setobj Watchdog')
+Condition = namedtuple("Condition", "target event once")
 
 class Order:
     """ Représente une modification à apporter au monde """
@@ -93,21 +95,25 @@ class OrderDispatcher:
         if order.type==OrderType.Set:
             target = emitter if order.target=="emitter" else eval(order.target)
             val = target.contextEval(order.value)
-            preval = target.params[order.param]#eval("target."+order.param)
+            preval = target.params[order.param]
             if val!=preval:
-                # FIXME
-                #exec("target."+order.param+"=val")
                 target.params[order.param] = val
                 returnOrder = order.copy()
                 returnOrder.value = str(val)
-                for eventTarget, event, once in target.conditions[order.param][val]:
-                    self.handle(eventTarget, event) # TODO gérér le once
+                for condition in target.conditions[order.param][val]:
+                    self.handle(condition.target, condition.event)
+                # XXX pas fameux
+                target.conditions[order.param][val] = \
+                    list(filter(lambda x:not x.once, target.conditions[order.param][val]))
+                if not target.conditions[order.param][val]:
+                    del target.conditions[order.param][val]
                 return returnOrder
             return None
         if order.type==OrderType.Timer:
             # les Timer transmettent leur contexte
             if emitter:
-                self.timer.add(emitter.contextEval(order.value), self.handle, args=[emitter, order.event])
+                self.timer.add(emitter.contextEval(order.value), self.handle,
+                               args=[emitter, order.event])
             else:
                 self.timer.add(int(order.value), self.handle, args=[emitter, order.event])
             return None
@@ -127,6 +133,7 @@ class OrderDispatcher:
         if order.type==OrderType.Destroy:
             # TODO nécessite de trouver tous les pointeurs ??
             self.world.objects.remove(emitter)
+            self.world.ids.pop(emitter.ident)
             return order
         if order.type==OrderType.Condition:
             if emitter.contextEval(order.value):
@@ -147,7 +154,8 @@ class OrderDispatcher:
             return None
         if order.type==OrderType.Watchdog:
             val = emitter.contextEval(order.value)
-            eval(order.target).conditions[order.param][val].append((emitter, order.event, order.once))
+            conds = eval(order.target).conditions[order.param][val]
+            conds.append(Condition(emitter, order.event, order.once))
             return None
                        
 if __name__=="__main__":

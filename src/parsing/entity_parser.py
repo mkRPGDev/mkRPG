@@ -13,21 +13,11 @@ it always have a picture, its grpahical representation in the GUI client
 
 #-*- coding : utf-8 -*-
 import xml.etree.ElementTree as ET
-import re
 import sys
 
 import parsing_utils
 
-INT = re.compile('[0-9]+$')
-FLOAT = re.compile('[0-9]+[\.,][0-9]$')
 
-def _format_type(string):
-    if re.match(INT, string):
-        return int(string)
-    elif re.match(FLOAT, string) or string == 'inf':
-        return float(string)
-    else:
-        return string
 
 
 def get_characteristics(_characteristics):
@@ -41,7 +31,7 @@ def get_characteristics(_characteristics):
     """
     characteristics = {}
     for _characteristic in _characteristics.getchildren():
-        value = _format_type(_characteristic.text)
+        value = parsing_utils.format_type(_characteristic.text)
         if isinstance(value, int):
             characteristics.update({_characteristic.tag: value})
     return characteristics

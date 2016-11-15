@@ -4,7 +4,7 @@ import sys
 import itertools
 sys.path.append('../../src/parsing/')
 
-import map_parser, entity_parser, world_parser, global_parsing
+import map_parser, entity_parser, world_parser, global_parsing, actions_parser
 
 def formatter(l):
     """ Formats the output, to check tests """
@@ -63,12 +63,30 @@ def test_game_parser():
     data = global_parsing.game_parser("game.xml")
     formatter(data)
 
+def test_actions_parser():
+    print("Testing actions parser")
+    print("Should return 4 actions")
+    data = actions_parser.parse_actions("actions.xml")
+    formatter(data)
+    print("Should fail")
+    data = actions_parser.parse_actions("faulty_actions.xml")
+
+def test_multiple_actions_parser():
+    print("""Testing parser for actions on multiple files.
+It should find an action in multiple files""")
+    data = actions_parser.parse_multiple_files(
+            ["actions.xml",
+             "faulty_multiple_actions.xml"])
+    formatter(data)
+
 if __name__=="__main__":
-    test_map_parser()
-    test_cell_parser()
-    test_entity_parser()
-    test_world_parser()
-    test_check_entity()
-    test_collect_data()
-    test_collect_map_data()
-    test_game_parser()
+#    test_map_parser()
+#    test_cell_parser()
+#    test_entity_parser()
+#    test_world_parser()
+#    test_check_entity()
+#    test_collect_data()
+#    test_collect_map_data()
+#    test_game_parser()
+#    test_actions_parser()
+    test_multiple_actions_parser()

@@ -1,0 +1,9 @@
+<Actions>
+    <Action> <!-- x+=1 -->
+        <Event val="moveright"/>
+        <Order type="set">
+            <param val="x"/>
+            <value val="(self.x + 1)%20"/>
+        </Order>
+    </Action>
+</Actions>

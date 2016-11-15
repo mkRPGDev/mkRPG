@@ -7,7 +7,6 @@ The most important methods are the game_parser one and the save_xml.
 """
 
 import xml.etree.ElementTree as ET
-from os.path import abspath
 import sys
 import map_parser
 import entity_parser

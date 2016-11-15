@@ -5,6 +5,11 @@ It is more a toolbox than anything.
 """
 import sys
 import xml.etree.ElementTree as ET
+import re
+from os.path import abspath
+
+INT = re.compile('[0-9]+$')
+FLOAT = re.compile('[0-9]+[\.,][0-9]$')
 
 def try_open_and_parse(game_xml):
     """
@@ -28,3 +33,11 @@ def try_open_and_parse(game_xml):
 def _fail_not_found(tag):
     print("Tag %s not found" % tag)
     sys.exit(1)
+
+def format_type(string):
+    if re.match(INT, string):
+        return int(string)
+    elif re.match(FLOAT, string) or string == 'inf':
+        return float(string)
+    else:
+        return string

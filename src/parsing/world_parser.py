@@ -6,7 +6,6 @@ to load a game, that is to say the current map, the entities...
 # -*- coding : utf-8 -*-
 
 import xml.etree.ElementTree as ET
-from os.path import abspath
 import sys
 
 import parsing_utils

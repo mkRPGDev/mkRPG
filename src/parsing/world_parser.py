@@ -9,22 +9,14 @@ import xml.etree.ElementTree as ET
 from os.path import abspath
 import sys
 
+import parsing_utils
+
 def parse_world(world_file):
     """ Parses the file describing the world, and returns the adequate
     dictionnaries.
     """
 
-    try:
-        root = ET.parse(world_file)
-    except IOError as _:
-        print("Couldn't find or open file %s. Are you in the good directory ?"
-              % abspath(world_file))
-        sys.exit(1)
-    except ET.ParseError as _:
-        print("Couldn't parse file %s. Are you sure it is true xml?"
-              % abspath(world_file))
-        sys.exit(1)
-
+    root = parsing_utils.try_open_and_parse(world_file)
     # Getting the params and the entities on the map.
     params = root.find('Params')
     entities = root.find('Entities')

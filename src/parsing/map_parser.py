@@ -6,7 +6,7 @@ There should be one map description per xml file.
 # -*- coding : utf-8 -*-
 
 import xml.etree.ElementTree as ET
-
+import parsing_utils
 
 def parse_cell(cell_object):
     """
@@ -48,8 +48,7 @@ def map_parser(map_xml):
     """
     The main parser for the map xml file.
     """
-    parsed = ET.parse(map_xml)
-    root = parsed.getroot()
+    root = parsing_utils.try_open_and_parse(map_xml)
     name = root.attrib['name']
     answer = {}
     map_size = get_size(root.find('Params'))

@@ -16,6 +16,8 @@ import xml.etree.ElementTree as ET
 import re
 import sys
 
+import parsing_utils
+
 INT = re.compile('[0-9]+$')
 FLOAT = re.compile('[0-9]+[\.,][0-9]$')
 
@@ -27,9 +29,6 @@ def _format_type(string):
     else:
         return string
 
-def _fail_not_found(tag):
-    print("Tag %s not found" % tag)
-    sys.exit(1)
 
 def get_characteristics(_characteristics):
     """
@@ -54,20 +53,20 @@ def parse_entity(entity_element):
     name = entity_element.attrib['name']
     if name is None:
         # No name, exit now and alert the user.
-        _fail_not_found("name")
+        parsing_utils._fail_not_found("name")
     answer = {'name': name}
     _position = entity_element.find('Position')
     if _position is not None:
         posx, posy = _position.find('x'), _position.find('y')
         if posx is None or posy is None:
-            _fail_not_found("x or y")
+            parsing_utils._fail_not_found("x or y")
         answer.update({'position':(int(posx.text), int(posy.text))})
     _params = entity_element.find('Params')
     if _params is None:
-        _fail_not_found("Params")
+        parsing_utils._fail_not_found("Params")
     picture = _params.find("Picture")
     if picture is None:
-        _fail_not_found("Picture")
+        parsing_utils._fail_not_found("Picture")
     answer.update({'picture': picture.text})
     _characs = entity_element.find('Characteristics')
     if _characs is not None:
@@ -81,11 +80,7 @@ def get_names(entities):
 def parse_entities(entity_xml):
     """ Parses an entity file, and returns the entities described in the file.
     """
-    parsed = ET.parse(entity_xml)
-    if parsed is None:
-        print("Couldn't load or parse file")
-        sys.exit(1)
-    root = parsed.getroot()
+    root = parsing_utils.try_open_and_parse(entity_xml)
     _entities = root.findall('Entity')
     entities = {}
     for entity in _entities:

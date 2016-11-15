@@ -1,0 +1,245 @@
+\documentclass[a4paper]{report}
+
+\usepackage[margin=1in]{geometry}
+
+%\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\title{\Huge Documentation and tests}
+\author{Jules KOZOLINSKY}
+\date{2/11/16}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+\chapter{Documentation}
+\section{\href{https://www.python.org/dev/peps/pep-0008/}{Convention}}
+This is only a brief summary of the \href{https://www.python.org/dev/peps/pep-0008/}{PEP 8 -- Style Guide for Python Code}.
+\subsection{\href{https://www.python.org/dev/peps/pep-0008/\#code-lay-out}{Code lay-out}}
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#indentation}{Indentation}}
+Use 4 spaces per indentation level. You can convert tabs to (four) spaces in the options of your favorite editor (e.g. for \href{https://www.gnu.org/software/emacs/manual/html_node/emacs/Just-Spaces.html}{Emacs} or \href{http://vim.wikia.com/wiki/Converting_tabs_to_spaces}{Vim})\\
+See "Yes and No" examples in following link : \href{https://www.python.org/dev/peps/pep-0008/\#indentation}{Indentation Rules}
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#maximum-line-length}{Maximum Line Length}}
+Limit all lines to a maximum of 79 characters. For flowing long blocks of text with fewer structural restrictions (docstrings or comments), the line length should be limited to 72 characters. Long lines can be broken over multiple lines by wrapping expressions in parentheses but backslashes may still be appropriate at times.
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#blank-lines}{Blank Lines}}
+Surround top-level function and class definitions with two blank lines.\\
+Method definitions inside a class are surrounded by a single blank line.\\
+Extra blank lines may be used (sparingly) to separate groups of related functions. Blank lines may be omitted between a bunch of related one-liners (e.g. a set of dummy implementations).
+
+\subsection{\href{https://www.python.org/dev/peps/pep-0008/\#whitespace-in-expressions-and-statements}{Whitespace in Expressions and Statements}}
+Avoid extraneous whitespace in the following situations:
+\begin{itemize}
+\item Immediately inside parentheses, brackets or braces.
+\begin{verbatim}
+Yes: spam(ham[1], {eggs: 2})
+No:  spam( ham[ 1 ], { eggs: 2 } )
+\end{verbatim}
+\item Immediately before a comma, semicolon, or colon:
+\begin{verbatim}
+Yes: if x == 4: print x, y; x, y = y, x
+No:  if x == 4 : print x , y ; x , y = y , x
+\end{verbatim}
+\item However, in a slice the colon acts like a binary operator, and should have equal amounts on either side (treating it as the operator with the lowest priority). In an extended slice, both colons must have the same amount of spacing applied. Exception: when a slice parameter is omitted, the space is omitted.
+\begin{verbatim}
+Yes:
+
+ham[1:9], ham[1:9:3], ham[:9:3], ham[1::3], ham[1:9:]
+ham[lower:upper], ham[lower:upper:], ham[lower::step]
+ham[lower+offset : upper+offset]
+ham[: upper_fn(x) : step_fn(x)], ham[:: step_fn(x)]
+ham[lower + offset : upper + offset]
+
+No:
+
+ham[lower + offset:upper + offset]
+ham[1: 9], ham[1 :9], ham[1:9 :3]
+ham[lower : : upper]
+ham[ : upper]
+\end{verbatim}
+\item Immediately before the open parenthesis that starts the argument list of a function call:
+\begin{verbatim}
+Yes: spam(1)
+No:  spam (1)
+\end{verbatim}
+\end{itemize}
+
+\subsection{\href{https://www.python.org/dev/peps/pep-0257/}{Documentation Strings}}
+\label{subsec:docstrings}
+A docstring is a string literal that occurs as the first statement in a module, function, class, or method definition.\\
+All modules should normally have docstrings, and all functions and classes exported by a module should also have docstrings.\\
+There are two forms of docstrings: one-liners and multi-line docstrings.\\
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0257/\#one-line-docstrings}{One-line Docstrings}}
+One-liners are for really obvious cases. They should really fit on one line. For example: 
+\begin{verbatim}
+def kos_root():
+    """Return the pathname of the KOS root directory."""
+    global _kos_root
+    if _kos_root: return _kos_root
+    ...
+\end{verbatim}
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0257/\#multi-line-docstrings}{Multi-line Docstrings}}
+Multi-line docstrings consist of a summary line just like a one-line docstring, followed by a blank line, followed by a more elaborate description. The summary line may be used by automatic indexing tools; it is important that it fits on one line and is separated from the rest of the docstring by a blank line. The summary line may be on the same line as the opening quotes or on the next line. The entire docstring is indented the same as the quotes at its first line (see example below).
+\begin{verbatim}
+def complex(real=0.0, imag=0.0):
+    """Form a complex number.
+
+    Keyword arguments:
+    real -- the real part (default 0.0)
+    imag -- the imaginary part (default 0.0)
+    """
+    if imag == 0.0 and real == 0.0:
+        return complex_zero
+    ...
+\end{verbatim}
+
+\paragraph{Docstring for a function or method} It should summarize its behavior and document its arguments, return value(s), side effects, exceptions raised, and restrictions on when it can be called (all if applicable). Optional arguments should be indicated.
+
+\paragraph{Docstring for a class} It should summarize its behavior and list the public methods and instance variables.
+
+
+\subsection{\href{https://www.python.org/dev/peps/pep-0008/\#naming-conventions}{Naming Conventions}}
+The following naming styles are commonly distinguished:
+\begin{itemize}
+\item \verb| b | (single lowercase letter)
+\item \verb| B | (single uppercase letter)
+\item \verb| lowercase |
+\item \verb| lower_case_with_underscores |
+\item \verb| UPPERCASE |
+\item \verb| UPPER_CASE_WITH_UNDERSCORES |
+\item \verb| CapitalizedWords |(or \verb|CapWords |)
+\item \verb| mixedCase |(differs from \verb|CapitalizedWords| by initial lowercase character!)
+\item \verb| Capitalized_Words_With_Underscores | (ugly!)
+\end{itemize}
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#names-to-avoid}{Names to Avoid}}
+Never use the characters 'l' (lowercase letter el), 'O' (uppercase letter oh), or 'I' (uppercase letter eye) as single character variable names.
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#package-and-module-names}{Package and Module Names}}
+Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability. \\
+Python packages should also have short, all-lowercase names, although the use of underscores is discouraged.
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#class-names}{Class Names}}
+Class names should normally use the CapWords convention.
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#type-variable-names}{Type variable names}}
+Names of type variables introduced in \href{https://www.python.org/dev/peps/pep-0484/}{PEP 484} should normally use CapWords preferring short names: \verb| T , AnyStr , Num|
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#exception-names}{Exception Names}}
+Because exceptions should be classes, the class naming convention applies here. However, you should use the suffix "Error" on your exception names (if the exception actually is an error).
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#global-variable-names}{Global Variable Names and Functions}}
+Function names and global variable names should be lowercase, with words separated by underscores as necessary to improve readability.
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#function-and-method-arguments}{Function and method arguments}}
+Always use \verb|self| for the first argument to instance methods.\\
+Always use \verb|cls| for the first argument to class methods.
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#method-names-and-instance-variables}{Method Names and Instance Variables}}
+Use the function naming rules: lowercase with words separated by underscores as necessary to improve readability.\\
+Use one leading underscore only for non-public methods and instance variables.
+
+\subsubsection{\href{https://www.python.org/dev/peps/pep-0008/\#constants}{Constants}}
+Constants are usually defined on a module level and written in all capital letters with underscores separating words. Examples include \verb|MAX_OVERFLOW| and \verb|TOTAL| .
+
+
+\subsection{Enforce type annotations on public methods}
+%TODO
+
+\section{\href{http://www.stack.nl/~dimitri/doxygen/manual/index.html}{Doxygen}}
+\begin{large}
+Automatically done with Travis, you don't need to read this in detail.\\
+\end{large}
+Doxygen is a standard tool for generating documentation from \textbf{annotated} Python sources.\\
+It can generate an on-line documentation browser in HTML and an off-line reference manual in $\mbox{\LaTeX}$ from a set of documented source files. \\
+Doxygen is developed under Mac OS X and Linux, but is set-up to be highly portable. As a result, it runs on most other Unix flavors as well. Furthermore, executables for Windows are available.
+
+\subsection{\href{http://www.stack.nl/~dimitri/doxygen/manual/install.html}{Installation}\\}
+Usefull informations in following link  : \href{http://www.stack.nl/~dimitri/doxygen/manual/install.html}{\textit{Installation procedure for Linux and Windows}}. (I use \textit{homebrew} for MacOS)
+
+\subsection{\href{http://www.stack.nl/~dimitri/doxygen/manual/docblocks.html\#pythonblocks}{Documenting the code}\\}
+Please use docstrings (""") to comment all of your files, fonctions, classes and methods. (See subsection \ref{subsec:docstrings} about docstrings conventions).  Comments with \# will not appear in the documentation. \\ 
+For example : \\
+\lstinputlisting[language=Python]{doxytest.py}
+
+\subsection{\href{http://www.stack.nl/~dimitri/doxygen/manual/starting.html}{Compile and create the documentation}\\}
+The first time you use Doxygen, you have to create a configuration file : 
+\begin{verbatim}
+doxygen -g
+\end{verbatim}
+To run doxygen, you simply have to execute : 
+\begin{verbatim}
+doxygen Doxyfile
+\end{verbatim}
+
+\subsection{Read the documentation\\}
+You can either compile the $\mbox{\LaTeX}$ documentation (using the Makefile in the \emph{latex} folder) or use the on-line HTML documentation (open \emph{index.html})
+
+\subsection{Edit the \emph{.gitignore} file}
+Add the following lines to the \emph{.gitignore} file : 
+\begin{verbatim}
+/latex
+/html
+Doxyfile
+\end{verbatim}
+
+
+
+\chapter{Tests}
+\section{Testing Tools}
+\subsection{Static Analysis with Pylint}
+(\href{https://security.web.cern.ch/security/recommendations/fr/code_tools.shtml}{Outil recommandé par le CERN})\\
+\href{https://www.pylint.org}{Pylint} is a tool that checks for errors in Python code, tries to enforce a coding standard and looks for bad code smells. This is similar but nevertheless different from what pychecker provides, especially since pychecker explicitly does not bother with coding style. Pylint will display a number of messages as it analyzes the code, as well as some statistics about the number of warnings and errors found in different files. The messages are classified under various categories such as errors and warnings.
+
+	
+\subsection{Design by Contracts with PyContracts}
+A permanent change to Python to support Design by Contracts was proposed in \href{https://www.python.org/dev/peps/pep-0316/}{PEP-316}, but deferred.\\
+
+Programming contracts extends the language to include invariant expressions for classes and modules, and pre- and post-condition expressions for functions and methods.\\
+These expressions (contracts) are similar to assertions: they must be true or the program is stopped, and run-time checking of the contracts is typically only enabled while debugging. Contracts are higher-level than straight assertions and are typically included in documentation.\\
+
+Use \href{https://andreacensi.github.io/contracts/}{\textbf{PyContracts}}.
+
+
+\subsection{Unit testing infrastructure with unittest}
+\href{https://wiki.python.org/moin/PythonTestingToolsTaxonomy}{Recommandation}\\
+\href{https://docs.python.org/3/library/development.html}{Development Tools of the Python Standard Library}
+\begin{itemize}
+\item doctest — Test interactive Python examples
+\item  unittest — Unit testing framework
+\item unittest.mock — mock object library
+\end{itemize}
+
+\subsection{Fuzz Testing with Hypothesis}
+Fuzz testing or fuzzing is a software testing technique, often automated or semi-automated, that involves providing invalid, unexpected, or random data to the inputs of a computer program. The program is then monitored for exceptions such as crashes, or failing built-in code assertions or for finding potential memory leaks. Fuzzing is a form of random testing commonly used to test for security problems in software or computer systems.\\
+Use \href{https://hypothesis.readthedocs.io/en/latest/}{Hypothesis}.
+
+\subsection{Code Coverage Tool with Coverage.py}
+\href{http://coverage.readthedocs.io/en/latest/}{Coverage.py} is a tool for measuring code coverage of Python programs. It monitors your program, noting which parts of the code have been executed, then analyzes the source to identify code that could have been executed but was not.
+
+\subsection{Stress}
+\begin{itemize}
+\item Flood a server with requests
+\item Execution with constrained resources (memory, disk)   
+\item Create latency (network)%
+\end{itemize}
+
+\subsection{GUI Testing Tools}
+\href{http://texttest.sourceforge.net/index.php?page=ui_testing}{TestText}
+
+\section{Procédures facilitant les test}
+\subsection{Hooks on commit}
+Les hooks permettent de lancer automatiquement ma suite de tests avant de commiter. 
+
+\subsection{Continuous integration}
+Jenkins, Travis CI
+
+
+\chapter*{References}
+\href{https://www.python.org/dev/peps/pep-0008/}{PEP-0008}\\
+\href{https://www.python.org/dev/peps/pep-0257/}{PEP-0257}
+
+	
+\end{document}

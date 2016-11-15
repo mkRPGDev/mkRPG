@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import itertools
+import xml.etree.ElementTree as ET
+
 sys.path.append('../../src/parsing/')
 
 import map_parser, entity_parser, world_parser, global_parsing, actions_parser
+import interactions_parser
 
 def formatter(l):
     """ Formats the output, to check tests """
@@ -79,6 +81,24 @@ It should find an action in multiple files""")
              "faulty_multiple_actions.xml"])
     formatter(data)
 
+def test_interaction_parser():
+    print("Testing the interaction parser for one interaction tag")
+    tag = ET.parse("interactions.xml").getroot().find('Interaction')
+    data = interactions_parser.interaction_parser(tag)
+    formatter(data)
+
+def test_file_interaction_parser():
+    print("Testing a whole file interaction parser")
+    data = interactions_parser.interactions_parser('interactions.xml')
+    formatter(data)
+
+def test_files_interaction_parser():
+    print("Testing a multiple files interaction parser")
+    data = interactions_parser.interactions_files_parser(['interactions.xml',
+        'interactions2.xml'])
+    formatter(data)
+
+
 if __name__=="__main__":
 #    test_map_parser()
 #    test_cell_parser()
@@ -89,4 +109,7 @@ if __name__=="__main__":
 #    test_collect_map_data()
 #    test_game_parser()
 #    test_actions_parser()
-    test_multiple_actions_parser()
+#    test_multiple_actions_parser()
+    test_interaction_parser()
+    test_file_interaction_parser()
+    test_files_interaction_parser()

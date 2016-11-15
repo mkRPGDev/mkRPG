@@ -1,0 +1,22 @@
+<Interactions>
+    <Interaction>
+        <key val="258"/> <!-- curses.key_bot -->
+        <target val="perso"/>
+        <event val="moveup"/>
+    </Interaction>
+    <Interaction>
+        <key val="262"/> <!-- curses.key_up -->
+        <target val="perso"/>
+        <event val="movedown"/>
+    </Interaction>
+    <Interaction>
+        <key val="263"/> <!-- curses.key_left -->
+        <target val="perso"/>
+        <event val="moveleft"/>
+    </Interaction>
+    <Interaction>
+        <key val="264"/> <!-- curses.key_right -->
+        <target val="perso"/>
+        <event val="moveright"/>
+    </Interaction>
+</Interactions>

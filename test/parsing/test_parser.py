@@ -135,7 +135,7 @@ if __name__=="__main__":
 #    test_collect_data()
 #    test_collect_map_data()
 #    test_game_parser()
-#    test_actions_parser()
+    test_actions_parser()
 #    test_multiple_actions_parser()
 #    test_interaction_parser()
 #    test_file_interaction_parser()

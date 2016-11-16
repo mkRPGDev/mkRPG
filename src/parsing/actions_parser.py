@@ -8,6 +8,21 @@ import xml.etree.ElementTree as ET
 import sys
 import parsing_utils
 
+def get_tag(order_tag, tag, optionnal=False):
+    """Gets the value of an argument. If optionnal is set to True, it returns
+    None if nothing is found, it will stop the game else.
+    """
+    _tag = order_tag.find(tag)
+    if _tag is None:
+        if not optionnal:
+            parsing_utils._fail_not_found(tag)
+        else:
+            return None
+    if _tag.attrib.get("val") is None:
+        print("Tag %s found, but val not found." % tag)
+        sys.exit(1)
+    return _tag.attrib.get("val")
+
 def parse_order(order_tag):
     """ Parses an order tag. Returns the type of order, and the code to run."""
     res = {}
@@ -16,25 +31,12 @@ def parse_order(order_tag):
         parsing_utils._fail_not_found("Type in order tag")
     res.update({"type": type_order})
 
-    # Gets the target of the order.
-    _target = order_tag.find("target")
-    # Gets the params affected by the order.
-    _param = order_tag.find('param')
-    # Gets the code to run in in order to execute the order.
-    _value = order_tag.find('value')
-
-    if _target is None:
-        parsing_utils._fail_not_found("target")
-    if _param is None:
-        parsing_utils._fail_not_found("param")
-    if _value is None:
-        parsing_utils._fail_not_found("value")
-    # Gets the effective values of the former fields.
-    res.update({
-        "target": _target.attrib.get("val"),
-        "param": _param.attrib.get("val"),
-        "value": _value.attrib.get("val"),
-        })
+    for tag in ["target", "param", "value"]:
+        value = get_tag(order_tag, tag)
+        res.update({tag: value})
+    value = get_tag(order_tag, "event", optionnal=True)
+    if value:
+        res.update({"event": value})
     return res
 
 

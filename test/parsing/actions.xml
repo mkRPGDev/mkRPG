@@ -31,4 +31,13 @@
             <value val="(self.y - 1)%20"/>
         </Order>
     </Action>
+    <Action> <!-- hp-=1 -->
+        <Event val="remove_hp"/>
+        <Order type="set">
+            <target val="enemy"/>
+            <param val="hp"/>
+            <value val="(self.hp - 1)"/>
+            <event val="movedown"/>
+        </Order>
+    </Action>
 </Actions>

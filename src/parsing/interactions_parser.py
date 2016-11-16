@@ -73,12 +73,7 @@ def get_all_actions(interactions):
     No sanity check is done here, since interactions should be
     well-formed when it arrives here.
     """
-    # interactions is a dictionnary {keycode: {target;__, event:__ } . We would
-    # like to get only the events list.
-    res = set()
-    for key in interactions:
-        res.add(interactions[key]['event'])
-    return res
+    return parsing_utils.collect_data('event', interactions)
 
 def check_actions(interactions, actions):
     """Checks if all actions called by an interaction exist."""

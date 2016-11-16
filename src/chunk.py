@@ -10,13 +10,14 @@ import utils
 
 class Chunk(pygame.sprite.Sprite):
 
-    def __init__(self, index, cells, scale=1):
+    def __init__(self, index, cells, map_gsize, scale=1):
         pygame.sprite.Sprite.__init__(self)
         self.index = index
         self.cells = cells
 
         self.g_width = len(self.cells[0])
         self.g_height = len(self.cells)
+        self.g_map_width, self.g_map_height = map_size
         self.scale = scale
 
         self.init_chunk()

@@ -46,7 +46,8 @@ class MapViewer(pygame.sprite.Group):
                                 (line+1)*const.CHUNK_GRID_HEIGHT,
                                 col*const.CHUNK_GRID_WIDTH,
                                 (col+1)*const.CHUNK_GRID_WIDTH)
-                chunks.append(((line, col), cells))
+                chunks.append(((line, col), cells,
+                              (self.cm_width,self.cm_height)))
                 col += 1
             if col*const.CHUNK_GRID_WIDTH < map_width:
                 cells = sublist(bg,
@@ -54,7 +55,8 @@ class MapViewer(pygame.sprite.Group):
                                 (line+1)*const.CHUNK_GRID_HEIGHT,
                                 col*const.CHUNK_GRID_WIDTH,
                                 map_width)
-                chunks.append(((line,col), cells))
+                chunks.append(((line,col), cells,
+                              (self.cm_width,self.cm_height)))
             line += 1
             col = 0
 

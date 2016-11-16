@@ -55,16 +55,9 @@ def interactions_files_parser(interactions_files):
     described in these files. It provides some safety, since it checks that
     every keycode is used at most once.
     """
-    assert interactions_files
-    all_interactions = {}
-    for interactions_file in interactions_files:
-        new_interactions = interactions_parser(interactions_file)
-        for key in new_interactions.keys():
-            if all_interactions.get(key) is not None:
-                print("Interction %s was found in multiple files" % key)
-            else:
-                all_interactions.update({key: new_interactions[key]})
-    return all_interactions
+    data = parsing_utils.parse_multiple_files(interactions_files,
+                                              interactions_parser)
+    return data
 
 def get_all_actions(interactions):
     """Returns a list with all action names defined in ```interaction```.

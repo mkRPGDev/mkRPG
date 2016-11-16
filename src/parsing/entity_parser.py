@@ -75,6 +75,13 @@ def parse_entities(entity_xml):
         entities.update({entity.attrib['name']: parse_entity(entity)})
     return entities
 
+def parse_multiple_entities(entities_list):
+    """ Parses a list of entities, and return the dictionary of all data,
+    without redundancy.
+    """
+    data = parsing_utils.parse_multiple_files(entities_list, parse_entities)
+    return data
+
 def check_entity(entities_found, entities_listed):
     """Checks if all entities found in files world.xml, and cell.xml and others
     are present in entites tagged files.

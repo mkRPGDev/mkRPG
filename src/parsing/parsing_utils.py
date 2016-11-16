@@ -55,3 +55,18 @@ def collect_data(key, *args):
                 for sub_key in arg:
                     collection |= collect_data(key, arg[sub_key])
     return collection
+
+def parse_multiple_files(files_list, parsing_method):
+    """Parses the given file lists, and returns the dictionary containing the
+    whole data parsed by the parsing_method function.
+    """
+    assert files_list
+    all_data = {}
+    for data_file in files_list:
+        new_data = parsing_method(data_file)
+        for key in new_data.keys():
+            if all_data.get(key) is not None:
+                print("Data %s was found in multiple files" % key)
+            else:
+                all_data.update({key: new_data[key]})
+    return all_data

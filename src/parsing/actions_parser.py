@@ -77,17 +77,8 @@ def parse_multiple_files(actions_files):
     """Parses multiple files. Broadly speaking, it parses sequentially all
     files, and concatenates all answers.
     """
-
-    assert actions_files
-    all_actions = {}
-    for actions_file in actions_files:
-        new_actions = parse_actions(actions_file)
-        for key in new_actions.keys():
-            if all_actions.get(key) is not None:
-                print("Action %s was found in multiple files" % key)
-            else:
-                all_actions.update({key: new_actions[key]})
-    return all_actions
+    data = parsing_utils.parse_multiple_files(actions_files, parse_actions)
+    return data
 
 
 def get_all_names(actions):

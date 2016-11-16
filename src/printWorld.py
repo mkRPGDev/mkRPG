@@ -60,11 +60,6 @@ class WorldViewer(Interface):
 
         offsetx, offsety = self.current_map.chunk_pos
 
-        if self.current_map.current_chunk[0] > 0:
-            offsetx = const.CHUNK_WIDTH
-        if self.current_map.current_chunk[1] > 0:
-            offsety += const.CHUNK_WIDTH
-
         res.blit(image, (offsetx, offsety))
         for character in self.characters.values():
             char_offset = (self.current_map.pos_offset[0]+character.pos_offset[0],

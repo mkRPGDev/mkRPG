@@ -8,7 +8,7 @@ import utils
 from math import pi
 
 class Layer(pygame.sprite.Sprite):
-    
+
     def __init__(self, size, scale=1):
         pygame.sprite.Sprite.__init__(self)
         self.cells = []
@@ -16,25 +16,25 @@ class Layer(pygame.sprite.Sprite):
         self.g_width = 0
         self.g_height = 0
         self.size = size
-    
+
     def render(self, surf):
         return self.sprites
-    
+
     def update(self):
         pass
-        
+
     def get_cell_pos(self, c_line, c_col, size_image):
         #if c_line%2 == 0:
-        #    pos = (int((const.CELL_WIDTH*c_col-size_image[0]+const.CELL_WIDTH)*self.scale), 
+        #    pos = (int((const.CELL_WIDTH*c_col-size_image[0]+const.CELL_WIDTH)*self.scale),
         #           int((const.CELL_HEIGHT/2*c_line-size_image[1]+const.CELL_HEIGHT)*self.scale))
         #else:
-        #    pos = (int(((1+2*c_col)*const.CELL_WIDTH/2-size_image[0]+const.CELL_WIDTH)*self.scale), 
+        #    pos = (int(((1+2*c_col)*const.CELL_WIDTH/2-size_image[0]+const.CELL_WIDTH)*self.scale),
         #           int((const.CELL_HEIGHT/2*c_line-size_image[1]+const.CELL_HEIGHT)*self.scale))
         #return pos
         (a,b) = utils.cell_to_point(c_line, c_col, const.CHUNK_GRID_WIDTH, const.CHUNK_GRID_HEIGHT,
                                     const.CELL_WIDTH, const.ANGLE_X_R, const.ANGLE_Y_R)
         return (int(a+.5),int(b+.5))
-    
+
     def make_grid(self, img_set, cell_ids):
         res = pygame.Surface(self.size, pygame.SRCALPHA)
         res.convert_alpha()
@@ -44,7 +44,7 @@ class Layer(pygame.sprite.Sprite):
                     cell_image = ImageCache.get_image(img_set[cell_ids[c_line][c_col]], self.scale)
                     size_image = cell_image.get_size()
                     pos = self.get_cell_pos(c_line, c_col, size_image)
-                    pygame.draw.polygon(res, 0xffffff00,
+                    pygame.draw.polygon(res, (255,255,255,255),
                                         [utils.cell_to_point(c_line,c_col,self.g_width,self.g_height,const.CELL_WIDTH,const.ANGLE_X_R,const.ANGLE_Y_R),
                                          utils.cell_to_point(c_line+1,c_col,self.g_width,self.g_height,const.CELL_WIDTH,const.ANGLE_X_R,const.ANGLE_Y_R),
                                          utils.cell_to_point(c_line+1,c_col+1,self.g_width,self.g_height,const.CELL_WIDTH,const.ANGLE_X_R,const.ANGLE_Y_R),
@@ -52,7 +52,7 @@ class Layer(pygame.sprite.Sprite):
                                         1)
                     #res.blit(cell_image, pos) #L'image doit être adaptée !
         return res
-    
+
     def update_cell(self, c_line, c_col, new_line, new_col):
         if self.cells[c_line][c_col] is None:
             self.cells[c_line][c_col] = Cell((new_line, new_col), self.img_set, self.cell_ids[new_line][new_col], self.scale)
@@ -64,7 +64,7 @@ class Layer(pygame.sprite.Sprite):
             self.cells[c_line][c_col].default = self.cell_ids[new_line][new_col]
             self.cells[c_line][c_col].index = (new_line, new_col)
             self.cells[c_line][c_col].update_image(self.scale)
-    
+
     def update_grid(self):
         print(self.left_lim_y, self.left_lim_x, "UPDATE")
         line = self.left_lim_y
@@ -75,6 +75,6 @@ class Layer(pygame.sprite.Sprite):
                 col += 1
             col = self.left_lim_x
             line += 1
-                
+
     def zoom(self, dz):
         pass

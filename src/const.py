@@ -20,8 +20,8 @@ ANGLE_Y_R = deg_to_rad(ANGLE_Y+900)
 # Angles en radian
 
 
-CHUNK_GRID_WIDTH = 50
-CHUNK_GRID_HEIGHT = 25
+CHUNK_GRID_WIDTH = 5
+CHUNK_GRID_HEIGHT = 5
 
 import utils
 CHUNK_WIDTH = int(utils.cell_to_point(CHUNK_GRID_WIDTH,0,

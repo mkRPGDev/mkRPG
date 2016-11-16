@@ -9,6 +9,7 @@ import configparser
 from const import *
 from interactions import registerInteractions, InteractionType
 from orders import OrderDispatcher
+from cache import ChunkCache
 
 if USETCP:
     from network import NetworkClient

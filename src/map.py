@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-from pygame.locals import MOUSEBUTTONUP
+from pygame.locals import MOUSEBUTTONUP, Rect
 
 import struct
 
@@ -21,14 +21,17 @@ class MapViewer(pygame.sprite.Group):
 
         self.cm_width, self.cm_height = self.load_chunks(self.map)
         self.width = int(currentMap.width*const.CELL_WIDTH*self.scale)
-        self.height = int((currentMap.height+2)*const.CELL_HEIGHT/2*self.scale)
+        self.height = int((currentMap.height+2)*const.CELL_WIDTH/2*self.scale)
+        self.screen_cgwidth = const.SCREEN_WIDTH//const.CHUNK_WIDTH + 3
+        self.screen_cgheight = const.SCREEN_HEIGHT//const.CHUNK_HEIGHT + 3
         self.walkablesGraph = self.make_walkables(self.map)
-        print(currentMap.width, const.CELL_WIDTH, self.width)
-        print(currentMap.height, const.CELL_HEIGHT, self.height)
 
-        self.current_chunk = (0,0)
+        self.last_curr_chunk = (-1,-1)
+        self.current_chunk = (self.cm_height-1,0)
         self.pos_offset = (0,0)
         self.chunk_pos = (0,0)
+
+        self.update()
 
     def load_chunks(self, bg):
         line = 0
@@ -61,7 +64,6 @@ class MapViewer(pygame.sprite.Group):
             col = 0
 
         if line*const.CHUNK_GRID_HEIGHT < map_height:
-            print(col)
             while (col+1)*const.CHUNK_GRID_WIDTH <= map_width:
                 cells = sublist(bg,
                                 line*const.CHUNK_GRID_HEIGHT,
@@ -105,75 +107,93 @@ class MapViewer(pygame.sprite.Group):
         else:
            new_pos_y = self.pos_offset[1]
 
-        self.current_chunk = (max(-new_pos_y//(const.CHUNK_HEIGHT*self.scale),0),
+        self.current_chunk = (max(self.cm_height-1+\
+                              new_pos_y//(const.CHUNK_HEIGHT*self.scale),0),
                               max(-new_pos_x//(const.CHUNK_WIDTH*self.scale),0))
 
-        self.pos_offset = (new_pos_x, new_pos_y)
-        self.chunk_pos = (-(-new_pos_x%const.CHUNK_WIDTH),
-                          -(-new_pos_y%const.CHUNK_HEIGHT))
-        print(self.pos_offset, self.chunk_pos)
+        self.pos_offset = (new_pos_x,new_pos_y)
+        self.chunk_pos = (0,0)
 
     def render(self):
-        sprites = self.sprites()
-        rect = sprites[0].rect
-        size = (3*const.CHUNK_WIDTH,
-                3*const.CHUNK_HEIGHT)
+        rect = Rect((0,0),(0,0))
+        rect = rect.unionall([chunk.rect for chunk in self.sprites()])
+        size = rect.size
 
         res = pygame.Surface(size)
         res.convert_alpha()
         res.fill((0,0,0))
-        offsetx,offsety = (self.current_chunk[0]*const.CHUNK_WIDTH*self.scale,
-                           self.current_chunk[1]*const.CHUNK_HEIGHT*self.scale)
-
-        for sprite in self.sprites():
-            sprite.render()
-            sprite.rect.move((-offsetx, -offsety))
-
+        pygame.draw.rect(res, (255,255,255,255), Rect((0,0), size),10)
 
         self.draw(res)
 
-        for sprite in self.sprites():
-            sprite.rect.move((offsetx, offsety))
-
-        print(self.current_chunk)
-
-        return res
-
-    def neighbors_chunk(self, chunk):
-        """ Returns indexes of the neighbors of chunk and index of chunk """
-        res = []
-        for i in range(-1,2):
-           for j in range(-1,2):
-               line = chunk[0]+i
-               col = chunk[1]+j
-               if line >= 0 and line < self.cm_height:
-                   if col >= 0 and col < self.cm_width:
-                       res.append((line,col))
         return res
 
     def onscreen_chunks(self):
-        return [index for index in self.neighbors_chunk(self.current_chunk)]
+        res = []
+        for i in range(-1,self.screen_cgwidth):
+            if self.current_chunk[0]-i >= 0 and\
+               self.current_chunk[0]-i < self.cm_height:
+                for j in range(-1,self.screen_cgheight):
+                    if self.current_chunk[1]+j < self.cm_width and\
+                       self.current_chunk[1]+j >= 0:
+                        res.append((self.current_chunk[0]-i,
+                                   self.current_chunk[1]+j))
+        return res
 
     def update(self):
-        self.empty()
         mouse_pos = pygame.mouse.get_pos()
         rel_m_pos = (mouse_pos[0]-self.pos_offset[0],
                      mouse_pos[1]-self.pos_offset[1])
-        rect_arr = []
-        for line,col in self.onscreen_chunks():
-            chunk = ChunkCache.get_chunk((line,col), self.scale)
 
+        rect_arr = self.update_chunks()
+
+        for chunk in self.sprites():
             if chunk.rect.collidepoint(rel_m_pos):
                 m_pos_upd = rel_m_pos
             else:
                 m_pos_upd = None
 
-            self.chunks_state[line][col], rects = chunk.update(self.chunks_state[line][col], m_pos_upd)
+            line,col = chunk.index
+            self.chunks_state[line][col], rects = chunk.update(
+                                                self.chunks_state[line][col],
+                                                m_pos_upd)
             rect_arr = merge_rect_lists(rect_arr, rects)
-            self.add(chunk)
-        for i in range(len(rect_arr)):
-            rect_arr[i] = rect_arr[i].move(self.pos_offset)
-        return rect_arr
+
+    def update_chunks(self):
+        if self.last_curr_chunk != self.current_chunk:
+            self.empty()
+            self.last_curr_chunk = self.current_chunk
+
+            rect_arr = []
+
+            pos_offsetx,pos_offsety = ChunkCache.get_chunk(self.current_chunk,
+                                                           self.scale).pos
+            pos_offsetx *= -1
+            pos_offsety *= -1
+
+            curr_line,curr_col = self.current_chunk
+            if curr_line < self.cm_height-1:
+                pos_offsety += const.CHUNK_HEIGHT
+            if curr_col > 0:
+                pos_offsetx += const.CHUNK_WIDTH
+
+            for line,col in self.onscreen_chunks():
+                chunk = ChunkCache.get_chunk((line,col), self.scale)
+                chunk.rect = chunk.base_rect.move(pos_offsetx,pos_offsety)
+                self.add(chunk)
+
+            for i in range(len(rect_arr)):
+                rect_arr[i] = rect_arr[i].move(self.pos_offset)
+
+            print("Current chunk",self.current_chunk)
+            print("Offset", pos_offsetx, pos_offsety)
+            print("Screen chunks")
+            for chunk in self.sprites():
+                print(chunk.index,":", str(chunk.rect), str(chunk.base_rect))
+
+            return rect_arr
+        else:
+            return []
 
     def propagate_trigger(self, event):
         if event.type == MOUSEBUTTONUP and event.button == 1:

@@ -51,12 +51,11 @@ class Chunk(pygame.sprite.Sprite):
         #            self.index[0]*const.CHUNK_HEIGHT*self.scale)
         self.pos = (int(x_min),int(y_min))
         print(self.pos, self.width, self.height)
-        self.rect = Rect(self.pos, (self.width, self.height))
+        self.base_rect = Rect(self.pos, (self.width, self.height))
 
         self.layers = [BackgroundLayer(self.cells, (self.width, self.height),
                                        self.scale)]
         self.image = self.layers[0].image
-        self.rect = self.layers[0].rect.move(self.pos)
 
     def render(self):
         pass

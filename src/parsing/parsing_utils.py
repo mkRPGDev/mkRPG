@@ -41,3 +41,17 @@ def format_type(string):
         return float(string)
     else:
         return string
+
+def collect_data(key, *args):
+    """ Collects all items corresponding to key argument in *args.  It realizes
+    a depth-first travel of the dictionary, calling itself recursively on the
+    structures."""
+    collection = set()
+    if args:
+        for arg in args:
+            if key in arg:
+                collection.add(arg[key])
+            elif isinstance(arg, dict):
+                for sub_key in arg:
+                    collection |= collect_data(key, arg[sub_key])
+    return collection

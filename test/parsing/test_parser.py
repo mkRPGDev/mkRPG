@@ -115,7 +115,16 @@ def test_check_actions():
     else:
         print("Test failed")
 
-
+def test_check_files():
+    print("Testing check_file function, a file presence safety check")
+    if global_parsing.check_files(*["interactions.xml", "game.xml"], *["entities/entity.xml"]):
+        print("Test 1 : All files presents -> Passed")
+    else:
+        print("Test 1 : All files presents -> Not Passed !")
+    if not global_parsing.check_files("interactions.xml", "game_bis.xml", "entities/entity.xml"):
+        print("Test 2 : Files are missing -> Passed")
+    else:
+        print("Test 2 : Files are missing  -> Not Passed !")
 
 if __name__=="__main__":
 #    test_map_parser()
@@ -132,4 +141,5 @@ if __name__=="__main__":
 #    test_file_interaction_parser()
 #    test_files_interaction_parser()
 #    test_get_all_actions()
-    test_check_actions()
+#    test_check_actions()
+    test_check_files()

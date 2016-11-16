@@ -21,7 +21,6 @@ class World : public GameObject
 public:
     World(Game *g, GameObject *aParent);
     ObjectListD(m,M,ap,,s, Map) /**< Set of maps*/
-    //ObjectsMap(w,c,C,ellType,,s) /**< Set of cell types*/
     ObjectListD(o,O,bject,,s, Object)
     ObjectListD(c,C,ellType,,s, CellType)
 

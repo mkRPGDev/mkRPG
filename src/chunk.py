@@ -6,6 +6,7 @@ from pygame.locals import Rect
 from backgroundLayer import BackgroundLayer
 
 import const
+import utils
 
 class Chunk(pygame.sprite.Sprite):
 
@@ -21,10 +22,34 @@ class Chunk(pygame.sprite.Sprite):
         self.init_chunk()
 
     def init_chunk(self):
-        self.width = int((2*self.g_width+1)*const.CELL_WIDTH/2*self.scale)
-        self.height = int((self.g_height+2)*const.CELL_HEIGHT/2*self.scale)
-        self.pos = (self.index[1]*const.CHUNK_WIDTH*self.scale,
-                    self.index[0]*const.CHUNK_HEIGHT*self.scale)
+        # Pas de scale... La taille de chaque chunk est définie par le nb de
+        # cellules dans chaque chunk.
+        print(self.g_width, self.g_height, self.index)
+        x_min = utils.cell_to_point(self.index[1]*const.CHUNK_GRID_WIDTH,
+                                    (self.index[0]+1)*const.CHUNK_GRID_HEIGHT,
+                                    self.g_width,self.g_height,const.CELL_WIDTH,
+                                    const.ANGLE_X_R, const.ANGLE_Y_R)[0]
+        x_max = utils.cell_to_point((self.index[1]+1)*const.CHUNK_GRID_WIDTH,
+                                    self.index[0]*const.CHUNK_GRID_HEIGHT,
+                                    self.g_width,self.g_height,const.CELL_WIDTH,
+                                    const.ANGLE_X_R, const.ANGLE_Y_R)[0]
+        y_min = utils.cell_to_point((self.index[1]+1)*const.CHUNK_GRID_WIDTH,
+                                    (self.index[0]+1)*const.CHUNK_GRID_HEIGHT,
+                                    self.g_width,self.g_height,const.CELL_WIDTH,
+                                    const.ANGLE_X_R, const.ANGLE_Y_R)[1]
+        y_max = utils.cell_to_point(self.index[1]*const.CHUNK_GRID_WIDTH,
+                                    self.index[0]*const.CHUNK_GRID_HEIGHT,
+                                    self.g_width,self.g_height,const.CELL_WIDTH,
+                                    const.ANGLE_X_R, const.ANGLE_Y_R)[1]
+        self.width = int(x_max-x_min)
+        self.height = int(y_max-y_min)
+        print("---- ICI ----")
+        print(x_min,x_max,y_min,y_max)
+        print(self.width, self.height)
+        # Curieux.
+        #self.pos = (self.index[1]*const.CHUNK_WIDTH*self.scale,
+        #            self.index[0]*const.CHUNK_HEIGHT*self.scale)
+        self.pos = (int(x_min),int(y_min))
         self.rect = Rect(self.pos, (self.width, self.height))
 
         self.layers = [BackgroundLayer(self.cells, (self.width, self.height),

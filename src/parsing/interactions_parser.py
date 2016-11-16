@@ -7,6 +7,7 @@ these interactions.
 import xml.etree.ElementTree as ET
 import sys
 import parsing_utils
+import actions_parser
 
 def interaction_parser(interaction_tag):
     """Parses one interaction tag. An interaction tag is very simple, it
@@ -64,3 +65,24 @@ def interactions_files_parser(interactions_files):
             else:
                 all_interactions.update({key: new_interactions[key]})
     return all_interactions
+
+def get_all_actions(interactions):
+    """Returns a list with all action names defined in ```interaction```.
+    It is useful in order to check that no action called in an Action
+    tagged file is never called by an interaction.
+    No sanity check is done here, since interactions should be
+    well-formed when it arrives here.
+    """
+    # interactions is a dictionnary {keycode: {target;__, event:__ } . We would
+    # like to get only the events list.
+    res = set()
+    for key in interactions:
+        res.add(interactions[key]['event'])
+    return res
+
+def check_actions(interactions, actions):
+    """Checks if all actions called by an interaction exist."""
+
+    interaction_names = get_all_actions(interactions)
+    action_names = actions_parser.get_all_names(actions)
+    return (interaction_names <= action_names)

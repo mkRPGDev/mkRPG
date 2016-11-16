@@ -98,6 +98,24 @@ def test_files_interaction_parser():
         'interactions2.xml'])
     formatter(data)
 
+def test_get_all_actions():
+    print("Testing events names getter")
+    dictionary = interactions_parser.interactions_parser('interactions.xml')
+    if interactions_parser.get_all_actions(dictionary) == set(["moveup", "movedown", "moveright", "moveleft"]):
+        print("Ok, test passed")
+    else:
+        print("Test failed")
+
+def test_check_actions():
+    print("Testing check_actions function, actions safety check.")
+    interactions = interactions_parser.interactions_parser("interactions.xml")
+    actions = actions_parser.parse_actions("actions.xml")
+    if interactions_parser.check_actions(interactions, actions):
+        print("Test passed")
+    else:
+        print("Test failed")
+
+
 
 if __name__=="__main__":
 #    test_map_parser()
@@ -110,6 +128,8 @@ if __name__=="__main__":
 #    test_game_parser()
 #    test_actions_parser()
 #    test_multiple_actions_parser()
-    test_interaction_parser()
-    test_file_interaction_parser()
-    test_files_interaction_parser()
+#    test_interaction_parser()
+#    test_file_interaction_parser()
+#    test_files_interaction_parser()
+#    test_get_all_actions()
+    test_check_actions()

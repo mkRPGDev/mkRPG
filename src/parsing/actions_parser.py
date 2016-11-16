@@ -90,6 +90,8 @@ def parse_multiple_files(actions_files):
     return all_actions
 
 
-
-
-
+def get_all_names(actions):
+    """ Returns all action names present in the given actions dictionnary."""
+    assert type(actions)==dict
+    names = set(actions.keys())
+    return names

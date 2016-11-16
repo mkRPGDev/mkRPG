@@ -37,7 +37,9 @@ SOURCES += main.cpp\
     GUI/Tabs/Docks/bdockwidget.cpp \
     GUI/Tabs/selectiondock.cpp \
     GUI/Tabs/bcolor.cpp \
-    GUI/Tabs/objecteditor.cpp
+    GUI/Tabs/objecteditor.cpp \
+    GUI/Tabs/tabwidget.cpp \
+    GUI/Tabs/mapresizedialog.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -64,7 +66,9 @@ HEADERS  += \
     GUI/Tabs/Docks/bdockwidget.h \
     GUI/Tabs/selectiondock.h \
     GUI/Tabs/bcolor.h \
-    GUI/Tabs/objecteditor.h
+    GUI/Tabs/objecteditor.h \
+    GUI/Tabs/tabwidget.h \
+    GUI/Tabs/mapresizedialog.h
 
 FORMS    += \
     GUI/editor.ui \
@@ -77,7 +81,8 @@ FORMS    += \
     GUI/Tabs/mapdock.ui \
     GUI/Tabs/celldock.ui \
     GUI/Tabs/selectiondock.ui \
-    GUI/Tabs/objecteditor.ui
+    GUI/Tabs/objecteditor.ui \
+    GUI/Tabs/mapresizedialog.ui
 
 RESOURCES += \
     Icons/ressources.qrc

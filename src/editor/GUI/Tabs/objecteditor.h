@@ -2,6 +2,7 @@
 #define OBJECTEDITOR_H
 
 #include "ui_objecteditor.h"
+#include "tabwidget.h"
 #include "Game/game.h"
 #include "Game/mapslistmodel.h"
 
@@ -23,7 +24,7 @@ public:
 
 };
 
-class ObjectEditor : public QWidget, private Ui::ObjectEditor
+class ObjectEditor : public TabWidget, private Ui::ObjectEditor
 {
     Q_OBJECT
 

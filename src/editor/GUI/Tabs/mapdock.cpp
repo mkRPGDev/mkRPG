@@ -22,9 +22,15 @@ void MapDock::on_angleY_valueChanged(int i){
 
 void MapDock::updateGame(){
     currentMap = game->currentMap();
+    setEnabled(currentMap != nullptr);
     if(currentMap == nullptr) return;
     angleX->setValue(currentMap->angleX());
     angleY->setValue(currentMap->angleY());
     mapWidth->setValue(currentMap->width());
     mapHeight->setValue(currentMap->height());
+}
+
+void MapDock::on_resizing_pressed(){
+    MapResizeDialog m(currentMap->width(), currentMap->height(), this);
+    m.exec();
 }

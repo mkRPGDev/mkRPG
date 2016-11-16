@@ -31,7 +31,7 @@ void ParamItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 
 
 ObjectEditor::ObjectEditor(QWidget *parent) :
-    QWidget(parent)
+    TabWidget(parent)
 {
     setupUi(this);
 

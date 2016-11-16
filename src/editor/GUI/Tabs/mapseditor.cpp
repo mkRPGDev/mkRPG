@@ -1,7 +1,7 @@
 #include "mapseditor.h"
 
 MapsEditor::MapsEditor(QWidget *parent) :
-    QWidget(parent)
+    TabWidget(parent)
 {
     setupUi(this);
     connect(mapViewer, SIGNAL(viewSizeChanged(QSize)), this, SLOT(viewSizeChanged(QSize)));
@@ -30,13 +30,14 @@ MapsEditor::MapsEditor(QWidget *parent) :
 
 void MapsEditor::setGame(Game *g){
     game = g;
-    currentMap = g->world()->maps().first();
-    mapViewer->setMap(currentMap);
     for(BDockWidget *d : docksW)
         d->setGame(g);
+    updateGame();
 }
 
+
 void MapsEditor::updateGame(){
+    mapViewer->setMap(game->currentMap());
     mapViewer->updateRequest();
     for(BDockWidget *d : docksW)
         d->updateGame();
@@ -81,3 +82,4 @@ void MapsEditor::updateViewCenterPosition(){
                 (double) mapVScrollBar->value()/mapVScrollBar->maximum());
     mapViewer->updateRequest();
 }
+

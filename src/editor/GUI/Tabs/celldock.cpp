@@ -28,7 +28,7 @@ void CellDock::selectionChanged(){
 }
 
 void CellDock::on_cellTypes_currentIndexChanged(int i){
-    if(map == nullptr) return;
+    if(map == nullptr || !hasFocus()) return;
     CellType *ct(game->world()->cellType(cellTypes->itemData(i).toInt()));
     for(int i(0); i<map->width(); ++i)
         for(int j(0); j<map->height(); ++j)

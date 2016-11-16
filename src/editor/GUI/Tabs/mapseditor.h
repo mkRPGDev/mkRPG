@@ -2,6 +2,7 @@
 #define MAPSEDITOR_H
 
 #include "ui_mapseditor.h"
+#include "tabwidget.h"
 #include "celltypesdock.h"
 #include "selectiondock.h"
 #include "celldock.h"
@@ -14,7 +15,7 @@
  *
  *
  */
-class MapsEditor : public QWidget, private Ui::MapsEditor
+class MapsEditor : public TabWidget, private Ui::MapsEditor
 {
     Q_OBJECT
 
@@ -31,6 +32,7 @@ private slots:
     void viewSizeChanged(QSize s);
     void on_mapHScrollBar_valueChanged(int);
     void on_mapVScrollBar_valueChanged(int);
+
 
 private:
     void checkScrollBarUtility();

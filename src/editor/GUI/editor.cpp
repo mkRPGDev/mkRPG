@@ -33,12 +33,13 @@ Editor::Editor(QStringList args, QWidget *parent) :
     worldEditor->setGame(g);
     objectEditor->setGame(g);
 
+    connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
 }
 
 
-void Editor::addTab(const QString &n, const QPixmap &p, QWidget *w){
+void Editor::addTab(const QString &n, const QPixmap &p, TabWidget *w){
     stackedWidget->addWidget(w);
-    tabBar->addTabAcces(n,p);
+    tabBar->addTabAcces(n,p,w);
 
 }
 
@@ -109,7 +110,6 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     Game* g = new Game();
     Map *m = new Map(g, g->world());
     g->world()->addMap(m);
-    g->setCurrentMap(m);
     m->setName("Paysage bucolique");
     Image *im;
     CellType *ct1, *ct2, *ct3;
@@ -202,4 +202,9 @@ void Editor::moveEvent(QMoveEvent *me){
 void Editor::closeEvent(QCloseEvent *ce){
     saveDefault();
     QMainWindow::closeEvent(ce);
+}
+
+void Editor::editMap(){
+    tabBar->setCurrentTab(mapsEditor->index());
+    mapsEditor->updateGame();
 }

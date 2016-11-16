@@ -112,7 +112,10 @@ class MapViewer(pygame.sprite.Group):
                               max(-new_pos_x//(const.CHUNK_WIDTH*self.scale),0))
 
         self.pos_offset = (new_pos_x,new_pos_y)
-        self.chunk_pos = (0,0)
+        self.chunk_pos = (new_pos_x if new_pos_x > 0 else -(-new_pos_x%const.CHUNK_WIDTH),
+                          new_pos_y if new_pos_y > 0 else -(-new_pos_y%const.CHUNK_HEIGHT))
+        #self.chunk_pos = self.pos_offset
+        #print(self.pos_offset)
 
     def render(self):
         rect = Rect((0,0),(0,0))

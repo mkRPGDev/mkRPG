@@ -38,13 +38,17 @@ class Layer(pygame.sprite.Sprite):
     def make_grid(self, img_set, cell_ids):
         res = pygame.Surface(self.size, pygame.SRCALPHA)
         res.convert_alpha()
+        # Debug : fond de chunk aléatoire
+        import random
+        res.fill((random.randint(0,0),random.randint(0,0),random.randint(0,255),255))
+        #print("oooooooooooooooooooooooooooooooooooooooooooooooooooo")
         for c_line in range(len(cell_ids)):
             for c_col in range(len(cell_ids[0])):
                 if cell_ids[c_line][c_col] is not None:
                     cell_image = ImageCache.get_image(img_set[cell_ids[c_line][c_col]], self.scale)
                     size_image = cell_image.get_size()
                     pos = self.get_cell_pos(c_line, c_col, size_image)
-                    pygame.draw.polygon(res, (255,255,255,255),
+                    pygame.draw.polygon(res, (c_line*40,c_col*40,0,255),
                                         [utils.cell_to_point(c_line,c_col,self.g_width,self.g_height,const.CELL_WIDTH,const.ANGLE_X_R,const.ANGLE_Y_R),
                                          utils.cell_to_point(c_line+1,c_col,self.g_width,self.g_height,const.CELL_WIDTH,const.ANGLE_X_R,const.ANGLE_Y_R),
                                          utils.cell_to_point(c_line+1,c_col+1,self.g_width,self.g_height,const.CELL_WIDTH,const.ANGLE_X_R,const.ANGLE_Y_R),

@@ -31,12 +31,10 @@ def parse_order(order_tag):
         parsing_utils._fail_not_found("Type in order tag")
     res.update({"type": type_order})
 
-    for tag in ["target", "param", "value"]:
-        value = get_tag(order_tag, tag)
-        res.update({tag: value})
-    value = get_tag(order_tag, "event", optionnal=True)
-    if value:
-        res.update({"event": value})
+    for tag in ["value", "event", "param", "target", "init", "once"]:
+        value = get_tag(order_tag, tag, optionnal=True)
+        if value:
+            res.update({tag: value})
     return res
 
 

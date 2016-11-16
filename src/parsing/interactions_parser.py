@@ -50,13 +50,13 @@ def interactions_parser(interaction_xml):
             interactions_dict.update({key: _interaction})
     return interactions_dict
 
-def interactions_files_parser(interactions_files):
+def interactions_files_parser(*interactions_files):
     """This function parses a list of files, in order to find all interactions
     described in these files. It provides some safety, since it checks that
     every keycode is used at most once.
     """
-    data = parsing_utils.parse_multiple_files(interactions_files,
-                                              interactions_parser)
+    data = parsing_utils.parse_multiple_files(interactions_parser,
+                                              *interaction_files)
     return data
 
 def get_all_actions(interactions):

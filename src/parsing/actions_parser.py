@@ -73,11 +73,11 @@ def parse_actions(action_xml):
         actions_dict.update({event:orders})
     return actions_dict
 
-def parse_multiple_files(actions_files):
+def parse_multiple_files(*actions_files):
     """Parses multiple files. Broadly speaking, it parses sequentially all
     files, and concatenates all answers.
     """
-    data = parsing_utils.parse_multiple_files(actions_files, parse_actions)
+    data = parsing_utils.parse_multiple_files(parse_actions, *actions_files)
     return data
 
 

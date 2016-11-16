@@ -19,6 +19,7 @@
 class World : public GameObject
 {
 public:
+    TypeName(World)
     World(Game *g, GameObject *aParent);
     ObjectListD(m,M,ap,,s, Map) /**< Set of maps*/
     ObjectListD(o,O,bject,,s, Object)
@@ -41,6 +42,7 @@ private:
 class Game : public GameObject
 {
 public:
+    TypeName(Game)
     Game();
     inline int newIdent(){return ++idDisp;}
     /**<
@@ -67,17 +69,10 @@ private:
 };
 
 
-class ObjectsTreeItem
-{
-public:
-    explicit ObjectsTreeItem(GameObject *obj, ObjectsTreeItem *parent = nullptr);
 
 
-private:
 
-    GameObject *obj;
-    ObjectsTreeItem* parent;
-};
+
 
 class ObjectsTreeModel : public QAbstractItemModel
 {
@@ -90,6 +85,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     QModelIndex index(int row, int column, const QModelIndex &parent) const;
     QModelIndex parent(const QModelIndex &child) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
 private:
     Game *game;

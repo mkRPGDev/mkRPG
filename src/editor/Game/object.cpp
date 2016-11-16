@@ -9,7 +9,7 @@ GameObject::GameObject(Game* g, GameObject *parent) :
     lastChildEdit(lastEdit)
 {
     if(parent) parent->addChild(this);
-    setName("Unnamed");
+    setName("Untitled");
 }
 
 

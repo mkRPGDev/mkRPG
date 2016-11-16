@@ -80,7 +80,7 @@
  */
 
 
-
+#define TypeName(Type) virtual QString typeName() const{return QString(#Type);}
 
 #define ObjectListDef(Objects,Type) private: QMap<int, Type*> a##Objects; public:
 #define ObjectListAdd(Object,Objects, Type) void add##Object(Type* new##Object){a##Objects[new##Object->ident()] = new##Object; touch();}
@@ -419,7 +419,7 @@ class Game;
 class GameObject
 {
 public:
-
+    TypeName(GameObject)
 
     GameObject(Game *g = nullptr, GameObject *aParent = nullptr); /**<
      * Constructs a new GameObject with parent \c parent and the reference to the game \c g.
@@ -614,6 +614,7 @@ private:
 class Image : public GameObject
 {
 public:
+    TypeName(Image)
     Image(Game*g, GameObject *aParent, const QString &fileName);
     inline bool isValid() const{return GameObject::isValid() && !im.isNull();} /**<
      * Checks if the GameObject is valid and if the image really exists.
@@ -632,6 +633,7 @@ private:
 class Object : public GameObject
 {
 public:
+    TypeName(Object)
     Object(Game *g, GameObject *aParent);
 
     C0(Flag, v,V,visible)

@@ -17,6 +17,7 @@
 class CellType : public GameObject
 {
 public:
+    TypeName(CellType)
     CellType(Game *g, GameObject *aParent);
     C0(AttrT, i,I,mage)
 private:
@@ -38,6 +39,7 @@ private:
 class Cell : public GameObject
 {
 public:
+    TypeName(Cell)
     Cell(Game* g = nullptr, GameObject *aParent = nullptr);
     bool isSelected() const;
     void setSelected(bool s = true);
@@ -70,6 +72,7 @@ private:
 class Map : public GameObject
 {
 public:
+    TypeName(Map)
     Map(Game* g, GameObject *aParent);
     ~Map();
     ParamGetter(width)

@@ -49,7 +49,7 @@ void ObjectsTreeModel::setGame(Game *g){
 }
 
 int ObjectsTreeModel::columnCount(const QModelIndex &parent) const{
-    return 1;
+    return 2;
 }
 
 int ObjectsTreeModel::rowCount(const QModelIndex &parent) const{
@@ -58,6 +58,7 @@ int ObjectsTreeModel::rowCount(const QModelIndex &parent) const{
 
 QVariant ObjectsTreeModel::data(const QModelIndex &index, int role) const{
     GameObject *obj = static_cast<GameObject*>(index.internalPointer());
+    if(index.column()) return role==Qt::DisplayRole ? obj->typeName() : QVariant();
     return role==Qt::DisplayRole ? QVariant(obj->name() + " ("  +QString::number(obj->ident()) + ")") : QVariant();
 }
 
@@ -75,4 +76,13 @@ QModelIndex ObjectsTreeModel::parent(const QModelIndex &child) const{
     GameObject *c = static_cast<GameObject*>(child.internalPointer());
     GameObject *p = c->parent();
     return p ? createIndex(p->children().indexOf(c),0,p) : QModelIndex();
+}
+
+QVariant ObjectsTreeModel::headerData(int section, Qt::Orientation orientation, int role) const{
+    if(orientation == Qt::Horizontal){
+        if(role == Qt::DisplayRole){
+            return QVariant(section ? tr("Type") : tr("Element"));
+        }
+    }
+    return QVariant();
 }

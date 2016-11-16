@@ -13,19 +13,6 @@ import entity_parser
 import world_parser
 import parsing_utils
 
-def check_entity(entities_found, entities_listed):
-    """Checks if all entities found in files world.xml, and cell.xml and others
-    are present in entites tagged files.
-    """
-    names = entity_parser.get_names(entities_listed)
-    try:
-        for entity in entities_found:
-            if entity not in names:
-                raise KeyError(entity)
-        return True
-    except KeyError as entity:
-        print("Entity %s not found in defined entities" % entity)
-        return False
 
 def collect_data(key, *args):
     """ Collects all items corresponding to key argument in *args.  It realizes

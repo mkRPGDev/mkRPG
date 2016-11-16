@@ -18,8 +18,6 @@ import sys
 import parsing_utils
 
 
-
-
 def get_characteristics(_characteristics):
     """
     Iterate over all characteristics.
@@ -76,3 +74,17 @@ def parse_entities(entity_xml):
     for entity in _entities:
         entities.update({entity.attrib['name']: parse_entity(entity)})
     return entities
+
+def check_entity(entities_found, entities_listed):
+    """Checks if all entities found in files world.xml, and cell.xml and others
+    are present in entites tagged files.
+    """
+    names = get_names(entities_listed)
+    try:
+        for entity in entities_found:
+            if entity not in names:
+                raise KeyError(entity)
+        return True
+    except KeyError as entity:
+        print("Entity %s not found in defined entities" % entity)
+        return False

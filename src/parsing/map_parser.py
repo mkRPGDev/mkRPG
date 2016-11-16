@@ -15,12 +15,8 @@ def parse_cell(cell_object):
     name = cell_object.attrib['name']
     answer = {name : {}}
     cell_params = cell_object.find('Params')
-    _altitude = cell_params.find('altitude')
-    if _altitude:
-        altitude = int(_altitude.text)
-        answer[name].update({'altitude' : altitude})
-    picture = cell_params.find('picture').text
-    answer[name].update({'picture': picture})
+    for param in cell_params.getchildren():
+        answer[name].update({param.tag: param.text})
     _entities = cell_object.find("Entities")
     if _entities:
         entities = _entities.findall("Entity")

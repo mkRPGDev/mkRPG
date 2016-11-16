@@ -50,6 +50,9 @@ def game_parser(game_xml):
         cells = world_tag.findall('Cell')
         if not cells:
             parsing_utils._fail_not_found("Cell")
+        objects = world_tag.findall('Objects')
+        if not objects:
+            parsing_utils._fail_not_found("Objects")
     # Gets the available actions files.
     action_tag = root.find('Actions')
     if action_tag is not None:
@@ -62,7 +65,8 @@ def game_parser(game_xml):
     # Checks if all files defined in game.xml as game files are present in
     # the directories.
     if not check_files(*world_file, *map_files,
-                       *cells, *action_files, *interactions_files):
+                       *cells, *action_files, *interactions_files,
+                       *objects):
         sys.exit(1)
 
     # Gets the map data.

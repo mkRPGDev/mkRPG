@@ -4,6 +4,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <assert.h>
+#include <algorithm>
 
 /*!
  * \file object.h
@@ -142,6 +143,7 @@ public: \
  *
  * \see C0
  */
+#define ProtectFlag(flag) reserved.insert(QString(#flag));
 #define SetFlag(flag, value) aFlags[#flag] = value /*!<
  * Conveniant macro to set a flag directly.
  *
@@ -203,6 +205,7 @@ public: \
  * \endcode
  * \see FlagGetter, FlagSetter, C
  */
+#define ProtectParam(param) reserved.insert(QString(#param));
 #define SetParam(param, value) aParams[#param] = value /*!<
  * Conveniant macro to set a param directly.
  *
@@ -394,7 +397,7 @@ class GameObject
 public:
 
 
-    GameObject(Game *g = nullptr, GameObject *parent = nullptr); /**<
+    GameObject(Game *g = nullptr, GameObject *aParent = nullptr); /**<
      * Constructs a new GameObject with parent \c parent and the reference to the game \c g.
      *
      * \note
@@ -452,12 +455,12 @@ public:
      *
      * \see params, hasParam, getParam, setFlag
      */
-    inline bool hasParam(const QString &p) const{return  aParams.contains(p);} /**<
+    inline bool hasParam(const QString &p) const {return  aParams.contains(p);} /**<
      * Returns true if the parameter \p is register in the object's parameters.
      *
      * \see getParam, setParam, hasFlag
      */
-    inline QList<QString> params() const{return aParams.keys();} /**<
+    inline QList<QString> params() const {return filter(aParams.keys());} /**<
      * Returns the list of the registered paramters
      *
      * \see getParam, setParam, flags
@@ -479,12 +482,12 @@ public:
      *
      * \see flags, hasFlag, getFlag, setParam
      */
-    inline bool hasFlag(const QString &f) const{return aFlags.contains(f);} /**<
+    inline bool hasFlag(const QString &f) const {return aFlags.contains(f);} /**<
      * Returns true if the falg \c f is register in the object's flags.
      *
      * \see getFlag, setFlag, hasParam
      */
-    inline QList<QString> flags() const{return aFlags.keys();} /**<
+    inline QList<QString> flags() const {return filter(aFlags.keys());} /**<
      * Returns the list of the registered flags
      *
      * \see getFlag, setFlag, params
@@ -499,22 +502,31 @@ public:
     void removeReference();
 
     void setParent(GameObject *p);
+    inline GameObject* parent() const{return aParent;}
+
+    void setName(const QString &n);
+    const QString& name() const{return aName;}
+    virtual GameObject* child(const int &i) const{return aChildren.value(i, nullptr);}
+    virtual QList<GameObject*> children() const{return aChildren.values();}
 
 
 protected:
     void addChild(GameObject *c);
     void removeChild(GameObject *c);
     void childrenTouched(const QDateTime &d);
+    QList<QString> filter(QList<QString> l) const;
 
-    GameObject *parent;
-    QMap<int, GameObject*> children;
+    GameObject *aParent;
+    QMap<int, GameObject*> aChildren;
     Game *game;
     int id;
     int nbRef;
     QMap<QString, int> aParams;
     QMap<QString, bool> aFlags;
+    QString aName;
     QString fileName;
     QDateTime lastEdit, lastChildEdit;
+    QSet<QString> reserved;
 };
 
 
@@ -530,7 +542,7 @@ protected:
 class Image : public GameObject
 {
 public:
-    Image(Game*g, GameObject *parent, const QString &fileName);
+    Image(Game*g, GameObject *aParent, const QString &fileName);
     inline bool isValid() const{return GameObject::isValid() && !im.isNull();}
     inline const QImage& image() const{return im;}
     inline const QSize size() const{return im.size();}
@@ -546,7 +558,7 @@ private:
 class Object : public GameObject
 {
 public:
-    Object(Game *g, GameObject *parent);
+    Object(Game *g, GameObject *aParent);
 
     C0(Flag, v,V,visible)
     C0(Flag, m,M,ovable)

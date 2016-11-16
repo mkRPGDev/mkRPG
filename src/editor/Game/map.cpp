@@ -66,6 +66,10 @@ Map::Map(Game *g, GameObject *parent) :
     SetParam(angleY, 0);
 
     SetFlag(inutile, false);
+
+    ProtectParam(height);
+    //SetParam(znull,42);
+    ProtectParam(width);
 }
 
 Map::~Map(){
@@ -115,4 +119,10 @@ void Map::clearPreSelection(){
 
 void Map::confirmPreSelection(bool add){
     forCells(i) cells[i].confirmPreSelection(add);
+}
+
+QList<GameObject*> Map::children() const{
+    QList<GameObject*> l = GameObject::children();
+    l.erase(std::remove_if(l.begin(), l.end(), [this](GameObject* o){return o>=cells && o<cells+sizeof(Cell)*width()*height();}),l.end());
+    return l;
 }

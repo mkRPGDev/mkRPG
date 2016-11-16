@@ -4,6 +4,8 @@
 #include "object.h"
 #include "map.h"
 
+#include <QAbstractItemModel>
+
 /**
  * \file game.h
  * \brief Definition of the Game and World classes.
@@ -17,7 +19,7 @@
 class World : public GameObject
 {
 public:
-    World(Game *g, GameObject *parent);
+    World(Game *g, GameObject *aParent);
     ObjectListD(m,M,ap,,s, Map) /**< Set of maps*/
     //ObjectsMap(w,c,C,ellType,,s) /**< Set of cell types*/
     ObjectListD(o,O,bject,,s, Object)
@@ -64,5 +66,35 @@ private:
     QMap<int, Image*> picts;
     QMap<int, QString> strings;
 };
+
+
+class ObjectsTreeItem
+{
+public:
+    explicit ObjectsTreeItem(GameObject *obj, ObjectsTreeItem *parent = nullptr);
+
+
+private:
+
+    GameObject *obj;
+    ObjectsTreeItem* parent;
+};
+
+class ObjectsTreeModel : public QAbstractItemModel
+{
+public:
+    explicit ObjectsTreeModel(QObject *parent = nullptr);
+    explicit ObjectsTreeModel(Game *g, QObject *parent = nullptr);
+    void setGame(Game *g);
+    int columnCount(const QModelIndex &parent) const;
+    int rowCount(const QModelIndex &parent) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    QModelIndex parent(const QModelIndex &child) const;
+
+private:
+    Game *game;
+};
+
 
 #endif // GAME_H

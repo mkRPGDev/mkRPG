@@ -61,6 +61,7 @@ class ObjectParamTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
+    explicit ObjectParamTableModel(QObject *parent = 0);
     explicit ObjectParamTableModel(GameObject *obj, QObject *parent = 0);
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
@@ -68,6 +69,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    void setObject(GameObject *o);
 
 
 private:
@@ -78,6 +80,7 @@ class ObjectFlagTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
+    explicit ObjectFlagTableModel(QObject *parent = 0);
     explicit ObjectFlagTableModel(GameObject *obj, QObject *parent = 0);
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
@@ -85,6 +88,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    void setObject(GameObject *o);
 
 
 private:

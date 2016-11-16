@@ -119,14 +119,20 @@ bool CellTypeListModel::removeRows(int row, int count, const QModelIndex &parent
 
 
 
-ObjectParamTableModel::ObjectParamTableModel(GameObject *obj, QObject *parent) :
-    QAbstractTableModel(parent),
-    obj(obj)
+
+ObjectParamTableModel::ObjectParamTableModel(QObject *parent) :
+    QAbstractTableModel(parent), obj(nullptr)
 {
 }
 
+ObjectParamTableModel::ObjectParamTableModel(GameObject *obj, QObject *parent) :
+    ObjectParamTableModel(parent)
+{
+    setObject(obj);
+}
+
 int ObjectParamTableModel::rowCount(const QModelIndex &parent) const{
-    return obj->params().length();
+    return obj ? obj->params().length() : 0;
 }
 
 int ObjectParamTableModel::columnCount(const QModelIndex &parent) const{
@@ -158,21 +164,30 @@ QVariant ObjectParamTableModel::headerData(int section, Qt::Orientation orientat
     return QVariant();
 }
 
+void ObjectParamTableModel::setObject(GameObject *o){
+    beginResetModel();
+    obj = o;
+    endResetModel();
+}
 
 
 
 
 
-
-
-ObjectFlagTableModel::ObjectFlagTableModel(GameObject *obj, QObject *parent) :
-    QAbstractTableModel(parent),
-    obj(obj)
+ObjectFlagTableModel::ObjectFlagTableModel(QObject *parent) :
+    QAbstractTableModel(parent), obj(nullptr)
 {
 }
 
+
+ObjectFlagTableModel::ObjectFlagTableModel(GameObject *obj, QObject *parent) :
+    ObjectFlagTableModel(parent)
+{
+    setObject(obj);
+}
+
 int ObjectFlagTableModel::rowCount(const QModelIndex &parent) const{
-    return obj->flags().length();
+    return obj ? obj->flags().length() : 0;
 }
 
 int ObjectFlagTableModel::columnCount(const QModelIndex &parent) const{
@@ -203,3 +218,11 @@ QVariant ObjectFlagTableModel::headerData(int section, Qt::Orientation orientati
     }
     return QVariant();
 }
+
+
+void ObjectFlagTableModel::setObject(GameObject *o){
+    beginResetModel();
+    obj = o;
+    endResetModel();
+}
+

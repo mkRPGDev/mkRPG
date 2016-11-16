@@ -31,6 +31,14 @@ public:
     explicit ObjectEditor(QWidget *parent = 0);
     void setGame(Game *g);
 
+private slots:
+    void on_objects_clicked(const QModelIndex &ind);
+
+private:
+    ObjectParamTableModel *paramsModel;
+    ObjectFlagTableModel *flagsModel;
+    ObjectsTreeModel *objectsModel;
+
 };
 
 #endif // OBJECTEDITOR_H

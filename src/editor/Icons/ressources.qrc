@@ -16,5 +16,6 @@
         <file>selRec.png</file>
         <file>selPen.png</file>
         <file>selReg.png</file>
+        <file>editer.png</file>
     </qresource>
 </RCC>

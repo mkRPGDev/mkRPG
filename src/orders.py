@@ -1,6 +1,5 @@
 from collections import namedtuple
 from enum import IntEnum
-from utils import Timer
 
 from const import *
 
@@ -83,13 +82,12 @@ class Order:
     
 class OrderDispatcher:
     """ Traite les ordres pour le client ou le serveur """
-    def __init__(self, world, handle):
+    def __init__(self, world, handle, timer):
         self.world = world
         self.handle = handle
-        self.timer = Timer()
-        self.timer.start()
+        self.timer = timer
 
-    def treat(self, emitter, order):
+    async def treat(self, emitter, order):
         """ Traite un ordre et renvoie l'éventuel ordre à retransmettre """
         world = self.world
         if order.type==OrderType.Set:
@@ -101,7 +99,7 @@ class OrderDispatcher:
                 returnOrder = order.copy()
                 returnOrder.value = str(val)
                 for condition in target.conditions[order.param][val]:
-                    self.handle(condition.target, condition.event)
+                    await self.handle(condition.target, condition.event)
                 # XXX pas fameux
                 target.conditions[order.param][val] = \
                     list(filter(lambda x:not x.once, target.conditions[order.param][val]))
@@ -115,20 +113,21 @@ class OrderDispatcher:
                 self.timer.add(emitter.contextEval(order.value), self.handle,
                                args=[emitter, order.event])
             else:
-                self.timer.add(int(order.value), self.handle, args=[emitter, order.event])
+                self.timer.add(int(order.value), self.handle,
+                                     args=[emitter, order.event])
             return None
         if order.type==OrderType.Event:
             if order.target:
-                self.handle(eval('emitter.'+order.target), order.event)
+                await self.handle(eval('emitter.'+order.target), order.event)
             else:
-                self.handle(emitter, order.event)
+                await self.handle(emitter, order.event)
             return None
         if order.type==OrderType.Create:
             obj = self.world.ids[int(order.base)].create()
             self.world.objects.append(obj)
             exec(order.init)
             if self.handle:
-                self.handle(obj, order.event)
+                await self.handle(obj, order.event)
             return order
         if order.type==OrderType.Destroy:
             # TODO nécessite de trouver tous les pointeurs ??
@@ -137,7 +136,7 @@ class OrderDispatcher:
             return order
         if order.type==OrderType.Condition:
             if emitter.contextEval(order.value):
-                self.handle(emitter, order.event)
+                await self.handle(emitter, order.event)
             return None
         if order.type==OrderType.Move:
             eval(order.source+"."+order.param).remove(emitter)

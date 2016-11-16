@@ -9,8 +9,9 @@ class Curses(Interface):
         self.win = curses.initscr()
         curses.cbreak()
         curses.noecho()
-        self.win.keypad(True)
         curses.curs_set(0)
+        self.win.keypad(True)
+        self.win.nodelay(True)
         self.mv=MapViewer(self.world.currentMap, self.world)
 
     def repaint(self):

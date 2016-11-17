@@ -27,7 +27,7 @@ env:
 addons:
   apt:
     packages:
-      - texlive-full
+    #  - texlive-full
       - doxygen
       - doxygen-doc
     #  - doxygen-latex

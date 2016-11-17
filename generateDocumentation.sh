@@ -68,6 +68,7 @@ mv "doc_new" "doc"
 echo 'Compiling tex documentation ... '
 cd doc/latex
 make
+cd ..
 
 
 ################################################################################

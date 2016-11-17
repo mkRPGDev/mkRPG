@@ -51,15 +51,18 @@ git config user.email "travis@travis-ci.org"
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####
 echo 'Generating Doxygen code documentation...'
-doxygen Doxyfile
+doxygen Doxyfile_c
+doxygen Doxyfile_py
 
 #On le renomme pour préparer au changement de branche
-mv "doc" "doc_new"
+mv "doc_c" "doc_c_new"
+mv "doc_py" "doc_py_new"
 #On change de branche si on est dans master
 git checkout gh-pages
 #On écrase l'ancienne documentation
-rm -r doc
-mv "doc_new" "doc"
+rm -r doc_c doc_py
+mv "doc_c_new" "doc_c"
+mv "doc_py_new" "doc_py"
 
 
 #On compile le tex

@@ -35,7 +35,7 @@
     <widget class="QColumnView" name="columnView"/>
    </item>
    <item row="0" column="1">
-    <widget class="QComboBox" name="cellTypes"/>
+    <widget class="QuietComboBox" name="cellTypes"/>
    </item>
    <item row="3" column="0" colspan="2">
     <widget class="QLabel" name="label_3">
@@ -46,6 +46,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QuietComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">GUI/quietwidgets.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -17,7 +17,7 @@ QVariant MapsListModel::data(const QModelIndex &index, int role) const{
     if(index.isValid()){
         switch (role) {
         case Qt::DisplayRole:
-            return QVariant(QString("Map ") +QString::number(maps.at(index.row())->ident()));
+            return QVariant(maps.at(index.row())->name());
         case Qt::DecorationRole:
             return QVariant(viewOf(maps.at(index.row())));
         case Qt::UserRole:

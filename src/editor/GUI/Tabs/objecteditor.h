@@ -3,26 +3,15 @@
 
 #include "ui_objecteditor.h"
 #include "tabwidget.h"
-#include "Game/game.h"
+#include "Game/itemmodels.h"
 #include "Game/mapslistmodel.h"
+#include "itemdelegates.h"
 
-#include <QStyledItemDelegate>
-#include <QItemEditorFactory>
-#include <QSpinBox>
+
 #include <QSplitter>
 
-class ParamItemDelegate : public QStyledItemDelegate
-{
-    Q_OBJECT
-public:
-    explicit ParamItemDelegate(QObject *parent = nullptr);
 
-    QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    void setEditorData(QWidget *editor, const QModelIndex &index) const;
-    void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
 
-};
 
 class ObjectEditor : public TabWidget, private Ui::ObjectEditor
 {
@@ -33,7 +22,7 @@ public:
     void setGame(Game *g);
 
 private slots:
-    void on_objects_clicked(const QModelIndex &ind);
+    void currentElementChanged(const QModelIndex &ind);
 
 private:
     ObjectParamTableModel *paramsModel;

@@ -20,6 +20,7 @@ public:
     TypeName(CellType)
     CellType(Game *g, GameObject *aParent);
     C0(AttrT, i,I,mage)
+    C0(Flag,w,W,alkable)
 private:
 
 
@@ -75,8 +76,9 @@ public:
     TypeName(Map)
     Map(Game* g, GameObject *aParent);
     ~Map();
-    ParamGetter(width)
-    ParamGetter(height)
+
+    int width() const;
+    int height() const;
     QSize size() const{return QSize(width(),height());}
     void setWidth(int w);
     void setHeight(int h);
@@ -97,6 +99,7 @@ public:
 
 private:
     Cell* cells;
+    int wi,he;
 
 };
 

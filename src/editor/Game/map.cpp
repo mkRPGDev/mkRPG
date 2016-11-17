@@ -6,6 +6,7 @@ CellType::CellType(Game *g, GameObject *parent) :
     GameObject(g, parent)
 {
     //aName = QObject::tr("Cell_type", "name of a CellType");
+    SetFlag(walkable,true);
 }
 
 
@@ -83,6 +84,8 @@ void Map::resize(int w, int h){
     for(int i(0); i<w*h; cells[i++].init(game, this));
     SetParam(width, w);
     SetParam(height, h);
+    wi = w;
+    he = h;
     touch();
 }
 
@@ -92,6 +95,14 @@ void Map::setWidth(int w){
 
 void Map::setHeight(int h){
     resize(width(), h);
+}
+
+int Map::width() const{
+    return wi;
+}
+
+int Map::height() const{
+    return he;
 }
 
 Cell& Map::cell(int i, int j) const{

@@ -39,7 +39,10 @@ SOURCES += main.cpp\
     GUI/Tabs/bcolor.cpp \
     GUI/Tabs/objecteditor.cpp \
     GUI/Tabs/tabwidget.cpp \
-    GUI/Tabs/mapresizedialog.cpp
+    GUI/Tabs/mapresizedialog.cpp \
+    GUI/Tabs/itemdelegates.cpp \
+    Game/itemmodels.cpp \
+    GUI/quietwidgets.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -68,7 +71,10 @@ HEADERS  += \
     GUI/Tabs/bcolor.h \
     GUI/Tabs/objecteditor.h \
     GUI/Tabs/tabwidget.h \
-    GUI/Tabs/mapresizedialog.h
+    GUI/Tabs/mapresizedialog.h \
+    GUI/Tabs/itemdelegates.h \
+    Game/itemmodels.h \
+    GUI/quietwidgets.h
 
 FORMS    += \
     GUI/editor.ui \

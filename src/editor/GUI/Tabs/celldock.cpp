@@ -1,5 +1,10 @@
 #include "celldock.h"
 
+
+
+
+
+
 CellDock::CellDock(QWidget *parent) :
     BDockWidget(parent), map(nullptr)
 {
@@ -27,8 +32,8 @@ void CellDock::selectionChanged(){
     emit changeDockName(tr("Cell (")+QString::number(sel) + tr(" selected)", "the number or selected cells", sel));
 }
 
-void CellDock::on_cellTypes_currentIndexChanged(int i){
-    if(map == nullptr || !hasFocus()) return;
+void CellDock::on_cellTypes_userChangedCurrentIndex(int i){
+    if(map == nullptr) return;
     CellType *ct(game->world()->cellType(cellTypes->itemData(i).toInt()));
     for(int i(0); i<map->width(); ++i)
         for(int j(0); j<map->height(); ++j)

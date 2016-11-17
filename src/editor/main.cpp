@@ -1,6 +1,23 @@
 #include "GUI/editor.h"
 #include <QApplication>
+/*!
+ * \file main.cpp
+ *
+ * \brief Launcher that starts the \ref Editor "editor".
+ *
+ * \see \ref main
+ */
 
+/*!
+ * \brief Starts the \ref Editor "editor"
+ *
+ * This function create the QApplication and the main window.
+ *
+ * It also installs the Qt translation tools.
+ *
+ * The code to enable single widow can be activated by defining
+ * \c UNIQUE_WINDOW.
+ */
 int main(int argc, char *argv[])
 {
 #if defined(Q_OS_MAC)
@@ -10,11 +27,11 @@ int main(int argc, char *argv[])
     assert(dir.cd("Plugins")); // e.g. appdir/Contents/PlugIns
     QCoreApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
+#ifdef UNIQUE_WINDOW
 #ifndef Q_OS_WIN32
     QSharedMemory crash(SHARED);
     if(crash.attach())crash.detach();
 #endif
-#ifdef UNIQUE_WINDOW
     QSharedMemory shared(SHARED);
     bool second = shared.attach();
     if(second){

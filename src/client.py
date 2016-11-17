@@ -57,6 +57,7 @@ class Client():
         for ent in self.world.entities:
             if await self.net.askEntity(ent):
                 self.perso = ent
+                self.interface.set_perso(self.perso)
                 break
         else:
             print("No available entity.")
@@ -65,6 +66,7 @@ class Client():
     async def main(self):
         self.interface.init()
         while True:
+            await asyncio.sleep(0)
             self.interface.update()
             keys = self.interface.getEvent()
             for key in keys:
@@ -81,6 +83,7 @@ class Client():
                         await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
 
     async def handleOrder(self, ident, order):
+        print(self.world.entities[0].x,self.world.entities[0].y)
         emitter = world.BaseObject.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
 

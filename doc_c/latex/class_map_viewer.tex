@@ -1,109 +1,99 @@
-\hypertarget{class_map_viewer}{}\section{Map\+Viewer Class Reference}
-\label{class_map_viewer}\index{Map\+Viewer@{Map\+Viewer}}
+\hypertarget{class_map_viewer}{\section{\-Map\-Viewer \-Class \-Reference}
+\label{class_map_viewer}\index{\-Map\-Viewer@{\-Map\-Viewer}}
+}
 
 
-The \hyperlink{class_map_viewer}{Map\+Viewer} class provides a widget to display and edit a \hyperlink{class_map}{Map} using a \hyperlink{class_map_painter}{Map\+Painter}.  
+\-The \hyperlink{class_map_viewer}{\-Map\-Viewer} class provides a widget to display and edit a \hyperlink{class_map}{\-Map} using a \hyperlink{class_map_painter}{\-Map\-Painter}.  
 
 
 
 
-{\ttfamily \#include $<$mapviewer.\+h$>$}
+{\ttfamily \#include $<$mapviewer.\-h$>$}
 
-Inheritance diagram for Map\+Viewer\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_map_viewer}
-\end{center}
-\end{figure}
-\subsection*{Public Types}
+\subsection*{\-Public \-Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{Selection\+Mode} \{ \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067dad92f9b8968a2dac53903589a13c4c898}{Pencil\+Selection}, 
-\hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da551f2219d9274f32ee0d787cca9a0253}{Rectangle\+Selection}, 
-\hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da73f86e7956b7b2b6013ce0e20fa5eea0}{Region\+Selection}
- \}\begin{DoxyCompactList}\small\item\em The Selection\+Mode enum describes the different behaviour the cell selection can have. \end{DoxyCompactList}
+enum \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{\-Selection\-Mode} \{ \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067dad92f9b8968a2dac53903589a13c4c898}{\-Pencil\-Selection}, 
+\hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da551f2219d9274f32ee0d787cca9a0253}{\-Rectangle\-Selection}, 
+\hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da73f86e7956b7b2b6013ce0e20fa5eea0}{\-Region\-Selection}
+ \}
+\begin{DoxyCompactList}\small\item\em \-The \-Selection\-Mode enum describes the different behaviour the cell selection can have. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Public \-Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_map_viewer_af6db4693f536ea5ce8b7b6f05d4099ea}{void {\bfseries update\-Request} ()}\label{class_map_viewer_af6db4693f536ea5ce8b7b6f05d4099ea}
+
 \end{DoxyCompactItemize}
-\subsection*{Public Slots}
+\subsection*{\-Signals}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_map_viewer_af6db4693f536ea5ce8b7b6f05d4099ea}{}\label{class_map_viewer_af6db4693f536ea5ce8b7b6f05d4099ea} 
-void {\bfseries update\+Request} ()
+\hypertarget{class_map_viewer_afe0db95f8db428737b5225663dd2b127}{void {\bfseries view\-Size\-Changed} (\-Q\-Size)}\label{class_map_viewer_afe0db95f8db428737b5225663dd2b127}
+
+\item 
+\hypertarget{class_map_viewer_a60b95fc5e6817673a532b11a139a0eab}{void {\bfseries selection\-Changed} ()}\label{class_map_viewer_a60b95fc5e6817673a532b11a139a0eab}
+
 \end{DoxyCompactItemize}
-\subsection*{Signals}
+\subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_map_viewer_afe0db95f8db428737b5225663dd2b127}{}\label{class_map_viewer_afe0db95f8db428737b5225663dd2b127} 
-void {\bfseries view\+Size\+Changed} (Q\+Size)
+\hypertarget{class_map_viewer_ae2c78c6e6ac686b2db1f4b3a7e3f318a}{{\bfseries \-Map\-Viewer} (\-Q\-Widget $\ast$parent=0)}\label{class_map_viewer_ae2c78c6e6ac686b2db1f4b3a7e3f318a}
+
 \item 
-\hypertarget{class_map_viewer_a60b95fc5e6817673a532b11a139a0eab}{}\label{class_map_viewer_a60b95fc5e6817673a532b11a139a0eab} 
-void {\bfseries selection\+Changed} ()
-\end{DoxyCompactItemize}
-\subsection*{Public Member Functions}
-\begin{DoxyCompactItemize}
+\hypertarget{class_map_viewer_a15df9bdd47e5ad36c67601d335bfa5f1}{void {\bfseries set\-Map} (\hyperlink{class_map}{\-Map} $\ast$m)}\label{class_map_viewer_a15df9bdd47e5ad36c67601d335bfa5f1}
+
 \item 
-\hypertarget{class_map_viewer_ae2c78c6e6ac686b2db1f4b3a7e3f318a}{}\label{class_map_viewer_ae2c78c6e6ac686b2db1f4b3a7e3f318a} 
-{\bfseries Map\+Viewer} (Q\+Widget $\ast$parent=0)
+\hypertarget{class_map_viewer_a723ad37abb7af9ecac0bdd68dd628e46}{void {\bfseries update\-Map} ()}\label{class_map_viewer_a723ad37abb7af9ecac0bdd68dd628e46}
+
 \item 
-\hypertarget{class_map_viewer_a15df9bdd47e5ad36c67601d335bfa5f1}{}\label{class_map_viewer_a15df9bdd47e5ad36c67601d335bfa5f1} 
-void {\bfseries set\+Map} (\hyperlink{class_map}{Map} $\ast$m)
+\hypertarget{class_map_viewer_af30594b6df0ea90676a4dc4ec65abaca}{\hyperlink{class_map_painter}{\-Map\-Painter} \& {\bfseries map\-Painter} ()}\label{class_map_viewer_af30594b6df0ea90676a4dc4ec65abaca}
+
 \item 
-\hypertarget{class_map_viewer_a723ad37abb7af9ecac0bdd68dd628e46}{}\label{class_map_viewer_a723ad37abb7af9ecac0bdd68dd628e46} 
-void {\bfseries update\+Map} ()
+\hypertarget{class_map_viewer_ad4ef828182ead076c00d48827e401b5d}{void {\bfseries set\-Selection\-Mode} (\hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{\-Selection\-Mode} m)}\label{class_map_viewer_ad4ef828182ead076c00d48827e401b5d}
+
 \item 
-\hypertarget{class_map_viewer_af30594b6df0ea90676a4dc4ec65abaca}{}\label{class_map_viewer_af30594b6df0ea90676a4dc4ec65abaca} 
-\hyperlink{class_map_painter}{Map\+Painter} \& {\bfseries map\+Painter} ()
-\item 
-\hypertarget{class_map_viewer_ad4ef828182ead076c00d48827e401b5d}{}\label{class_map_viewer_ad4ef828182ead076c00d48827e401b5d} 
-void {\bfseries set\+Selection\+Mode} (\hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{Selection\+Mode} m)
-\item 
-\hypertarget{class_map_viewer_a6bc885ec211a289c79949e88af654830}{}\label{class_map_viewer_a6bc885ec211a289c79949e88af654830} 
-\hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{Selection\+Mode} {\bfseries selection\+Mode} () const
+\hypertarget{class_map_viewer_a923bddd563c6e0078a30e8f9ea9971e8}{\hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{\-Selection\-Mode} {\bfseries selection\-Mode} () const }\label{class_map_viewer_a923bddd563c6e0078a30e8f9ea9971e8}
+
 \end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-The \hyperlink{class_map_viewer}{Map\+Viewer} class provides a widget to display and edit a \hyperlink{class_map}{Map} using a \hyperlink{class_map_painter}{Map\+Painter}. 
+\subsection{\-Detailed \-Description}
+\-The \hyperlink{class_map_viewer}{\-Map\-Viewer} class provides a widget to display and edit a \hyperlink{class_map}{\-Map} using a \hyperlink{class_map_painter}{\-Map\-Painter}. 
 
-Several \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{selection modes} are available. Combined with the {\ttfamily Ctrl} and {\ttfamily Shift} modifiers, a colossal amount of selection possibilities is offered. See \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{Selection\+Mode} for more information. 
+\-Several \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{selection modes} are available. \-Combined with the ```\-Ctrl``` and ```\-Shift``` modifiers, a colossal amount of selection possibilities is offered. \-See \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{\-Selection\-Mode} for more information. 
 
-\subsection{Member Enumeration Documentation}
-\hypertarget{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{}\label{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d} 
-\index{Map\+Viewer@{Map\+Viewer}!Selection\+Mode@{Selection\+Mode}}
-\index{Selection\+Mode@{Selection\+Mode}!Map\+Viewer@{Map\+Viewer}}
-\subsubsection{\texorpdfstring{Selection\+Mode}{SelectionMode}}
-{\footnotesize\ttfamily enum \hyperlink{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{Map\+Viewer\+::\+Selection\+Mode}}
+\subsection{\-Member \-Enumeration \-Documentation}
+\hypertarget{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}{\index{\-Map\-Viewer@{\-Map\-Viewer}!\-Selection\-Mode@{\-Selection\-Mode}}
+\index{\-Selection\-Mode@{\-Selection\-Mode}!MapViewer@{\-Map\-Viewer}}
+\subsubsection[{\-Selection\-Mode}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf \-Map\-Viewer\-::\-Selection\-Mode}}}\label{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067d}
 
 
+\-The \-Selection\-Mode enum describes the different behaviour the cell selection can have. 
 
-The Selection\+Mode enum describes the different behaviour the cell selection can have. 
-
-The selection\textquotesingle{}s behaviour in based on to parameters \+:
+\-The selection's behaviour in based on to parameters \-:
 \begin{DoxyItemize}
-\item The keyboard modifiers that are pressed during selection.
-\item The current selection mode
+\item \-The keyboard modifiers that are pressed during selection.
+\item \-The current selection mode
 \end{DoxyItemize}
 
-If the {\ttfamily Ctrl} modifier is pressed, the past selected cells stay selected otherwise, they are all unselected
+\-If the ```\-Ctrl``` modifier is pressed, the past selected cells stay selected otherwise, they are all unselected
 
-If the {\ttfamily Shift} modifier is pressed, the selection is inverted.
+\-If the ```\-Shift``` modifier is pressed, the selection is inverted.
 
-Three modes of selection exists \+: \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Pencil\+Selection@{Pencil\+Selection}!Map\+Viewer@{Map\+Viewer}}\index{Map\+Viewer@{Map\+Viewer}!Pencil\+Selection@{Pencil\+Selection}}}\hypertarget{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067dad92f9b8968a2dac53903589a13c4c898}{}\label{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067dad92f9b8968a2dac53903589a13c4c898} 
-Pencil\+Selection&The \hyperlink{class_cell}{cells} under the cursor are selected \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Rectangle\+Selection@{Rectangle\+Selection}!Map\+Viewer@{Map\+Viewer}}\index{Map\+Viewer@{Map\+Viewer}!Rectangle\+Selection@{Rectangle\+Selection}}}\hypertarget{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da551f2219d9274f32ee0d787cca9a0253}{}\label{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da551f2219d9274f32ee0d787cca9a0253} 
-Rectangle\+Selection&The \hyperlink{class_cell}{cells} inside the rectangle defined by the clicked cell and the cell under the cursor are selected \\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Region\+Selection@{Region\+Selection}!Map\+Viewer@{Map\+Viewer}}\index{Map\+Viewer@{Map\+Viewer}!Region\+Selection@{Region\+Selection}}}\hypertarget{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da73f86e7956b7b2b6013ce0e20fa5eea0}{}\label{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da73f86e7956b7b2b6013ce0e20fa5eea0} 
-Region\+Selection&The \hyperlink{class_cell}{cells} inside the region drawn by cursor\textquotesingle{}s moves are selected \\
-\hline
-
-\end{DoxyEnumFields}
+\-Three modes of selection exists \-: \begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-Pencil\-Selection@{\-Pencil\-Selection}!\-Map\-Viewer@{\-Map\-Viewer}}\index{\-Map\-Viewer@{\-Map\-Viewer}!\-Pencil\-Selection@{\-Pencil\-Selection}}\item[{\em 
+\hypertarget{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067dad92f9b8968a2dac53903589a13c4c898}{\-Pencil\-Selection}\label{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067dad92f9b8968a2dac53903589a13c4c898}
+}]\-The \hyperlink{class_cell}{cells} under the cursor are selected \index{\-Rectangle\-Selection@{\-Rectangle\-Selection}!\-Map\-Viewer@{\-Map\-Viewer}}\index{\-Map\-Viewer@{\-Map\-Viewer}!\-Rectangle\-Selection@{\-Rectangle\-Selection}}\item[{\em 
+\hypertarget{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da551f2219d9274f32ee0d787cca9a0253}{\-Rectangle\-Selection}\label{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da551f2219d9274f32ee0d787cca9a0253}
+}]\-The \hyperlink{class_cell}{cells} inside the rectangle defined by the clicked cell and the cell under the cursor are selected \index{\-Region\-Selection@{\-Region\-Selection}!\-Map\-Viewer@{\-Map\-Viewer}}\index{\-Map\-Viewer@{\-Map\-Viewer}!\-Region\-Selection@{\-Region\-Selection}}\item[{\em 
+\hypertarget{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da73f86e7956b7b2b6013ce0e20fa5eea0}{\-Region\-Selection}\label{class_map_viewer_a8a7a365452e5770c1fab21a9bfb0067da73f86e7956b7b2b6013ce0e20fa5eea0}
+}]\-The \hyperlink{class_cell}{cells} inside the region drawn by cursor's moves are selected \end{description}
+\end{Desc}
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-src/editor/\+G\+U\+I/\+Tabs/mapviewer.\+h\item 
-src/editor/\+G\+U\+I/\+Tabs/mapviewer.\+cpp\end{DoxyCompactItemize}
+src/editor/\-G\-U\-I/\-Tabs/mapviewer.\-h\item 
+src/editor/\-G\-U\-I/\-Tabs/mapviewer.\-cpp\end{DoxyCompactItemize}

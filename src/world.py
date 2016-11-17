@@ -4,7 +4,8 @@ from random import randint
 
 from utils import readXml
 from orders import Order, OrderType
-#l'autre solution est de tout mettre dans une fonction 
+import parsing.global_parsing as global_parsing
+#l'autre solution est de tout mettre dans une fonction
 # qui écrasera des classes bidon en global
 
 verbose = False
@@ -17,15 +18,16 @@ world = None
 def loadGame(path):
     """ Lit le game.xml et renvoie le monde chargé """
     global world
-    dat = readXml(path + "game.xml")
-    assert dat.name == "Game"
-    lw = []
-    for d in dat.list:
-        if d.name == "World":
-            lw.extend(d.list)
-    for f in lw:
-        dat = readXml(path+f.args["file"])
-        eval(dat.name)().load(dat)
+    parsed_data = global_parsing.game_parser(path+"game.xml")
+    print(parsed_data)
+    for data in parsed_data.keys():
+        print("Data is : %s" % data)
+        if data != 'Actions' and  data != 'Interactions':
+            typ = None
+            if data.endswith("Type"):
+                typ = data[:-4]
+            eval(data)().load(parsed_data[data], typ)
+
     world = named["world"]
     for m in world.maps: m.fill()
     return world
@@ -41,7 +43,7 @@ class BaseObject:
         self.params = {} # Ne pas déplacer =)
         self.ident = BaseObject.ident
         self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
-    
+
     def __getattr__(self, attr):
         if attr in self.params:
             return self.params[attr]
@@ -52,44 +54,68 @@ class BaseObject:
             object.__setattr__(self, attr, val)
         else:
             self.params[attr] = val
-    
-    def load(self, data):
+
+    def load(self, data, typ=None):
         """ Charge l'objet depuis une structure Xml """
-        if verbose: print(data.name)
-        for d in data.list:
-            n = d.name
-            if n=="Params": #peut gérer plusieurs def de params
-                for np, ap, _ in d.list:
-                    if "val" in ap:
-                        self.params[np] = int(ap["val"]) # on a supposé un int
-                    else:
-                        toResolve.append((ap["id"], self.params, np))
-            elif n==self.__class__.__name__+"Type": # ObjectType
+        if verbose: print(data)
+        if typ != None and type(eval(typ)) == type:
+            for key in data.keys():
+                ObjectType(typ).load(data[key])
+
+        for key in data.keys():
+            if key == 'name':
                 pass
-            elif (n.lower() in self.__dict__ and 
-                 type(self.__dict__[n.lower()])==list):
-                li = self.__dict__[n.lower()]
-                C = plurals[n.lower()]
-                for dat in d.list:
-                    if "id" in dat.args:
-                        toResolve.append((dat.args["id"], li, len(li)))
-                        li.append(None)
+            elif key == 'params':
+                for sub_data in data[key].keys():
+                    if type(data[key][sub_data])==dict and data[key][sub_data].get("id"):
+                        print("id data: %s" % data[key][sub_data])
+                        toResolve.append((data[key][sub_data].get("id"), self.params, key))
+                        print(toResolve)
                     else:
-                        li.append(C().load(dat))
-            elif n.endswith("Type") and type(eval(n[:-4]))==type and "name" in d.args:
-                ObjectType(eval(n[:-4])).load(d)
-            elif type(eval(n))==type and "name" in d.args:
-                eval(n)().load(d)
-                
-        if "name" in data.args:
-            named[data.args["name"]] = self
+                        self.params[sub_data] = data[key][sub_data]
+            elif key == 'position':
+                self.params['x'] = data[key][0]
+                self.params['y'] = data[key][1]
+            elif key.lower() in self.__dict__:
+                for sub_data in data[key]:
+                    toResolve.append((sub_data['id'], self.params, key))
+            else:
+                self.params[key] = data[key]
+        if 'name' in data.keys():
+            named[data['name']] = self
+#        for d in data.list:
+#            n = d.name
+#            if n=="Params": #peut gérer plusieurs def de params
+#                for np, ap, _ in d.list:
+#                    if "val" in ap:
+#                        self.params[np] = int(ap["val"]) # on a supposé un int
+#                    else:
+#                        toResolve.append((ap["id"], self.params, np))
+#            elif n==self.__class__.__name__+"Type": # ObjectType
+#                pass
+#            elif (n.lower() in self.__dict__ and 
+#                 type(self.__dict__[n.lower()])==list):
+#                li = self.__dict__[n.lower()]
+#                C = plurals[n.lower()]
+#                for dat in d.list:
+#                    if "id" in dat.args:
+#                        toResolve.append((dat.args["id"], li, len(li)))
+#                        li.append(None)
+#                    else:
+#                        li.append(C().load(dat))
+#            elif n.endswith("Type") and type(eval(n[:-4]))==type and "name" in d.args:
+#                ObjectType(eval(n[:-4])).load(d)
+#            elif type(eval(n))==type and "name" in d.args:
+#                eval(n)().load(d)
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue
             if verbose: print(nm, "->", named[nm])
             li[ln] = named[nm]
             #assert nm in named, nm+" non résolu" FIXME
+        print("Finished to load %s" % data)
+        print("params of data %s" % self.params)
         return self
-    
+
     def contextEval(self, value):
         """ Évalue une expression dans le contexte de l'objet pour les ordres """
         return eval(value)
@@ -100,13 +126,13 @@ class BaseObject:
 #class ServerObject(BaseObject): pass
 #class ClientObject(BaseObject): pass
 
-MagicObject = BaseObject
+Object = BaseObject
 #ServerObject if SERVER else ClientObject
 # pour éviter la confusion avec object
 
-class ObjectType(MagicObject):
+class ObjectType(Object):
     """ Les types d'objets (au sens informatique) """
-    def __init__(self, typ = MagicObject):
+    def __init__(self, typ = Object):
         super().__init__()
         self.type = typ
     
@@ -118,16 +144,16 @@ class ObjectType(MagicObject):
             instance.params[p] = v
         return instance
     
-class World(MagicObject):
+class World(Object):
     def __init__(self):
-        MagicObject.__init__(self)
+        Object.__init__(self)
         self.maps = [] # une liste c'est mieux non ?
         self.entities = []
         self.objects = []
         
-class Map(MagicObject):
+class Map(Object):
     def __init__(self):
-        MagicObject.__init__(self)
+        Object.__init__(self)
         self.cells = []
         
     def fill(self):
@@ -144,21 +170,21 @@ class Map(MagicObject):
                     self.cells.append(cell)
                     cell.x = i; cell.y = j
     
-class Cell(MagicObject):
+class Cell(Object):
     def __init__(self):
-        MagicObject.__init__(self)
+        Object.__init__(self)
         self.entities = []
         self.objects = []
         
-class Entity(MagicObject):
+class Entity(Object):
     def __init__(self):
-        MagicObject.__init__(self)
+        Object.__init__(self)
         self.quests = []
         self.inventory = []
         self.user = None
     
-plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":MagicObject,
-       "types":ObjectType, "inventory":MagicObject, "quests":MagicObject}
+plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":Object,
+       "types":ObjectType, "inventory":Object, "quests":Object}
 
 if __name__=="__main__":
     verbose = True

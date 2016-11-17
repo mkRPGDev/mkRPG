@@ -6,11 +6,12 @@
         <Cell>maps/cell.xml</Cell>
         <Cell>maps/cell2.xml</Cell>
         <Entities>entities/entity0.xml</Entities>
+        <Objects>pomme.xml</Objects>
     </World>
     <Actions>
-        <file>actions.xml</file>
+        <Action>actions.xml</Action>
     </Actions>
     <Interactions>
-        <file>interactions.xml</file>
+        <Interaction>interactions.xml</Interaction>
     </Interactions>
 </Game>

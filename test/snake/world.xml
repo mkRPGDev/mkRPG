@@ -2,15 +2,16 @@
     <Params>
         <currentMap>main</currentMap>
         <step>0</step>
+        <pomme id="pomme"/>
     </Params>
 
     <Entities>
-        <Entity>serpent</Entity>
-        <Entity>serpent2</Entity>
+        <Entity id="serpent"/>
+        <Entity id="serpent2"/>
     </Entities>
 
     <Objects>
-        <Object id="pomme">pomme</Object>
+        <Object id="pomme"/>
     </Objects>
 <!--
     <Map name="principale">

@@ -1,7 +1,9 @@
-from sys import argv
+from sys import argv, path
 from queue import Queue
 from argparse import ArgumentParser
 import asyncio
+
+path.append('parsing')
 
 from const import *
 from actions import registerActions
@@ -11,6 +13,7 @@ from utils import Timer
 
 import world
 
+
 class Server():
     """ Classe principale du processus serveur, concilie réseau, monde, actions et timer """
 
@@ -19,7 +22,7 @@ class Server():
         self.net = NetworkServer(self.handleEvent, self.loop)
         self.world = world.loadGame(path)
         self.actions = registerActions(path, world.named) # FIXME -> game
-        
+
         self.timer = Timer()
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent, self.timer)
         self.events = asyncio.Queue()
@@ -54,6 +57,7 @@ class Server():
             if event not in self.actions: continue
             for act in self.actions[event]:
                 for order in act.orders:
+                    print(emitter)
                     returnOrder = await self.orderDispatcher.treat(emitter, order)
                     if returnOrder:
                         await self.net.sendOrder(emitter.ident, returnOrder)

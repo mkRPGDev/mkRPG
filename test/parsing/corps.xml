@@ -1,0 +1,20 @@
+<ObjectTypes>
+    <ObjectType name="corps">
+        <Params>
+            <dir>1</dir>
+            <picture>111</picture>
+            <x>2</x>
+            <y>12</y>
+            <case id="cell0"/>
+        </Params>
+    </ObjectType>
+    <ObjectType name="pieds">
+        <Params>
+            <dir>1</dir>
+            <picture>111</picture>
+            <x>2</x>
+            <y>12</y>
+            <case id="cell1"/>
+        </Params>
+    </ObjectType>
+</ObjectTypes>

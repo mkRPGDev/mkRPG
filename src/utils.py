@@ -96,7 +96,7 @@ if __name__=="__main__":
     # tests
     #verbose = True
     #perff = Perf()
-    #print(readXml("../Test/Snake/world.xml"))
+    print(readXml("../Test/Snake/world.xml"))
     #perff.show()
     loop = asyncio.get_event_loop()
     t = Timer(loop.time)

@@ -29,13 +29,13 @@ def test_cell_parser():
 
 def test_entity_parser():
     print("Testing entity parser")
-    enitities_parsed = entity_parser.parse_entities("entities/entity.xml")
+    enitities_parsed = entity_parser.parse_entities("entities/entity0.xml")
     formatter(enitities_parsed)
 
 def test_multiple_files_entities():
     print("Testing multiple file entities parser")
     entities_parsed = entity_parser.parse_multiple_entities(
-            'entities/entity.xml', 'entities/entity2.xml')
+            'entities/entity0.xml', 'entities/entity1.xml')
     formatter(entities_parsed)
 
 def test_world_parser():
@@ -170,13 +170,13 @@ if __name__=="__main__":
 #    test_cell_parser()
 #    test_entity_parser()
 #    test_multiple_files_entities()
-#    test_world_parser()
+    test_world_parser()
 #    test_check_entity()
 #    test_collect_data()
 #    test_collect_map_data()
 #    test_game_parser()
-#    test_actions_parser()
-#    test_multiple_actions_parser()
+#   test_actions_parser()
+#   test_multiple_actions_parser()
 #    test_interaction_parser()
 #    test_file_interaction_parser()
 #    test_files_interaction_parser()
@@ -188,4 +188,4 @@ if __name__=="__main__":
 #    test_multiple_files_objects_parser()
 #    test_object_type_parser()
 #    test_objects_type_parser()
-    test_global_parsing()
+    #test_global_parsing()

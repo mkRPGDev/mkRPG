@@ -43,16 +43,22 @@ class Order:
     
     def load(self, dat, named):
         """ Initialise l'ordre avec une structure provenant d'un Xml """
-        assert dat.name == "Order"
-        self.type = OrderType.__members__[dat.args["type"].capitalize()]
+        self.type = OrderType.__members__[dat['type'].capitalize()]
         self.args = [0]*len(self.params[self.type])
-        for nm, args, _ in dat.list:
-            if "val" in args:
-                self.args[self.params[self.type].index(nm)] = args["val"]
-            else:
-                # TODO utiliser des pointeurs
-                self.args[self.params[self.type].index(nm)] = \
-                    str(named[args["id"]].ident)
+        for key in dat.keys():
+            if key != 'type':
+                if type(dat[key]) == dict and dat[key].get("id") is not None:
+                    self.args[self.params[self.type].index(key)] = str(named[(dat[key]["id"])].ident)
+                else:
+                    self.args[self.params[self.type].index(key)] = dat[key]
+#        for nm, args, _ in dat.list:
+#            if "val" in args:
+#                self.args[self.params[self.type].index(nm)] = args["val"]
+#            else:
+#                # TODO utiliser des pointeurs
+#                self.args[self.params[self.type].index(nm)] = \
+#                    str(named[args["id"]].ident)
+        print(self)
         return self
     
     def toBytes(self): # TODO éliminer tt les str => ids de param
@@ -92,6 +98,7 @@ class OrderDispatcher:
         world = self.world
         if order.type==OrderType.Set:
             target = emitter if order.target=="emitter" else eval(order.target)
+            print(target)
             val = target.contextEval(order.value)
             preval = target.params[order.param]
             if val!=preval:

@@ -44,7 +44,7 @@ def object_type_parser(object_type_tag):
 
     if _params is None:
         parsing_utils._fail_not_found("Params")
-    params_dict = {}
+    params_dict = {'name': name}
     for param in _params:
         if param.attrib.get('id'):
             params_dict.update({param.tag: param.attrib})

@@ -25,12 +25,15 @@ def parse_world(world_file):
     objects_list = []
     if params is not None:
         for param in params.getchildren():
-            params_dict.update({param.tag: param.text})
+            if param.attrib.get('id'):
+                params_dict.update({param.tag: {"id": param.attrib["id"]}})
+            else:
+                params_dict.update({param.tag: param.text})
     if entities is not None:
         for entity in entities.getchildren():
-            entities_list += [entity.text]
+            entities_list += [entity.attrib]
     if objects is not None:
         for object_ in objects.getchildren():
-            objects_list += [(object_.attrib.get('id'), object_.text)]
-    return {'entities': entities_list, 'params': params_dict, 'objects': objects_list}
+            objects_list += [object_.attrib]
+    return {'name':'world', 'entities': entities_list, 'params': params_dict, 'objects': objects_list}
 

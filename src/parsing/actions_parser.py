@@ -18,6 +18,8 @@ def get_tag(order_tag, tag, optionnal=False):
             parsing_utils._fail_not_found(tag)
         else:
             return None
+    if _tag.attrib.get("id"):
+        return _tag.attrib
     if _tag.attrib.get("val") is None:
         print("Tag %s found, but val not found." % tag)
         sys.exit(1)
@@ -31,7 +33,7 @@ def parse_order(order_tag):
         parsing_utils._fail_not_found("Type in order tag")
     res.update({"type": type_order})
 
-    for tag in ["value", "event", "param", "target", "init", "once"]:
+    for tag in ["value", "event", "param", "target", "init", "once", "base"]:
         value = get_tag(order_tag, tag, optionnal=True)
         if value:
             res.update({tag: value})

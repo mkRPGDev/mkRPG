@@ -1,0 +1,12 @@
+<Entity name="serpent2">
+    <Params>
+        <dir val="3"/>
+        <picture val="88"/>
+        
+        <x val="15"/>
+        <y val="15"/>
+        <case id="cell1"/>
+        <map id="main"/>
+        <score val="1"/>
+    </Params>
+</Entity>

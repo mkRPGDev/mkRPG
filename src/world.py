@@ -1,8 +1,10 @@
 from enum import IntEnum
+from collections import defaultdict
 from random import randint
 
 from isserver import SERVER
 from tools import readXml
+
 from orders import Order, OrderType
 #l'autre solution est de tout mettre dans une fonction
 # qui écrasera des classes bidon en global
@@ -15,6 +17,7 @@ toResolve = []
 world = None
 
 def loadGame(path):
+    """ Lit le game.xml et renvoie le monde chargé """
     global world
     dat = readXml(path + "game.xml")
     assert dat.name == "Game"
@@ -30,25 +33,32 @@ def loadGame(path):
     return world
 
 class BaseObject:
+    """ Tout objet du monde """
     ident = 0
     ids = {} # liste si sans deletion
 
     def __init__(self):
         BaseObject.ident += 1
         BaseObject.ids[BaseObject.ident] = self
+        self.params = {} # Ne pas déplacer =)
         self.ident = BaseObject.ident
-        self.params = {}
 
+        self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
+    
     def __getattr__(self, attr):
         if attr in self.params:
             return self.params[attr]
         raise AttributeError(attr)
 
-    # TODO utiliser un setattr ?
-
+    def __setattr__(self, attr, val):
+        if attr is "params" or attr not in self.params:
+            object.__setattr__(self, attr, val)
+        else:
+            self.params[attr] = val
+    
     def load(self, data):
+        """ Charge l'objet depuis une structure Xml """
         if verbose: print(data.name)
-        #assert(data.name == self.__class__.__name__)
         for d in data.list:
             n = d.name
             if n=="Params": #peut gérer plusieurs def de params
@@ -84,24 +94,28 @@ class BaseObject:
         return self
 
     def contextEval(self, value):
+        """ Évalue une expression dans le contexte de l'objet pour les ordres """
         return eval(value)
 
     # TODO traitement d'ordres ?
 
-# TODO à enlever ?
-class ServerObject(BaseObject): pass
-class ClientObject(BaseObject): pass
+#class ServerObject(BaseObject): pass
+#class ClientObject(BaseObject): pass
 
-MagicObject = ServerObject if SERVER else ClientObject
+MagicObject = BaseObject
+# ServerObject if SERVER else ClientObject
 # pour éviter la confusion avec object
 
 class ObjectType(MagicObject):
+    """ Les types d'objets (au sens informatique) """
     def __init__(self, typ = MagicObject):
         super().__init__()
         self.type = typ
 
     def create(self):
+        """ Instanticiation d'un objet à partir du type """
         instance = self.type()
+        instance.type = self
         for p,v in self.params.items():
             instance.params[p] = v
         return instance
@@ -146,7 +160,8 @@ class Entity(MagicObject):
         MagicObject.__init__(self)
         self.quests = []
         self.inventory = []
-
+        self.user = None
+    
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":MagicObject,
        "types":ObjectType, "inventory":MagicObject, "quests":MagicObject}
 

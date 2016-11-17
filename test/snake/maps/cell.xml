@@ -1,7 +1,7 @@
 <Cell name="cell0">
     <Params>
-        <x val="10"/>
-        <y val="10"/>
+        <x val="5"/>
+        <y val="5"/>
         <picture val="32"/>
         <mortelle val="0"/>
     </Params>
@@ -9,4 +9,18 @@
     <Entities>
         <Entity id="serpent"/>
     </Entities>
+
+    <Cell name="cell1">
+    <Params>
+        <x val="15"/>
+        <y val="15"/>
+        <picture val="32"/>
+        <mortelle val="0"/>
+    </Params>
+    
+    <Entities>
+        <Entity id="serpent2"/>
+    </Entities>
+</Cell>
+
 </Cell>

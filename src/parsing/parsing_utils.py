@@ -60,9 +60,8 @@ def parse_multiple_files(parsing_method, *args):
     """Parses the given file lists, and returns the dictionary containing the
     whole data parsed by the parsing_method function.
     """
-    assert args
     all_data = {}
-    for data_file in args:
+    for data_file in list(args):
         new_data = parsing_method(data_file)
         for key in new_data.keys():
             if all_data.get(key) is not None:

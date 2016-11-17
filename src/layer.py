@@ -8,6 +8,7 @@ import utils
 from math import pi
 
 class Layer(pygame.sprite.Sprite):
+    """ A abstract class defining a layer of the display (ex. background) """
 
     def __init__(self, size):
         pygame.sprite.Sprite.__init__(self)
@@ -17,7 +18,7 @@ class Layer(pygame.sprite.Sprite):
         self.size = size
 
     def render(self, surf):
-        return self.sprites
+        pass
 
     def update(self):
         pass
@@ -29,6 +30,11 @@ class Layer(pygame.sprite.Sprite):
         return (int(a+.5),int(b+.5))
 
     def make_grid(self, img_set, cell_ids):
+        """
+        Build the grid that will be drawn by Pygame. Img_set is a list
+        of (id/type, filename) specifying the files to load for each type
+        of cell and cell_ids is the type for each cell.
+        """
         res = pygame.Surface(self.size, pygame.SRCALPHA)
         res.convert_alpha()
         # Debug : fond de chunk aléatoire

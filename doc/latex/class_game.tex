@@ -1,63 +1,62 @@
-\hypertarget{class_game}{\section{\-Game \-Class \-Reference}
-\label{class_game}\index{\-Game@{\-Game}}
-}
+\hypertarget{class_game}{}\section{Game Class Reference}
+\label{class_game}\index{Game@{Game}}
 
 
-\-The \hyperlink{class_game}{\-Game} class gather the differents parts needed to describe a game.  
+The \hyperlink{class_game}{Game} class gather the differents parts needed to describe a game.  
 
 
 
 
-{\ttfamily \#include $<$game.\-h$>$}
+{\ttfamily \#include $<$game.\+h$>$}
 
-\-Inheritance diagram for \-Game\-:\begin{figure}[H]
+Inheritance diagram for Game\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_game}
 \end{center}
 \end{figure}
-\subsection*{\-Public \-Member \-Functions}
+\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \hyperlink{class_game_aeed0ba100700fb2f5d701fcf14d8871e}{new\-Ident} ()
+int \hyperlink{class_game_aeed0ba100700fb2f5d701fcf14d8871e}{new\+Ident} ()
 \item 
-\hypertarget{class_game_a38feaf6c233d25c2ad353bab65559790}{\hyperlink{class_world}{\-World} $\ast$ {\bfseries world} ()}\label{class_game_a38feaf6c233d25c2ad353bab65559790}
-
+\hypertarget{class_game_a38feaf6c233d25c2ad353bab65559790}{}\label{class_game_a38feaf6c233d25c2ad353bab65559790} 
+\hyperlink{class_world}{World} $\ast$ {\bfseries world} ()
 \item 
-\hypertarget{class_game_a3b242dcb7703b409692ce0c91e799a8c}{\hyperlink{class_map}{\-Map} $\ast$ {\bfseries current\-Map} ()}\label{class_game_a3b242dcb7703b409692ce0c91e799a8c}
-
+\hypertarget{class_game_a3b242dcb7703b409692ce0c91e799a8c}{}\label{class_game_a3b242dcb7703b409692ce0c91e799a8c} 
+\hyperlink{class_map}{Map} $\ast$ {\bfseries current\+Map} ()
 \item 
-\hypertarget{class_game_af7394ea8ff98b0b819125a6bac47db2b}{void {\bfseries set\-Current\-Map} (\hyperlink{class_map}{\-Map} $\ast$m)}\label{class_game_af7394ea8ff98b0b819125a6bac47db2b}
-
+\hypertarget{class_game_af7394ea8ff98b0b819125a6bac47db2b}{}\label{class_game_af7394ea8ff98b0b819125a6bac47db2b} 
+void {\bfseries set\+Current\+Map} (\hyperlink{class_map}{Map} $\ast$m)
 \item 
-\hypertarget{class_game_a8c246c639e16c351b7f261dc44a0897d}{void {\bfseries add\-Image} (\hyperlink{class_image}{\-Image} $\ast$im)}\label{class_game_a8c246c639e16c351b7f261dc44a0897d}
-
+\hypertarget{class_game_a8c246c639e16c351b7f261dc44a0897d}{}\label{class_game_a8c246c639e16c351b7f261dc44a0897d} 
+void {\bfseries add\+Image} (\hyperlink{class_image}{Image} $\ast$im)
 \end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
 
 
-\subsection{\-Detailed \-Description}
-\-The \hyperlink{class_game}{\-Game} class gather the differents parts needed to describe a game. 
+\subsection{Detailed Description}
+The \hyperlink{class_game}{Game} class gather the differents parts needed to describe a game. 
 
-\-It contains mainly the \hyperlink{class_world}{\-World}, and the ressources used by it (images and strings)
+It contains mainly the \hyperlink{class_world}{World}, and the ressources used by it (images and strings)
 
-\-For editing purposes, it contains also the active map (the one being editing) 
+For editing purposes, it contains also the active map (the one being editing) 
 
-\subsection{\-Member \-Function \-Documentation}
-\hypertarget{class_game_aeed0ba100700fb2f5d701fcf14d8871e}{\index{\-Game@{\-Game}!new\-Ident@{new\-Ident}}
-\index{new\-Ident@{new\-Ident}!Game@{\-Game}}
-\subsubsection[{new\-Ident}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Game\-::new\-Ident} (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_game_aeed0ba100700fb2f5d701fcf14d8871e}
-\-Returns a new unused identifiers
+\subsection{Member Function Documentation}
+\hypertarget{class_game_aeed0ba100700fb2f5d701fcf14d8871e}{}\label{class_game_aeed0ba100700fb2f5d701fcf14d8871e} 
+\index{Game@{Game}!new\+Ident@{new\+Ident}}
+\index{new\+Ident@{new\+Ident}!Game@{Game}}
+\subsubsection{\texorpdfstring{new\+Ident()}{newIdent()}}
+{\footnotesize\ttfamily int Game\+::new\+Ident (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-\begin{DoxyNote}{\-Note}
-\-It should only be used by \hyperlink{class_game_object}{\-Game\-Object} methods \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{\-Game\-Object\-::init} and \hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{\-Game\-Object\-::\-Game\-Object}. 
+Returns a new unused identifiers
+
+\begin{DoxyNote}{Note}
+It should only be used by \hyperlink{class_game_object}{Game\+Object} methods \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{Game\+Object\+::init} and \hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{Game\+Object\+::\+Game\+Object}. 
 \end{DoxyNote}
 
 
-\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-src/editor/\-Game/\hyperlink{game_8h}{game.\-h}\item 
-src/editor/\-Game/game.\-cpp\end{DoxyCompactItemize}
+src/editor/\+Game/\hyperlink{game_8h}{game.\+h}\item 
+src/editor/\+Game/game.\+cpp\end{DoxyCompactItemize}

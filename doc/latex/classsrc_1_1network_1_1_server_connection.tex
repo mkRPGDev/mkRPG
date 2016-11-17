@@ -1,33 +1,56 @@
-\hypertarget{classsrc_1_1network_1_1_server_connection}{\section{src.\-network.\-Server\-Connection \-Class \-Reference}
-\label{classsrc_1_1network_1_1_server_connection}\index{src.\-network.\-Server\-Connection@{src.\-network.\-Server\-Connection}}
-}
-
-
-\-Inherits \-Thread.
-
-\subsection*{\-Public \-Member \-Functions}
+\hypertarget{classsrc_1_1network_1_1_server_connection}{}\section{src.\+network.\+Server\+Connection Class Reference}
+\label{classsrc_1_1network_1_1_server_connection}\index{src.\+network.\+Server\+Connection@{src.\+network.\+Server\+Connection}}
+\subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classsrc_1_1network_1_1_server_connection_a4c5668c5a8a9a4a465c62b028a643221}{def {\bfseries \-\_\-\-\_\-init\-\_\-\-\_\-}}\label{classsrc_1_1network_1_1_server_connection_a4c5668c5a8a9a4a465c62b028a643221}
-
+\hypertarget{classsrc_1_1network_1_1_server_connection_aa9cb8731fc189dea188b7414f9af919d}{}\label{classsrc_1_1network_1_1_server_connection_aa9cb8731fc189dea188b7414f9af919d} 
+def {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, reader, writer, handle, parent)
 \item 
-\hypertarget{classsrc_1_1network_1_1_server_connection_a3145a5740f6734de3a319e3b445ca7ca}{def {\bfseries run}}\label{classsrc_1_1network_1_1_server_connection_a3145a5740f6734de3a319e3b445ca7ca}
-
+def \hyperlink{classsrc_1_1network_1_1_server_connection_a90815003d240ea16f574c3bb718c2fe2}{run} (self)
 \item 
-\hypertarget{classsrc_1_1network_1_1_server_connection_a68a0541f7a7e13f4726466e4cd297d5b}{def {\bfseries send}}\label{classsrc_1_1network_1_1_server_connection_a68a0541f7a7e13f4726466e4cd297d5b}
-
+\hypertarget{classsrc_1_1network_1_1_server_connection_a97bdb63ff84370566329822eed5067d0}{}\label{classsrc_1_1network_1_1_server_connection_a97bdb63ff84370566329822eed5067d0} 
+def {\bfseries send} (self, m)
+\item 
+\hypertarget{classsrc_1_1network_1_1_server_connection_a6a3b4cb4def11f7d5f8f2e154479248b}{}\label{classsrc_1_1network_1_1_server_connection_a6a3b4cb4def11f7d5f8f2e154479248b} 
+def {\bfseries end} (self)
 \end{DoxyCompactItemize}
-\subsection*{\-Public \-Attributes}
+\subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classsrc_1_1network_1_1_server_connection_a5bbbb7744db22d71f8b7bbf26460105c}{{\bfseries soc}}\label{classsrc_1_1network_1_1_server_connection_a5bbbb7744db22d71f8b7bbf26460105c}
-
+\hypertarget{classsrc_1_1network_1_1_server_connection_a4bd50fbdebf2a26a395f6f5315fb3405}{}\label{classsrc_1_1network_1_1_server_connection_a4bd50fbdebf2a26a395f6f5315fb3405} 
+{\bfseries reader}
 \item 
-\hypertarget{classsrc_1_1network_1_1_server_connection_a57f0bb2d7eeb65b75c952684f4450eea}{{\bfseries handle}}\label{classsrc_1_1network_1_1_server_connection_a57f0bb2d7eeb65b75c952684f4450eea}
-
+\hypertarget{classsrc_1_1network_1_1_server_connection_aef8c4d5e35e0113fd7c75e249e469fb9}{}\label{classsrc_1_1network_1_1_server_connection_aef8c4d5e35e0113fd7c75e249e469fb9} 
+{\bfseries writer}
+\item 
+\hypertarget{classsrc_1_1network_1_1_server_connection_a7f3534db8f1973fd35c15680c03e5c4d}{}\label{classsrc_1_1network_1_1_server_connection_a7f3534db8f1973fd35c15680c03e5c4d} 
+{\bfseries handle}
+\item 
+\hypertarget{classsrc_1_1network_1_1_server_connection_a2422ae5d77f824318d3d90a00426bdea}{}\label{classsrc_1_1network_1_1_server_connection_a2422ae5d77f824318d3d90a00426bdea} 
+{\bfseries entity}
+\item 
+\hypertarget{classsrc_1_1network_1_1_server_connection_acc1fdbe1f95a27cda852cb08255d5811}{}\label{classsrc_1_1network_1_1_server_connection_acc1fdbe1f95a27cda852cb08255d5811} 
+{\bfseries server}
 \end{DoxyCompactItemize}
 
 
-\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\subsection{Detailed Description}
+\begin{DoxyVerb}This thread manages the communications with one particular client (one
+thread is created by client).
+\end{DoxyVerb}
+ 
+
+\subsection{Member Function Documentation}
+\hypertarget{classsrc_1_1network_1_1_server_connection_a90815003d240ea16f574c3bb718c2fe2}{}\label{classsrc_1_1network_1_1_server_connection_a90815003d240ea16f574c3bb718c2fe2} 
+\index{src\+::network\+::\+Server\+Connection@{src\+::network\+::\+Server\+Connection}!run@{run}}
+\index{run@{run}!src\+::network\+::\+Server\+Connection@{src\+::network\+::\+Server\+Connection}}
+\subsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily def src.\+network.\+Server\+Connection.\+run (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wait for messages from the client and handle them immediately.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-src/network.\-py\end{DoxyCompactItemize}
+src/network.\+py\end{DoxyCompactItemize}

@@ -6,6 +6,7 @@ CellType::CellType(Game *g, GameObject *parent) :
     GameObject(g, parent)
 {
     //aName = QObject::tr("Cell_type", "name of a CellType");
+    SetFlag(walkable,true);
 }
 
 
@@ -66,6 +67,10 @@ Map::Map(Game *g, GameObject *parent) :
     SetParam(angleY, 0);
 
     SetFlag(inutile, false);
+
+    ProtectParam(height);
+    //SetParam(znull,42);
+    ProtectParam(width);
 }
 
 Map::~Map(){
@@ -79,6 +84,8 @@ void Map::resize(int w, int h){
     for(int i(0); i<w*h; cells[i++].init(game, this));
     SetParam(width, w);
     SetParam(height, h);
+    wi = w;
+    he = h;
     touch();
 }
 
@@ -88,6 +95,14 @@ void Map::setWidth(int w){
 
 void Map::setHeight(int h){
     resize(width(), h);
+}
+
+int Map::width() const{
+    return wi;
+}
+
+int Map::height() const{
+    return he;
 }
 
 Cell& Map::cell(int i, int j) const{
@@ -115,4 +130,10 @@ void Map::clearPreSelection(){
 
 void Map::confirmPreSelection(bool add){
     forCells(i) cells[i].confirmPreSelection(add);
+}
+
+QList<GameObject*> Map::children() const{
+    QList<GameObject*> l = GameObject::children();
+    l.erase(std::remove_if(l.begin(), l.end(), [this](GameObject* o){return o>=cells && o<cells+sizeof(Cell)*width()*height();}),l.end());
+    return l;
 }

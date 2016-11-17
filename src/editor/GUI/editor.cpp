@@ -33,12 +33,13 @@ Editor::Editor(QStringList args, QWidget *parent) :
     worldEditor->setGame(g);
     objectEditor->setGame(g);
 
+    connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
 }
 
 
-void Editor::addTab(const QString &n, const QPixmap &p, QWidget *w){
+void Editor::addTab(const QString &n, const QPixmap &p, TabWidget *w){
     stackedWidget->addWidget(w);
-    tabBar->addTabAcces(n,p);
+    tabBar->addTabAcces(n,p,w);
 
 }
 
@@ -109,26 +110,29 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     Game* g = new Game();
     Map *m = new Map(g, g->world());
     g->world()->addMap(m);
-    g->setCurrentMap(m);
+    m->setName("Paysage bucolique");
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
 
     im = new Image(g, g, ":/Icons/herbe.png");
     g->addImage(im);
-    ct1 = new CellType(g, g);
+    ct1 = new CellType(g, g->world());
+    ct1->setName("Herbe");
     ct1->setImage(im);
     g->world()->addCellType(ct1);
     m->cell(10,10).setCellType(ct1);
     im = new Image(g, g, ":/Icons/glace.png");
     g->addImage(im);
-    ct2 = new CellType(g, g);
+    ct2 = new CellType(g, g->world());
+    ct2->setName("Glace");
     ct2->setImage(im);
     g->world()->addCellType(ct2);
     m->cell(11,11).setCellType(ct2);
     im = new Image(g, g, ":/Icons/mer.png");
     g->addImage(im);
-    ct3 = new CellType(g, g);
+    ct3 = new CellType(g, g->world());
+    ct3->setName("Mer");
     ct3->setImage(im);
     g->world()->addCellType(ct3);
     int l = m->width();
@@ -141,6 +145,7 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     tabBar->setTabsEnabled(true);
 
     m = new Map(g, g->world());
+    m->setName("Le grand large");
     g->world()->addMap(m);
     l = m->width();
     h = m->height();
@@ -197,4 +202,9 @@ void Editor::moveEvent(QMoveEvent *me){
 void Editor::closeEvent(QCloseEvent *ce){
     saveDefault();
     QMainWindow::closeEvent(ce);
+}
+
+void Editor::editMap(){
+    tabBar->setCurrentTab(mapsEditor->index());
+    mapsEditor->updateGame();
 }

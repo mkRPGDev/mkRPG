@@ -4,6 +4,7 @@
 #include "object.h"
 #include "map.h"
 
+
 /**
  * \file game.h
  * \brief Definition of the Game and World classes.
@@ -17,9 +18,9 @@
 class World : public GameObject
 {
 public:
-    World(Game *g, GameObject *parent);
+    TypeName(World)
+    World(Game *g, GameObject *aParent);
     ObjectListD(m,M,ap,,s, Map) /**< Set of maps*/
-    //ObjectsMap(w,c,C,ellType,,s) /**< Set of cell types*/
     ObjectListD(o,O,bject,,s, Object)
     ObjectListD(c,C,ellType,,s, CellType)
 
@@ -40,6 +41,7 @@ private:
 class Game : public GameObject
 {
 public:
+    TypeName(Game)
     Game();
     inline int newIdent(){return ++idDisp;}
     /**<
@@ -64,5 +66,8 @@ private:
     QMap<int, Image*> picts;
     QMap<int, QString> strings;
 };
+
+
+
 
 #endif // GAME_H

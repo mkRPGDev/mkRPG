@@ -9,18 +9,28 @@ MapDock::MapDock(QWidget *parent) :
 void MapDock::on_angleX_valueChanged(int i){
     if(currentMap == nullptr) return;
     currentMap->setAngleX(i);
+    vAngleX->setText(QString::number(i/10.)+"°");
     emit gameModified();
 }
 
 void MapDock::on_angleY_valueChanged(int i){
     if(currentMap == nullptr) return;
     currentMap->setAngleY(i);
+    vAngleY->setText(QString::number(i/10.)+"°");
     emit gameModified();
 }
 
 void MapDock::updateGame(){
     currentMap = game->currentMap();
+    setEnabled(currentMap != nullptr);
     if(currentMap == nullptr) return;
     angleX->setValue(currentMap->angleX());
     angleY->setValue(currentMap->angleY());
+    mapWidth->setValue(currentMap->width());
+    mapHeight->setValue(currentMap->height());
+}
+
+void MapDock::on_resizing_pressed(){
+    MapResizeDialog m(currentMap->width(), currentMap->height(), this);
+    m.exec();
 }

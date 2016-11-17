@@ -3,6 +3,7 @@
 
 #include "ui_mapdock.h"
 #include "Docks/bdockwidget.h"
+#include "mapresizedialog.h"
 
 class MapDock : public BDockWidget, private Ui::MapDock
 {
@@ -15,6 +16,7 @@ public:
 private slots:
     void on_angleX_valueChanged(int i);
     void on_angleY_valueChanged(int i);
+    void on_resizing_pressed();
 
 private:
     Map* currentMap;

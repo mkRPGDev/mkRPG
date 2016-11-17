@@ -54,9 +54,10 @@ private slots:
 
 private slots:
     void saveGeom();
+    void editMap();
 
 private:
-    void addTab(const QString& n, const QPixmap& p, QWidget* w);
+    void addTab(const QString& n, const QPixmap& p, TabWidget *w);
 
 
     void newGame(QString name, QString dir, bool createFolder);

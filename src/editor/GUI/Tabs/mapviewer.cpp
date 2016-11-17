@@ -286,8 +286,11 @@ void MapViewer::mouseReleaseEvent(QMouseEvent *me){
 }
 
 void MapViewer::setMap(Map *m){
+    if(map==m) return;
     mp.setMap(m);
     map = m;
+    mp.setScale(1);
+    setEnabled(map != nullptr);
     updateRequest();
 }
 

@@ -17,8 +17,10 @@
 class CellType : public GameObject
 {
 public:
-    CellType(Game *g, GameObject *parent);
+    TypeName(CellType)
+    CellType(Game *g, GameObject *aParent);
     C0(AttrT, i,I,mage)
+    C0(Flag,w,W,alkable)
 private:
 
 
@@ -38,7 +40,8 @@ private:
 class Cell : public GameObject
 {
 public:
-    Cell(Game* g = nullptr, GameObject *parent = nullptr);
+    TypeName(Cell)
+    Cell(Game* g = nullptr, GameObject *aParent = nullptr);
     bool isSelected() const;
     void setSelected(bool s = true);
     void invertSelected();
@@ -54,6 +57,7 @@ public:
 
     C0(AttrT,c,C,ellType)
     ObjectListD(o,O,bject,,s,Object)
+
 //    ObjectsMap(c,o,O,bject,,s)
 private:
     bool select;
@@ -69,10 +73,12 @@ private:
 class Map : public GameObject
 {
 public:
-    Map(Game* g, GameObject *parent);
+    TypeName(Map)
+    Map(Game* g, GameObject *aParent);
     ~Map();
-    ParamGetter(width)
-    ParamGetter(height)
+
+    int width() const;
+    int height() const;
     QSize size() const{return QSize(width(),height());}
     void setWidth(int w);
     void setHeight(int h);
@@ -86,11 +92,14 @@ public:
 
     C0(Flag, i,I,nutile)
 
+
     void confirmPreSelection(bool add = true);
     void clearPreSelection();
+    QList<GameObject*> children() const;
 
 private:
     Cell* cells;
+    int wi,he;
 
 };
 

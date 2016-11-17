@@ -4,6 +4,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <assert.h>
+#include <algorithm>
 
 /*!
  * \file object.h
@@ -12,7 +13,23 @@
  *
  * ## The objects structure
  *
+ * ### Inheritance and parent
+ *
+ * Each class which is part of game representation has to inherit from GameObject.
+ * It gives the class standard params and flags mechanisms that are used for edition
+ * purposes.
+ *
+ * Each instance must have a parent (except the Game one) which will keep an eye on
+ * his children. If the parent cannot be given at the construction time (case or array)s,
+ * the \ref init function must then be called as soon as possible.
+ *
+ *
+ * ### Reference count
+ *
  * ### %Objects destructors
+ *
+ * A default implementation of GameObject destructor is provided. It destroy every
+ * children the instance has. This avoid fastidious destructor implementation.
  *
  *
  * ## The Macro System
@@ -63,19 +80,7 @@
  */
 
 
-
-
-#define ObjectsMapC(name,names,Type,Types,pref,arg) \
-private: \
-    QMap<int, Type*> pref##Types; \
-public: \
-    void add##Type(Type* arg){pref##Types[arg->ident()] = arg; touch();} \
-    void remove##Type(Type* arg){if(pref##Types.contains(arg->ident()))pref##Types.remove(arg->ident()); touch();} \
-    inline Type* name(int id) const{return pref##Types.value(id, nullptr);} \
-    inline QList<Type*> names() const{return pref##Types.values();} /**< \deprecated*/
-#define ObjectsMap(pref,ini,Ini,body,sg,pl) \
-    ObjectsMapC(ini##body##sg, ini##body##pl, Ini##body##sg, Ini##body##pl, pref,ini) /**< \deprecated*/
-
+#define TypeName(Type) virtual QString typeName() const{return QString(#Type);}
 
 #define ObjectListDef(Objects,Type) private: QMap<int, Type*> a##Objects; public:
 #define ObjectListAdd(Object,Objects, Type) void add##Object(Type* new##Object){a##Objects[new##Object->ident()] = new##Object; touch();}
@@ -142,6 +147,12 @@ public: \
  *
  * \see C0
  */
+#define ProtectFlag(flag) reserved.insert(QString(#flag));/*!<
+ * The ProtectFlag macro registers the flag named \c flag as protected
+ * \i ie it cannot be modified directly in a flag editor (it will not appear).
+ *
+ * \see flag, ProtectParam
+ */
 #define SetFlag(flag, value) aFlags[#flag] = value /*!<
  * Conveniant macro to set a flag directly.
  *
@@ -202,6 +213,12 @@ public: \
  *         inline void setVisible(bool visible){aFlags["visible"] = visible; touch()}
  * \endcode
  * \see FlagGetter, FlagSetter, C
+ */
+#define ProtectParam(param) reserved.insert(QString(#param));/*!<
+ * The ProtectParam macro registers the flag named \c param as protected
+ * \i ie it cannot be modified directly in a param editor (it will not appear).
+ *
+ * \see param, ProtectFlag
  */
 #define SetParam(param, value) aParams[#param] = value /*!<
  * Conveniant macro to set a param directly.
@@ -276,8 +293,18 @@ public: \
  * \endcode
  * \see Attr, AttrSetter, C
  */
-#define AttrFree(Attr) if(a##Attr) a##Attr->removeReference();
-#define AttrLink(Attr) if(a##Attr) a##Attr->addReference(); //TODO mise à jour doc.
+#define AttrFree(Attr) if(a##Attr) a##Attr->removeReference();/*!<
+ * The AttrFree macro decrease the number of references of the GameObject attribut attr.
+ * It should be used before the deletion/modifcation of the pointer.
+ *
+ * \see AttrLink
+ */
+#define AttrLink(Attr) if(a##Attr) a##Attr->addReference();/*!<
+ * The AttrLink macro increase the number of references of the GameObject attribut attr.
+ * It should be used before the saving of a pointer as an attribute.
+ *
+ * \see AttrFree
+ */
 #define AttrSetter(attr, Attr, Type) inline void set##Attr(Type* new##Attr){AttrFree(Attr); a##Attr = new##Attr; AttrLink(Attr); touch();} /*!<
  * The AttrSetter macro defines a generic setter method for the attribute named \c attr of type \c Type.
  *
@@ -392,16 +419,18 @@ class Game;
 class GameObject
 {
 public:
+    TypeName(GameObject)
 
-
-    GameObject(Game *g = nullptr, GameObject *parent = nullptr); /**<
+    GameObject(Game *g = nullptr, GameObject *aParent = nullptr); /**<
      * Constructs a new GameObject with parent \c parent and the reference to the game \c g.
      *
      * \note
      * If these objects cannot be given to the constructor (case of an array of objects), the
      * \ref init method must be called after the creation to make the GameObject valid.
      */
-    virtual ~GameObject();
+    virtual ~GameObject(); /**<
+     * The default destructor destroy every children of the instance
+     */
 
     void init(Game *g, GameObject *p); /**<
      * Initialises the object in case it had been construct with a NULL pointer (array of objects)
@@ -452,12 +481,12 @@ public:
      *
      * \see params, hasParam, getParam, setFlag
      */
-    inline bool hasParam(const QString &p) const{return  aParams.contains(p);} /**<
+    inline bool hasParam(const QString &p) const {return  aParams.contains(p);} /**<
      * Returns true if the parameter \p is register in the object's parameters.
      *
      * \see getParam, setParam, hasFlag
      */
-    inline QList<QString> params() const{return aParams.keys();} /**<
+    inline QList<QString> params() const {return filter(aParams.keys());} /**<
      * Returns the list of the registered paramters
      *
      * \see getParam, setParam, flags
@@ -479,12 +508,12 @@ public:
      *
      * \see flags, hasFlag, getFlag, setParam
      */
-    inline bool hasFlag(const QString &f) const{return aFlags.contains(f);} /**<
+    inline bool hasFlag(const QString &f) const {return aFlags.contains(f);} /**<
      * Returns true if the falg \c f is register in the object's flags.
      *
      * \see getFlag, setFlag, hasParam
      */
-    inline QList<QString> flags() const{return aFlags.keys();} /**<
+    inline QList<QString> flags() const {return filter(aFlags.keys());} /**<
      * Returns the list of the registered flags
      *
      * \see getFlag, setFlag, params
@@ -495,26 +524,81 @@ public:
      *
      * \see lastInternalEdition, lastChildrenEdition, lastEdition.
      */
-    void addReference();
-    void removeReference();
+    void addReference();/**<
+     * Increases the references counter
+     *
+     * \see removeReference
+     */
+    void removeReference();/**<
+     * Decreases the references counter
+     *
+     * \see addReference
+     */
 
-    void setParent(GameObject *p);
+    void setParent(GameObject *p); /**<
+     * Defines the parent of the object.
+     *
+     * \see parent
+     */
+    inline GameObject* parent() const{return aParent;} /**<
+     * Returns the parent of the object.
+     *
+     * \see setParent
+     */
+
+    void setName(const QString &n); /**<
+     * Defines the name of the object.
+     *
+     * \see name
+     */
+    const QString& name() const{return aName;} /**<
+     * Returns the name of the object.
+     *
+     * \see setName
+     */
+    virtual GameObject* child(const int &i) const{return aChildren.value(i, nullptr);} /**<
+     * Returns the child with identifier \c i if any.
+     *
+     * \see children;
+     */
+    virtual QList<GameObject*> children() const{return aChildren.values();} /**<
+     * Returns the list of the instance's children.
+     *
+     * \see child
+     */
 
 
 protected:
-    void addChild(GameObject *c);
-    void removeChild(GameObject *c);
+    void addChild(GameObject *c); /**<
+     * Registers a new child.
+     *
+     * \see removeChild, child, children
+     */
+    void removeChild(GameObject *c); /**<
+     * Removes a child from the children list.
+     *
+     * \note
+     * This method does not destroy the child.
+     *
+     * \see addChild, child, children
+     */
     void childrenTouched(const QDateTime &d);
+    QList<QString> filter(QList<QString> l) const;
 
-    GameObject *parent;
-    QMap<int, GameObject*> children;
+    GameObject *aParent;
+    QMap<int, GameObject*> aChildren;
     Game *game;
-    int id;
     int nbRef;
     QMap<QString, int> aParams;
     QMap<QString, bool> aFlags;
+    QString aName;
     QString fileName;
     QDateTime lastEdit, lastChildEdit;
+    QSet<QString> reserved;
+
+private:
+    int id;
+
 };
 
 
@@ -530,8 +614,11 @@ protected:
 class Image : public GameObject
 {
 public:
-    Image(Game*g, GameObject *parent, const QString &fileName);
-    inline bool isValid() const{return GameObject::isValid() && !im.isNull();}
+    TypeName(Image)
+    Image(Game*g, GameObject *aParent, const QString &fileName);
+    inline bool isValid() const{return GameObject::isValid() && !im.isNull();} /**<
+     * Checks if the GameObject is valid and if the image really exists.
+     */
     inline const QImage& image() const{return im;}
     inline const QSize size() const{return im.size();}
     void update(){} // TODO
@@ -546,7 +633,8 @@ private:
 class Object : public GameObject
 {
 public:
-    Object(Game *g, GameObject *parent);
+    TypeName(Object)
+    Object(Game *g, GameObject *aParent);
 
     C0(Flag, v,V,visible)
     C0(Flag, m,M,ovable)

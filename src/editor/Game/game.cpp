@@ -26,3 +26,12 @@ void Game::addImage(Image *im){
 void Game::setCurrentMap(Map *m){
     map = m;
 }
+
+
+
+
+
+
+
+
+

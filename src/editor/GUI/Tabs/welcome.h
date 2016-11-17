@@ -2,8 +2,9 @@
 #define WELCOME_H
 
 #include "ui_welcome.h"
+#include "tabwidget.h"
 
-class Welcome : public QWidget, private Ui::Welcome
+class Welcome : public TabWidget, private Ui::Welcome
 {
     Q_OBJECT
 

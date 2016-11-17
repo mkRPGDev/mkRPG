@@ -2,34 +2,32 @@
 #define OBJECTEDITOR_H
 
 #include "ui_objecteditor.h"
-#include "Game/game.h"
+#include "tabwidget.h"
+#include "Game/itemmodels.h"
 #include "Game/mapslistmodel.h"
+#include "itemdelegates.h"
 
-#include <QStyledItemDelegate>
-#include <QItemEditorFactory>
-#include <QSpinBox>
+
 #include <QSplitter>
 
-class ParamItemDelegate : public QStyledItemDelegate
-{
-    Q_OBJECT
-public:
-    explicit ParamItemDelegate(QObject *parent = nullptr);
 
-    QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    void setEditorData(QWidget *editor, const QModelIndex &index) const;
-    void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
 
-};
 
-class ObjectEditor : public QWidget, private Ui::ObjectEditor
+class ObjectEditor : public TabWidget, private Ui::ObjectEditor
 {
     Q_OBJECT
 
 public:
     explicit ObjectEditor(QWidget *parent = 0);
     void setGame(Game *g);
+
+private slots:
+    void currentElementChanged(const QModelIndex &ind);
+
+private:
+    ObjectParamTableModel *paramsModel;
+    ObjectFlagTableModel *flagsModel;
+    ObjectsTreeModel *objectsModel;
 
 };
 

@@ -9,7 +9,8 @@ TabBar::TabBar(QWidget *parent) :
     setLayout(lay);
 }
 
-void TabBar::addTabAcces(const QString &n, const QPixmap &p){
+void TabBar::addTabAcces(const QString &n, const QPixmap &p, TabWidget *w){
+    w->setIndex(nbTab);
     TabAcces* acc = new TabAcces(nbTab++, n, p);
     tabs.append(acc);
     lay->insertWidget(nbTab-1, acc);

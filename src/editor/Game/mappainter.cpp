@@ -107,6 +107,7 @@ void MapPainter::updateMap(){
 
 void MapPainter::setMap(Map* m){
     map = m;
+    if(map == nullptr) return;
     changeBackgroundDistortion();
     lastMapUpdate = m->lastEdition();
 }
@@ -150,13 +151,13 @@ void MapPainter::updateBackground(){
     iMax = std::min(nbCellsX+0.,ptToCoo(pxlToPt(PxCoords(pWidth,0))).x()+1);
     jMin = std::max(0.,ptToCoo(pxlToPt(PxCoords(pWidth,pHeight))).y());
     jMax = std::min(nbCellsY+0.,ptToCoo(pxlToPt(PxCoords(0,0))).y()+1);
-
     CellType *ct;
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
             ct = map->cell(i,j).cellType();
             if(ct) p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(ct));
         }
+    return;
     if(displayed & Grid){
         p.setPen(QColor(80,80,80));
         p.setBrush(Qt::NoBrush);

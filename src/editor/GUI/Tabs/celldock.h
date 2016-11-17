@@ -5,19 +5,20 @@
 #include "Docks/bdockwidget.h"
 #include "Game/mapslistmodel.h"
 
+
 class CellDock : public BDockWidget, private Ui::CellDock
 {
     Q_OBJECT
 
 public:
-    explicit CellDock(QWidget *parent = 0);
+    explicit CellDock(QWidget *parent = nullptr);
 
 public slots:
     void updateGame();
     void selectionChanged();
 
 private slots:
-    void on_cellTypes_currentIndexChanged(int i);
+    void on_cellTypes_userChangedCurrentIndex(int i);
 
 private:
     Map *map;

@@ -2,7 +2,7 @@ from enum import IntEnum
 from collections import defaultdict
 from random import randint
 
-from isserver import SERVER
+#from isserver import SERVER
 from tools import readXml
 
 from orders import Order, OrderType
@@ -44,7 +44,7 @@ class BaseObject:
         self.ident = BaseObject.ident
 
         self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
-    
+
     def __getattr__(self, attr):
         if attr in self.params:
             return self.params[attr]
@@ -55,7 +55,7 @@ class BaseObject:
             object.__setattr__(self, attr, val)
         else:
             self.params[attr] = val
-    
+
     def load(self, data):
         """ Charge l'objet depuis une structure Xml """
         if verbose: print(data.name)
@@ -161,7 +161,7 @@ class Entity(MagicObject):
         self.quests = []
         self.inventory = []
         self.user = None
-    
+
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":MagicObject,
        "types":ObjectType, "inventory":MagicObject, "quests":MagicObject}
 

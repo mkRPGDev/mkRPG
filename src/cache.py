@@ -35,11 +35,11 @@ class GlobalCache():
 class ScaledCache(GlobalCache):
 
     @classmethod
-    def add_scaled(cls, elt, scale):
+    def add_scaled(cls, elt, scale=1):
         pass
 
     @classmethod
-    def remove(cls, elt, scale):
+    def remove(cls, elt, scale=1):
         del cls.cache[elt][scale]
 
     @classmethod
@@ -91,7 +91,7 @@ class ImageCache(ScaledCache):
             #     scale += const.ZOOM_STEP
 
     @classmethod
-    def add_scaled(cls, image, scale):
+    def add_scaled(cls, image, scale=1):
         if scale not in cls.get(image).keys():
             cls.cache[image][scale] = \
                 pygame.transform.scale(cls.cache[image][1],
@@ -138,7 +138,7 @@ class ChunkCache(ScaledCache):
         return cls.get_elt(chunk_index, scale)
 
     @classmethod
-    def add_scaled(cls, chunk_index, scale):
+    def add_scaled(cls, chunk_index, scale=1):
         if scale not in cls.get(chunk_index).keys():
             cls.cache[chunk_index][scale] =\
                 cls.cache[chunk_index][1].scale_chunk(scale)

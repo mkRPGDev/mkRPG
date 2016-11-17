@@ -17,11 +17,10 @@ class MapViewer(pygame.sprite.Group):
         self.map = [[currentMap.defaultCell.params["picture"] for i in range(currentMap.width)]\
                      for j in range(currentMap.height)]
         self.world = w
-        self.scale = 1
 
         self.cm_width, self.cm_height = self.load_chunks(self.map)
-        self.width = int(currentMap.width*const.CELL_WIDTH*self.scale)
-        self.height = int((currentMap.height+2)*const.CELL_WIDTH/2*self.scale)
+        self.width = int(currentMap.width*const.CELL_WIDTH)
+        self.height = int((currentMap.height+2)*const.CELL_WIDTH/2)
         self.screen_cgwidth = const.SCREEN_WIDTH//const.CHUNK_WIDTH + 3
         self.screen_cgheight = const.SCREEN_HEIGHT//const.CHUNK_HEIGHT + 3
         self.walkablesGraph = self.make_walkables(self.map)
@@ -108,8 +107,8 @@ class MapViewer(pygame.sprite.Group):
            new_pos_y = self.pos_offset[1]
 
         self.current_chunk = (max(self.cm_height-1+\
-                              new_pos_y//(const.CHUNK_HEIGHT*self.scale),0),
-                              max(-new_pos_x//(const.CHUNK_WIDTH*self.scale),0))
+                              new_pos_y//(const.CHUNK_HEIGHT),0),
+                              max(-new_pos_x//(const.CHUNK_WIDTH),0))
 
         self.pos_offset = (new_pos_x,new_pos_y)
         self.chunk_pos = (new_pos_x if new_pos_x > 0 else -(-new_pos_x%const.CHUNK_WIDTH),
@@ -169,8 +168,7 @@ class MapViewer(pygame.sprite.Group):
 
             rect_arr = []
 
-            pos_offsetx,pos_offsety = ChunkCache.get_chunk(self.current_chunk,
-                                                           self.scale).pos
+            pos_offsetx,pos_offsety = ChunkCache.get_chunk(self.current_chunk).pos
             pos_offsetx *= -1
             pos_offsety *= -1
 
@@ -181,7 +179,7 @@ class MapViewer(pygame.sprite.Group):
                 pos_offsetx += const.CHUNK_WIDTH
 
             for line,col in self.onscreen_chunks():
-                chunk = ChunkCache.get_chunk((line,col), self.scale)
+                chunk = ChunkCache.get_chunk((line,col))
                 chunk.rect = chunk.base_rect.move(pos_offsetx,pos_offsety)
                 self.add(chunk)
 
@@ -205,7 +203,7 @@ class MapViewer(pygame.sprite.Group):
                          mouse_pos[1]-self.pos_offset[1])
 
             for line,col in self.onscreen_chunks():
-                chunk = ChunkCache.get_chunk((line,col), self.scale)
+                chunk = ChunkCache.get_chunk((line,col))
 
                 if chunk.rect.collidepoint(rel_m_pos):
                     return chunk.click_trigger(rel_m_pos)

@@ -10,7 +10,7 @@ import utils
 
 class Chunk(pygame.sprite.Sprite):
 
-    def __init__(self, index, cells, map_size, scale=1):
+    def __init__(self, index, cells, map_size):
         pygame.sprite.Sprite.__init__(self)
         self.index = index
         self.cells = cells
@@ -18,7 +18,6 @@ class Chunk(pygame.sprite.Sprite):
         self.g_width = len(self.cells[0])
         self.g_height = len(self.cells)
         self.g_map_width, self.g_map_height = map_size
-        self.scale = scale
 
         self.init_chunk()
 
@@ -44,17 +43,13 @@ class Chunk(pygame.sprite.Sprite):
         self.width = int(x_max-x_min)
         self.height = int(y_max-y_min)
         print("---- ICI ----")
-        #print(x_min,x_max,y_min,y_max)
         print(self.index, self.g_map_width, self.g_map_height)
-        # Curieux.
-        #self.pos = (self.index[1]*const.CHUNK_WIDTH*self.scale,
-        #            self.index[0]*const.CHUNK_HEIGHT*self.scale)
         self.pos = (int(x_min),int(y_min))
         print(self.pos, self.width, self.height)
+
         self.base_rect = Rect(self.pos, (self.width, self.height))
 
-        self.layers = [BackgroundLayer(self.cells, (self.width, self.height),
-                                       self.scale)]
+        self.layers = [BackgroundLayer(self.cells, (self.width, self.height))]
         self.image = self.layers[0].image
 
     def render(self):

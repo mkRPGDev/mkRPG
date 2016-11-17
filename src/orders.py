@@ -156,13 +156,4 @@ class OrderDispatcher:
             conds = eval(order.target).conditions[order.param][val]
             conds.append(Condition(emitter, order.event, order.once))
             return None
-                       
-if __name__=="__main__":
-    o = Order()
-    o.type = OrderType.Set
-    o.args = ["me", "myself", "I"]
-    b = o.toBytes()
-    oo = Order()
-    oo.fromBytes(b)
-    print(b)
-    print(oo.__dict__==o.__dict__)
+

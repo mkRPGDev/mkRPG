@@ -79,17 +79,11 @@ class ServerConnection:
         Wait for messages from the client and handle them immediately.
         """
         while True:
-            msg = await self.reader.read(BUFF)
-#            except timeout:
-#                continue
-#            except OSError as err:
-#                if err.errno in (9, 104):
-#                    print("lu")
-#                    self.end()
-#                    return
-                # bad file desc or connection reset by peer
-#                raise
-            #print("msg", msg)
+            try:
+                msg = await self.reader.read(BUFF)
+            except ConnectionResetError:
+                self.end()
+                return
             if not msg: return
             while msg:
                 ident = msg[0]*256 + msg[1]

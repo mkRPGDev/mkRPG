@@ -17,6 +17,10 @@ def load_png(name, scale=1):
         return image
 
 def add_to_rect_list(list, rect):
+    """
+    Rect is a Pygame type representing a rectangle (x,y,l,w).
+    This function update a list, ignoring overlapping objects.
+    """
     rect_arr = list
     if rect is not None:
         addrect = True
@@ -29,6 +33,7 @@ def add_to_rect_list(list, rect):
     return rect_arr
 
 def merge_rect_lists(list1, list2):
+    """ Merge two lists of rect as described above. """
     res = list1
     if list2 is not None:
         for rect in list2:
@@ -40,9 +45,17 @@ def sublist(l, i1, i2, j1, j2):
 
 class WalkableGraph():
     def __init__(self, walkables):
+        """
+        Walkables is a bit array representing cells that can be crossed
+        during a move
+        """
         self.walkables = walkables
 
     def get_neighbors(self, index):
+        """
+        Return accessible cells around index, with a cost value depending
+        on the direction of the move.
+        """
         u,v = index
         neighbors = [
                      (u-2, v, 1.5),
@@ -62,11 +75,13 @@ class WalkableGraph():
         return res
 
     def dist(self, u,v):
+        """ Return distance between two nodes on the grid """
         x1,y1 = u
         x2,y2 = v
         return sqrt((x2-x1)**2+(y2-y1)**2)
 
     def get_path(self, source, dest):
+        """ A* algorithm on the current graph """
         d_x, d_y = dest
 
         openCell = []

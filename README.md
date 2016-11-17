@@ -1,3 +1,6 @@
+### Guide pour la documentation 
+[Guide](doc.pdf)
+
 ### Documentation
 [Documentation pdf](doc/latex/refman.pdf)
 

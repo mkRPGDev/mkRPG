@@ -12,7 +12,15 @@
 src/__make_cells.py
 
 # Fichiers de logs
+*.aux
 *.log
+*.out
+*.toc
+*.synctex.gz
+
+# Fichiers d'éditeur
+src/build-RPGEditor-*
+src/editor/RPGEditor.pro.user
 
 # Fichier de lancement du serveur
 src/isserver.py

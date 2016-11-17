@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
 import pygame
 
 from heapq import heappush, heappop
-from math import sqrt
+from math import sqrt, cos, sin, pi
 
 def load_png(name, scale=1):
         """ Load image and return image object"""
@@ -14,10 +12,15 @@ def load_png(name, scale=1):
                 image = image.convert_alpha()
         width, height = image.get_size()
         if scale != 1:
-            image = pygame.transform.scale(image, (int(width*scale), int(height*scale)))
+            image = pygame.transform.scale(image, (int(width*scale),
+                                                   int(height*scale)))
         return image
 
 def add_to_rect_list(list, rect):
+    """
+    Rect is a Pygame type representing a rectangle (x,y,l,w).
+    This function update a list, ignoring overlapping objects.
+    """
     rect_arr = list
     if rect is not None:
         addrect = True
@@ -30,6 +33,7 @@ def add_to_rect_list(list, rect):
     return rect_arr
 
 def merge_rect_lists(list1, list2):
+    """ Merge two lists of rect as described above. """
     res = list1
     if list2 is not None:
         for rect in list2:
@@ -41,9 +45,17 @@ def sublist(l, i1, i2, j1, j2):
 
 class WalkableGraph():
     def __init__(self, walkables):
+        """
+        Walkables is a bit array representing cells that can be crossed
+        during a move
+        """
         self.walkables = walkables
 
     def get_neighbors(self, index):
+        """
+        Return accessible cells around index, with a cost value depending
+        on the direction of the move.
+        """
         u,v = index
         neighbors = [
                      (u-2, v, 1.5),
@@ -63,11 +75,13 @@ class WalkableGraph():
         return res
 
     def dist(self, u,v):
+        """ Return distance between two nodes on the grid """
         x1,y1 = u
         x2,y2 = v
         return sqrt((x2-x1)**2+(y2-y1)**2)
 
     def get_path(self, source, dest):
+        """ A* algorithm on the current graph """
         d_x, d_y = dest
 
         openCell = []
@@ -93,71 +107,33 @@ class WalkableGraph():
                    heappush(openCell, (v_heur, v))
                    parents[v] = u
 
+def cell_to_point(x, y, nb_cells_x, nb_cells_y, cell_width,
+                  angle_x, angle_y):
+    """ Convert cell related coordinates to map coordinates
 
-from collections import namedtuple
-from time import process_time
-from xml.parsers.expat import ParserCreate
+    \warning Angles must be given in radian.
+    """
+    return ((( x            *cos(angle_x) - (nb_cells_y-y)*cos(angle_y))*cell_width),
+            (((nb_cells_x-x)*sin(angle_x) + (nb_cells_y-y)*sin(angle_y))*cell_width))
 
-verbose = False
+def point_to_cell(x, y, nb_cells_x, nb_cells_y, cell_width,
+                  angle_x, angle_y):
+    """ Convert map coordinates to cell related coordinates 
 
-Node = namedtuple("Node", "name args list")
+    \warning Angles must be given in radian.
+    """
+    d = -cos(angle_x)*sin(angle_y)+sin(angle_x)*cos(angle_y)
+    x += nb_cells_y*cos(angle_y)*cell_width
+    y += -(nb_cells_x*sin(angle_x)+nb_cells_y*sin(angle_y))*cell_width
+    # nb_cell_y + 2 ?
+    return (((-sin(angle_y)*x -cos(angle_y)*y)/d/cell_width),
+            ((+sin(angle_x)*x +cos(angle_x)*y)/d/cell_width))
 
-#TODO mettre une grammaire sur le Xml
-def readXml(path):
-    """ Lit un fichier Xml et renvoie des Nodes imbriqués """
-    dirStack = [] #TODO stackiser
-    curDir = Node(None,None,[])
-    def start(name, attrs):
-        nonlocal curDir
-        #perff.tic()
-        if verbose: print('Start element:', name, attrs)
-        curDir.list.append(Node(name, dict(attrs), []))
-        dirStack.append(curDir)
-        curDir = curDir.list[-1]
-        #perff.toc()
-
-    def end(name):
-        nonlocal curDir
-        if verbose: print('End element:', name)
-        assert(curDir.name == name)
-        curDir = dirStack.pop()
-
-    pars = ParserCreate()
-    pars.StartElementHandler = start
-    pars.EndElementHandler = end
-
-    with open(path, 'rb') as file:
-        pars.ParseFile(file)
-    return curDir.list[0] #retrait des sur-emballages
-
-class Perf:
-    """ Calcule les performances d'un morceau de code """
-    def __init__(self):
-        self.num = 0
-        self.avg = 0
-        self.min = 1000000
-        self.max = 0
-
-    def tic(self):
-        """ À lancer avant la fonction """
-        self.t = process_time()
-
-    def toc(self):
-        """ À lancer après la fonction """
-        dt = process_time()-self.t
-        self.num += 1
-        self.avg += (dt-self.avg)/self.num
-        self.max = max(self.max, dt)
-        self.min = min(self.min, dt)
-
-    def show(self):
-        """ Affiche le rapport """
-        if self.num:
-            print("Temps moyen %es, minimum %es, maximum %es sur %d éxécutions." % (self.avg, self.min, self.max, self.num))
-
-if __name__=="__main__":
-    # tests
-    verbose = True
-    perff = Perf()
-    print(readXml("../Test/Snake/world.xml"))
-    perff.show()
+def testCoord(x,y,angx,angy):
+    # fonction de test des changement de coordonnées.
+    angy += 900
+    deg_to_rad = lambda a : a*pi/1800
+    (a,b) = point_to_cell(x,y,42,42,64, deg_to_rad(angx),deg_to_rad(angy))
+    (c,d) = cell_to_point(x,y,42,42,64, deg_to_rad(angx),deg_to_rad(angy))
+    print("pt -> cl -> pt", (x,y), cell_to_point(a,b,42,42,64, deg_to_rad(angx),deg_to_rad(angy)))
+    print("cl -> pt -> cl", (x,y), point_to_cell(c,d,42,42,64, deg_to_rad(angx),deg_to_rad(angy)))

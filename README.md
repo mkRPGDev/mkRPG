@@ -1,34 +1,28 @@
-## Serveur&co
+# Utilisation:
+(Se placer dans src)
 
-Cette branche contient le serveur, son monde et de quoi le tester (client console, communication naïve, monde xml dans Test/).
+### Serveur
+Generic game server.
 
-Aucun module supplémentaire n'est requis.
+usage: server.py [-h] [-p PATH]
 
-L'utilisation de ncurses empêche le fonctionnement sous Windows® -- difficile de concilier les gens sans interface graphique et les gens sans OS...
+### Client
+Generic game client.
 
-L'organisation du Xml a été repensée depuis, elle n'est pas contractuelle.
+usage: client.py [-h] [-p PATH] [-c | -g | -n] [-d]
 
-Il arrive que des threads réseau survivent aux massacres et il est alors bon de savoir que le numéro de port se change dans const.py.
+### Lancement
+lancer le serveur puis deux clients avec python3 client.py -g
 
-La majorité des fichiers pour lequels cela a du sens peuvent être exécutés indépendamment pour les tester en attendant la mise en place d'une infrastructure plus sérieuse.
 
-### Utilisation:
-
-    python3 server.py
-
-puis
-
-    python3 client.py
-
-### Snake
+# Snake
 
 Plus d'informations dans Test/Snake/README.md...
 
-### À faire ou à revoir:
-- protocole d'initialisation
-- structure de données events
-- destruction d'objets
-- vrai réseau
-- distinction grille/cellules
 
-_Le code reste en chantier et ne suit donc pas à la lettre les conventions, je m'en excuse..._
+# Documentation
+[Documentation html en C ](https://mkrpgdev.github.io/mkRPG/doc_c/html/)
+[Documentation html en Python ](https://mkrpgdev.github.io/mkRPG/doc_py/html/)
+
+# Guide pour la documentation
+[Guide](https://github.com/mkRPGDev/mkRPG/raw/gh-pages/doc.pdf)

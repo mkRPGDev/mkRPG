@@ -1,10 +1,12 @@
 from enum import IntEnum
 
-from utils import readXml
+from tools import readXml
 
 InteractionType = IntEnum("InteractionType", "Key Mouse Scroll Multi")
 
 class Interaction():
+    """ Représente une connection entre une entrée utilisateur 
+        et un événement à déclencher sur une cible """
     def __init__(self):
         self.target = None
 
@@ -23,6 +25,7 @@ class Interaction():
         return self
 
 def registerInteractions(path):
+    """ Créé une liste d'interaction à partir d'un Xml les décrivant """
     dat = readXml(path + "interactions.xml")
     assert dat.name == "Interactions"
     l = []

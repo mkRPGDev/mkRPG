@@ -2,11 +2,13 @@ from collections import namedtuple
 
 Action = namedtuple("Action", "event orders conditions")
 
-from utils import readXml
+from tools import readXml
 from orders import Order
 
 # TODO enlever named
 def loadAction(dat, named):
+    """ Renvoie une instance d'action à partir d'une 
+        structure et de la résolution des noms """
     assert dat.name == "Action"
     orders = []
     for d in dat.list:
@@ -14,8 +16,9 @@ def loadAction(dat, named):
         elif d.name == "Order":
             orders.append(Order().load(d, named))
     return Action(ev, orders, [])
-        
+
 def registerActions(path, named):
+    """ Créé une liste d'action à partir d'un Xml les décrivant """
     dat = readXml(path + "actions.xml")
     assert dat.name == "Actions"
     actions = {}

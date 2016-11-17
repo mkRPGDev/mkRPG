@@ -11,8 +11,8 @@ import const
 
 class BackgroundLayer(Layer):
 
-    def __init__(self, cell_ids, size, scale=1):
-        Layer.__init__(self, size, scale)
+    def __init__(self, cell_ids, size):
+        Layer.__init__(self, size)
 
         self.cell_ids = cell_ids
         self.grid_cell_ids = self.get_grid_info(self.cell_ids)
@@ -27,7 +27,7 @@ class BackgroundLayer(Layer):
         self.image.blit(self.make_grid(const.GRID_IMGSET, self.grid_cell_ids), (0,0))
         self.rect = Rect((0,0), self.image.get_size())
 
-        self.mouse_iso = ImageCache.get_image(const.GRID_IMGSET["mouse_iso"], self.scale)
+        self.mouse_iso = ImageCache.get_image(const.GRID_IMGSET["mouse_iso"])
         self.selected_cell = None
 
     def render(self):
@@ -80,7 +80,3 @@ class BackgroundLayer(Layer):
         return [[const.CELL_MATCH[cell_ids[i][j]]\
                for j in range(len(cell_ids[0]))]\
                for i in range(len(cell_ids))]
-
-    def zoom(self, dz):
-        self.scale += dz
-        self.update_grid()

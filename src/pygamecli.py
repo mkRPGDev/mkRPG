@@ -5,6 +5,7 @@ import asyncio
 from const import *
 from interactions import registerInteractions, InteractionType
 from orders import OrderDispatcher
+from cache import ChunkCache
 
 from network import NetworkClient
 import world

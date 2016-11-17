@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import pygame
 from pygame.locals import Rect
 
@@ -77,13 +75,7 @@ class WorldViewer(Interface):
         # Compute the right position offset for the map
         offsetx, offsety = self.current_map.chunk_pos
 
-        if self.current_map.current_chunk[0] > 0:
-            offsetx = const.CHUNK_WIDTH
-        if self.current_map.current_chunk[1] > 0:
-            offsety += const.CHUNK_WIDTH
-
-        # Add map Surface to the result
-        res.blit(image, (offsetx, offsety))
+       res.blit(image, (offsetx, offsety))
 
         # Render every entitie and add it to the result
         for character in self.characters.values():

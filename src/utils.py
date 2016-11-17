@@ -1,7 +1,7 @@
 import pygame
 
 from heapq import heappush, heappop
-from math import sqrt
+from math import sqrt, cos, sin, pi
 
 def load_png(name, scale=1):
         """ Load image and return image object"""
@@ -91,3 +91,34 @@ class WalkableGraph():
                    v_heur = costs[v] + self.dist(v, dest)
                    heappush(openCell, (v_heur, v))
                    parents[v] = u
+
+def cell_to_point(x, y, nb_cells_x, nb_cells_y, cell_width,
+                  angle_x, angle_y):
+    """ Convert cell related coordinates to map coordinates
+
+    \warning Angles must be given in radian.
+    """
+    return ((( x            *cos(angle_x) - (nb_cells_y-y)*cos(angle_y))*cell_width),
+            (((nb_cells_x-x)*sin(angle_x) + (nb_cells_y-y)*sin(angle_y))*cell_width))
+
+def point_to_cell(x, y, nb_cells_x, nb_cells_y, cell_width,
+                  angle_x, angle_y):
+    """ Convert map coordinates to cell related coordinates 
+
+    \warning Angles must be given in radian.
+    """
+    d = -cos(angle_x)*sin(angle_y)+sin(angle_x)*cos(angle_y)
+    x += nb_cells_y*cos(angle_y)*cell_width
+    y += -(nb_cells_x*sin(angle_x)+nb_cells_y*sin(angle_y))*cell_width
+    # nb_cell_y + 2 ?
+    return (((-sin(angle_y)*x -cos(angle_y)*y)/d/cell_width),
+            ((+sin(angle_x)*x +cos(angle_x)*y)/d/cell_width))
+
+def testCoord(x,y,angx,angy):
+    # fonction de test des changement de coordonnées.
+    angy += 900
+    deg_to_rad = lambda a : a*pi/1800
+    (a,b) = point_to_cell(x,y,42,42,64, deg_to_rad(angx),deg_to_rad(angy))
+    (c,d) = cell_to_point(x,y,42,42,64, deg_to_rad(angx),deg_to_rad(angy))
+    print("pt -> cl -> pt", (x,y), cell_to_point(a,b,42,42,64, deg_to_rad(angx),deg_to_rad(angy)))
+    print("cl -> pt -> cl", (x,y), point_to_cell(c,d,42,42,64, deg_to_rad(angx),deg_to_rad(angy)))

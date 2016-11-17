@@ -75,7 +75,7 @@ class WorldViewer(Interface):
         # Compute the right position offset for the map
         offsetx, offsety = self.current_map.chunk_pos
 
-       res.blit(image, (offsetx, offsety))
+        res.blit(image, (offsetx, offsety))
 
         # Render every entitie and add it to the result
         for character in self.characters.values():
@@ -94,17 +94,6 @@ class WorldViewer(Interface):
             # If the map has effectively been moved, the rectangle of
             # modifications is the whole screen
             return [Rect((0,0),self.screen_size)]
-
-
-    # def zoom(self, dz):
-    #     if dz != 0 and\
-    #        ((self.scale > const.MIN_ZOOM and dz < 0) or \
-    #         (self.scale < const.MAX_ZOOM and dz > 0)):
-    #         self.current_map.zoom(dz)
-    #         for character in self.characters.values():
-    #             character.zoom(dz)
-    #
-    #         return [Rect((0,0),self.screen_size)]
 
     def move_char(self, ident, end_pos):
         """ Move the entitie ident to cell end_pos """

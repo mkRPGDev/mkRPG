@@ -21,10 +21,10 @@ class NetworkClient:
         await self.sendEvent(ent, "acquire")
         msg = await self.reader.read(BUFF) # TODO plusieurs messages
         return msg == b"accepted"
-    
+
     async def connect(self):
         self.reader, self.writer = await asyncio.open_connection(HOST, PORT)
-        
+
     async def run(self):
         """
         Main loop of the client's network task.  After connecting the socket
@@ -73,7 +73,7 @@ class ServerConnection:
         self.handle = handle
         self.entity = None
         self.server = parent
-    
+
     async def run(self):
         """
         Wait for messages from the client and handle them immediately.
@@ -85,6 +85,7 @@ class ServerConnection:
                 self.end()
                 return
             if not msg: return
+            print(msg)
             while msg:
                 ident = msg[0]*256 + msg[1]
                 length = msg[2]
@@ -102,16 +103,16 @@ class ServerConnection:
                         await self.send(b"accepted")
                     else:
                         await self.send(b"rejected")
-                    
+
                 msg = msg[3+length:]
-                
+
     async def send(self, m):
         try:
             self.writer.write(m)
             await self.writer.drain()
         except ConnectionResetError:
             self.end()
-            
+
     def end(self):
         if not self.server: return
         print("Déco")
@@ -119,7 +120,7 @@ class ServerConnection:
         self.writer.close()
         self.server.connections.remove(self)
         self.server = None
-        
+
 
 class NetworkServer:
     """
@@ -178,7 +179,7 @@ class NetworkServer:
 
 #async def main()
 #    pass
-#    
+#
 #loop.run_until_complete(main())
 
 ###################
@@ -191,5 +192,5 @@ class NetworkServer:
 
 #async def main()
 #    pass
-#    
+#
 #loop.run_until_complete(main())

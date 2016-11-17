@@ -25,7 +25,7 @@ def readXml(path):
         dirStack.append(curDir)
         curDir = curDir.list[-1]
         #perff.toc()
-        
+
     def end(name):
         nonlocal curDir
         if verbose: print('End element:', name)
@@ -47,11 +47,11 @@ class Perf:
         self.avg = 0
         self.min = 1000000
         self.max = 0
-    
+
     def tic(self):
         """ À lancer avant la fonction """
         self.t = process_time()
-    
+
     def toc(self):
         """ À lancer après la fonction """
         dt = process_time()-self.t
@@ -59,14 +59,14 @@ class Perf:
         self.avg += (dt-self.avg)/self.num
         self.max = max(self.max, dt)
         self.min = min(self.min, dt)
-    
+
     def show(self):
         """ Affiche le rapport """
         if self.num:
             print("Temps moyen %es, minimum %es, maximum %es sur %d éxécutions."
                   % (self.avg, self.min, self.max, self.num))
 
-class Timer():
+class Timer:
     """ Déclenche des appels différés de couroutine """
     def __init__(self, timeFunc = time):
         self.dt = 0.001
@@ -75,12 +75,12 @@ class Timer():
         self.pause = False
         self.count = 0 # pour avoir un ordre total
         self.time = timeFunc
-        
+
     def add(self, time, func, args):
         """ Inscrit l'appel de func avec les arguments args """
         self.count += 1
         heappush(self.heap, (time + self.step, self.count, (func, args)))
-    
+
     async def run(self):
         while True:
             while self.pause: await asyncio.sleep(self.dt)
@@ -90,7 +90,7 @@ class Timer():
                 func, args = heappop(self.heap)[2]
                 await func(*args)
             await asyncio.sleep(max(0, self.dt - self.time() + begin))
-    
+
 
 if __name__=="__main__":
     # tests

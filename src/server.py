@@ -6,12 +6,8 @@ import asyncio
 from const import *
 from actions import registerActions
 from orders import OrderDispatcher
-<<<<<<< HEAD
-from tools import Perf
-=======
+from tools import Perf, Timer
 from network import NetworkServer
-from utils import Timer
->>>>>>> server
 
 import world
 
@@ -62,7 +58,7 @@ class Server():
                     if returnOrder:
                         await self.net.sendOrder(emitter.ident, returnOrder)
                     # TODO n'envoyer que les infos non secrètes
-        
+
     async def handleEvent(self, emitter, event):
         await self.events.put((emitter, event))
 

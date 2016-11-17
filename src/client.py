@@ -12,6 +12,8 @@ import world
 from printWorld import WorldViewer, Interface
 from utils import add_to_rect_list
 
+from pygame.locals import K_ESCAPE, K_p, K_r
+
 def interface(args):
     """ Import the correct interface according to user choice """
     if args.curses:
@@ -19,7 +21,7 @@ def interface(args):
     elif args.noui:
         from interface import Interface
     elif args.pygame:
-        from pygamecli import A as Interface
+        from pygamecli import Client as Interface
     else:
         # choix par défaut
         args.curses = True
@@ -37,7 +39,7 @@ class Client():
         self.perso = None
         self.orderDispatcher = OrderDispatcher(self.world, None, None)
 #        print(self.world.entities)
-        
+
     def __del__(self):
         """ Kill network and interface """
         self.net.kill()
@@ -61,29 +63,26 @@ class Client():
             return
 
     async def main(self):
-        self.interface.update()
+        self.interface.init()
         while True:
-            key = self.interface.getEvent()
-            if key==-1:
-                await asyncio.sleep(UPDTIME)
-                continue
-            if key==ord('q'):
-#                curses.endwin()
-#                self.net.kill()
-#                print("Exited properly")
-                break
-            elif key==ord('p'): await self.net.sendEvent(self.world, "pause")
-            # TODO relayer la pause à l'affichage
-            elif key==ord('r'): await self.net.sendEvent(self.world, "resume")
-            for inte in self.interactions:
-                if (inte.type == InteractionType.Key and
-                    inte.key == key):
-                    await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
-    
+            self.interface.update()
+            keys = self.interface.getEvent()
+            for key in keys:
+                if key==K_ESCAPE:
+                    del self.interface
+                    del self
+                    return
+                elif key==K_p: await self.net.sendEvent(self.world, "pause")
+                # TODO relayer la pause à l'affichage
+                elif key==K_r: await self.net.sendEvent(self.world, "resume")
+                for inte in self.interactions:
+                    if (inte.type == InteractionType.Key and
+                        inte.key == key):
+                        await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
+
     async def handleOrder(self, ident, order):
         emitter = world.BaseObject.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
-        self.interface.update()
 
 parser = ArgumentParser(description="Generic game client.")
 parser.add_argument("-p", "--path", default=PATH,

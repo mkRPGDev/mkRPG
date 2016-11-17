@@ -28,86 +28,78 @@ from utils import add_to_rect_list
 interface = True
 # permet de désactiver pygame pour débugguer
 
-class Client():
-    def __init__(self, path):
-        self.net = NetworkClient(self.handleOrder)
-
+class Client(Interface):
+    def __init__(self, w):
         pygame.display.init()
         self.screen_size = SCREEN_WIDTH, SCREEN_HEIGHT
         self.screen = pygame.display.set_mode(self.screen_size)
 
-        self.world = world.loadGame(path)
+        self.world = w
         self.interface = (WorldViewer if interface else Interface)(self.world)
-        self.interactions = registerInteractions(path)
         self.perso = self.world.entities[0] # XXX bricolage
-        self.orderDispatcher = OrderDispatcher(self.world, None)
 
         print("Client initialised")
 
     def __del__(self):
-        self.net.kill()
         self.interface.end()
         print("Client killed")
 
-    def run(self):
-        self.net.start()
+    def getEvent(self):
+        events = self.interface.get_event()
+        keys = []
+        for event in events:
+            if event.type == QUIT:
+                keys.append(K_ESCAPE)
+            elif event.type == KEYUP:
+                keys.append(event.key)
+        return keys
+
+
+    def init(self):
         self.get_conf_file("client_conf.ini")
 
         pygame.font.init()
-        font = pygame.font.Font(None, 18)
+        self.font = pygame.font.Font(None, 18)
 
         self.background = pygame.Surface(self.screen_size)
         self.background = self.background.convert()
         self.background.fill((0, 0, 0))
 
-        clock = pygame.time.Clock()
+        self.clock = pygame.time.Clock()
 
-        mov_speed_x = 0
-        mov_speed_y = 0
+        self.mov_speed_x = 0
+        self.mov_speed_y = 0
 
-        refresh_counter = self.frame_counter(60)
+        self.refresh_counter = self.frame_counter(60)
 
         print("Ready to begin")
 
-        while True:
-            deltat = clock.tick(MAXFPS)/1000
-            events = self.interface.get_event()
-            for event in events:
-                if event.type == QUIT or\
-                   event.type == KEYUP and event.key == K_ESCAPE:
-                    self.net.kill()
-                    self.interface.end()
-                    print("Exited properly")
-                    return
-                elif event.type == KEYUP:
-                    for inte in self.interactions:
-                        if (inte.type == InteractionType.Key and
-                            inte.key == event.key):
-                            self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
+    def update(self):
+        deltat = self.clock.tick(MAXFPS)/1000
 
-            mov_speed_x, mov_speed_y, rect_list = self.update_view(pygame.mouse.get_pos(),
-                                                        mov_speed_x,
-                                                        mov_speed_y,
-                                                        deltat)
+        self.mov_speed_x, self.mov_speed_y, rect_list = self.update_view(pygame.mouse.get_pos(),
+                                                    self.mov_speed_x,
+                                                    self.mov_speed_y,
+                                                    deltat)
 
-            text = font.render("FPS : %d" % clock.get_fps(), 1, (255,0,0))
+        text = self.font.render("FPS : %d" % self.clock.get_fps(), 1, (255,0,0))
 
-            new_rect_list = self.interface.update()
+        new_rect_list = self.interface.update()
 
-            if rect_list is None:
-                rect_list = new_rect_list
+        if rect_list is None:
+            rect_list = new_rect_list
 
-            rect_list = add_to_rect_list(rect_list, text.get_rect().move(10,10))
+        rect_list = add_to_rect_list(rect_list, text.get_rect().move(10,10))
 
-            image = self.interface.render()
+        image = self.interface.render()
 
-            self.screen.blit(self.background, (0,0))
-            self.screen.blit(image, (0,0))
-            self.screen.blit(text, (10,10))
+        self.screen.blit(self.background, (0,0))
+        self.screen.blit(image, (0,0))
+        self.screen.blit(text, (10,10))
 
-            if next(refresh_counter) : pygame.display.flip()
-            else : pygame.display.update(rect_list)
-            self.interface.update()
+        if next(self.refresh_counter) : pygame.display.flip()
+        else : pygame.display.update(rect_list)
+        self.interface.update()
 
     def frame_counter(self, n):
         i = n

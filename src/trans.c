@@ -1,5 +1,6 @@
 //#include "trans.h"
 
+/* used by trans.py */
 void trans(int* src, int sw, int sh, int* dst, int dh,
            double a, double b, double c, double d, int xm, int ym){
   double dx, dy;

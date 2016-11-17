@@ -1,9 +1,10 @@
 from collections import namedtuple
-from time import process_time, time, sleep
+from time import process_time, time
 from xml.parsers.expat import ParserCreate
 from threading import Thread
 from heapq import heappush, heappop
-from queue import Queue
+#from queue import Queue
+import asyncio
 
 verbose = False
 
@@ -65,33 +66,30 @@ class Perf:
             print("Temps moyen %es, minimum %es, maximum %es sur %d éxécutions."
                   % (self.avg, self.min, self.max, self.num))
 
-class Timer(Thread):
-    """ Thread qui déclenche des appels différés de fontion """
-    def __init__(self):
-        super().__init__()
+class Timer():
+    """ Déclenche des appels différés de couroutine """
+    def __init__(self, timeFunc = time):
         self.dt = 0.001
         self.step = 0
-        self.atd = Queue()
         self.heap = []
-        self.count = 0
         self.pause = False
-    
+        self.count = 0 # pour avoir un ordre total
+        self.time = timeFunc
+        
     def add(self, time, func, args):
         """ Inscrit l'appel de func avec les arguments args """
         self.count += 1
-        self.atd.put((time + self.step, self.count, (func, args)))
+        heappush(self.heap, (time + self.step, self.count, (func, args)))
     
-    def run(self):
+    async def run(self):
         while True:
-            while self.pause: sleep(self.dt)
-            begin = time()
-            while not self.atd.empty():
-                heappush(self.heap, self.atd.get_nowait())
+            while self.pause: await asyncio.sleep(self.dt)
+            begin = self.time()
             self.step += 1
             while self.heap and self.heap[0][0] == self.step:
                 func, args = heappop(self.heap)[2]
-                func(*args)
-            sleep(max(0, self.dt - time() + begin))
+                await func(*args)
+            await asyncio.sleep(max(0, self.dt - self.time() + begin))
     
 
 if __name__=="__main__":
@@ -100,10 +98,10 @@ if __name__=="__main__":
     #perff = Perf()
     #print(readXml("../Test/Snake/world.xml"))
     #perff.show()
-    
-    t = Timer()
+    loop = asyncio.get_event_loop()
+    t = Timer(loop.time)
     t.dt = 1
-    t.start()
     t.add(1, print, [1])
     t.add(2, print, [2])
     t.add(1, print, [11])
+    loop.run_until_complete(t.run())

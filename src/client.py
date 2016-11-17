@@ -1,15 +1,11 @@
 from time import sleep, time
 from argparse import ArgumentParser
+import asyncio
 
 from const import *
 from interactions import registerInteractions, InteractionType
 from orders import OrderDispatcher
-
-if USETCP:
-    from network import NetworkClient
-else:
-    from networkudp import NetworkClient
-
+from network import NetworkClient
 import world
 
 def interface(args):
@@ -29,47 +25,59 @@ def interface(args):
 class Client():
     """ Main class of the client process, gathering interface, world and networking"""
     def __init__(self, path, Interface):
+        self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder)
         self.world = world.loadGame(path)
         self.interface = Interface(self.world)
-        self.interactions = registerInteractions(path)        
+        self.interactions = registerInteractions(path)
         self.perso = None
-        self.orderDispatcher = OrderDispatcher(self.world, None)
-        print(self.world.entities)
+        self.orderDispatcher = OrderDispatcher(self.world, None, None)
+#        print(self.world.entities)
         
     def __del__(self):
         self.net.kill()
+        self.loop.stop()
         self.interface.end()
         print("Client killed")
 
     def run(self):
+        self.loop.run_until_complete(self.net.connect())
+        self.loop.run_until_complete(self.getEntity())
+        self.netTask = self.loop.create_task(self.net.run())
+        self.loop.run_until_complete(self.main())
+
+    async def getEntity(self):
         for ent in self.world.entities:
-            if self.net.askEntity(ent):
+            if await self.net.askEntity(ent):
                 self.perso = ent
                 break
         else:
-            print("Aucun perso disponible !")
+            print("No available entity.")
             return
-        self.net.start()
+
+    async def main(self):
         self.interface.update()
         while True:
             key = self.interface.getEvent()
+            if key==-1:
+                await asyncio.sleep(UPDTIME)
+                continue
             if key==ord('q'):
-                curses.endwin()
-                self.net.kill()
-                print("Exited properly")
+#                curses.endwin()
+#                self.net.kill()
+#                print("Exited properly")
                 break
-            elif key==ord('p'): self.net.sendEvent(self.world, "pause")
-            # TODO relayer l'affichage
-            elif key==ord('r'): self.net.sendEvent(self.world, "resume")
+            elif key==ord('p'): await self.net.sendEvent(self.world, "pause")
+            # TODO relayer la pause à l'affichage
+            elif key==ord('r'): await self.net.sendEvent(self.world, "resume")
             for inte in self.interactions:
                 if (inte.type == InteractionType.Key and
                     inte.key == key):
-                    self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
+                    await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
     
-    def handleOrder(self, ident, order):
+    async def handleOrder(self, ident, order):
         emitter = world.BaseObject.ids[ident]
-        self.orderDispatcher.treat(emitter, order)
+        await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
 parser = ArgumentParser(description="Generic game client.")
@@ -85,6 +93,17 @@ uimode.add_argument("-g", "--pygame", action="store_true",
 uimode.add_argument("-n", "--noui", action="store_true",
                     help="Hide UI for debug purposes")
 
-args = parser.parse_args()
-cli = Client(args.path, interface(args)).run()
+parser.add_argument("-d", "--debug", action="store_true",
+                    help="Activate asyncio debug mode.")
 
+args = parser.parse_args()
+
+if args.debug: asyncio.get_event_loop().set_debug(True)
+
+cli = Client(args.path, interface(args))
+try:
+    cli.run()
+except KeyboardInterrupt:
+    pass
+finally:
+    cli.interface.end()

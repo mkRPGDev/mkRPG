@@ -1,55 +1,53 @@
-from threading import Thread
-from socket import socket, timeout, \
-    SOCK_STREAM, AF_INET, AF_INET6, SOL_SOCKET, SO_REUSEADDR
 from time import sleep
+import asyncio
 
 from const import *
 from world import BaseObject
 from orders import Order # XXX à sa place ?
 
-class NetworkClient(Thread):
+class NetworkClient:
     """
-    This class manages the network thread of the client.  It allows the client
-    to send messages (describing events) to the server.
+    This class manages the network activities of the client.
+    It allows the client to send messages (describing events) to the server.
     """
 
     def __init__(self, handle):
-        Thread.__init__(self)
         self.handle = handle
-        self.soc = socket(AF_INET6 if IPV6 else AF_INET, SOCK_STREAM)
+#        self.soc = socket(AF_INET6 if IPV6 else AF_INET, SOCK_STREAM)
         self.alive = True
-        self.soc.connect((HOST, PORT))
 
-    def askEntity(self, ent):
+    async def askEntity(self, ent):
         """ Ask for an entity """
-        self.sendEvent(ent, "acquire")
-        msg = self.soc.recv(BUFF) # TODO plusieurs messages
+        await self.sendEvent(ent, "acquire")
+        msg = await self.reader.read(BUFF) # TODO plusieurs messages
         return msg == b"accepted"
-                
     
-    def run(self):
+    async def connect(self):
+        self.reader, self.writer = await asyncio.open_connection(HOST, PORT)
+        
+    async def run(self):
         """
-        Main loop of the client's network thread.  After connecting the socket
+        Main loop of the client's network task.  After connecting the socket
         to the server, wait for orders and handle them immediately until
         connection ends.
         """
+
         while self.alive:
-            msg = self.soc.recv(BUFF)
-            if not msg:
-                print("Connection lost\n")
-                self.alive = False
+            msg = await self.reader.read(BUFF)
             size = 0
+            if not msg: return # TODO remonter l'info et l'afficher
             while size < len(msg):
                 ident = msg[size]*256 + msg[size+1]
                 order, i = Order().fromBytes(msg[size+2:])
                 if self.alive:
-                    self.handle(ident, order) # TODO casser l'asymétrie
+                    await self.handle(ident, order) # TODO casser l'asymétrie
                 size += i + 2
 
-    def send(self, m):
-        self.soc.sendall(m)
+    async def send(self, m):
+        self.writer.write(m)
+        await self.writer.drain()
 
-    def sendEvent(self, obj, event):
+    async def sendEvent(self, obj, event):
         """
         Send an event to the server in a formatted way, specifying the id
         of the object to affect.
@@ -57,38 +55,42 @@ class NetworkClient(Thread):
         assert(len(event)<256)
         m = bytes([obj.ident//256, obj.ident%256, len(event)]) + \
             bytes(event, CODING)
-        self.send(m)
+        await self.send(m)
 
     def kill(self):
-        self.soc.close()
+        self.writer.close()
         self.alive = False
 
-class ServerConnection(Thread):
+class ServerConnection:
     """
     This thread manages the communications with one particular client (one
     thread is created by client).
     """
-    def __init__(self, soc, handle, parent):
-        Thread.__init__(self)
-        self.soc = soc
-        self.soc.settimeout(1)
+    def __init__(self, reader, writer, handle, parent):
+        self.reader = reader
+        self.writer = writer
+#        self.soc.settimeout(1)
         self.handle = handle
         self.entity = None
         self.server = parent
     
-    def run(self):
+    async def run(self):
         """
         Wait for messages from the client and handle them immediately.
         """
         while True:
-            try:
-                msg = self.soc.recv(BUFF)
-            except timeout:
-                continue
-            except OSError as err:
-                if err.errno in (9, 104): return
+            msg = await self.reader.read(BUFF)
+#            except timeout:
+#                continue
+#            except OSError as err:
+#                if err.errno in (9, 104):
+#                    print("lu")
+#                    self.end()
+#                    return
                 # bad file desc or connection reset by peer
-                raise
+#                raise
+            #print("msg", msg)
+            if not msg: return
             while msg:
                 ident = msg[0]*256 + msg[1]
                 length = msg[2]
@@ -96,79 +98,104 @@ class ServerConnection(Thread):
                 assert ident in BaseObject.ids
                 emitter = BaseObject.ids[ident]
                 if self.entity: # TODO and self.entity.ident == ident:
-                    self.handle(emitter, event)
+                    await self.handle(emitter, event)
                 else:
                     assert event == "acquire"
-                    if not emitter.user: # TODO opération atomique
+                    if not emitter.user:
                         emitter.user = self
                         self.entity = emitter
-                        self.handle(emitter, "init")
-                        self.send(b"accepted")
+                        await self.handle(emitter, "init")
+                        await self.send(b"accepted")
                     else:
-                        self.send(b"rejected")
+                        await self.send(b"rejected")
                     
                 msg = msg[3+length:]
                 
-    def send(self, m): # TODO gérer les envois avec le thread d'écoute
+    async def send(self, m):
         try:
-            self.soc.sendall(m)
-        except BrokenPipeError:
-            self.end()# le recv va se charger de fermer la connection
-            pass
+            self.writer.write(m)
+            await self.writer.drain()
+        except ConnectionResetError:
+            self.end()
             
     def end(self):
+        if not self.server: return
         print("Déco")
         if self.entity: self.entity.user = None
-        self.soc.close()
+        self.writer.close()
         self.server.connections.remove(self)
+        self.server = None
         
 
-class NetworkServer(Thread):
+class NetworkServer:
     """
-    This class is the thread of the server that manages clients connections on
+    This class is the task of the server that manages clients connections on
     his port.  It keeps the list of connected clients and provides method to
     broadcast messages to all the clients.
     """
 
-    def __init__(self, handle):
+    def __init__(self, handle, loop):
         """ The server listen on the port specified in const.py. """
-        Thread.__init__(self)
         self.handle = handle
-        self.soc = socket(AF_INET6 if IPV6 else AF_INET, SOCK_STREAM)
-        self.soc.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1) # <3
-        self.soc.bind(("", PORT))
+        self.loop = loop
         self.alive = True
         self.connections = []
 
-    def waitForClients(self, n):
+    async def waitForClients(self, n):
         """ Block until n clients are connected """
-        while len(self.connections)<n: sleep(0.1)
+        while len(self.connections)<n: await asyncio.sleep(0.1)
 
-    def run(self):
+    async def connect(self, reader, writer):
+        co = ServerConnection(reader, writer, self.handle, self)
+        self.loop.create_task(co.run())
+        self.connections.append(co)
+
+    async def run(self):
         """
         When a client tries to connect, the server adds him to the list and
-        creates a new thread managing communications with this client.
+        creates a new task managing communications with this client.
         """
-        self.soc.listen(1024) # ça ne borne pas la taille de la liste ?
-        while self.alive:
-            soc, addr = self.soc.accept()
-            print(addr, "connected")
-            co = ServerConnection(soc, self.handle, self)
-            self.connections.append(co)
-            co.start()
+        self.server = await asyncio.start_server(self.connect, port=PORT, host="",
+                                                 reuse_address=1, loop=self.loop)
 
-    def sendOrder(self, ident, order):
+    async def sendOrder(self, ident, order):
         """
         Send an order to all connected clients by broadcasting messages to
         all threads in the list.
         """
-        self.broadcast(bytes((ident//256, ident%256)) + order.toBytes())
+        await self.broadcast(bytes((ident//256, ident%256)) + order.toBytes())
 
     #def send(self, m, dest): self.soc.sendto(m, (HOST, PORT))
 
-    def broadcast(self, m):
+    async def broadcast(self, m):
         for co in self.connections:
-            co.send(m)
+            await co.send(m)
 
-    def kill(self): self.alive = False
+#    def kill(self): self.alive = False
 
+
+# Prémices de tests
+
+#import network
+#import asyncio
+#loop = asyncio.get_event_loop()
+#ns = network.NetworkServer(lambda a,b:print(5), loop)
+#loop.create_task(ns.run())
+
+#async def main()
+#    pass
+#    
+#loop.run_until_complete(main())
+
+###################
+
+#import network
+#import asyncio
+#loop = asyncio.get_event_loop()
+#nc = network.NetworkClient(lambda a,b:print(5))
+#loop.create_task(nc.run())
+
+#async def main()
+#    pass
+#    
+#loop.run_until_complete(main())

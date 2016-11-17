@@ -1,4 +1,5 @@
-from time import time, sleep
+from time import time
+
 from const import *
 
 class Interface:
@@ -8,7 +9,7 @@ class Interface:
         self.lastUpdate = 0
 
     def update(self):
-        if time() - self.lastUpdate > 1/MAXFPS:
+        if time() - self.lastUpdate > UPDTIME:
             self.repaint()
             self.lastUpdate = time()
             
@@ -17,5 +18,5 @@ class Interface:
     def end(self): pass
 
     def getEvent(self):
-        while True: sleep(1)
+        return -1 #while True: await sleep(1)
 

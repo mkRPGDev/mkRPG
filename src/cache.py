@@ -8,7 +8,9 @@ from utils import load_png
 import const
 
 class GlobalCache():
-
+    """
+    A generic cache (key, value) association for objects.
+    """
     def __init__(self):
         pass
 
@@ -33,6 +35,10 @@ class GlobalCache():
         return str(cls.cache)
 
 class ScaledCache(GlobalCache):
+    """
+    Each entry in the cache is an array of the same object at
+    different scales.
+    """
 
     @classmethod
     def add_scaled(cls, elt, scale=1):
@@ -56,7 +62,10 @@ class ScaledCache(GlobalCache):
                 cls.remove(elt, max(cls.get(elt).keys()))
 
 class ImageCache(ScaledCache):
-
+    """
+    Cache containing loaded images at different scales for direct use
+    in the game.
+    """
     cache = {}
 
     @classmethod
@@ -103,6 +112,10 @@ class ImageCache(ScaledCache):
 from chunk import Chunk
 
 class ChunkCache(ScaledCache):
+    """
+    Cache containing instanced chunks. Scale is used for the zoom while
+    playing the game.
+    """
 
     cache = {}
 

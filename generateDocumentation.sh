@@ -65,10 +65,10 @@ mv "doc_new" "doc"
 
 
 #On compile le tex
-echo 'Compiling tex documentation ... '
-cd doc/latex
-make
-cd ..
+#echo 'Compiling tex documentation ... '
+#cd doc/latex
+#make
+#cd ..
 
 
 ################################################################################

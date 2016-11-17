@@ -1,0 +1,25 @@
+\BOOKMARK [0][-]{chapter.1}{Documentation}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Convention}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{Code lay-out}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{Whitespace in Expressions and Statements}{section.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.1.3}{Documentation Strings}{section.1.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.4}{Naming Conventions}{section.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.1.5}{Enforce type annotations on public methods}{section.1.1}% 7
+\BOOKMARK [1][-]{section.1.2}{Doxygen}{chapter.1}% 8
+\BOOKMARK [2][-]{subsection.1.2.1}{Installation}{section.1.2}% 9
+\BOOKMARK [2][-]{subsection.1.2.2}{Documenting the code}{section.1.2}% 10
+\BOOKMARK [2][-]{subsection.1.2.3}{Compile and create the documentation}{section.1.2}% 11
+\BOOKMARK [2][-]{subsection.1.2.4}{Read the documentation}{section.1.2}% 12
+\BOOKMARK [2][-]{subsection.1.2.5}{Edit the .gitignore file}{section.1.2}% 13
+\BOOKMARK [0][-]{chapter.2}{Tests}{}% 14
+\BOOKMARK [1][-]{section.2.1}{Testing Tools}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.1.1}{Static Analysis with Pylint}{section.2.1}% 16
+\BOOKMARK [2][-]{subsection.2.1.2}{Design by Contracts with PyContracts}{section.2.1}% 17
+\BOOKMARK [2][-]{subsection.2.1.3}{Unit testing infrastructure with unittest}{section.2.1}% 18
+\BOOKMARK [2][-]{subsection.2.1.4}{Fuzz Testing with Hypothesis}{section.2.1}% 19
+\BOOKMARK [2][-]{subsection.2.1.5}{Code Coverage Tool with Coverage.py}{section.2.1}% 20
+\BOOKMARK [2][-]{subsection.2.1.6}{Stress}{section.2.1}% 21
+\BOOKMARK [2][-]{subsection.2.1.7}{GUI Testing Tools}{section.2.1}% 22
+\BOOKMARK [1][-]{section.2.2}{Proc\351dures facilitant les test}{chapter.2}% 23
+\BOOKMARK [2][-]{subsection.2.2.1}{Hooks on commit}{section.2.2}% 24
+\BOOKMARK [2][-]{subsection.2.2.2}{Continuous integration}{section.2.2}% 25

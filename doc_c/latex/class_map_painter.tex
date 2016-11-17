@@ -1,0 +1,519 @@
+\hypertarget{class_map_painter}{}\section{Map\+Painter Class Reference}
+\label{class_map_painter}\index{Map\+Painter@{Map\+Painter}}
+
+
+The \hyperlink{class_map_painter}{Map\+Painter} class that can paint a \hyperlink{class_map}{Map} using a Q\+Painter.  
+
+
+
+
+{\ttfamily \#include $<$mappainter.\+h$>$}
+
+Inheritance diagram for Map\+Painter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_map_painter}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Element} \{ \newline
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a3a60732dd05f5a7cfbb3f823ed15a8af}{Nothing} = 0, 
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a26b2d5d6e85f1b419545f806e7e5cda2}{Cell\+Background} = 1, 
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a2dcffdfb3d5b1bacc2c5c88cc3642b6a}{Grid} = 2, 
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3ac4845e6f97ed778c87dec34258ee0290}{Cell\+Selection} = 4, 
+\newline
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a35af0e126a8ff632d0d46c5162ec9a60}{Cell\+Highlighting} = 8, 
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a11b1008cd0aafe904943c1a11cb50ad6}{Objects} = 16, 
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a25561a3666e5fd539263be7c6e9ab063}{All} = 31
+ \}\begin{DoxyCompactList}\small\item\em The Element enum discribes the different elements that can be render. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_map_painter_a8f1f85c58564d01e970bfcaf105e5f9b}{map\+Size\+Changed} (Q\+Size)
+\item 
+void \hyperlink{class_map_painter_a15c872dbb6a7321b978928df5b850ea3}{view\+Center\+Changed} (Q\+Point)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_map_painter_a9c1c9ee90336daa528e090334ef67a39}{Map\+Painter} (Q\+Object $\ast$parent=0)
+\item 
+\hyperlink{class_map_painter_a6d282b26150b3d5b592f307f09b29e4c}{Map\+Painter} (\hyperlink{class_map}{Map} $\ast$m, Q\+Object $\ast$parent=0)
+\item 
+void \hyperlink{class_map_painter_a8e7486d3743d62d2f3d334c23d38e1c9}{set\+Painted\+Element} (\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Element} e, bool painted=true)
+\item 
+void \hyperlink{class_map_painter_aaf546a511fb08c1688ce06392bce1048}{set\+Painted\+Elements} (\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Element} e)
+\item 
+void \hyperlink{class_map_painter_a2b1aa596498e0c01c0b53d06d4a598b4}{set\+Map} (\hyperlink{class_map}{Map} $\ast$m)
+\item 
+void \hyperlink{class_map_painter_a0deb552b94eff8f8751946928d7cd5b8}{paint} (Q\+Painter \&p)
+\item 
+const Q\+Image \& \hyperlink{class_map_painter_a1c20cf03d0376290481bd80b9f8ef013}{render} ()
+\item 
+\hyperlink{class_rl_coords}{Rl\+Coords} \hyperlink{class_map_painter_a268279c396ea9502059bf1901f0c686c}{view\+Center} () const
+\item 
+void \hyperlink{class_map_painter_a435c535da8087a54ba09c71232377508}{set\+View\+Center} (\hyperlink{class_rl_coords}{Rl\+Coords} relative\+Center)
+\item 
+void \hyperlink{class_map_painter_ae840a2addecd404598ec8300bbd4870f}{set\+View\+Center} (double relative\+CenterX, double relative\+CenterY)
+\item 
+void \hyperlink{class_map_painter_a5da86b2c104c9d22eb54ecd7b1d0b960}{set\+View\+Center\+Quiet} (double x, double y)
+\item 
+double \hyperlink{class_map_painter_af923e94f6a43d1341282d61aaf8603e7}{scale} () const
+\item 
+void \hyperlink{class_map_painter_ae1d7e11835d4ee6588c5b5f0429787e3}{set\+Scale} (double \hyperlink{class_map_painter_af923e94f6a43d1341282d61aaf8603e7}{scale})
+\item 
+void \hyperlink{class_map_painter_afaed21e6944cf1e62398f3f7a0067999}{set\+Scale\+Domain} (double scale\+Min, double scale\+Max)
+\item 
+bool \hyperlink{class_map_painter_ad7effe1c69fb1409d696dd54edd8bbb3}{set\+Highlighted\+Cell} (const \hyperlink{class_cl_coords}{Cl\+Coords} \&p)
+\item 
+bool \hyperlink{class_map_painter_a49c452342b60a341e7b3530141adeda8}{set\+Highlighted\+Cell} (int i, int j)
+\item 
+Q\+Point \hyperlink{class_map_painter_a61c6dc7ea2173b51e8164b55bf7c8f53}{highlighted\+Cell} () const
+\item 
+bool \hyperlink{class_map_painter_a8d2bdf48a8b1fc578a5b9436ad78307e}{has\+Highlighted\+Cell} () const
+\item 
+bool \hyperlink{class_map_painter_ad7582541fbc927d0d82169f9dcd22767}{is\+Cell} (const \hyperlink{class_cl_coords}{Cl\+Coords} \&c) const
+\item 
+void \hyperlink{class_map_painter_ae215f704c3f1ee11bb89861b9b4b13d3}{resize} (Q\+Size s)
+\item 
+void \hyperlink{class_map_painter_a3280e72c6ffed5e7c550d4632a6de794}{resize} (int wi, int he)
+\item 
+Q\+Size \hyperlink{class_map_painter_aeec29e22231c125bb8df15288082dd50}{size} () const
+\item 
+void \hyperlink{class_map_painter_a2dacde51513a54fbbf45b44787cd0ee2}{zoom} (double factor, Q\+PointF fixed\+Point)
+\item 
+Q\+Pair$<$ bool, bool $>$ \hyperlink{class_map_painter_a55dd52865ad3f50b91dadd1f1b6f9352}{move} (\hyperlink{class_px_coords}{Px\+Coords} delta, Q\+PointF center)
+\item 
+Q\+Size \hyperlink{class_map_painter_a49be79b1a7ac1edc703aa3fd954f80d6}{virtual\+Size} () const
+\item 
+\hyperlink{class_px_coords}{Px\+Coords} \hyperlink{class_map_painter_a197f9204a07c9265fd0469f71effcdb3}{pt\+To\+Pxl} (\hyperlink{class_pt_coords}{Pt\+Coords} p) const
+\item 
+\hyperlink{class_pt_coords}{Pt\+Coords} \hyperlink{class_map_painter_ad10215649aa1b27f74fe920163b0a2e4}{pxl\+To\+Pt} (\hyperlink{class_px_coords}{Px\+Coords} p) const
+\item 
+\hyperlink{class_pt_coords}{Pt\+Coords} \hyperlink{class_map_painter_a96f267f3fc328d3b79aa757ff8d9f84b}{coo\+To\+Pt} (\hyperlink{class_cl_coords}{Cl\+Coords} p) const
+\item 
+\hyperlink{class_cl_coords}{Cl\+Coords} \hyperlink{class_map_painter_a765fa150a2841eaf0e3a9d0689738049}{pt\+To\+Coo} (\hyperlink{class_pt_coords}{Pt\+Coords} p) const
+\item 
+\hyperlink{class_px_coords}{Px\+Coords} \hyperlink{class_map_painter_a5ea71fa57e033a7130b65b72bd7b0925}{coo\+To\+Pxl} (\hyperlink{class_cl_coords}{Cl\+Coords} p) const
+\item 
+\hyperlink{class_cl_coords}{Cl\+Coords} \hyperlink{class_map_painter_a8dc98c5badaf8ba46c2833d007a2b0b5}{pxl\+To\+Coo} (\hyperlink{class_px_coords}{Px\+Coords} p) const
+\item 
+\hyperlink{class_pt_coords}{Pt\+Coords} \hyperlink{class_map_painter_abe8b05f2893cedd9610b5c53b69a4530}{ind\+To\+Pt} (int i, int j) const
+\item 
+const Q\+Color \& \hyperlink{class_map_painter_a5669055f03fd84f772d77fd80de9b39f}{selected\+Cell\+Color} () const
+\item 
+const Q\+Color \& \hyperlink{class_map_painter_a2498d8b426f723fe980219ded809a5fa}{pre\+Selected\+Cell\+Color} () const
+\item 
+void \hyperlink{class_map_painter_ad1658d299eaee7ccdad70f00ad3f76d8}{set\+Selected\+Cell\+Color} (const Q\+Color \&c)
+\item 
+void \hyperlink{class_map_painter_a1c57806b863cd4b83051033681421cf6}{set\+Pre\+Selected\+Cell\+Color} (const Q\+Color \&c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_map_painter}{Map\+Painter} class that can paint a \hyperlink{class_map}{Map} using a Q\+Painter. 
+
+The class take charge of the different ratios of the \hyperlink{class_map}{map} rendering and the area in which it will be rendered.
+
+\begin{DoxyNote}{Note}
+The view is kept updated with the associated \hyperlink{class_map}{map} at each \hyperlink{class_map_painter_a0deb552b94eff8f8751946928d7cd5b8}{paint} or \hyperlink{class_map_painter_a1c20cf03d0376290481bd80b9f8ef013}{render} call. It is thus just needed to call one of these functions to update the view after a modification.
+\end{DoxyNote}
+To ensure a type checking security about the different types of coordinates that are used, four different types that inherit from Q\+PointF are used \+: \hyperlink{class_rl_coords}{Rl\+Coords}, \hyperlink{class_cl_coords}{Cl\+Coords}, \hyperlink{class_pt_coords}{Pt\+Coords} and \hyperlink{class_px_coords}{Px\+Coords} 
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{}\label{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3} 
+\index{Map\+Painter@{Map\+Painter}!Element@{Element}}
+\index{Element@{Element}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{Element}{Element}}
+{\footnotesize\ttfamily enum \hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element}}
+
+
+
+The Element enum discribes the different elements that can be render. 
+
+This includes both map\textquotesingle{}s objects and user interaction and editing elements.
+
+Element value can be used as flags using the operators \hyperlink{mappainter_8h_a8ff1425e1b187b08bee7d8d15b949f31}{$\vert$}, \hyperlink{mappainter_8h_a8ff1425e1b187b08bee7d8d15b949f31}{\&}, \hyperlink{mappainter_8h_a8ff1425e1b187b08bee7d8d15b949f31}{$^\wedge$}.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_cell}{Cell}, \hyperlink{class_cell_type}{Cell\+Type} 
+\end{DoxySeeAlso}
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Nothing@{Nothing}!Map\+Painter@{Map\+Painter}}\index{Map\+Painter@{Map\+Painter}!Nothing@{Nothing}}}\hypertarget{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a3a60732dd05f5a7cfbb3f823ed15a8af}{}\label{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a3a60732dd05f5a7cfbb3f823ed15a8af} 
+Nothing&Represent no elements \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Cell\+Background@{Cell\+Background}!Map\+Painter@{Map\+Painter}}\index{Map\+Painter@{Map\+Painter}!Cell\+Background@{Cell\+Background}}}\hypertarget{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a26b2d5d6e85f1b419545f806e7e5cda2}{}\label{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a26b2d5d6e85f1b419545f806e7e5cda2} 
+Cell\+Background&The bacground associated to the \hyperlink{class_cell_type}{cell type} \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Grid@{Grid}!Map\+Painter@{Map\+Painter}}\index{Map\+Painter@{Map\+Painter}!Grid@{Grid}}}\hypertarget{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a2dcffdfb3d5b1bacc2c5c88cc3642b6a}{}\label{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a2dcffdfb3d5b1bacc2c5c88cc3642b6a} 
+Grid&A thin grid that separate \hyperlink{class_cell}{cells} \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Cell\+Selection@{Cell\+Selection}!Map\+Painter@{Map\+Painter}}\index{Map\+Painter@{Map\+Painter}!Cell\+Selection@{Cell\+Selection}}}\hypertarget{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3ac4845e6f97ed778c87dec34258ee0290}{}\label{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3ac4845e6f97ed778c87dec34258ee0290} 
+Cell\+Selection&Graphical information about the selection state \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Cell\+Highlighting@{Cell\+Highlighting}!Map\+Painter@{Map\+Painter}}\index{Map\+Painter@{Map\+Painter}!Cell\+Highlighting@{Cell\+Highlighting}}}\hypertarget{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a35af0e126a8ff632d0d46c5162ec9a60}{}\label{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a35af0e126a8ff632d0d46c5162ec9a60} 
+Cell\+Highlighting&Graphical visualisation of the \hyperlink{class_cell}{cells} the mouse is over \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Objects@{Objects}!Map\+Painter@{Map\+Painter}}\index{Map\+Painter@{Map\+Painter}!Objects@{Objects}}}\hypertarget{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a11b1008cd0aafe904943c1a11cb50ad6}{}\label{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a11b1008cd0aafe904943c1a11cb50ad6} 
+Objects&The objects that lay on the \hyperlink{class_cell}{cells} \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{All@{All}!Map\+Painter@{Map\+Painter}}\index{Map\+Painter@{Map\+Painter}!All@{All}}}\hypertarget{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a25561a3666e5fd539263be7c6e9ab063}{}\label{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3a25561a3666e5fd539263be7c6e9ab063} 
+All&Represent all elements \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_map_painter_a9c1c9ee90336daa528e090334ef67a39}{}\label{class_map_painter_a9c1c9ee90336daa528e090334ef67a39} 
+\index{Map\+Painter@{Map\+Painter}!Map\+Painter@{Map\+Painter}}
+\index{Map\+Painter@{Map\+Painter}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{Map\+Painter()}{MapPainter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Map\+Painter\+::\+Map\+Painter (\begin{DoxyParamCaption}\item[{Q\+Object $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+Constructs a new \hyperlink{class_map_painter}{Map\+Painter} with a default size of (42,42). \hypertarget{class_map_painter_a6d282b26150b3d5b592f307f09b29e4c}{}\label{class_map_painter_a6d282b26150b3d5b592f307f09b29e4c} 
+\index{Map\+Painter@{Map\+Painter}!Map\+Painter@{Map\+Painter}}
+\index{Map\+Painter@{Map\+Painter}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{Map\+Painter()}{MapPainter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Map\+Painter\+::\+Map\+Painter (\begin{DoxyParamCaption}\item[{\hyperlink{class_map}{Map} $\ast$}]{m,  }\item[{Q\+Object $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+Constructs a new \hyperlink{class_map_painter}{Map\+Painter} with a default size of (42,42), and loads the \hyperlink{class_map}{map} m. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_map_painter_a96f267f3fc328d3b79aa757ff8d9f84b}{}\label{class_map_painter_a96f267f3fc328d3b79aa757ff8d9f84b} 
+\index{Map\+Painter@{Map\+Painter}!coo\+To\+Pt@{coo\+To\+Pt}}
+\index{coo\+To\+Pt@{coo\+To\+Pt}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{coo\+To\+Pt()}{cooToPt()}}
+{\footnotesize\ttfamily \hyperlink{class_pt_coords}{Pt\+Coords} Map\+Painter\+::coo\+To\+Pt (\begin{DoxyParamCaption}\item[{\hyperlink{class_cl_coords}{Cl\+Coords}}]{p }\end{DoxyParamCaption}) const}
+
+Converts cells indice to virtual point coordinates \hypertarget{class_map_painter_a5ea71fa57e033a7130b65b72bd7b0925}{}\label{class_map_painter_a5ea71fa57e033a7130b65b72bd7b0925} 
+\index{Map\+Painter@{Map\+Painter}!coo\+To\+Pxl@{coo\+To\+Pxl}}
+\index{coo\+To\+Pxl@{coo\+To\+Pxl}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{coo\+To\+Pxl()}{cooToPxl()}}
+{\footnotesize\ttfamily \hyperlink{class_px_coords}{Px\+Coords} Map\+Painter\+::coo\+To\+Pxl (\begin{DoxyParamCaption}\item[{\hyperlink{class_cl_coords}{Cl\+Coords}}]{p }\end{DoxyParamCaption}) const}
+
+Convenient function equivalent to \hyperlink{class_map_painter_a197f9204a07c9265fd0469f71effcdb3}{pt\+To\+Pxl}(\hyperlink{class_map_painter_a96f267f3fc328d3b79aa757ff8d9f84b}{coo\+To\+Pt}(p)) \hypertarget{class_map_painter_a8d2bdf48a8b1fc578a5b9436ad78307e}{}\label{class_map_painter_a8d2bdf48a8b1fc578a5b9436ad78307e} 
+\index{Map\+Painter@{Map\+Painter}!has\+Highlighted\+Cell@{has\+Highlighted\+Cell}}
+\index{has\+Highlighted\+Cell@{has\+Highlighted\+Cell}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{has\+Highlighted\+Cell()}{hasHighlightedCell()}}
+{\footnotesize\ttfamily bool Map\+Painter\+::has\+Highlighted\+Cell (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns true if a \hyperlink{class_cell}{cell} is highligthed.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a61c6dc7ea2173b51e8164b55bf7c8f53}{highlighted\+Cell}, \hyperlink{class_map_painter_ad7effe1c69fb1409d696dd54edd8bbb3}{set\+Highlighted\+Cell} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a61c6dc7ea2173b51e8164b55bf7c8f53}{}\label{class_map_painter_a61c6dc7ea2173b51e8164b55bf7c8f53} 
+\index{Map\+Painter@{Map\+Painter}!highlighted\+Cell@{highlighted\+Cell}}
+\index{highlighted\+Cell@{highlighted\+Cell}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{highlighted\+Cell()}{highlightedCell()}}
+{\footnotesize\ttfamily Q\+Point Map\+Painter\+::highlighted\+Cell (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the integer index of the \hyperlink{class_cell}{cell} the is highlighted.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_ad7effe1c69fb1409d696dd54edd8bbb3}{set\+Highlighted\+Cell}, \hyperlink{class_map_painter_a8d2bdf48a8b1fc578a5b9436ad78307e}{has\+Highlighted\+Cell} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_abe8b05f2893cedd9610b5c53b69a4530}{}\label{class_map_painter_abe8b05f2893cedd9610b5c53b69a4530} 
+\index{Map\+Painter@{Map\+Painter}!ind\+To\+Pt@{ind\+To\+Pt}}
+\index{ind\+To\+Pt@{ind\+To\+Pt}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{ind\+To\+Pt()}{indToPt()}}
+{\footnotesize\ttfamily \hyperlink{class_pt_coords}{Pt\+Coords} Map\+Painter\+::ind\+To\+Pt (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption}) const}
+
+Converts to coordinates \hypertarget{class_map_painter_ad7582541fbc927d0d82169f9dcd22767}{}\label{class_map_painter_ad7582541fbc927d0d82169f9dcd22767} 
+\index{Map\+Painter@{Map\+Painter}!is\+Cell@{is\+Cell}}
+\index{is\+Cell@{is\+Cell}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{is\+Cell()}{isCell()}}
+{\footnotesize\ttfamily bool Map\+Painter\+::is\+Cell (\begin{DoxyParamCaption}\item[{const \hyperlink{class_cl_coords}{Cl\+Coords} \&}]{c }\end{DoxyParamCaption}) const}
+
+Returns true if the coordinate {\ttfamily c} correspond to a \hyperlink{class_cell}{cell}. \hypertarget{class_map_painter_a8f1f85c58564d01e970bfcaf105e5f9b}{}\label{class_map_painter_a8f1f85c58564d01e970bfcaf105e5f9b} 
+\index{Map\+Painter@{Map\+Painter}!map\+Size\+Changed@{map\+Size\+Changed}}
+\index{map\+Size\+Changed@{map\+Size\+Changed}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{map\+Size\+Changed}{mapSizeChanged}}
+{\footnotesize\ttfamily void Map\+Painter\+::map\+Size\+Changed (\begin{DoxyParamCaption}\item[{Q\+Size}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is emitted when the total size of the \hyperlink{class_map}{map}\textquotesingle{}s view change.
+
+It appends mainly during scale change and modification on the \hyperlink{class_map}{map} (resize, angles setting, ...). \hypertarget{class_map_painter_a55dd52865ad3f50b91dadd1f1b6f9352}{}\label{class_map_painter_a55dd52865ad3f50b91dadd1f1b6f9352} 
+\index{Map\+Painter@{Map\+Painter}!move@{move}}
+\index{move@{move}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily Q\+Pair$<$ bool, bool $>$ Map\+Painter\+::move (\begin{DoxyParamCaption}\item[{\hyperlink{class_px_coords}{Px\+Coords}}]{delta,  }\item[{Q\+PointF}]{center }\end{DoxyParamCaption})}
+
+Change the center position from the given center and a pixel difference.
+
+The return value indicate if the expected center was valid (regarding x or y coordinate).
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a435c535da8087a54ba09c71232377508}{set\+View\+Center} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a0deb552b94eff8f8751946928d7cd5b8}{}\label{class_map_painter_a0deb552b94eff8f8751946928d7cd5b8} 
+\index{Map\+Painter@{Map\+Painter}!paint@{paint}}
+\index{paint@{paint}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{paint()}{paint()}}
+{\footnotesize\ttfamily void Map\+Painter\+::paint (\begin{DoxyParamCaption}\item[{Q\+Painter \&}]{p }\end{DoxyParamCaption})}
+
+Draws the map in the Q\+Paint\+Device.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a1c20cf03d0376290481bd80b9f8ef013}{render} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a2498d8b426f723fe980219ded809a5fa}{}\label{class_map_painter_a2498d8b426f723fe980219ded809a5fa} 
+\index{Map\+Painter@{Map\+Painter}!pre\+Selected\+Cell\+Color@{pre\+Selected\+Cell\+Color}}
+\index{pre\+Selected\+Cell\+Color@{pre\+Selected\+Cell\+Color}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{pre\+Selected\+Cell\+Color()}{preSelectedCellColor()}}
+{\footnotesize\ttfamily const Q\+Color \& Map\+Painter\+::pre\+Selected\+Cell\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the color of the filter that is applied to pre-\/selected cells.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a1c57806b863cd4b83051033681421cf6}{set\+Pre\+Selected\+Cell\+Color}, \hyperlink{class_map_painter_a5669055f03fd84f772d77fd80de9b39f}{selected\+Cell\+Color} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a765fa150a2841eaf0e3a9d0689738049}{}\label{class_map_painter_a765fa150a2841eaf0e3a9d0689738049} 
+\index{Map\+Painter@{Map\+Painter}!pt\+To\+Coo@{pt\+To\+Coo}}
+\index{pt\+To\+Coo@{pt\+To\+Coo}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{pt\+To\+Coo()}{ptToCoo()}}
+{\footnotesize\ttfamily \hyperlink{class_cl_coords}{Cl\+Coords} Map\+Painter\+::pt\+To\+Coo (\begin{DoxyParamCaption}\item[{\hyperlink{class_pt_coords}{Pt\+Coords}}]{p }\end{DoxyParamCaption}) const}
+
+Converts virtual point to cell indice \hypertarget{class_map_painter_a197f9204a07c9265fd0469f71effcdb3}{}\label{class_map_painter_a197f9204a07c9265fd0469f71effcdb3} 
+\index{Map\+Painter@{Map\+Painter}!pt\+To\+Pxl@{pt\+To\+Pxl}}
+\index{pt\+To\+Pxl@{pt\+To\+Pxl}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{pt\+To\+Pxl()}{ptToPxl()}}
+{\footnotesize\ttfamily \hyperlink{class_px_coords}{Px\+Coords} Map\+Painter\+::pt\+To\+Pxl (\begin{DoxyParamCaption}\item[{\hyperlink{class_pt_coords}{Pt\+Coords}}]{p }\end{DoxyParamCaption}) const}
+
+Converts virtual point to real pixel coordinates \hypertarget{class_map_painter_a8dc98c5badaf8ba46c2833d007a2b0b5}{}\label{class_map_painter_a8dc98c5badaf8ba46c2833d007a2b0b5} 
+\index{Map\+Painter@{Map\+Painter}!pxl\+To\+Coo@{pxl\+To\+Coo}}
+\index{pxl\+To\+Coo@{pxl\+To\+Coo}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{pxl\+To\+Coo()}{pxlToCoo()}}
+{\footnotesize\ttfamily \hyperlink{class_cl_coords}{Cl\+Coords} Map\+Painter\+::pxl\+To\+Coo (\begin{DoxyParamCaption}\item[{\hyperlink{class_px_coords}{Px\+Coords}}]{p }\end{DoxyParamCaption}) const}
+
+Convenient function equivalent to \hyperlink{class_map_painter_a765fa150a2841eaf0e3a9d0689738049}{pt\+To\+Coo}(\hyperlink{class_map_painter_ad10215649aa1b27f74fe920163b0a2e4}{pxl\+To\+Pt}(p)) \hypertarget{class_map_painter_ad10215649aa1b27f74fe920163b0a2e4}{}\label{class_map_painter_ad10215649aa1b27f74fe920163b0a2e4} 
+\index{Map\+Painter@{Map\+Painter}!pxl\+To\+Pt@{pxl\+To\+Pt}}
+\index{pxl\+To\+Pt@{pxl\+To\+Pt}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{pxl\+To\+Pt()}{pxlToPt()}}
+{\footnotesize\ttfamily \hyperlink{class_pt_coords}{Pt\+Coords} Map\+Painter\+::pxl\+To\+Pt (\begin{DoxyParamCaption}\item[{\hyperlink{class_px_coords}{Px\+Coords}}]{p }\end{DoxyParamCaption}) const}
+
+Converts real pixel to virtual point coordinates \hypertarget{class_map_painter_a1c20cf03d0376290481bd80b9f8ef013}{}\label{class_map_painter_a1c20cf03d0376290481bd80b9f8ef013} 
+\index{Map\+Painter@{Map\+Painter}!render@{render}}
+\index{render@{render}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily const Q\+Image \& Map\+Painter\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Provides a Q\+Image with a view of the map.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a0deb552b94eff8f8751946928d7cd5b8}{paint} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_ae215f704c3f1ee11bb89861b9b4b13d3}{}\label{class_map_painter_ae215f704c3f1ee11bb89861b9b4b13d3} 
+\index{Map\+Painter@{Map\+Painter}!resize@{resize}}
+\index{resize@{resize}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{resize()}{resize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Map\+Painter\+::resize (\begin{DoxyParamCaption}\item[{Q\+Size}]{s }\end{DoxyParamCaption})}
+
+Change the size of the view, {\itshape  ie } the rectangle in which the map will be render.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_aeec29e22231c125bb8df15288082dd50}{size} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a3280e72c6ffed5e7c550d4632a6de794}{}\label{class_map_painter_a3280e72c6ffed5e7c550d4632a6de794} 
+\index{Map\+Painter@{Map\+Painter}!resize@{resize}}
+\index{resize@{resize}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{resize()}{resize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Map\+Painter\+::resize (\begin{DoxyParamCaption}\item[{int}]{wi,  }\item[{int}]{he }\end{DoxyParamCaption})}
+
+This is an overload function, see \hyperlink{class_map_painter_ae215f704c3f1ee11bb89861b9b4b13d3}{resize} \hypertarget{class_map_painter_af923e94f6a43d1341282d61aaf8603e7}{}\label{class_map_painter_af923e94f6a43d1341282d61aaf8603e7} 
+\index{Map\+Painter@{Map\+Painter}!scale@{scale}}
+\index{scale@{scale}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{scale()}{scale()}}
+{\footnotesize\ttfamily double Map\+Painter\+::scale (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the current scale of the view.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_ae1d7e11835d4ee6588c5b5f0429787e3}{set\+Scale} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a5669055f03fd84f772d77fd80de9b39f}{}\label{class_map_painter_a5669055f03fd84f772d77fd80de9b39f} 
+\index{Map\+Painter@{Map\+Painter}!selected\+Cell\+Color@{selected\+Cell\+Color}}
+\index{selected\+Cell\+Color@{selected\+Cell\+Color}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{selected\+Cell\+Color()}{selectedCellColor()}}
+{\footnotesize\ttfamily const Q\+Color \& Map\+Painter\+::selected\+Cell\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the color of the filter that is applied to selected cells.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_ad1658d299eaee7ccdad70f00ad3f76d8}{set\+Selected\+Cell\+Color}, \hyperlink{class_map_painter_a2498d8b426f723fe980219ded809a5fa}{pre\+Selected\+Cell\+Color} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_ad7effe1c69fb1409d696dd54edd8bbb3}{}\label{class_map_painter_ad7effe1c69fb1409d696dd54edd8bbb3} 
+\index{Map\+Painter@{Map\+Painter}!set\+Highlighted\+Cell@{set\+Highlighted\+Cell}}
+\index{set\+Highlighted\+Cell@{set\+Highlighted\+Cell}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Highlighted\+Cell()}{setHighlightedCell()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Map\+Painter\+::set\+Highlighted\+Cell (\begin{DoxyParamCaption}\item[{const \hyperlink{class_cl_coords}{Cl\+Coords} \&}]{p }\end{DoxyParamCaption})}
+
+Sets the highligthed \hyperlink{class_cell}{cell} to the one at the \hyperlink{class_cl_coords}{Cl\+Coords} p
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a61c6dc7ea2173b51e8164b55bf7c8f53}{highlighted\+Cell}, \hyperlink{class_map_painter_a8d2bdf48a8b1fc578a5b9436ad78307e}{has\+Highlighted\+Cell} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a49c452342b60a341e7b3530141adeda8}{}\label{class_map_painter_a49c452342b60a341e7b3530141adeda8} 
+\index{Map\+Painter@{Map\+Painter}!set\+Highlighted\+Cell@{set\+Highlighted\+Cell}}
+\index{set\+Highlighted\+Cell@{set\+Highlighted\+Cell}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Highlighted\+Cell()}{setHighlightedCell()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Map\+Painter\+::set\+Highlighted\+Cell (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+This is an overload function, see \hyperlink{class_map_painter_a435c535da8087a54ba09c71232377508}{set\+View\+Center}. \hypertarget{class_map_painter_a2b1aa596498e0c01c0b53d06d4a598b4}{}\label{class_map_painter_a2b1aa596498e0c01c0b53d06d4a598b4} 
+\index{Map\+Painter@{Map\+Painter}!set\+Map@{set\+Map}}
+\index{set\+Map@{set\+Map}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Map()}{setMap()}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+Map (\begin{DoxyParamCaption}\item[{\hyperlink{class_map}{Map} $\ast$}]{m }\end{DoxyParamCaption})}
+
+Loads the \hyperlink{class_map}{map}, computing the new size of the view area. \hypertarget{class_map_painter_a8e7486d3743d62d2f3d334c23d38e1c9}{}\label{class_map_painter_a8e7486d3743d62d2f3d334c23d38e1c9} 
+\index{Map\+Painter@{Map\+Painter}!set\+Painted\+Element@{set\+Painted\+Element}}
+\index{set\+Painted\+Element@{set\+Painted\+Element}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Painted\+Element()}{setPaintedElement()}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+Painted\+Element (\begin{DoxyParamCaption}\item[{\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element}}]{e,  }\item[{bool}]{painted = {\ttfamily true} }\end{DoxyParamCaption})}
+
+Enables or disables the render of an \hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{element}.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_aaf546a511fb08c1688ce06392bce1048}{set\+Painted\+Elements} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_aaf546a511fb08c1688ce06392bce1048}{}\label{class_map_painter_aaf546a511fb08c1688ce06392bce1048} 
+\index{Map\+Painter@{Map\+Painter}!set\+Painted\+Elements@{set\+Painted\+Elements}}
+\index{set\+Painted\+Elements@{set\+Painted\+Elements}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Painted\+Elements()}{setPaintedElements()}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+Painted\+Elements (\begin{DoxyParamCaption}\item[{\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Element}}]{e }\end{DoxyParamCaption})}
+
+Sets the rendered \hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{elements}.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a8e7486d3743d62d2f3d334c23d38e1c9}{set\+Painted\+Element} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a1c57806b863cd4b83051033681421cf6}{}\label{class_map_painter_a1c57806b863cd4b83051033681421cf6} 
+\index{Map\+Painter@{Map\+Painter}!set\+Pre\+Selected\+Cell\+Color@{set\+Pre\+Selected\+Cell\+Color}}
+\index{set\+Pre\+Selected\+Cell\+Color@{set\+Pre\+Selected\+Cell\+Color}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Pre\+Selected\+Cell\+Color()}{setPreSelectedCellColor()}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+Pre\+Selected\+Cell\+Color (\begin{DoxyParamCaption}\item[{const Q\+Color \&}]{c }\end{DoxyParamCaption})}
+
+Sets the color of the filter that is applied to pre-\/selected cells.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a2498d8b426f723fe980219ded809a5fa}{pre\+Selected\+Cell\+Color}, \hyperlink{class_map_painter_ad1658d299eaee7ccdad70f00ad3f76d8}{set\+Selected\+Cell\+Color} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_ae1d7e11835d4ee6588c5b5f0429787e3}{}\label{class_map_painter_ae1d7e11835d4ee6588c5b5f0429787e3} 
+\index{Map\+Painter@{Map\+Painter}!set\+Scale@{set\+Scale}}
+\index{set\+Scale@{set\+Scale}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Scale()}{setScale()}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+Scale (\begin{DoxyParamCaption}\item[{double}]{scale }\end{DoxyParamCaption})}
+
+Sets the current view scale. This closest value in the scale domain will be used.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_af923e94f6a43d1341282d61aaf8603e7}{scale}, \hyperlink{class_map_painter_afaed21e6944cf1e62398f3f7a0067999}{set\+Scale\+Domain} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_afaed21e6944cf1e62398f3f7a0067999}{}\label{class_map_painter_afaed21e6944cf1e62398f3f7a0067999} 
+\index{Map\+Painter@{Map\+Painter}!set\+Scale\+Domain@{set\+Scale\+Domain}}
+\index{set\+Scale\+Domain@{set\+Scale\+Domain}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Scale\+Domain()}{setScaleDomain()}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+Scale\+Domain (\begin{DoxyParamCaption}\item[{double}]{scale\+Min,  }\item[{double}]{scale\+Max }\end{DoxyParamCaption})}
+
+Sets the valid values for the scale.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_af923e94f6a43d1341282d61aaf8603e7}{scale}, \hyperlink{class_map_painter_ae1d7e11835d4ee6588c5b5f0429787e3}{set\+Scale} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_ad1658d299eaee7ccdad70f00ad3f76d8}{}\label{class_map_painter_ad1658d299eaee7ccdad70f00ad3f76d8} 
+\index{Map\+Painter@{Map\+Painter}!set\+Selected\+Cell\+Color@{set\+Selected\+Cell\+Color}}
+\index{set\+Selected\+Cell\+Color@{set\+Selected\+Cell\+Color}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+Selected\+Cell\+Color()}{setSelectedCellColor()}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+Selected\+Cell\+Color (\begin{DoxyParamCaption}\item[{const Q\+Color \&}]{c }\end{DoxyParamCaption})}
+
+Sets the color of the filter that is applied to selected cells.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a5669055f03fd84f772d77fd80de9b39f}{selected\+Cell\+Color}, \hyperlink{class_map_painter_a1c57806b863cd4b83051033681421cf6}{set\+Pre\+Selected\+Cell\+Color} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a435c535da8087a54ba09c71232377508}{}\label{class_map_painter_a435c535da8087a54ba09c71232377508} 
+\index{Map\+Painter@{Map\+Painter}!set\+View\+Center@{set\+View\+Center}}
+\index{set\+View\+Center@{set\+View\+Center}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+View\+Center()}{setViewCenter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+View\+Center (\begin{DoxyParamCaption}\item[{\hyperlink{class_rl_coords}{Rl\+Coords}}]{relative\+Center }\end{DoxyParamCaption})}
+
+Change the view center, using relative coordinates.
+
+If the new center is invalid (the view exceed the map area), the closest valid center is used.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a268279c396ea9502059bf1901f0c686c}{view\+Center} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_ae840a2addecd404598ec8300bbd4870f}{}\label{class_map_painter_ae840a2addecd404598ec8300bbd4870f} 
+\index{Map\+Painter@{Map\+Painter}!set\+View\+Center@{set\+View\+Center}}
+\index{set\+View\+Center@{set\+View\+Center}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+View\+Center()}{setViewCenter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+View\+Center (\begin{DoxyParamCaption}\item[{double}]{relative\+CenterX,  }\item[{double}]{relative\+CenterY }\end{DoxyParamCaption})}
+
+This is an overload function, see \hyperlink{class_map_painter_a435c535da8087a54ba09c71232377508}{set\+View\+Center}. \hypertarget{class_map_painter_a5da86b2c104c9d22eb54ecd7b1d0b960}{}\label{class_map_painter_a5da86b2c104c9d22eb54ecd7b1d0b960} 
+\index{Map\+Painter@{Map\+Painter}!set\+View\+Center\+Quiet@{set\+View\+Center\+Quiet}}
+\index{set\+View\+Center\+Quiet@{set\+View\+Center\+Quiet}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{set\+View\+Center\+Quiet()}{setViewCenterQuiet()}}
+{\footnotesize\ttfamily void Map\+Painter\+::set\+View\+Center\+Quiet (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})}
+
+does the same as \hyperlink{class_map_painter_a435c535da8087a54ba09c71232377508}{set\+View\+Center}, without emitting the signal view\+Center\+Changed to avoid event loop. \hypertarget{class_map_painter_aeec29e22231c125bb8df15288082dd50}{}\label{class_map_painter_aeec29e22231c125bb8df15288082dd50} 
+\index{Map\+Painter@{Map\+Painter}!size@{size}}
+\index{size@{size}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily Q\+Size Map\+Painter\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Return the size of the rectangle in which the map is render. This is also the size of the image returned by \hyperlink{class_map_painter_a1c20cf03d0376290481bd80b9f8ef013}{render}.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_ae215f704c3f1ee11bb89861b9b4b13d3}{resize} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a268279c396ea9502059bf1901f0c686c}{}\label{class_map_painter_a268279c396ea9502059bf1901f0c686c} 
+\index{Map\+Painter@{Map\+Painter}!view\+Center@{view\+Center}}
+\index{view\+Center@{view\+Center}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{view\+Center()}{viewCenter()}}
+{\footnotesize\ttfamily \hyperlink{class_rl_coords}{Rl\+Coords} Map\+Painter\+::view\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Return the relative coordinates of the current view center.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_map_painter_a435c535da8087a54ba09c71232377508}{set\+View\+Center} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_painter_a15c872dbb6a7321b978928df5b850ea3}{}\label{class_map_painter_a15c872dbb6a7321b978928df5b850ea3} 
+\index{Map\+Painter@{Map\+Painter}!view\+Center\+Changed@{view\+Center\+Changed}}
+\index{view\+Center\+Changed@{view\+Center\+Changed}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{view\+Center\+Changed}{viewCenterChanged}}
+{\footnotesize\ttfamily void Map\+Painter\+::view\+Center\+Changed (\begin{DoxyParamCaption}\item[{Q\+Point}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is emitted when the center of the \hyperlink{class_map}{map} change.
+
+It appends mainly during moving on the view and zooming. \hypertarget{class_map_painter_a49be79b1a7ac1edc703aa3fd954f80d6}{}\label{class_map_painter_a49be79b1a7ac1edc703aa3fd954f80d6} 
+\index{Map\+Painter@{Map\+Painter}!virtual\+Size@{virtual\+Size}}
+\index{virtual\+Size@{virtual\+Size}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{virtual\+Size()}{virtualSize()}}
+{\footnotesize\ttfamily Q\+Size Map\+Painter\+::virtual\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Computes the total size of the image of the map \hypertarget{class_map_painter_a2dacde51513a54fbbf45b44787cd0ee2}{}\label{class_map_painter_a2dacde51513a54fbbf45b44787cd0ee2} 
+\index{Map\+Painter@{Map\+Painter}!zoom@{zoom}}
+\index{zoom@{zoom}!Map\+Painter@{Map\+Painter}}
+\subsubsection{\texorpdfstring{zoom()}{zoom()}}
+{\footnotesize\ttfamily void Map\+Painter\+::zoom (\begin{DoxyParamCaption}\item[{double}]{factor,  }\item[{Q\+PointF}]{fixed\+Point }\end{DoxyParamCaption})}
+
+Multiplying the scale of the view by factor, trying to leave the point center at the same position. \begin{DoxyNote}{Note}
+It is not always possible to keep this point fixed, in particulary when the view is resulting view would exceed the map region. In that case, the center is adapt to minimise the difference. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/editor/\+Game/\hyperlink{mappainter_8h}{mappainter.\+h}\item 
+src/editor/\+Game/mappainter.\+cpp\end{DoxyCompactItemize}

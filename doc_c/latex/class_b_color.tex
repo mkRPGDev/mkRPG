@@ -1,0 +1,198 @@
+\hypertarget{class_b_color}{}\section{B\+Color Class Reference}
+\label{class_b_color}\index{B\+Color@{B\+Color}}
+
+
+The \hyperlink{class_b_color}{B\+Color} class is a simple frame that offers color selection.  
+
+
+
+
+{\ttfamily \#include $<$bcolor.\+h$>$}
+
+Inheritance diagram for B\+Color\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_b_color}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_b_color_a901e6704aef22f6db97d3578e14777c6}{set\+Color} (const Q\+Color \&c)
+\item 
+void \hyperlink{class_b_color_a3781c2b986f19ceaac7c994767015b56}{set\+Color\+Quiet} (const Q\+Color \&c)
+\item 
+void \hyperlink{class_b_color_abcf2d57696ada6466424663f15624cad}{set\+Name} (const Q\+String \&s)
+\item 
+void \hyperlink{class_b_color_ac159569b670ed175be068204a28a7be9}{set\+Name\+Quiet} (const Q\+String \&s)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_b_color_a75ac94fde91e10eb6c27242f608b8d62}{color\+Changed} (const Q\+Color \&)
+\item 
+void \hyperlink{class_b_color_a5895b999f69044b919e6d5526577ad87}{name\+Changed} (const Q\+String \&)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_b_color_ac6b258d93f6b92fab2cce51d4a6a506f}{B\+Color} (Q\+Widget $\ast$parent=0)
+\item 
+\hyperlink{class_b_color_ae4773993aef804d6019d8216647555db}{B\+Color} (Q\+Color c, Q\+Widget $\ast$parent=0)
+\item 
+const Q\+String \& \hyperlink{class_b_color_a130caf6bc837b4f53544bd5f11b34cd3}{name} () const
+\item 
+const Q\+Color \& \hyperlink{class_b_color_ab9a9f1cb29c1894b5dc9c563a9256c3b}{color} () const
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Color \hyperlink{class_b_color_af5d46ba62e3868ab618269dff46d5718}{color}
+\item 
+Q\+String \hyperlink{class_b_color_a68e6b6c8c92fe004a98b44d48ba8a42a}{name}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_b_color}{B\+Color} class is a simple frame that offers color selection. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_b_color_ac6b258d93f6b92fab2cce51d4a6a506f}{}\label{class_b_color_ac6b258d93f6b92fab2cce51d4a6a506f} 
+\index{B\+Color@{B\+Color}!B\+Color@{B\+Color}}
+\index{B\+Color@{B\+Color}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{B\+Color()}{BColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily B\+Color\+::\+B\+Color (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructs a new \hyperlink{class_b_color}{B\+Color} object, with white as current color. \hypertarget{class_b_color_ae4773993aef804d6019d8216647555db}{}\label{class_b_color_ae4773993aef804d6019d8216647555db} 
+\index{B\+Color@{B\+Color}!B\+Color@{B\+Color}}
+\index{B\+Color@{B\+Color}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{B\+Color()}{BColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily B\+Color\+::\+B\+Color (\begin{DoxyParamCaption}\item[{Q\+Color}]{c,  }\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructs a new \hyperlink{class_b_color}{B\+Color} object and sets the color to c. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_b_color_ab9a9f1cb29c1894b5dc9c563a9256c3b}{}\label{class_b_color_ab9a9f1cb29c1894b5dc9c563a9256c3b} 
+\index{B\+Color@{B\+Color}!color@{color}}
+\index{color@{color}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{color()}{color()}}
+{\footnotesize\ttfamily const Q\+Color\& B\+Color\+::color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the current color of the selector.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_a901e6704aef22f6db97d3578e14777c6}{set\+Color}, \hyperlink{class_b_color_a3781c2b986f19ceaac7c994767015b56}{set\+Color\+Quiet}, \hyperlink{class_b_color_a75ac94fde91e10eb6c27242f608b8d62}{color\+Changed} 
+\end{DoxySeeAlso}
+\hypertarget{class_b_color_a75ac94fde91e10eb6c27242f608b8d62}{}\label{class_b_color_a75ac94fde91e10eb6c27242f608b8d62} 
+\index{B\+Color@{B\+Color}!color\+Changed@{color\+Changed}}
+\index{color\+Changed@{color\+Changed}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{color\+Changed}{colorChanged}}
+{\footnotesize\ttfamily void B\+Color\+::color\+Changed (\begin{DoxyParamCaption}\item[{const Q\+Color \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is emitted when the color change, both when the user edit it or when \hyperlink{class_b_color_a901e6704aef22f6db97d3578e14777c6}{set\+Color} is called.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_af5d46ba62e3868ab618269dff46d5718}{color}, \hyperlink{class_b_color_a3781c2b986f19ceaac7c994767015b56}{set\+Color\+Quiet} 
+\end{DoxySeeAlso}
+\hypertarget{class_b_color_a130caf6bc837b4f53544bd5f11b34cd3}{}\label{class_b_color_a130caf6bc837b4f53544bd5f11b34cd3} 
+\index{B\+Color@{B\+Color}!name@{name}}
+\index{name@{name}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily const Q\+String\& B\+Color\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the name of the selector.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_abcf2d57696ada6466424663f15624cad}{set\+Name}, \hyperlink{class_b_color_ac159569b670ed175be068204a28a7be9}{set\+Name\+Quiet}, \hyperlink{class_b_color_a5895b999f69044b919e6d5526577ad87}{name\+Changed} 
+\end{DoxySeeAlso}
+\hypertarget{class_b_color_a5895b999f69044b919e6d5526577ad87}{}\label{class_b_color_a5895b999f69044b919e6d5526577ad87} 
+\index{B\+Color@{B\+Color}!name\+Changed@{name\+Changed}}
+\index{name\+Changed@{name\+Changed}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{name\+Changed}{nameChanged}}
+{\footnotesize\ttfamily void B\+Color\+::name\+Changed (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is emitted when the name change, when \hyperlink{class_b_color_a901e6704aef22f6db97d3578e14777c6}{set\+Color} is called.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_a68e6b6c8c92fe004a98b44d48ba8a42a}{name}, \hyperlink{class_b_color_ac159569b670ed175be068204a28a7be9}{set\+Name\+Quiet} 
+\end{DoxySeeAlso}
+\hypertarget{class_b_color_a901e6704aef22f6db97d3578e14777c6}{}\label{class_b_color_a901e6704aef22f6db97d3578e14777c6} 
+\index{B\+Color@{B\+Color}!set\+Color@{set\+Color}}
+\index{set\+Color@{set\+Color}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{set\+Color}{setColor}}
+{\footnotesize\ttfamily void B\+Color\+::set\+Color (\begin{DoxyParamCaption}\item[{const Q\+Color \&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Sets the current color.
+
+The signal \hyperlink{class_b_color_a75ac94fde91e10eb6c27242f608b8d62}{color\+Changed} is emitted.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_a3781c2b986f19ceaac7c994767015b56}{set\+Color\+Quiet}, \hyperlink{class_b_color_af5d46ba62e3868ab618269dff46d5718}{color} 
+\end{DoxySeeAlso}
+\hypertarget{class_b_color_a3781c2b986f19ceaac7c994767015b56}{}\label{class_b_color_a3781c2b986f19ceaac7c994767015b56} 
+\index{B\+Color@{B\+Color}!set\+Color\+Quiet@{set\+Color\+Quiet}}
+\index{set\+Color\+Quiet@{set\+Color\+Quiet}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{set\+Color\+Quiet}{setColorQuiet}}
+{\footnotesize\ttfamily void B\+Color\+::set\+Color\+Quiet (\begin{DoxyParamCaption}\item[{const Q\+Color \&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Sets the current color.
+
+The signal \hyperlink{class_b_color_a75ac94fde91e10eb6c27242f608b8d62}{color\+Changed} is not emitted.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_a901e6704aef22f6db97d3578e14777c6}{set\+Color}, \hyperlink{class_b_color_af5d46ba62e3868ab618269dff46d5718}{color} 
+\end{DoxySeeAlso}
+\hypertarget{class_b_color_abcf2d57696ada6466424663f15624cad}{}\label{class_b_color_abcf2d57696ada6466424663f15624cad} 
+\index{B\+Color@{B\+Color}!set\+Name@{set\+Name}}
+\index{set\+Name@{set\+Name}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{set\+Name}{setName}}
+{\footnotesize\ttfamily void B\+Color\+::set\+Name (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Sets the name of the selector.
+
+The signal \hyperlink{class_b_color_a5895b999f69044b919e6d5526577ad87}{name\+Changed} is emitted.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_ac159569b670ed175be068204a28a7be9}{set\+Name\+Quiet}, \hyperlink{class_b_color_a68e6b6c8c92fe004a98b44d48ba8a42a}{name} 
+\end{DoxySeeAlso}
+\hypertarget{class_b_color_ac159569b670ed175be068204a28a7be9}{}\label{class_b_color_ac159569b670ed175be068204a28a7be9} 
+\index{B\+Color@{B\+Color}!set\+Name\+Quiet@{set\+Name\+Quiet}}
+\index{set\+Name\+Quiet@{set\+Name\+Quiet}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{set\+Name\+Quiet}{setNameQuiet}}
+{\footnotesize\ttfamily void B\+Color\+::set\+Name\+Quiet (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Sets the name of the selector.
+
+The signal \hyperlink{class_b_color_a5895b999f69044b919e6d5526577ad87}{name\+Changed} is not emitted.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_abcf2d57696ada6466424663f15624cad}{set\+Name}, \hyperlink{class_b_color_a68e6b6c8c92fe004a98b44d48ba8a42a}{name} 
+\end{DoxySeeAlso}
+
+
+\subsection{Property Documentation}
+\hypertarget{class_b_color_af5d46ba62e3868ab618269dff46d5718}{}\label{class_b_color_af5d46ba62e3868ab618269dff46d5718} 
+\index{B\+Color@{B\+Color}!color@{color}}
+\index{color@{color}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{color}{color}}
+{\footnotesize\ttfamily const Q\+Color \& B\+Color\+::color\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+The current color that is displayed by the widget
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_b_color_a901e6704aef22f6db97d3578e14777c6}{set\+Color}, \hyperlink{class_b_color_a3781c2b986f19ceaac7c994767015b56}{set\+Color\+Quiet}, \hyperlink{class_b_color_a75ac94fde91e10eb6c27242f608b8d62}{color\+Changed}. 
+\end{DoxySeeAlso}
+\hypertarget{class_b_color_a68e6b6c8c92fe004a98b44d48ba8a42a}{}\label{class_b_color_a68e6b6c8c92fe004a98b44d48ba8a42a} 
+\index{B\+Color@{B\+Color}!name@{name}}
+\index{name@{name}!B\+Color@{B\+Color}}
+\subsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily const Q\+String \& B\+Color\+::name\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+The name that is shown as title for the color chooser dialog used for user color definition purpose.
+
+see also \hyperlink{class_b_color_abcf2d57696ada6466424663f15624cad}{set\+Name}, \hyperlink{class_b_color_ac159569b670ed175be068204a28a7be9}{set\+Name\+Quiet}, and \hyperlink{class_b_color_a5895b999f69044b919e6d5526577ad87}{name\+Changed}. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/editor/\+G\+U\+I/\+Tabs/\hyperlink{bcolor_8h}{bcolor.\+h}\item 
+src/editor/\+G\+U\+I/\+Tabs/bcolor.\+cpp\end{DoxyCompactItemize}

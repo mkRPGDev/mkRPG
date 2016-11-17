@@ -1,0 +1,334 @@
+\hypertarget{class_game_object}{}\section{Game\+Object Class Reference}
+\label{class_game_object}\index{Game\+Object@{Game\+Object}}
+
+
+The \hyperlink{class_game_object}{Game\+Object} class is the base class for every part of games.  
+
+
+
+
+{\ttfamily \#include $<$object.\+h$>$}
+
+Inheritance diagram for Game\+Object\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.797753cm]{class_game_object}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{Game\+Object} (\hyperlink{class_game}{Game} $\ast$g=nullptr, \hyperlink{class_game_object}{Game\+Object} $\ast$parent=nullptr)
+\item 
+void \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} (\hyperlink{class_game}{Game} $\ast$g, \hyperlink{class_game_object}{Game\+Object} $\ast$p)
+\item 
+virtual bool \hyperlink{class_game_object_a47fec909421c91c9a9cb5ef415d7cd23}{is\+Valid} () const
+\item 
+int \hyperlink{class_game_object_a5f4affc76982bc4a8487a3dff0c46502}{ident} () const
+\item 
+const Q\+Date\+Time \& \hyperlink{class_game_object_a76035507be4203cc72186f210a9c4fee}{last\+Internal\+Edition} () const
+\item 
+const Q\+Date\+Time \& \hyperlink{class_game_object_a83b0ea6d2c30edf0b70d3a9e2e80563b}{last\+Children\+Edition} () const
+\item 
+const Q\+Date\+Time \& \hyperlink{class_game_object_a060fb833acf28832fa85a7927227bdde}{last\+Edition} () const
+\item 
+int \hyperlink{class_game_object_a328ee07594f27b294fcac02099be393b}{get\+Param} (const Q\+String \&p) const
+\item 
+void \hyperlink{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{set\+Param} (const Q\+String \&p, int v)
+\item 
+bool \hyperlink{class_game_object_aefe5673b8484d485b418b0ba6a3314dd}{has\+Param} (const Q\+String \&p) const
+\item 
+Q\+List$<$ Q\+String $>$ \hyperlink{class_game_object_a5d42c482092a7dde84261ac466e815c8}{params} () const
+\item 
+bool \hyperlink{class_game_object_a16181f773a5685407bc3b314bb34ef71}{get\+Flag} (const Q\+String \&f) const
+\item 
+void \hyperlink{class_game_object_ae7984096fc518b15c0b080c543e4c42f}{set\+Flag} (const Q\+String \&f, bool v)
+\item 
+bool \hyperlink{class_game_object_aeab0a6261090e437f69dfde76a030904}{has\+Flag} (const Q\+String \&f) const
+\item 
+Q\+List$<$ Q\+String $>$ \hyperlink{class_game_object_ad6f21f7458be4192a920013dbb3e590e}{flags} () const
+\item 
+void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
+\item 
+\hypertarget{class_game_object_a815c7f587c0ae528614add95655d9a0a}{}\label{class_game_object_a815c7f587c0ae528614add95655d9a0a} 
+void {\bfseries add\+Reference} ()
+\item 
+\hypertarget{class_game_object_a68725fd75f55bc73bb44216406ce34e5}{}\label{class_game_object_a68725fd75f55bc73bb44216406ce34e5} 
+void {\bfseries remove\+Reference} ()
+\item 
+\hypertarget{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3}{}\label{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3} 
+void {\bfseries set\+Parent} (\hyperlink{class_game_object}{Game\+Object} $\ast$p)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_game_object_a4733a1081db3c2d0a9be225265283ad8}{}\label{class_game_object_a4733a1081db3c2d0a9be225265283ad8} 
+void {\bfseries add\+Child} (\hyperlink{class_game_object}{Game\+Object} $\ast$c)
+\item 
+\hypertarget{class_game_object_a21dc679cb474b147b7d7d336117ffe58}{}\label{class_game_object_a21dc679cb474b147b7d7d336117ffe58} 
+void {\bfseries remove\+Child} (\hyperlink{class_game_object}{Game\+Object} $\ast$c)
+\item 
+\hypertarget{class_game_object_a4e57d5a3f8be6882e5d7f2a2e5d45ccd}{}\label{class_game_object_a4e57d5a3f8be6882e5d7f2a2e5d45ccd} 
+void {\bfseries children\+Touched} (const Q\+Date\+Time \&d)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_game_object_a4113a496ed45ca90756cfa0d8dfe6171}{}\label{class_game_object_a4113a496ed45ca90756cfa0d8dfe6171} 
+\hyperlink{class_game_object}{Game\+Object} $\ast$ {\bfseries parent}
+\item 
+\hypertarget{class_game_object_a096e6989277570032586b162e5802181}{}\label{class_game_object_a096e6989277570032586b162e5802181} 
+Q\+Map$<$ int, \hyperlink{class_game_object}{Game\+Object} $\ast$ $>$ {\bfseries children}
+\item 
+\hypertarget{class_game_object_a338ed91d0ad6aebe8a8d3adf8c75752b}{}\label{class_game_object_a338ed91d0ad6aebe8a8d3adf8c75752b} 
+\hyperlink{class_game}{Game} $\ast$ {\bfseries game}
+\item 
+\hypertarget{class_game_object_a98291c60da12d9036e1ad24cfebcf6b3}{}\label{class_game_object_a98291c60da12d9036e1ad24cfebcf6b3} 
+int {\bfseries id}
+\item 
+\hypertarget{class_game_object_a1873810f18db1e1faecc04e0ab92c512}{}\label{class_game_object_a1873810f18db1e1faecc04e0ab92c512} 
+int {\bfseries nb\+Ref}
+\item 
+\hypertarget{class_game_object_ab5ed36754a777ef648dd6831c0b1d6fb}{}\label{class_game_object_ab5ed36754a777ef648dd6831c0b1d6fb} 
+Q\+Map$<$ Q\+String, int $>$ {\bfseries a\+Params}
+\item 
+\hypertarget{class_game_object_ade46e4f590a01cab331d12d0da644625}{}\label{class_game_object_ade46e4f590a01cab331d12d0da644625} 
+Q\+Map$<$ Q\+String, bool $>$ {\bfseries a\+Flags}
+\item 
+\hypertarget{class_game_object_a8e62a0d6755b2930090348622f482f6d}{}\label{class_game_object_a8e62a0d6755b2930090348622f482f6d} 
+Q\+String {\bfseries file\+Name}
+\item 
+\hypertarget{class_game_object_ac1a61f57d5a318b86c4f2bbb4dbde78f}{}\label{class_game_object_ac1a61f57d5a318b86c4f2bbb4dbde78f} 
+Q\+Date\+Time {\bfseries last\+Edit}
+\item 
+\hypertarget{class_game_object_ae0a43c76fc9171015b43d008b5ffcbfd}{}\label{class_game_object_ae0a43c76fc9171015b43d008b5ffcbfd} 
+Q\+Date\+Time {\bfseries last\+Child\+Edit}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_game_object}{Game\+Object} class is the base class for every part of games. 
+
+Each instance is identified by a game-\/wide unique identifier.
+
+\subsubsection*{Object edition notification mechanism}
+
+To make the edition easier, each \hyperlink{class_game_object}{Game\+Object} contains two Q\+Date\+Time values \+:
+\begin{DoxyItemize}
+\item The most recent edition time, which is updated by the \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} method
+\item The most recent chidl edition time, also updated by the \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} method
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+If the changes that are made in the object have to be detected by display/edition widgets, the \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} function should be called. 
+
+To prevent the notification chain to be broken, the existing objects should always have a parent (except for the root object). This can be acheived using the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} or set\+Parent method, when the parent have not been given in the constructor. (see \hyperlink{object_8h}{object.\+h} for details)
+\end{DoxyNote}
+\subsubsection*{References count}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]\end{DoxyRefDesc}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_game_object_ab00c537faf6eb4439c60003141a763b9}{}\label{class_game_object_ab00c537faf6eb4439c60003141a763b9} 
+\index{Game\+Object@{Game\+Object}!Game\+Object@{Game\+Object}}
+\index{Game\+Object@{Game\+Object}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Game\+Object()}{GameObject()}}
+{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{class_game}{Game} $\ast$}]{g = {\ttfamily nullptr},  }\item[{\hyperlink{class_game_object}{Game\+Object} $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+Constructs a new \hyperlink{class_game_object}{Game\+Object} with parent {\ttfamily parent} and the reference to the game {\ttfamily g}.
+
+\begin{DoxyNote}{Note}
+If these objects cannot be given to the constructor (case of an array of objects), the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} method must be called after the creation to make the \hyperlink{class_game_object}{Game\+Object} valid. 
+\end{DoxyNote}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_game_object_ad6f21f7458be4192a920013dbb3e590e}{}\label{class_game_object_ad6f21f7458be4192a920013dbb3e590e} 
+\index{Game\+Object@{Game\+Object}!flags@{flags}}
+\index{flags@{flags}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{flags()}{flags()}}
+{\footnotesize\ttfamily Q\+List$<$Q\+String$>$ Game\+Object\+::flags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the list of the registered flags
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a16181f773a5685407bc3b314bb34ef71}{get\+Flag}, \hyperlink{class_game_object_ae7984096fc518b15c0b080c543e4c42f}{set\+Flag}, \hyperlink{class_game_object_a5d42c482092a7dde84261ac466e815c8}{params} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a16181f773a5685407bc3b314bb34ef71}{}\label{class_game_object_a16181f773a5685407bc3b314bb34ef71} 
+\index{Game\+Object@{Game\+Object}!get\+Flag@{get\+Flag}}
+\index{get\+Flag@{get\+Flag}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{get\+Flag()}{getFlag()}}
+{\footnotesize\ttfamily bool Game\+Object\+::get\+Flag (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the value of the {\ttfamily f} flag.
+
+\begin{DoxyNote}{Note}
+If the requested parameter does not exists, a {\ttfamily false} value is returned, and the flags map stay unchanged
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_ad6f21f7458be4192a920013dbb3e590e}{flags}, \hyperlink{class_game_object_aeab0a6261090e437f69dfde76a030904}{has\+Flag}, \hyperlink{class_game_object_ae7984096fc518b15c0b080c543e4c42f}{set\+Flag}, \hyperlink{class_game_object_a328ee07594f27b294fcac02099be393b}{get\+Param} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a328ee07594f27b294fcac02099be393b}{}\label{class_game_object_a328ee07594f27b294fcac02099be393b} 
+\index{Game\+Object@{Game\+Object}!get\+Param@{get\+Param}}
+\index{get\+Param@{get\+Param}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{get\+Param()}{getParam()}}
+{\footnotesize\ttfamily int Game\+Object\+::get\+Param (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{p }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the value of the {\ttfamily p} parameter.
+
+\begin{DoxyNote}{Note}
+If the requested parameter does not exists, a null value is returned, and the parameters map stay unchanged
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a5d42c482092a7dde84261ac466e815c8}{params}, \hyperlink{class_game_object_aefe5673b8484d485b418b0ba6a3314dd}{has\+Param}, \hyperlink{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{set\+Param}, \hyperlink{class_game_object_a16181f773a5685407bc3b314bb34ef71}{get\+Flag} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_aeab0a6261090e437f69dfde76a030904}{}\label{class_game_object_aeab0a6261090e437f69dfde76a030904} 
+\index{Game\+Object@{Game\+Object}!has\+Flag@{has\+Flag}}
+\index{has\+Flag@{has\+Flag}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{has\+Flag()}{hasFlag()}}
+{\footnotesize\ttfamily bool Game\+Object\+::has\+Flag (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{f }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns true if the falg {\ttfamily f} is register in the object\textquotesingle{}s flags.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a16181f773a5685407bc3b314bb34ef71}{get\+Flag}, \hyperlink{class_game_object_ae7984096fc518b15c0b080c543e4c42f}{set\+Flag}, \hyperlink{class_game_object_aefe5673b8484d485b418b0ba6a3314dd}{has\+Param} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_aefe5673b8484d485b418b0ba6a3314dd}{}\label{class_game_object_aefe5673b8484d485b418b0ba6a3314dd} 
+\index{Game\+Object@{Game\+Object}!has\+Param@{has\+Param}}
+\index{has\+Param@{has\+Param}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{has\+Param()}{hasParam()}}
+{\footnotesize\ttfamily bool Game\+Object\+::has\+Param (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{p }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns true if the parameter {\ttfamily is} register in the object\textquotesingle{}s parameters.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a328ee07594f27b294fcac02099be393b}{get\+Param}, \hyperlink{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{set\+Param}, \hyperlink{class_game_object_aeab0a6261090e437f69dfde76a030904}{has\+Flag} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a5f4affc76982bc4a8487a3dff0c46502}{}\label{class_game_object_a5f4affc76982bc4a8487a3dff0c46502} 
+\index{Game\+Object@{Game\+Object}!ident@{ident}}
+\index{ident@{ident}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{ident()}{ident()}}
+{\footnotesize\ttfamily int Game\+Object\+::ident (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the name wide unique identifier of the object.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init}, \hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{Game\+Object} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{}\label{class_game_object_a97be7b59b2e76e7d60de2146b894eed9} 
+\index{Game\+Object@{Game\+Object}!init@{init}}
+\index{init@{init}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Game\+Object\+::init (\begin{DoxyParamCaption}\item[{\hyperlink{class_game}{Game} $\ast$}]{g,  }\item[{\hyperlink{class_game_object}{Game\+Object} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Initialises the object in case it had been construct with a N\+U\+LL pointer (array of objects)
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a47fec909421c91c9a9cb5ef415d7cd23}{is\+Valid}, \hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{Game\+Object} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a47fec909421c91c9a9cb5ef415d7cd23}{}\label{class_game_object_a47fec909421c91c9a9cb5ef415d7cd23} 
+\index{Game\+Object@{Game\+Object}!is\+Valid@{is\+Valid}}
+\index{is\+Valid@{is\+Valid}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{is\+Valid()}{isValid()}}
+{\footnotesize\ttfamily virtual bool Game\+Object\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Returns true if the object has been initialised
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init}, \hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{Game\+Object} 
+\end{DoxySeeAlso}
+
+
+Reimplemented in \hyperlink{class_image_ac78aa7b47e7a8b279d2e95ac309ab375}{Image}.
+
+\hypertarget{class_game_object_a83b0ea6d2c30edf0b70d3a9e2e80563b}{}\label{class_game_object_a83b0ea6d2c30edf0b70d3a9e2e80563b} 
+\index{Game\+Object@{Game\+Object}!last\+Children\+Edition@{last\+Children\+Edition}}
+\index{last\+Children\+Edition@{last\+Children\+Edition}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{last\+Children\+Edition()}{lastChildrenEdition()}}
+{\footnotesize\ttfamily const Q\+Date\+Time\& Game\+Object\+::last\+Children\+Edition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the last time one of the object\textquotesingle{}s children has been modified.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a060fb833acf28832fa85a7927227bdde}{last\+Edition}, \hyperlink{class_game_object_a76035507be4203cc72186f210a9c4fee}{last\+Internal\+Edition} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a060fb833acf28832fa85a7927227bdde}{}\label{class_game_object_a060fb833acf28832fa85a7927227bdde} 
+\index{Game\+Object@{Game\+Object}!last\+Edition@{last\+Edition}}
+\index{last\+Edition@{last\+Edition}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{last\+Edition()}{lastEdition()}}
+{\footnotesize\ttfamily const Q\+Date\+Time\& Game\+Object\+::last\+Edition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the last time a modification was made on the object or one of its children.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a76035507be4203cc72186f210a9c4fee}{last\+Internal\+Edition}, \hyperlink{class_game_object_a83b0ea6d2c30edf0b70d3a9e2e80563b}{last\+Children\+Edition} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a76035507be4203cc72186f210a9c4fee}{}\label{class_game_object_a76035507be4203cc72186f210a9c4fee} 
+\index{Game\+Object@{Game\+Object}!last\+Internal\+Edition@{last\+Internal\+Edition}}
+\index{last\+Internal\+Edition@{last\+Internal\+Edition}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{last\+Internal\+Edition()}{lastInternalEdition()}}
+{\footnotesize\ttfamily const Q\+Date\+Time\& Game\+Object\+::last\+Internal\+Edition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the last edition time.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a060fb833acf28832fa85a7927227bdde}{last\+Edition}, \hyperlink{class_game_object_a83b0ea6d2c30edf0b70d3a9e2e80563b}{last\+Children\+Edition} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a5d42c482092a7dde84261ac466e815c8}{}\label{class_game_object_a5d42c482092a7dde84261ac466e815c8} 
+\index{Game\+Object@{Game\+Object}!params@{params}}
+\index{params@{params}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{params()}{params()}}
+{\footnotesize\ttfamily Q\+List$<$Q\+String$>$ Game\+Object\+::params (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the list of the registered paramters
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a328ee07594f27b294fcac02099be393b}{get\+Param}, \hyperlink{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{set\+Param}, \hyperlink{class_game_object_ad6f21f7458be4192a920013dbb3e590e}{flags} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_ae7984096fc518b15c0b080c543e4c42f}{}\label{class_game_object_ae7984096fc518b15c0b080c543e4c42f} 
+\index{Game\+Object@{Game\+Object}!set\+Flag@{set\+Flag}}
+\index{set\+Flag@{set\+Flag}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{set\+Flag()}{setFlag()}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Flag (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{f,  }\item[{bool}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the value of the {\ttfamily f} flag.
+
+\begin{DoxyNote}{Note}
+If the requested flag does not exists, it is created.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_ad6f21f7458be4192a920013dbb3e590e}{flags}, \hyperlink{class_game_object_aeab0a6261090e437f69dfde76a030904}{has\+Flag}, \hyperlink{class_game_object_a16181f773a5685407bc3b314bb34ef71}{get\+Flag}, \hyperlink{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{set\+Param} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{}\label{class_game_object_a28b8af7f399f1348a4f3130dd21173a1} 
+\index{Game\+Object@{Game\+Object}!set\+Param@{set\+Param}}
+\index{set\+Param@{set\+Param}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{set\+Param()}{setParam()}}
+{\footnotesize\ttfamily void Game\+Object\+::set\+Param (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{p,  }\item[{int}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the value of the {\ttfamily p} parameter.
+
+\begin{DoxyNote}{Note}
+If the requested parameter does not exists, it is created.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a5d42c482092a7dde84261ac466e815c8}{params}, \hyperlink{class_game_object_aefe5673b8484d485b418b0ba6a3314dd}{has\+Param}, \hyperlink{class_game_object_a328ee07594f27b294fcac02099be393b}{get\+Param}, \hyperlink{class_game_object_ae7984096fc518b15c0b080c543e4c42f}{set\+Flag} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{}\label{class_game_object_a2130d5674df041b5a7eaf987f9b1e642} 
+\index{Game\+Object@{Game\+Object}!touch@{touch}}
+\index{touch@{touch}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{touch()}{touch()}}
+{\footnotesize\ttfamily void Game\+Object\+::touch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Notify the object and its parent that it has been modified.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_game_object_a76035507be4203cc72186f210a9c4fee}{last\+Internal\+Edition}, \hyperlink{class_game_object_a83b0ea6d2c30edf0b70d3a9e2e80563b}{last\+Children\+Edition}, \hyperlink{class_game_object_a060fb833acf28832fa85a7927227bdde}{last\+Edition}. 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/editor/\+Game/\hyperlink{object_8h}{object.\+h}\item 
+src/editor/\+Game/object.\+cpp\end{DoxyCompactItemize}

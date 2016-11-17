@@ -1,0 +1,83 @@
+\hypertarget{options_8h}{}\section{src/editor/\+G\+U\+I/options.h File Reference}
+\label{options_8h}\index{src/editor/\+G\+U\+I/options.\+h@{src/editor/\+G\+U\+I/options.\+h}}
+
+
+Definition of the \hyperlink{struct_options}{Options} class, and the constants that are used in this class.  
+
+
+{\ttfamily \#include $<$Q\+Settings$>$}\newline
+{\ttfamily \#include $<$Q\+Dir$>$}\newline
+{\ttfamily \#include $<$Q\+Size$>$}\newline
+{\ttfamily \#include $<$Q\+Point$>$}\newline
+{\ttfamily \#include $<$Q\+Color$>$}\newline
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_options}{Options}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{struct_options}{Options} class provides session-\/independant options and preferences. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{options_8h_a43105771f16e2da3078149f0de528e9b}{W\+IN}~\char`\"{}Window\char`\"{}
+\item 
+\#define \hyperlink{options_8h_a6c8de73bb604d91743c7f6f356eb171e}{D\+IR}~\char`\"{}Directories\char`\"{}
+\item 
+\#define \hyperlink{options_8h_a4e58380df1435929cc191b5b4ba99cd5}{M\+AP}~\char`\"{}Maps\+Editor\char`\"{}
+\item 
+\#define \hyperlink{options_8h_a39f3ee28f306ee663a9985433ef2d01c}{DefaultF}(group,  opt,  val)~default\+Values\mbox{[}group\mbox{]}\mbox{[}opt\mbox{]} = Q\+Pair$<$Q\+Variant, bool$>$(val, false)
+\item 
+\#define \hyperlink{options_8h_a37c44b1e71afed084dbe855181c444e2}{Default}(group,  opt,  val)~default\+Values\mbox{[}group\mbox{]}\mbox{[}opt\mbox{]} = Q\+Pair$<$Q\+Variant, bool$>$(val, true)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{options_8h_a3f9b2791b7789116bf2250b0c82be32d}{}\label{options_8h_a3f9b2791b7789116bf2250b0c82be32d} 
+const Q\+String {\bfseries A\+D\+A\+PT} = \char`\"{}Adjustable\char`\"{}
+\item 
+\hypertarget{options_8h_a470b69af97e85a011ccd5c17f6fa524c}{}\label{options_8h_a470b69af97e85a011ccd5c17f6fa524c} 
+const Q\+String {\bfseries V\+AL} = \char`\"{}Value\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Definition of the \hyperlink{struct_options}{Options} class, and the constants that are used in this class. 
+
+The headers of types which are used in the application must be include here. See \hyperlink{struct_options}{Options} for details.
+
+\begin{DoxyAuthor}{Author}
+Baptiste Pauget 
+\end{DoxyAuthor}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{options_8h_a37c44b1e71afed084dbe855181c444e2}{}\label{options_8h_a37c44b1e71afed084dbe855181c444e2} 
+\index{options.\+h@{options.\+h}!Default@{Default}}
+\index{Default@{Default}!options.\+h@{options.\+h}}
+\subsubsection{\texorpdfstring{Default}{Default}}
+{\footnotesize\ttfamily \#define Default(\begin{DoxyParamCaption}\item[{}]{group,  }\item[{}]{opt,  }\item[{}]{val }\end{DoxyParamCaption})~default\+Values\mbox{[}group\mbox{]}\mbox{[}opt\mbox{]} = Q\+Pair$<$Q\+Variant, bool$>$(val, true)}
+
+This macro defines a new adaptati option identified by its group and name. \hypertarget{options_8h_a39f3ee28f306ee663a9985433ef2d01c}{}\label{options_8h_a39f3ee28f306ee663a9985433ef2d01c} 
+\index{options.\+h@{options.\+h}!DefaultF@{DefaultF}}
+\index{DefaultF@{DefaultF}!options.\+h@{options.\+h}}
+\subsubsection{\texorpdfstring{DefaultF}{DefaultF}}
+{\footnotesize\ttfamily \#define DefaultF(\begin{DoxyParamCaption}\item[{}]{group,  }\item[{}]{opt,  }\item[{}]{val }\end{DoxyParamCaption})~default\+Values\mbox{[}group\mbox{]}\mbox{[}opt\mbox{]} = Q\+Pair$<$Q\+Variant, bool$>$(val, false)}
+
+This macro defines a new unadaptati option identified by its group and name. \hypertarget{options_8h_a6c8de73bb604d91743c7f6f356eb171e}{}\label{options_8h_a6c8de73bb604d91743c7f6f356eb171e} 
+\index{options.\+h@{options.\+h}!D\+IR@{D\+IR}}
+\index{D\+IR@{D\+IR}!options.\+h@{options.\+h}}
+\subsubsection{\texorpdfstring{D\+IR}{DIR}}
+{\footnotesize\ttfamily \#define D\+IR~\char`\"{}Directories\char`\"{}}
+
+Group of paths options. \hypertarget{options_8h_a4e58380df1435929cc191b5b4ba99cd5}{}\label{options_8h_a4e58380df1435929cc191b5b4ba99cd5} 
+\index{options.\+h@{options.\+h}!M\+AP@{M\+AP}}
+\index{M\+AP@{M\+AP}!options.\+h@{options.\+h}}
+\subsubsection{\texorpdfstring{M\+AP}{MAP}}
+{\footnotesize\ttfamily \#define M\+AP~\char`\"{}Maps\+Editor\char`\"{}}
+
+Group of \hyperlink{class_maps_editor}{Maps\+Editor} related options. \hypertarget{options_8h_a43105771f16e2da3078149f0de528e9b}{}\label{options_8h_a43105771f16e2da3078149f0de528e9b} 
+\index{options.\+h@{options.\+h}!W\+IN@{W\+IN}}
+\index{W\+IN@{W\+IN}!options.\+h@{options.\+h}}
+\subsubsection{\texorpdfstring{W\+IN}{WIN}}
+{\footnotesize\ttfamily \#define W\+IN~\char`\"{}Window\char`\"{}}
+
+Group of window related options. 

@@ -24,10 +24,6 @@ import world
 from printWorld import WorldViewer, Interface
 from utils import add_to_rect_list
 
-#interface = argv[2] if len(argv)==3 else False
-interface = True
-# permet de désactiver pygame pour débugguer
-
 class Client(Interface):
     def __init__(self, w):
         pygame.display.init()
@@ -35,8 +31,8 @@ class Client(Interface):
         self.screen = pygame.display.set_mode(self.screen_size)
 
         self.world = w
-        self.interface = (WorldViewer if interface else Interface)(self.world)
-        self.perso = self.world.entities[0] # XXX bricolage
+        self.interface = WorldViewer(self.world)
+        self.perso = None
 
         print("Client initialised")
 
@@ -54,6 +50,9 @@ class Client(Interface):
                 keys.append(event.key)
         return keys
 
+    def set_perso(self, perso):
+        self.perso = perso
+        self.interface.set_perso(self.perso)
 
     def init(self):
         self.get_conf_file("client_conf.ini")
@@ -97,7 +96,8 @@ class Client(Interface):
         self.screen.blit(image, (0,0))
         self.screen.blit(text, (10,10))
 
-        if next(self.refresh_counter) : pygame.display.flip()
+        if next(self.refresh_counter) :
+            pygame.display.flip()
         else : pygame.display.update(rect_list)
         self.interface.update()
 

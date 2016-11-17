@@ -40,6 +40,7 @@ CHUNK_HEIGHT = int(utils.cell_to_point(0,0,CHUNK_GRID_WIDTH,CHUNK_GRID_HEIGHT,
 BG_IMGSET = {1:"ground.png", 2:"grass.png", 32:"ground.png"}
 GRID_IMGSET = {"default":"cell.png", "selected":"cell_selected.png",
                "mouse_iso":"cell_mouse_iso.png"}
+IMG_SET = {79:"head.png",88:"head.png",120:"apple.png",111:"body.png"}
 CELL_MATCH = {1:"default", 2:"default", 32:"default", None:None}
 MOV_OFFSET = 40
 CHAR_MOV_SPEED = 10 # pixels/second

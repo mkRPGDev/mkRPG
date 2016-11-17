@@ -5,7 +5,7 @@
         <event val="moveup"/>
     </Interaction>
     <Interaction>
-        <key val="119"/> <!-- curses.key_up -->
+        <key val="115"/> <!-- curses.key_up -->
         <target val="perso"/>
         <event val="movedown"/>
     </Interaction>

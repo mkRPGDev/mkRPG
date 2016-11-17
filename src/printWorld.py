@@ -5,7 +5,7 @@ from time import sleep
 
 import world
 from map import MapViewer
-from character import Character
+from entity import Entity
 from utils import merge_rect_lists
 from cache import ImageCache
 import const
@@ -30,12 +30,13 @@ class WorldViewer(Interface):
         self.current_map = MapViewer(self.world.currentMap, self.world)
 
         # Load entities
-        self.main_char = "Helyder"
-        self.characters = { "Helyder" : Character("Helyder", start_pos=(0,0),
-                            skin=const.IMG_PATH+"character_skin.png"),
-                            "Gu1ness" : Character("Gu1ness", start_pos=(3,6),
-                            skin=const.IMG_PATH+"skeleton_skin.png")
-                          }
+        self.entities = []
+        for ent in w.entities:
+            self.entities.append(Entity((ent.x, ent.y),
+                                   (self.current_map.cm_width,
+                                    self.current_map.cm_height),
+                                    ent.picture))
+        self.perso = None
 
     def get_event(self):
         """ Return current pygame events stack """
@@ -45,6 +46,9 @@ class WorldViewer(Interface):
         """ End the display """
         pygame.display.quit()
 
+    def set_perso(self, perso):
+        self.perso = perso
+
     def update(self):
         """ Update the view """
         # Update current_map and get the rectangles of modifications
@@ -52,8 +56,8 @@ class WorldViewer(Interface):
 
         # Update entities and compute the rectangles of modifications
         charac_rects = []
-        for character in self.characters.values():
-            rects = character.update()
+        for ent in self.entities:
+            rects = ent.update(ent.x, ent.y)
             if rects is not None:
                 for i in range(len(rects)):
                     rects[i] = rects[i].move(self.current_map.pos_offset)
@@ -78,10 +82,10 @@ class WorldViewer(Interface):
         res.blit(image, (offsetx, offsety))
 
         # Render every entitie and add it to the result
-        for character in self.characters.values():
-            char_offset = (self.current_map.pos_offset[0]+character.pos_offset[0],
-                           self.current_map.pos_offset[1]+character.pos_offset[1])
-            res.blit(character.render(), char_offset)
+        for ent in self.entities:
+            char_offset = (self.current_map.pos_offset[0]+ent.pos[0],
+                           self.current_map.pos_offset[1]+ent.pos[1])
+            res.blit(ent.render(), char_offset)
 
         return res
 
@@ -94,16 +98,6 @@ class WorldViewer(Interface):
             # If the map has effectively been moved, the rectangle of
             # modifications is the whole screen
             return [Rect((0,0),self.screen_size)]
-
-    def move_char(self, ident, end_pos):
-        """ Move the entitie ident to cell end_pos """
-        start_pos = self.characters[ident].current_cell
-
-        # Compute the path between its current pos and its target pos
-        path = self.current_map.compute_path(start_pos, end_pos)
-
-        # Tell the character to follow that path
-        self.characters[ident].set_path(path)
 
     def propagate_trigger(self, event):
         """ Propagate event to next objects in the arborescence, here its the

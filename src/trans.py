@@ -5,13 +5,18 @@ from numpy import array
 # gcc -fPIC -std=c99 -shared trans.c -o trans.a
 dll = CDLL("./trans.a")
 
-#void trans(int* src, int sw, int sh, int* dst, int dh,
-#           double a, double b, double c, double d, int xm, int ym){
+# from trans.a:
+# void trans(int* src, int sw, int sh, int* dst, int dh,
+#            double a, double b, double c, double d, int xm, int ym);
 
 def prod(m, p):
     return (p[0]*m[0] + p[1]*m[1], p[0]*m[2] + p[1]*m[3]) 
 
 def transfo(surf, m):
+    """
+    Apply m (2x2 matrix) transformation to surf (Pygame surface).  It is done
+    in trans.c to improve execution time.
+    """
     # nécessite 70us pour 100*100
     w,h = surf.get_size()
     x1,y1 = prod(m, (w, 0))

@@ -1,0 +1,520 @@
+\hypertarget{object_8h}{}\section{src/editor/\+Game/object.h File Reference}
+\label{object_8h}\index{src/editor/\+Game/object.\+h@{src/editor/\+Game/object.\+h}}
+
+
+Definition of the base class \hyperlink{class_game_object}{Game\+Object}, and some inherited classes.  
+
+
+{\ttfamily \#include $<$Qt\+Core$>$}\newline
+{\ttfamily \#include $<$Qt\+Gui$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_game_object}{Game\+Object}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_game_object}{Game\+Object} class is the base class for every part of games. \end{DoxyCompactList}\item 
+class \hyperlink{class_image}{Image}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_image}{Image} class stores an external file in a Q\+Image, and gives each image ressources a unique identifier. \end{DoxyCompactList}\item 
+class \hyperlink{class_object}{Object}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_object}{Object} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{object_8h_a6666417d2cf341574cfd7534b819e45d}{Objects\+MapC}(name,  names,  Type,  Types,  pref,  arg)
+\item 
+\#define \hyperlink{object_8h_a36f4eef4198c2aec7010e22c6223d13d}{Objects\+Map}(pref,  ini,  Ini,  body,  sg,  pl)~\hyperlink{object_8h_a6666417d2cf341574cfd7534b819e45d}{Objects\+MapC}(ini\#\#body\#\#sg, ini\#\#body\#\#pl, Ini\#\#body\#\#sg, Ini\#\#body\#\#pl, pref,ini)
+\item 
+\hypertarget{object_8h_aa4e4db36d846a9d6dff95def8d7507c3}{}\label{object_8h_aa4e4db36d846a9d6dff95def8d7507c3} 
+\#define {\bfseries Object\+List\+Def}(Objects,  Type)~private\+: Q\+Map$<$int, Type$\ast$$>$ a\#\#Objects; public\+:
+\item 
+\hypertarget{object_8h_a3e0c32abad0e9e137742babb45a9799e}{}\label{object_8h_a3e0c32abad0e9e137742babb45a9799e} 
+\#define {\bfseries Object\+List\+Add}(\hyperlink{class_object}{Object},  Objects,  Type)~void add\#\#\hyperlink{class_object}{Object}(Type$\ast$ new\#\#\hyperlink{class_object}{Object})\{a\#\#Objects\mbox{[}new\#\#\hyperlink{class_object}{Object}-\/$>$ident()\mbox{]} = new\#\#\hyperlink{class_object}{Object}; touch();\}
+\item 
+\hypertarget{object_8h_ae19013938d6d09feb96ca117ee851289}{}\label{object_8h_ae19013938d6d09feb96ca117ee851289} 
+\#define {\bfseries Object\+List\+Take}(\hyperlink{class_object}{Object},  Objects,  Type)~Type$\ast$ take\#\#\hyperlink{class_object}{Object}(int id)\{touch(); return a\#\#Objects.\+take(id);\}
+\item 
+\hypertarget{object_8h_a5cd159f72be6e7310f3b9e370541dc95}{}\label{object_8h_a5cd159f72be6e7310f3b9e370541dc95} 
+\#define {\bfseries Object\+List\+Getter}(object,  Objects,  Type)~inline Type$\ast$ object(int id) const\{return a\#\#Objects.\+value(id, nullptr);\}
+\item 
+\hypertarget{object_8h_ac998674f36a474adb6d33e0d063fbb86}{}\label{object_8h_ac998674f36a474adb6d33e0d063fbb86} 
+\#define {\bfseries Object\+List\+Values}(objects,  Objects,  Type)~inline Q\+List$<$Type$\ast$$>$ objects() const\{return a\#\#Objects.\+values();\}
+\item 
+\hypertarget{object_8h_afe4d35582ec32f703d1258d7a115b7cc}{}\label{object_8h_afe4d35582ec32f703d1258d7a115b7cc} 
+\#define {\bfseries Object\+List\+Getters}(object,  \hyperlink{class_object}{Object},  objects,  Objects,  Type)~Object\+List\+Getter(object,Objects, Type) Object\+List\+Values(objects,Objects, Type)
+\item 
+\hypertarget{object_8h_ae0b5fda5c58dfc337f2243b2dc2de562}{}\label{object_8h_ae0b5fda5c58dfc337f2243b2dc2de562} 
+\#define {\bfseries Object\+List\+Modifiers}(\hyperlink{class_object}{Object},  Objects,  Type)~Object\+List\+Add(\hyperlink{class_object}{Object},Objects, Type) Object\+List\+Take(\hyperlink{class_object}{Object}, Objects, Type)
+\item 
+\hypertarget{object_8h_a798ee6ceb752ddc6cd1624bf28ef706e}{}\label{object_8h_a798ee6ceb752ddc6cd1624bf28ef706e} 
+\#define {\bfseries Object\+List}(object,  \hyperlink{class_object}{Object},  objects,  Objects,  Type)~Object\+List\+Def(Objects,Type) Object\+List\+Getters(object,\hyperlink{class_object}{Object},objects,Objects,Type) Object\+List\+Modifiers(\hyperlink{class_object}{Object}, Objects, Type)
+\item 
+\hypertarget{object_8h_a0f0140d1b7fcc1df10ca30d191d5107c}{}\label{object_8h_a0f0140d1b7fcc1df10ca30d191d5107c} 
+\#define {\bfseries Object\+ListD}(init,  Init,  body,  sg,  pl,  Type)~Object\+List(init\#\#body\#\#sg,Init\#\#body\#\#sg,init\#\#body\#\#pl,Init\#\#body\#\#pl,Type)
+\item 
+\#define \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C}(Macro,  init,  Init,  body, ...)~Macro(init\#\#body, Init\#\#body, \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{object_8h_a9c4adf8b1c7a56a81c6b66945d6ec4d2}{C0}(Macro,  init,  Init,  body)~Macro(init\#\#body, Init\#\#body)
+\item 
+\#define \hyperlink{object_8h_a4f05201336d20b10dad322cfbd30c0af}{C1}(Macro,  init,  Init,  body,  arg)~Macro(init\#\#body, Init\#\#body, arg)
+\item 
+\#define \hyperlink{object_8h_ad1f082144869225c63b2194de68e2cd5}{Set\+Flag}(flag,  value)~a\+Flags\mbox{[}\#flag\mbox{]} = value
+\item 
+\#define \hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{Flag\+Getter}(flag,  \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag})~inline bool is\#\#\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}() const\{return a\+Flags\mbox{[}\#flag\mbox{]};\}
+\item 
+\#define \hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{Flag\+Setter}(flag,  \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag})~inline void set\#\#\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}(bool flag)\{\hyperlink{object_8h_ad1f082144869225c63b2194de68e2cd5}{Set\+Flag}(flag,flag); touch();\}
+\item 
+\#define \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}(flag,  Flag)~\hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{Flag\+Getter}(flag, Flag) \hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{Flag\+Setter}(flag, Flag)
+\item 
+\#define \hyperlink{object_8h_a7ea6e146fa4b193d62fdb8c53bd27c09}{Set\+Param}(param,  value)~a\+Params\mbox{[}\#param\mbox{]} = value
+\item 
+\#define \hyperlink{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{Param\+Getter}(param)~inline int param() const\{return a\+Params\mbox{[}\#param\mbox{]};\}
+\item 
+\#define \hyperlink{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{Param\+Setter}(param,  \hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param})~inline void set\#\#\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param}(int param\#\#Value)\{\hyperlink{object_8h_a7ea6e146fa4b193d62fdb8c53bd27c09}{Set\+Param}(param,param\#\#Value); touch();\}
+\item 
+\#define \hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param}(param,  Param)~\hyperlink{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{Param\+Getter}(param) \hyperlink{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{Param\+Setter}(param, Param)
+\item 
+\#define \hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{Attr\+Getter}(attr,  \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr},  Type)~inline Type$\ast$ attr() const\{return a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr};\}
+\item 
+\hypertarget{object_8h_af7f0444b589b5ad4d64229ffbfb5437b}{}\label{object_8h_af7f0444b589b5ad4d64229ffbfb5437b} 
+\#define {\bfseries Attr\+Free}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr})~if(a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}) a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}-\/$>$remove\+Reference();
+\item 
+\hypertarget{object_8h_a509cabc64fe810c7b9f860b56b5cf59b}{}\label{object_8h_a509cabc64fe810c7b9f860b56b5cf59b} 
+\#define {\bfseries Attr\+Link}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr})~if(a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}) a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}-\/$>$add\+Reference();
+\item 
+\#define \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{Attr\+Setter}(attr,  \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr},  Type)~inline void set\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}(Type$\ast$ new\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr})\{Attr\+Free(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}); a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr} = new\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}; Attr\+Link(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}); touch();\}
+\item 
+\#define \hyperlink{object_8h_a9af19ccbd1471e4daaa056e495734fe5}{Attr\+Def}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr},  Type)~private\+: Type$\ast$ a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr} = nullptr; public\+:
+\item 
+\#define \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}(attr,  Attr,  Type)~\hyperlink{object_8h_a9af19ccbd1471e4daaa056e495734fe5}{Attr\+Def}(Attr, Type) \hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{Attr\+Getter}(attr,Attr,Type) \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{Attr\+Setter}(attr, Attr, Type)
+\item 
+\#define \hyperlink{object_8h_ab34851071e0bcd61ba26ebc3893a683a}{AttrT}(type,  Type)~\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}(type, Type, Type)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Definition of the base class \hyperlink{class_game_object}{Game\+Object}, and some inherited classes. 
+
+\subsubsection*{The objects structure}
+
+\paragraph*{Objects destructors}
+
+\subsubsection*{The Macro System}
+
+To add conveniently attributes and flags to \hyperlink{class_game_object}{Game\+Object} subclassed objects, a set of macro is provided.
+
+\paragraph*{Name conventions}
+
+For a attribute named {\ttfamily attr}, the following conventions are observed \+:
+\begin{DoxyItemize}
+\item {\ttfamily attr()} is the getter method
+\item {\ttfamily set\+Attr()} is the setter method
+\item {\ttfamily a\+Attr} is the name of the attribut (if any)
+\end{DoxyItemize}
+
+A specific convention is applied for flags (boolean attributes) \+:
+\begin{DoxyItemize}
+\item is\+Attr() is the getter method
+\end{DoxyItemize}
+
+\paragraph*{Macros}
+
+To define a new attribute, a global macro can be used in the class declaration. The provided basic implementations keep the object edition synchronization.
+
+If a cleverer process is needed, custom getter or setter can be implemented, and the getter and setter macros can be used separately to define the obvious methods
+
+{\bfseries Provided macros}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Attribute Type }&{\bf Complete declaration }&{\bf Getter }&{\bf Setter  }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Attribute Type }&{\bf Complete declaration }&{\bf Getter }&{\bf Setter  }\\\cline{1-4}
+\endhead
+Flags (bool) &\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag} &\hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{Flag\+Getter} &\hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{Flag\+Setter} \\\cline{1-4}
+Parameters (int) &\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param} &\hyperlink{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{Param\+Getter} &\hyperlink{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{Param\+Setter} \\\cline{1-4}
+\hyperlink{class_game_object}{Game\+Object} based Attributes &\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr} &\hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{Attr\+Getter} &\hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{Attr\+Setter} \\\cline{1-4}
+\end{longtabu}
+
+
+{\bfseries The case of attributes}
+
+An additionnal \hyperlink{object_8h_ab34851071e0bcd61ba26ebc3893a683a}{AttrT} macro is provided, that deduce a default name from the type.
+
+\paragraph*{Name tools}
+
+To make the definition easier and avoid the name repetition that is introduced by the name convention, a \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} macro is provided to construct the names with lower and upper initial letter from theses letter and the end of the name.
+
+\begin{DoxyAuthor}{Author}
+Baptiste Pauget 
+\end{DoxyAuthor}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{object_8h_a64aa6604561401f0e8e846061093a38f}{}\label{object_8h_a64aa6604561401f0e8e846061093a38f} 
+\index{object.\+h@{object.\+h}!Attr@{Attr}}
+\index{Attr@{Attr}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Attr}{Attr}}
+{\footnotesize\ttfamily \#define Attr(\begin{DoxyParamCaption}\item[{}]{attr,  }\item[{}]{Attr,  }\item[{}]{Type }\end{DoxyParamCaption})~\hyperlink{object_8h_a9af19ccbd1471e4daaa056e495734fe5}{Attr\+Def}(Attr, Type) \hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{Attr\+Getter}(attr,Attr,Type) \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{Attr\+Setter}(attr, Attr, Type)}
+
+The Attr macro defines a new $<$a{\ttfamily Attr$>$} named attribute of type {\ttfamily Type}, with its generic getter and setter methods.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the parameter\textquotesingle{}s name with lower and upper initial letter case.
+
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}(parent,Parent, \hyperlink{class_game_object}{GameObject})
+    -->
+    \textcolor{keyword}{private}:
+        \hyperlink{class_game_object}{GameObject} *aParent;
+    \textcolor{keyword}{public}:
+        \textcolor{keyword}{inline} \hyperlink{class_game_object}{GameObject}* parent()\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} aParent;\}
+        \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setParent(\hyperlink{class_game_object}{GameObject}* parentObject)\{aParent = parentObject; touch();\}
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_ab34851071e0bcd61ba26ebc3893a683a}{AttrT}, \hyperlink{object_8h_a9af19ccbd1471e4daaa056e495734fe5}{Attr\+Def}, \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{Attr\+Setter}, \hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{Attr\+Getter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a9af19ccbd1471e4daaa056e495734fe5}{}\label{object_8h_a9af19ccbd1471e4daaa056e495734fe5} 
+\index{object.\+h@{object.\+h}!Attr\+Def@{Attr\+Def}}
+\index{Attr\+Def@{Attr\+Def}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Attr\+Def}{AttrDef}}
+{\footnotesize\ttfamily \#define Attr\+Def(\begin{DoxyParamCaption}\item[{}]{\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr},  }\item[{}]{Type }\end{DoxyParamCaption})~private\+: Type$\ast$ a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr} = nullptr; public\+:}
+
+The Attr\+Def macro defines a private attribute name $<$a{\ttfamily Attr$>$}.
+
+\begin{DoxyNote}{Note}
+To avoid redefinition error, no attribute or method name $<$a{\ttfamily Attr} $>$ must exist.
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+This macro is designed to be used in a public part of the class. Please note that inserting this macro in a private or protected part will change the visibility of the next declaration to public.
+\end{DoxyWarning}
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}(Parent,\hyperlink{class_game_object}{GameObject})
+    -->
+    \textcolor{keyword}{private}:
+        \hyperlink{class_game_object}{GameObject} *aParent;
+    \textcolor{keyword}{public}:
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{}\label{object_8h_abb51a31972a5cd870c4d8f4f3eada448} 
+\index{object.\+h@{object.\+h}!Attr\+Getter@{Attr\+Getter}}
+\index{Attr\+Getter@{Attr\+Getter}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Attr\+Getter}{AttrGetter}}
+{\footnotesize\ttfamily \#define Attr\+Getter(\begin{DoxyParamCaption}\item[{}]{attr,  }\item[{}]{\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr},  }\item[{}]{Type }\end{DoxyParamCaption})~inline Type$\ast$ attr() const\{return a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr};\}}
+
+The Attr\+Getter macro defines a generic getter method for the attribute named {\ttfamily attr} of type {\ttfamily Type}.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the attribute\textquotesingle{}s name with lower and upper initial letter case.
+
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{AttrGetter}(parent,Parent,\hyperlink{class_game_object}{GameObject})
+    --> \textcolor{keyword}{inline} \hyperlink{class_game_object}{GameObject}* parent()\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} aParent;\}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}, \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{Attr\+Setter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{}\label{object_8h_a076a8c1470b0de69b7dfdf442d9ed949} 
+\index{object.\+h@{object.\+h}!Attr\+Setter@{Attr\+Setter}}
+\index{Attr\+Setter@{Attr\+Setter}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Attr\+Setter}{AttrSetter}}
+{\footnotesize\ttfamily \#define Attr\+Setter(\begin{DoxyParamCaption}\item[{}]{attr,  }\item[{}]{\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr},  }\item[{}]{Type }\end{DoxyParamCaption})~inline void set\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}(Type$\ast$ new\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr})\{Attr\+Free(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}); a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr} = new\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}; Attr\+Link(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}); touch();\}}
+
+The Attr\+Setter macro defines a generic setter method for the attribute named {\ttfamily attr} of type {\ttfamily Type}.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the attribute\textquotesingle{}s name with lower and upper initial letter case.
+
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{AttrSetter}(parent,Parent,\hyperlink{class_game_object}{GameObject})
+    --> \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setParent(\hyperlink{class_game_object}{GameObject}* &parentObject)\{aParent = parentObject; touch();\}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}, \hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{Attr\+Getter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_ab34851071e0bcd61ba26ebc3893a683a}{}\label{object_8h_ab34851071e0bcd61ba26ebc3893a683a} 
+\index{object.\+h@{object.\+h}!AttrT@{AttrT}}
+\index{AttrT@{AttrT}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{AttrT}{AttrT}}
+{\footnotesize\ttfamily \#define AttrT(\begin{DoxyParamCaption}\item[{}]{type,  }\item[{}]{Type }\end{DoxyParamCaption})~\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}(type, Type, Type)}
+
+The AttrT macro defines a new attribute of type {\ttfamily Type}, named after the type name, with its generic getter and setter methods.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the parameter\textquotesingle{}s type with lower and upper initial letter case.
+
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_ab34851071e0bcd61ba26ebc3893a683a}{AttrT}(cellType,\hyperlink{class_cell_type}{CellType})
+    -->
+    \textcolor{keyword}{private}:
+        \hyperlink{class_cell_type}{CellType} *aCellType;
+    \textcolor{keyword}{public}:
+        \textcolor{keyword}{inline} \hyperlink{class_cell_type}{CellType}* cellType()\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} aCellType;\}
+        \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setCellType(\hyperlink{class_cell_type}{CellType}* cellTypeObject)\{aCellType = cellTypeObject; touch();\}
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}, \hyperlink{object_8h_a9af19ccbd1471e4daaa056e495734fe5}{Attr\+Def}, \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{Attr\+Setter}, \hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{Attr\+Getter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_af50e2bbaaebe8da60a8d514fca706273}{}\label{object_8h_af50e2bbaaebe8da60a8d514fca706273} 
+\index{object.\+h@{object.\+h}!C@{C}}
+\index{C@{C}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{C}{C}}
+{\footnotesize\ttfamily \#define C(\begin{DoxyParamCaption}\item[{}]{Macro,  }\item[{}]{init,  }\item[{}]{Init,  }\item[{}]{body,  }\item[{}]{... }\end{DoxyParamCaption})~Macro(init\#\#body, Init\#\#body, \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+The C macro calls the Macro argument with argument tokens formed by the concatenation of init and body, and Init and body.
+
+This enables to call a macro with the same argument, with the initial letter in lower and upper case.
+
+A custom number of arguments can be added after the {\ttfamily body} one.
+
+\begin{DoxyNote}{Note}
+This use of variadic arguments follow the \href{https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html}{\tt gcc specification}, but can be not supported by some compilers.
+
+As some I\+DE does not fully support variadic macro expansion, the \hyperlink{object_8h_a9c4adf8b1c7a56a81c6b66945d6ec4d2}{C0} and \hyperlink{object_8h_a4f05201336d20b10dad322cfbd30c0af}{C1} macros can be used to avoid some inconvenience due to uncomplete code undersanding.
+\end{DoxyNote}
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C}(\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param},w,W,idth)
+    --> \hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param}(width, Width)
+
+\hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C}(Attr, p,P,arent, \hyperlink{class_game_object}{GameObject})
+    --> Attr(parent, Parent, \hyperlink{class_game_object}{GameObject})
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h}{object.\+h} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a9c4adf8b1c7a56a81c6b66945d6ec4d2}{}\label{object_8h_a9c4adf8b1c7a56a81c6b66945d6ec4d2} 
+\index{object.\+h@{object.\+h}!C0@{C0}}
+\index{C0@{C0}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{C0}{C0}}
+{\footnotesize\ttfamily \#define C0(\begin{DoxyParamCaption}\item[{}]{Macro,  }\item[{}]{init,  }\item[{}]{Init,  }\item[{}]{body }\end{DoxyParamCaption})~Macro(init\#\#body, Init\#\#body)}
+
+The C0 macro is equivalent to the \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} macro, with no additional argument.
+
+This macro is provided to avoid the use of variadic arguments that are currently not totally supported by some I\+DE. {\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C}(\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}, v,V,isible)
+    --> \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}(visible, Visible)
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a4f05201336d20b10dad322cfbd30c0af}{C1} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a4f05201336d20b10dad322cfbd30c0af}{}\label{object_8h_a4f05201336d20b10dad322cfbd30c0af} 
+\index{object.\+h@{object.\+h}!C1@{C1}}
+\index{C1@{C1}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{C1}{C1}}
+{\footnotesize\ttfamily \#define C1(\begin{DoxyParamCaption}\item[{}]{Macro,  }\item[{}]{init,  }\item[{}]{Init,  }\item[{}]{body,  }\item[{}]{arg }\end{DoxyParamCaption})~Macro(init\#\#body, Init\#\#body, arg)}
+
+The C1 macro is equivalent to the \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} macro, with one additional argument.
+
+This macro is provided to avoid the use of variadic arguments that are currently not totally supported by some I\+DE. {\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C}(Attr, p,P,arent, \hyperlink{class_game_object}{GameObject})
+    --> \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{Attr}(parent, Parent, \hyperlink{class_game_object}{GameObject})
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a9c4adf8b1c7a56a81c6b66945d6ec4d2}{C0} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{}\label{object_8h_a9ba0b87f0be2ba389283351696aa9f59} 
+\index{object.\+h@{object.\+h}!Flag@{Flag}}
+\index{Flag@{Flag}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Flag}{Flag}}
+{\footnotesize\ttfamily \#define Flag(\begin{DoxyParamCaption}\item[{}]{flag,  }\item[{}]{Flag }\end{DoxyParamCaption})~\hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{Flag\+Getter}(flag, Flag) \hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{Flag\+Setter}(flag, Flag)}
+
+The Flag macro defines generic getter and setter methods for the flag named {\ttfamily flag}.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the flag\textquotesingle{}s name with lower and upper initial letter case.
+
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}(visible,Visible)
+    --> \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} isVisible()\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} aFlags[\textcolor{stringliteral}{"visible"}];\}
+        \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setVisible(\textcolor{keywordtype}{bool} visible)\{aFlags[\textcolor{stringliteral}{"visible"}] = visible; touch()\}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{Flag\+Getter}, \hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{Flag\+Setter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_afde5dda87eae392282bcbae5db29ca2a}{}\label{object_8h_afde5dda87eae392282bcbae5db29ca2a} 
+\index{object.\+h@{object.\+h}!Flag\+Getter@{Flag\+Getter}}
+\index{Flag\+Getter@{Flag\+Getter}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Flag\+Getter}{FlagGetter}}
+{\footnotesize\ttfamily \#define Flag\+Getter(\begin{DoxyParamCaption}\item[{}]{flag,  }\item[{}]{\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag} }\end{DoxyParamCaption})~inline bool is\#\#\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}() const\{return a\+Flags\mbox{[}\#flag\mbox{]};\}}
+
+The Flag\+Getter macro defines a generic getter method for the flag named {\ttfamily flag}.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the flag\textquotesingle{}s name with lower and upper initial letter case.
+
+\begin{DoxyWarning}{Warning}
+The default getter method does not check wether the {\ttfamily flag} named flag really exist. To avoid runtime access error, it is strongly advice to initialize the flag in the object\textquotesingle{}s contructor, using the setter method or the \hyperlink{object_8h_ad1f082144869225c63b2194de68e2cd5}{Set\+Flag} macro.
+\end{DoxyWarning}
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{FlagGetter}(visible,Visible)
+    --> \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} isVisible()\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} aFlags[\textcolor{stringliteral}{"visible"}];\}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}, \hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{Flag\+Setter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{}\label{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374} 
+\index{object.\+h@{object.\+h}!Flag\+Setter@{Flag\+Setter}}
+\index{Flag\+Setter@{Flag\+Setter}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Flag\+Setter}{FlagSetter}}
+{\footnotesize\ttfamily \#define Flag\+Setter(\begin{DoxyParamCaption}\item[{}]{flag,  }\item[{}]{\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag} }\end{DoxyParamCaption})~inline void set\#\#\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}(bool flag)\{\hyperlink{object_8h_ad1f082144869225c63b2194de68e2cd5}{Set\+Flag}(flag,flag); touch();\}}
+
+The Flag\+Setter macro defines a generic setter method for the flag named {\ttfamily flag}.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the flag\textquotesingle{}s name with lower and upper initial letter case.
+
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{FlagSetter}(visible,Visible)
+    --> \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setVisible(\textcolor{keywordtype}{bool} visible)\{aFlags[\textcolor{stringliteral}{"visible"}] = visible; touch()\}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}, \hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{Flag\+Getter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a36f4eef4198c2aec7010e22c6223d13d}{}\label{object_8h_a36f4eef4198c2aec7010e22c6223d13d} 
+\index{object.\+h@{object.\+h}!Objects\+Map@{Objects\+Map}}
+\index{Objects\+Map@{Objects\+Map}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Objects\+Map}{ObjectsMap}}
+{\footnotesize\ttfamily \#define Objects\+Map(\begin{DoxyParamCaption}\item[{}]{pref,  }\item[{}]{ini,  }\item[{}]{Ini,  }\item[{}]{body,  }\item[{}]{sg,  }\item[{}]{pl }\end{DoxyParamCaption})~\hyperlink{object_8h_a6666417d2cf341574cfd7534b819e45d}{Objects\+MapC}(ini\#\#body\#\#sg, ini\#\#body\#\#pl, Ini\#\#body\#\#sg, Ini\#\#body\#\#pl, pref,ini)}
+
+\begin{DoxyRefDesc}{Deprecated}
+\item[\hyperlink{deprecated__deprecated000002}{Deprecated}]\end{DoxyRefDesc}
+\hypertarget{object_8h_a6666417d2cf341574cfd7534b819e45d}{}\label{object_8h_a6666417d2cf341574cfd7534b819e45d} 
+\index{object.\+h@{object.\+h}!Objects\+MapC@{Objects\+MapC}}
+\index{Objects\+MapC@{Objects\+MapC}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Objects\+MapC}{ObjectsMapC}}
+{\footnotesize\ttfamily \#define Objects\+MapC(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{names,  }\item[{}]{Type,  }\item[{}]{Types,  }\item[{}]{pref,  }\item[{}]{arg }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keyword}{private}: \(\backslash\)
+    QMap<int, Type*> pref##Types; \(\backslash\)
+public: \(\backslash\)
+    void add##Type(Type* arg)\{pref##Types[arg->ident()] = arg; touch();\} \(\backslash\)
+    void \textcolor{keyword}{remove}##Type(Type* arg)\{\textcolor{keywordflow}{if}(pref##Types.contains(arg->ident()))pref##Types.remove(arg->ident()); 
+      touch();\} \(\backslash\)
+    inline Type* name(\textcolor{keywordtype}{int} \textcolor{keywordtype}{id})\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} pref##Types.value(\textcolor{keywordtype}{id}, \textcolor{keyword}{nullptr});\} \(\backslash\)
+    inline QList<Type*> names()\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} pref##Types.values();\}
+\end{DoxyCode}
+\begin{DoxyRefDesc}{Deprecated}
+\item[\hyperlink{deprecated__deprecated000001}{Deprecated}]\end{DoxyRefDesc}
+\hypertarget{object_8h_ac2415051beaa606375358688bcb8ff37}{}\label{object_8h_ac2415051beaa606375358688bcb8ff37} 
+\index{object.\+h@{object.\+h}!Param@{Param}}
+\index{Param@{Param}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Param}{Param}}
+{\footnotesize\ttfamily \#define Param(\begin{DoxyParamCaption}\item[{}]{param,  }\item[{}]{Param }\end{DoxyParamCaption})~\hyperlink{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{Param\+Getter}(param) \hyperlink{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{Param\+Setter}(param, Param)}
+
+The Param macro defines generic getter and setter methods for the parameter named {\ttfamily param}.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the parameter\textquotesingle{}s name with lower and upper initial letter case.
+
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param}(width,Width)
+    --> \textcolor{keyword}{inline} \textcolor{keywordtype}{int} width()\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} aParams[\textcolor{stringliteral}{"width"}];\}
+        \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setWidth(\textcolor{keywordtype}{int} widthValue)\{aParams[\textcolor{stringliteral}{"width"}] = widthValue; touch();\}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{Param\+Getter}, \hyperlink{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{Param\+Setter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{}\label{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3} 
+\index{object.\+h@{object.\+h}!Param\+Getter@{Param\+Getter}}
+\index{Param\+Getter@{Param\+Getter}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Param\+Getter}{ParamGetter}}
+{\footnotesize\ttfamily \#define Param\+Getter(\begin{DoxyParamCaption}\item[{}]{param }\end{DoxyParamCaption})~inline int param() const\{return a\+Params\mbox{[}\#param\mbox{]};\}}
+
+The Param\+Getter macro defines a generic getter method for the parameter named {\ttfamily param}.
+
+\begin{DoxyWarning}{Warning}
+The default getter method does not check wether the {\ttfamily param} named parameter really exist. To avoid runtime access error, it is strongly advice to initialize the parameter in the object\textquotesingle{}s contructor, using the setter method or the \hyperlink{object_8h_a7ea6e146fa4b193d62fdb8c53bd27c09}{Set\+Param} macro.
+\end{DoxyWarning}
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{ParamGetter}(width)
+    --> \textcolor{keyword}{inline} \textcolor{keywordtype}{int} width()\textcolor{keyword}{ const}\{\textcolor{keywordflow}{return} aParams[\textcolor{stringliteral}{"width"}];\}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param}, \hyperlink{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{Param\+Setter} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{}\label{object_8h_a40afef3dd9a129b4d02f06bada05ebbb} 
+\index{object.\+h@{object.\+h}!Param\+Setter@{Param\+Setter}}
+\index{Param\+Setter@{Param\+Setter}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Param\+Setter}{ParamSetter}}
+{\footnotesize\ttfamily \#define Param\+Setter(\begin{DoxyParamCaption}\item[{}]{param,  }\item[{}]{\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param} }\end{DoxyParamCaption})~inline void set\#\#\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param}(int param\#\#Value)\{\hyperlink{object_8h_a7ea6e146fa4b193d62fdb8c53bd27c09}{Set\+Param}(param,param\#\#Value); touch();\}}
+
+The Param\+Setter macro defines a generic setter method for the parameter named {\ttfamily param}.
+
+With respect to the \hyperlink{object_8h}{name convention}, this macro needs the parameter\textquotesingle{}s name with lower and upper initial letter case.
+
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{ParamSetter}(width,Width)
+    --> \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setWidth(\textcolor{keywordtype}{bool} widthValue)\{aParams[\textcolor{stringliteral}{"width"}] = widthValue; touch();\}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param}, \hyperlink{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{Param\+Getter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_ad1f082144869225c63b2194de68e2cd5}{}\label{object_8h_ad1f082144869225c63b2194de68e2cd5} 
+\index{object.\+h@{object.\+h}!Set\+Flag@{Set\+Flag}}
+\index{Set\+Flag@{Set\+Flag}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Set\+Flag}{SetFlag}}
+{\footnotesize\ttfamily \#define Set\+Flag(\begin{DoxyParamCaption}\item[{}]{flag,  }\item[{}]{value }\end{DoxyParamCaption})~a\+Flags\mbox{[}\#flag\mbox{]} = value}
+
+Conveniant macro to set a flag directly.
+
+This is usefull in custom setters, to avoid call loops.
+
+\begin{DoxyWarning}{Warning}
+The \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} function isn\textquotesingle{}t called. After this macro use, the \hyperlink{class_game_object}{object} is no longer synchronised.
+\end{DoxyWarning}
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_ad1f082144869225c63b2194de68e2cd5}{SetFlag}(visible, \textcolor{keyword}{false})
+    --> aFlags[\textcolor{stringliteral}{"visible"}] = \textcolor{keyword}{false}
+\end{DoxyCode}
+ \begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{Flag}, \hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{Flag\+Setter}, \hyperlink{object_8h}{object.\+h} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a7ea6e146fa4b193d62fdb8c53bd27c09}{}\label{object_8h_a7ea6e146fa4b193d62fdb8c53bd27c09} 
+\index{object.\+h@{object.\+h}!Set\+Param@{Set\+Param}}
+\index{Set\+Param@{Set\+Param}!object.\+h@{object.\+h}}
+\subsubsection{\texorpdfstring{Set\+Param}{SetParam}}
+{\footnotesize\ttfamily \#define Set\+Param(\begin{DoxyParamCaption}\item[{}]{param,  }\item[{}]{value }\end{DoxyParamCaption})~a\+Params\mbox{[}\#param\mbox{]} = value}
+
+Conveniant macro to set a param directly.
+
+This is usefull in custom setters, to avoid call loops.
+
+\begin{DoxyWarning}{Warning}
+The \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} function isn\textquotesingle{}t called. After this macro use, the \hyperlink{class_game_object}{object} is no longer synchronised.
+\end{DoxyWarning}
+{\bfseries Example} 
+\begin{DoxyCode}
+\hyperlink{object_8h_a7ea6e146fa4b193d62fdb8c53bd27c09}{SetParam}(width, 42)
+    --> aParams[\textcolor{stringliteral}{"width"}] = 42
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{Param}, \hyperlink{object_8h_a40afef3dd9a129b4d02f06bada05ebbb}{Param\+Setter}, \hyperlink{object_8h}{object.\+h} 
+\end{DoxySeeAlso}

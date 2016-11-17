@@ -1,0 +1,58 @@
+\hypertarget{class_b_dock_widget}{}\section{B\+Dock\+Widget Class Reference}
+\label{class_b_dock_widget}\index{B\+Dock\+Widget@{B\+Dock\+Widget}}
+
+
+The \hyperlink{class_b_dock_widget}{B\+Dock\+Widget} class is the base class for game-\/related docks.  
+
+
+
+
+{\ttfamily \#include $<$bdockwidget.\+h$>$}
+
+Inheritance diagram for B\+Dock\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_b_dock_widget}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_b_dock_widget_af5b0bf4f6ccb10d3a6dfb2793dc30fc0}{}\label{class_b_dock_widget_af5b0bf4f6ccb10d3a6dfb2793dc30fc0} 
+virtual void {\bfseries update\+Game} ()
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_b_dock_widget_aac0c798372f3400d56e974ccbf4b6a2d}{}\label{class_b_dock_widget_aac0c798372f3400d56e974ccbf4b6a2d} 
+void {\bfseries game\+Modified} ()
+\item 
+\hypertarget{class_b_dock_widget_a52d21551cb5aaa800969953d83d5799a}{}\label{class_b_dock_widget_a52d21551cb5aaa800969953d83d5799a} 
+void {\bfseries change\+Dock\+Name} (Q\+String)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_b_dock_widget_ac054be8dfe8c967910190cc31689a2d0}{}\label{class_b_dock_widget_ac054be8dfe8c967910190cc31689a2d0} 
+{\bfseries B\+Dock\+Widget} (Q\+Widget $\ast$parent=0)
+\item 
+\hypertarget{class_b_dock_widget_a47e19ff81c8dbe1fbb6f528bec7bdc2f}{}\label{class_b_dock_widget_a47e19ff81c8dbe1fbb6f528bec7bdc2f} 
+void {\bfseries set\+Game} (\hyperlink{class_game}{Game} $\ast$g)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_b_dock_widget_a2cd159222e09c8034a5ee46628a95fc0}{}\label{class_b_dock_widget_a2cd159222e09c8034a5ee46628a95fc0} 
+\hyperlink{class_game}{Game} $\ast$ {\bfseries game}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_b_dock_widget}{B\+Dock\+Widget} class is the base class for game-\/related docks. 
+
+It provides common functions for set game, update, ... 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/editor/\+G\+U\+I/\+Tabs/\+Docks/bdockwidget.\+h\item 
+src/editor/\+G\+U\+I/\+Tabs/\+Docks/bdockwidget.\+cpp\end{DoxyCompactItemize}

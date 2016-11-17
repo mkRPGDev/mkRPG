@@ -1,0 +1,65 @@
+\hypertarget{mappainter_8h}{}\section{src/editor/\+Game/mappainter.h File Reference}
+\label{mappainter_8h}\index{src/editor/\+Game/mappainter.\+h@{src/editor/\+Game/mappainter.\+h}}
+
+
+Definition of the \hyperlink{class_map_painter}{Map\+Painter} class and other related classes to render \hyperlink{class_map}{maps}.  
+
+
+{\ttfamily \#include \char`\"{}map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}G\+U\+I/options.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_rl_coords}{Rl\+Coords}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_rl_coords}{Rl\+Coords} class describe positions with relative coordinates. \end{DoxyCompactList}\item 
+class \hyperlink{class_cl_coords}{Cl\+Coords}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_cl_coords}{Cl\+Coords} class describe positions with cell coordinates. \end{DoxyCompactList}\item 
+class \hyperlink{class_pt_coords}{Pt\+Coords}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_pt_coords}{Pt\+Coords} class describe positions with virtual point coordinates. \end{DoxyCompactList}\item 
+class \hyperlink{class_px_coords}{Px\+Coords}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_px_coords}{Px\+Coords} class describe positions with real pixel coordinates. \end{DoxyCompactList}\item 
+class \hyperlink{class_map_painter}{Map\+Painter}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_map_painter}{Map\+Painter} class that can paint a \hyperlink{class_map}{Map} using a Q\+Painter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{mappainter_8h_a8030417d195475050a57fba848278ae4}{}\label{mappainter_8h_a8030417d195475050a57fba848278ae4} 
+\#define {\bfseries M\+I\+N\+M\+AX}(a,  x,  b)~std\+::min(std\+::max(a,x),b)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{mappainter_8h_a8ff1425e1b187b08bee7d8d15b949f31}{}\label{mappainter_8h_a8ff1425e1b187b08bee7d8d15b949f31} 
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} \hyperlink{mappainter_8h_a8ff1425e1b187b08bee7d8d15b949f31}{operator$\vert$} (\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} a, \hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} b)
+\begin{DoxyCompactList}\small\item\em The operator $\vert$ is the flag OR operation. \end{DoxyCompactList}\item 
+\hypertarget{mappainter_8h_a6e135b9238777e3dc041c9c6ec9420f9}{}\label{mappainter_8h_a6e135b9238777e3dc041c9c6ec9420f9} 
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} \hyperlink{mappainter_8h_a6e135b9238777e3dc041c9c6ec9420f9}{operator \&} (\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} a, \hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} b)
+\begin{DoxyCompactList}\small\item\em The operator \& is the flag A\+ND operation. \end{DoxyCompactList}\item 
+\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} \hyperlink{mappainter_8h_a1d15970b6f6580d5fa3778f34e3bdf32}{operator$^\wedge$} (\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} a, \hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} b)
+\begin{DoxyCompactList}\small\item\em The operator $^\wedge$ is the flag substraction operation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Definition of the \hyperlink{class_map_painter}{Map\+Painter} class and other related classes to render \hyperlink{class_map}{maps}. 
+
+This file defines four types of coordinates \+: \hyperlink{class_rl_coords}{Rl\+Coords}, \hyperlink{class_cl_coords}{Cl\+Coords}, \hyperlink{class_pt_coords}{Pt\+Coords} and \hyperlink{class_px_coords}{Px\+Coords}. They all inherit from Q\+PointF, and give a static type checking for the consistency of the coordinates which are used.
+
+\begin{DoxyAuthor}{Author}
+Baptiste Pauget 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\hypertarget{mappainter_8h_a1d15970b6f6580d5fa3778f34e3bdf32}{}\label{mappainter_8h_a1d15970b6f6580d5fa3778f34e3bdf32} 
+\index{mappainter.\+h@{mappainter.\+h}!operator$^\wedge$@{operator$^\wedge$}}
+\index{operator$^\wedge$@{operator$^\wedge$}!mappainter.\+h@{mappainter.\+h}}
+\subsubsection{\texorpdfstring{operator$^\wedge$()}{operator^()}}
+{\footnotesize\ttfamily \hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element} operator$^\wedge$ (\begin{DoxyParamCaption}\item[{\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element}}]{a,  }\item[{\hyperlink{class_map_painter_a771b3fa246b6c13cc2acbdcf1cb6eee3}{Map\+Painter\+::\+Element}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The operator $^\wedge$ is the flag substraction operation. 
+
+\begin{DoxyWarning}{Warning}
+This is not a X\+OR operation, it corresponds to a\&!b 
+\end{DoxyWarning}

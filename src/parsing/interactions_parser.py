@@ -55,9 +55,8 @@ def interactions_files_parser(*interactions_files):
     described in these files. It provides some safety, since it checks that
     every keycode is used at most once.
     """
-    data = parsing_utils.parse_multiple_files(interactions_parser,
-                                              *interaction_files)
-    return data
+    return parsing_utils.parse_multiple_files(interactions_parser,
+                                              *interactions_files)
 
 def get_all_actions(interactions):
     """Returns a list with all action names defined in ```interaction```.

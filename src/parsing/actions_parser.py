@@ -77,8 +77,7 @@ def parse_multiple_files(*actions_files):
     """Parses multiple files. Broadly speaking, it parses sequentially all
     files, and concatenates all answers.
     """
-    data = parsing_utils.parse_multiple_files(parse_actions, *actions_files)
-    return data
+    return parsing_utils.parse_multiple_files(parse_actions, *actions_files)
 
 
 def get_all_names(actions):

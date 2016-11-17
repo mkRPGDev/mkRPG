@@ -22,6 +22,7 @@ Plus d'informations dans Test/Snake/README.md...
 # Exemple minimal 
 
 L'exemple ne marche pas, cela est probablement dû à de petits bugs que nous n'avons pas eu le temps de corriger. Le réseau fonctionne (voir fenêtre terminal server pour voir les messages reçus).
+Version ncurses qui fonctionne : cf commit 94039af (ou branche server actuelle)
 
 # Documentation
 [Documentation html en C ](https://mkrpgdev.github.io/mkRPG/doc_c/html/)

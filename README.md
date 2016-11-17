@@ -2,8 +2,6 @@
 [Guide](doc.pdf)
 
 ### Documentation
-[Documentation pdf](doc/latex/refman.pdf)
+[Documentation pdf](https://github.com/mkRPGDev/mkRPG/raw/gh-pages/doc/latex/refman.pdf)
 
-TODO : lire le html directement
-
-[documenation html](https://github.com/mkRPGDev/mkRPG/blob/gh-pages/doc/html/index.html)
+[documenation html](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mkRPGDev/mkRPG/gh-pages/doc/html/index.html)

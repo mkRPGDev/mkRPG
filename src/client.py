@@ -83,7 +83,6 @@ class Client():
                         await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
 
     async def handleOrder(self, ident, order):
-        print(self.world.entities[0].x,self.world.entities[0].y)
         emitter = world.BaseObject.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
 

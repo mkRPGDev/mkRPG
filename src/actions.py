@@ -16,9 +16,7 @@ def loadAction(event, dat, named):
         structure et de la résolution des noms """
     orders = []
     for order in dat:
-        print(order)
         orders.append(Order().load(order, named))
-        print("Named list %s " % named)
     return Action(event, orders, [])
 
 def registerActions(path, named):
@@ -28,10 +26,10 @@ def registerActions(path, named):
 
     actions = {}
     for action in action_dict:
-        act = loadAction(action, action_dict[action], named)
-        if action not in actions.keys():
-            actions[action] = []
-        actions[action].append(act)
+        act = loadAction(action['event'], action['orders'], named)
+        if action['event'] not in actions.keys():
+            actions[action['event']] = []
+        actions[action['event']].append(act)
     return actions
 
 if __name__=="__main__":

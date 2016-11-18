@@ -85,7 +85,7 @@ class Order:
         i = 1
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
         return self, i
-    
+
 class OrderDispatcher:
     """ Traite les ordres pour le client ou le serveur """
     def __init__(self, world, handle, timer):
@@ -97,6 +97,7 @@ class OrderDispatcher:
         """ Traite un ordre et renvoie l'éventuel ordre à retransmettre """
         world = self.world
         if order.type==OrderType.Set:
+            print(emitter)
             target = emitter if order.target=="emitter" else eval(order.target)
             print(target)
             val = target.contextEval(order.value)

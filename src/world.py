@@ -8,7 +8,7 @@ import parsing.global_parsing as global_parsing
 #l'autre solution est de tout mettre dans une fonction
 # qui écrasera des classes bidon en global
 
-verbose = False
+verbose = True
 
 named = {}
 toResolve = []
@@ -20,13 +20,13 @@ def loadGame(path):
     global world
     parsed_data = global_parsing.game_parser(path+"game.xml")
     print(parsed_data)
-    for data in parsed_data.keys():
-        print("Data is : %s" % data)
-        if data != 'Actions' and  data != 'Interactions':
+    for data_list in parsed_data:
+        if data_list != 'Actions' and  data_list != 'Interactions':
             typ = None
-            if data.endswith("Type"):
-                typ = data[:-4]
-            eval(data)().load(parsed_data[data], typ)
+            if data_list.endswith("Type"):
+                typ = data_list[:-4]
+            for data in parsed_data[data_list]:
+                eval(data_list)().load(data, typ)
 
     world = named["world"]
     for m in world.maps: m.fill()
@@ -55,30 +55,37 @@ class BaseObject:
         else:
             self.params[attr] = val
 
+    def __str__(self):
+        return "Représentation de l'objet %s : %s" % (self.__class__, self.params)
+
     def load(self, data, typ=None):
         """ Charge l'objet depuis une structure Xml """
-        if verbose: print(data)
+        if verbose: print("Data to load~: %s" % data)
         if typ != None and type(eval(typ)) == type:
             for key in data.keys():
-                ObjectType(typ).load(data[key])
+                ObjectType(typ).load(data)
 
         for key in data.keys():
             if key == 'name':
-                pass
+                continue
             elif key == 'params':
                 for sub_data in data[key].keys():
                     if type(data[key][sub_data])==dict and data[key][sub_data].get("id"):
-                        print("id data: %s" % data[key][sub_data])
                         toResolve.append((data[key][sub_data].get("id"), self.params, key))
-                        print(toResolve)
                     else:
-                        self.params[sub_data] = data[key][sub_data]
-            elif key == 'position':
-                self.params['x'] = data[key][0]
-                self.params['y'] = data[key][1]
-            elif key.lower() in self.__dict__:
+                        self.params[sub_data] = int(data[key][sub_data])
+            elif key.lower() in self.__dict__ and\
+                type(self.__dict__[key.lower()])==list:
+
+                lowered = key.lower()
+                data_collected = self.__dict__[lowered]
+                class_type = plurals[lowered]
                 for sub_data in data[key]:
-                    toResolve.append((sub_data['id'], self.params, key))
+                    if sub_data.get('id'):
+                        toResolve.append((sub_data['id'], data_collected, len(data_collected)))
+                        data_collected.append(None)
+                    else:
+                        data_collected.append(class_type().load(sub_data))
             else:
                 self.params[key] = data[key]
         if 'name' in data.keys():
@@ -107,9 +114,11 @@ class BaseObject:
 #                ObjectType(eval(n[:-4])).load(d)
 #            elif type(eval(n))==type and "name" in d.args:
 #                eval(n)().load(d)
+        print("To resolve : %s" % toResolve)
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue
-            if verbose: print(nm, "->", named[nm])
+            if verbose: print(nm, "-->", named[nm])
+            print("li is %s" % li)
             li[ln] = named[nm]
             #assert nm in named, nm+" non résolu" FIXME
         print("Finished to load %s" % data)
@@ -119,7 +128,7 @@ class BaseObject:
     def contextEval(self, value):
         """ Évalue une expression dans le contexte de l'objet pour les ordres """
         return eval(value)
-    
+
     # TODO traitement d'ordres ?
 
 # TODO à enlever ?

@@ -3,7 +3,7 @@ from time import time
 from const import *
 from enum import IntEnum
 
-handle_keys = IntEnum("handle_keys", "QUIT PAUSE RESUME")
+skeys = IntEnum("keys", "QUIT PAUSE RESUME")
 
 class Interface:
     """ UI base-class, can be used as a dummy interface """
@@ -23,4 +23,4 @@ class Interface:
     def end(self): pass
 
     def getEvent(self):
-        return -1 #while True: await sleep(1)
+        return []#-1 #while True: await sleep(1)

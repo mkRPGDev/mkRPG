@@ -148,6 +148,35 @@ class Map(MagicObject):
                     l[j] = cell
                     self.cells.append(cell)
                     cell.x = i; cell.y = j
+    
+    def dist(self, source, dest):
+        return abs(source.x-dest.x) + abs(source.y-dest.y)
+    
+    def lov(self, source, dest):
+        """ 
+        Calcule si la vue est dégagée entre source et dest,
+        ces derniers doivent avoir des paramètres x et y et
+        les cellules de la carte un paramètre "visible"
+        O(dist(source, dest)) environ
+        TODO une méthode pour ce calcul sur de nombreuses cases 
+        """
+        x1,y1 = source.x, source.y
+        x2,y2 = dest.x, dest.y
+        if x1>x2: x1,x2 = -x1,-x2
+        if y1>y2: y1,y2 = -y1,-y2
+        start = y1
+        for x in range(x1,x2+1):
+            seen = False
+            for y in range(start,y2+1):
+                # facteurs 2 pour rester sur des ints
+                if (2*x-1-2*x1)*(y2-y1) < (2*y+1-2*y1)*(x2-x1) and \
+                   (2*x+1-2*x1)*(y2-y1) > (2*y-1-2*y1)*(x2-x1):
+                    if self.cellsGrid[abs(x)][abs(y)].visible:
+                        return False
+                    seen = True
+                elif seen: break
+                else: start = y
+        return True
 
 class Cell(MagicObject):
     def __init__(self):

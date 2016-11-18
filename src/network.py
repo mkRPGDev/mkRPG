@@ -85,7 +85,7 @@ class ServerConnection:
                 self.end()
                 return
             if not msg: return
-            print(msg)
+#            print(msg)
             while msg:
                 ident = msg[0]*256 + msg[1]
                 length = msg[2]

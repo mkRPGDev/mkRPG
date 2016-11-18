@@ -1,0 +1,48 @@
+<Map name="main">
+    <Params>
+        <height val="30"/>
+        <width val="30"/>
+        <defaultCell id="defc"/>
+    </Params>
+
+    <Cells>
+        <Cell> <Params>
+            <x val="12"/>
+            <y val="15"/>
+            <picture val="79"/>
+            <visible val="1"/>
+        </Params> </Cell>
+        <Cell> <Params>
+            <x val="13"/>
+            <y val="15"/>
+            <picture val="79"/>
+            <visible val="1"/>
+        </Params> </Cell>
+        <Cell> <Params>
+            <x val="14"/>
+            <y val="14"/>
+            <picture val="79"/>
+            <visible val="1"/>
+        </Params> </Cell>
+        <Cell> <Params>
+            <x val="16"/>
+            <y val="17"/>
+            <picture val="79"/>
+            <visible val="1"/>
+        </Params> </Cell>
+        <Cell> <Params>
+            <x val="6"/>
+            <y val="4"/>
+            <picture val="79"/>
+            <visible val="1"/>
+        </Params> </Cell>
+        </Cells>
+
+    <CellType name="defc">
+        <Params>
+            <visible val="0"/>
+            <picture val="32"/>
+        </Params>
+    </CellType>
+    
+</Map>

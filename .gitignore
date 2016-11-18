@@ -5,6 +5,7 @@
 *~
 
 # Fichiers compilés
+*.a
 *.o
 *.class
 *.pyc

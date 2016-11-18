@@ -11,6 +11,7 @@ from network import NetworkClient
 import world
 from printWorld import WorldViewer, Interface
 from utils import add_to_rect_list
+from interface import skeys
 
 from pygame.locals import K_ESCAPE, K_p, K_r
 
@@ -57,7 +58,7 @@ class Client():
         for ent in self.world.entities:
             if await self.net.askEntity(ent):
                 self.perso = ent
-                self.interface.set_perso(self.perso)
+                #self.interface.set_perso(self.perso)
                 break
         else:
             print("No available entity.")
@@ -66,17 +67,17 @@ class Client():
     async def main(self):
         self.interface.init()
         while True:
-            await asyncio.sleep(0)
-            self.interface.update()
+#            self.interface.update()
+            # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
             keys = self.interface.getEvent()
+            if not keys:
+                await asyncio.sleep(UPDTIME)
             for key in keys:
-                if key==K_ESCAPE:
-                    del self.interface
-                    del self
+                if key==skeys.QUIT:
                     return
-                elif key==K_p: await self.net.sendEvent(self.world, "pause")
+                elif key==skeys.PAUSE: await self.net.sendEvent(self.world, "pause")
                 # TODO relayer la pause à l'affichage
-                elif key==K_r: await self.net.sendEvent(self.world, "resume")
+                elif key==skeys.RESUME: await self.net.sendEvent(self.world, "resume")
                 for inte in self.interactions:
                     if (inte.type == InteractionType.Key and
                         inte.key == key):
@@ -85,6 +86,7 @@ class Client():
     async def handleOrder(self, ident, order):
         emitter = world.BaseObject.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
+        self.interface.update()
 
 parser = ArgumentParser(description="Generic game client.")
 parser.add_argument("-p", "--path", default=PATH,
@@ -111,5 +113,6 @@ try:
     cli.run()
 except KeyboardInterrupt:
     pass
-finally:
+except:
     cli.interface.end()
+    raise

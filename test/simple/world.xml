@@ -1,0 +1,13 @@
+<World name="world">
+    <Params>
+        <currentMap id="main"/>
+    </Params>
+    
+    <Maps>
+        <Map id="main"/>
+    </Maps>
+
+    <Entities>
+        <Entity id="moi"/>
+    </Entities>
+</World>

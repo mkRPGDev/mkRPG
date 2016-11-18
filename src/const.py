@@ -51,7 +51,7 @@ MAX_ZOOM = 1.3
 ZOOM_STEP = 0.1
 
 VERBOSE = False
-
+################################################################# NON pygame
 # ! PATH par défaut en l'absence d'argument
 PATH = "../test/snake/" # et on oublie pas le dernier /
 

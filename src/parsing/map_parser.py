@@ -13,32 +13,28 @@ def parse_cell(cell_object):
     Parses a CellType attribute.
     """
     name = cell_object.attrib['name']
-    answer = {name : {}}
+    answer = {'name': name}
     cell_params = cell_object.find('Params')
     for param in cell_params.getchildren():
-        answer[name].update({param.tag: param.text})
+        answer.update({param.tag: param.text})
     _entities = cell_object.find("Entities")
-    if _entities:
+    if _entities is not None:
         entities = _entities.findall("Entity")
-        answer[name].update({'entities': [entity.text for entity in entities]})
+        answer.update({'entities': [entity.attrib for entity in entities]})
     return answer
 
 def parse_all_cells(cell_xml):
     """ Parses all cells defined in the given file."""
     root = ET.parse(cell_xml)
     cells = root.findall("CellType")
-    dict_cells = {}
+    list_cells = []
     for cell in cells:
-        dict_cells.update(parse_cell(cell))
-    return dict_cells
+        list_cells.append(parse_cell(cell))
+    return list_cells
 
-def collect_cells_data(cell_files):
+def collect_cells_data(*cell_files):
     """ Collects all cells descriptions in the given files."""
-    cells_data = {}
-    for cell_file in cell_files:
-        data = parse_all_cells(cell_file)
-        cells_data.update(data)
-    return cells_data
+    return parsing_utils.parse_multiple_files(parse_all_cells, *cell_files)
 
 def map_parser(map_xml):
     """
@@ -46,14 +42,19 @@ def map_parser(map_xml):
     """
     root = parsing_utils.try_open_and_parse(map_xml)
     name = root.attrib['name']
-    answer = {}
+    answer = {'name': name}
     map_size = get_size(root.find('Params'))
     answer.update({'size': map_size})
-    available_cells = {}
-    for cell in root.findall('CellType'):
-        available_cells = {**available_cells, **parse_cell(cell)}
-    answer.update({'default cells': available_cells})
-    return (name, answer)
+    available_cells = []
+    cells = root.find('Cells')
+    for cell in cells.findall("Cell"):
+        available_cells.append(cell.attrib)
+    celltype = root.find("CellType")
+    cell = parse_cell(celltype)
+    available_cells.append(cell)
+    answer.update({"Cell":available_cells})
+    # Getting the default cell.
+    return answer
 
 
 def get_size(tree):
@@ -67,9 +68,9 @@ def get_size(tree):
 
 def collect_map_data(map_files):
     """ Collects all map descriptions in the given files."""
-    map_data = {}
+    map_data = []
     for map_file in map_files:
-        name, data = map_parser(map_file)
-        map_data.update({name : data})
+        data = map_parser(map_file)
+        map_data.append(data)
     return map_data
 

@@ -98,11 +98,11 @@ def game_parser(game_xml):
     # Gets the world data.
     world_data = world_parser.parse_world(world_file[0])
 
-    available_cells = map_parser.collect_cells_data(cells)
+    available_cells = map_parser.collect_cells_data(*cells)
     return {
         "Map": map_data,
         "Cell": available_cells,
-        "World": world_data,
+        "World": [world_data],
         "Actions": actions_parser.parse_multiple_files(*action_files),
         "Interactions": interactions_parser.interactions_files_parser(*interaction_files),
         "Object": objects_parser.multiple_files_object_parser(*objects),

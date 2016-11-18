@@ -29,7 +29,10 @@ def get_characteristics(_characteristics):
     """
     characteristics = {}
     for _characteristic in _characteristics.getchildren():
-        value = parsing_utils.format_type(_characteristic.text)
+        if _characteristic.attrib.get("id"):
+            value = parsing_utils.format_type(_characteristic.attrib.get("id"))
+        else:
+            value = parsing_utils.format_type(_characteristic.text)
         if isinstance(value, int):
             characteristics.update({_characteristic.tag: value})
     return characteristics
@@ -43,22 +46,13 @@ def parse_entity(entity_element):
         # No name, exit now and alert the user.
         parsing_utils._fail_not_found("name")
     answer = {'name': name}
-    _position = entity_element.find('Position')
-    if _position is not None:
-        posx, posy = _position.find('x'), _position.find('y')
-        if posx is None or posy is None:
-            parsing_utils._fail_not_found("x or y")
-        answer.update({'position':(int(posx.text), int(posy.text))})
     _params = entity_element.find('Params')
     if _params is None:
         parsing_utils._fail_not_found("Params")
     picture = _params.find("Picture")
     if picture is None:
         parsing_utils._fail_not_found("Picture")
-    answer.update({'picture': picture.text})
-    _characs = entity_element.find('Characteristics')
-    if _characs is not None:
-        answer.update({'characteristics': get_characteristics(_characs)})
+    answer.update({'params': get_characteristics(_params)})
     return answer
 
 def get_names(entities):
@@ -70,9 +64,9 @@ def parse_entities(entity_xml):
     """
     root = parsing_utils.try_open_and_parse(entity_xml)
     _entities = root.findall('Entity')
-    entities = {}
+    entities = []
     for entity in _entities:
-        entities.update({entity.attrib['name']: parse_entity(entity)})
+        entities.append(parse_entity(entity))
     return entities
 
 def parse_multiple_entities(*entities_list):

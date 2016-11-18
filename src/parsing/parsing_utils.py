@@ -35,6 +35,7 @@ def _fail_not_found(tag):
     sys.exit(1)
 
 def format_type(string):
+    print(string)
     if re.match(INT, string):
         return int(string)
     elif re.match(FLOAT, string) or string == 'inf':
@@ -56,16 +57,14 @@ def collect_data(key, *args):
                     collection |= collect_data(key, arg[sub_key])
     return collection
 
+
 def parse_multiple_files(parsing_method, *args):
     """Parses the given file lists, and returns the dictionary containing the
     whole data parsed by the parsing_method function.
     """
-    all_data = {}
-    for data_file in list(args):
+    all_data = []
+    for data_file in args:
         new_data = parsing_method(data_file)
-        for key in new_data.keys():
-            if all_data.get(key) is not None:
-                print("Data %s was found in multiple files" % key)
-            else:
-                all_data.update({key: new_data[key]})
+        for key in new_data:
+            all_data.append(key)
     return all_data

@@ -68,12 +68,12 @@ def parse_actions(action_xml):
     """
     actions = parsing_utils.try_open_and_parse(action_xml)
 
-    actions_dict = {}
+    actions_list = []
     # Get all actions, and save it in a dictionnary
     for _action in actions.findall("Action"):
         event, orders = parse_action(_action)
-        actions_dict.update({event:orders})
-    return actions_dict
+        actions_list.append({'event': event, 'orders': orders})
+    return actions_list
 
 def parse_multiple_files(*actions_files):
     """Parses multiple files. Broadly speaking, it parses sequentially all

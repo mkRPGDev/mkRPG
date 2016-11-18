@@ -23,13 +23,12 @@ def object_parser(object_tag):
     _picture = _params.find("picture")
     if _picture is None:
         parsing_utils._fail_not_found("picture")
-    picture = _picture.text
 
-    object_params = {}
+    object_params = {'name': name}
     for tag in _params.getchildren():
         object_params.update({tag.tag: tag.text})
 
-    return name, object_params
+    return object_params
 
 def object_type_parser(object_type_tag):
     """Parses an object type. An object type can be used as a factory to create
@@ -50,7 +49,7 @@ def object_type_parser(object_type_tag):
             params_dict.update({param.tag: param.attrib})
         else:
             params_dict.update({param.tag: param.text})
-    return (name, params_dict)
+    return params_dict
 
 
 def objects_parser(object_file):
@@ -61,11 +60,11 @@ def objects_parser(object_file):
 
     root = parsing_utils.try_open_and_parse(object_file)
 
-    objects_dict = {}
+    objects_list = []
     for object_tag in root.findall("Object"):
-        name, object_params = object_parser(object_tag)
-        objects_dict.update({name:object_params})
-    return objects_dict
+        object_params = object_parser(object_tag)
+        objects_list.append(object_params)
+    return objects_list
 
 def objects_type_parser(object_file):
     """
@@ -75,11 +74,11 @@ def objects_type_parser(object_file):
 
     root = parsing_utils.try_open_and_parse(object_file)
 
-    objects_dict = {}
+    objects_list = []
     for object_tag in root.findall("ObjectType"):
-        name, object_params = object_type_parser(object_tag)
-        objects_dict.update({name:object_params})
-    return objects_dict
+        object_params = object_type_parser(object_tag)
+        objects_list.append(object_params)
+    return objects_list
 
 def multiple_files_object_parser(*files_list):
     """Parses a list of files, and returns the dictionary containing all data

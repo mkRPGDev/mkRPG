@@ -5,7 +5,6 @@
         <Cell>maps/cell.xml</Cell>
         <Entities>entities/entity0.xml</Entities>
         <Entities>entities/entity1.xml</Entities>
-        <xml>types/corps.xml</xml>
         <Objects>entities/pomme.xml</Objects>
         <ObjectTypes>types/corps.xml</ObjectTypes>
     </World>

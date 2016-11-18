@@ -1,6 +1,6 @@
 <World>
     <Params>
-        <currentMap>main</currentMap>
+        <currentMap id="main"/>
         <step>0</step>
         <pomme id="pomme"/>
     </Params>

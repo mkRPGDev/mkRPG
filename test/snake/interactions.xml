@@ -1,16 +1,16 @@
 <Interactions>
     <Interaction>
-        <key val="122"/> <!-- curses.key_bot -->
+        <key val="115"/> <!-- curses.key_bot -->
         <target val="perso"/>
         <event val="moveup"/>
     </Interaction>
     <Interaction>
-        <key val="115"/> <!-- curses.key_up -->
+        <key val="122"/> <!-- curses.key_up -->
         <target val="perso"/>
         <event val="movedown"/>
     </Interaction>
     <Interaction>
-        <key val="97"/> <!-- curses.key_left -->
+        <key val="113"/> <!-- curses.key_left -->
         <target val="perso"/>
         <event val="moveleft"/>
     </Interaction>

@@ -58,7 +58,7 @@ class Client():
         for ent in self.world.entities:
             if await self.net.askEntity(ent):
                 self.perso = ent
-                #self.interface.set_perso(self.perso)
+                self.interface.setPerso(self.perso)
                 break
         else:
             print("No available entity.")

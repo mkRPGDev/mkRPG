@@ -17,7 +17,7 @@ class Interface:
             self.lastUpdate = time()
 
     def repaint(self): pass
-
+    def setPerso(self, p): pass
     def init(self):  pass
 
     def end(self): pass

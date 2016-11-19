@@ -158,7 +158,6 @@ class Map(MagicObject):
         ces derniers doivent avoir des paramètres x et y et
         les cellules de la carte un paramètre "visible"
         O(dist(source, dest)) environ
-        TODO une méthode pour ce calcul sur de nombreuses cases 
         """
         x1,y1 = source.x, source.y
         x2,y2 = dest.x, dest.y
@@ -178,6 +177,20 @@ class Map(MagicObject):
                 else: start = y
         return True
 
+    def fromPos(self, pos, maxi=None):
+        """ Yield cells further and further from pos, stopping at maxi
+        Assuming >x vy it turns as the trigo circle,
+        it is therefore not a "serpentin" (sadly ?) """
+        x,y = pos.x, pos.y
+        if maxi is None: maxi = max(x, self.width-x) + max(y, self.height-y)
+        for d in range(maxi+1):
+            for dx,dy in ((-1,-1), (-1, 1), (1,1), (1, -1)):
+                for i in range(d):
+                    if x in range(self.width) and y in range(self.height):
+                        yield self.cellsGrid[x][y]
+                    x+=dx; y+=dy
+            x+=1 
+        
 class Cell(MagicObject):
     def __init__(self):
         MagicObject.__init__(self)

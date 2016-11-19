@@ -1,7 +1,7 @@
 <Map name="main">
     <Params>
-        <height val="25"/>
-        <width val="65"/>
+        <height val="100"/>
+        <width val="100"/>
         <defaultCell id="defc"/>
     </Params>
 

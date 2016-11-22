@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 sys.path.append('../../src/parsing/')
 
 import map_parser, entity_parser, world_parser, global_parsing, actions_parser
-import interactions_parser, objects_parser
+import interactions_parser, objects_parser, images_parser
 
 def formatter(l):
     """ Formats the output, to check tests """
@@ -165,6 +165,11 @@ def test_global_parsing():
     data = global_parsing.game_parser("../snake/game.xml")
     formatter(data)
 
+def test_images_parser():
+    print("Test images parser")
+    data = images_parser.parse_file_image("contents.xml")
+    formatter(data)
+
 if __name__=="__main__":
 #    test_map_parser()
 #    test_cell_parser()
@@ -188,4 +193,5 @@ if __name__=="__main__":
 #    test_multiple_files_objects_parser()
 #    test_object_type_parser()
 #    test_objects_type_parser()
-    test_global_parsing()
+#    test_global_parsing()
+    test_images_parser()

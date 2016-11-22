@@ -11,16 +11,16 @@ from os.path import abspath
 INT = re.compile('[0-9]+$')
 FLOAT = re.compile('[0-9]+[\.,][0-9]$')
 
-def try_open_and_parse(game_xml):
+def try_open_and_parse(xml_file):
     """
-    This function tries to open the file ```game_xml```, and to parse it.
+    This function tries to open the file ```xml_file```, and to parse it.
     The program exits if one of both action fails.
     """
     try:
-        parsed_file = ET.parse(game_xml)
+        parsed_file = ET.parse(xml_file)
     except IOError as exception:
         print("Couldn't find or open file %s. Are you in the good directory ?"
-              % abspath(game_xml))
+              % abspath(xml_file))
         sys.exit(1)
     except ET.ParseError as exception:
         print("The xml format seems to be not well-formed: ligne:%d, column:%d"
@@ -35,7 +35,6 @@ def _fail_not_found(tag):
     sys.exit(1)
 
 def format_type(string):
-    print(string)
     if re.match(INT, string):
         return int(string)
     elif re.match(FLOAT, string) or string == 'inf':

@@ -8,6 +8,7 @@ from actions import registerActions
 from orders import OrderDispatcher
 from tools import Perf, Timer
 from network import NetworkServer
+from plugins.plugin import loadPluginsServer
 
 import world
 
@@ -16,15 +17,15 @@ class Server():
 
     def __init__(self, path):
         self.loop = asyncio.get_event_loop()
-        self.net = NetworkServer(self.handleEvent, self.loop)
+        self.net = NetworkServer(self.handleEvent, self.pluginHandle, self.loop)
         self.world = world.loadGame(path)
         self.actions = registerActions(path, world.named) # FIXME -> game
-
+        self.plugins = loadPluginsServer(path, self)
+        
         self.timer = Timer()
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent, self.timer)
         self.events = asyncio.Queue()
         self.pause = False
-        self.coEntities = {}
 
     def __del__(self):
         self.loop.stop()
@@ -61,6 +62,11 @@ class Server():
 
     async def handleEvent(self, emitter, event):
         await self.events.put((emitter, event))
+
+    async def pluginHandle(self, msg):
+        for plug in self.plugins:
+            if msg.startswith(plug.MSGID):
+                await plug.serverMessage(msg)
 
 parser = ArgumentParser(description="Generic game server.")
 parser.add_argument("-p", "--path", default=PATH,

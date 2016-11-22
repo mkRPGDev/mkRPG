@@ -11,8 +11,12 @@ Generic game client.
 
 usage: client.py [-h] [-p PATH] [-c | -g | -n] [-d]
 
+
+Un sytème de plugins est disponible (et en amélioration) cf plugins/ ...
+
+
 ### Lancement
-lancer le serveur puis deux clients avec python3 client.py -g
+lancer le serveur puis le nombre requis de clients avec python3 client.py -g
 
 
 # Snake

@@ -11,10 +11,10 @@ class NetworkClient:
     It allows the client to send messages (describing events) to the server.
     """
 
-    def __init__(self, handle):
+    def __init__(self, handle, pluginHandle):
         self.handle = handle
+        self.pluginHandle = pluginHandle
 #        self.soc = socket(AF_INET6 if IPV6 else AF_INET, SOCK_STREAM)
-        self.alive = True
 
     async def askEntity(self, ent):
         """ Ask for an entity """
@@ -32,16 +32,20 @@ class NetworkClient:
         connection ends.
         """
 
-        while self.alive:
+        while True:
             msg = await self.reader.read(BUFF)
             size = 0
             if not msg: return # TODO remonter l'info et l'afficher
             while size < len(msg):
                 ident = msg[size]*256 + msg[size+1]
-                order, i = Order().fromBytes(msg[size+2:])
-                if self.alive:
+                if ident == 0:
+                    length = msg[size+2]*256 + msg[size+3]
+                    await self.pluginHandle(msg[size+4:size+4+length])
+                    length += 2
+                else:
+                    order, length = Order().fromBytes(msg[size+2:])
                     await self.handle(ident, order) # TODO casser l'asymétrie
-                size += i + 2
+                size += length + 2
 
     async def send(self, m):
         self.writer.write(m)
@@ -59,18 +63,18 @@ class NetworkClient:
 
     def kill(self):
         self.writer.close()
-        self.alive = False
 
 class ServerConnection:
     """
     This thread manages the communications with one particular client (one
     thread is created by client).
     """
-    def __init__(self, reader, writer, handle, parent):
+    def __init__(self, reader, writer, handle, pluginHandle, parent):
         self.reader = reader
         self.writer = writer
 #        self.soc.settimeout(1)
         self.handle = handle
+        self.pluginHandle = pluginHandle
         self.entity = None
         self.server = parent
 
@@ -88,22 +92,26 @@ class ServerConnection:
 #            print(msg)
             while msg:
                 ident = msg[0]*256 + msg[1]
-                length = msg[2]
-                event = msg[3:3+length].decode(CODING)
-                assert ident in BaseObject.ids
-                emitter = BaseObject.ids[ident]
-                if self.entity: # TODO and self.entity.ident == ident:
-                    await self.handle(emitter, event)
+                if ident == 0:
+                    length = msg[2]*256 + msg[3]
+                    await self.pluginHandle(msg[4:4+length])
+                    length += 2
                 else:
-                    assert event == "acquire"
-                    if not emitter.user:
-                        emitter.user = self
-                        self.entity = emitter
-                        await self.handle(emitter, "init")
-                        await self.send(b"accepted")
+                    length = msg[2]
+                    event = msg[3:3+length].decode(CODING)
+                    assert ident in BaseObject.ids
+                    emitter = BaseObject.ids[ident]
+                    if self.entity: # TODO and self.entity.ident == ident:
+                        await self.handle(emitter, event)
                     else:
-                        await self.send(b"rejected")
-
+                        assert event == "acquire"
+                        if not emitter.user:
+                            emitter.user = self
+                            self.entity = emitter
+                            await self.handle(emitter, "init")
+                            await self.send(b"accepted")
+                        else:
+                            await self.send(b"rejected")
                 msg = msg[3+length:]
 
     async def send(self, m):
@@ -129,11 +137,11 @@ class NetworkServer:
     broadcast messages to all the clients.
     """
 
-    def __init__(self, handle, loop):
+    def __init__(self, handle, pluginHandle, loop):
         """ The server listen on the port specified in const.py. """
         self.handle = handle
+        self.pluginHandle = pluginHandle
         self.loop = loop
-        self.alive = True
         self.connections = []
 
     async def waitForClients(self, n):
@@ -141,7 +149,7 @@ class NetworkServer:
         while len(self.connections)<n: await asyncio.sleep(0.1)
 
     async def connect(self, reader, writer):
-        co = ServerConnection(reader, writer, self.handle, self)
+        co = ServerConnection(reader, writer, self.handle, self.pluginHandle, self)
         self.loop.create_task(co.run())
         self.connections.append(co)
 
@@ -165,8 +173,7 @@ class NetworkServer:
     async def broadcast(self, m):
         for co in self.connections:
             await co.send(m)
-
-#    def kill(self): self.alive = False
+        
 
 
 # Prémices de tests

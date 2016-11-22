@@ -5,15 +5,12 @@ import asyncio
 from const import *
 from interactions import registerInteractions, InteractionType
 from orders import OrderDispatcher
-from cache import ChunkCache
 
 from network import NetworkClient
 import world
-from printWorld import WorldViewer, Interface
-from utils import add_to_rect_list
 from interface import skeys
+from plugins.plugin import loadPluginsClient
 
-from pygame.locals import K_ESCAPE, K_p, K_r
 
 def interface(args):
     """ Import the correct interface according to user choice """
@@ -33,13 +30,15 @@ class Client():
     """ Main class of the client process, gathering interface, world and networking"""
     def __init__(self, path, Interface):
         self.loop = asyncio.get_event_loop()
-        self.net = NetworkClient(self.handleOrder)
+        self.net = NetworkClient(self.handleOrder, self.pluginHandle)
         self.world = world.loadGame(path)
-        self.interface = Interface(self.world)
+        self.plugins = loadPluginsClient(path, self)
+        # TODO intégrer au loadGame, faire une autre classe client ?
+        self.interface = Interface(self.world, self.plugins[1])
+        self.plugins = self.plugins[0]
         self.interactions = registerInteractions(path)
         self.perso = None
         self.orderDispatcher = OrderDispatcher(self.world, None, None)
-#        print(self.world.entities)
 
     def __del__(self):
         """ Kill network and interface """
@@ -87,6 +86,12 @@ class Client():
         emitter = world.BaseObject.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
+
+    async def pluginHandle(self, msg):
+        for plug in self.plugins:
+            if msg.startswith(plug.MSGID):
+                await plug.clientMessage(msg[len(plug.MSGID):])
+
 
 parser = ArgumentParser(description="Generic game client.")
 parser.add_argument("-p", "--path", default=PATH,

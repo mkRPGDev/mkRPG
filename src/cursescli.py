@@ -5,17 +5,31 @@ import curses
 
 class Curses(Interface):
     """ ncurses-based UI """
-    def __init__(self, w):
-        super().__init__(w)
+    def __init__(self, w, p):
+        super().__init__(w, p)
         self.win = curses.initscr()
         curses.cbreak()
         curses.noecho()
         curses.curs_set(0)
         self.win.keypad(True)
         self.win.nodelay(True)
-        self.mapView = MapView(curses.newwin(curses.LINES-4, curses.COLS-MenuView.MINW, 2, 0), w)
-        self.menuView = MenuView(curses.newwin(curses.LINES, MenuView.MINW, 0, curses.COLS-MenuView.MINW), w)
-
+        xmin, xmax, ymin, ymax = 0, curses.COLS, 0, curses.LINES
+#        xmax = xmax - MenuView.MINW
+#        self.menuView = MenuView(curses.newwin(curses.LINES, MenuView.MINW,
+#                                               0, curses.COLS-MenuView.MINW), w, self.plugins)
+        for p in self.plugins:
+            # les premiers plugins sont prioritaires en taille
+            p.win = curses.newwin(min(p.MINH, ymax), min(p.MINW, xmax), 
+                                  p.Y if p.Y>=0 else curses.LINES+p.Y,
+                                  p.X if p.X>=0 else curses.COLS+p.X)
+            xmin = max(xmin, p.X if p.X>=0 else 0)
+            xmax = min(xmax, xmax if p.X>=0 else curses.COLS+p.X)
+            ymin = max(ymin, p.Y if p.Y>=0 else 0)
+            ymax = min(ymax, ymax if p.Y>=0 else curses.LINES+p.Y)
+            p.interface = self
+        self.mapView = MapView(curses.newwin(ymax-ymin, xmax-xmin, ymin, xmin), w)
+        
+        
     def init(self): # eurk !
         self.getEvent()
         self.repaint()
@@ -24,8 +38,10 @@ class Curses(Interface):
         self.mapView.perso = perso
     
     def repaint(self):
-        self.menuView.draw()
+#        self.menuView.draw()
         self.mapView.draw()
+        for p in self.plugins:
+            p.draw()
         curses.doupdate()
         # TODO insérer ici le xml d'interface
         #self.win.addstr(26,0,"Score "+str(self.world.entities[0].score)+'\n')
@@ -36,6 +52,10 @@ class Curses(Interface):
     def getEvent(self):
         key=self.win.getch()
         if key==-1: return []
+        for p in self.plugins:
+            if p.handleKey(key):
+                self.repaint()
+                return []
         if key==ord('w'): return [skeys.QUIT]
         if key==ord('p'): return [skeys.PAUSE]
         if key==ord('r'): return [skeys.RESUME]
@@ -44,37 +64,6 @@ class Curses(Interface):
             return []
         return [key]
 
-class MenuView:
-    """ manages the curses menu windows """
-    MINW = 26
-    def __init__(self, win, world):
-        self.win = win
-        self.world = world
-        self.height, self.width = self.win.getmaxyx()
-
-    def draw(self):
-        self.win.border()
-        self.centered(3, "MKRPG", curses.A_BOLD)    
-        self.centered(5, "The curses client", curses.A_BOLD)
-        self.win.addstr(9,  2, b"[r] : start/resume")
-        self.win.addstr(10, 2, b"[p] : pause")
-        self.win.addstr(12, 2, b"[w] : quit")
-        self.win.addstr(14,  2, b"arrows : move map view")
-        self.win.addstr(16,  2, b"[l] : show/hide")
-        self.win.addstr(17,  2, b"      lignes of view")
-        self.win.addstr(18,  2, b"[f] : follow me")
-#        for i,c in enumerate((curses.ACS_LARROW, curses.ACS_DARROW,curses.ACS_UARROW, curses.ACS_RARROW)):
-#            self.win.addch(14, 3+i, c)
-        self.centered(self.height-2, "the mkrpg team")
-        self.win.noutrefresh()
-    
-    def centered(self, y, st, attr = None):
-        """ same as addstr but centered """
-        if len(st)>self.width: return
-        if attr:
-            self.win.addstr(y, (self.width-len(st))//2, st, attr)
-        else: 
-            self.win.addstr(y, (self.width-len(st))//2, st)
 
 class MapView:
     """ manages the map display """

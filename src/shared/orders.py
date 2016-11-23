@@ -43,16 +43,21 @@ class Order:
     
     def load(self, dat, named):
         """ Initialise l'ordre avec une structure provenant d'un Xml """
-        assert dat.name == "Order"
-        self.type = OrderType.__members__[dat.args["type"].capitalize()]
+        self.type = OrderType.__members__[dat['type'].capitalize()]
         self.args = [0]*len(self.params[self.type])
-        for nm, args, _ in dat.list:
-            if "val" in args:
-                self.args[self.params[self.type].index(nm)] = args["val"]
-            else:
-                # TODO utiliser des pointeurs
-                self.args[self.params[self.type].index(nm)] = \
-                    str(named[args["id"]].ident)
+        for key in dat.keys():
+            if key != 'type':
+                if type(dat[key]) == dict and dat[key].get("id") is not None:
+                    self.args[self.params[self.type].index(key)] = str(named[(dat[key]["id"])].ident)
+                else:
+                    self.args[self.params[self.type].index(key)] = dat[key]
+#        for nm, args, _ in dat.list:
+#            if "val" in args:
+#                self.args[self.params[self.type].index(nm)] = args["val"]
+#            else:
+#                # TODO utiliser des pointeurs
+#                self.args[self.params[self.type].index(nm)] = \
+#                    str(named[args["id"]].ident)
         return self
     
     def toBytes(self): # TODO éliminer tt les str => ids de param
@@ -79,7 +84,7 @@ class Order:
         i = 1
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
         return self, i
-    
+
 class OrderDispatcher:
     """ Traite les ordres pour le client ou le serveur """
     def __init__(self, world, handle, timer):

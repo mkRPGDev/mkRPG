@@ -2,11 +2,11 @@
     <World>
         <World>world.xml</World>
         <Map>maps/map.xml</Map>
+        <Map>maps/map2.xml</Map>
         <Cell>maps/cell.xml</Cell>
+        <Cell>maps/cell2.xml</Cell>
         <Entities>entities/entity0.xml</Entities>
-        <Entities>entities/entity1.xml</Entities>
-        <Objects>entities/pomme.xml</Objects>
-        <ObjectTypes>types/corps.xml</ObjectTypes>
+        <Objects>pomme.xml</Objects>
     </World>
     <Actions>
         <Action>actions.xml</Action>

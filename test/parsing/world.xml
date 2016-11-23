@@ -1,0 +1,14 @@
+<World>
+    <Params>
+        <currentMap>main</currentMap>
+    </Params>
+
+    <Objects>
+        <Object id="pomme">pomme</Object>
+    </Objects>
+
+    <Entities>
+        <Entity>joey</Entity>
+    </Entities>
+
+</World>

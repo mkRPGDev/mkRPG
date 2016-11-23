@@ -1,0 +1,14 @@
+<Images>
+    <Image>
+        <Identifier>110</Identifier>
+        <Path>./contents/toto.png</Path>
+    </Image>
+    <Image>
+        <Identifier>111</Identifier>
+        <Path>./contents/tata.png</Path>
+    </Image>
+    <Image>
+        <Identifier>112</Identifier>
+        <Path>./contents/titi.png</Path>
+    </Image>
+</Images>

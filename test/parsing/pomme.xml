@@ -6,4 +6,11 @@
             <picture>120</picture>
         </Params>
     </Object>
+    <Object name="poire">
+        <Params>
+            <x>1</x>
+            <y>1</y>
+            <picture>130</picture>
+        </Params>
+    </Object>
 </Objects>

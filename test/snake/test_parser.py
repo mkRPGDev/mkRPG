@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 sys.path.append('../../src/parsing/')
 
 import map_parser, entity_parser, world_parser, global_parsing, actions_parser
-import interactions_parser, objects_parser, images_parser
+import interactions_parser, objects_parser
 
 def formatter(l):
     """ Formats the output, to check tests """
@@ -27,15 +27,20 @@ def test_cell_parser():
     cells_parsed = map_parser.parse_all_cells("maps/cell.xml")
     formatter(cells_parsed)
 
+def test_cells_multiple():
+    print("Testing multiple files cell parser")
+    cells_parsed = map_parser.collect_cells_data("maps/cell.xml", "maps/cell.xml")
+    formatter(cells_parsed)
+
 def test_entity_parser():
     print("Testing entity parser")
-    enitities_parsed = entity_parser.parse_entities("entities/entity.xml")
+    enitities_parsed = entity_parser.parse_entities("entities/entity0.xml")
     formatter(enitities_parsed)
 
 def test_multiple_files_entities():
     print("Testing multiple file entities parser")
     entities_parsed = entity_parser.parse_multiple_entities(
-            'entities/entity.xml', 'entities/entity2.xml')
+            'entities/entity0.xml', 'entities/entity1.xml')
     formatter(entities_parsed)
 
 def test_world_parser():
@@ -73,18 +78,14 @@ def test_game_parser():
 
 def test_actions_parser():
     print("Testing actions parser")
-    print("Should return 4 actions")
     data = actions_parser.parse_actions("actions.xml")
     formatter(data)
-    print("Should fail")
-    data = actions_parser.parse_actions("faulty_actions.xml")
 
 def test_multiple_actions_parser():
     print("""Testing parser for actions on multiple files.
 It should find an action in multiple files""")
     data = actions_parser.parse_multiple_files(
-            "actions.xml",
-             "faulty_multiple_actions.xml")
+            "actions.xml", "actions.xml")
     formatter(data)
 
 def test_interaction_parser():
@@ -134,19 +135,19 @@ def test_check_files():
 
 def test_object_parser():
     print("Testing the object parser for one object tag")
-    tag = ET.parse("pomme.xml").getroot().find('Object')
+    tag = ET.parse("entities/pomme.xml").getroot().find('Object')
     data = objects_parser.object_parser(tag)
     formatter(data)
 
 def test_objects_parser():
     print("Testing the object parser for one file")
-    data = objects_parser.objects_parser("pomme.xml")
+    data = objects_parser.objects_parser("entities/pomme.xml")
     formatter(data)
 
 
 def test_multiple_files_objects_parser():
     print("Testing the object parser for one file")
-    data = objects_parser.multiple_files_object_parser("pomme.xml", "poire.xml")
+    data = objects_parser.multiple_files_object_parser("types/pomme.xml", "poire.xml")
     formatter(data)
 
 def test_object_type_parser():
@@ -162,17 +163,13 @@ def test_objects_type_parser():
 
 def test_global_parsing():
     print("Test global parser")
-    data = global_parsing.game_parser("../snake/game.xml")
-    formatter(data)
-
-def test_images_parser():
-    print("Test images parser")
-    data = images_parser.parse_file_image("contents.xml")
+    data = global_parsing.game_parser("game.xml")
     formatter(data)
 
 if __name__=="__main__":
 #    test_map_parser()
 #    test_cell_parser()
+#    test_cells_multiple()
 #    test_entity_parser()
 #    test_multiple_files_entities()
 #    test_world_parser()
@@ -182,9 +179,9 @@ if __name__=="__main__":
 #    test_game_parser()
 #    test_actions_parser()
 #    test_multiple_actions_parser()
-#    test_interaction_parser()
-#    test_file_interaction_parser()
-#    test_files_interaction_parser()
+    test_interaction_parser()
+    test_file_interaction_parser()
+    test_files_interaction_parser()
 #    test_get_all_actions()
 #    test_check_actions()
 #    test_check_files()
@@ -194,4 +191,3 @@ if __name__=="__main__":
 #    test_object_type_parser()
 #    test_objects_type_parser()
 #    test_global_parsing()
-    test_images_parser()

@@ -1,5 +1,5 @@
 <Cells>
-    <CellType name="cell0">
+    <CellType name="cell2">
         <Params>
             <x>10</x>
             <y>10</y>
@@ -10,7 +10,7 @@
             <Entity>joey</Entity>
         </Entities>
     </CellType>
-    <CellType name="cell1">
+    <CellType name="cell3">
         <Params>
             <x>11</x>
             <y>11</y>

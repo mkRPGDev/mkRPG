@@ -21,7 +21,8 @@ def interaction_parser(interaction_tag):
         parsing_utils._fail_not_found('key')
     if _key.get('val') is None:
         print("Tag %s found, but value not present" % 'key')
-    key = parsing_utils.format_type(_key.get('val'))
+    interaction.update({"key": parsing_utils.format_type(_key.get('val'))})
+
     for tag in ['target', 'event']:
         val = interaction_tag.find(tag)
         if val is None:
@@ -30,7 +31,7 @@ def interaction_parser(interaction_tag):
             print("Tag  %s found, but value not present" % tag)
             sys.exit(1)
         interaction.update({tag : val.get("val")})
-    return(key, interaction)
+    return(interaction)
 
 def interactions_parser(interaction_xml):
     """This function parses a whole file, and returns the dictionnary of all
@@ -39,16 +40,11 @@ def interactions_parser(interaction_xml):
 
     interactions = parsing_utils.try_open_and_parse(interaction_xml)
     keys_found = []
-    interactions_dict = {}
+    interactions_list= []
 
     for interaction in interactions.findall('Interaction'):
-        key, _interaction = interaction_parser(interaction)
-        if key in keys_found:
-            print("Keycode found twice. Something wrong")
-        else:
-            keys_found.append(key)
-            interactions_dict.update({key: _interaction})
-    return interactions_dict
+        interactions_list.append(interaction_parser(interaction))
+    return interactions_list
 
 def interactions_files_parser(*interactions_files):
     """This function parses a list of files, in order to find all interactions

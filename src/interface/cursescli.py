@@ -1,4 +1,4 @@
-from interface import Interface, skeys
+from interface.interface import Interface, skeys
 
 from itertools import chain
 import curses

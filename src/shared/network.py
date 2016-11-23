@@ -2,8 +2,8 @@ from time import sleep
 import asyncio
 
 from const import *
-from world import BaseObject
-from orders import Order # XXX à sa place ?
+from shared.world import BaseObject
+from shared.orders import Order # XXX à sa place ?
 
 class NetworkClient:
     """

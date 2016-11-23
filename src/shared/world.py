@@ -2,12 +2,8 @@ from enum import IntEnum
 from collections import defaultdict
 from random import randint
 
-#from isserver import SERVER
-from tools import readXml
-
-from orders import Order, OrderType
-#l'autre solution est de tout mettre dans une fonction
-# qui écrasera des classes bidon en global
+from shared.tools import readXml
+from shared.orders import Order, OrderType
 
 verbose = False
 

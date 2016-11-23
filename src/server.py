@@ -4,13 +4,13 @@ from argparse import ArgumentParser
 import asyncio
 
 from const import *
-from actions import registerActions
-from orders import OrderDispatcher
-from tools import Perf, Timer
-from network import NetworkServer
+from shared.actions import registerActions
+from shared.orders import OrderDispatcher
+from shared.tools import Perf, Timer
+from shared.network import NetworkServer
 from plugins.plugin import loadPluginsServer
 
-import world
+import shared.world as world
 
 class Server():
     """ Classe principale du processus serveur, concilie réseau, monde, actions et timer """

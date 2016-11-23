@@ -1,6 +1,6 @@
 from enum import IntEnum
 
-from tools import readXml
+from shared.tools import readXml
 
 InteractionType = IntEnum("InteractionType", "Key Mouse Scroll Multi")
 

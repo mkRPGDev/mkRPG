@@ -2,8 +2,10 @@ from collections import namedtuple
 
 Action = namedtuple("Action", "event orders conditions")
 
-from tools import readXml
-from orders import Order
+from shared.tools import readXml
+from shared.orders import Order
+
+# XXX pas tout à fait partagé mais temporaire
 
 # TODO enlever named
 def loadAction(dat, named):

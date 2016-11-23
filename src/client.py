@@ -3,23 +3,22 @@ from argparse import ArgumentParser
 import asyncio
 
 from const import *
-from interactions import registerInteractions, InteractionType
-from orders import OrderDispatcher
-
-from network import NetworkClient
-import world
-from interface import skeys
+from interface.interactions import registerInteractions, InteractionType
+from interface.interface import skeys
+from shared.orders import OrderDispatcher
+from shared.network import NetworkClient
+import shared.world as world
 from plugins.plugin import loadPluginsClient
 
 
 def interface(args):
     """ Import the correct interface according to user choice """
     if args.curses:
-        from cursescli import Curses as Interface
+        from interface.cursescli import Curses as Interface
     elif args.noui:
-        from interface import Interface
+        from interface.interface import Interface
     elif args.pygame:
-        from pygamecli import Client as Interface
+        from interface.pygamecli import Client as Interface
     else:
         # choix par défaut
         args.curses = True

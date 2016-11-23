@@ -23,7 +23,7 @@ ANGLE_Y_R = deg_to_rad(ANGLE_Y+900)
 CHUNK_GRID_WIDTH = 5
 CHUNK_GRID_HEIGHT = 5
 
-import utils
+import interface.utils as utils # XXX à sa place ??
 CHUNK_WIDTH = int(utils.cell_to_point(CHUNK_GRID_WIDTH,0,
                                       CHUNK_GRID_WIDTH,CHUNK_GRID_HEIGHT,
                                       CELL_WIDTH,ANGLE_X_R,ANGLE_Y_R)[0]-

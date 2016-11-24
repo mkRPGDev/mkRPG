@@ -3,10 +3,10 @@
 
 
 GameObject::GameObject(Game* g, GameObject *parent) :
-    aParent(parent),
-    game(g), id(g ? g->newIdent() : 0), nbRef(0),
+    aParent(parent), game(g), nbRef(0),
     lastEdit(QDateTime::currentDateTime()),
-    lastChildEdit(lastEdit)
+    lastChildEdit(lastEdit),
+    id(g ? g->newIdent() : 0)
 {
     if(parent) parent->addChild(this);
     setName("Untitled");

@@ -14,7 +14,7 @@
 /*!
  * \brief The CellType class
  */
-class CellType : public GameObject
+class CellType : public Type
 {
 public:
     TypeName(CellType)
@@ -37,7 +37,7 @@ private:
 /*!
  * \brief The Cell class
  */
-class Cell : public GameObject
+class Cell : public TypedObject<CellType>
 {
 public:
     TypeName(Cell)

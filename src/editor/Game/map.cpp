@@ -3,7 +3,7 @@
 
 
 CellType::CellType(Game *g, GameObject *parent) :
-    GameObject(g, parent)
+    Type(g, parent)
 {
     //aName = QObject::tr("Cell_type", "name of a CellType");
     SetFlag(walkable,true);
@@ -14,7 +14,7 @@ CellType::CellType(Game *g, GameObject *parent) :
 
 
 Cell::Cell(Game* g, GameObject *parent) :
-    GameObject(g, parent),
+    TypedObject(g, parent),
     select(false), nbSel(0), selectMod(false)
 {
     setCellType(nullptr);

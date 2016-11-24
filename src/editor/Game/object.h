@@ -153,7 +153,7 @@
  *
  * \see flag, ProtectParam
  */
-#define SetFlag(flag, value) aFlags[#flag] = value /*!<
+#define SetFlag(flag, value) setFlag(#flag,value) /*!<
  * Conveniant macro to set a flag directly.
  *
  * This is usefull in custom setters, to avoid call loops.
@@ -169,7 +169,7 @@
  * \endcode
  * \see Flag, FlagSetter, \ref object.h
  */
-#define FlagGetter(flag, Flag) inline bool is##Flag() const{return aFlags[#flag];} /*!<
+#define FlagGetter(flag, Flag) inline bool is##Flag() const{return getFlag(#flag);} /*!<
  * The FlagGetter macro defines a generic getter method for the flag named \c flag.
  *
  * With respect to the \ref object.h "name convention", this macro needs the flag's name with lower and upper
@@ -220,7 +220,7 @@
  *
  * \see param, ProtectFlag
  */
-#define SetParam(param, value) aParams[#param] = value /*!<
+#define SetParam(param, value) setParam(#param,value) /*!<
  * Conveniant macro to set a param directly.
  *
  * This is usefull in custom setters, to avoid call loops.
@@ -237,7 +237,7 @@
  *
  * \see Param, ParamSetter, \ref object.h
  */
-#define ParamGetter(param) inline int param() const{return aParams[#param];} /*!<
+#define ParamGetter(param) inline int param() const{return getParam(#param);} /*!<
  * The ParamGetter macro defines a generic getter method for the parameter named \c param.
  *
  *
@@ -380,6 +380,18 @@
  */
 
 
+class Parameter
+{
+public:
+    Parameter(int v = 0) : min(0), max(100){setValue(v);}
+    Parameter(int min, int max, int v = 0): min(min), max(max){setValue(v);}
+    void setValue(int v){pValue = std::min(std::max(min,v),max);}
+    inline int value() const {return pValue;}
+
+private:
+    int min, max;
+    int pValue;
+};
 
 
 class Game;
@@ -464,7 +476,7 @@ public:
      * \see lastInternalEdition, lastChildrenEdition
      */
 
-    inline int getParam(const QString &p) const {return aParams.value(p, 0);} /**<
+    virtual int getParam(const QString &p) const {return aParams.value(p, 0);} /**<
      * Returns the value of the \c p parameter.
      *
      * \note
@@ -473,7 +485,7 @@ public:
      *
      * \see params, hasParam, setParam, getFlag
      */
-    inline void setParam(const QString &p, int v) {aParams[p] = v; touch();} /**<
+    virtual void setParam(const QString &p, int v) {aParams[p] = v; touch();} /**<
      * Set the value of the \c p parameter.
      *
      * \note
@@ -481,17 +493,17 @@ public:
      *
      * \see params, hasParam, getParam, setFlag
      */
-    inline bool hasParam(const QString &p) const {return  aParams.contains(p);} /**<
+    virtual bool hasParam(const QString &p) const {return  aParams.contains(p);} /**<
      * Returns true if the parameter \p is register in the object's parameters.
      *
      * \see getParam, setParam, hasFlag
      */
-    inline QList<QString> params() const {return filter(aParams.keys());} /**<
+    virtual QList<QString> params() const {return filter(aParams.keys());} /**<
      * Returns the list of the registered paramters
      *
      * \see getParam, setParam, flags
      */
-    inline bool getFlag(const QString &f) const{return aFlags.value(f,false);} /**<
+    virtual bool getFlag(const QString &f) const{return aFlags.value(f,false);} /**<
      * Returns the value of the \c f flag.
      *
      * \note
@@ -500,7 +512,7 @@ public:
      *
      * \see flags, hasFlag, setFlag, getParam
      */
-    inline void setFlag(const QString &f, bool v) {aFlags[f] = v; touch();} /**<
+    virtual void setFlag(const QString &f, bool v) {aFlags[f] = v; touch();} /**<
      * Set the value of the \c f flag.
      *
      * \note
@@ -508,12 +520,12 @@ public:
      *
      * \see flags, hasFlag, getFlag, setParam
      */
-    inline bool hasFlag(const QString &f) const {return aFlags.contains(f);} /**<
+    virtual bool hasFlag(const QString &f) const {return aFlags.contains(f);} /**<
      * Returns true if the falg \c f is register in the object's flags.
      *
      * \see getFlag, setFlag, hasParam
      */
-    inline QList<QString> flags() const {return filter(aFlags.keys());} /**<
+    virtual QList<QString> flags() const {return filter(aFlags.keys());} /**<
      * Returns the list of the registered flags
      *
      * \see getFlag, setFlag, params
@@ -602,6 +614,52 @@ private:
 };
 
 
+/*!
+ * \brief The Type class
+ */
+class Type : public GameObject
+{
+public:
+    Type(Game*g, GameObject *aParent) : GameObject(g, aParent){} // temporaire
+
+    virtual int getParam(const QString &p) const {return aParams.value(p, 0);}
+    virtual void setParam(const QString &p, int v) {aParams[p] = v; touch();}
+    virtual bool hasParam(const QString &p) const {return  aParams.contains(p) || (aAncestor && aAncestor->hasParam(p));}
+    virtual QList<QString> params() const {return filter(aParams.keys());}
+    virtual bool getFlag(const QString &f) const{return aFlags.value(f,false);}
+    virtual void setFlag(const QString &f, bool v) {aFlags[f] = v; touch();}
+    virtual bool hasFlag(const QString &f) const {return aFlags.contains(f) || (aAncestor && aAncestor->hasFlag(f));}
+    virtual QList<QString> flags() const {return filter(aFlags.keys());}
+
+protected:
+    Type *aAncestor;
+
+};
+
+
+
+
+/*!
+ * \brief The TypedObject class
+ *
+ * The \c class \c T template argument has to be inherited from Type.
+ */
+template<class T>
+class TypedObject : public GameObject
+{
+public:
+    TypedObject(Game*g, GameObject *aParent) : GameObject(g, aParent){} // temporaire
+// Appeler une fonction spécifique à Type ! (pour forcer les type de T
+    const T *objectType() const{return aType;}
+
+protected:
+    T *aType;
+
+};
+
+
+
+
 
 
 
@@ -636,7 +694,7 @@ public:
     TypeName(Object)
     Object(Game *g, GameObject *aParent);
 
-    C0(Flag, v,V,visible)
+    C0(Flag, v,V,isible)
     C0(Flag, m,M,ovable)
     C0(Flag, i,I,nteractive)
     C0(AttrT,i,I,mage)

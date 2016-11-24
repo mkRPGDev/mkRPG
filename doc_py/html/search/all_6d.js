@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['main',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['main_2ecpp',['main.cpp',['../main_8cpp.html',1,'']]],
   ['make_5fgrid',['make_grid',['../classinterface_1_1layer_1_1_layer.html#a36c73749e127ff1d97ca205cd544c07d',1,'interface::layer::Layer']]],
   ['map',['Map',['../classworld_1_1_map.html',1,'world']]],
   ['map_5fparser',['map_parser',['../namespacemap__parser.html',1,'map_parser'],['../namespacemap__parser.html#a4837b9f41f6ac6916382277c63ed2e29',1,'map_parser.map_parser()']]],

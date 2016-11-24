@@ -126,42 +126,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055 <span class="keyword">private</span> slots:
 <a name="l00056"></a>00056     <span class="keywordtype">void</span> saveGeom();
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058 <span class="keyword">private</span>:
-<a name="l00059"></a>00059     <span class="keywordtype">void</span> addTab(<span class="keyword">const</span> QString&amp; n, <span class="keyword">const</span> QPixmap&amp; p, QWidget* w);
-<a name="l00060"></a>00060 
+<a name="l00057"></a>00057     <span class="keywordtype">void</span> editMap();
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="keyword">private</span>:
+<a name="l00060"></a>00060     <span class="keywordtype">void</span> addTab(<span class="keyword">const</span> QString&amp; n, <span class="keyword">const</span> QPixmap&amp; p, <a class="code" href="class_tab_widget.html">TabWidget</a> *w);
 <a name="l00061"></a>00061 
-<a name="l00062"></a>00062     <span class="keywordtype">void</span> newGame(QString name, QString dir, <span class="keywordtype">bool</span> createFolder);
-<a name="l00063"></a>00063     <a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>* open(QString fileName);
-<a name="l00064"></a>00064 
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063     <span class="keywordtype">void</span> newGame(QString name, QString dir, <span class="keywordtype">bool</span> createFolder);
+<a name="l00064"></a>00064     <a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>* open(QString fileName);
 <a name="l00065"></a>00065 
-<a name="l00066"></a>00066     <span class="keywordtype">void</span> loadDefault();
-<a name="l00067"></a>00067     <span class="keywordtype">void</span> saveDefault();
-<a name="l00068"></a>00068     <span class="keywordtype">void</span> resizeEvent(QResizeEvent *re);
-<a name="l00069"></a>00069     <span class="keywordtype">void</span> moveEvent(QMoveEvent *me);
-<a name="l00070"></a>00070     <span class="keywordtype">void</span> closeEvent(QCloseEvent *ce);
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072     <a class="code" href="class_world_editor.html">WorldEditor</a> *worldEditor;
-<a name="l00073"></a>00073     <a class="code" href="class_maps_editor.html" title="The MapsEditor class is the tab offering map editing facilities.">MapsEditor</a> *mapsEditor;
-<a name="l00074"></a>00074     <a class="code" href="class_object_editor.html">ObjectEditor</a> *objectEditor;
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076 };
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 <span class="comment">/* Template de jeu</span>
-<a name="l00079"></a>00079 <span class="comment"> *</span>
-<a name="l00080"></a>00080 <span class="comment"> * -&gt; ouvrir une page spécifique pour ajuster plein d&#39;option à remplir dans un template.</span>
-<a name="l00081"></a>00081 <span class="comment"> *</span>
-<a name="l00082"></a>00082 <span class="comment"> */</span>
-<a name="l00083"></a>00083 
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> loadDefault();
+<a name="l00068"></a>00068     <span class="keywordtype">void</span> saveDefault();
+<a name="l00069"></a>00069     <span class="keywordtype">void</span> resizeEvent(QResizeEvent *re);
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> moveEvent(QMoveEvent *me);
+<a name="l00071"></a>00071     <span class="keywordtype">void</span> closeEvent(QCloseEvent *ce);
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <a class="code" href="class_world_editor.html">WorldEditor</a> *worldEditor;
+<a name="l00074"></a>00074     <a class="code" href="class_maps_editor.html" title="The MapsEditor class is the tab offering map editing facilities.">MapsEditor</a> *mapsEditor;
+<a name="l00075"></a>00075     <a class="code" href="class_object_editor.html">ObjectEditor</a> *objectEditor;
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077 };
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 <span class="comment">/* Template de jeu</span>
+<a name="l00080"></a>00080 <span class="comment"> *</span>
+<a name="l00081"></a>00081 <span class="comment"> * -&gt; ouvrir une page spécifique pour ajuster plein d&#39;option à remplir dans un template.</span>
+<a name="l00082"></a>00082 <span class="comment"> *</span>
+<a name="l00083"></a>00083 <span class="comment"> */</span>
 <a name="l00084"></a>00084 
-<a name="l00085"></a>00085 <span class="preprocessor">#endif // EDITOR_H</span>
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 <span class="preprocessor">#endif // EDITOR_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &lt;QtCore&gt;</code><br/>
 <code>#include &lt;QtGui&gt;</code><br/>
 <code>#include &lt;assert.h&gt;</code><br/>
+<code>#include &lt;algorithm&gt;</code><br/>
 </div>
 <p><a href="object_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -102,8 +103,8 @@ Data Structures</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_object.html" title="The Object class.">Object</a> class.  <a href="class_object.html#details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a6666417d2cf341574cfd7534b819e45d">ObjectsMapC</a>(name, names, Type, Types, pref, arg)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a36f4eef4198c2aec7010e22c6223d13d">ObjectsMap</a>(pref, ini, Ini, body, sg, pl)&#160;&#160;&#160;<a class="el" href="object_8h.html#a6666417d2cf341574cfd7534b819e45d">ObjectsMapC</a>(ini##body##sg, ini##body##pl, Ini##body##sg, Ini##body##pl, pref,ini)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c09ffbe0bea5710ddb0f2bba0c605ae"></a><!-- doxytag: member="object.h::TypeName" ref="a9c09ffbe0bea5710ddb0f2bba0c605ae" args="(Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b>(Type)&#160;&#160;&#160;virtual QString typeName() const{return QString(#Type);}</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4e4db36d846a9d6dff95def8d7507c3"></a><!-- doxytag: member="object.h::ObjectListDef" ref="aa4e4db36d846a9d6dff95def8d7507c3" args="(Objects, Type)" -->
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListDef</b>(Objects, Type)&#160;&#160;&#160;private: QMap&lt;int, Type*&gt; a##Objects; public:</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e0c32abad0e9e137742babb45a9799e"></a><!-- doxytag: member="object.h::ObjectListAdd" ref="a3e0c32abad0e9e137742babb45a9799e" args="(Object, Objects, Type)" -->
@@ -125,20 +126,20 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a>(Macro, init, Init, body,...)&#160;&#160;&#160;Macro(init##body, Init##body, ##__VA_ARGS__)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(Macro, init, Init, body)&#160;&#160;&#160;Macro(init##body, Init##body)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a4f05201336d20b10dad322cfbd30c0af">C1</a>(Macro, init, Init, body, arg)&#160;&#160;&#160;Macro(init##body, Init##body, arg)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a65a30247a861dc15363de8b7264e09a6">ProtectFlag</a>(flag)&#160;&#160;&#160;reserved.insert(QString(#flag));</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#ad1f082144869225c63b2194de68e2cd5">SetFlag</a>(flag, value)&#160;&#160;&#160;aFlags[#flag] = value</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)&#160;&#160;&#160;inline bool is##<a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>() const{return aFlags[#flag];}</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>(bool flag){<a class="el" href="object_8h.html#ad1f082144869225c63b2194de68e2cd5">SetFlag</a>(flag,flag); touch();}</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)&#160;&#160;&#160;<a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>) <a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a444f505d8782523427517f998fdb9e12">ProtectParam</a>(param)&#160;&#160;&#160;reserved.insert(QString(#param));</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">SetParam</a>(param, value)&#160;&#160;&#160;aParams[#param] = value</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a>(param)&#160;&#160;&#160;inline int param() const{return aParams[#param];}</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a>(param, <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>)&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>(int param##Value){<a class="el" href="object_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">SetParam</a>(param,param##Value); touch();}</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>(param, <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>)&#160;&#160;&#160;<a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a>(param) <a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a>(param, <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;inline Type* attr() const{return a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>;}</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7f0444b589b5ad4d64229ffbfb5437b"></a><!-- doxytag: member="object.h::AttrFree" ref="af7f0444b589b5ad4d64229ffbfb5437b" args="(Attr)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>AttrFree</b>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>)&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;removeReference();</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a509cabc64fe810c7b9f860b56b5cf59b"></a><!-- doxytag: member="object.h::AttrLink" ref="a509cabc64fe810c7b9f860b56b5cf59b" args="(Attr)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>AttrLink</b>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>)&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;addReference();</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(Type* new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>){AttrFree(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>; AttrLink(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); touch();}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>)&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;removeReference();</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>)&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;addReference();</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(Type* new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>){<a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>; <a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); touch();}</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a9af19ccbd1471e4daaa056e495734fe5">AttrDef</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;private: Type* a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = nullptr; public:</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;<a class="el" href="object_8h.html#a9af19ccbd1471e4daaa056e495734fe5">AttrDef</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type) <a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>(attr,<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>,Type) <a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a>(type, Type)&#160;&#160;&#160;<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(type, Type, Type)</td></tr>
@@ -146,7 +147,12 @@ Defines</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Definition of the base class <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>, and some inherited classes. </p>
 <p>## The objects structure</p>
+<p>### Inheritance and parent</p>
+<p>Each class which is part of game representation has to inherit from <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>. It gives the class standard params and flags mechanisms that are used for edition purposes.</p>
+<p>Each instance must have a parent (except the <a class="el" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> one) which will keep an eye on his children. If the parent cannot be given at the construction time (case or array)s, the init function must then be called as soon as possible.</p>
+<p>### Reference count</p>
 <p>### Objects destructors</p>
+<p>A default implementation of <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> destructor is provided. It destroy every children the instance has. This avoid fastidious destructor implementation.</p>
 <p>## The Macro System</p>
 <p>To add conveniently attributes and flags to <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> subclassed objects, a set of macro is provided.</p>
 <p>### Name conventions</p>
@@ -254,6 +260,25 @@ Defines</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af7f0444b589b5ad4d64229ffbfb5437b"></a><!-- doxytag: member="object.h::AttrFree" ref="af7f0444b589b5ad4d64229ffbfb5437b" args="(Attr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a></td><td>)</td>
+          <td>&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;removeReference();</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The AttrFree macro decrease the number of references of the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> attribut attr. It should be used before the deletion/modifcation of the pointer.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="abb51a31972a5cd870c4d8f4f3eada448"></a><!-- doxytag: member="object.h::AttrGetter" ref="abb51a31972a5cd870c4d8f4f3eada448" args="(attr, Attr, Type)" -->
 <div class="memitem">
 <div class="memproto">
@@ -294,6 +319,25 @@ Defines</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a509cabc64fe810c7b9f860b56b5cf59b"></a><!-- doxytag: member="object.h::AttrLink" ref="a509cabc64fe810c7b9f860b56b5cf59b" args="(Attr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a></td><td>)</td>
+          <td>&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;addReference();</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The AttrLink macro increase the number of references of the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> attribut attr. It should be used before the saving of a pointer as an attribute.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a076a8c1470b0de69b7dfdf442d9ed949"></a><!-- doxytag: member="object.h::AttrSetter" ref="a076a8c1470b0de69b7dfdf442d9ed949" args="(attr, Attr, Type)" -->
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +363,7 @@ Defines</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(Type* new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>){AttrFree(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>; AttrLink(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); touch();}</td>
+          <td></td><td>&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(Type* new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>){<a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>; <a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); touch();}</td>
         </tr>
       </table>
 </div>
@@ -632,117 +676,6 @@ As some IDE does not fully support variadic macro expansion, the <a class="el" h
 
 </div>
 </div>
-<a class="anchor" id="a36f4eef4198c2aec7010e22c6223d13d"></a><!-- doxytag: member="object.h::ObjectsMap" ref="a36f4eef4198c2aec7010e22c6223d13d" args="(pref, ini, Ini, body, sg, pl)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define <a class="el" href="object_8h.html#a36f4eef4198c2aec7010e22c6223d13d">ObjectsMap</a></td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">pref, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">ini, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Ini, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">body, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">sg, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">pl&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="object_8h.html#a6666417d2cf341574cfd7534b819e45d">ObjectsMapC</a>(ini##body##sg, ini##body##pl, Ini##body##sg, Ini##body##pl, pref,ini)</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a6666417d2cf341574cfd7534b819e45d"></a><!-- doxytag: member="object.h::ObjectsMapC" ref="a6666417d2cf341574cfd7534b819e45d" args="(name, names, Type, Types, pref, arg)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define <a class="el" href="object_8h.html#a6666417d2cf341574cfd7534b819e45d">ObjectsMapC</a></td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">name, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">names, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Type, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Types, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">pref, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">arg&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<b>Value:</b><div class="fragment"><pre class="fragment"><span class="keyword">private</span>: \
-    QMap&lt;int, Type*&gt; pref##Types; \
-public: \
-    void add##Type(Type* arg){pref##Types[arg-&gt;ident()] = arg; touch();} \
-    void <span class="keyword">remove</span>##Type(Type* arg){<span class="keywordflow">if</span>(pref##Types.contains(arg-&gt;ident()))pref##Types.remove(arg-&gt;ident()); touch();} \
-    inline Type* name(<span class="keywordtype">int</span> <span class="keywordtype">id</span>)<span class="keyword"> const</span>{<span class="keywordflow">return</span> pref##Types.value(<span class="keywordtype">id</span>, <span class="keyword">nullptr</span>);} \
-    inline QList&lt;Type*&gt; names()<span class="keyword"> const</span>{<span class="keywordflow">return</span> pref##Types.values();}
-</pre></div><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd></dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ac2415051beaa606375358688bcb8ff37"></a><!-- doxytag: member="object.h::Param" ref="ac2415051beaa606375358688bcb8ff37" args="(param, Param)" -->
 <div class="memitem">
 <div class="memproto">
@@ -836,6 +769,44 @@ public: \
 
 </div>
 </div>
+<a class="anchor" id="a65a30247a861dc15363de8b7264e09a6"></a><!-- doxytag: member="object.h::ProtectFlag" ref="a65a30247a861dc15363de8b7264e09a6" args="(flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a65a30247a861dc15363de8b7264e09a6">ProtectFlag</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">flag</td><td>)</td>
+          <td>&#160;&#160;&#160;reserved.insert(QString(#flag));</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The ProtectFlag macro registers the flag named <code>flag</code> as protected  ie it cannot be modified directly in a flag editor (it will not appear).</p>
+<dl class="see"><dt><b>See also:</b></dt><dd>flag, <a class="el" href="object_8h.html#a444f505d8782523427517f998fdb9e12">ProtectParam</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a444f505d8782523427517f998fdb9e12"></a><!-- doxytag: member="object.h::ProtectParam" ref="a444f505d8782523427517f998fdb9e12" args="(param)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a444f505d8782523427517f998fdb9e12">ProtectParam</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">param</td><td>)</td>
+          <td>&#160;&#160;&#160;reserved.insert(QString(#param));</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The ProtectParam macro registers the flag named <code>param</code> as protected  ie it cannot be modified directly in a param editor (it will not appear).</p>
+<dl class="see"><dt><b>See also:</b></dt><dd>param, <a class="el" href="object_8h.html#a65a30247a861dc15363de8b7264e09a6">ProtectFlag</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ad1f082144869225c63b2194de68e2cd5"></a><!-- doxytag: member="object.h::SetFlag" ref="ad1f082144869225c63b2194de68e2cd5" args="(flag, value)" -->
 <div class="memitem">
 <div class="memproto">
@@ -912,7 +883,7 @@ public: \
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

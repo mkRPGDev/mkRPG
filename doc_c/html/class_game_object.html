@@ -80,6 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
@@ -109,7 +110,9 @@ Inheritance diagram for GameObject:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#ab00c537faf6eb4439c60003141a763b9">GameObject</a> (<a class="el" href="class_game.html">Game</a> *g=nullptr, <a class="el" href="class_game_object.html">GameObject</a> *parent=nullptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d1b763875224ef2a6977aa086ae0613"></a><!-- doxytag: member="GameObject::TypeName" ref="a2d1b763875224ef2a6977aa086ae0613" args="(GameObject) GameObject(Game *g" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_game_object.html">GameObject</a>) <a class="el" href="class_game_object.html">GameObject</a>(<a class="el" href="class_game.html">Game</a> *g</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#ab82dfdb656f9051c0587e6593b2dda97">~GameObject</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> (<a class="el" href="class_game.html">Game</a> *g, <a class="el" href="class_game_object.html">GameObject</a> *p)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a88676a10f8e905747f1d64c2da490524">isValid</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a4d84063c56c17bfdee8844eb3fa3445a">ident</a> () const </td></tr>
@@ -125,42 +128,47 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a3c4f7121e75a8340a32e20f16b63b412">hasFlag</a> (const QString &amp;f) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QList&lt; QString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#aa9a0d6ea1bd41e4d4a370d2f010ac533">flags</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a2130d5674df041b5a7eaf987f9b1e642">touch</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a815c7f587c0ae528614add95655d9a0a"></a><!-- doxytag: member="GameObject::addReference" ref="a815c7f587c0ae528614add95655d9a0a" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addReference</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68725fd75f55bc73bb44216406ce34e5"></a><!-- doxytag: member="GameObject::removeReference" ref="a68725fd75f55bc73bb44216406ce34e5" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>removeReference</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae34944b23d5d7d472d5c8da3f42fb2e3"></a><!-- doxytag: member="GameObject::setParent" ref="ae34944b23d5d7d472d5c8da3f42fb2e3" args="(GameObject *p)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setParent</b> (<a class="el" href="class_game_object.html">GameObject</a> *p)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a815c7f587c0ae528614add95655d9a0a">addReference</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a68725fd75f55bc73bb44216406ce34e5">removeReference</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#ae34944b23d5d7d472d5c8da3f42fb2e3">setParent</a> (<a class="el" href="class_game_object.html">GameObject</a> *p)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#ae928d2f18b5a26656ad41b7c27b463a7">setName</a> (const QString &amp;n)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const QString &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#aede5e0829a5fe107b1419bd62f03c132">name</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a6ac392d25a490bee17b653a374ec94fc">child</a> (const int &amp;i) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual QList&lt; <a class="el" href="class_game_object.html">GameObject</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">children</a> () const </td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a41d4afe43f955e78ede0bbd4ad8957f8">aParent</a> = nullptr)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4733a1081db3c2d0a9be225265283ad8"></a><!-- doxytag: member="GameObject::addChild" ref="a4733a1081db3c2d0a9be225265283ad8" args="(GameObject *c)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addChild</b> (<a class="el" href="class_game_object.html">GameObject</a> *c)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21dc679cb474b147b7d7d336117ffe58"></a><!-- doxytag: member="GameObject::removeChild" ref="a21dc679cb474b147b7d7d336117ffe58" args="(GameObject *c)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>removeChild</b> (<a class="el" href="class_game_object.html">GameObject</a> *c)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a4733a1081db3c2d0a9be225265283ad8">addChild</a> (<a class="el" href="class_game_object.html">GameObject</a> *c)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html#a21dc679cb474b147b7d7d336117ffe58">removeChild</a> (<a class="el" href="class_game_object.html">GameObject</a> *c)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4e57d5a3f8be6882e5d7f2a2e5d45ccd"></a><!-- doxytag: member="GameObject::childrenTouched" ref="a4e57d5a3f8be6882e5d7f2a2e5d45ccd" args="(const QDateTime &amp;d)" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>childrenTouched</b> (const QDateTime &amp;d)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05c00e0f34a146c91275fb67ce62dfcf"></a><!-- doxytag: member="GameObject::filter" ref="a05c00e0f34a146c91275fb67ce62dfcf" args="(QList&lt; QString &gt; l) const " -->
+QList&lt; QString &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>filter</b> (QList&lt; QString &gt; l) const </td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4113a496ed45ca90756cfa0d8dfe6171"></a><!-- doxytag: member="GameObject::parent" ref="a4113a496ed45ca90756cfa0d8dfe6171" args="" -->
-<a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a096e6989277570032586b162e5802181"></a><!-- doxytag: member="GameObject::children" ref="a096e6989277570032586b162e5802181" args="" -->
-QMap&lt; int, <a class="el" href="class_game_object.html">GameObject</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>children</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0f8f486901d9e799b8d171ad26742ad"></a><!-- doxytag: member="GameObject::aChildren" ref="ac0f8f486901d9e799b8d171ad26742ad" args="" -->
+QMap&lt; int, <a class="el" href="class_game_object.html">GameObject</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>aChildren</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a338ed91d0ad6aebe8a8d3adf8c75752b"></a><!-- doxytag: member="GameObject::game" ref="a338ed91d0ad6aebe8a8d3adf8c75752b" args="" -->
 <a class="el" href="class_game.html">Game</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>game</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98291c60da12d9036e1ad24cfebcf6b3"></a><!-- doxytag: member="GameObject::id" ref="a98291c60da12d9036e1ad24cfebcf6b3" args="" -->
-int&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1873810f18db1e1faecc04e0ab92c512"></a><!-- doxytag: member="GameObject::nbRef" ref="a1873810f18db1e1faecc04e0ab92c512" args="" -->
 int&#160;</td><td class="memItemRight" valign="bottom"><b>nbRef</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5ed36754a777ef648dd6831c0b1d6fb"></a><!-- doxytag: member="GameObject::aParams" ref="ab5ed36754a777ef648dd6831c0b1d6fb" args="" -->
 QMap&lt; QString, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>aParams</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ade46e4f590a01cab331d12d0da644625"></a><!-- doxytag: member="GameObject::aFlags" ref="ade46e4f590a01cab331d12d0da644625" args="" -->
 QMap&lt; QString, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>aFlags</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aad00b615f4d3c6d4d743ff2f8c27a359"></a><!-- doxytag: member="GameObject::aName" ref="aad00b615f4d3c6d4d743ff2f8c27a359" args="" -->
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>aName</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8e62a0d6755b2930090348622f482f6d"></a><!-- doxytag: member="GameObject::fileName" ref="a8e62a0d6755b2930090348622f482f6d" args="" -->
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>fileName</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1a61f57d5a318b86c4f2bbb4dbde78f"></a><!-- doxytag: member="GameObject::lastEdit" ref="ac1a61f57d5a318b86c4f2bbb4dbde78f" args="" -->
 QDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>lastEdit</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0a43c76fc9171015b43d008b5ffcbfd"></a><!-- doxytag: member="GameObject::lastChildEdit" ref="ae0a43c76fc9171015b43d008b5ffcbfd" args="" -->
 QDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>lastChildEdit</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66ba1ad1dca3c7b2ae424407fce76d66"></a><!-- doxytag: member="GameObject::reserved" ref="a66ba1ad1dca3c7b2ae424407fce76d66" args="" -->
+QSet&lt; QString &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>reserved</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> class is the base class for every part of games. </p>
@@ -173,40 +181,104 @@ QDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>lastChildEdit</b
 </ul>
 <dl class="note"><dt><b>Note:</b></dt><dd>If the changes that are made in the object have to be detected by display/edition widgets, the <a class="el" href="class_game_object.html#a2130d5674df041b5a7eaf987f9b1e642">touch</a> function should be called. </dd>
 <dd>
-To prevent the notification chain to be broken, the existing objects should always have a parent (except for the root object). This can be acheived using the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> or setParent method, when the parent have not been given in the constructor. (see <a class="el" href="object_8h.html">object.h</a> for details)</dd></dl>
+To prevent the notification chain to be broken, the existing objects should always have a parent (except for the root object). This can be acheived using the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> or <a class="el" href="class_game_object.html#ae34944b23d5d7d472d5c8da3f42fb2e3">setParent</a> method, when the parent have not been given in the constructor. (see <a class="el" href="object_8h.html">object.h</a> for details)</dd></dl>
 <p>## References count</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd></dd></dl>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ab00c537faf6eb4439c60003141a763b9"></a><!-- doxytag: member="GameObject::GameObject" ref="ab00c537faf6eb4439c60003141a763b9" args="(Game *g=nullptr, GameObject *parent=nullptr)" -->
+<a class="anchor" id="ab82dfdb656f9051c0587e6593b2dda97"></a><!-- doxytag: member="GameObject::~GameObject" ref="ab82dfdb656f9051c0587e6593b2dda97" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_game_object.html#ab00c537faf6eb4439c60003141a763b9">GameObject::GameObject</a> </td>
+          <td class="memname"><a class="el" href="class_game_object.html#ab82dfdb656f9051c0587e6593b2dda97">GameObject::~GameObject</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_game.html">Game</a> *&#160;</td>
-          <td class="paramname"><em>g</em> = <code>nullptr</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td>
-          <td class="paramname"><em>parent</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Constructs a new <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> with parent <code>parent</code> and the reference to the game <code>g</code>.</p>
-<dl class="note"><dt><b>Note:</b></dt><dd>If these objects cannot be given to the constructor (case of an array of objects), the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> method must be called after the creation to make the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> valid. </dd></dl>
+<p>The default destructor destroy every children of the instance </p>
 
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a4733a1081db3c2d0a9be225265283ad8"></a><!-- doxytag: member="GameObject::addChild" ref="a4733a1081db3c2d0a9be225265283ad8" args="(GameObject *c)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_game_object.html#a4733a1081db3c2d0a9be225265283ad8">GameObject::addChild</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Registers a new child.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a21dc679cb474b147b7d7d336117ffe58">removeChild</a>, <a class="el" href="class_game_object.html#a6ac392d25a490bee17b653a374ec94fc">child</a>, <a class="el" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">children</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a815c7f587c0ae528614add95655d9a0a"></a><!-- doxytag: member="GameObject::addReference" ref="a815c7f587c0ae528614add95655d9a0a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_game_object.html#a815c7f587c0ae528614add95655d9a0a">GameObject::addReference</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Increases the references counter</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a68725fd75f55bc73bb44216406ce34e5">removeReference</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6ac392d25a490bee17b653a374ec94fc"></a><!-- doxytag: member="GameObject::child" ref="a6ac392d25a490bee17b653a374ec94fc" args="(const int &amp;i) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_game_object.html">GameObject</a>* <a class="el" href="class_game_object.html#a6ac392d25a490bee17b653a374ec94fc">GameObject::child</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the child with identifier <code>i</code> if any.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">children</a>; </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3f68b64d3a0793048cfe5deab35397e0"></a><!-- doxytag: member="GameObject::children" ref="a3f68b64d3a0793048cfe5deab35397e0" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual QList&lt;<a class="el" href="class_game_object.html">GameObject</a>*&gt; <a class="el" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">GameObject::children</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the list of the instance's children.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a6ac392d25a490bee17b653a374ec94fc">child</a> </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_map.html#a939817aa7f5c9e81d3d2b1a42d9403e7">Map</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aa9a0d6ea1bd41e4d4a370d2f010ac533"></a><!-- doxytag: member="GameObject::flags" ref="aa9a0d6ea1bd41e4d4a370d2f010ac533" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -317,7 +389,7 @@ To prevent the notification chain to be broken, the existing objects should alwa
 </div>
 <div class="memdoc">
 <p>Returns the name wide unique identifier of the object.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a>, <a class="el" href="class_game_object.html#ab00c537faf6eb4439c60003141a763b9">GameObject</a> </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a>, GameObject </dd></dl>
 
 </div>
 </div>
@@ -346,7 +418,7 @@ To prevent the notification chain to be broken, the existing objects should alwa
 </div>
 <div class="memdoc">
 <p>Initialises the object in case it had been construct with a NULL pointer (array of objects)</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a88676a10f8e905747f1d64c2da490524">isValid</a>, <a class="el" href="class_game_object.html#ab00c537faf6eb4439c60003141a763b9">GameObject</a> </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a88676a10f8e905747f1d64c2da490524">isValid</a>, GameObject </dd></dl>
 
 </div>
 </div>
@@ -364,7 +436,7 @@ To prevent the notification chain to be broken, the existing objects should alwa
 </div>
 <div class="memdoc">
 <p>Returns true if the object has been initialised</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a>, <a class="el" href="class_game_object.html#ab00c537faf6eb4439c60003141a763b9">GameObject</a> </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a>, GameObject </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_image.html#a0bc052fef9ea98e416e11af385cd93b4">Image</a>.</p>
 
@@ -424,6 +496,24 @@ To prevent the notification chain to be broken, the existing objects should alwa
 
 </div>
 </div>
+<a class="anchor" id="aede5e0829a5fe107b1419bd62f03c132"></a><!-- doxytag: member="GameObject::name" ref="aede5e0829a5fe107b1419bd62f03c132" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QString&amp; <a class="el" href="class_game_object.html#aede5e0829a5fe107b1419bd62f03c132">GameObject::name</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the name of the object.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#ae928d2f18b5a26656ad41b7c27b463a7">setName</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a3e851f9aceb9e868a73dd58fe8e3719f"></a><!-- doxytag: member="GameObject::params" ref="a3e851f9aceb9e868a73dd58fe8e3719f" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -439,6 +529,62 @@ To prevent the notification chain to be broken, the existing objects should alwa
 <div class="memdoc">
 <p>Returns the list of the registered paramters</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a27de46b2b9b439755b1e57df51c35caf">getParam</a>, <a class="el" href="class_game_object.html#a28b8af7f399f1348a4f3130dd21173a1">setParam</a>, <a class="el" href="class_game_object.html#aa9a0d6ea1bd41e4d4a370d2f010ac533">flags</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af3deaf39cde23c189765634e32e95bb4"></a><!-- doxytag: member="GameObject::parent" ref="af3deaf39cde23c189765634e32e95bb4" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_game_object.html">GameObject</a>* <a class="el" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">GameObject::parent</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the parent of the object.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#ae34944b23d5d7d472d5c8da3f42fb2e3">setParent</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a21dc679cb474b147b7d7d336117ffe58"></a><!-- doxytag: member="GameObject::removeChild" ref="a21dc679cb474b147b7d7d336117ffe58" args="(GameObject *c)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_game_object.html#a21dc679cb474b147b7d7d336117ffe58">GameObject::removeChild</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Removes a child from the children list.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method does not destroy the child.</dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a4733a1081db3c2d0a9be225265283ad8">addChild</a>, <a class="el" href="class_game_object.html#a6ac392d25a490bee17b653a374ec94fc">child</a>, <a class="el" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">children</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a68725fd75f55bc73bb44216406ce34e5"></a><!-- doxytag: member="GameObject::removeReference" ref="a68725fd75f55bc73bb44216406ce34e5" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_game_object.html#a68725fd75f55bc73bb44216406ce34e5">GameObject::removeReference</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Decreases the references counter</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a815c7f587c0ae528614add95655d9a0a">addReference</a> </dd></dl>
 
 </div>
 </div>
@@ -472,6 +618,25 @@ To prevent the notification chain to be broken, the existing objects should alwa
 
 </div>
 </div>
+<a class="anchor" id="ae928d2f18b5a26656ad41b7c27b463a7"></a><!-- doxytag: member="GameObject::setName" ref="ae928d2f18b5a26656ad41b7c27b463a7" args="(const QString &amp;n)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_game_object.html#ae928d2f18b5a26656ad41b7c27b463a7">GameObject::setName</a> </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Defines the name of the object.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#aede5e0829a5fe107b1419bd62f03c132">name</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a28b8af7f399f1348a4f3130dd21173a1"></a><!-- doxytag: member="GameObject::setParam" ref="a28b8af7f399f1348a4f3130dd21173a1" args="(const QString &amp;p, int v)" -->
 <div class="memitem">
 <div class="memproto">
@@ -502,6 +667,25 @@ To prevent the notification chain to be broken, the existing objects should alwa
 
 </div>
 </div>
+<a class="anchor" id="ae34944b23d5d7d472d5c8da3f42fb2e3"></a><!-- doxytag: member="GameObject::setParent" ref="ae34944b23d5d7d472d5c8da3f42fb2e3" args="(GameObject *p)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_game_object.html#ae34944b23d5d7d472d5c8da3f42fb2e3">GameObject::setParent</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Defines the parent of the object.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a2130d5674df041b5a7eaf987f9b1e642"></a><!-- doxytag: member="GameObject::touch" ref="a2130d5674df041b5a7eaf987f9b1e642" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -520,6 +704,24 @@ To prevent the notification chain to be broken, the existing objects should alwa
 
 </div>
 </div>
+<hr/><h2>Field Documentation</h2>
+<a class="anchor" id="a41d4afe43f955e78ede0bbd4ad8957f8"></a><!-- doxytag: member="GameObject::aParent" ref="a41d4afe43f955e78ede0bbd4ad8957f8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_game_object.html">GameObject</a> * <a class="el" href="class_game_object.html#a41d4afe43f955e78ede0bbd4ad8957f8">GameObject::aParent</a> = nullptr)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructs a new <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> with parent <code>parent</code> and the reference to the game <code>g</code>.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>If these objects cannot be given to the constructor (case of an array of objects), the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> method must be called after the creation to make the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> valid. </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_object.html#a4b9173b5a9a1e5c313df5b574716037a">Object</a>, <a class="el" href="class_image.html#ae2af89a54e82c3002f0feb8a25ca714b">Image</a>, <a class="el" href="class_map.html#ac0d4bf203db2a4372ea6923729f978f1">Map</a>, <a class="el" href="class_cell.html#ab1ecd1ed6ff618f6a7195f817bc0cef2">Cell</a>, <a class="el" href="class_world.html#af24924a1b6c6596b1c0a293651ffccaf">World</a>, and <a class="el" href="class_cell_type.html#a7ac20d29216624b54218a54bde6593f2">CellType</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/editor/Game/<a class="el" href="object_8h_source.html">object.h</a></li>
 <li>src/editor/Game/object.cpp</li>
@@ -530,7 +732,7 @@ To prevent the notification chain to be broken, the existing objects should alwa
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_5f_5fdel_5f_5f',['__del__',['../classsrc_1_1client_1_1_client.html#aece67fa18be912de2d7e04840f63d161',1,'src::client::Client']]],
-  ['_5f_5finit_5f_5f',['__init__',['../classsrc_1_1network_1_1_network_server.html#a039e381f87c229e9158c452edb57b8a3',1,'src::network::NetworkServer.__init__()'],['../classsrc_1_1print_world_1_1_world_viewer.html#a7a2696805539e858a95ee4cf45eaf1c7',1,'src::printWorld::WorldViewer.__init__()'],['../classsrc_1_1utils_1_1_walkable_graph.html#a61fad39577edd7672f9ff090ed8be884',1,'src::utils::WalkableGraph.__init__()']]]
+  ['_5f_5fdel_5f_5f',['__del__',['../classclient_1_1_client.html#a81808356345d9f5b1c37200ce09a03cf',1,'client::Client']]],
+  ['_5f_5finit_5f_5f',['__init__',['../classinterface_1_1print_world_1_1_world_viewer.html#a29df52052f8f790a3e1308d102210186',1,'interface::printWorld::WorldViewer.__init__()'],['../classinterface_1_1utils_1_1_walkable_graph.html#ab278b45be983e6f0a0867e92f874bf9e',1,'interface::utils::WalkableGraph.__init__()'],['../classnetwork_1_1_network_server.html#aa9f159b48e22d2de684f20772d8f0fd2',1,'network::NetworkServer.__init__()']]]
 ];

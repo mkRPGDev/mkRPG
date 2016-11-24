@@ -9,6 +9,7 @@
 {\ttfamily \#include $<$\-Qt\-Core$>$}\*
 {\ttfamily \#include $<$\-Qt\-Gui$>$}\*
 {\ttfamily \#include $<$assert.\-h$>$}\*
+{\ttfamily \#include $<$algorithm$>$}\*
 \subsection*{\-Data \-Structures}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,9 +22,8 @@ class \hyperlink{class_object}{\-Object}
 \subsection*{\-Defines}
 \begin{DoxyCompactItemize}
 \item 
-\#define \hyperlink{object_8h_a6666417d2cf341574cfd7534b819e45d}{\-Objects\-Map\-C}(name, names, \-Type, \-Types, pref, arg)
-\item 
-\#define \hyperlink{object_8h_a36f4eef4198c2aec7010e22c6223d13d}{\-Objects\-Map}(pref, ini, \-Ini, body, sg, pl)~\hyperlink{object_8h_a6666417d2cf341574cfd7534b819e45d}{\-Objects\-Map\-C}(ini\#\#body\#\#sg, ini\#\#body\#\#pl, \-Ini\#\#body\#\#sg, \-Ini\#\#body\#\#pl, pref,ini)
+\hypertarget{object_8h_a9c09ffbe0bea5710ddb0f2bba0c605ae}{\#define {\bfseries \-Type\-Name}(\-Type)~virtual \-Q\-String type\-Name() const\{return \-Q\-String(\#\-Type);\}}\label{object_8h_a9c09ffbe0bea5710ddb0f2bba0c605ae}
+
 \item 
 \hypertarget{object_8h_aa4e4db36d846a9d6dff95def8d7507c3}{\#define {\bfseries \-Object\-List\-Def}(\-Objects, \-Type)~private\-: \-Q\-Map$<$int, \-Type$\ast$$>$ a\#\#\-Objects; public\-:}\label{object_8h_aa4e4db36d846a9d6dff95def8d7507c3}
 
@@ -58,6 +58,8 @@ class \hyperlink{class_object}{\-Object}
 \item 
 \#define \hyperlink{object_8h_a4f05201336d20b10dad322cfbd30c0af}{\-C1}(\-Macro, init, \-Init, body, arg)~\-Macro(init\#\#body, \-Init\#\#body, arg)
 \item 
+\#define \hyperlink{object_8h_a65a30247a861dc15363de8b7264e09a6}{\-Protect\-Flag}(flag)~reserved.\-insert(\-Q\-String(\#flag));
+\item 
 \#define \hyperlink{object_8h_ad1f082144869225c63b2194de68e2cd5}{\-Set\-Flag}(flag, value)~a\-Flags\mbox{[}\#flag\mbox{]} = value
 \item 
 \#define \hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{\-Flag\-Getter}(flag, \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag})~inline bool is\#\#\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag}() const\{return a\-Flags\mbox{[}\#flag\mbox{]};\}
@@ -65,6 +67,8 @@ class \hyperlink{class_object}{\-Object}
 \#define \hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{\-Flag\-Setter}(flag, \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag})~inline void set\#\#\hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag}(bool flag)\{\hyperlink{object_8h_ad1f082144869225c63b2194de68e2cd5}{\-Set\-Flag}(flag,flag); touch();\}
 \item 
 \#define \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag}(flag, \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag})~\hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{\-Flag\-Getter}(flag, \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag}) \hyperlink{object_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{\-Flag\-Setter}(flag, \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag})
+\item 
+\#define \hyperlink{object_8h_a444f505d8782523427517f998fdb9e12}{\-Protect\-Param}(param)~reserved.\-insert(\-Q\-String(\#param));
 \item 
 \#define \hyperlink{object_8h_a7ea6e146fa4b193d62fdb8c53bd27c09}{\-Set\-Param}(param, value)~a\-Params\mbox{[}\#param\mbox{]} = value
 \item 
@@ -76,13 +80,11 @@ class \hyperlink{class_object}{\-Object}
 \item 
 \#define \hyperlink{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{\-Attr\-Getter}(attr, \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}, \-Type)~inline \-Type$\ast$ attr() const\{return a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr};\}
 \item 
-\hypertarget{object_8h_af7f0444b589b5ad4d64229ffbfb5437b}{\#define {\bfseries \-Attr\-Free}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr})~if(a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}) a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}-\/$>$remove\-Reference();}\label{object_8h_af7f0444b589b5ad4d64229ffbfb5437b}
-
+\#define \hyperlink{object_8h_af7f0444b589b5ad4d64229ffbfb5437b}{\-Attr\-Free}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr})~if(a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}) a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}-\/$>$remove\-Reference();
 \item 
-\hypertarget{object_8h_a509cabc64fe810c7b9f860b56b5cf59b}{\#define {\bfseries \-Attr\-Link}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr})~if(a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}) a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}-\/$>$add\-Reference();}\label{object_8h_a509cabc64fe810c7b9f860b56b5cf59b}
-
+\#define \hyperlink{object_8h_a509cabc64fe810c7b9f860b56b5cf59b}{\-Attr\-Link}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr})~if(a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}) a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}-\/$>$add\-Reference();
 \item 
-\#define \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{\-Attr\-Setter}(attr, \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}, \-Type)~inline void set\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}(\-Type$\ast$ new\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr})\{\-Attr\-Free(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}); a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr} = new\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}; \-Attr\-Link(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}); touch();\}
+\#define \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{\-Attr\-Setter}(attr, \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}, \-Type)~inline void set\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}(\-Type$\ast$ new\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr})\{\hyperlink{object_8h_af7f0444b589b5ad4d64229ffbfb5437b}{\-Attr\-Free}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}); a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr} = new\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}; \hyperlink{object_8h_a509cabc64fe810c7b9f860b56b5cf59b}{\-Attr\-Link}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}); touch();\}
 \item 
 \#define \hyperlink{object_8h_a9af19ccbd1471e4daaa056e495734fe5}{\-Attr\-Def}(\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}, \-Type)~private\-: \-Type$\ast$ a\#\#\hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr} = nullptr; public\-:
 \item 
@@ -95,7 +97,17 @@ class \hyperlink{class_object}{\-Object}
 \subsection{\-Detailed \-Description}
 \-Definition of the base class \hyperlink{class_game_object}{\-Game\-Object}, and some inherited classes. \#\# \-The objects structure
 
+\#\#\# \-Inheritance and parent
+
+\-Each class which is part of game representation has to inherit from \hyperlink{class_game_object}{\-Game\-Object}. \-It gives the class standard params and flags mechanisms that are used for edition purposes.
+
+\-Each instance must have a parent (except the \hyperlink{class_game}{\-Game} one) which will keep an eye on his children. \-If the parent cannot be given at the construction time (case or array)s, the init function must then be called as soon as possible.
+
+\#\#\# \-Reference count
+
 \#\#\# \-Objects destructors
+
+\-A default implementation of \hyperlink{class_game_object}{\-Game\-Object} destructor is provided. \-It destroy every children the instance has. \-This avoid fastidious destructor implementation.
 
 \#\# \-The \-Macro \-System
 
@@ -199,6 +211,18 @@ $\ast$$\ast$\-The case of attributes$\ast$$\ast$
 \begin{DoxySeeAlso}{\-See also}
 \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr} 
 \end{DoxySeeAlso}
+\hypertarget{object_8h_af7f0444b589b5ad4d64229ffbfb5437b}{\index{object.\-h@{object.\-h}!\-Attr\-Free@{\-Attr\-Free}}
+\index{\-Attr\-Free@{\-Attr\-Free}!object.h@{object.\-h}}
+\subsubsection[{\-Attr\-Free}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Attr\-Free}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf \-Attr}}
+\end{DoxyParamCaption}
+)~if(a\#\#{\bf \-Attr}) a\#\#{\bf \-Attr}-\/$>$remove\-Reference();}}\label{object_8h_af7f0444b589b5ad4d64229ffbfb5437b}
+\-The \-Attr\-Free macro decrease the number of references of the \hyperlink{class_game_object}{\-Game\-Object} attribut attr. \-It should be used before the deletion/modifcation of the pointer.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{object_8h_a509cabc64fe810c7b9f860b56b5cf59b}{\-Attr\-Link} 
+\end{DoxySeeAlso}
 \hypertarget{object_8h_abb51a31972a5cd870c4d8f4f3eada448}{\index{object.\-h@{object.\-h}!\-Attr\-Getter@{\-Attr\-Getter}}
 \index{\-Attr\-Getter@{\-Attr\-Getter}!object.h@{object.\-h}}
 \subsubsection[{\-Attr\-Getter}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Attr\-Getter}(
@@ -221,6 +245,18 @@ $\ast$$\ast$\-The case of attributes$\ast$$\ast$
  \begin{DoxySeeAlso}{\-See also}
 \hyperlink{object_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr}, \hyperlink{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{\-Attr\-Setter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{\-C} 
 \end{DoxySeeAlso}
+\hypertarget{object_8h_a509cabc64fe810c7b9f860b56b5cf59b}{\index{object.\-h@{object.\-h}!\-Attr\-Link@{\-Attr\-Link}}
+\index{\-Attr\-Link@{\-Attr\-Link}!object.h@{object.\-h}}
+\subsubsection[{\-Attr\-Link}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Attr\-Link}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf \-Attr}}
+\end{DoxyParamCaption}
+)~if(a\#\#{\bf \-Attr}) a\#\#{\bf \-Attr}-\/$>$add\-Reference();}}\label{object_8h_a509cabc64fe810c7b9f860b56b5cf59b}
+\-The \-Attr\-Link macro increase the number of references of the \hyperlink{class_game_object}{\-Game\-Object} attribut attr. \-It should be used before the saving of a pointer as an attribute.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{object_8h_af7f0444b589b5ad4d64229ffbfb5437b}{\-Attr\-Free} 
+\end{DoxySeeAlso}
 \hypertarget{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}{\index{object.\-h@{object.\-h}!\-Attr\-Setter@{\-Attr\-Setter}}
 \index{\-Attr\-Setter@{\-Attr\-Setter}!object.h@{object.\-h}}
 \subsubsection[{\-Attr\-Setter}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Attr\-Setter}(
@@ -229,7 +265,7 @@ $\ast$$\ast$\-The case of attributes$\ast$$\ast$
 \item[{}]{{\bf \-Attr}, }
 \item[{}]{\-Type}
 \end{DoxyParamCaption}
-)~inline void set\#\#{\bf \-Attr}(\-Type$\ast$ new\#\#{\bf \-Attr})\{\-Attr\-Free({\bf \-Attr}); a\#\#{\bf \-Attr} = new\#\#{\bf \-Attr}; \-Attr\-Link({\bf \-Attr}); touch();\}}}\label{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}
+)~inline void set\#\#{\bf \-Attr}(\-Type$\ast$ new\#\#{\bf \-Attr})\{{\bf \-Attr\-Free}({\bf \-Attr}); a\#\#{\bf \-Attr} = new\#\#{\bf \-Attr}; {\bf \-Attr\-Link}({\bf \-Attr}); touch();\}}}\label{object_8h_a076a8c1470b0de69b7dfdf442d9ed949}
 \-The \-Attr\-Setter macro defines a generic setter method for the attribute named {\ttfamily attr} of type {\ttfamily \-Type}.
 
 \-With respect to the \hyperlink{object_8h}{name convention}, this macro needs the attribute's name with lower and upper initial letter case.
@@ -425,45 +461,6 @@ $\ast$$\ast$\-The case of attributes$\ast$$\ast$
  \begin{DoxySeeAlso}{\-See also}
 \hyperlink{object_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag}, \hyperlink{object_8h_afde5dda87eae392282bcbae5db29ca2a}{\-Flag\-Getter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{\-C} 
 \end{DoxySeeAlso}
-\hypertarget{object_8h_a36f4eef4198c2aec7010e22c6223d13d}{\index{object.\-h@{object.\-h}!\-Objects\-Map@{\-Objects\-Map}}
-\index{\-Objects\-Map@{\-Objects\-Map}!object.h@{object.\-h}}
-\subsubsection[{\-Objects\-Map}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Objects\-Map}(
-\begin{DoxyParamCaption}
-\item[{}]{pref, }
-\item[{}]{ini, }
-\item[{}]{\-Ini, }
-\item[{}]{body, }
-\item[{}]{sg, }
-\item[{}]{pl}
-\end{DoxyParamCaption}
-)~{\bf \-Objects\-Map\-C}(ini\#\#body\#\#sg, ini\#\#body\#\#pl, \-Ini\#\#body\#\#sg, \-Ini\#\#body\#\#pl, pref,ini)}}\label{object_8h_a36f4eef4198c2aec7010e22c6223d13d}
-\begin{DoxyRefDesc}{\-Deprecated}
-\item[\hyperlink{deprecated__deprecated000002}{\-Deprecated}]\end{DoxyRefDesc}
-\hypertarget{object_8h_a6666417d2cf341574cfd7534b819e45d}{\index{object.\-h@{object.\-h}!\-Objects\-Map\-C@{\-Objects\-Map\-C}}
-\index{\-Objects\-Map\-C@{\-Objects\-Map\-C}!object.h@{object.\-h}}
-\subsubsection[{\-Objects\-Map\-C}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Objects\-Map\-C}(
-\begin{DoxyParamCaption}
-\item[{}]{name, }
-\item[{}]{names, }
-\item[{}]{\-Type, }
-\item[{}]{\-Types, }
-\item[{}]{pref, }
-\item[{}]{arg}
-\end{DoxyParamCaption}
-)}}\label{object_8h_a6666417d2cf341574cfd7534b819e45d}
-{\bfseries \-Value\-:}
-\begin{DoxyCode}
-private: \
-    QMap<int, Type*> pref##Types; \
-public: \
-    void add##Type(Type* arg){pref##Types[arg->ident()] = arg; touch();} \
-    void remove##Type(Type* arg){if(pref##Types.contains(arg->ident()))pref##
-      Types.remove(arg->ident()); touch();} \
-    inline Type* name(int id) const{return pref##Types.value(id, nullptr);} \
-    inline QList<Type*> names() const{return pref##Types.values();}
-\end{DoxyCode}
-\begin{DoxyRefDesc}{\-Deprecated}
-\item[\hyperlink{deprecated__deprecated000001}{\-Deprecated}]\end{DoxyRefDesc}
 \hypertarget{object_8h_ac2415051beaa606375358688bcb8ff37}{\index{object.\-h@{object.\-h}!\-Param@{\-Param}}
 \index{\-Param@{\-Param}!object.h@{object.\-h}}
 \subsubsection[{\-Param}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Param}(
@@ -529,6 +526,30 @@ public: \
 \end{DoxyCode}
  \begin{DoxySeeAlso}{\-See also}
 \hyperlink{object_8h_ac2415051beaa606375358688bcb8ff37}{\-Param}, \hyperlink{object_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{\-Param\-Getter}, \hyperlink{object_8h_af50e2bbaaebe8da60a8d514fca706273}{\-C} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a65a30247a861dc15363de8b7264e09a6}{\index{object.\-h@{object.\-h}!\-Protect\-Flag@{\-Protect\-Flag}}
+\index{\-Protect\-Flag@{\-Protect\-Flag}!object.h@{object.\-h}}
+\subsubsection[{\-Protect\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Protect\-Flag}(
+\begin{DoxyParamCaption}
+\item[{}]{flag}
+\end{DoxyParamCaption}
+)~reserved.\-insert(\-Q\-String(\#flag));}}\label{object_8h_a65a30247a861dc15363de8b7264e09a6}
+\-The \-Protect\-Flag macro registers the flag named {\ttfamily flag} as protected  ie it cannot be modified directly in a flag editor (it will not appear).
+
+\begin{DoxySeeAlso}{\-See also}
+flag, \hyperlink{object_8h_a444f505d8782523427517f998fdb9e12}{\-Protect\-Param} 
+\end{DoxySeeAlso}
+\hypertarget{object_8h_a444f505d8782523427517f998fdb9e12}{\index{object.\-h@{object.\-h}!\-Protect\-Param@{\-Protect\-Param}}
+\index{\-Protect\-Param@{\-Protect\-Param}!object.h@{object.\-h}}
+\subsubsection[{\-Protect\-Param}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Protect\-Param}(
+\begin{DoxyParamCaption}
+\item[{}]{param}
+\end{DoxyParamCaption}
+)~reserved.\-insert(\-Q\-String(\#param));}}\label{object_8h_a444f505d8782523427517f998fdb9e12}
+\-The \-Protect\-Param macro registers the flag named {\ttfamily param} as protected  ie it cannot be modified directly in a param editor (it will not appear).
+
+\begin{DoxySeeAlso}{\-See also}
+param, \hyperlink{object_8h_a65a30247a861dc15363de8b7264e09a6}{\-Protect\-Flag} 
 \end{DoxySeeAlso}
 \hypertarget{object_8h_ad1f082144869225c63b2194de68e2cd5}{\index{object.\-h@{object.\-h}!\-Set\-Flag@{\-Set\-Flag}}
 \index{\-Set\-Flag@{\-Set\-Flag}!object.h@{object.\-h}}

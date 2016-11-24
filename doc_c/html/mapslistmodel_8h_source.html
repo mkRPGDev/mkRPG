@@ -130,45 +130,49 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00061"></a>00061 {
 <a name="l00062"></a>00062     Q_OBJECT
 <a name="l00063"></a>00063 <span class="keyword">public</span>:
-<a name="l00064"></a>00064     <span class="keyword">explicit</span> <a class="code" href="class_object_param_table_model.html">ObjectParamTableModel</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *obj, QObject *parent = 0);
-<a name="l00065"></a>00065     <span class="keywordtype">int</span> rowCount(<span class="keyword">const</span> QModelIndex &amp;parent) <span class="keyword">const</span> Q_DECL_OVERRIDE;
-<a name="l00066"></a>00066     <span class="keywordtype">int</span> columnCount(<span class="keyword">const</span> QModelIndex &amp;parent) <span class="keyword">const</span> Q_DECL_OVERRIDE;
-<a name="l00067"></a>00067     QVariant data(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keywordtype">int</span> role) <span class="keyword">const</span> Q_DECL_OVERRIDE;
-<a name="l00068"></a>00068     Qt::ItemFlags flags(<span class="keyword">const</span> QModelIndex &amp;index) <span class="keyword">const</span>;
-<a name="l00069"></a>00069     <span class="keywordtype">bool</span> setData(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keyword">const</span> QVariant &amp;value, <span class="keywordtype">int</span> role);
-<a name="l00070"></a>00070     QVariant headerData(<span class="keywordtype">int</span> section, Qt::Orientation orientation, <span class="keywordtype">int</span> role) <span class="keyword">const</span>;
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073 <span class="keyword">private</span>:
-<a name="l00074"></a>00074     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *obj;
-<a name="l00075"></a>00075 };
-<a name="l00076"></a>00076 
-<a name="l00077"></a><a class="code" href="class_object_flag_table_model.html">00077</a> <span class="keyword">class </span><a class="code" href="class_object_flag_table_model.html">ObjectFlagTableModel</a> : <span class="keyword">public</span> QAbstractTableModel
-<a name="l00078"></a>00078 {
-<a name="l00079"></a>00079     Q_OBJECT
-<a name="l00080"></a>00080 <span class="keyword">public</span>:
-<a name="l00081"></a>00081     <span class="keyword">explicit</span> <a class="code" href="class_object_flag_table_model.html">ObjectFlagTableModel</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *obj, QObject *parent = 0);
-<a name="l00082"></a>00082     <span class="keywordtype">int</span> rowCount(<span class="keyword">const</span> QModelIndex &amp;parent) <span class="keyword">const</span> Q_DECL_OVERRIDE;
-<a name="l00083"></a>00083     <span class="keywordtype">int</span> columnCount(<span class="keyword">const</span> QModelIndex &amp;parent) <span class="keyword">const</span> Q_DECL_OVERRIDE;
-<a name="l00084"></a>00084     QVariant data(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keywordtype">int</span> role) <span class="keyword">const</span> Q_DECL_OVERRIDE;
-<a name="l00085"></a>00085     Qt::ItemFlags flags(<span class="keyword">const</span> QModelIndex &amp;index) <span class="keyword">const</span>;
-<a name="l00086"></a>00086     <span class="keywordtype">bool</span> setData(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keyword">const</span> QVariant &amp;value, <span class="keywordtype">int</span> role);
-<a name="l00087"></a>00087     QVariant headerData(<span class="keywordtype">int</span> section, Qt::Orientation orientation, <span class="keywordtype">int</span> role) <span class="keyword">const</span>;
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090 <span class="keyword">private</span>:
-<a name="l00091"></a>00091     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *obj;
-<a name="l00092"></a>00092 };
+<a name="l00064"></a>00064     <span class="keyword">explicit</span> <a class="code" href="class_object_param_table_model.html">ObjectParamTableModel</a>(QObject *parent = 0);
+<a name="l00065"></a>00065     <span class="keyword">explicit</span> <a class="code" href="class_object_param_table_model.html">ObjectParamTableModel</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *obj, QObject *parent = 0);
+<a name="l00066"></a>00066     <span class="keywordtype">int</span> rowCount(<span class="keyword">const</span> QModelIndex &amp;parent) <span class="keyword">const</span> Q_DECL_OVERRIDE;
+<a name="l00067"></a>00067     <span class="keywordtype">int</span> columnCount(<span class="keyword">const</span> QModelIndex &amp;parent) <span class="keyword">const</span> Q_DECL_OVERRIDE;
+<a name="l00068"></a>00068     QVariant data(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keywordtype">int</span> role) <span class="keyword">const</span> Q_DECL_OVERRIDE;
+<a name="l00069"></a>00069     Qt::ItemFlags flags(<span class="keyword">const</span> QModelIndex &amp;index) <span class="keyword">const</span>;
+<a name="l00070"></a>00070     <span class="keywordtype">bool</span> setData(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keyword">const</span> QVariant &amp;value, <span class="keywordtype">int</span> role);
+<a name="l00071"></a>00071     QVariant headerData(<span class="keywordtype">int</span> section, Qt::Orientation orientation, <span class="keywordtype">int</span> role) <span class="keyword">const</span>;
+<a name="l00072"></a>00072     <span class="keywordtype">void</span> setObject(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *o);
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075 <span class="keyword">private</span>:
+<a name="l00076"></a>00076     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *obj;
+<a name="l00077"></a>00077 };
+<a name="l00078"></a>00078 
+<a name="l00079"></a><a class="code" href="class_object_flag_table_model.html">00079</a> <span class="keyword">class </span><a class="code" href="class_object_flag_table_model.html">ObjectFlagTableModel</a> : <span class="keyword">public</span> QAbstractTableModel
+<a name="l00080"></a>00080 {
+<a name="l00081"></a>00081     Q_OBJECT
+<a name="l00082"></a>00082 <span class="keyword">public</span>:
+<a name="l00083"></a>00083     <span class="keyword">explicit</span> <a class="code" href="class_object_flag_table_model.html">ObjectFlagTableModel</a>(QObject *parent = 0);
+<a name="l00084"></a>00084     <span class="keyword">explicit</span> <a class="code" href="class_object_flag_table_model.html">ObjectFlagTableModel</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *obj, QObject *parent = 0);
+<a name="l00085"></a>00085     <span class="keywordtype">int</span> rowCount(<span class="keyword">const</span> QModelIndex &amp;parent) <span class="keyword">const</span> Q_DECL_OVERRIDE;
+<a name="l00086"></a>00086     <span class="keywordtype">int</span> columnCount(<span class="keyword">const</span> QModelIndex &amp;parent) <span class="keyword">const</span> Q_DECL_OVERRIDE;
+<a name="l00087"></a>00087     QVariant data(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keywordtype">int</span> role) <span class="keyword">const</span> Q_DECL_OVERRIDE;
+<a name="l00088"></a>00088     Qt::ItemFlags flags(<span class="keyword">const</span> QModelIndex &amp;index) <span class="keyword">const</span>;
+<a name="l00089"></a>00089     <span class="keywordtype">bool</span> setData(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keyword">const</span> QVariant &amp;value, <span class="keywordtype">int</span> role);
+<a name="l00090"></a>00090     QVariant headerData(<span class="keywordtype">int</span> section, Qt::Orientation orientation, <span class="keywordtype">int</span> role) <span class="keyword">const</span>;
+<a name="l00091"></a>00091     <span class="keywordtype">void</span> setObject(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *o);
+<a name="l00092"></a>00092 
 <a name="l00093"></a>00093 
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095 <span class="preprocessor">#endif // MAPSLISTMODEL_H</span>
+<a name="l00094"></a>00094 <span class="keyword">private</span>:
+<a name="l00095"></a>00095     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *obj;
+<a name="l00096"></a>00096 };
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 <span class="preprocessor">#endif // MAPSLISTMODEL_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

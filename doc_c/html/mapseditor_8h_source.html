@@ -84,46 +84,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MAPSEDITOR_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;ui_mapseditor.h&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;celltypesdock.h&quot;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;selectiondock.h&quot;</span>
-<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;celldock.h&quot;</span>
-<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;mapdock.h&quot;</span>
-<a name="l00009"></a>00009 
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;tabwidget.h&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;celltypesdock.h&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;selectiondock.h&quot;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;celldock.h&quot;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;mapdock.h&quot;</span>
 <a name="l00010"></a>00010 
-<a name="l00017"></a><a class="code" href="class_maps_editor.html">00017</a> <span class="keyword">class </span><a class="code" href="class_maps_editor.html" title="The MapsEditor class is the tab offering map editing facilities.">MapsEditor</a> : <span class="keyword">public</span> QWidget, <span class="keyword">private</span> Ui::<a class="code" href="class_maps_editor.html" title="The MapsEditor class is the tab offering map editing facilities.">MapsEditor</a>
-<a name="l00018"></a>00018 {
-<a name="l00019"></a>00019     Q_OBJECT
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021 <span class="keyword">public</span>:
-<a name="l00022"></a>00022     <span class="keyword">explicit</span> <a class="code" href="class_maps_editor.html" title="The MapsEditor class is the tab offering map editing facilities.">MapsEditor</a>(QWidget *parent = 0);
-<a name="l00023"></a>00023     <span class="keywordtype">void</span> setGame(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>* g);
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025 <span class="keyword">public</span> slots:
-<a name="l00026"></a>00026     <span class="keywordtype">void</span> updateGame();
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028 <span class="keyword">private</span> slots:
-<a name="l00029"></a>00029     <span class="keywordtype">void</span> mapSizeChanged(QSize s);
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> viewCenterChanged(QPoint p);
-<a name="l00031"></a>00031     <span class="keywordtype">void</span> viewSizeChanged(QSize s);
-<a name="l00032"></a>00032     <span class="keywordtype">void</span> on_mapHScrollBar_valueChanged(<span class="keywordtype">int</span>);
-<a name="l00033"></a>00033     <span class="keywordtype">void</span> on_mapVScrollBar_valueChanged(<span class="keywordtype">int</span>);
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035 <span class="keyword">private</span>:
-<a name="l00036"></a>00036     <span class="keywordtype">void</span> checkScrollBarUtility();
-<a name="l00037"></a>00037     <span class="keywordtype">void</span> updateViewCenterPosition();
-<a name="l00038"></a>00038     <a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *game;
-<a name="l00039"></a>00039     <a class="code" href="class_map.html" title="The Map class.">Map</a> *currentMap;
-<a name="l00040"></a>00040     QList&lt;BDockWidget*&gt; docksW;
-<a name="l00041"></a>00041 };
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 <span class="preprocessor">#endif // MAPSEDITOR_H</span>
+<a name="l00011"></a>00011 
+<a name="l00018"></a><a class="code" href="class_maps_editor.html">00018</a> <span class="keyword">class </span><a class="code" href="class_maps_editor.html" title="The MapsEditor class is the tab offering map editing facilities.">MapsEditor</a> : <span class="keyword">public</span> <a class="code" href="class_tab_widget.html">TabWidget</a>, <span class="keyword">private</span> Ui::<a class="code" href="class_maps_editor.html" title="The MapsEditor class is the tab offering map editing facilities.">MapsEditor</a>
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020     Q_OBJECT
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="keyword">public</span>:
+<a name="l00023"></a>00023     <span class="keyword">explicit</span> <a class="code" href="class_maps_editor.html" title="The MapsEditor class is the tab offering map editing facilities.">MapsEditor</a>(QWidget *parent = 0);
+<a name="l00024"></a>00024     <span class="keywordtype">void</span> setGame(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>* g);
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026 <span class="keyword">public</span> slots:
+<a name="l00027"></a>00027     <span class="keywordtype">void</span> updateGame();
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="keyword">private</span> slots:
+<a name="l00030"></a>00030     <span class="keywordtype">void</span> mapSizeChanged(QSize s);
+<a name="l00031"></a>00031     <span class="keywordtype">void</span> viewCenterChanged(QPoint p);
+<a name="l00032"></a>00032     <span class="keywordtype">void</span> viewSizeChanged(QSize s);
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> on_mapHScrollBar_valueChanged(<span class="keywordtype">int</span>);
+<a name="l00034"></a>00034     <span class="keywordtype">void</span> on_mapVScrollBar_valueChanged(<span class="keywordtype">int</span>);
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">private</span>:
+<a name="l00038"></a>00038     <span class="keywordtype">void</span> checkScrollBarUtility();
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> updateViewCenterPosition();
+<a name="l00040"></a>00040     <a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *game;
+<a name="l00041"></a>00041     <a class="code" href="class_map.html" title="The Map class.">Map</a> *currentMap;
+<a name="l00042"></a>00042     QList&lt;BDockWidget*&gt; docksW;
+<a name="l00043"></a>00043 };
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 <span class="preprocessor">#endif // MAPSEDITOR_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

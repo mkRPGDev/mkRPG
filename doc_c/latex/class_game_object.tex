@@ -19,7 +19,10 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{\-Game\-Object} (\hyperlink{class_game}{\-Game} $\ast$g=nullptr, \hyperlink{class_game_object}{\-Game\-Object} $\ast$parent=nullptr)
+\hypertarget{class_game_object_a2d1b763875224ef2a6977aa086ae0613}{{\bfseries \-Type\-Name} (\hyperlink{class_game_object}{\-Game\-Object}) \hyperlink{class_game_object}{\-Game\-Object}(\hyperlink{class_game}{\-Game} $\ast$g}\label{class_game_object_a2d1b763875224ef2a6977aa086ae0613}
+
+\item 
+virtual \hyperlink{class_game_object_ab82dfdb656f9051c0587e6593b2dda97}{$\sim$\-Game\-Object} ()
 \item 
 void \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} (\hyperlink{class_game}{\-Game} $\ast$g, \hyperlink{class_game_object}{\-Game\-Object} $\ast$p)
 \item 
@@ -51,40 +54,47 @@ bool \hyperlink{class_game_object_a3c4f7121e75a8340a32e20f16b63b412}{has\-Flag} 
 \item 
 void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \item 
-\hypertarget{class_game_object_a815c7f587c0ae528614add95655d9a0a}{void {\bfseries add\-Reference} ()}\label{class_game_object_a815c7f587c0ae528614add95655d9a0a}
-
+void \hyperlink{class_game_object_a815c7f587c0ae528614add95655d9a0a}{add\-Reference} ()
 \item 
-\hypertarget{class_game_object_a68725fd75f55bc73bb44216406ce34e5}{void {\bfseries remove\-Reference} ()}\label{class_game_object_a68725fd75f55bc73bb44216406ce34e5}
-
+void \hyperlink{class_game_object_a68725fd75f55bc73bb44216406ce34e5}{remove\-Reference} ()
 \item 
-\hypertarget{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3}{void {\bfseries set\-Parent} (\hyperlink{class_game_object}{\-Game\-Object} $\ast$p)}\label{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3}
-
+void \hyperlink{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3}{set\-Parent} (\hyperlink{class_game_object}{\-Game\-Object} $\ast$p)
+\item 
+\hyperlink{class_game_object}{\-Game\-Object} $\ast$ \hyperlink{class_game_object_af3deaf39cde23c189765634e32e95bb4}{parent} () const 
+\item 
+void \hyperlink{class_game_object_ae928d2f18b5a26656ad41b7c27b463a7}{set\-Name} (const \-Q\-String \&n)
+\item 
+const \-Q\-String \& \hyperlink{class_game_object_aede5e0829a5fe107b1419bd62f03c132}{name} () const 
+\item 
+virtual \hyperlink{class_game_object}{\-Game\-Object} $\ast$ \hyperlink{class_game_object_a6ac392d25a490bee17b653a374ec94fc}{child} (const int \&i) const 
+\item 
+virtual \-Q\-List$<$ \hyperlink{class_game_object}{\-Game\-Object} $\ast$ $>$ \hyperlink{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{children} () const 
+\end{DoxyCompactItemize}
+\subsection*{\-Data \-Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_game_object}{\-Game\-Object} $\ast$ \hyperlink{class_game_object_a41d4afe43f955e78ede0bbd4ad8957f8}{a\-Parent} = nullptr)
 \end{DoxyCompactItemize}
 \subsection*{\-Protected \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_game_object_a4733a1081db3c2d0a9be225265283ad8}{void {\bfseries add\-Child} (\hyperlink{class_game_object}{\-Game\-Object} $\ast$c)}\label{class_game_object_a4733a1081db3c2d0a9be225265283ad8}
-
+void \hyperlink{class_game_object_a4733a1081db3c2d0a9be225265283ad8}{add\-Child} (\hyperlink{class_game_object}{\-Game\-Object} $\ast$c)
 \item 
-\hypertarget{class_game_object_a21dc679cb474b147b7d7d336117ffe58}{void {\bfseries remove\-Child} (\hyperlink{class_game_object}{\-Game\-Object} $\ast$c)}\label{class_game_object_a21dc679cb474b147b7d7d336117ffe58}
-
+void \hyperlink{class_game_object_a21dc679cb474b147b7d7d336117ffe58}{remove\-Child} (\hyperlink{class_game_object}{\-Game\-Object} $\ast$c)
 \item 
 \hypertarget{class_game_object_a4e57d5a3f8be6882e5d7f2a2e5d45ccd}{void {\bfseries children\-Touched} (const \-Q\-Date\-Time \&d)}\label{class_game_object_a4e57d5a3f8be6882e5d7f2a2e5d45ccd}
+
+\item 
+\hypertarget{class_game_object_a05c00e0f34a146c91275fb67ce62dfcf}{\-Q\-List$<$ \-Q\-String $>$ {\bfseries filter} (\-Q\-List$<$ \-Q\-String $>$ l) const }\label{class_game_object_a05c00e0f34a146c91275fb67ce62dfcf}
 
 \end{DoxyCompactItemize}
 \subsection*{\-Protected \-Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_game_object_a4113a496ed45ca90756cfa0d8dfe6171}{\hyperlink{class_game_object}{\-Game\-Object} $\ast$ {\bfseries parent}}\label{class_game_object_a4113a496ed45ca90756cfa0d8dfe6171}
-
-\item 
-\hypertarget{class_game_object_a096e6989277570032586b162e5802181}{\-Q\-Map$<$ int, \hyperlink{class_game_object}{\-Game\-Object} $\ast$ $>$ {\bfseries children}}\label{class_game_object_a096e6989277570032586b162e5802181}
+\hypertarget{class_game_object_ac0f8f486901d9e799b8d171ad26742ad}{\-Q\-Map$<$ int, \hyperlink{class_game_object}{\-Game\-Object} $\ast$ $>$ {\bfseries a\-Children}}\label{class_game_object_ac0f8f486901d9e799b8d171ad26742ad}
 
 \item 
 \hypertarget{class_game_object_a338ed91d0ad6aebe8a8d3adf8c75752b}{\hyperlink{class_game}{\-Game} $\ast$ {\bfseries game}}\label{class_game_object_a338ed91d0ad6aebe8a8d3adf8c75752b}
-
-\item 
-\hypertarget{class_game_object_a98291c60da12d9036e1ad24cfebcf6b3}{int {\bfseries id}}\label{class_game_object_a98291c60da12d9036e1ad24cfebcf6b3}
 
 \item 
 \hypertarget{class_game_object_a1873810f18db1e1faecc04e0ab92c512}{int {\bfseries nb\-Ref}}\label{class_game_object_a1873810f18db1e1faecc04e0ab92c512}
@@ -96,6 +106,9 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \hypertarget{class_game_object_ade46e4f590a01cab331d12d0da644625}{\-Q\-Map$<$ \-Q\-String, bool $>$ {\bfseries a\-Flags}}\label{class_game_object_ade46e4f590a01cab331d12d0da644625}
 
 \item 
+\hypertarget{class_game_object_aad00b615f4d3c6d4d743ff2f8c27a359}{\-Q\-String {\bfseries a\-Name}}\label{class_game_object_aad00b615f4d3c6d4d743ff2f8c27a359}
+
+\item 
 \hypertarget{class_game_object_a8e62a0d6755b2930090348622f482f6d}{\-Q\-String {\bfseries file\-Name}}\label{class_game_object_a8e62a0d6755b2930090348622f482f6d}
 
 \item 
@@ -103,6 +116,9 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 
 \item 
 \hypertarget{class_game_object_ae0a43c76fc9171015b43d008b5ffcbfd}{\-Q\-Date\-Time {\bfseries last\-Child\-Edit}}\label{class_game_object_ae0a43c76fc9171015b43d008b5ffcbfd}
+
+\item 
+\hypertarget{class_game_object_a66ba1ad1dca3c7b2ae424407fce76d66}{\-Q\-Set$<$ \-Q\-String $>$ {\bfseries reserved}}\label{class_game_object_a66ba1ad1dca3c7b2ae424407fce76d66}
 
 \end{DoxyCompactItemize}
 
@@ -123,7 +139,7 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \begin{DoxyNote}{\-Note}
 \-If the changes that are made in the object have to be detected by display/edition widgets, the \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} function should be called. 
 
-\-To prevent the notification chain to be broken, the existing objects should always have a parent (except for the root object). \-This can be acheived using the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} or set\-Parent method, when the parent have not been given in the constructor. (see \hyperlink{object_8h}{object.\-h} for details)
+\-To prevent the notification chain to be broken, the existing objects should always have a parent (except for the root object). \-This can be acheived using the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} or \hyperlink{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3}{set\-Parent} method, when the parent have not been given in the constructor. (see \hyperlink{object_8h}{object.\-h} for details)
 \end{DoxyNote}
 \#\# \-References count
 
@@ -132,22 +148,68 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 
 
 \subsection{\-Constructor \& \-Destructor \-Documentation}
-\hypertarget{class_game_object_ab00c537faf6eb4439c60003141a763b9}{\index{\-Game\-Object@{\-Game\-Object}!\-Game\-Object@{\-Game\-Object}}
-\index{\-Game\-Object@{\-Game\-Object}!GameObject@{\-Game\-Object}}
-\subsubsection[{\-Game\-Object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object\-::\-Game\-Object} (
+\hypertarget{class_game_object_ab82dfdb656f9051c0587e6593b2dda97}{\index{\-Game\-Object@{\-Game\-Object}!$\sim$\-Game\-Object@{$\sim$\-Game\-Object}}
+\index{$\sim$\-Game\-Object@{$\sim$\-Game\-Object}!GameObject@{\-Game\-Object}}
+\subsubsection[{$\sim$\-Game\-Object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object\-::$\sim$\-Game\-Object} (
 \begin{DoxyParamCaption}
-\item[{{\bf \-Game} $\ast$}]{g = {\ttfamily nullptr}, }
-\item[{{\bf \-Game\-Object} $\ast$}]{parent = {\ttfamily nullptr}}
+{}
 \end{DoxyParamCaption}
-)}}\label{class_game_object_ab00c537faf6eb4439c60003141a763b9}
-\-Constructs a new \hyperlink{class_game_object}{\-Game\-Object} with parent {\ttfamily parent} and the reference to the game {\ttfamily g}.
-
-\begin{DoxyNote}{\-Note}
-\-If these objects cannot be given to the constructor (case of an array of objects), the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} method must be called after the creation to make the \hyperlink{class_game_object}{\-Game\-Object} valid. 
-\end{DoxyNote}
-
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_game_object_ab82dfdb656f9051c0587e6593b2dda97}
+\-The default destructor destroy every children of the instance 
 
 \subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_game_object_a4733a1081db3c2d0a9be225265283ad8}{\index{\-Game\-Object@{\-Game\-Object}!add\-Child@{add\-Child}}
+\index{add\-Child@{add\-Child}!GameObject@{\-Game\-Object}}
+\subsubsection[{add\-Child}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Object\-::add\-Child} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Game\-Object} $\ast$}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_game_object_a4733a1081db3c2d0a9be225265283ad8}
+\-Registers a new child.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a21dc679cb474b147b7d7d336117ffe58}{remove\-Child}, \hyperlink{class_game_object_a6ac392d25a490bee17b653a374ec94fc}{child}, \hyperlink{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{children} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a815c7f587c0ae528614add95655d9a0a}{\index{\-Game\-Object@{\-Game\-Object}!add\-Reference@{add\-Reference}}
+\index{add\-Reference@{add\-Reference}!GameObject@{\-Game\-Object}}
+\subsubsection[{add\-Reference}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Object\-::add\-Reference} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_game_object_a815c7f587c0ae528614add95655d9a0a}
+\-Increases the references counter
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a68725fd75f55bc73bb44216406ce34e5}{remove\-Reference} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a6ac392d25a490bee17b653a374ec94fc}{\index{\-Game\-Object@{\-Game\-Object}!child@{child}}
+\index{child@{child}!GameObject@{\-Game\-Object}}
+\subsubsection[{child}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf \-Game\-Object}$\ast$ {\bf \-Game\-Object\-::child} (
+\begin{DoxyParamCaption}
+\item[{const int \&}]{i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{class_game_object_a6ac392d25a490bee17b653a374ec94fc}
+\-Returns the child with identifier {\ttfamily i} if any.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{children}; 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{\index{\-Game\-Object@{\-Game\-Object}!children@{children}}
+\index{children@{children}!GameObject@{\-Game\-Object}}
+\subsubsection[{children}]{\setlength{\rightskip}{0pt plus 5cm}virtual \-Q\-List$<${\bf \-Game\-Object}$\ast$$>$ {\bf \-Game\-Object\-::children} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}}\label{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}
+\-Returns the list of the instance's children.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a6ac392d25a490bee17b653a374ec94fc}{child} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented in \hyperlink{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}{\-Map}.
+
 \hypertarget{class_game_object_aa9a0d6ea1bd41e4d4a370d2f010ac533}{\index{\-Game\-Object@{\-Game\-Object}!flags@{flags}}
 \index{flags@{flags}!GameObject@{\-Game\-Object}}
 \subsubsection[{flags}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$\-Q\-String$>$ {\bf \-Game\-Object\-::flags} (
@@ -224,7 +286,7 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \-Returns the name wide unique identifier of the object.
 
 \begin{DoxySeeAlso}{\-See also}
-\hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init}, \hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{\-Game\-Object} 
+\hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init}, \-Game\-Object 
 \end{DoxySeeAlso}
 \hypertarget{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{\index{\-Game\-Object@{\-Game\-Object}!init@{init}}
 \index{init@{init}!GameObject@{\-Game\-Object}}
@@ -237,7 +299,7 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \-Initialises the object in case it had been construct with a \-N\-U\-L\-L pointer (array of objects)
 
 \begin{DoxySeeAlso}{\-See also}
-\hyperlink{class_game_object_a88676a10f8e905747f1d64c2da490524}{is\-Valid}, \hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{\-Game\-Object} 
+\hyperlink{class_game_object_a88676a10f8e905747f1d64c2da490524}{is\-Valid}, \-Game\-Object 
 \end{DoxySeeAlso}
 \hypertarget{class_game_object_a88676a10f8e905747f1d64c2da490524}{\index{\-Game\-Object@{\-Game\-Object}!is\-Valid@{is\-Valid}}
 \index{is\-Valid@{is\-Valid}!GameObject@{\-Game\-Object}}
@@ -249,7 +311,7 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \-Returns true if the object has been initialised
 
 \begin{DoxySeeAlso}{\-See also}
-\hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init}, \hyperlink{class_game_object_ab00c537faf6eb4439c60003141a763b9}{\-Game\-Object} 
+\hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init}, \-Game\-Object 
 \end{DoxySeeAlso}
 
 
@@ -291,6 +353,18 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \begin{DoxySeeAlso}{\-See also}
 \hyperlink{class_game_object_a73b351287147712a937e87028bf8c876}{last\-Edition}, \hyperlink{class_game_object_acc65ad08191fcaf558bd1840a45d23cf}{last\-Children\-Edition} 
 \end{DoxySeeAlso}
+\hypertarget{class_game_object_aede5e0829a5fe107b1419bd62f03c132}{\index{\-Game\-Object@{\-Game\-Object}!name@{name}}
+\index{name@{name}!GameObject@{\-Game\-Object}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}const \-Q\-String\& {\bf \-Game\-Object\-::name} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_game_object_aede5e0829a5fe107b1419bd62f03c132}
+\-Returns the name of the object.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_ae928d2f18b5a26656ad41b7c27b463a7}{set\-Name} 
+\end{DoxySeeAlso}
 \hypertarget{class_game_object_a3e851f9aceb9e868a73dd58fe8e3719f}{\index{\-Game\-Object@{\-Game\-Object}!params@{params}}
 \index{params@{params}!GameObject@{\-Game\-Object}}
 \subsubsection[{params}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$\-Q\-String$>$ {\bf \-Game\-Object\-::params} (
@@ -302,6 +376,45 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 
 \begin{DoxySeeAlso}{\-See also}
 \hyperlink{class_game_object_a27de46b2b9b439755b1e57df51c35caf}{get\-Param}, \hyperlink{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{set\-Param}, \hyperlink{class_game_object_aa9a0d6ea1bd41e4d4a370d2f010ac533}{flags} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_af3deaf39cde23c189765634e32e95bb4}{\index{\-Game\-Object@{\-Game\-Object}!parent@{parent}}
+\index{parent@{parent}!GameObject@{\-Game\-Object}}
+\subsubsection[{parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object}$\ast$ {\bf \-Game\-Object\-::parent} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}\label{class_game_object_af3deaf39cde23c189765634e32e95bb4}
+\-Returns the parent of the object.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3}{set\-Parent} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a21dc679cb474b147b7d7d336117ffe58}{\index{\-Game\-Object@{\-Game\-Object}!remove\-Child@{remove\-Child}}
+\index{remove\-Child@{remove\-Child}!GameObject@{\-Game\-Object}}
+\subsubsection[{remove\-Child}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Object\-::remove\-Child} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Game\-Object} $\ast$}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_game_object_a21dc679cb474b147b7d7d336117ffe58}
+\-Removes a child from the children list.
+
+\begin{DoxyNote}{\-Note}
+\-This method does not destroy the child.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a4733a1081db3c2d0a9be225265283ad8}{add\-Child}, \hyperlink{class_game_object_a6ac392d25a490bee17b653a374ec94fc}{child}, \hyperlink{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{children} 
+\end{DoxySeeAlso}
+\hypertarget{class_game_object_a68725fd75f55bc73bb44216406ce34e5}{\index{\-Game\-Object@{\-Game\-Object}!remove\-Reference@{remove\-Reference}}
+\index{remove\-Reference@{remove\-Reference}!GameObject@{\-Game\-Object}}
+\subsubsection[{remove\-Reference}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Object\-::remove\-Reference} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_game_object_a68725fd75f55bc73bb44216406ce34e5}
+\-Decreases the references counter
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a815c7f587c0ae528614add95655d9a0a}{add\-Reference} 
 \end{DoxySeeAlso}
 \hypertarget{class_game_object_ae7984096fc518b15c0b080c543e4c42f}{\index{\-Game\-Object@{\-Game\-Object}!set\-Flag@{set\-Flag}}
 \index{set\-Flag@{set\-Flag}!GameObject@{\-Game\-Object}}
@@ -319,6 +432,18 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \begin{DoxySeeAlso}{\-See also}
 \hyperlink{class_game_object_aa9a0d6ea1bd41e4d4a370d2f010ac533}{flags}, \hyperlink{class_game_object_a3c4f7121e75a8340a32e20f16b63b412}{has\-Flag}, \hyperlink{class_game_object_a30bc22a11619930d442bc16f0c938339}{get\-Flag}, \hyperlink{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{set\-Param} 
 \end{DoxySeeAlso}
+\hypertarget{class_game_object_ae928d2f18b5a26656ad41b7c27b463a7}{\index{\-Game\-Object@{\-Game\-Object}!set\-Name@{set\-Name}}
+\index{set\-Name@{set\-Name}!GameObject@{\-Game\-Object}}
+\subsubsection[{set\-Name}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Object\-::set\-Name} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{n}
+\end{DoxyParamCaption}
+)}}\label{class_game_object_ae928d2f18b5a26656ad41b7c27b463a7}
+\-Defines the name of the object.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_aede5e0829a5fe107b1419bd62f03c132}{name} 
+\end{DoxySeeAlso}
 \hypertarget{class_game_object_a28b8af7f399f1348a4f3130dd21173a1}{\index{\-Game\-Object@{\-Game\-Object}!set\-Param@{set\-Param}}
 \index{set\-Param@{set\-Param}!GameObject@{\-Game\-Object}}
 \subsubsection[{set\-Param}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Object\-::set\-Param} (
@@ -335,6 +460,18 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \begin{DoxySeeAlso}{\-See also}
 \hyperlink{class_game_object_a3e851f9aceb9e868a73dd58fe8e3719f}{params}, \hyperlink{class_game_object_aa48c29e1ac9e9289f4647f8e263b9fae}{has\-Param}, \hyperlink{class_game_object_a27de46b2b9b439755b1e57df51c35caf}{get\-Param}, \hyperlink{class_game_object_ae7984096fc518b15c0b080c543e4c42f}{set\-Flag} 
 \end{DoxySeeAlso}
+\hypertarget{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3}{\index{\-Game\-Object@{\-Game\-Object}!set\-Parent@{set\-Parent}}
+\index{set\-Parent@{set\-Parent}!GameObject@{\-Game\-Object}}
+\subsubsection[{set\-Parent}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Object\-::set\-Parent} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Game\-Object} $\ast$}]{p}
+\end{DoxyParamCaption}
+)}}\label{class_game_object_ae34944b23d5d7d472d5c8da3f42fb2e3}
+\-Defines the parent of the object.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_af3deaf39cde23c189765634e32e95bb4}{parent} 
+\end{DoxySeeAlso}
 \hypertarget{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{\index{\-Game\-Object@{\-Game\-Object}!touch@{touch}}
 \index{touch@{touch}!GameObject@{\-Game\-Object}}
 \subsubsection[{touch}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Game\-Object\-::touch} (
@@ -347,6 +484,21 @@ void \hyperlink{class_game_object_a2130d5674df041b5a7eaf987f9b1e642}{touch} ()
 \begin{DoxySeeAlso}{\-See also}
 \hyperlink{class_game_object_a0c4cc65819b30ec36a1c20a1c24997fe}{last\-Internal\-Edition}, \hyperlink{class_game_object_acc65ad08191fcaf558bd1840a45d23cf}{last\-Children\-Edition}, \hyperlink{class_game_object_a73b351287147712a937e87028bf8c876}{last\-Edition}. 
 \end{DoxySeeAlso}
+
+
+\subsection{\-Field \-Documentation}
+\hypertarget{class_game_object_a41d4afe43f955e78ede0bbd4ad8957f8}{\index{\-Game\-Object@{\-Game\-Object}!a\-Parent@{a\-Parent}}
+\index{a\-Parent@{a\-Parent}!GameObject@{\-Game\-Object}}
+\subsubsection[{a\-Parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object} $\ast$ {\bf \-Game\-Object\-::a\-Parent} = nullptr)}}\label{class_game_object_a41d4afe43f955e78ede0bbd4ad8957f8}
+\-Constructs a new \hyperlink{class_game_object}{\-Game\-Object} with parent {\ttfamily parent} and the reference to the game {\ttfamily g}.
+
+\begin{DoxyNote}{\-Note}
+\-If these objects cannot be given to the constructor (case of an array of objects), the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} method must be called after the creation to make the \hyperlink{class_game_object}{\-Game\-Object} valid. 
+\end{DoxyNote}
+
+
+\-Reimplemented in \hyperlink{class_object_a4b9173b5a9a1e5c313df5b574716037a}{\-Object}, \hyperlink{class_image_ae2af89a54e82c3002f0feb8a25ca714b}{\-Image}, \hyperlink{class_map_ac0d4bf203db2a4372ea6923729f978f1}{\-Map}, \hyperlink{class_cell_ab1ecd1ed6ff618f6a7195f817bc0cef2}{\-Cell}, \hyperlink{class_world_af24924a1b6c6596b1c0a293651ffccaf}{\-World}, and \hyperlink{class_cell_type_a7ac20d29216624b54218a54bde6593f2}{\-Cell\-Type}.
+
 
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}

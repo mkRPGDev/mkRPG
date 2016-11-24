@@ -79,7 +79,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">Map Class Reference</div>  </div>
 </div><!--header-->
@@ -101,10 +102,14 @@ Inheritance diagram for Map:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9779d0a2a759441c5e8d51b0a9c4cd40"></a><!-- doxytag: member="Map::Map" ref="a9779d0a2a759441c5e8d51b0a9c4cd40" args="(Game *g, GameObject *parent)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>Map</b> (<a class="el" href="class_game.html">Game</a> *g, <a class="el" href="class_game_object.html">GameObject</a> *parent)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7361b86ab9523ed38bda3a7bbd131426"></a><!-- doxytag: member="Map::ParamGetter" ref="a7361b86ab9523ed38bda3a7bbd131426" args="(width) ParamGetter(height) QSize size() const " -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>ParamGetter</b> (width) ParamGetter(height) QSize size() const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb18ba5d4ffce18e1813b77b7f6266c9"></a><!-- doxytag: member="Map::TypeName" ref="abb18ba5d4ffce18e1813b77b7f6266c9" args="(Map) Map(Game *g" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_map.html">Map</a>) <a class="el" href="class_map.html">Map</a>(<a class="el" href="class_game.html">Game</a> *g</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c35169a60acd3669f198e6c2d20dff5"></a><!-- doxytag: member="Map::width" ref="a4c35169a60acd3669f198e6c2d20dff5" args="() const " -->
+int&#160;</td><td class="memItemRight" valign="bottom"><b>width</b> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a009f197c2e488d8dd5f02b1a2920a15c"></a><!-- doxytag: member="Map::height" ref="a009f197c2e488d8dd5f02b1a2920a15c" args="() const " -->
+int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a028c347d88716e984c943f382f58b7ef"></a><!-- doxytag: member="Map::size" ref="a028c347d88716e984c943f382f58b7ef" args="() const " -->
+QSize&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2915ccde4d8a2ba8142677baea803467"></a><!-- doxytag: member="Map::setWidth" ref="a2915ccde4d8a2ba8142677baea803467" args="(int w)" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setWidth</b> (int w)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="affab3537641a7985559f83ea083e00ca"></a><!-- doxytag: member="Map::setHeight" ref="affab3537641a7985559f83ea083e00ca" args="(int h)" -->
@@ -123,10 +128,53 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>unSelectAll</b> ()</t
 void&#160;</td><td class="memItemRight" valign="bottom"><b>confirmPreSelection</b> (bool add=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a637f44f0a59c3a67b6a507ae710c7f"></a><!-- doxytag: member="Map::clearPreSelection" ref="a0a637f44f0a59c3a67b6a507ae710c7f" args="()" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clearPreSelection</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">QList&lt; <a class="el" href="class_game_object.html">GameObject</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a939817aa7f5c9e81d3d2b1a42d9403e7">children</a> () const </td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ac0d4bf203db2a4372ea6923729f978f1">aParent</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_map.html" title="The Map class.">Map</a> class. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a939817aa7f5c9e81d3d2b1a42d9403e7"></a><!-- doxytag: member="Map::children" ref="a939817aa7f5c9e81d3d2b1a42d9403e7" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QList&lt; <a class="el" href="class_game_object.html">GameObject</a> * &gt; <a class="el" href="class_map.html#a939817aa7f5c9e81d3d2b1a42d9403e7">Map::children</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the list of the instance's children.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a6ac392d25a490bee17b653a374ec94fc">child</a> </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">GameObject</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Field Documentation</h2>
+<a class="anchor" id="ac0d4bf203db2a4372ea6923729f978f1"></a><!-- doxytag: member="Map::aParent" ref="ac0d4bf203db2a4372ea6923729f978f1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_game_object.html">GameObject</a>* <a class="el" href="class_map.html#ac0d4bf203db2a4372ea6923729f978f1">Map::aParent</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructs a new <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> with parent <code>parent</code> and the reference to the game <code>g</code>.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>If these objects cannot be given to the constructor (case of an array of objects), the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> method must be called after the creation to make the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> valid. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_game_object.html#a41d4afe43f955e78ede0bbd4ad8957f8">GameObject</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/editor/Game/<a class="el" href="map_8h_source.html">map.h</a></li>
 <li>src/editor/Game/map.cpp</li>
 </ul>
@@ -136,7 +184,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearPreSelection</b>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

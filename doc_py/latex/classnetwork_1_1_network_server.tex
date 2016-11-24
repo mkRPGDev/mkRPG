@@ -1,0 +1,101 @@
+\hypertarget{classnetwork_1_1_network_server}{\section{network.\-Network\-Server \-Class \-Reference}
+\label{classnetwork_1_1_network_server}\index{network.\-Network\-Server@{network.\-Network\-Server}}
+}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classnetwork_1_1_network_server_aa9f159b48e22d2de684f20772d8f0fd2}{\-\_\-\-\_\-init\-\_\-\-\_\-}
+\item 
+def \hyperlink{classnetwork_1_1_network_server_adf074e54d57e4ecb954cb023b04284df}{wait\-For\-Clients}
+\item 
+\hypertarget{classnetwork_1_1_network_server_acf6374298f323930652d4913c2a568bd}{def {\bfseries connect}}\label{classnetwork_1_1_network_server_acf6374298f323930652d4913c2a568bd}
+
+\item 
+def \hyperlink{classnetwork_1_1_network_server_a05f8e0752edec2aa6e8624d620313bde}{run}
+\item 
+def \hyperlink{classnetwork_1_1_network_server_ae43e03d3762a8deb704ad3b2d6822172}{send\-Order}
+\item 
+\hypertarget{classnetwork_1_1_network_server_a7c2389b704ae6a7d52631f2fa6f19772}{def {\bfseries broadcast}}\label{classnetwork_1_1_network_server_a7c2389b704ae6a7d52631f2fa6f19772}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classnetwork_1_1_network_server_ac77241260be48a5d918ea939ca192b98}{{\bfseries handle}}\label{classnetwork_1_1_network_server_ac77241260be48a5d918ea939ca192b98}
+
+\item 
+\hypertarget{classnetwork_1_1_network_server_ad7de0342e1b2cc56f380c73a00b8f9d2}{{\bfseries plugin\-Handle}}\label{classnetwork_1_1_network_server_ad7de0342e1b2cc56f380c73a00b8f9d2}
+
+\item 
+\hypertarget{classnetwork_1_1_network_server_a2a835681d01d0203fc1af6bfe29f5c26}{{\bfseries loop}}\label{classnetwork_1_1_network_server_a2a835681d01d0203fc1af6bfe29f5c26}
+
+\item 
+\hypertarget{classnetwork_1_1_network_server_a4826937f5125b5213e8d8e201f8c0f2e}{{\bfseries connections}}\label{classnetwork_1_1_network_server_a4826937f5125b5213e8d8e201f8c0f2e}
+
+\item 
+\hypertarget{classnetwork_1_1_network_server_a46640d9244ace5f48262afc614f3acbc}{{\bfseries server}}\label{classnetwork_1_1_network_server_a46640d9244ace5f48262afc614f3acbc}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This class is the task of the server that manages clients connections on
+his port.  It keeps the list of connected clients and provides method to
+broadcast messages to all the clients.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classnetwork_1_1_network_server_aa9f159b48e22d2de684f20772d8f0fd2}{\index{network\-::\-Network\-Server@{network\-::\-Network\-Server}!\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}!network::NetworkServer@{network\-::\-Network\-Server}}
+\subsubsection[{\-\_\-\-\_\-init\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf network.\-Network\-Server.\-\_\-\-\_\-init\-\_\-\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{handle, }
+\item[{}]{plugin\-Handle, }
+\item[{}]{loop}
+\end{DoxyParamCaption}
+)}}\label{classnetwork_1_1_network_server_aa9f159b48e22d2de684f20772d8f0fd2}
+\begin{DoxyVerb}The server listen on the port specified in const.py. \end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classnetwork_1_1_network_server_a05f8e0752edec2aa6e8624d620313bde}{\index{network\-::\-Network\-Server@{network\-::\-Network\-Server}!run@{run}}
+\index{run@{run}!network::NetworkServer@{network\-::\-Network\-Server}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf network.\-Network\-Server.\-run} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classnetwork_1_1_network_server_a05f8e0752edec2aa6e8624d620313bde}
+\begin{DoxyVerb}
+When a client tries to connect, the server adds him to the list and
+creates a new task managing communications with this client.
+\end{DoxyVerb}
+ \hypertarget{classnetwork_1_1_network_server_ae43e03d3762a8deb704ad3b2d6822172}{\index{network\-::\-Network\-Server@{network\-::\-Network\-Server}!send\-Order@{send\-Order}}
+\index{send\-Order@{send\-Order}!network::NetworkServer@{network\-::\-Network\-Server}}
+\subsubsection[{send\-Order}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf network.\-Network\-Server.\-send\-Order} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{ident, }
+\item[{}]{order}
+\end{DoxyParamCaption}
+)}}\label{classnetwork_1_1_network_server_ae43e03d3762a8deb704ad3b2d6822172}
+\begin{DoxyVerb}
+Send an order to all connected clients by broadcasting messages to
+all threads in the list.
+\end{DoxyVerb}
+ \hypertarget{classnetwork_1_1_network_server_adf074e54d57e4ecb954cb023b04284df}{\index{network\-::\-Network\-Server@{network\-::\-Network\-Server}!wait\-For\-Clients@{wait\-For\-Clients}}
+\index{wait\-For\-Clients@{wait\-For\-Clients}!network::NetworkServer@{network\-::\-Network\-Server}}
+\subsubsection[{wait\-For\-Clients}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf network.\-Network\-Server.\-wait\-For\-Clients} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{n}
+\end{DoxyParamCaption}
+)}}\label{classnetwork_1_1_network_server_adf074e54d57e4ecb954cb023b04284df}
+\begin{DoxyVerb}Block until n clients are connected \end{DoxyVerb}
+ 
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/shared/network.\-py\end{DoxyCompactItemize}

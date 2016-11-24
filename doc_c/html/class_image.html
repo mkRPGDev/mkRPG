@@ -79,7 +79,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">Image Class Reference</div>  </div>
 </div><!--header-->
@@ -101,8 +102,8 @@ Inheritance diagram for Image:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a72923e3d24b0bbf9ff836878ea37091e"></a><!-- doxytag: member="Image::Image" ref="a72923e3d24b0bbf9ff836878ea37091e" args="(Game *g, GameObject *parent, const QString &amp;fileName)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> (<a class="el" href="class_game.html">Game</a> *g, <a class="el" href="class_game_object.html">GameObject</a> *parent, const QString &amp;fileName)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad2943bbacb3aa6ddef591afa8d1b5040"></a><!-- doxytag: member="Image::TypeName" ref="ad2943bbacb3aa6ddef591afa8d1b5040" args="(Image) Image(Game *g" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_image.html">Image</a>) <a class="el" href="class_image.html">Image</a>(<a class="el" href="class_game.html">Game</a> *g</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_image.html#a0bc052fef9ea98e416e11af385cd93b4">isValid</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abad14459f8cc7bea0ce1b9ce1c41bad1"></a><!-- doxytag: member="Image::image" ref="abad14459f8cc7bea0ce1b9ce1c41bad1" args="() const " -->
 const QImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>image</b> () const </td></tr>
@@ -110,6 +111,11 @@ const QImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>image</
 const QSize&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4f881e18d7b454ca185c05ec8e70b6d"></a><!-- doxytag: member="Image::update" ref="aa4f881e18d7b454ca185c05ec8e70b6d" args="()" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_image.html#ae2af89a54e82c3002f0feb8a25ca714b">aParent</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a08fa6983394b27b265a4003088a9365a"></a><!-- doxytag: member="Image::fileName" ref="a08fa6983394b27b265a4003088a9365a" args="" -->
+<a class="el" href="class_game_object.html">GameObject</a> const QString &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>fileName</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a> class stores an external file in a QImage, and gives each image ressources a unique identifier. </p>
@@ -127,16 +133,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></t
       </table>
 </div>
 <div class="memdoc">
-<p>Returns true if the object has been initialised</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a>, <a class="el" href="class_game_object.html#ab00c537faf6eb4439c60003141a763b9">GameObject</a> </dd></dl>
+<p>Checks if the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> is valid and if the image really exists. </p>
 
 <p>Reimplemented from <a class="el" href="class_game_object.html#a88676a10f8e905747f1d64c2da490524">GameObject</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/><h2>Field Documentation</h2>
+<a class="anchor" id="ae2af89a54e82c3002f0feb8a25ca714b"></a><!-- doxytag: member="Image::aParent" ref="ae2af89a54e82c3002f0feb8a25ca714b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_game_object.html">GameObject</a>* <a class="el" href="class_image.html#ae2af89a54e82c3002f0feb8a25ca714b">Image::aParent</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructs a new <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> with parent <code>parent</code> and the reference to the game <code>g</code>.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>If these objects cannot be given to the constructor (case of an array of objects), the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> method must be called after the creation to make the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> valid. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_game_object.html#a41d4afe43f955e78ede0bbd4ad8957f8">GameObject</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/editor/Game/<a class="el" href="object_8h_source.html">object.h</a></li>
-<li>src/editor/Game/object.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -144,7 +166,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></t
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

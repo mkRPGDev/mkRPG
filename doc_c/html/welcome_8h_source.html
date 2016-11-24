@@ -84,23 +84,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define WELCOME_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;ui_welcome.h&quot;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a><a class="code" href="class_welcome.html">00006</a> <span class="keyword">class </span><a class="code" href="class_welcome.html">Welcome</a> : <span class="keyword">public</span> QWidget, <span class="keyword">private</span> Ui::<a class="code" href="class_welcome.html">Welcome</a>
-<a name="l00007"></a>00007 {
-<a name="l00008"></a>00008     Q_OBJECT
-<a name="l00009"></a>00009 
-<a name="l00010"></a>00010 <span class="keyword">public</span>:
-<a name="l00011"></a>00011     <span class="keyword">explicit</span> <a class="code" href="class_welcome.html">Welcome</a>(QWidget *parent = 0);
-<a name="l00012"></a>00012 };
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="preprocessor">#endif // WELCOME_H</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;tabwidget.h&quot;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a><a class="code" href="class_welcome.html">00007</a> <span class="keyword">class </span><a class="code" href="class_welcome.html">Welcome</a> : <span class="keyword">public</span> <a class="code" href="class_tab_widget.html">TabWidget</a>, <span class="keyword">private</span> Ui::<a class="code" href="class_welcome.html">Welcome</a>
+<a name="l00008"></a>00008 {
+<a name="l00009"></a>00009     Q_OBJECT
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="keyword">public</span>:
+<a name="l00012"></a>00012     <span class="keyword">explicit</span> <a class="code" href="class_welcome.html">Welcome</a>(QWidget *parent = 0);
+<a name="l00013"></a>00013 };
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="preprocessor">#endif // WELCOME_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

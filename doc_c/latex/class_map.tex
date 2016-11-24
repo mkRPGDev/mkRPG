@@ -19,10 +19,16 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_map_a9779d0a2a759441c5e8d51b0a9c4cd40}{{\bfseries \-Map} (\hyperlink{class_game}{\-Game} $\ast$g, \hyperlink{class_game_object}{\-Game\-Object} $\ast$parent)}\label{class_map_a9779d0a2a759441c5e8d51b0a9c4cd40}
+\hypertarget{class_map_abb18ba5d4ffce18e1813b77b7f6266c9}{{\bfseries \-Type\-Name} (\hyperlink{class_map}{\-Map}) \hyperlink{class_map}{\-Map}(\hyperlink{class_game}{\-Game} $\ast$g}\label{class_map_abb18ba5d4ffce18e1813b77b7f6266c9}
 
 \item 
-\hypertarget{class_map_a7361b86ab9523ed38bda3a7bbd131426}{{\bfseries \-Param\-Getter} (width) \-Param\-Getter(height) \-Q\-Size size() const }\label{class_map_a7361b86ab9523ed38bda3a7bbd131426}
+\hypertarget{class_map_a4c35169a60acd3669f198e6c2d20dff5}{int {\bfseries width} () const }\label{class_map_a4c35169a60acd3669f198e6c2d20dff5}
+
+\item 
+\hypertarget{class_map_a009f197c2e488d8dd5f02b1a2920a15c}{int {\bfseries height} () const }\label{class_map_a009f197c2e488d8dd5f02b1a2920a15c}
+
+\item 
+\hypertarget{class_map_a028c347d88716e984c943f382f58b7ef}{\-Q\-Size {\bfseries size} () const }\label{class_map_a028c347d88716e984c943f382f58b7ef}
 
 \item 
 \hypertarget{class_map_a2915ccde4d8a2ba8142677baea803467}{void {\bfseries set\-Width} (int w)}\label{class_map_a2915ccde4d8a2ba8142677baea803467}
@@ -51,11 +57,52 @@
 \item 
 \hypertarget{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}{void {\bfseries clear\-Pre\-Selection} ()}\label{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}
 
+\item 
+\-Q\-List$<$ \hyperlink{class_game_object}{\-Game\-Object} $\ast$ $>$ \hyperlink{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}{children} () const 
+\end{DoxyCompactItemize}
+\subsection*{\-Data \-Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_game_object}{\-Game\-Object} $\ast$ \hyperlink{class_map_ac0d4bf203db2a4372ea6923729f978f1}{a\-Parent}
 \end{DoxyCompactItemize}
 
 
 \subsection{\-Detailed \-Description}
 \-The \hyperlink{class_map}{\-Map} class. 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}{\index{\-Map@{\-Map}!children@{children}}
+\index{children@{children}!Map@{\-Map}}
+\subsubsection[{children}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ {\bf \-Game\-Object} $\ast$ $>$ {\bf \-Map\-::children} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}
+\-Returns the list of the instance's children.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a6ac392d25a490bee17b653a374ec94fc}{child} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{\-Game\-Object}.
+
+
+
+\subsection{\-Field \-Documentation}
+\hypertarget{class_map_ac0d4bf203db2a4372ea6923729f978f1}{\index{\-Map@{\-Map}!a\-Parent@{a\-Parent}}
+\index{a\-Parent@{a\-Parent}!Map@{\-Map}}
+\subsubsection[{a\-Parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object}$\ast$ {\bf \-Map\-::a\-Parent}}}\label{class_map_ac0d4bf203db2a4372ea6923729f978f1}
+\-Constructs a new \hyperlink{class_game_object}{\-Game\-Object} with parent {\ttfamily parent} and the reference to the game {\ttfamily g}.
+
+\begin{DoxyNote}{\-Note}
+\-If these objects cannot be given to the constructor (case of an array of objects), the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} method must be called after the creation to make the \hyperlink{class_game_object}{\-Game\-Object} valid. 
+\end{DoxyNote}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a41d4afe43f955e78ede0bbd4ad8957f8}{\-Game\-Object}.
+
+
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 

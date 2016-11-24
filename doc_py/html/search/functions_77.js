@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['waitforclients',['waitForClients',['../classsrc_1_1network_1_1_network_server.html#af334f8d7eed6eca8a8ba7088945634a9',1,'src::network::NetworkServer']]]
+  ['waitforclients',['waitForClients',['../classnetwork_1_1_network_server.html#adf074e54d57e4ecb954cb023b04284df',1,'network::NetworkServer']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['globalcache',['GlobalCache',['../classsrc_1_1cache_1_1_global_cache.html',1,'src::cache']]]
+  ['globalcache',['GlobalCache',['../classinterface_1_1cache_1_1_global_cache.html',1,'interface::cache']]]
 ];

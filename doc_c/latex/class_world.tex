@@ -19,7 +19,7 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_world_a8f2e7de9a7533ed84dbff13b73ab77ef}{{\bfseries \-World} (\hyperlink{class_game}{\-Game} $\ast$g, \hyperlink{class_game_object}{\-Game\-Object} $\ast$parent)}\label{class_world_a8f2e7de9a7533ed84dbff13b73ab77ef}
+\hypertarget{class_world_a9b9332f44adcdf278a8f47aac205ac53}{{\bfseries \-Type\-Name} (\hyperlink{class_world}{\-World}) \hyperlink{class_world}{\-World}(\hyperlink{class_game}{\-Game} $\ast$g}\label{class_world_a9b9332f44adcdf278a8f47aac205ac53}
 
 \item 
 \hypertarget{class_world_a7fe6abb143814e0f87145648982f46af}{{\bfseries \-Object\-List\-D} (m, \-M, ap,, s, \hyperlink{class_map}{\-Map}) \-Object\-List\-D(o}\label{class_world_a7fe6abb143814e0f87145648982f46af}
@@ -27,6 +27,8 @@
 \end{DoxyCompactItemize}
 \subsection*{\-Data \-Fields}
 \begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_game_object}{\-Game\-Object} $\ast$ \hyperlink{class_world_af24924a1b6c6596b1c0a293651ffccaf}{a\-Parent}
 \item 
 \hypertarget{class_world_a180c9e33dc6e59ca8e097bc9e6a36503}{{\bfseries \-O}}\label{class_world_a180c9e33dc6e59ca8e097bc9e6a36503}
 
@@ -42,7 +44,21 @@
 \subsection{\-Detailed \-Description}
 \-The \hyperlink{class_world}{\-World} class. 
 
-\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\subsection{\-Field \-Documentation}
+\hypertarget{class_world_af24924a1b6c6596b1c0a293651ffccaf}{\index{\-World@{\-World}!a\-Parent@{a\-Parent}}
+\index{a\-Parent@{a\-Parent}!World@{\-World}}
+\subsubsection[{a\-Parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object}$\ast$ {\bf \-World\-::a\-Parent}}}\label{class_world_af24924a1b6c6596b1c0a293651ffccaf}
+\-Constructs a new \hyperlink{class_game_object}{\-Game\-Object} with parent {\ttfamily parent} and the reference to the game {\ttfamily g}.
+
+\begin{DoxyNote}{\-Note}
+\-If these objects cannot be given to the constructor (case of an array of objects), the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} method must be called after the creation to make the \hyperlink{class_game_object}{\-Game\-Object} valid. 
+\end{DoxyNote}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a41d4afe43f955e78ede0bbd4ad8957f8}{\-Game\-Object}.
+
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
 \item 
-src/editor/\-Game/\hyperlink{game_8h}{game.\-h}\item 
-src/editor/\-Game/game.\-cpp\end{DoxyCompactItemize}
+src/editor/\-Game/\hyperlink{game_8h}{game.\-h}\end{DoxyCompactItemize}

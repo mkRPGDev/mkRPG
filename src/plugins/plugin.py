@@ -47,7 +47,7 @@ class CursesPlugin:
         return False
     
     def draw(self):
-        """ don't forget to call self.win.noutrefresh after some changes """
+        """ don't call self.win.noutrefresh, it will be done when needed """
         self.height, self.width = self.win.getmaxyx() # XXX bof bof
 
     def repaint(self):

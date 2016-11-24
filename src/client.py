@@ -33,7 +33,10 @@ class Client():
         self.world = world.loadGame(path)
         self.plugins = loadPluginsClient(path, self)
         # TODO intégrer au loadGame, faire une autre classe client ?
-        self.interface = Interface(self.world, self.plugins[1])
+        try: # XXX tant que pygame ne supporte pas les plugins
+            self.interface = Interface(self.world, self.plugins[1])
+        except TypeError:
+            self.interface = Interface(self.world)
         self.plugins = self.plugins[0]
         self.interactions = registerInteractions(path)
         self.perso = None

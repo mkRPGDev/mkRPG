@@ -6,23 +6,24 @@ from sys import argv
 from time import time
 import configparser
 
+from interface.const import *
 from const import *
-from interactions import registerInteractions, InteractionType
-from orders import OrderDispatcher
-from cache import ChunkCache
+from interface.interactions import registerInteractions, InteractionType
+from shared.orders import OrderDispatcher
+from interface.cache import ChunkCache
 
 if USETCP:
-    from network import NetworkClient
+    from shared.network import NetworkClient
 else:
-    from networkudp import NetworkClient
+    from shared.networkudp import NetworkClient
 
 #TODO trouver mieux cf world
 with open("isserver.py","w") as file:
     file.write("SERVER = False\n")
 
-import world
-from printWorld import WorldViewer, Interface
-from utils import add_to_rect_list
+import shared.world as world
+from interface.printWorld import WorldViewer, Interface
+from interface.utils import add_to_rect_list
 
 class Client(Interface):
     def __init__(self, w):

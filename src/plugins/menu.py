@@ -31,7 +31,6 @@ class MenuView(CursesPlugin):
                 self.win.addstr(y,  2, h)
             y+=2
         self.centered(self.height-2, "the mkrpg team")
-        self.win.noutrefresh()
     
     def centered(self, y, st, attr = None):
         """ same as addstr but centered """

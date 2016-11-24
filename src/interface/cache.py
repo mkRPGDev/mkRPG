@@ -4,8 +4,8 @@ import enum
 
 import pygame
 
-from utils import load_png
-import const
+from interface.utils import load_png
+import interface.const as const
 
 class GlobalCache():
     """

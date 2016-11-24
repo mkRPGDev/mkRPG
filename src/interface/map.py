@@ -5,10 +5,10 @@ from pygame.locals import MOUSEBUTTONUP, Rect
 
 import struct
 
-from utils import merge_rect_lists, sublist, WalkableGraph
-from cache import ChunkCache
+from interface.utils import merge_rect_lists, sublist, WalkableGraph
+from interface.cache import ChunkCache
 
-import const
+import interface.const as const
 
 class MapViewer(pygame.sprite.Group):
 

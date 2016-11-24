@@ -2,6 +2,8 @@
 This file handles the parsing of the objects defined in the game.
 """
 
+# -*- coding : utf-8 -*-
+
 import xml.etree.ElementTree as ET
 import parsing_utils
 

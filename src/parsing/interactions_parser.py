@@ -4,6 +4,8 @@ describe the reactions of the game to the keyboard, and the events associated to
 these interactions.
 """
 
+# -*- coding: utf-8 -*-
+
 import xml.etree.ElementTree as ET
 import sys
 import parsing_utils

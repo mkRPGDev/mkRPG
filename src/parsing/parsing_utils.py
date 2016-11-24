@@ -3,6 +3,9 @@ This module contains many utilities that are called almost everywhere
 during the parsing.
 It is more a toolbox than anything.
 """
+
+# -*- coding : utf-8 -*-
+
 import sys
 import xml.etree.ElementTree as ET
 import re

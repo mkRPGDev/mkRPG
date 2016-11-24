@@ -4,6 +4,8 @@ In other xml files, images are identified by a number, which is bound
 in xml files.
 """
 
+# -*- coding: utf-8 -*-
+
 import sys
 from os.path import sep
 import xml.etree.ElementTree as ET

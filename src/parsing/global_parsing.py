@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
-
 """
 This is the main module file.
 This file mainlky handle the global loading of the world from the xml files.
 The most important methods are the game_parser one and the save_xml.
 """
+
+# -*- coding: utf-8 -*-
 
 import xml.etree.ElementTree as ET
 import sys

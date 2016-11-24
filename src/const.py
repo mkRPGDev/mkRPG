@@ -61,7 +61,7 @@ UPDTIME = 1/MAXFPS
 # Réseau
 HOST = "localhost"
 #HOST = "paquebot.ens.fr"
-PORT = 12345
+PORT = 12346
 IPV6 = False#True
 USETCP = True
 BUFF = 1024

@@ -1,6 +1,9 @@
 from time import sleep, time
 from argparse import ArgumentParser
 import asyncio
+from sys import path
+
+path.append('parsing/')
 
 from const import *
 from interface.interactions import registerInteractions, InteractionType

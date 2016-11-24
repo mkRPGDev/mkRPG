@@ -3,11 +3,11 @@ from pygame.locals import Rect
 
 from time import sleep
 
-import world
-from map import MapViewer
-from entity import Entity
-from utils import merge_rect_lists
-from cache import ImageCache
+import shared.world
+from interface.map import MapViewer
+from interface.entity import Entity
+from interface.utils import merge_rect_lists
+from interface.cache import ImageCache
 import const
 
 class Interface: # XXX inutile en python

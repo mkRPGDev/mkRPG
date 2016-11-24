@@ -1,9 +1,9 @@
 import pygame
 from pygame.locals import Rect
 
-from cache import ImageCache
+from interface.cache import ImageCache
 import const
-from utils import add_to_rect_list, cell_to_point
+from interface.utils import add_to_rect_list, cell_to_point
 
 class Entity(pygame.Surface):
     def __init__(self, pos, map_size, picture):

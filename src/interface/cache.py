@@ -4,7 +4,7 @@ import enum
 
 import pygame
 
-from utils import load_png
+from interface.utils import load_png
 import const
 
 class GlobalCache():

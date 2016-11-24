@@ -43,8 +43,15 @@ def map_parser(map_xml):
     root = parsing_utils.try_open_and_parse(map_xml)
     name = root.attrib['name']
     answer = {'name': name}
-    map_size = get_size(root.find('Params'))
-    answer.update({'size': map_size})
+    params = root.find("Params")
+    answer.update({'params' : {}})
+    for _param in params.getchildren():
+        if _param.attrib.get("id"):
+            value = {"id" : parsing_utils.format_type(_param.attrib.get("id"))}
+        else:
+            value = parsing_utils.format_type(_param.text)
+            answer['params'].update({_param.tag : value})
+
     available_cells = []
     cells = root.find('Cells')
     for cell in cells.findall("Cell"):
@@ -55,15 +62,6 @@ def map_parser(map_xml):
     answer.update({"Cell":available_cells})
     # Getting the default cell.
     return answer
-
-
-def get_size(tree):
-    """
-    Gets the size of the map.
-    """
-    height = int(tree.find('height').text)
-    width = int(tree.find('width').text)
-    return (height, width)
 
 
 def collect_map_data(map_files):

@@ -6,7 +6,7 @@ from shared.tools import readXml
 from shared.orders import Order, OrderType
 import parsing.global_parsing as global_parsing
 
-verbose = True
+verbose = False
 
 named = {}
 toResolve = []
@@ -19,12 +19,15 @@ def loadGame(path):
     parsed_data = global_parsing.game_parser(path+"game.xml")
     for data_list in parsed_data:
         if data_list != 'Actions' and  data_list != 'Interactions':
+            print("Handling tag %s " % data_list)
             for data in parsed_data[data_list]:
                 eval(data_list)().load(data, typ=data_list)
 
     world = named["world"]
     for m in world.maps: m.fill()
     print("Finished loading world. What lasts:\n%s" % toResolve)
+    print("Named files\n%s" % named)
+    print("World is\n%s" % world)
     return world
 
 class BaseObject:
@@ -60,7 +63,9 @@ class BaseObject:
         if typ != None and type(eval(typ)) == type and typ.endswith("Type"):
             for key in data.keys():
                 ObjectType(typ[:-4]).load(data)
-        elif typ != None and (type(eval(typ))) == type:
+
+        elif typ != None and (type(eval(typ))) == type and 'name' in data.keys():
+            print("Evaluating %s" % data)
             eval(typ)().load(data)
 
         for key in data.keys():
@@ -69,7 +74,7 @@ class BaseObject:
             elif key == 'params':
                 for sub_data in data[key].keys():
                     if type(data[key][sub_data])== dict and data[key][sub_data].get("id"):
-                        toResolve.append((data[key][sub_data].get("id"), self.params, key))
+                        toResolve.append((data[key][sub_data].get("id"), self.params, sub_data))
                     else:
                         self.params[sub_data] = int(data[key][sub_data])
             elif key.lower() in self.__dict__ and\
@@ -87,13 +92,13 @@ class BaseObject:
             else:
                 self.params[key] = data[key]
         if 'name' in data.keys():
-            print("data name is : %s" % data['name'])
             named[data['name']] = self
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue
             if verbose: print(nm, "-->", named[nm])
             li[ln] = named[nm]
             #assert nm in named, nm+" non résolu" FIXME
+        print("Self %s is %s" % (typ, self))
         return self
 
     def contextEval(self, value):

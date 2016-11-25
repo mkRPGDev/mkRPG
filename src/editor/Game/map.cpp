@@ -63,11 +63,11 @@ Map::Map(Game *g, GameObject *parent) :
     cells(nullptr)
 {
     resize(100,75);
+    setAngleXMax(900);
+    setAngleYMax(900);
     SetParam(angleX, 0);
     SetParam(angleY, 0);
-
     SetFlag(inutile, false);
-
     ProtectParam(height);
     //SetParam(znull,42);
     ProtectParam(width);

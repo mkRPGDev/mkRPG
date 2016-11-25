@@ -21,6 +21,7 @@ ObjectEditor::ObjectEditor(QWidget *parent) :
     params->setModel(paramsModel);
     flags->setModel(flagsModel);
     objects->setModel(objectsModel);
+    objects->setColumnWidth(0, objects->width()/2);
 
     connect(objects->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
             this, SLOT(currentElementChanged(QModelIndex)));
@@ -32,6 +33,9 @@ void ObjectEditor::setGame(Game *g){
     paramsModel->setObject(g->world());
     flagsModel->setObject(g->world());
     objectsModel->setGame(g);
+    int l = objectsModel->rowCount(QModelIndex());
+    for(int i(0); i<l; ++i) objects->expand(objectsModel->index(i,0,QModelIndex()));
+    objects->resizeColumnToContents(0);
 }
 
 void ObjectEditor::currentElementChanged(const QModelIndex &ind){

@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     GUI/Tabs/mapresizedialog.cpp \
     GUI/Tabs/itemdelegates.cpp \
     Game/itemmodels.cpp \
-    GUI/quietwidgets.cpp
+    GUI/quietwidgets.cpp \
+    Game/gameobject.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -74,7 +75,9 @@ HEADERS  += \
     GUI/Tabs/mapresizedialog.h \
     GUI/Tabs/itemdelegates.h \
     Game/itemmodels.h \
-    GUI/quietwidgets.h
+    GUI/quietwidgets.h \
+    Game/gameobject.h \
+    Game/typedobject.hxx
 
 FORMS    += \
     GUI/editor.ui \

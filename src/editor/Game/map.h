@@ -14,11 +14,13 @@
 /*!
  * \brief The CellType class
  */
-class CellType : public Type
+class CellType;
+class CellType : public Type<CellType>
 {
 public:
     TypeName(CellType)
     CellType(Game *g, GameObject *aParent);
+    CellType(CellType* ancestor, Game *g, GameObject *aParent) : Type(ancestor, g, aParent){}
     C0(AttrT, i,I,mage)
     C0(Flag,w,W,alkable)
 private:
@@ -65,6 +67,11 @@ private:
     bool selectMod;
 };
 
+/*class MapType;
+class MapType : public Type<MapType>
+{
+
+};*/
 
 
 /*!

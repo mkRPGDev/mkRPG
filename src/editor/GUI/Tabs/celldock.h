@@ -3,7 +3,7 @@
 
 #include "ui_celldock.h"
 #include "Docks/bdockwidget.h"
-#include "Game/mapslistmodel.h"
+#include "Game/ItemModels/mapslistmodel.h"
 
 
 class CellDock : public BDockWidget, private Ui::CellDock

@@ -3,8 +3,9 @@
 
 #include "ui_objecteditor.h"
 #include "tabwidget.h"
-#include "Game/itemmodels.h"
-#include "Game/mapslistmodel.h"
+#include "Game/ItemModels/itemmodels.h"
+#include "Game/ItemModels/mapslistmodel.h"
+#include "Game/ItemModels/paramtreeitemmodel.h"
 #include "itemdelegates.h"
 
 
@@ -25,7 +26,7 @@ private slots:
     void currentElementChanged(const QModelIndex &ind);
 
 private:
-    ObjectParamTableModel *paramsModel;
+    ParamTreeItemModel *paramsModel;
     ObjectFlagTableModel *flagsModel;
     ObjectsTreeModel *objectsModel;
 

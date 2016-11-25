@@ -3,8 +3,8 @@
 
 #include <QAbstractListModel>
 #include <QAbstractTableModel>
-#include "game.h"
-#include "mappainter.h"
+#include "../game.h"
+#include "../mappainter.h"
 
 /**
  * \file mapslistmodel.h

@@ -3,7 +3,7 @@
 
 
 #include <QAbstractItemModel>
-#include "game.h"
+#include "../game.h"
 
 class ObjectsTreeModel : public QAbstractItemModel
 {

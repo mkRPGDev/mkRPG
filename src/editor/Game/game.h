@@ -43,7 +43,9 @@ class Game : public GameObject
 public:
     TypeName(Game)
     Game();
-    inline int newIdent(){return ++idDisp;}
+    int newIdent(GameObject *obj);
+    void aboutToDestroy(GameObject *obj);
+    GameObject *object(int id);
     /**<
      * Returns a new unused identifiers
      *
@@ -57,14 +59,14 @@ public:
     void addImage(Image *im);
 
 private:
-
-
     int idDisp;
+    QMap<int, GameObject*> objects;
 
     World w;
     Map *map;
     QMap<int, Image*> picts;
     QMap<int, QString> strings;
+
 };
 
 

@@ -11,11 +11,11 @@ ObjectEditor::ObjectEditor(QWidget *parent) :
     setupUi(this);
 
     //params->header()->setStretchLastSection(true);
-    params->horizontalHeader()->setStretchLastSection(true);
+    params->header()->setStretchLastSection(true);
     params->setItemDelegateForColumn(1, new ParamItemDelegate(this));
     flags->horizontalHeader()->setStretchLastSection(true);
     objects->setItemDelegateForColumn(1, new ObjectNameItemDelegate(this));
-    paramsModel = new ObjectParamTableModel(this);
+    paramsModel = new ParamTreeItemModel(this);
     flagsModel = new ObjectFlagTableModel(this);
     objectsModel = new ObjectsTreeModel(this);
     params->setModel(paramsModel);
@@ -30,8 +30,8 @@ ObjectEditor::ObjectEditor(QWidget *parent) :
 }
 
 void ObjectEditor::setGame(Game *g){
-    paramsModel->setObject(g->world());
-    flagsModel->setObject(g->world());
+    paramsModel->setObject(nullptr);
+    flagsModel->setObject(nullptr);
     objectsModel->setGame(g);
     int l = objectsModel->rowCount(QModelIndex());
     for(int i(0); i<l; ++i) objects->expand(objectsModel->index(i,0,QModelIndex()));

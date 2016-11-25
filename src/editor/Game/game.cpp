@@ -30,8 +30,17 @@ void Game::setCurrentMap(Map *m){
 
 
 
+int Game::newIdent(GameObject *obj){
+    objects[++idDisp] = obj;
+    return idDisp;
+}
+
+void Game::aboutToDestroy(GameObject *obj){
+    objects.remove(obj->ident());
+}
 
 
-
-
+GameObject* Game::object(int id){
+    return objects[id];
+}
 

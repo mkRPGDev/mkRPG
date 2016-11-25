@@ -7,7 +7,7 @@ GameObject::GameObject(Game* g, GameObject *parent) :
     aParent(parent), game(g), nbRef(0),
     lastEdit(QDateTime::currentDateTime()),
     lastChildEdit(lastEdit),
-    id(g ? g->newIdent() : 0)
+    id(g ? g->newIdent(this) : 0)
 {
     if(parent) parent->addChild(this);
     setName("Untitled");
@@ -15,6 +15,7 @@ GameObject::GameObject(Game* g, GameObject *parent) :
 
 
 GameObject::~GameObject(){
+    if(id) game->aboutToDestroy(this);
     if(nbRef)
         qDebug() << "Salut..." << id << "Références" << nbRef;
     for(GameObject* c : aChildren.values()) delete c;
@@ -24,7 +25,7 @@ GameObject::~GameObject(){
 void GameObject::init(Game *g, GameObject* p){
     if(game == nullptr){
         game = g;
-        id = g->newIdent();
+        id = g->newIdent(this);
         aParent = p;
         if(aParent) aParent->addChild(this);
     }

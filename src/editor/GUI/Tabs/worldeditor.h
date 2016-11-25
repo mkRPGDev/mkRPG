@@ -3,7 +3,7 @@
 
 #include "ui_worldeditor.h"
 #include "tabwidget.h"
-#include "Game/mapslistmodel.h"
+#include "Game/ItemModels/mapslistmodel.h"
 
 class WorldEditor : public TabWidget, private Ui::WorldEditor
 {

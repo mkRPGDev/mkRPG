@@ -16,14 +16,16 @@ typedef QList<QPair<QString,QList<QString>>> HierarchicalAttr;
 
 
 /*!
- * \brief The Type class
+ * \brief The GameObjectType class is the base class for every time
+ * of object in the game.
+ *
+ * It enables to treat all types using polymorphism.
  */
-template<class T>
-class Type : public GameObject
+class GameObjectType : public GameObject
 {
 public:
-    Type(T* ancestor, Game *g, GameObject *aParent) : GameObject(g, aParent), aAncestor(ancestor){}
-    Type(Game*g, GameObject *aParent) : GameObject(g, aParent), aAncestor(nullptr){} // temporaire
+    GameObjectType(GameObjectType* ancestor, Game *g, GameObject *aParent) : GameObject(g, aParent), aAncestor(ancestor){}
+    GameObjectType(Game*g, GameObject *aParent) : GameObject(g, aParent), aAncestor(nullptr){} // temporaire
 
     virtual bool isInheritedParam(const QString &p) const {
         return aAncestor ? aAncestor->hasParam(p) : false;
@@ -39,8 +41,9 @@ public:
     virtual void setParam(const QString &p, int v) {aParams[p] = v; touch();}
     virtual bool hasParam(const QString &p) const {return  GameObject::hasParam(p) || (aAncestor && aAncestor->hasParam(p));}
     virtual QList<QString> params() const {return filter(aParams.keys());}
-    HierarchicalAttr organisedParams() const{
-        HierarchicalAttr p(aAncestor ? aAncestor->organisedParams() : HierarchicalAttr());
+    virtual QList<QString> properParams() const {return paramTree().last().second;} // TODO !
+    HierarchicalAttr paramTree() const{
+        HierarchicalAttr p(aAncestor ? aAncestor->paramTree() : HierarchicalAttr());
         p.append(QPair<QString,QList<QString>>(typeName(), GameObject::params()));
         removeLastRedondances(p);
         return p;
@@ -53,8 +56,10 @@ public:
 
         return (filter(GameObject::flags()));}
 
+   GameObjectType* ancestor() const{return aAncestor;}
+
 protected:
-    T *const aAncestor;
+    GameObjectType *const aAncestor;
 
 private:
     static void removeLastRedondances(HierarchicalAttr &attr){
@@ -66,6 +71,20 @@ private:
                             a.end());
         }
     }
+};
+
+
+
+/*!
+ * \brief The Type class
+ */
+template<class T>
+class Type : public GameObjectType
+{
+public:
+    Type(T* ancestor, Game *g, GameObject *parent) : GameObjectType(ancestor, g, parent){}
+
+    Type(Game*g, GameObject *parent) : GameObjectType(g, parent){} // temporaire
 };
 
 

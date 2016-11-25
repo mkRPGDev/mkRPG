@@ -26,7 +26,6 @@ SOURCES += main.cpp\
     GUI/tabacces.cpp \
     GUI/tabbar.cpp \
     GUI/Tabs/welcome.cpp \
-    Game/mapslistmodel.cpp \
     Game/mappainter.cpp \
     GUI/Tabs/Docks/bdock.cpp \
     GUI/Tabs/Docks/intertie.cpp \
@@ -41,9 +40,11 @@ SOURCES += main.cpp\
     GUI/Tabs/tabwidget.cpp \
     GUI/Tabs/mapresizedialog.cpp \
     GUI/Tabs/itemdelegates.cpp \
-    Game/itemmodels.cpp \
     GUI/quietwidgets.cpp \
-    Game/gameobject.cpp
+    Game/gameobject.cpp \
+    Game/ItemModels/itemmodels.cpp \
+    Game/ItemModels/mapslistmodel.cpp \
+    Game/ItemModels/paramtreeitemmodel.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -59,7 +60,6 @@ HEADERS  += \
     GUI/tabacces.h \
     GUI/tabbar.h \
     GUI/Tabs/welcome.h \
-    Game/mapslistmodel.h \
     Game/mappainter.h \
     GUI/Tabs/Docks/bdock.h \
     GUI/Tabs/Docks/intertie.h \
@@ -74,10 +74,12 @@ HEADERS  += \
     GUI/Tabs/tabwidget.h \
     GUI/Tabs/mapresizedialog.h \
     GUI/Tabs/itemdelegates.h \
-    Game/itemmodels.h \
     GUI/quietwidgets.h \
     Game/gameobject.h \
-    Game/typedobject.hxx
+    Game/typedobject.hxx \
+    Game/ItemModels/itemmodels.h \
+    Game/ItemModels/mapslistmodel.h \
+    Game/ItemModels/paramtreeitemmodel.h
 
 FORMS    += \
     GUI/editor.ui \

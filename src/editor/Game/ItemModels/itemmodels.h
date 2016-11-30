@@ -5,6 +5,8 @@
 #include <QAbstractItemModel>
 #include "../game.h"
 
+
+
 class ObjectsTreeModel : public QAbstractItemModel
 {
 public:

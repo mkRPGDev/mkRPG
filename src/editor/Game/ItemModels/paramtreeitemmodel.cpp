@@ -1,43 +1,160 @@
 #include "paramtreeitemmodel.h"
 
+
+
+GameTreeItem::GameTreeItem(GameObject &obj) :
+    GameTreeItem(0, &obj, nullptr, Object, nullptr) {}
+
+GameTreeItem::GameTreeItem(GameObjectType &typ) :
+    GameTreeItem(0, nullptr, &typ, Type, nullptr) {}
+
+GameTreeItem::GameTreeItem(int rowNb, GameObject *obj, GameObjectType *typ, State state, GameTreeItem *parent) :
+    rowNb(rowNb), parentItem(parent), obj(obj), typ(typ),
+    anc(nullptr), attr(""), state(state)
+{
+    switch (state) {
+    case Type:
+        genealogy(typ);
+        for(int i(0); i<ancestors.length(); ++i)
+            children.append(new GameTreeItem(i, obj, typ, Object, this));
+        break;
+    case Object:
+        if(parent != nullptr)
+            anc = parent->ancestors[rowNb];
+        attrs = anc == nullptr ? obj->params() : anc->properParams();
+        for(int i(0); i<attrs.length(); ++i)
+            children.append(new GameTreeItem(i, obj == nullptr ? anc : obj, typ, Parameter, this));
+        break;
+    case Parameter:
+        attr = parent->attrs[rowNb];
+        children.append(new GameTreeItem(0, obj, typ, Value, this));
+        children.append(new GameTreeItem(1, obj, typ, Value, this));
+        break;
+    case Value:
+        attr = parent->attr;
+        break;
+    default:
+        assert(false);
+        break;
+    }
+}
+
+GameTreeItem::~GameTreeItem(){
+    for(GameTreeItem* i : children)
+        delete i;
+}
+
+
+
+void GameTreeItem::genealogy(GameObjectType *t){
+    if(t == nullptr) return;
+    genealogy(t->ancestor());
+    ancestors.append(t);
+}
+
+int GameTreeItem::row() const{
+    return rowNb;
+}
+
+int GameTreeItem::rowCount() const{
+    return children.length();
+}
+
+GameTreeItem* GameTreeItem::parent() const{
+    return parentItem;
+}
+
+GameTreeItem* GameTreeItem::child(int row) const{
+    assert(row < rowCount());
+    return children[row];
+}
+
+
+Qt::ItemFlags GameTreeItem::flags(int col) const{
+    return (col == 1 && (state == Parameter || state == Value) ? Qt::ItemIsEditable : Qt::NoItemFlags) |
+            Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+}
+
+QVariant GameTreeItem::data(int col, int role) const{
+    switch (state) {
+    case Type: return typeData(col, role);
+    case Object: return objectData(col, role);
+    case Parameter: return parameterData(col, role);
+    case Value: return valueData(col, role);
+    default: return QVariant();
+    }
+}
+
+QVariant GameTreeItem::typeData(int col, int role) const{
+    return QVariant();
+}
+
+QVariant GameTreeItem::objectData(int col, int role) const{
+    if(col) return QVariant();
+    switch (role) {
+    case Qt::DisplayRole: return QVariant(anc->name());
+    default: return QVariant();
+    }
+}
+
+QVariant GameTreeItem::parameterData(int col, int role) const{
+    if(col == 0)
+        switch (role) {
+        case Qt::DisplayRole: return QVariant(attr);
+        default: return QVariant();
+        }
+    else
+        switch (role) {
+        case Qt::DisplayRole: return QVariant(obj->getParam(attr));
+        default: return QVariant();
+        }
+}
+
+QVariant GameTreeItem::valueData(int col, int role) const{
+    if(col == 0)
+        switch (role) {
+        case Qt::DisplayRole: return QVariant(rowNb ? "Maximum" : "Minimum");
+        default: return QVariant();
+        }
+    else
+        switch (role) {
+        case Qt::DisplayRole: return QVariant(rowNb ? obj->getParamMax(attr) : obj->getParamMin(attr));
+        default: return QVariant();
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 ParamTreeItemModel::ParamTreeItemModel(QObject *parent) :
     QAbstractItemModel(parent),
-    obj(nullptr)
+    obj(nullptr), item(nullptr)
 {
 
 }
 
 
-
 int ParamTreeItemModel::rowCount(const QModelIndex &parent) const{
-    if(obj){
-        if(type){
-            if(parent.isValid()){
-                if(parent.parent().isValid()){
-                    if(parent.parent().parent().isValid())
-                        return 0;
-                    return 2;
-                }
-                return type->properParams().length();
-            }
-            return type->paramTree().length();
-        }
-        else{
-            if(parent.isValid()){
-                if(parent.parent().isValid())
-                    return 0;
-                return 2;
-            }
-            return obj->params().length();
-        }
-    }
-    return 0;
+    if(parent.isValid())
+        return static_cast<GameTreeItem*>(parent.internalPointer())->rowCount();
+    return item == nullptr ? 0 : item->rowCount();
 }
 
 int ParamTreeItemModel::columnCount(const QModelIndex &parent) const{
     return 2;
 }
 
+Qt::ItemFlags ParamTreeItemModel::flags(const QModelIndex &index) const{
+    return static_cast<GameTreeItem*>(index.internalPointer())->flags(index.column());
+}
 
 
 QVariant ParamTreeItemModel::headerData(int section, Qt::Orientation orientation, int role) const{
@@ -47,31 +164,21 @@ QVariant ParamTreeItemModel::headerData(int section, Qt::Orientation orientation
 }
 
 QVariant ParamTreeItemModel::data(const QModelIndex &index, int role) const{
-    return QVariant("bjk");
+    return static_cast<GameTreeItem*>(index.internalPointer())->data(index.column(), role);
 }
 
 QModelIndex ParamTreeItemModel::index(int row, int column, const QModelIndex &parent) const{
     if(parent.isValid())
-        return createIndex(row, column, parent.internalId()+1);
-    return createIndex(row, column, 10*(type ? ancestor(type, row)->ident() : obj->ident()));
+        return createIndex(row, column, static_cast<void*>(static_cast<GameTreeItem*>(parent.internalPointer())->child(row)));
+    return createIndex(row, column, static_cast<void*>(item->child(row)));
 }
 
 QModelIndex ParamTreeItemModel::parent(const QModelIndex &child) const{
-    if(!child.isValid() || !(child.internalId()%10)) return QModelIndex();
-    if(type){
-        if(child.internalId()%10 == 1){
-            int i(0);
-            QString tn(game->object(child.internalId()/10)->typeName());
-            HierarchicalAttr a(type->paramTree());
-            for(auto it(a.begin()); it != a.end(); ++i)
-                if((it++)->first == tn) it = a.end();
-            return i < a.length() ? createIndex(i, 0, child.internalId() -1) : QModelIndex();
-        }
-        //else static_cast<GameObjectType*>(game->object(child.internalId()/10)->properParams().indexOf()
-    }
-    else{
-
-    }
+    if(!child.isValid()) return QModelIndex();
+    GameTreeItem *c = static_cast<GameTreeItem*>(child.internalPointer());
+    GameTreeItem *p = c->parent();
+    assert(p != nullptr);
+    if(p->parent() != nullptr) return createIndex(p->row(), 0, p);
     return QModelIndex();
 }
 
@@ -80,22 +187,11 @@ void ParamTreeItemModel::setObject(GameObject *o){
     beginResetModel();
     obj = o;
     type =  dynamic_cast<GameObjectType*>(o);
+    if(item != nullptr)
+        delete item;
+    if(o != nullptr)
+        item = type == nullptr ? new GameTreeItem(*obj) : new GameTreeItem(*type);
     endResetModel();
 }
 
 
-GameObjectType *ParamTreeItemModel::ancestor(GameObjectType *obj, int &gen) const{
-    int req = gen;
-    GameObjectType* anc = obj->ancestor();
-    if(anc){
-        anc = ancestor(anc, gen);
-        ++gen;
-        if(anc) return anc;
-        else return req==gen ? obj : nullptr;
-    }
-    else{
-        gen = 0;
-        return req ? nullptr : obj;
-    }
-
-}

@@ -452,7 +452,7 @@ public:
      * \see setParent
      */
 
-    void setName(const QString &n); /**<
+    virtual void setName(const QString &n); /**<
      * Defines the name of the object.
      *
      * \see name

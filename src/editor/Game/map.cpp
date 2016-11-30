@@ -7,6 +7,9 @@ CellType::CellType(Game *g, GameObject *parent) :
 {
     //aName = QObject::tr("Cell_type", "name of a CellType");
     SetFlag(walkable,true);
+
+    setParam("humidity", 42);
+    setParam("boue", 23);
 }
 
 

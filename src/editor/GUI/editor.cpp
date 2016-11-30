@@ -139,6 +139,7 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     ct3->setName("Mer");
     ct3->setImage(im);
     ct3->setParam("Salinité", 12);
+    ct3->setParam("boue", 0);
     g->world()->addCellType(ct3);
     int l = m->width();
     int h = m->height();

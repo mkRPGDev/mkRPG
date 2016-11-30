@@ -18,6 +18,8 @@ public:
     GameTreeItem *child(int row) const ;
     int rowCount() const;
     int row() const;
+    bool setData(int col, QVariant value, int role);
+
 private:
     explicit GameTreeItem(int rowNb, GameObject *obj, GameObjectType* typ, State state, GameTreeItem *parent);
     int rowNb;
@@ -30,6 +32,10 @@ private:
     QVariant objectData(int col, int role) const;
     QVariant parameterData(int col, int role) const;
     QVariant valueData(int col, int role) const;
+    //bool setTypeData(int col, QVariant value, int role);
+    //bool setObjectData(int col, QVariant value, int role);
+    bool setParameterData(int col, QVariant value, int role);
+    bool setValueData(int col, QVariant value, int role);
 
     GameObject *obj;
     GameObjectType *typ;
@@ -56,6 +62,7 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const;
     QModelIndex parent(const QModelIndex &child) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
     //Qt::ItemFlags flags(const QModelIndex &index) const;
     //bool setData(const QModelIndex &index, const QVariant &value, int role);
 

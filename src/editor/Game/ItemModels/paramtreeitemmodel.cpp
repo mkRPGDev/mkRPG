@@ -71,8 +71,10 @@ GameTreeItem* GameTreeItem::child(int row) const{
 
 
 Qt::ItemFlags GameTreeItem::flags(int col) const{
-    return (col == 1 && (state == Parameter || state == Value) ? Qt::ItemIsEditable : Qt::NoItemFlags) |
-            Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    Qt::ItemFlags fl(Qt::NoItemFlags);
+    if(col == 1 && (state == Parameter || state == Value)) fl |= Qt::ItemIsEditable;
+    if(typ == nullptr || typ == obj || state != Value) fl |= Qt::ItemIsEnabled;
+    return fl;
 }
 
 QVariant GameTreeItem::data(int col, int role) const{
@@ -84,6 +86,7 @@ QVariant GameTreeItem::data(int col, int role) const{
     default: return QVariant();
     }
 }
+
 
 QVariant GameTreeItem::typeData(int col, int role) const{
     return QVariant();
@@ -101,11 +104,18 @@ QVariant GameTreeItem::parameterData(int col, int role) const{
     if(col == 0)
         switch (role) {
         case Qt::DisplayRole: return QVariant(attr);
+        case Qt::FontRole:
+            if(typ != nullptr && typ->isRedefiniedParam(attr)){
+                QFont f;
+                f.setBold(true);
+                return QVariant(f);
+            }
+            else return QVariant();
         default: return QVariant();
         }
     else
         switch (role) {
-        case Qt::DisplayRole: return QVariant(obj->getParam(attr));
+        case Qt::DisplayRole: return QVariant(typ ? typ->getParam(attr) : obj->getParam(attr));
         default: return QVariant();
         }
 }
@@ -124,6 +134,35 @@ QVariant GameTreeItem::valueData(int col, int role) const{
 }
 
 
+bool GameTreeItem::setData(int col, QVariant value, int role){
+    switch (state) {
+    case Parameter: return setParameterData(col, value, role);
+    case Value: return setValueData(col, value, role);
+    default: return false;
+    }
+}
+
+bool GameTreeItem::setParameterData(int col, QVariant value, int role){
+    if(col == 1){
+        if(role == Qt::EditRole){
+            if(typ) typ->setParam(attr, value.toInt());
+            else obj->setParam(attr, value.toInt());
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool GameTreeItem::setValueData(int col, QVariant value, int role){
+    if(col == 1){
+        if(role == Qt::EditRole){
+            if(rowNb) obj->setParamMax(attr, value.toInt());
+            else obj->setParamMin(attr, value.toInt());
+            return true;
+        }
+    }
+}
 
 
 
@@ -195,3 +234,6 @@ void ParamTreeItemModel::setObject(GameObject *o){
 }
 
 
+bool ParamTreeItemModel::setData(const QModelIndex &index, const QVariant &value, int role){
+    return static_cast<GameTreeItem*>(index.internalPointer())->setData(index.column(), value, role);
+}

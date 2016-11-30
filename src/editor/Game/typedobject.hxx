@@ -32,14 +32,14 @@ public:
         return aAncestor ? aAncestor->hasParam(p) : false;
     }
     virtual bool isRedefiniedParam(const QString &p) const {
-        return isRedefiniedParam(p) && GameObject::hasParam(p);
+        return isInheritedParam(p) && GameObject::hasParam(p);
     }
     virtual int getParam(const QString &p) const {
         return GameObject::hasParam(p) || aAncestor==nullptr ?
                     GameObject::getParam(p) :
                     aAncestor->getParam(p);
     }
-    virtual void setParam(const QString &p, int v) {aParams[p] = v; touch();}
+
     virtual bool hasParam(const QString &p) const {return  GameObject::hasParam(p) || (aAncestor && aAncestor->hasParam(p));}
     virtual QList<QString> params() const {return filter(aParams.keys());}
     virtual QList<QString> properParams() const {return paramTree().last().second;} // TODO !

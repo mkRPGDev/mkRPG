@@ -42,7 +42,6 @@ int Game::newIdent(GameObject *obj){
 }
 
 void Game::aboutToDestroy(GameObject *obj){
-    qDebug() << objects.contains(obj->ident()) << obj->ident() << obj->typeName();
     objects.remove(obj->ident());
 }
 

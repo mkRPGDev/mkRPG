@@ -5,6 +5,7 @@ import asyncio
 from const import *
 from interface.interactions import registerInteractions, InteractionType
 from interface.interface import skeys
+from interface.const import UPDTIME
 from shared.orders import OrderDispatcher
 from shared.network import NetworkClient
 import shared.world as world

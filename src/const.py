@@ -5,7 +5,7 @@ PATH = "../test/snake/" # et on oublie pas le dernier /
 # Réseau
 HOST = "localhost"
 #HOST = "paquebot.ens.fr"
-PORT = 12345
+PORT = 12349
 IPV6 = False#True
 USETCP = True
 BUFF = 1024

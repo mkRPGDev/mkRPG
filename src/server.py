@@ -1,13 +1,15 @@
-from sys import argv
+from sys import stdin
 from queue import Queue
 from argparse import ArgumentParser
+from functools import partial
 import asyncio
 
-from const import *
-from shared.actions import registerActions
+from const import PATH
 from shared.orders import OrderDispatcher
 from shared.tools import Perf, Timer
 from shared.network import NetworkServer
+from serverside.actions import registerActions
+from serverside.console import welcomeMessage, inputReady
 from plugins.plugin import loadPluginsServer
 
 import shared.world as world
@@ -21,23 +23,25 @@ class Server():
         self.world = world.loadGame(path)
         self.actions = registerActions(path, world.named) # FIXME -> game
         self.plugins = loadPluginsServer(path, self)
-        
+
         self.timer = Timer()
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent, self.timer)
         self.events = asyncio.Queue()
         self.pause = False
+        
 
     def __del__(self):
         self.loop.stop()
-        print("Killing server")
+#        print("Killing server")
 
     def run(self):
         self.loop.create_task(self.timer.run())
         self.loop.create_task(self.net.run())
+        self.loop.add_reader(stdin, partial(inputReady, self))
         self.loop.run_until_complete(self.main())
 
     async def main(self):
-        print("Server started; waiting for",len(self.world.entities),"clients")
+        welcomeMessage(server)
         await self.net.waitForClients(len(self.world.entities))
         await self.handleEvent(self.world, "start")
         while True:

@@ -14,9 +14,15 @@ World::World(Game *g, GameObject *parent) :
 
 Game::Game() :
     GameObject(),
-    idDisp(0), w(World(this, this)), map(nullptr)
+    idDisp(0), w(new World(this, this)), map(nullptr)
 {
     init(this,nullptr);
+}
+
+Game::~Game(){
+    for(Image* i : picts.values())
+        delete i;
+    delete w;
 }
 
 void Game::addImage(Image *im){
@@ -36,6 +42,7 @@ int Game::newIdent(GameObject *obj){
 }
 
 void Game::aboutToDestroy(GameObject *obj){
+    qDebug() << objects.contains(obj->ident()) << obj->ident() << obj->typeName();
     objects.remove(obj->ident());
 }
 

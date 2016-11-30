@@ -27,7 +27,6 @@ public:
     GameObjectType(GameObjectType* ancestor, Game *g, GameObject *aParent) : GameObject(g, aParent), aAncestor(ancestor){}
     GameObjectType(Game*g, GameObject *aParent) : GameObject(g, aParent), aAncestor(nullptr){} // temporaire
 
-    QString typeName() const{return name();}
 
     virtual bool isInheritedParam(const QString &p) const {
         return aAncestor ? aAncestor->hasParam(p) : false;

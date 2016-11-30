@@ -43,6 +43,7 @@ class Game : public GameObject
 public:
     TypeName(Game)
     Game();
+    ~Game();
     int newIdent(GameObject *obj);
     void aboutToDestroy(GameObject *obj);
     GameObject *object(int id);
@@ -52,7 +53,7 @@ public:
      * \note
      * It should only be used by GameObject methods \ref GameObject::init and GameObject::GameObject.
      */
-    inline World* world(){return &w;}
+    inline World* world(){return w;}
     inline Map* currentMap(){return map;}
     void setCurrentMap(Map *m);
 
@@ -62,7 +63,7 @@ private:
     int idDisp;
     QMap<int, GameObject*> objects;
 
-    World w;
+    World *w;
     Map *map;
     QMap<int, Image*> picts;
     QMap<int, QString> strings;

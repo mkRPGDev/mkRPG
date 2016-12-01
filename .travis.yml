@@ -22,7 +22,7 @@ env:
     - GH_REPO_REF: github.com/mkRPGDev/mkRPG.git
 
 #install pygame
-before_install:
+install:
     - sudo apt-get update -qq
     - sudo apt-get build-dep -qq python-pygame
     - sudo apt-get install -qq python-pygame

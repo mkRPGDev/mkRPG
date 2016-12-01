@@ -5,7 +5,7 @@ python:
   - "3.5"
 
 # This will run on Travis' 'new' container-based infrastructure
-sudo: false
+sudo: true
 
 notifications:
   email: false

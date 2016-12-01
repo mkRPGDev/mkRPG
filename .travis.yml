@@ -31,6 +31,7 @@ addons:
     #  - doxygen-latex
     #  - doxygen-gui
       - graphviz
+      - pygame
 
 # Build your code e.g. by calling make
 script:
@@ -38,7 +39,7 @@ script:
   - python3 -m unittest discover -v -s pytest -p "*.py"
 
 # Generate and deploy documentation
-after_success:
-  - cd $TRAVIS_BUILD_DIR
-  - chmod +x generateDocumentation.sh
-  - ./generateDocumentation.sh
+#after_success:
+  #- cd $TRAVIS_BUILD_DIR
+  #- chmod +x generateDocumentation.sh
+  #- ./generateDocumentation.sh

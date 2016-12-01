@@ -29,7 +29,7 @@ def registerInteractions(path):
     dat = readXml(path + "interactions.xml")
     assert dat.name == "Interactions"
     l = []
-    for d in interactions_list:
+    for d in dat.list:
         l.append(Interaction().load(d))
     return l
 

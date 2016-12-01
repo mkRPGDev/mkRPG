@@ -6,7 +6,7 @@ from shared.tools import readXml
 from shared.orders import Order, OrderType
 import parsing.global_parsing as global_parsing
 
-verbose = True
+verbose = False
 
 named = {}
 toResolve = []
@@ -19,12 +19,14 @@ def loadGame(path):
     parsed_data = global_parsing.game_parser(path+"game.xml")
     for data_list in parsed_data:
         if data_list != 'Actions' and  data_list != 'Interactions':
+            typ = None
+            if data_list.endswith("Type"):
+                typ = data_list[:-4]
             for data in parsed_data[data_list]:
-                eval(data_list)().load(data, typ=data_list)
+                eval(data_list)().load(data, typ)
 
     world = named["world"]
     for m in world.maps: m.fill()
-    print("Finished loading world. What lasts:\n%s" % toResolve)
     return world
 
 class BaseObject:
@@ -57,18 +59,16 @@ class BaseObject:
     def load(self, data, typ=None):
         """ Charge l'objet depuis une structure Xml """
         if verbose: print("Data to load~: %s" % data)
-        if typ != None and type(eval(typ)) == type and typ.endswith("Type"):
+        if typ != None and type(eval(typ)) == type:
             for key in data.keys():
-                ObjectType(typ[:-4]).load(data)
-        elif typ != None and (type(eval(typ))) == type:
-            eval(typ)().load(data)
+                ObjectType(typ).load(data)
 
         for key in data.keys():
             if key == 'name':
                 continue
             elif key == 'params':
                 for sub_data in data[key].keys():
-                    if type(data[key][sub_data])== dict and data[key][sub_data].get("id"):
+                    if type(data[key][sub_data])==dict and data[key][sub_data].get("id"):
                         toResolve.append((data[key][sub_data].get("id"), self.params, key))
                     else:
                         self.params[sub_data] = int(data[key][sub_data])
@@ -87,7 +87,6 @@ class BaseObject:
             else:
                 self.params[key] = data[key]
         if 'name' in data.keys():
-            print("data name is : %s" % data['name'])
             named[data['name']] = self
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue

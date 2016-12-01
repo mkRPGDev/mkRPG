@@ -205,7 +205,7 @@
 #define ParamMin(param, Param) ParamMGetter(param, Param, Min) ParamMSetter(param, Param, Min)
 #define ParamMax(param, Param) ParamMGetter(param, Param, Max) ParamMSetter(param, Param, Max)
 #define ParamDom(param, Param) ParamMin(param,Param) ParamMax(param,Param)
-// faire les (min, max);
+// faire les Setter/Getter (min, max);
 
 #define Param(param, Param) ParamGetter(param) ParamSetter(param, Param) ParamDom(param,Param) /*!<
  * The Param macro defines generic getter and setter methods for the parameter named \c param.
@@ -393,7 +393,7 @@ public:
      * The default destructor destroy every children of the instance
      */
 
-    void init(Game *g, GameObject *p); /**<
+    void init(Game *g, GameObject *parent); /**<
      * Initialises the object in case it had been construct with a NULL pointer (array of objects)
      *
      * \see isValid, \ref GameObject::GameObject "GameObject"
@@ -462,7 +462,7 @@ public:
      *
      * \see setName
      */
-    virtual GameObject* child(const int &i) const{return aChildren.value(i, nullptr);} /**<
+    virtual GameObject* child(const int &id) const{return aChildren.value(id, nullptr);} /**<
      * Returns the child with identifier \c i if any.
      *
      * \see children;
@@ -536,12 +536,12 @@ public:
 
 
 protected:
-    void addChild(GameObject *c); /**<
+    virtual void addChild(GameObject *c); /**<
      * Registers a new child.
      *
      * \see removeChild, child, children
      */
-    void removeChild(GameObject *c); /**<
+    virtual void removeChild(GameObject *c); /**<
      * Removes a child from the children list.
      *
      * \note
@@ -567,6 +567,53 @@ private:
     int id;
 
 };
+
+
+
+
+
+
+typedef QList<QPair<QString,QList<QString>>> HierarchicalAttr;
+
+
+/*!
+ * \brief The GameObjectType class is the base class for every time
+ * of object in the game.
+ *
+ * It enables to treat all types using polymorphism.
+ */
+class GameObjectType : public GameObject
+{
+public:
+    GameObjectType(GameObjectType* ancestor, Game *g, GameObject *aParent);
+    GameObjectType(Game*g, GameObject *aParent);// temporaire
+
+
+    virtual bool isInheritedParam(const QString &p) const;
+    virtual bool isRedefiniedParam(const QString &p) const;
+    virtual int getParam(const QString &p) const;
+    virtual bool hasParam(const QString &p) const;
+    virtual QList<QString> params() const;
+    virtual QList<QString> properParams() const;
+    HierarchicalAttr paramTree() const;
+
+    virtual bool getFlag(const QString &f) const;
+    virtual void setFlag(const QString &f, bool v);
+    virtual bool hasFlag(const QString &f) const;
+    virtual QList<QString> flags() const;
+
+   GameObjectType* ancestor() const;
+   const QList<GameObjectType*>& descendants() const;
+
+protected:
+    GameObjectType *const aAncestor;
+    QList<GameObjectType*> descendantTypes;
+    void addDescendant(GameObjectType *gt);
+
+private:
+    static void removeLastRedondances(HierarchicalAttr &attr);
+};
+
 
 
 

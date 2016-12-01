@@ -18,10 +18,13 @@ ObjectEditor::ObjectEditor(QWidget *parent) :
     paramsModel = new ParamTreeItemModel(this);
     flagsModel = new ObjectFlagTableModel(this);
     objectsModel = new ObjectsTreeModel(this);
+    typesModel = new TypeItemModel(this);
+
     params->setModel(paramsModel);
     flags->setModel(flagsModel);
     objects->setModel(objectsModel);
     objects->setColumnWidth(0, objects->width()/2);
+    types->setModel(typesModel);
 
     connect(objects->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
             this, SLOT(currentElementChanged(QModelIndex)));
@@ -33,6 +36,7 @@ void ObjectEditor::setGame(Game *g){
     paramsModel->setObject(nullptr);
     flagsModel->setObject(nullptr);
     objectsModel->setGame(g);
+    typesModel->setGame(g);
     int l = objectsModel->rowCount(QModelIndex());
     for(int i(0); i<l; ++i) objects->expand(objectsModel->index(i,0,QModelIndex()));
     objects->resizeColumnToContents(0);

@@ -132,15 +132,15 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     im = new Image(g, g, ":/Icons/mer.png");
     g->addImage(im);
     CellType *ct = new CellType(g,g->world());
-    ct->setName("eau");
+    ct->setName("Eau");
     ct->setParam("Profondeur", 75);
 
-    ct3 = new CellType(ct, g, g->world());
+    ct3 = new CellType(ct, g);
     ct3->setName("Mer");
     ct3->setImage(im);
     ct3->setParam("Salinité", 12);
     ct3->setParam("boue", 0);
-    g->world()->addCellType(ct3);
+    g->world()->addCellType(ct);
     int l = m->width();
     int h = m->height();
     for(int i(0); i<l; ++i)

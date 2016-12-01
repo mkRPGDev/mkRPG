@@ -21,6 +21,7 @@ public:
     TypeName(CellType)
     CellType(Game *g, GameObject *aParent);
     CellType(CellType* ancestor, Game *g, GameObject *aParent) : Type(ancestor, g, aParent){}
+    CellType(CellType* ancestor, Game *g) : Type(ancestor, g, ancestor){}
     C0(AttrT, i,I,mage)
     C0(Flag,w,W,alkable)
 private:

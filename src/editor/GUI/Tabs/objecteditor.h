@@ -4,6 +4,7 @@
 #include "ui_objecteditor.h"
 #include "tabwidget.h"
 #include "Game/ItemModels/itemmodels.h"
+#include "Game/ItemModels/typeitemmodel.h"
 #include "Game/ItemModels/mapslistmodel.h"
 #include "Game/ItemModels/paramtreeitemmodel.h"
 #include "itemdelegates.h"
@@ -29,6 +30,7 @@ private:
     ParamTreeItemModel *paramsModel;
     ObjectFlagTableModel *flagsModel;
     ObjectsTreeModel *objectsModel;
+    TypeItemModel *typesModel;
 
 };
 

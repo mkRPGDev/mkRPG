@@ -12,69 +12,6 @@
 
 
 
-typedef QList<QPair<QString,QList<QString>>> HierarchicalAttr;
-
-
-/*!
- * \brief The GameObjectType class is the base class for every time
- * of object in the game.
- *
- * It enables to treat all types using polymorphism.
- */
-class GameObjectType : public GameObject
-{
-public:
-    GameObjectType(GameObjectType* ancestor, Game *g, GameObject *aParent) : GameObject(g, aParent), aAncestor(ancestor){}
-    GameObjectType(Game*g, GameObject *aParent) : GameObject(g, aParent), aAncestor(nullptr){} // temporaire
-
-
-    virtual bool isInheritedParam(const QString &p) const {
-        return aAncestor ? aAncestor->hasParam(p) : false;
-    }
-    virtual bool isRedefiniedParam(const QString &p) const {
-        return isInheritedParam(p) && GameObject::hasParam(p);
-    }
-    virtual int getParam(const QString &p) const {
-        return GameObject::hasParam(p) || aAncestor==nullptr ?
-                    GameObject::getParam(p) :
-                    aAncestor->getParam(p);
-    }
-
-    virtual bool hasParam(const QString &p) const {return  GameObject::hasParam(p) || (aAncestor && aAncestor->hasParam(p));}
-    virtual QList<QString> params() const {return filter(aParams.keys());}
-    virtual QList<QString> properParams() const {return paramTree().last().second;} // TODO !
-    HierarchicalAttr paramTree() const{
-        HierarchicalAttr p(aAncestor ? aAncestor->paramTree() : HierarchicalAttr());
-        p.append(QPair<QString,QList<QString>>(typeName(), GameObject::params()));
-        removeLastRedondances(p);
-        return p;
-    }
-
-    virtual bool getFlag(const QString &f) const{return aFlags.value(f,false);}
-    virtual void setFlag(const QString &f, bool v) {aFlags[f] = v; touch();}
-    virtual bool hasFlag(const QString &f) const {return aFlags.contains(f) || (aAncestor && aAncestor->hasFlag(f));}
-    virtual QList<QString> flags() const {
-
-        return (filter(GameObject::flags()));}
-
-   GameObjectType* ancestor() const{return aAncestor;}
-
-protected:
-    GameObjectType *const aAncestor;
-
-private:
-    static void removeLastRedondances(HierarchicalAttr &attr){
-        if(attr.length()>1){
-            auto &a = attr.last().second;
-            for(auto i : attr)
-                if(i != attr.last())
-                    a.erase(std::remove_if(a.begin(), a.end(), [&i](QString a){return i.second.contains(a);}),
-                            a.end());
-        }
-    }
-};
-
-
 
 /*!
  * \brief The Type class

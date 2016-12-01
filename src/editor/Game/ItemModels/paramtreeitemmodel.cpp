@@ -173,6 +173,7 @@ bool GameTreeItem::setValueData(int col, QVariant value, int role){
 
 
 
+
 ParamTreeItemModel::ParamTreeItemModel(QObject *parent) :
     QAbstractItemModel(parent),
     obj(nullptr), item(nullptr)

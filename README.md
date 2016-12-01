@@ -16,7 +16,11 @@ Un sytème de plugins est disponible (et en amélioration) cf plugins/ ...
 
 
 ### Lancement
-lancer le serveur puis le nombre requis de clients avec python3 client.py -g
+lancer le serveur puis le nombre requis de clients avec python3.5 client.py -g
+
+
+### En salle 411
+Pygame n'est pas installé en salle C411, le script pygame411.sh permet de récupérer une version compilée pour ces machines. Exécuter `$. p411.sh`
 
 
 # Snake

@@ -1,9 +1,7 @@
-from sys import argv, path
+from sys import argv
 from queue import Queue
 from argparse import ArgumentParser
 import asyncio
-
-path.append('parsing')
 
 from const import *
 from shared.actions import registerActions
@@ -13,7 +11,6 @@ from shared.network import NetworkServer
 from plugins.plugin import loadPluginsServer
 
 import shared.world as world
-
 
 class Server():
     """ Classe principale du processus serveur, concilie réseau, monde, actions et timer """
@@ -58,7 +55,6 @@ class Server():
             if event not in self.actions: continue
             for act in self.actions[event]:
                 for order in act.orders:
-                    print(emitter)
                     returnOrder = await self.orderDispatcher.treat(emitter, order)
                     if returnOrder:
                         await self.net.sendOrder(emitter.ident, returnOrder)

@@ -12,15 +12,23 @@ class Interaction():
         self.target = None
 
     def load(self, dat):
-        self.type = InteractionType.Key
-        self.key = dat["key"]
-        self.target = dat["target"]
-        self.event = dat["event"]
+        for d in dat.list:
+            if d.name == "key":
+                self.type = InteractionType.Key
+                self.key = int(d.args["val"])
+            elif d.name == "target":
+                self.target = d.args["val"]
+            elif d.name == "event":
+                self.event = d.args["val"]
+            elif d.name == "button":
+                self.type = InteractionType.Mouse
+                self.key = int(d.args["val"])
         return self
 
 def registerInteractions(path):
     """ Créé une liste d'interaction à partir d'un Xml les décrivant """
-    interactions_list = global_parsing.game_parser(path+"game.xml")["Interactions"]
+    dat = readXml(path + "interactions.xml")
+    assert dat.name == "Interactions"
     l = []
     for d in interactions_list:
         l.append(Interaction().load(d))

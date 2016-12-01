@@ -1,17 +1,13 @@
 <Game>
     <World>
-        <World>world.xml</World>
-        <Map>maps/map.xml</Map>
-        <Cell>maps/cell.xml</Cell>
-        <Entities>entities/entity0.xml</Entities>
-        <Entities>entities/entity1.xml</Entities>
-        <Objects>entities/pomme.xml</Objects>
-        <ObjectTypes>types/corps.xml</ObjectTypes>
+        <xml file="world.xml"/>
+        <xml file="maps/map.xml"/>
+        <xml file="maps/cell.xml"/>
+        <xml file="entities/entity0.xml"/>
+        <xml file="entities/entity1.xml"/>
+        <xml file="types/corps.xml"/>
+        <xml file="entities/pomme.xml"/>
     </World>
-    <Actions>
-        <Action>actions.xml</Action>
-    </Actions>
-    <Interactions>
-        <Interaction>interactions.xml</Interaction>
-    </Interactions>
+    <Actions file="actions.xml"/>
+    <Interactions file="interactions.xml"/>
 </Game>

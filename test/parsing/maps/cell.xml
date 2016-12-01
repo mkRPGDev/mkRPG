@@ -1,24 +1,11 @@
-<Cells>
-    <CellType name="cell0">
-        <Params>
-            <x>10</x>
-            <y>10</y>
-            <picture>79</picture>
-        </Params>
-
-        <Entities>
-            <Entity>joey</Entity>
-        </Entities>
-    </CellType>
-    <CellType name="cell1">
-        <Params>
-            <x>11</x>
-            <y>11</y>
-            <picture>80</picture>
-        </Params>
-
-        <Entities>
-            <Entity>jojo</Entity>
-        </Entities>
-    </CellType>
-</Cells>
+<Cell name="cell0">
+    <Params>
+        <x val="10"/>
+        <y val="10"/>
+        <picture val="79"/>
+    </Params>
+    
+    <Entities>
+        <Entity id="joey"/>
+    </Entities>
+</Cell>

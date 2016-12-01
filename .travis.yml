@@ -21,6 +21,12 @@ env:
     - GH_REPO_NAME: mkRPG
     - GH_REPO_REF: github.com/mkRPGDev/mkRPG.git
 
+#install pygame
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get build-dep -qq python-pygame
+    - sudo apt-get install -qq python-pygame
+
 # Install dependencies
 addons:
   apt:
@@ -31,7 +37,6 @@ addons:
     #  - doxygen-latex
     #  - doxygen-gui
       - graphviz
-      - pygame
 
 # Build your code e.g. by calling make
 script:

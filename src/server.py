@@ -15,7 +15,7 @@ from plugins.plugin import loadPluginsServer
 import shared.world as world
 
 class Server():
-    """ Classe principale du processus serveur, concilie réseau, monde, actions et timer """
+    """ Main class of the server process, gathering network, world, actions and timer """
 
     def __init__(self, path):
         self.loop = asyncio.get_event_loop()
@@ -29,18 +29,19 @@ class Server():
         self.events = asyncio.Queue()
         self.pause = False
         
-
     def __del__(self):
         self.loop.stop()
 #        print("Killing server")
 
     def run(self):
+        """ Launch tasks """
         self.loop.create_task(self.timer.run())
         self.loop.create_task(self.net.run())
         self.loop.add_reader(stdin, partial(inputReady, self))
         self.loop.run_until_complete(self.main())
 
     async def main(self):
+        """ Init stuff, read events and ask for treatment """
         welcomeMessage(server)
         await self.net.waitForClients(len(self.world.entities))
         await self.handleEvent(self.world, "start")
@@ -65,9 +66,11 @@ class Server():
                     # TODO n'envoyer que les infos non secrètes
 
     async def handleEvent(self, emitter, event):
+        """ Add a event to the queue """
         await self.events.put((emitter, event))
 
     async def pluginHandle(self, msg):
+        """ Search for plugins that want to handle the message """
         for plug in self.plugins:
             if msg.startswith(plug.MSGID):
                 await plug.serverMessage(msg)

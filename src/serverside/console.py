@@ -6,10 +6,12 @@ def invite():
     print(">> ", end='', flush=True)
 
 def welcomeMessage(server):
+    """ Print server hello """
     print("Server started; waiting for", len(server.world.entities), "clients")
     invite()
 
 def inputReady(server):
+    """ Treat server interactive commands """
     st = input()
     if st in ("h", "help"):
         print("""Liste des commandes disponibles:

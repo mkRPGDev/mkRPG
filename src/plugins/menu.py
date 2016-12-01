@@ -3,7 +3,7 @@ from plugins.plugin import CursesPlugin
 import curses
 
 class MenuView(CursesPlugin):
-    """ manages the curses menu windows """
+    """ Manages the curses menu windows """
     MINW = 26
     MINH = 1000
     X = -MINW

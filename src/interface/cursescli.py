@@ -18,6 +18,7 @@ class Curses(Interface):
         self.resize()
 
     def resize(self):
+        """ Computes plugins positions """
         curses.update_lines_cols()
         xmin, xmax, ymin, ymax = 0, curses.COLS, 0, curses.LINES
         try:
@@ -92,7 +93,7 @@ class Curses(Interface):
 
 
 class MapView:
-    """ manages the map display """
+    """ Manages the map display """
     def __init__(self, world):
         self.world = world
         self.offX = 0
@@ -109,6 +110,7 @@ class MapView:
         self.updateMap()
     
     def updateMap(self):
+        """ Center map in the window """
         self.map = self.world.currentMap
         self.height = min(self.map.height, self.maxHeight-2)
         self.width = min(self.map.width, self.maxWidth-2)
@@ -143,12 +145,14 @@ class MapView:
         #self.win.noutrefresh()
 
     def cellChar(self, cell):
+        """ Return the char associated to a cell and some overlays """
         if self.showLov and cell.picture==32 and self.lovs[cell.x-self.offX][cell.y-self.offY]:
             return '.'
         else:
             return chr(cell.picture)
 
     def clipOffset(self):
+        """ Ensure the offX, offY lead to a valid display """
         self.offX = max(0, min(self.offX,self.map.width-self.width))
         self.offY = max(0, min(self.offY,self.map.height-self.height))
 

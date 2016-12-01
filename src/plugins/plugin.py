@@ -60,12 +60,14 @@ class PygamePlugin:
 
 
 def loadPluginsServer(path, engine):
+    """ Load serverside plugins, may disappear when loadGame will handle it """
     # FIXME gros bricolage
     import plugins.chat as chat
     ch = chat.Chat(engine)
     return [ch]
 
 def loadPluginsClient(path, engine):
+    """ Load clientside plugins, may disappear when loadGame will handle it """
     import plugins.chat as chat
     import plugins.menu as menu
     ch = chat.Chat(engine)

@@ -8,6 +8,7 @@ dll = CDLL("./trans.a")
 #           double a, double b, double c, double d, int xm, int ym){
 
 def prod(m, p):
+    """ Computes the product of matrix m and vector p """
     return (p[0]*m[0] + p[1]*m[1], p[0]*m[2] + p[1]*m[3]) 
 
 def applyMatrix(surf, m):

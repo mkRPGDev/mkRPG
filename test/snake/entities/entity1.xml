@@ -1,15 +1,12 @@
-<Entities>
-    <Entity name="serpent2">
-        <Position>
-            <x>15</x>
-            <y>15</y>
-        </Position>
-        <Params>
-            <dir>2</dir>
-            <Picture>88</Picture>
-            <case id="cell1"/>
-            <map id="main"/>
-            <score>1</score>
-        </Params>
-    </Entity>
-</Entities>
+<Entity name="serpent2">
+    <Params>
+        <dir val="3"/>
+        <picture val="88"/>
+        
+        <x val="15"/>
+        <y val="15"/>
+        <case id="cell1"/>
+        <map id="main"/>
+        <score val="1"/>
+    </Params>
+</Entity>

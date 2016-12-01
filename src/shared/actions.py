@@ -1,9 +1,4 @@
 from collections import namedtuple
-import sys
-
-sys.path.append("./parsing")
-
-import parsing.global_parsing as global_parsing
 
 Action = namedtuple("Action", "event orders conditions")
 
@@ -13,25 +8,27 @@ from shared.orders import Order
 # XXX pas tout à fait partagé mais temporaire
 
 # TODO enlever named
-def loadAction(event, dat, named):
+def loadAction(dat, named):
     """ Renvoie une instance d'action à partir d'une 
         structure et de la résolution des noms """
+    assert dat.name == "Action"
     orders = []
-    for order in dat:
-        orders.append(Order().load(order, named))
-    return Action(event, orders, [])
+    for d in dat.list:
+        if d.name == "Event": ev = d.args["val"]
+        elif d.name == "Order":
+            orders.append(Order().load(d, named))
+    return Action(ev, orders, [])
 
 def registerActions(path, named):
     """ Créé une liste d'action à partir d'un Xml les décrivant """
-
-    action_dict =  global_parsing.game_parser(path+"game.xml")["Actions"]
-
+    dat = readXml(path + "actions.xml")
+    assert dat.name == "Actions"
     actions = {}
-    for action in action_dict:
-        act = loadAction(action['event'], action['orders'], named)
-        if action['event'] not in actions.keys():
-            actions[action['event']] = []
-        actions[action['event']].append(act)
+    for d in dat.list:
+        act = loadAction(d, named)
+        if act.event not in actions:
+            actions[act.event] = []
+        actions[act.event].append(act)
     return actions
 
 if __name__=="__main__":

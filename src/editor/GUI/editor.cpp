@@ -108,50 +108,48 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 
 Game* Editor::open(QString fileName){ // NOTE : temporaire
     Game* g = new Game();
-    Map *m = new Map(g, g->world());
-    g->world()->addMap(m);
-    m->setName("Paysage bucolique");
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
 
-    im = new Image(g, g, ":/Icons/herbe.png");
+    im = new Image(*g, ":/Icons/herbe.png");
     g->addImage(im);
-    ct1 = new CellType(g, g->world());
+    ct1 = new CellType(*g->world());
     ct1->setName("Herbe");
     ct1->setImage(im);
     g->world()->addCellType(ct1);
-    m->cell(10,10).setCellType(ct1);
-    im = new Image(g, g, ":/Icons/glace.png");
+    im = new Image(*g, ":/Icons/glace.png");
     g->addImage(im);
-    ct2 = new CellType(g, g->world());
+    ct2 = new CellType(*g->world());
     ct2->setName("Glace");
     ct2->setImage(im);
     g->world()->addCellType(ct2);
-    m->cell(11,11).setCellType(ct2);
-    im = new Image(g, g, ":/Icons/mer.png");
+    im = new Image(*g, ":/Icons/mer.png");
     g->addImage(im);
-    CellType *ct = new CellType(g,g->world());
+    CellType *ct = new CellType(*g->world());
     ct->setName("Eau");
     ct->setParam("Profondeur", 75);
 
 
-    ct3 = new CellType(ct, g);
+    ct3 = new CellType(*ct);
     ct3->setName("Mer");
     ct3->setImage(im);
     ct3->setParam("Salinité", 12);
     ct3->setParam("boue", 0);
     g->world()->addCellType(ct);
+    Map *m = new Map(*g->world());
+    g->world()->addMap(m);
+    m->setName("Paysage bucolique");
     int l = m->width();
     int h = m->height();
     for(int i(0); i<l; ++i)
         for(int j(0); j<h; ++j){
             double o = 3.*j/h+(1.8-8.*(i-l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
-            m->cell(i,j).setCellType(o<1 ? ct1 : o<2 ? ct2 : ct3);
+            m->cell(i,j).setCellType(o<1 ? *ct1 : o<2 ? *ct2 : *ct3);
         }
     tabBar->setTabsEnabled(true);
 
-    m = new Map(g, g->world());
+    m = new Map(*g->world());
     m->setName("Le grand large");
     g->world()->addMap(m);
     l = m->width();
@@ -159,7 +157,7 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     for(int i(0); i<l; ++i)
         for(int j(0); j<h; ++j){
             double o = 3.*j/h+(1.8-8.*(l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
-            m->cell(i,j).setCellType(o<1 ? ct1 : o<2 ? ct2 : ct3);
+            m->cell(i,j).setCellType(o<1 ? *ct1 : o<2 ? *ct2 : *ct3);
         }
     tabBar->setTabsEnabled(true);
     return g;

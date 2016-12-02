@@ -28,7 +28,6 @@ public:
     C0(AttrT, i,I,mage)
     C0(Flag,w,W,alkable)
 private:
-    void initialise();
 
 };
 
@@ -59,7 +58,7 @@ public:
     void confirmPreSelection(bool add = true);
     void clearPreSelection();
 
-    const CellType &celltype() const;
+    const CellType &cellType() const;
     void setCellType(CellType &type);
 
     C0(Flag, a,A,ccessible)
@@ -69,7 +68,7 @@ public:
 //    ObjectsMap(c,o,O,bject,,s)
 
     // TODO destruction
-    static Cell* cellArray(const CellType &type, GameObject &parent, int n);
+    static Cell* cellArray(CellType &type, GameObject &parent, int n);
 private:
     Cell();
     bool select;
@@ -77,7 +76,7 @@ private:
     bool selectMod;
 
     static QMutex sync;
-    static const CellType *defaultCellType;
+    static CellType *defaultCellType;
     static GameObject *defaultParent;
 };
 

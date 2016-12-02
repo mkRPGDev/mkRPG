@@ -4,14 +4,16 @@
 
 CellType::CellType(CellType &ancestor) :
     Type(ancestor)
-{}
+{
+    aImage = ancestor.image();
+    if(aImage)
+        aImage->addReference();
+}
 
 
 CellType::CellType(GameObject &parent) :
     Type(parent)
-{}
-
-void CellType::initialise(){
+{
     aImage = nullptr;
     //aName = QObject::tr("Cell_type", "name of a CellType");
     SetFlag(walkable,true);
@@ -25,7 +27,8 @@ void CellType::initialise(){
 
 
 
-
+CellType* Cell::defaultCellType = nullptr;
+GameObject* Cell::defaultParent = nullptr;
 
 Cell::Cell(CellType &type, GameObject &parent) :
     TypedObject(type, parent),
@@ -36,7 +39,7 @@ Cell::Cell() :
     Cell(*defaultCellType, *defaultParent)
 {}
 
-const CellType &Cell::celltype() const{
+const CellType &Cell::cellType() const{
     return objectType();
 }
 
@@ -81,7 +84,7 @@ void Cell::clearPreSelection(){
 }
 
 
-Cell* Cell::cellArray(const CellType &type, GameObject &parent, int n){
+Cell* Cell::cellArray(CellType &type, GameObject &parent, int n){
     QMutexLocker(&Cell::sync);
     defaultCellType = &type;
     defaultParent = &parent;
@@ -122,7 +125,7 @@ Map::~Map(){
 #include "game.h"
 void Map::resize(int w, int h){
     if(cells) delete[] cells;
-    cells = Cell::cellArray(game->world()->cellTypes().first(),&this, w*h);
+    cells = Cell::cellArray(*game->world()->cellTypes().first(),*this, w*h);
     SetParam(width, w);
     SetParam(height, h);
     wi = w;

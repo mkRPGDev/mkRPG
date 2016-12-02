@@ -41,20 +41,20 @@ class TypedObject : public InheritableObject
 {
 public:
     TypedObject(T &type, GameObject &parent) :
-        InheritableObject(parent, &type), aObjectType(type)
+        InheritableObject(parent, &type), aObjectType(&type)
     {}
 
 
     const T& objectType() const{
-        return aObjectType;
+        return *aObjectType;
     }
-    void setObjectType(const T &type){
-        aObjectType = type;
+    void setObjectType(T &type){
+        aObjectType = &type;
         aAncestor = &type;
     }
 
 protected:
-    const T &aObjectType;
+    const T *aObjectType;
 
 };
 

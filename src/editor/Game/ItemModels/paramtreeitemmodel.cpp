@@ -162,6 +162,8 @@ bool GameTreeItem::setValueData(int col, QVariant value, int role){
             return true;
         }
     }
+
+    return false;
 }
 
 

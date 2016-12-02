@@ -100,18 +100,24 @@ int GameObject::getParamMax(const QString &param) const {
 }
 
 void GameObject::setParamMin(const QString &param, int min) {
-    if(hasParam(param))
-        aParams[param].setMinimum(min); touch();
+    if(hasParam(param)){
+        aParams[param].setMinimum(min);
+        touch();
+    }
 }
 
 void GameObject::setParamMax(const QString &param, int max) {
-    if(hasParam(param))
-        aParams[param].setMaximum(max); touch();
+    if(hasParam(param)){
+        aParams[param].setMaximum(max);
+        touch();
+    }
 }
 
 void GameObject::setParamDomain(const QString &param, int min, int max) {
-    if(hasParam(param))
-        aParams[param].setDomain(min,max); touch();
+    if(hasParam(param)){
+        aParams[param].setDomain(min,max);
+        touch();
+    }
 }
 
 int GameObject::getParam(const QString &param) const {
@@ -159,7 +165,7 @@ void GameObject::removeParam(const QString &param){
 
 
 InheritableObject::InheritableObject(GameObject &parent, InheritableObject *ancestor) :
-    GameObject(), aAncestor(ancestor)
+    GameObject(parent), aAncestor(ancestor)
 {
 
 }
@@ -213,7 +219,7 @@ QList<QString> InheritableObject::flags() const {
     return (filter(GameObject::flags()));
 }
 
-const InheritableObject *InheritableObject::ancestor() const{
+InheritableObject *InheritableObject::ancestor() const{
     return aAncestor;
 }
 
@@ -237,20 +243,17 @@ void InheritableObject::removeLastRedondances(HierarchicalAttr &attr){
 GameObjectType::GameObjectType(GameObject &parent) :
     InheritableObject(parent), ancestorType(nullptr)
 {
-    initialise();
 }
 
 GameObjectType::GameObjectType(GameObjectType &ancestor) :
-    InheritableObject(ancestor, &ancestor), ancestorType(&this)
+    InheritableObject(ancestor, &ancestor), ancestorType(this)
 {
-    ancestor.addDescendant(this);
-    initialise();
+    ancestor.addDescendant(*this);
 }
 
 GameObjectType::~GameObjectType(){
-    assert(descendantTypes.isEmpty());
     if(ancestorType != nullptr)
-        ancestorType->removeDescendant(this);
+        ancestorType->removeDescendant(*this);
 }
 
 const QList<GameObjectType*> GameObjectType::descendants() const{
@@ -258,7 +261,7 @@ const QList<GameObjectType*> GameObjectType::descendants() const{
 }
 
 void GameObjectType::addDescendant(GameObjectType &type){
-    descendantTypes.append(type);
+    descendantTypes.append(&type);
 }
 
 void GameObjectType::removeDescendant(GameObjectType &type){

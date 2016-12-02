@@ -38,7 +38,7 @@ void CellDock::on_cellTypes_userChangedCurrentIndex(int i){
     for(int i(0); i<map->width(); ++i)
         for(int j(0); j<map->height(); ++j)
             if(map->cell(i,j).isSelected())
-                map->cell(i,j).setCellType(ct);
+                map->cell(i,j).setCellType(*ct);
     map->touch(); // temporaire
     emit gameModified();
 }

@@ -11,11 +11,11 @@ TypeTreeItem::TypeTreeItem(Game *game) :
         cellTypes->children.append(new TypeTreeItem(c, cellTypes));
 }
 
-TypeTreeItem::TypeTreeItem(Type *typ, TypeTreeItem *parent) :
+TypeTreeItem::TypeTreeItem(GameObjectType *typ, TypeTreeItem *parent) :
     parentItem(parent), state(TypeItem), type(typ)
 {
     rowNb = parent->children.length();
-    for(Type *t : typ->descendants())
+    for(GameObjectType *t : typ->descendants())
         children.append(new TypeTreeItem(t, this));
 }
 

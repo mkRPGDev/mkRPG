@@ -2,9 +2,6 @@
 
 
 
-void ObjectType::initialise(){
-
-}
 
 
 

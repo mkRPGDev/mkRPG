@@ -328,7 +328,7 @@ private:
 
     inline void changeBackgroundSize();
     inline void changeBackgroundDistortion();
-    QImage &getBackground(CellType *ct);
+    QImage &getBackground(const CellType *ct);
 
     Map* map;
     Element displayed;

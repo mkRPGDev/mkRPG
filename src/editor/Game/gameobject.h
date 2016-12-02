@@ -438,7 +438,7 @@ public:
      *
      * \see parent
      */
-    inline const GameObject* parent() const{return aParent;}                                    /**<
+    inline GameObject* parent() const{return aParent;}                                          /**<
      * Returns the parent of the object.
      *
      * \see setParent
@@ -661,7 +661,7 @@ protected:
 
 public:
     bool hasAncestor() const;
-    const InheritableObject* ancestor() const;
+    InheritableObject *ancestor() const;
 
 
     virtual bool isInheritedParam(const QString &p) const;
@@ -694,8 +694,7 @@ class GameObjectType : public InheritableObject
 protected:
     GameObjectType(GameObject &parent);
     GameObjectType(GameObjectType &ancestor);
-    ~GameObjectType();
-    virtual void initialise() = 0;
+    virtual ~GameObjectType();
 public:
     const QList<GameObjectType*> descendants() const;
 private:

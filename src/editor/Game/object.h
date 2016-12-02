@@ -112,7 +112,6 @@ public:
     ObjectType(ObjectType &ancestor) : Type(ancestor){}
     ObjectType(GameObject &parent) : Type(parent){}
 private:
-    void initialise();
 };
 
 /*!

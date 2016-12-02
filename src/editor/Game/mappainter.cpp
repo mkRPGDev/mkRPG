@@ -135,7 +135,7 @@ void MapPainter::resize(int w, int h){
     updateViewParameters();
 }
 
-QImage& MapPainter::getBackground(CellType *ct){
+QImage& MapPainter::getBackground(const CellType *ct){
     assert(ct != nullptr);
     int id = ct->ident();
     if(scaledCellBackgrounds.contains(id))
@@ -161,11 +161,10 @@ void MapPainter::updateBackground(){
     iMax = std::min(nbCellsX+0.,ptToCoo(pxlToPt(PxCoords(pWidth,0))).x()+1);
     jMin = std::max(0.,ptToCoo(pxlToPt(PxCoords(pWidth,pHeight))).y());
     jMax = std::min(nbCellsY+0.,ptToCoo(pxlToPt(PxCoords(0,0))).y()+1);
-    CellType *ct;
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
-            ct = map->cell(i,j).cellType();
-            if(ct) p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(ct));
+            const CellType &ct(map->cell(i,j).cellType());
+            p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(&ct));
         }
     if(displayed & Grid){
         p.setPen(QColor(80,80,80));

@@ -106,7 +106,7 @@ private slots:
 
 private:
     void mouseDoubleClickEvent(QMouseEvent *);
-    void mouseReleaseEvent(QMouseEvent *me);
+    void mouseReleaseEvent(QMouseEvent *);
     void setDockLength(int l, bool inert = true);
 
     bool resizing;

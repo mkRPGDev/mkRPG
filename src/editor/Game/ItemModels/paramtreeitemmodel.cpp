@@ -88,7 +88,7 @@ QVariant GameTreeItem::data(int col, int role) const{
 }
 
 
-QVariant GameTreeItem::typeData(int col, int role) const{
+QVariant GameTreeItem::typeData(int UNUSED(col), int UNUSED(role)) const{
     return QVariant();
 }
 
@@ -190,7 +190,7 @@ int ParamTreeItemModel::rowCount(const QModelIndex &parent) const{
     return item == nullptr ? 0 : item->rowCount();
 }
 
-int ParamTreeItemModel::columnCount(const QModelIndex &parent) const{
+int ParamTreeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
     return 2;
 }
 

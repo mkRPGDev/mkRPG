@@ -9,7 +9,7 @@ ParamItemDelegate::ParamItemDelegate(QObject *parent) :
 }
 
 
-QWidget* ParamItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+QWidget* ParamItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &UNUSED(option), const QModelIndex &UNUSED(index)) const{
     QSpinBox *sp = new QSpinBox(parent);
     sp->setAutoFillBackground(true);
     sp->setMaximum(10000);
@@ -21,7 +21,7 @@ void ParamItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index)
     editor->setProperty("value", index.data(Qt::DisplayRole));
 }
 
-void ParamItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+void ParamItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &UNUSED(index)) const{
     editor->setGeometry(option.rect);
 }
 
@@ -64,7 +64,7 @@ ObjectNameItemDelegate::ObjectNameItemDelegate(QObject *parent) :
 }
 
 
-QWidget* ObjectNameItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+QWidget* ObjectNameItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &UNUSED(option), const QModelIndex &UNUSED(index)) const{
     QLineEdit *le = new QLineEdit(parent);
     return le;
 }
@@ -73,7 +73,7 @@ void ObjectNameItemDelegate::setEditorData(QWidget *editor, const QModelIndex &i
     editor->setProperty("text", index.data(Qt::EditRole));
 }
 
-void ObjectNameItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+void ObjectNameItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &UNUSED(index)) const{
     editor->setGeometry(option.rect);
 }
 

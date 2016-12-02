@@ -13,6 +13,7 @@
  * \brief Base class.
  */
 
+#define UNUSED(p)
 
 #define TypeName(Type) virtual QString typeName() const{return QString(#Type);}
 

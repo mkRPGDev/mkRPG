@@ -1,6 +1,6 @@
 #include "editor.h"
 
-Editor::Editor(QStringList args, QWidget *parent) :
+Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     QMainWindow(parent)
 {
     setupUi(this);
@@ -106,7 +106,7 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 }
 
 
-Game* Editor::open(QString fileName){ // NOTE : temporaire
+Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     Game* g = new Game();
     Image *im;
     CellType *ct1, *ct2, *ct3;

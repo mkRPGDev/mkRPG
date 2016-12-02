@@ -40,7 +40,9 @@ void Options::setAdjustable(QString group, QString opt, bool adjust){
 
 
 void Options::reinitialise(QString group){
+    a.beginGroup(group);
     // TODO par group !
-    a.clear();
+    a.remove("");
+    a.endGroup();
 }
 

@@ -13,7 +13,7 @@ public:
     explicit ObjectsTreeModel(QObject *parent = nullptr);
     explicit ObjectsTreeModel(Game *g, QObject *parent = nullptr);
     void setGame(Game *g);
-    int columnCount(const QModelIndex &parent) const;
+    int columnCount(const QModelIndex &) const;
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QModelIndex index(int row, int column, const QModelIndex &parent) const;

@@ -9,7 +9,7 @@ MapsListModel::MapsListModel(World* w, QObject* parent) :
 
 int MapsListModel::rowCount(const QModelIndex &parent) const{
     //qDebug() << maps.length() << parent.isValid() << parent.model() << parent;
-    return maps.length();
+    return parent.isValid() ? 0 : maps.length();
 }
 
 QVariant MapsListModel::data(const QModelIndex &index, int role) const{
@@ -75,7 +75,7 @@ CellTypeListModel::CellTypeListModel(World* w, QObject* parent) :
 
 int CellTypeListModel::rowCount(const QModelIndex &parent) const{
     //qDebug() << maps.length() << parent.isValid() << parent.model() << parent;
-    return cellTypes.length()+1;
+    return parent.isValid() ? 0 : cellTypes.length()+1;
 }
 
 QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
@@ -123,57 +123,6 @@ bool CellTypeListModel::removeRows(int row, int count, const QModelIndex &parent
 
 
 
-ObjectParamTableModel::ObjectParamTableModel(QObject *parent) :
-    QAbstractTableModel(parent), obj(nullptr)
-{
-}
-
-ObjectParamTableModel::ObjectParamTableModel(GameObject *obj, QObject *parent) :
-    ObjectParamTableModel(parent)
-{
-    setObject(obj);
-}
-
-int ObjectParamTableModel::rowCount(const QModelIndex &parent) const{
-    return obj ? obj->params().length() : 0;
-}
-
-int ObjectParamTableModel::columnCount(const QModelIndex &parent) const{
-    return 2;
-}
-
-QVariant ObjectParamTableModel::data(const QModelIndex &index, int role) const{
-    if(role == Qt::DisplayRole){
-        if(index.column() == 1) return QVariant(obj->getParam(obj->params().at(index.row())));
-        if(index.column() == 0) return QVariant(obj->params().at(index.row()));
-    }
-    return QVariant();
-}
-
-Qt::ItemFlags ObjectParamTableModel::flags(const QModelIndex &index) const{
-    return QAbstractTableModel::flags(index) | ((index.column() == 1) ? Qt::ItemIsEditable : Qt::NoItemFlags);
-}
-
-bool ObjectParamTableModel::setData(const QModelIndex &index, const QVariant &value, int role){
-    obj->setParam(obj->params().at(index.row()), value.toInt());
-    return true;
-}
-
-QVariant ObjectParamTableModel::headerData(int section, Qt::Orientation orientation, int role) const{
-    if(orientation == Qt::Horizontal && role == Qt::DisplayRole){
-        if(section == 0) return QVariant(tr("Parameter"));
-        if(section == 1) return QVariant(tr("Value"));
-    }
-    return QVariant();
-}
-
-void ObjectParamTableModel::setObject(GameObject *o){
-    beginResetModel();
-    obj = o;
-    endResetModel();
-}
-
-
 
 
 
@@ -190,10 +139,10 @@ ObjectFlagTableModel::ObjectFlagTableModel(GameObject *obj, QObject *parent) :
 }
 
 int ObjectFlagTableModel::rowCount(const QModelIndex &parent) const{
-    return obj ? obj->flags().length() : 0;
+    return parent.isValid() ?  obj ? obj->flags().length() : 0 : 0;
 }
 
-int ObjectFlagTableModel::columnCount(const QModelIndex &parent) const{
+int ObjectFlagTableModel::columnCount(const QModelIndex &UNUSED(parent)) const{
     return 2;
 }
 
@@ -209,7 +158,7 @@ Qt::ItemFlags ObjectFlagTableModel::flags(const QModelIndex &index) const{
     return QAbstractTableModel::flags(index) | ((index.column() == 1) ? Qt::ItemIsEditable : Qt::NoItemFlags);
 }
 
-bool ObjectFlagTableModel::setData(const QModelIndex &index, const QVariant &value, int role){
+bool ObjectFlagTableModel::setData(const QModelIndex &index, const QVariant &value, int UNUSED(role)){
     obj->setFlag(obj->flags().at(index.row()), value.toInt());
     return true;
 }

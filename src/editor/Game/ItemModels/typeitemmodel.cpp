@@ -12,7 +12,7 @@ TypeTreeItem::TypeTreeItem(Game *game) :
 }
 
 TypeTreeItem::TypeTreeItem(GameObjectType *typ, TypeTreeItem *parent) :
-    parentItem(parent), state(TypeItem), type(typ)
+    state(TypeItem), parentItem(parent), type(typ)
 {
     rowNb = parent->children.length();
     for(GameObjectType *t : typ->descendants())
@@ -20,7 +20,7 @@ TypeTreeItem::TypeTreeItem(GameObjectType *typ, TypeTreeItem *parent) :
 }
 
 TypeTreeItem::TypeTreeItem(QString typeName, TypeTreeItem *parent) :
-    typeName(typeName), parentItem(parent), state(BaseItem), type(nullptr)
+    state(BaseItem), typeName(typeName), parentItem(parent), type(nullptr)
 {
     rowNb = parent->children.length();
 }
@@ -47,11 +47,11 @@ TypeTreeItem* TypeTreeItem::child(int row) const{
     return children[row];
 }
 
-Qt::ItemFlags TypeTreeItem::flags(int col) const{
+Qt::ItemFlags TypeTreeItem::flags(int UNUSED(col)) const{
     return 0;
 }
 
-QVariant TypeTreeItem::data(int col, int role) const{
+QVariant TypeTreeItem::data(int UNUSED(col), int role) const{
     if(role == Qt::DisplayRole){
         if(state == TypeItem) return QVariant(type->name());
         return QVariant(typeName);
@@ -78,7 +78,7 @@ TypeItemModel::TypeItemModel(QObject *parent) :
 }
 
 
-int TypeItemModel::columnCount(const QModelIndex &parent) const{
+int TypeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
     return 1;
 }
 
@@ -118,10 +118,10 @@ void TypeItemModel::setGame(Game *g){
     endResetModel();
 }
 
-bool TypeItemModel::setData(const QModelIndex &index, const QVariant &value, int role){
+bool TypeItemModel::setData(const QModelIndex &UNUSED(index), const QVariant &UNUSED(value), int UNUSED(role)){
     return false;
 }
 
-QVariant TypeItemModel::headerData(int section, Qt::Orientation orientation, int role) const{
+QVariant TypeItemModel::headerData(int UNUSED(section), Qt::Orientation UNUSED(orientation), int UNUSED(role)) const{
     return QVariant();
 }

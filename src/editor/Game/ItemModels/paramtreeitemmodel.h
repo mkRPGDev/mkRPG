@@ -9,7 +9,7 @@ class GameTreeItem{
     enum State{Type, Object, Parameter, Value};
 public:
     explicit GameTreeItem(GameObject &obj);
-    explicit GameTreeItem(GameObjectType &typ);
+    explicit GameTreeItem(InheritableObject &typ);
     ~GameTreeItem();
 
     Qt::ItemFlags flags(int col) const;
@@ -21,12 +21,12 @@ public:
     bool setData(int col, QVariant value, int role);
 
 private:
-    explicit GameTreeItem(int rowNb, GameObject *obj, GameObjectType* typ, State state, GameTreeItem *parent);
+    explicit GameTreeItem(int rowNb, GameObject *obj, InheritableObject* typ, State state, GameTreeItem *parent);
     int rowNb;
     GameTreeItem *parentItem;
     QList<GameTreeItem *> children;
 
-    void genealogy(GameObjectType *t);
+    void genealogy(InheritableObject *t);
 
     QVariant typeData(int col, int role) const;
     QVariant objectData(int col, int role) const;
@@ -38,10 +38,10 @@ private:
     bool setValueData(int col, QVariant value, int role);
 
     GameObject *obj;
-    GameObjectType *typ;
+    InheritableObject *typ;
 
-    GameObjectType *anc;
-    QList<GameObjectType*> ancestors;
+    InheritableObject *anc;
+    QList<InheritableObject*> ancestors;
     QString attr;
     QList<QString> attrs;
 
@@ -69,7 +69,7 @@ public:
 private:
     Game *game;
     GameObject *obj;
-    GameObjectType *type;
+    InheritableObject *type;
 
 
     GameTreeItem *item;

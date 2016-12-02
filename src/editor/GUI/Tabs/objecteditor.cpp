@@ -45,7 +45,7 @@ void ObjectEditor::setGame(Game *g){
 void ObjectEditor::currentElementChanged(const QModelIndex &ind){
     GameObject *o = static_cast<GameObject*>(ind.internalPointer());
     paramsModel->setObject(o);
-    if(dynamic_cast<GameObjectType*>(o) != nullptr)
+    if(dynamic_cast<InheritableObject*>(o) != nullptr)
         for(int i(0); i<paramsModel->rowCount(QModelIndex()); ++i){
             params->setFirstColumnSpanned(i, QModelIndex(), true);
             params->setExpanded(paramsModel->index(i,0,QModelIndex()), true);

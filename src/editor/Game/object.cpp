@@ -2,22 +2,25 @@
 
 
 
+void ObjectType::initialise(){
 
-
-
-
-
-
-Object::Object(Game *g, GameObject *parent) :
-    TypedObject(g,parent)
-{
-    SetFlag(visible, true);
 }
 
 
 
-Image::Image(Game *g, GameObject *parent, const QString &fileName) :
-    GameObject(g, parent)
+Object::Object(ObjectType &type, GameObject &parent) :
+    TypedObject(type,parent)
+{
+    SetFlag(visible, true);
+    SetFlag(movable, false);
+    SetFlag(interactive, false);
+
+}
+
+
+
+Image::Image(GameObject &parent, const QString &fileName) :
+    GameObject(parent)
 {
     im.load(fileName);
 }

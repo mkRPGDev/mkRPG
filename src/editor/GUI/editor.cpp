@@ -135,6 +135,7 @@ Game* Editor::open(QString fileName){ // NOTE : temporaire
     ct->setName("Eau");
     ct->setParam("Profondeur", 75);
 
+
     ct3 = new CellType(ct, g);
     ct3->setName("Mer");
     ct3->setImage(im);

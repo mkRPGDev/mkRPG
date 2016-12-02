@@ -2,7 +2,7 @@
 
 
 TypeTreeItem::TypeTreeItem(Game *game) :
-    parentItem(nullptr), state(RootItem),type(nullptr)
+    state(RootItem), parentItem(nullptr), type(nullptr)
 {
     game->world()->cellTypes();
     TypeTreeItem *cellTypes = new TypeTreeItem("CellType", this);
@@ -11,12 +11,11 @@ TypeTreeItem::TypeTreeItem(Game *game) :
         cellTypes->children.append(new TypeTreeItem(c, cellTypes));
 }
 
-TypeTreeItem::TypeTreeItem(GameObjectType *typ, TypeTreeItem *parent) :
+TypeTreeItem::TypeTreeItem(Type *typ, TypeTreeItem *parent) :
     parentItem(parent), state(TypeItem), type(typ)
 {
-    qDebug() << "Bim !" << typ->name();
     rowNb = parent->children.length();
-    for(GameObjectType *t : typ->descendants())
+    for(Type *t : typ->descendants())
         children.append(new TypeTreeItem(t, this));
 }
 
@@ -33,7 +32,6 @@ TypeTreeItem::~TypeTreeItem(){
 
 
 int TypeTreeItem::rowCount() const{
-    qDebug() << children.length() << "ici" << state;
     return children.length();
 }
 

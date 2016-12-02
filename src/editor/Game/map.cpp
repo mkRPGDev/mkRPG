@@ -2,27 +2,48 @@
 
 
 
-CellType::CellType(Game *g, GameObject *parent) :
-    Type(g, parent)
-{
+CellType::CellType(CellType &ancestor) :
+    Type(ancestor)
+{}
+
+
+CellType::CellType(GameObject &parent) :
+    Type(parent)
+{}
+
+void CellType::initialise(){
+    aImage = nullptr;
     //aName = QObject::tr("Cell_type", "name of a CellType");
     SetFlag(walkable,true);
 
     setParam("humidity", 42);
     setParam("boue", 23);
-}
-
-
-
-
-
-Cell::Cell(Game* g, GameObject *parent) :
-    TypedObject(g, parent),
-    select(false), nbSel(0), selectMod(false)
-{
-    setCellType(nullptr);
     SetFlag(accessible, true);
 }
+
+
+
+
+
+
+
+Cell::Cell(CellType &type, GameObject &parent) :
+    TypedObject(type, parent),
+    select(false), nbSel(0), selectMod(false)
+{}
+
+Cell::Cell() :
+    Cell(*defaultCellType, *defaultParent)
+{}
+
+const CellType &Cell::celltype() const{
+    return objectType();
+}
+
+void Cell::setCellType(CellType &type){
+    setObjectType(type);
+}
+
 
 void Cell::setSelected(bool s){
     select = s;
@@ -60,9 +81,24 @@ void Cell::clearPreSelection(){
 }
 
 
+Cell* Cell::cellArray(const CellType &type, GameObject &parent, int n){
+    QMutexLocker(&Cell::sync);
+    defaultCellType = &type;
+    defaultParent = &parent;
+    return new Cell[n];
+}
 
-Map::Map(Game *g, GameObject *parent) :
-    GameObject(g, parent),
+
+
+
+
+
+
+
+
+
+Map::Map(GameObject &parent) :
+    GameObject(parent),
     cells(nullptr)
 {
     resize(100,75);
@@ -81,10 +117,12 @@ Map::~Map(){
     delete[] cells;
 }
 
+
+// TODO temporaire
+#include "game.h"
 void Map::resize(int w, int h){
     if(cells) delete[] cells;
-    cells = new Cell[w*h];
-    for(int i(0); i<w*h; cells[i++].init(game, this));
+    cells = Cell::cellArray(game->world()->cellTypes().first(),&this, w*h);
     SetParam(width, w);
     SetParam(height, h);
     wi = w;

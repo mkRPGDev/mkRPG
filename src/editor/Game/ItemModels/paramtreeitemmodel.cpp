@@ -5,10 +5,10 @@
 GameTreeItem::GameTreeItem(GameObject &obj) :
     GameTreeItem(0, &obj, nullptr, Object, nullptr) {}
 
-GameTreeItem::GameTreeItem(GameObjectType &typ) :
+GameTreeItem::GameTreeItem(InheritableObject &typ) :
     GameTreeItem(0, nullptr, &typ, Type, nullptr) {}
 
-GameTreeItem::GameTreeItem(int rowNb, GameObject *obj, GameObjectType *typ, State state, GameTreeItem *parent) :
+GameTreeItem::GameTreeItem(int rowNb, GameObject *obj, InheritableObject *typ, State state, GameTreeItem *parent) :
     rowNb(rowNb), parentItem(parent), obj(obj), typ(typ),
     anc(nullptr), attr(""), state(state)
 {
@@ -46,7 +46,7 @@ GameTreeItem::~GameTreeItem(){
 
 
 
-void GameTreeItem::genealogy(GameObjectType *t){
+void GameTreeItem::genealogy(InheritableObject *t){
     if(t == nullptr) return;
     genealogy(t->ancestor());
     ancestors.append(t);
@@ -226,7 +226,7 @@ QModelIndex ParamTreeItemModel::parent(const QModelIndex &child) const{
 void ParamTreeItemModel::setObject(GameObject *o){
     beginResetModel();
     obj = o;
-    type =  dynamic_cast<GameObjectType*>(o);
+    type =  dynamic_cast<InheritableObject*>(o);
     if(item != nullptr)
         delete item;
     if(o != nullptr)

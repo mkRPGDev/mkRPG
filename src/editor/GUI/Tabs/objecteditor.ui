@@ -108,6 +108,9 @@
          <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
+         <property name="indentation">
+          <number>10</number>
+         </property>
         </widget>
        </item>
       </layout>
@@ -203,7 +206,20 @@
         </layout>
        </item>
        <item>
-        <widget class="QTreeView" name="types"/>
+        <widget class="QTreeView" name="types">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="indentation">
+          <number>10</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

@@ -88,7 +88,10 @@ QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
         case Qt::DisplayRole:
             return QVariant(QString("Ident : ")+QString::number(ct->ident()));
         case Qt::DecorationRole:
-            return QVariant(QPixmap::fromImage(ct->image()->image().scaled(32,32)));
+            if(ct->image() != nullptr)
+                return QVariant(QPixmap::fromImage(ct->image()->image().scaled(32,32)));
+            else
+                return QVariant(QPixmap(32,32));
         case Qt::UserRole:
             return QVariant(ct->ident());
         default:

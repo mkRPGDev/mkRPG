@@ -23,7 +23,7 @@ public:
 
 private:
     explicit TypeTreeItem(QString typeName, TypeTreeItem *parent);
-    explicit TypeTreeItem(GameObjectType *typ, TypeTreeItem *parent);
+    explicit TypeTreeItem(Type *typ, TypeTreeItem *parent);
 
     TypeTreeItem* findType(const QString &t);
 
@@ -31,7 +31,7 @@ private:
     State state;
     QString typeName;
     TypeTreeItem *parentItem;
-    GameObjectType *type;
+    Type *type;
     QList<TypeTreeItem*> children;
 };
 

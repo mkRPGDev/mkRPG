@@ -91,7 +91,7 @@ class Image : public GameObject
 {
 public:
     TypeName(Image)
-    Image(Game*g, GameObject *aParent, const QString &fileName);
+    Image(GameObject &parent, const QString &fileName);
     inline bool isValid() const{return GameObject::isValid() && !im.isNull();} /**<
      * Checks if the GameObject is valid and if the image really exists.
      */
@@ -108,7 +108,11 @@ private:
 class ObjectType;
 class ObjectType : public Type<ObjectType>
 {
-    ObjectType(ObjectType* ancestor, Game *g, GameObject *aParent) : Type(ancestor, g, aParent){}
+public:
+    ObjectType(ObjectType &ancestor) : Type(ancestor){}
+    ObjectType(GameObject &parent) : Type(parent){}
+private:
+    void initialise();
 };
 
 /*!
@@ -118,13 +122,12 @@ class Object : public TypedObject<ObjectType>
 {
 public:
     TypeName(Object)
-    Object(Game *g, GameObject *aParent);
+    Object(ObjectType &type, GameObject &parent);
 
     C0(Flag, v,V,isible)
     C0(Flag, m,M,ovable)
     C0(Flag, i,I,nteractive)
     C0(AttrT,i,I,mage)
-
 
 };
 

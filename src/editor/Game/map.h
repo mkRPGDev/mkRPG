@@ -2,6 +2,8 @@
 #define MAP_H
 
 #include "object.h"
+#include <QMutex>
+#include <QMutexLocker>
 
 /**
  * \file map.h
@@ -19,13 +21,14 @@ class CellType : public Type<CellType>
 {
 public:
     TypeName(CellType)
-    CellType(Game *g, GameObject *aParent);
-    CellType(CellType* ancestor, Game *g, GameObject *aParent) : Type(ancestor, g, aParent){}
-    CellType(CellType* ancestor, Game *g) : Type(ancestor, g, ancestor){}
+    CellType(CellType &ancestor);
+    CellType(GameObject &parent);
+
+
     C0(AttrT, i,I,mage)
     C0(Flag,w,W,alkable)
 private:
-
+    void initialise();
 
 };
 
@@ -44,7 +47,8 @@ class Cell : public TypedObject<CellType>
 {
 public:
     TypeName(Cell)
-    Cell(Game* g = nullptr, GameObject *aParent = nullptr);
+    Cell(CellType &type, GameObject &parent);
+
     bool isSelected() const;
     void setSelected(bool s = true);
     void invertSelected();
@@ -55,17 +59,26 @@ public:
     void confirmPreSelection(bool add = true);
     void clearPreSelection();
 
+    const CellType &celltype() const;
+    void setCellType(CellType &type);
 
     C0(Flag, a,A,ccessible)
 
-    C0(AttrT,c,C,ellType)
     ObjectListD(o,O,bject,,s,Object)
 
 //    ObjectsMap(c,o,O,bject,,s)
+
+    // TODO destruction
+    static Cell* cellArray(const CellType &type, GameObject &parent, int n);
 private:
+    Cell();
     bool select;
     int nbSel;
     bool selectMod;
+
+    static QMutex sync;
+    static const CellType *defaultCellType;
+    static GameObject *defaultParent;
 };
 
 /*class MapType;
@@ -82,7 +95,7 @@ class Map : public GameObject
 {
 public:
     TypeName(Map)
-    Map(Game* g, GameObject *aParent);
+    Map(GameObject &parent);
     ~Map();
 
     int width() const;

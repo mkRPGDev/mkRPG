@@ -11,18 +11,18 @@
 
 
 
-
-
-/*!
- * \brief The Type class
- */
 template<class T>
 class Type : public GameObjectType
 {
 public:
-    Type(T* ancestor, Game *g, GameObject *parent) : GameObjectType(ancestor, g, parent){}
+    Type(GameObject &parent) :
+        GameObjectType(parent)
+    {}
+    Type(T &ancestor) :
+        GameObjectType(ancestor)
+    {}
 
-    Type(Game*g, GameObject *parent) : GameObjectType(g, parent){} // temporaire
+protected:
 };
 
 
@@ -37,20 +37,24 @@ public:
  * The \c class \c T template argument has to be inherited from Type.
  */
 template<class T>
-class TypedObject : public Type<T>
+class TypedObject : public InheritableObject
 {
 public:
-    TypedObject(Game*g, GameObject *aParent) : Type<T>(g, aParent)/*, aType(T::defaultType())*/{} // temporaire
+    TypedObject(T &type, GameObject &parent) :
+        InheritableObject(parent, &type), aObjectType(type)
+    {}
 
-    TypedObject(T &type, Game *g, GameObject *aParent) : Type<T>(&type, g, aParent) {}
 
-
-
-    const T& objectType(){return *Type<T>::aAncestor;}
-    void setObjectType(const T &type){Type<T>::aAncestor = &type;}
+    const T& objectType() const{
+        return aObjectType;
+    }
+    void setObjectType(const T &type){
+        aObjectType = type;
+        aAncestor = &type;
+    }
 
 protected:
-
+    const T &aObjectType;
 
 };
 

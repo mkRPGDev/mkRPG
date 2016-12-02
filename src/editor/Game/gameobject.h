@@ -379,42 +379,34 @@ class Game;
  */
 class GameObject
 {
-public:
-    TypeName(GameObject)
-
-    GameObject(Game *g = nullptr, GameObject *parent = nullptr); /**<
+protected:
+    GameObject(GameObject &parent);
+    GameObject(Game *g = nullptr, GameObject *parent = nullptr);                                /**<
      * Constructs a new GameObject with parent \c parent and the reference to the game \c g.
      *
      * \note
      * If these objects cannot be given to the constructor (case of an array of objects), the
      * \ref init method must be called after the creation to make the GameObject valid.
      */
-    virtual ~GameObject(); /**<
+    virtual ~GameObject();                                                                      /**<
      * The default destructor destroy every children of the instance
      */
 
-    void init(Game *g, GameObject *parent); /**<
-     * Initialises the object in case it had been construct with a NULL pointer (array of objects)
-     *
-     * \see isValid, \ref GameObject::GameObject "GameObject"
-     */
-    virtual bool isValid() const{return id;} /**<
-     * Returns true if the object has been initialised
-     *
-     * \see init, \ref GameObject::GameObject "GameObject"
-     */
-    int ident() const{return id;} /**<
+public:
+    TypeName(GameObject)
+
+    inline int ident() const{return id;}                                                        /**<
      * Returns the name wide unique identifier of the object.
      *
      * \see init, \ref GameObject::GameObject "GameObject"
      */
 
-    inline const QDateTime& lastInternalEdition() const{return lastEdit;} /**<
+    inline const QDateTime& lastInternalEdition() const{return lastEdit;}                       /**<
      * Returns the last edition time.
      *
      * \see lastEdition, lastChildrenEdition
      */
-    inline const QDateTime& lastChildrenEdition() const{return lastChildEdit;} /**<
+    inline const QDateTime& lastChildrenEdition() const{return lastChildEdit;}                  /**<
      * Returns the last time one of the object's children has been modified.
      *
      * \see lastEdition, lastInternalEdition
@@ -425,61 +417,101 @@ public:
      * \see lastInternalEdition, lastChildrenEdition
      */
 
-    void touch(); /**<
+    void touch();                                                                               /**<
      * Notify the object and its parent that it has been modified.
      *
      * \see lastInternalEdition, lastChildrenEdition, lastEdition.
      */
-    void addReference();/**<
+    void addReference();                                                                        /**<
      * Increases the references counter
      *
      * \see removeReference
      */
-    void removeReference();/**<
+    void removeReference();                                                                     /**<
      * Decreases the references counter
      *
      * \see addReference
      */
 
-    void setParent(GameObject *p); /**<
+    void setParent(GameObject *p);                                                              /**<
      * Defines the parent of the object.
      *
      * \see parent
      */
-    inline GameObject* parent() const{return aParent;} /**<
+    inline const GameObject* parent() const{return aParent;}                                    /**<
      * Returns the parent of the object.
      *
      * \see setParent
      */
 
-    virtual void setName(const QString &n); /**<
+    virtual void setName(const QString &n);                                                     /**<
      * Defines the name of the object.
      *
      * \see name
      */
-    const QString& name() const{return aName;} /**<
+    const QString& name() const{return aName;}                                                  /**<
      * Returns the name of the object.
      *
      * \see setName
      */
-    virtual GameObject* child(const int &id) const{return aChildren.value(id, nullptr);} /**<
+    virtual GameObject* child(const int &id) const{return aChildren.value(id, nullptr);}        /**<
      * Returns the child with identifier \c i if any.
      *
      * \see children;
      */
-    virtual QList<GameObject*> children() const{return aChildren.values();} /**<
+    virtual QList<GameObject*> children() const{return aChildren.values();}                     /**<
      * Returns the list of the instance's children.
      *
      * \see child
      */
 
-    virtual int getParamMin(const QString &p) const {return aParams.value(p,Parameter()).minimum();}
-    virtual int getParamMax(const QString &p) const {return aParams.value(p,Parameter()).maximum();}
-    virtual void setParamMin(const QString &p, int m) {aParams[p].setMinimum(m); touch();}
-    virtual void setParamMax(const QString &p, int m) {aParams[p].setMaximum(m); touch();}
-    virtual void setParamDomain(const QString &p, int min, int max) {aParams[p].setDomain(min,max); touch();}
-    virtual int getParam(const QString &p) const {return aParams.value(p,Parameter()).value();} /**<
-     * Returns the value of the \c p parameter.
+    virtual int getParamMin(const QString &param) const;                                        /**<
+     * Returns the lower bound of the \c param parameter.
+     *
+     * \note
+     * If the requested parameter does not exists, a default value is returned (0), and the parameters
+     * stay unchanged.
+     *
+     * \see setParamMin, getParamMax
+     */
+    virtual int getParamMax(const QString &param) const;                                        /**<
+     * Returns the upper bound of the \c param parameter.
+     *
+     * \note
+     * If the requested parameter does not exists, a default value is returned (100), and the parameters
+     * stay unchanged.
+     *
+     * \see setParamMax, getParamMin
+     */
+    virtual void setParamMin(const QString &param, int min);                                    /**<
+     * Sets the lower bound of the \c param parameter.
+     *
+     * \note
+     * If the requested parameter does not exists, the parameters
+     * stay unchanged.
+     *
+     * \see getParamMin, setParamMax, setParamDomain
+     */
+    virtual void setParamMax(const QString &param, int max);                                    /**<
+     * Sets the upper bound of the \c param parameter.
+     *
+     * \note
+     * If the requested parameter does not exists, the parameters
+     * stay unchanged.
+     *
+     * \see getParamMax, setParamMin, setParamDomain
+     */
+    virtual void setParamDomain(const QString &param, int min, int max);                        /**<
+     * Sets the lower and upper bound of the \c param parameter.
+     *
+     * \note
+     * If the requested parameter does not exists, the parameters
+     * stay unchanged.
+     *
+     * \see getParamMin, getParamMax, setParamMin, setParamMax
+     */
+    virtual int getParam(const QString &param) const;                                           /**<
+     * Returns the value of the \c param parameter.
      *
      * \note
      * If the requested parameter does not exists, a null value is returned, and the parameters
@@ -487,23 +519,48 @@ public:
      *
      * \see params, hasParam, setParam, getFlag
      */
-    virtual void setParam(const QString &p, int v) {aParams[p].setValue(v); touch();} /**<
-     * Set the value of the \c p parameter.
+    virtual void setParam(const QString &param, int value);                                     /**<
+     * Set the value of the \c param parameter.
      *
      * \note
      * If the requested parameter does not exists, it is created.
      *
      * \see params, hasParam, getParam, setFlag
      */
-    virtual bool hasParam(const QString &p) const {return  aParams.contains(p);} /**<
-     * Returns true if the parameter \p is register in the object's parameters.
+    virtual bool hasParam(const QString &param) const;                                          /**<
+     * Returns true if the parameter \c param is register in the object's parameters.
      *
      * \see getParam, setParam, hasFlag
      */
-    virtual QList<QString> params() const {return filter(aParams.keys());} /**<
+    virtual QList<QString> params() const;                                                      /**<
      * Returns the list of the registered paramters
      *
      * \see getParam, setParam, flags
+     */
+    virtual void renameParam(const QString &param, QString &newParam);                          /**<
+     * Changes the name of the \c param parameter to \c newParam.
+     *
+     * \note
+     * If the requested parameter does not exist, a new parameter is created.
+     *
+     * \see addParam, removeParam
+     */
+    virtual void addParam(const QString &param, int value = 0, int min = 0, int max = 100);     /**<
+     * Inserts a new \c param parameter.
+     *
+     * \note
+     * If the requested parameter already exist, it is replaced by the new one.
+     *
+     * \see renameParam, removeParam
+     */
+    virtual void removeParam(const QString &param);                                             /**<
+     *  Erases the \c param parameter.
+     *
+     * \note
+     * If the requested parameter does not exists, the parameters
+     * stay unchanged.
+     *
+     * \see renameParam, addParam
      */
 
     virtual bool getFlag(const QString &f) const{return aFlags.value(f,false);} /**<
@@ -534,8 +591,20 @@ public:
      * \see getFlag, setFlag, params
      */
 
-
 protected:
+
+    void init(Game *g, GameObject *parent);                                                     /**<
+     * Initialises the object in case it had been construct with a NULL pointer (array of objects)
+     *
+     * \see isValid, \ref GameObject::GameObject "GameObject"
+     */
+    virtual bool isValid() const{return id;}                                                    /**<
+     * Returns true if the object has been initialised
+     *
+     * \see init, \ref GameObject::GameObject "GameObject"
+     */
+
+
     virtual void addChild(GameObject *c); /**<
      * Registers a new child.
      *
@@ -572,7 +641,10 @@ private:
 
 
 
-
+/**
+ *
+ * to comment
+ */
 typedef QList<QPair<QString,QList<QString>>> HierarchicalAttr;
 
 
@@ -582,11 +654,14 @@ typedef QList<QPair<QString,QList<QString>>> HierarchicalAttr;
  *
  * It enables to treat all types using polymorphism.
  */
-class GameObjectType : public GameObject
+class InheritableObject : public GameObject
 {
+protected:
+    InheritableObject(GameObject &parent, InheritableObject *ancestor = nullptr);
+
 public:
-    GameObjectType(GameObjectType* ancestor, Game *g, GameObject *aParent);
-    GameObjectType(Game*g, GameObject *aParent);// temporaire
+    bool hasAncestor() const;
+    const InheritableObject* ancestor() const;
 
 
     virtual bool isInheritedParam(const QString &p) const;
@@ -602,17 +677,34 @@ public:
     virtual bool hasFlag(const QString &f) const;
     virtual QList<QString> flags() const;
 
-   GameObjectType* ancestor() const;
-   const QList<GameObjectType*>& descendants() const;
 
 protected:
-    GameObjectType *const aAncestor;
-    QList<GameObjectType*> descendantTypes;
-    void addDescendant(GameObjectType *gt);
+
+    InheritableObject *aAncestor;
 
 private:
     static void removeLastRedondances(HierarchicalAttr &attr);
 };
+
+
+
+
+class GameObjectType : public InheritableObject
+{
+protected:
+    GameObjectType(GameObject &parent);
+    GameObjectType(GameObjectType &ancestor);
+    ~GameObjectType();
+    virtual void initialise() = 0;
+public:
+    const QList<GameObjectType*> descendants() const;
+private:
+    void addDescendant(GameObjectType &type);
+    void removeDescendant(GameObjectType &type);
+    QList<GameObjectType*> descendantTypes;
+    GameObjectType* ancestorType;
+};
+
 
 
 

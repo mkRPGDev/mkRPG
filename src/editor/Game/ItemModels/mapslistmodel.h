@@ -57,24 +57,4 @@ private:
 
 
 
-class ObjectFlagTableModel : public QAbstractTableModel
-{
-    Q_OBJECT
-public:
-    explicit ObjectFlagTableModel(QObject *parent = 0);
-    explicit ObjectFlagTableModel(GameObject *obj, QObject *parent = 0);
-    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    int columnCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
-    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
-    bool setData(const QModelIndex &index, const QVariant &value, int role);
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    void setObject(GameObject *o);
-
-
-private:
-    GameObject *obj;
-};
-
-
 #endif // MAPSLISTMODEL_H

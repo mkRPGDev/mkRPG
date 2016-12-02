@@ -6,7 +6,7 @@
 #include "Game/ItemModels/itemmodels.h"
 #include "Game/ItemModels/typeitemmodel.h"
 #include "Game/ItemModels/mapslistmodel.h"
-#include "Game/ItemModels/paramtreeitemmodel.h"
+#include "Game/ItemModels/attrtreeitemmodel.h"
 #include "itemdelegates.h"
 
 
@@ -28,7 +28,7 @@ private slots:
 
 private:
     ParamTreeItemModel *paramsModel;
-    ObjectFlagTableModel *flagsModel;
+    FlagTreeItemModel *flagsModel;
     ObjectsTreeModel *objectsModel;
     TypeItemModel *typesModel;
 

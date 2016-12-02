@@ -673,10 +673,13 @@ public:
     virtual QList<QString> properParams() const;
     HierarchicalAttr paramTree() const;
 
+    virtual bool isInheritedFlag(const QString &p) const;
+    virtual bool isRedefiniedFlag(const QString &p) const;
     virtual bool getFlag(const QString &f) const;
-    virtual void setFlag(const QString &f, bool v);
     virtual bool hasFlag(const QString &f) const;
     virtual QList<QString> flags() const;
+    virtual QList<QString> properFlags() const;
+    HierarchicalAttr flagTree() const;
 
 
 protected:

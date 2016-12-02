@@ -189,7 +189,7 @@ bool InheritableObject::hasParam(const QString &p) const {
 }
 
 QList<QString> InheritableObject::params() const {
-    return filter(aParams.keys());
+    return filter(aParams.keys()); // NOTE Vraiment ?
 }
 
 QList<QString> InheritableObject::properParams() const {
@@ -203,20 +203,40 @@ HierarchicalAttr InheritableObject::paramTree() const{
     return p;
 }
 
-bool InheritableObject::getFlag(const QString &f) const{
-    return aFlags.value(f,false);
+
+
+
+bool InheritableObject::isInheritedFlag(const QString &p) const {
+    return aAncestor ? aAncestor->hasFlag(p) : false;
 }
 
-void InheritableObject::setFlag(const QString &f, bool v) {
-    aFlags[f] = v; touch();
+bool InheritableObject::isRedefiniedFlag(const QString &p) const {
+    return isInheritedParam(p) && GameObject::hasFlag(p);
 }
 
-bool InheritableObject::hasFlag(const QString &f) const {
-    return aFlags.contains(f) || (aAncestor && aAncestor->hasFlag(f));
+bool InheritableObject::getFlag(const QString &p) const {
+    return GameObject::hasFlag(p) || aAncestor==nullptr ?
+                GameObject::getFlag(p) :
+                aAncestor->getFlag(p);
+}
+
+bool InheritableObject::hasFlag(const QString &p) const {
+    return  GameObject::hasFlag(p) || (aAncestor && aAncestor->hasFlag(p));
 }
 
 QList<QString> InheritableObject::flags() const {
-    return (filter(GameObject::flags()));
+    return filter(aFlags.keys()); // NOTE Vraiment ?
+}
+
+QList<QString> InheritableObject::properFlags() const {
+    return flagTree().last().second;
+}
+
+HierarchicalAttr InheritableObject::flagTree() const{
+    HierarchicalAttr f(aAncestor ? aAncestor->flagTree() : HierarchicalAttr());
+    f.append(QPair<QString,QList<QString>>(typeName(), GameObject::flags()));
+    removeLastRedondances(f);
+    return f;
 }
 
 InheritableObject *InheritableObject::ancestor() const{

@@ -12,11 +12,11 @@ ObjectEditor::ObjectEditor(QWidget *parent) :
 
     //params->header()->setStretchLastSection(true);
     params->header()->setStretchLastSection(true);
+    flags->header()->setStretchLastSection(true);
     params->setItemDelegateForColumn(1, new ParamItemDelegate(this));
-    flags->horizontalHeader()->setStretchLastSection(true);
     objects->setItemDelegateForColumn(1, new ObjectNameItemDelegate(this));
     paramsModel = new ParamTreeItemModel(this);
-    flagsModel = new ObjectFlagTableModel(this);
+    flagsModel = new FlagTreeItemModel(this);
     objectsModel = new ObjectsTreeModel(this);
     typesModel = new TypeItemModel(this);
 
@@ -45,14 +45,19 @@ void ObjectEditor::setGame(Game *g){
 void ObjectEditor::currentElementChanged(const QModelIndex &ind){
     GameObject *o = static_cast<GameObject*>(ind.internalPointer());
     paramsModel->setObject(o);
-    if(dynamic_cast<InheritableObject*>(o) != nullptr)
+    flagsModel->setObject(o);
+    if(dynamic_cast<InheritableObject*>(o) != nullptr){
         for(int i(0); i<paramsModel->rowCount(QModelIndex()); ++i){
             params->setFirstColumnSpanned(i, QModelIndex(), true);
             params->setExpanded(paramsModel->index(i,0,QModelIndex()), true);
         }
-    flagsModel->setObject(o);
+        for(int i(0); i<flagsModel->rowCount(QModelIndex()); ++i){
+            flags->setFirstColumnSpanned(i, QModelIndex(), true);
+            flags->setExpanded(flagsModel->index(i,0,QModelIndex()), true);
+        }
+    }
 //    flags->update(QModelIndex());
-    params->update(flagsModel->index(0,0));
-    flags->update(flagsModel->index(0,0));
+    //params->update(flagsModel->index(0,0));
+    //flags->update(flagsModel->index(0,0));
 
 }

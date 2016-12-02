@@ -44,8 +44,8 @@ SOURCES += main.cpp\
     Game/gameobject.cpp \
     Game/ItemModels/itemmodels.cpp \
     Game/ItemModels/mapslistmodel.cpp \
-    Game/ItemModels/paramtreeitemmodel.cpp \
-    Game/ItemModels/typeitemmodel.cpp
+    Game/ItemModels/typeitemmodel.cpp \
+    Game/ItemModels/attrtreeitemmodel.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -80,8 +80,8 @@ HEADERS  += \
     Game/typedobject.hxx \
     Game/ItemModels/itemmodels.h \
     Game/ItemModels/mapslistmodel.h \
-    Game/ItemModels/paramtreeitemmodel.h \
-    Game/ItemModels/typeitemmodel.h
+    Game/ItemModels/typeitemmodel.h \
+    Game/ItemModels/attrtreeitemmodel.h
 
 FORMS    += \
     GUI/editor.ui \

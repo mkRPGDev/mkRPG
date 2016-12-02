@@ -1,12 +1,15 @@
-#ifndef PARAMTREEITEMMODEL_H
-#define PARAMTREEITEMMODEL_H
+#ifndef ATTRTREEITEMMODEL_H
+#define ATTRTREEITEMMODEL_H
 
 
 #include <QAbstractItemModel>
 #include "../game.h"
 
+
+
+template<bool ParamItem>
 class GameTreeItem{
-    enum State{Type, Object, Parameter, Value};
+    enum State{Type, Object, Attribute, Value};
 public:
     explicit GameTreeItem(GameObject &obj);
     explicit GameTreeItem(InheritableObject &typ);
@@ -23,8 +26,8 @@ public:
 private:
     explicit GameTreeItem(int rowNb, GameObject *obj, InheritableObject* typ, State state, GameTreeItem *parent);
     int rowNb;
-    GameTreeItem *parentItem;
-    QList<GameTreeItem *> children;
+    GameTreeItem<ParamItem> *parentItem;
+    QList<GameTreeItem<ParamItem> *> children;
 
     void genealogy(InheritableObject *t);
 
@@ -63,8 +66,6 @@ public:
     QModelIndex parent(const QModelIndex &child) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
-    //Qt::ItemFlags flags(const QModelIndex &index) const;
-    //bool setData(const QModelIndex &index, const QVariant &value, int role);
 
 private:
     Game *game;
@@ -72,10 +73,8 @@ private:
     InheritableObject *type;
 
 
-    GameTreeItem *item;
+    GameTreeItem<true> *item;
 };
-
-/*
 
 class FlagTreeItemModel : public QAbstractItemModel
 {
@@ -85,19 +84,20 @@ public:
     void setObject(GameObject *o);
     int columnCount(const QModelIndex &parent) const;
     int rowCount(const QModelIndex &parent) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant data(const QModelIndex &index, int role) const;
     QModelIndex index(int row, int column, const QModelIndex &parent) const;
     QModelIndex parent(const QModelIndex &child) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    //Qt::ItemFlags flags(const QModelIndex &index) const;
-    //bool setData(const QModelIndex &index, const QVariant &value, int role);
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
 
 private:
     Game *game;
     GameObject *obj;
-    GameObjectType *type;
+    InheritableObject *type;
 
-    GameObjectType *ancestor(GameObjectType* obj, int &gen) const;
-};*/
 
-#endif // PARAMTREEITEMMODEL_H
+    GameTreeItem<false> *item;
+};
+
+#endif // ATTRTREEITEMMODEL_H

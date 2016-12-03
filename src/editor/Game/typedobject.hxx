@@ -10,7 +10,20 @@
  */
 
 
-
+/*!
+ *\class Type
+ * \brief The Type class is the base class for types of
+ * TypedObject.
+ *
+ * It adds to InheritableObject a constrain on the objects
+ * that can be used as type, defined by le \c class \c T
+ * template argument.
+ *
+ * \note
+ * The \c class \c T template argument has to be inherited from Type.
+ *
+ * \see CellType, ObjectType
+ */
 template<class T>
 class Type : public GameObjectType
 {
@@ -27,14 +40,18 @@ protected:
 
 
 /*!
- * \brief The TypedObject class
+ * \brief The TypedObject class is the base class for GameObject
+ * with a mutable Type.
  *
- * This class inherited from Type, and provide the same behaviour,
- * except that the ancestor cannot be a null pointer, and it can be
- * modified after the construction.
+ * It adds to InheritableObject the guarranty that the object has
+ * a type, with a constrain on it defined by le \c class \c T template
+ * argument.
+ *
  *
  * \note
  * The \c class \c T template argument has to be inherited from Type.
+ *
+ * \see Cell, Object
  */
 template<class T>
 class TypedObject : public InheritableObject

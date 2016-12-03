@@ -198,18 +198,18 @@ bool InheritableObject::isInheritedParam(const QString &p) const {
     return aAncestor ? aAncestor->hasParam(p) : false;
 }
 
-bool InheritableObject::isRedefiniedParam(const QString &p) const {
-    return isInheritedParam(p) && GameObject::hasParam(p);
+bool InheritableObject::isRedefiniedParam(const QString &param) const {
+    return isInheritedParam(param) && GameObject::hasParam(param);
 }
 
-int InheritableObject::getParam(const QString &p) const {
-    return GameObject::hasParam(p) || aAncestor==nullptr ?
-                GameObject::getParam(p) :
-                aAncestor->getParam(p);
+int InheritableObject::getParam(const QString &param) const {
+    return GameObject::hasParam(param) || aAncestor==nullptr ?
+                GameObject::getParam(param) :
+                aAncestor->getParam(param);
 }
 
-bool InheritableObject::hasParam(const QString &p) const {
-    return  GameObject::hasParam(p) || (aAncestor && aAncestor->hasParam(p));
+bool InheritableObject::hasParam(const QString &param) const {
+    return  GameObject::hasParam(param) || (aAncestor && aAncestor->hasParam(param));
 }
 
 QList<QString> InheritableObject::params() const {
@@ -230,22 +230,22 @@ HierarchicalAttr InheritableObject::paramTree() const{
 
 
 
-bool InheritableObject::isInheritedFlag(const QString &p) const {
-    return aAncestor ? aAncestor->hasFlag(p) : false;
+bool InheritableObject::isInheritedFlag(const QString &flag) const {
+    return aAncestor ? aAncestor->hasFlag(flag) : false;
 }
 
-bool InheritableObject::isRedefiniedFlag(const QString &p) const {
-    return isInheritedFlag(p) && GameObject::hasFlag(p);
+bool InheritableObject::isRedefiniedFlag(const QString &flag) const {
+    return isInheritedFlag(flag) && GameObject::hasFlag(flag);
 }
 
-bool InheritableObject::getFlag(const QString &p) const {
-    return GameObject::hasFlag(p) || aAncestor==nullptr ?
-                GameObject::getFlag(p) :
-                aAncestor->getFlag(p);
+bool InheritableObject::getFlag(const QString &flag) const {
+    return GameObject::hasFlag(flag) || aAncestor==nullptr ?
+                GameObject::getFlag(flag) :
+                aAncestor->getFlag(flag);
 }
 
-bool InheritableObject::hasFlag(const QString &p) const {
-    return  GameObject::hasFlag(p) || (aAncestor && aAncestor->hasFlag(p));
+bool InheritableObject::hasFlag(const QString &flag) const {
+    return  GameObject::hasFlag(flag) || (aAncestor && aAncestor->hasFlag(flag));
 }
 
 QList<QString> InheritableObject::flags() const {

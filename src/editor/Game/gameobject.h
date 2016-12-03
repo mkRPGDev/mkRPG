@@ -669,17 +669,22 @@ private:
 
 
 /**
- *
- * to comment
+ * Convenient type that represent the attributes (flags/parameters) organized
+ * by the oldest object that defines them.
  */
 typedef QList<QPair<QString,QList<QString>>> HierarchicalAttr;
 
 
 /*!
- * \brief The GameObjectType class is the base class for every time
- * of object in the game.
+ * \brief The InheritableObject class is the base class for every objects
+ * that can inherit attributes from an other InheritableObject.
  *
- * It enables to treat all types using polymorphism.
+ * \note
+ * The ancerstor of the object can be modified after instanciation.
+ *
+ * It is the base class of Type and TypedObject.
+ *
+ * \see Type, TypedObject
  */
 class InheritableObject : public GameObject
 {
@@ -687,25 +692,93 @@ protected:
     InheritableObject(GameObject &parent, InheritableObject *ancestor = nullptr);
 
 public:
-    bool hasAncestor() const;
-    InheritableObject *ancestor() const;
+    bool hasAncestor() const;                                       /**<
+     * Returns \c true if the object inherits from an other one.
+     *
+     * \see ancestor
+     */
+    InheritableObject *ancestor() const;                            /**<
+     * Returns the object from with the current instance inherits
+     *
+     * \see hasAncestor
+     */
 
 
-    virtual bool isInheritedParam(const QString &p) const;
-    virtual bool isRedefiniedParam(const QString &p) const;
-    virtual int getParam(const QString &p) const;
-    virtual bool hasParam(const QString &p) const;
+    virtual bool isInheritedParam(const QString &p) const;          /**<
+     * Returns true if the \c param parameter is define in one of
+     * the ancestors of the object.
+     *
+     * \see isRedefiniedParam, isInheritedFlag
+     */
+    virtual bool isRedefiniedParam(const QString &param) const;     /**<
+     * Returns true if the \c param parameter is an inherited parameter
+     * with a object proper value.
+     *
+     * \see isInheritedParam, isRedefiniedFlag
+     */
+    virtual int getParam(const QString &param) const;               /**<
+     * Returns the value of the \c param parameter, loocking
+     * for it in the different ancestors if not found.
+     *
+     * \see hasParam, getFlag, GameObject::getParam
+     */
+    virtual bool hasParam(const QString &param) const;              /**<
+     * Returns true if the \c param parameter is defined in the
+     * object or one of its ancestors.
+     *
+     * \see getParam, hasFlag, GameObject::hasParam
+     */
     virtual QList<QString> params() const;
-    virtual QList<QString> properParams() const;
-    HierarchicalAttr paramTree() const;
+    virtual QList<QString> properParams() const;                    /**<
+     * Returns the list of the parameters that are only defined
+     * in the object (the uninherited parameters)
+     *
+     * \see paramTree, properFlags
+     */
+    HierarchicalAttr paramTree() const;                             /**<
+     * Returns the hierarchy of parameters, that is the list of
+     * ancestors and wich parameters they define.
+     *
+     * \see properParams, flagTree
+     */
 
-    virtual bool isInheritedFlag(const QString &p) const;
-    virtual bool isRedefiniedFlag(const QString &p) const;
-    virtual bool getFlag(const QString &f) const;
-    virtual bool hasFlag(const QString &f) const;
+    virtual bool isInheritedFlag(const QString &flag) const;        /**<
+     * Returns true if the \c flag flag is define in one of
+     * the ancestors of the object.
+     *
+     * \see isRedefiniedFlag, isInheritedParam
+     */
+    virtual bool isRedefiniedFlag(const QString &flag) const;       /**<
+     * Returns true if the \c flag flag is an inherited flag
+     * with a object proper value.
+     *
+     * \see isInheritedFlag, isRedefiniedParam
+     */
+    virtual bool getFlag(const QString &flag) const;                /**<
+     * Returns the value of the \c flag flag, loocking
+     * for it in the different ancestors if not found.
+     *
+     * \see hasFlag, getParam, GameObject::getFlag
+     */
+    virtual bool hasFlag(const QString &flag) const;                /**<
+     * Returns true if the \c flag flag is defined in the
+     * object or one of its ancestors.
+     *
+     * \see getFlag, hasParam, GameObject::hasFlag
+     */
     virtual QList<QString> flags() const;
-    virtual QList<QString> properFlags() const;
-    HierarchicalAttr flagTree() const;
+    virtual QList<QString> properFlags() const;                     /**<
+     * Returns the list of the flags that are only defined
+     * in the object (the uninherited flags)
+     *
+     * \see paramTree, properFlags
+     */
+    HierarchicalAttr flagTree() const;                              /**<
+     * Returns the hierarchy of flags, that is the list of
+     * ancestors and wich flags they define.
+     *
+     * \see properFlags, paramTree
+     */
 
 
 protected:

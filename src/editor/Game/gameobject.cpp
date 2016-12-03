@@ -151,12 +151,36 @@ void GameObject::removeParam(const QString &param){
     aParams.remove(param);
 }
 
+bool GameObject::getFlag(const QString &flag) const{
+    return aFlags.value(flag,false);
+}
 
+void GameObject::setFlag(const QString &flag, bool enable) {
+    aFlags[flag] = enable;
+    touch();
+}
 
+bool GameObject::hasFlag(const QString &flag) const {
+    return aFlags.contains(flag);
+}
 
+QList<QString> GameObject::flags() const {
+    return filter(aFlags.keys());
+}
 
+void GameObject::renameFlag(const QString &flag, QString &newFlag){
+    aFlags[newFlag] = aFlags.value(flag);
+    removeFlag(flag);
+}
 
+void GameObject::addFlag(const QString &flag, bool enable){
+    removeFlag(flag);
+    aFlags[flag] = enable;
+}
 
+void GameObject::removeFlag(const QString &flag){
+    aFlags.remove(flag);
+}
 
 
 
@@ -211,7 +235,7 @@ bool InheritableObject::isInheritedFlag(const QString &p) const {
 }
 
 bool InheritableObject::isRedefiniedFlag(const QString &p) const {
-    return isInheritedParam(p) && GameObject::hasFlag(p);
+    return isInheritedFlag(p) && GameObject::hasFlag(p);
 }
 
 bool InheritableObject::getFlag(const QString &p) const {

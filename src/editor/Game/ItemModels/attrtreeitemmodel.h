@@ -33,11 +33,11 @@ private:
 
     QVariant typeData(int col, int role) const;
     QVariant objectData(int col, int role) const;
-    QVariant parameterData(int col, int role) const;
+    QVariant attrData(int col, int role) const;
     QVariant valueData(int col, int role) const;
     //bool setTypeData(int col, QVariant value, int role);
     //bool setObjectData(int col, QVariant value, int role);
-    bool setParameterData(int col, QVariant value, int role);
+    bool setAttrData(int col, QVariant value, int role);
     bool setValueData(int col, QVariant value, int role);
 
     GameObject *obj;

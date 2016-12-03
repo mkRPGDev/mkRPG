@@ -97,7 +97,7 @@ QVariant GameTreeItem<ParamItem>::data(int col, int role) const{
     switch (state) {
     case Type: return typeData(col, role);
     case Object: return objectData(col, role);
-    case Attribute: return parameterData(col, role);
+    case Attribute: return attrData(col, role);
     case Value: return valueData(col, role);
     default: return QVariant();
     }
@@ -119,12 +119,12 @@ QVariant GameTreeItem<ParamItem>::objectData(int col, int role) const{
 }
 
 template<bool ParamItem>
-QVariant GameTreeItem<ParamItem>::parameterData(int col, int role) const{
+QVariant GameTreeItem<ParamItem>::attrData(int col, int role) const{
     if(col == 0)
         switch (role) {
         case Qt::DisplayRole: return QVariant(attr);
         case Qt::FontRole:
-            if(typ != nullptr && typ->isRedefiniedParam(attr)){
+            if(typ != nullptr && (ParamItem ? typ->isRedefiniedParam(attr) : typ->isRedefiniedFlag(attr))){
                 QFont f;
                 f.setBold(true);
                 return QVariant(f);
@@ -162,19 +162,24 @@ QVariant GameTreeItem<ParamItem>::valueData(int col, int role) const{
 template<bool ParamItem>
 bool GameTreeItem<ParamItem>::setData(int col, QVariant value, int role){
     switch (state) {
-    case Attribute: return setParameterData(col, value, role);
+    case Attribute: return setAttrData(col, value, role);
     case Value: return setValueData(col, value, role);
     default: return false;
     }
 }
 
 template<bool ParamItem>
-bool GameTreeItem<ParamItem>::setParameterData(int col, QVariant value, int role){
-    if(!ParamItem) return false; // NOTE : temporaire
+bool GameTreeItem<ParamItem>::setAttrData(int col, QVariant value, int role){
     if(col == 1){
         if(role == Qt::EditRole){
-            if(typ) typ->setParam(attr, value.toInt());
-            else obj->setParam(attr, value.toInt());
+            if(ParamItem){
+                if(typ) typ->setParam(attr, value.toInt());
+                else obj->setParam(attr, value.toInt());
+            }
+            else{
+                if(typ) typ->setFlag(attr, value.toBool());
+                else obj->setFlag(attr, value.toBool());
+            }
             return true;
         }
     }

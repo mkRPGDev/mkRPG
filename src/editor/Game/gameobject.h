@@ -564,8 +564,8 @@ public:
      * \see renameParam, addParam
      */
 
-    virtual bool getFlag(const QString &f) const{return aFlags.value(f,false);} /**<
-     * Returns the value of the \c f flag.
+    virtual bool getFlag(const QString &flag) const;                                            /**<
+     * Returns the value of the \c flag flag.
      *
      * \note
      * If the requested parameter does not exists, a \c false value is returned, and the flags
@@ -573,24 +573,50 @@ public:
      *
      * \see flags, hasFlag, setFlag, getParam
      */
-    virtual void setFlag(const QString &f, bool v) {aFlags[f] = v; touch();} /**<
-     * Set the value of the \c f flag.
+    virtual void setFlag(const QString &flag, bool enable);                                     /**<
+     * Set the value of the \c flag flag.
      *
      * \note
      * If the requested flag does not exists, it is created.
      *
      * \see flags, hasFlag, getFlag, setParam
      */
-    virtual bool hasFlag(const QString &f) const {return aFlags.contains(f);} /**<
-     * Returns true if the falg \c f is register in the object's flags.
+    virtual bool hasFlag(const QString &flag) const;                                            /**<
+     * Returns true if the falg \c flag is register in the object's flags.
      *
      * \see getFlag, setFlag, hasParam
      */
-    virtual QList<QString> flags() const {return filter(aFlags.keys());} /**<
+    virtual QList<QString> flags() const;                                                       /**<
      * Returns the list of the registered flags
      *
      * \see getFlag, setFlag, params
      */
+    virtual void renameFlag(const QString &flag, QString &newFlag);                             /**<
+     * Changes the name of the \c flag flag to \c newFlag.
+     *
+     * \note
+     * If the requested flag does not exist, a new flag is created.
+     *
+     * \see addFlag, removeFlag
+     */
+    virtual void addFlag(const QString &flag, bool enable = true);                              /**<
+     * Inserts a new \c falg flag.
+     *
+     * \note
+     * If the requested flag already exist, it is replaced by the new one.
+     *
+     * \see renameFlag, removeFlag
+     */
+    virtual void removeFlag(const QString &flag);                                               /**<
+     *  Erases the \c flag flag.
+     *
+     * \note
+     * If the requested flag does not exists, the falgs
+     * stay unchanged.
+     *
+     * \see renameFlag, addFlag
+     */
+
 
 protected:
 

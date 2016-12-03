@@ -20,7 +20,7 @@ CellType::CellType(GameObject &parent) :
 
     setParam("humidity", 42);
     setParam("boue", 23);
-    SetFlag(accessible, true);
+    SetFlag(accessible, false);
 }
 
 

@@ -14,6 +14,7 @@ ObjectEditor::ObjectEditor(QWidget *parent) :
     params->header()->setStretchLastSection(true);
     flags->header()->setStretchLastSection(true);
     params->setItemDelegateForColumn(1, new ParamItemDelegate(this));
+    flags->setItemDelegateForColumn(1, new FlagItemDelegate(this));
     objects->setItemDelegateForColumn(1, new ObjectNameItemDelegate(this));
     paramsModel = new ParamTreeItemModel(this);
     flagsModel = new FlagTreeItemModel(this);

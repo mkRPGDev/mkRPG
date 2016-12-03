@@ -5,8 +5,17 @@
 #include <QAbstractItemModel>
 #include "../game.h"
 
+/*!
+ * \file itemmodels.h
+ *
+ * \brief Definition of some model presentation class
+ */
 
 
+/*!
+ * \brief The ObjectsTreeModel class presents an GameObject and
+ * its chidren as a tree model.
+ */
 class ObjectsTreeModel : public QAbstractItemModel
 {
 public:

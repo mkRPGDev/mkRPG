@@ -5,7 +5,7 @@
 #include <QMutex>
 #include <QMutexLocker>
 
-/**
+/*!
  * \file map.h
  * \brief Definition of the Map, Cell and CellType classes.
  *
@@ -13,10 +13,10 @@
  */
 
 
-/*!
- * \brief The CellType class
+class CellType;/*!
+ * \brief The CellType class defines the properties that are
+ * mandatory in any CellType object.
  */
-class CellType;
 class CellType : public Type<CellType>
 {
 public:

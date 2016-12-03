@@ -105,7 +105,10 @@ private:
 
 
 
-class ObjectType;
+class ObjectType; /*!
+ * \brief The ObjectType class defines the properties that are
+ * mandatory in any ObjectType object.
+ */
 class ObjectType : public Type<ObjectType>
 {
 public:

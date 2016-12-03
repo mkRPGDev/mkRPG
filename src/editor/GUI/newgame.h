@@ -4,6 +4,19 @@
 #include "ui_newgame.h"
 #include <QtWidgets>
 
+
+
+/*!
+ * \file newgame.h
+ * \brief Definition of the NewGame class
+ *
+ */
+
+
+/*!
+ * \brief The NewGame class provides a widget that
+ * defines the starting parameter for a new project.
+ */
 class NewGame : public QDialog, private Ui::NewGame
 {
     Q_OBJECT

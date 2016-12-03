@@ -5,8 +5,29 @@
 #include <QAbstractItemModel>
 #include "../game.h"
 
+/*!
+ * \file attrtreeitemmodel.h
+ *
+ * \brief Definition of the model presentation class for
+ * parameter and flags as a tree.
+ *
+ * \warning
+ * Do not try to factorized the ParamTreeItemModel and FlagTreeItemModel
+ * in a single template class, templates are not supported by Qt
+ * Meta-Object Compiler.
+ */
 
 
+
+/*!
+ * \brief The GameTreeItem define a convienent tree item for
+ * the ParamTreeItemModel and FlagTreeItemModel classes
+ *
+ * It ensures items to have a parent, and provides abstract
+ * item (not related to object, parameter or flag).
+ *
+ * \see ParamTreeItemModel, FlagTreeItemModel
+ */
 template<bool ParamItem>
 class GameTreeItem{
     enum State{Type, Object, Attribute, Value};
@@ -52,6 +73,13 @@ private:
 };
 
 
+
+/*!
+ * \brief The ParamTreeItemModel class presents the parameters
+ * of an object using the QAbstractItemModel interface.
+ *
+ * \see FlagTreeItemModel
+ */
 class ParamTreeItemModel : public QAbstractItemModel
 {
     Q_OBJECT
@@ -76,6 +104,13 @@ private:
     GameTreeItem<true> *item;
 };
 
+
+/*!
+ * \brief The ParamTreeItemModel class presents the flags
+ * of an object using the QAbstractItemModel interface.
+ *
+ * \see ParamTreeItemModel
+ */
 class FlagTreeItemModel : public QAbstractItemModel
 {
     Q_OBJECT
@@ -99,5 +134,6 @@ private:
 
     GameTreeItem<false> *item;
 };
+
 
 #endif // ATTRTREEITEMMODEL_H

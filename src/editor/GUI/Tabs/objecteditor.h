@@ -15,6 +15,17 @@
 
 
 
+/*!
+ * \file objecteditor.h
+ * \brief Definition of the ObjectEditor class
+ *
+ */
+
+
+/*!
+ * \brief The ObjectEditor class is the TabWidget that
+ * provides object edition features
+ */
 class ObjectEditor : public TabWidget, private Ui::ObjectEditor
 {
     Q_OBJECT

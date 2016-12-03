@@ -6,21 +6,21 @@
 /*!
  * \file typedobject.hxx
  *
- * \brief This file define some templates base classes.
+ * \brief Definition of some template type-related base classes.
  */
 
 
 /*!
  *\class Type
- * \brief The Type class is the base class for types of
- * TypedObject.
+ * \brief The Type class represent a type of object.
  *
- * It adds to InheritableObject a constrain on the objects
+ * It adds to GameObjectType a constrain on the objects
  * that can be used as type, defined by le \c class \c T
  * template argument.
  *
  * \note
  * The \c class \c T template argument has to be inherited from Type.
+ * (the application won't compile otherwise)
  *
  * \see CellType, ObjectType
  */
@@ -50,6 +50,7 @@ protected:
  *
  * \note
  * The \c class \c T template argument has to be inherited from Type.
+ * (the application won't compile otherwise)
  *
  * \see Cell, Object
  */

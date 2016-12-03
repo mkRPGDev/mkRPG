@@ -1,5 +1,5 @@
-#ifndef MAPSEDITOR_H
-#define MAPSEDITOR_H
+#ifndef MAPEDITOR_H
+#define MAPEDITOR_H
 
 #include "ui_mapseditor.h"
 #include "tabwidget.h"
@@ -10,10 +10,15 @@
 
 
 /*!
- * \brief The MapsEditor class is the tab offering map editing
- * facilities
+ * \file mapeditor.h
+ * \brief Definition of the MapsEditor class
  *
- *
+ */
+
+
+/*!
+ * \brief The ObjectEditor class is the TabWidget that
+ * provides map edition features
  */
 class MapsEditor : public TabWidget, private Ui::MapsEditor
 {
@@ -42,4 +47,4 @@ private:
     QList<BDockWidget*> docksW;
 };
 
-#endif // MAPSEDITOR_H
+#endif // MAPEDITOR_H

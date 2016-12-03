@@ -6,6 +6,17 @@
 #include "Game/ItemModels/mapslistmodel.h"
 
 
+/*!
+ * \file celldock.h
+ * \brief Definition of the CellDock class.
+ *
+ */
+
+
+/*!
+ * \brief The CellDock class provides a BDockWidget to edit
+ * \ref "Cells" Cell.
+ */
 class CellDock : public BDockWidget, private Ui::CellDock
 {
     Q_OBJECT

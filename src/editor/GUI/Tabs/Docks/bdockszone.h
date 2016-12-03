@@ -7,7 +7,18 @@
 
 #include "GUI/options.h"
 
+/*!
+ * \file bdockszone.h
+ * \brief Definition of the classes used to render BDock.
+ *
+ */
 
+/*!
+ * \brief The BLayout class organise a list of BDock in
+ * a widget.
+ *
+ * It provides the dock moving functions.
+ */
 class BLayout : public QWidget
 {
     Q_OBJECT
@@ -55,7 +66,12 @@ private:
 
 
 
-
+/*!
+ * \brief The BDocksZone class display a BLayout in
+ * a QScrollArea.
+ *
+ * The widget can be hidden or resized.
+ */
 class BDocksZone : public QWidget
 {
     Q_OBJECT

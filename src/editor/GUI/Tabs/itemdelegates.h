@@ -9,8 +9,21 @@
 #include "Game/game.h"
 
 
+/*!
+ * \file itemdelegates.h
+ *
+ *\brief Definition of the delegates to render different
+ * items in view.
+ */
 
 
+
+/*!
+ * \brief The ParamItemDelegate class provides to view classes
+ * the way to represent parameters and modify them with QSpinBox.
+ *
+ * \see FlagItemDelegate
+ */
 class ParamItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
@@ -27,6 +40,12 @@ public:
 
 
 
+/*!
+ * \brief The FlagItemDelegate class provides to view classes
+ * the way to represent flags and modify them with QCheckBox.
+ *
+ * \see ParamItemDelegate
+ */
 class FlagItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
@@ -43,6 +62,10 @@ public:
 
 
 
+/*!
+ * \brief The ObjectNameItemDelegate class provides to view classes
+ * the way to modify object's name.
+ */
 class ObjectNameItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT

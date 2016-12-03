@@ -5,7 +5,7 @@
 #include "map.h"
 
 
-/**
+/*!
  * \file game.h
  * \brief Definition of the Game and World classes.
  */

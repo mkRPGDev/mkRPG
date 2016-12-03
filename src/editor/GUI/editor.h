@@ -8,8 +8,13 @@
 #include "Game/xmlhandler.h"
 #include "Tabs/welcome.h"
 #include "Tabs/worldeditor.h"
-#include "Tabs/mapseditor.h"
+#include "Tabs/mapeditor.h"
 #include "Tabs/objecteditor.h"
+
+/*!
+ * \file editor.h
+ * \brief Definition of the Editor class.
+ */
 
 /*!
  * \brief The constant SHARED is used to open

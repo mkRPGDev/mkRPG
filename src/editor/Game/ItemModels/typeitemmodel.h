@@ -5,8 +5,22 @@
 #include <QAbstractItemModel>
 #include "../game.h"
 
+/*!
+ * \file typeitemmodel.h
+ *
+ * \brief Definition of the presentation classes
+ * for \ref "types" Type.
+ */
 
 
+
+/*!
+ * \brief The TypeTreeItem class defines an tree item for
+ * the TypeItemModel class.
+ *
+ * It ensures items to have a parent, and provides abstract
+ * item (not related to Type object).
+ */
 class TypeTreeItem{
     enum State{RootItem, BaseItem, TypeItem};
 public:
@@ -36,6 +50,13 @@ private:
 };
 
 
+
+/*!
+ * \brief The TypeItemModel class presents the type hierarchy
+ * using the QAbstractItemModel interface.
+ *
+ * \see TypeTreeItem
+ */
 class TypeItemModel : public QAbstractItemModel
 {
     Q_OBJECT

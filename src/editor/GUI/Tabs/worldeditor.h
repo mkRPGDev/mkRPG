@@ -5,6 +5,18 @@
 #include "tabwidget.h"
 #include "Game/ItemModels/mapslistmodel.h"
 
+
+/*!
+ * \file worldeditor.h
+ * \brief Definition of the WorldEditor class.
+ *
+ */
+
+
+/*!
+ * \brief The WorldEditor class is the TabWidget that
+ * provides world edition features.
+ */
 class WorldEditor : public TabWidget, private Ui::WorldEditor
 {
     Q_OBJECT

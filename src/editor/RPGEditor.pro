@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     Game/map.cpp \
     GUI/editor.cpp \
     GUI/newgame.cpp \
-    GUI/Tabs/mapseditor.cpp \
     GUI/Tabs/mapviewer.cpp \
     GUI/Tabs/worldeditor.cpp \
     GUI/options.cpp \
@@ -45,7 +44,8 @@ SOURCES += main.cpp\
     Game/ItemModels/itemmodels.cpp \
     Game/ItemModels/mapslistmodel.cpp \
     Game/ItemModels/typeitemmodel.cpp \
-    Game/ItemModels/attrtreeitemmodel.cpp
+    Game/ItemModels/attrtreeitemmodel.cpp \
+    GUI/Tabs/mapeditor.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -54,7 +54,6 @@ HEADERS  += \
     Game/map.h \
     GUI/editor.h \
     GUI/newgame.h \
-    GUI/Tabs/mapseditor.h \
     GUI/Tabs/mapviewer.h \
     GUI/Tabs/worldeditor.h \
     GUI/options.h \
@@ -81,7 +80,8 @@ HEADERS  += \
     Game/ItemModels/itemmodels.h \
     Game/ItemModels/mapslistmodel.h \
     Game/ItemModels/typeitemmodel.h \
-    Game/ItemModels/attrtreeitemmodel.h
+    Game/ItemModels/attrtreeitemmodel.h \
+    GUI/Tabs/mapeditor.h
 
 FORMS    += \
     GUI/editor.ui \

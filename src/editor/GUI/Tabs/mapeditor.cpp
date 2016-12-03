@@ -1,4 +1,4 @@
-#include "mapseditor.h"
+#include "mapeditor.h"
 
 MapsEditor::MapsEditor(QWidget *parent) :
     TabWidget(parent)

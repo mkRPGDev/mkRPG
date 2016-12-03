@@ -8,6 +8,12 @@
 
 
 
+/*!
+ * \file mapviewer.h
+ * \brief Definition of the MapViewer class.
+ *
+ */
+
 
 /*!
  * \brief The MapViewer class provides a widget to display and edit a Map

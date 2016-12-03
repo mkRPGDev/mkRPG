@@ -6,7 +6,7 @@
 // all blocks and unfold the class you want to see. :)
 
 
-/**
+/*!
  * \file mappainter.h
  *
  * \brief Definition of the MapPainter class and other related classes to

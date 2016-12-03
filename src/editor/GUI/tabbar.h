@@ -5,6 +5,17 @@
 #include "Tabs/tabwidget.h"
 #include <QPixmap>
 
+/*!
+ * \file tabbar.h
+ * \brief Definition of the TabBar class
+ */
+
+/*!
+ * \brief The TabBar class provides a widget to choose the
+ * current \ref "tab" Tab.
+ *
+ * \see TabAcces
+ */
 class TabBar : public QWidget
 {
     Q_OBJECT

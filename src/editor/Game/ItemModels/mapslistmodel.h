@@ -6,7 +6,7 @@
 #include "../game.h"
 #include "../mappainter.h"
 
-/**
+/*!
  * \file mapslistmodel.h
  * \brief Definition of Model/View presentation classes.
  */

@@ -10,7 +10,7 @@
 /*!
  * \file gameobject.h
  *
- * \brief Base class.
+ * \brief Definition of the base class of the game internal model.
  */
 
 #define UNUSED(p)
@@ -791,7 +791,18 @@ private:
 
 
 
-
+/*!
+ * \brief The GameObjectType class is the base class for GameObject
+ * representing a type.
+ *
+ * It introduces a system of descendant registration, to make the tree
+ * presentation easier (see ParamTreeItemModel, FlagTreeItemModel).
+ *
+ * The GameObjectType class has been introduced to enable the
+ * polymorphism with types.
+ *
+ * \see Type
+ */
 class GameObjectType : public InheritableObject
 {
 protected:
@@ -799,7 +810,9 @@ protected:
     GameObjectType(GameObjectType &ancestor);
     virtual ~GameObjectType();
 public:
-    const QList<GameObjectType*> descendants() const;
+    const QList<GameObjectType*> descendants() const; /**<
+     * Returns the list of types that inherite from the current instance.
+     */
 private:
     void addDescendant(GameObjectType &type);
     void removeDescendant(GameObjectType &type);

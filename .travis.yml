@@ -21,7 +21,6 @@ env:
     - GH_REPO_REF: github.com/mkRPGDev/mkRPG.git
 
 before_install:
-#    - sudo apt-get install -y mercurial libfreetype6-dev
     - sudo apt-get build-dep -y python-pygame
     - pip install hg+http://bitbucket.org/pygame/pygame
     - python -c "import pygame"
@@ -46,7 +45,7 @@ script:
   - python3 -m unittest discover -v -s pytest -p "*.py"
 
 # Generate and deploy documentation
-#after_success:
-  #- cd $TRAVIS_BUILD_DIR
-  #- chmod +x generateDocumentation.sh
-  #- ./generateDocumentation.sh
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x generateDocumentation.sh
+  - ./generateDocumentation.sh

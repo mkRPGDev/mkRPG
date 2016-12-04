@@ -8,7 +8,7 @@ dll = CDLL("./trans.a")
 #           double a, double b, double c, double d, int xm, int ym){
 
 def prod(m, p):
-    return (p[0]*m[0] + p[1]*m[1], p[0]*m[2] + p[1]*m[3]) 
+    return (p[0]*m[0] + p[1]*m[1], p[0]*m[2] + p[1]*m[3])
 
 def applyMatrix(surf, m):
     """
@@ -36,4 +36,3 @@ def applyMatrix(surf, m):
     dll.trans(ars.ctypes.data, len(ars), len(ars[0]), ard.ctypes.data, len(ard), len(ard[0]),
         c_double(im[0]), c_double(im[1]), c_double(im[2]), c_double(im[3]), int(xm), int(ym))
     return ret
-

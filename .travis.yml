@@ -4,8 +4,7 @@ python:
   - "3.4"
   - "3.5"
 
-# This will run on Travis' 'new' container-based infrastructure
-sudo: false
+sudo: true
 
 notifications:
   email: false
@@ -20,6 +19,14 @@ env:
   global:
     - GH_REPO_NAME: mkRPG
     - GH_REPO_REF: github.com/mkRPGDev/mkRPG.git
+
+before_install:
+    - sudo apt-get build-dep -y python-pygame
+    - pip install hg+http://bitbucket.org/pygame/pygame
+    - python -c "import pygame"
+
+install:
+    - pip install -r test-requirements.txt
 
 # Install dependencies
 addons:

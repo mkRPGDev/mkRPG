@@ -48,6 +48,3 @@ script:
   #- cd $TRAVIS_BUILD_DIR
   #- chmod +x generateDocumentation.sh
   #- ./generateDocumentation.sh
-
-virtualenv:
-  system_site_packages: true

@@ -1,63 +1,110 @@
-\hypertarget{class_map}{}\section{Map Class Reference}
-\label{class_map}\index{Map@{Map}}
+\hypertarget{class_map}{\section{\-Map \-Class \-Reference}
+\label{class_map}\index{\-Map@{\-Map}}
+}
 
 
-The \hyperlink{class_map}{Map} class.  
+\-The \hyperlink{class_map}{\-Map} class.  
 
 
 
 
-{\ttfamily \#include $<$map.\+h$>$}
+{\ttfamily \#include $<$map.\-h$>$}
 
-Inheritance diagram for Map\+:\begin{figure}[H]
+\-Inheritance diagram for \-Map\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_map}
 \end{center}
 \end{figure}
-\subsection*{Public Member Functions}
+\subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_map_a9779d0a2a759441c5e8d51b0a9c4cd40}{}\label{class_map_a9779d0a2a759441c5e8d51b0a9c4cd40} 
-{\bfseries Map} (\hyperlink{class_game}{Game} $\ast$g, \hyperlink{class_game_object}{Game\+Object} $\ast$parent)
+\hypertarget{class_map_abb18ba5d4ffce18e1813b77b7f6266c9}{{\bfseries \-Type\-Name} (\hyperlink{class_map}{\-Map}) \hyperlink{class_map}{\-Map}(\hyperlink{class_game}{\-Game} $\ast$g}\label{class_map_abb18ba5d4ffce18e1813b77b7f6266c9}
+
 \item 
-\hypertarget{class_map_aeb4e7ef5671f73086050dc425a3fc1b8}{}\label{class_map_aeb4e7ef5671f73086050dc425a3fc1b8} 
-{\bfseries Param\+Getter} (width) Param\+Getter(height) Q\+Size size() const
+\hypertarget{class_map_a4c35169a60acd3669f198e6c2d20dff5}{int {\bfseries width} () const }\label{class_map_a4c35169a60acd3669f198e6c2d20dff5}
+
 \item 
-\hypertarget{class_map_a2915ccde4d8a2ba8142677baea803467}{}\label{class_map_a2915ccde4d8a2ba8142677baea803467} 
-void {\bfseries set\+Width} (int w)
+\hypertarget{class_map_a009f197c2e488d8dd5f02b1a2920a15c}{int {\bfseries height} () const }\label{class_map_a009f197c2e488d8dd5f02b1a2920a15c}
+
 \item 
-\hypertarget{class_map_affab3537641a7985559f83ea083e00ca}{}\label{class_map_affab3537641a7985559f83ea083e00ca} 
-void {\bfseries set\+Height} (int h)
+\hypertarget{class_map_a028c347d88716e984c943f382f58b7ef}{\-Q\-Size {\bfseries size} () const }\label{class_map_a028c347d88716e984c943f382f58b7ef}
+
 \item 
-\hypertarget{class_map_a5f7c31af6620d00ce8a812c8710345ab}{}\label{class_map_a5f7c31af6620d00ce8a812c8710345ab} 
-void {\bfseries resize} (int w, int h)
+\hypertarget{class_map_a2915ccde4d8a2ba8142677baea803467}{void {\bfseries set\-Width} (int w)}\label{class_map_a2915ccde4d8a2ba8142677baea803467}
+
 \item 
-\hypertarget{class_map_a6c7c4be0e4c5f04dfc37223bb4e132a7}{}\label{class_map_a6c7c4be0e4c5f04dfc37223bb4e132a7} 
-\hyperlink{class_cell}{Cell} \& {\bfseries cell} (int i, int j) const
+\hypertarget{class_map_affab3537641a7985559f83ea083e00ca}{void {\bfseries set\-Height} (int h)}\label{class_map_affab3537641a7985559f83ea083e00ca}
+
 \item 
-\hypertarget{class_map_afe9bf6f6b502d61e48949b5417bfdbb2}{}\label{class_map_afe9bf6f6b502d61e48949b5417bfdbb2} 
-\hyperlink{class_cell}{Cell} \& {\bfseries cell} (const Q\+Point \&p) const
+\hypertarget{class_map_a5f7c31af6620d00ce8a812c8710345ab}{void {\bfseries resize} (int w, int h)}\label{class_map_a5f7c31af6620d00ce8a812c8710345ab}
+
 \item 
-\hypertarget{class_map_a16aea6b5c9de3a26b094d964885b33b7}{}\label{class_map_a16aea6b5c9de3a26b094d964885b33b7} 
-void {\bfseries select\+All} ()
+\hypertarget{class_map_a6c94b3e99490efa0f170db132dc9f5b8}{\hyperlink{class_cell}{\-Cell} \& {\bfseries cell} (int i, int j) const }\label{class_map_a6c94b3e99490efa0f170db132dc9f5b8}
+
 \item 
-\hypertarget{class_map_a5b85190575503a09c5c6de012da64f7c}{}\label{class_map_a5b85190575503a09c5c6de012da64f7c} 
-void {\bfseries un\+Select\+All} ()
+\hypertarget{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}{\hyperlink{class_cell}{\-Cell} \& {\bfseries cell} (const \-Q\-Point \&p) const }\label{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}
+
 \item 
-\hypertarget{class_map_a89cab58d82e08dacfe0b97899bab5501}{}\label{class_map_a89cab58d82e08dacfe0b97899bab5501} 
-void {\bfseries confirm\+Pre\+Selection} (bool add=true)
+\hypertarget{class_map_a16aea6b5c9de3a26b094d964885b33b7}{void {\bfseries select\-All} ()}\label{class_map_a16aea6b5c9de3a26b094d964885b33b7}
+
 \item 
-\hypertarget{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}{}\label{class_map_a0a637f44f0a59c3a67b6a507ae710c7f} 
-void {\bfseries clear\+Pre\+Selection} ()
+\hypertarget{class_map_a5b85190575503a09c5c6de012da64f7c}{void {\bfseries un\-Select\-All} ()}\label{class_map_a5b85190575503a09c5c6de012da64f7c}
+
+\item 
+\hypertarget{class_map_a89cab58d82e08dacfe0b97899bab5501}{void {\bfseries confirm\-Pre\-Selection} (bool add=true)}\label{class_map_a89cab58d82e08dacfe0b97899bab5501}
+
+\item 
+\hypertarget{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}{void {\bfseries clear\-Pre\-Selection} ()}\label{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}
+
+\item 
+\-Q\-List$<$ \hyperlink{class_game_object}{\-Game\-Object} $\ast$ $>$ \hyperlink{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}{children} () const 
 \end{DoxyCompactItemize}
-\subsection*{Additional Inherited Members}
-
-
-\subsection{Detailed Description}
-The \hyperlink{class_map}{Map} class. 
-
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\subsection*{\-Data \-Fields}
+\begin{DoxyCompactItemize}
 \item 
-src/editor/\+Game/\hyperlink{map_8h}{map.\+h}\item 
-src/editor/\+Game/map.\+cpp\end{DoxyCompactItemize}
+\hyperlink{class_game_object}{\-Game\-Object} $\ast$ \hyperlink{class_map_ac0d4bf203db2a4372ea6923729f978f1}{a\-Parent}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-The \hyperlink{class_map}{\-Map} class. 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}{\index{\-Map@{\-Map}!children@{children}}
+\index{children@{children}!Map@{\-Map}}
+\subsubsection[{children}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ {\bf \-Game\-Object} $\ast$ $>$ {\bf \-Map\-::children} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}
+\-Returns the list of the instance's children.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a6ac392d25a490bee17b653a374ec94fc}{child} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{\-Game\-Object}.
+
+
+
+\subsection{\-Field \-Documentation}
+\hypertarget{class_map_ac0d4bf203db2a4372ea6923729f978f1}{\index{\-Map@{\-Map}!a\-Parent@{a\-Parent}}
+\index{a\-Parent@{a\-Parent}!Map@{\-Map}}
+\subsubsection[{a\-Parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object}$\ast$ {\bf \-Map\-::a\-Parent}}}\label{class_map_ac0d4bf203db2a4372ea6923729f978f1}
+\-Constructs a new \hyperlink{class_game_object}{\-Game\-Object} with parent {\ttfamily parent} and the reference to the game {\ttfamily g}.
+
+\begin{DoxyNote}{\-Note}
+\-If these objects cannot be given to the constructor (case of an array of objects), the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} method must be called after the creation to make the \hyperlink{class_game_object}{\-Game\-Object} valid. 
+\end{DoxyNote}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a41d4afe43f955e78ede0bbd4ad8957f8}{\-Game\-Object}.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/editor/\-Game/\hyperlink{map_8h}{map.\-h}\item 
+src/editor/\-Game/map.\-cpp\end{DoxyCompactItemize}

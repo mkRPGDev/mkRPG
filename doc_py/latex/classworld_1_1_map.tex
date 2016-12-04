@@ -1,0 +1,70 @@
+\hypertarget{classworld_1_1_map}{\section{world.\-Map \-Class \-Reference}
+\label{classworld_1_1_map}\index{world.\-Map@{world.\-Map}}
+}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classworld_1_1_map_aabfde95675f6b82d9a8afcd676053632}{def {\bfseries \-\_\-\-\_\-init\-\_\-\-\_\-}}\label{classworld_1_1_map_aabfde95675f6b82d9a8afcd676053632}
+
+\item 
+def \hyperlink{classworld_1_1_map_ac8e650b696f537d9df20ee5d2243e978}{fill}
+\item 
+\hypertarget{classworld_1_1_map_ac5f255ae58db6b391d0a3d5807365370}{def {\bfseries dist}}\label{classworld_1_1_map_ac5f255ae58db6b391d0a3d5807365370}
+
+\item 
+def \hyperlink{classworld_1_1_map_a7b1d3e4419fd5bd48d5f759e63ae55f5}{lov}
+\item 
+def \hyperlink{classworld_1_1_map_a12e89884cc3e9da4d024575a85b1d324}{from\-Pos}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classworld_1_1_map_af412cfb2a5b25f4ca3188498f916a647}{{\bfseries cells}}\label{classworld_1_1_map_af412cfb2a5b25f4ca3188498f916a647}
+
+\item 
+\hypertarget{classworld_1_1_map_aec6e18657e8d65b1ab57cdf305e2de37}{{\bfseries cells\-Grid}}\label{classworld_1_1_map_aec6e18657e8d65b1ab57cdf305e2de37}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classworld_1_1_map_ac8e650b696f537d9df20ee5d2243e978}{\index{world\-::\-Map@{world\-::\-Map}!fill@{fill}}
+\index{fill@{fill}!world::Map@{world\-::\-Map}}
+\subsubsection[{fill}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf world.\-Map.\-fill} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classworld_1_1_map_ac8e650b696f537d9df20ee5d2243e978}
+\begin{DoxyVerb}Complète les cases par défaut \end{DoxyVerb}
+ \hypertarget{classworld_1_1_map_a12e89884cc3e9da4d024575a85b1d324}{\index{world\-::\-Map@{world\-::\-Map}!from\-Pos@{from\-Pos}}
+\index{from\-Pos@{from\-Pos}!world::Map@{world\-::\-Map}}
+\subsubsection[{from\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf world.\-Map.\-from\-Pos} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{pos, }
+\item[{}]{maxi = {\ttfamily \-None}}
+\end{DoxyParamCaption}
+)}}\label{classworld_1_1_map_a12e89884cc3e9da4d024575a85b1d324}
+\begin{DoxyVerb}Yield cells further and further from pos, stopping at maxi
+Assuming >x vy it turns as the trigo circle,
+it is therefore not a "serpentin" (sadly ?) \end{DoxyVerb}
+ \hypertarget{classworld_1_1_map_a7b1d3e4419fd5bd48d5f759e63ae55f5}{\index{world\-::\-Map@{world\-::\-Map}!lov@{lov}}
+\index{lov@{lov}!world::Map@{world\-::\-Map}}
+\subsubsection[{lov}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf world.\-Map.\-lov} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{source, }
+\item[{}]{dest}
+\end{DoxyParamCaption}
+)}}\label{classworld_1_1_map_a7b1d3e4419fd5bd48d5f759e63ae55f5}
+\begin{DoxyVerb}
+Calcule si la vue est dégagée entre source et dest,
+ces derniers doivent avoir des paramètres x et y et
+les cellules de la carte un paramètre "visible"
+O(dist(source, dest)) environ
+\end{DoxyVerb}
+ 
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/shared/world.\-py\end{DoxyCompactItemize}

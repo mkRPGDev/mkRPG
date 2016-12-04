@@ -1,8 +1,9 @@
+<a href='https://travis-ci.org/mkRPGDev/mkRPG'><img
+ src='https://travis-ci.org/mkRPGDev/mkRPG.svg?branch=master'></a>
+
 # Utilisation:
 (Se placer dans src)
 
-<a href='https://travis-ci.org/mkRPGDev/mkRPG'><img
- src='https://secure.travis-ci.org/sebdah/git-pylint-commit-hook.png?branch=master'></a>
 
 ### Serveur
 Generic game server.

@@ -34,10 +34,9 @@ git config user.email "travis@travis-ci.org"
 ################################################################################
 ##### Generate the Pylint report ###############################################
 cd src
-echo "On est là"
-ls
+echo 'Generating Pylint report'
+pylint --version
 pylint * -f html > pylint_report.html
-echo "Pourquoi?"
 mv pylint_report.html ../
 cd ..
 
@@ -50,12 +49,15 @@ doxygen Doxyfile_py
 #On le renomme pour préparer au changement de branche
 mv "doc_c" "doc_c_new"
 mv "doc_py" "doc_py_new"
+mv "pylint_report.html" "pylint_report_new.html"
 #On change de branche si on est dans master
 git checkout gh-pages
 #On écrase l'ancienne documentation
+rm pylint_report.html
 rm -r doc_c doc_py
 mv "doc_c_new" "doc_c"
 mv "doc_py_new" "doc_py"
+mv "pylint_report_new.html" "pylint_report.html"
 
 
 #On compile le tex

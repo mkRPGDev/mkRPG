@@ -190,51 +190,42 @@ Doxyfile
 \chapter{Tests}
 \section{Testing Tools}
 \subsection{Static Analysis with Pylint}
-(\href{https://security.web.cern.ch/security/recommendations/fr/code_tools.shtml}{Outil recommandé par le CERN})\\
-\href{https://www.pylint.org}{Pylint} is a tool that checks for errors in Python code, tries to enforce a coding standard and looks for bad code smells. This is similar but nevertheless different from what pychecker provides, especially since pychecker explicitly does not bother with coding style. Pylint will display a number of messages as it analyzes the code, as well as some statistics about the number of warnings and errors found in different files. The messages are classified under various categories such as errors and warnings.
+\href{https://www.pylint.org}{Pylint} is a tool that checks for errors in Python code, \textbf{tries to enforce a coding standard} and looks for bad code smells. Pylint will display a number of messages as it analyzes the code, as well as some statistics about the number of warnings and errors found in different files. 
 
 	
-\subsection{Design by Contracts with PyContracts}
-A permanent change to Python to support Design by Contracts was proposed in \href{https://www.python.org/dev/peps/pep-0316/}{PEP-316}, but deferred.\\
+%\subsection{Design by Contracts with PyContracts}
+%A permanent change to Python to support Design by Contracts was proposed in \href{https://www.python.org/dev/peps/pep-0316/}{PEP-316}, but deferred.\\
 
-Programming contracts extends the language to include invariant expressions for classes and modules, and pre- and post-condition expressions for functions and methods.\\
-These expressions (contracts) are similar to assertions: they must be true or the program is stopped, and run-time checking of the contracts is typically only enabled while debugging. Contracts are higher-level than straight assertions and are typically included in documentation.\\
+%Programming contracts extends the language to include invariant expressions for classes and modules, and pre- and post-condition expressions for functions and methods.\\
+%These expressions (contracts) are similar to assertions: they must be true or the program is stopped, and run-time checking of the contracts is typically only enabled while debugging. Contracts are higher-level than straight assertions and are typically included in documentation.\\
 
-Use \href{https://andreacensi.github.io/contracts/}{\textbf{PyContracts}}.
+%Use \href{https://andreacensi.github.io/contracts/}{\textbf{PyContracts}}.
 
 
 \subsection{Unit testing infrastructure with unittest}
-\href{https://wiki.python.org/moin/PythonTestingToolsTaxonomy}{Recommandation}\\
-\href{https://docs.python.org/3/library/development.html}{Development Tools of the Python Standard Library}
-\begin{itemize}
-\item doctest — Test interactive Python examples
-\item  unittest — Unit testing framework
-\item unittest.mock — mock object library
-\end{itemize}
+\href{https://docs.python.org/3/library/unittest.html}{Unittest} supports test automation, sharing of setup and shutdown code for tests, aggregation of tests into collections, and independence of the tests from the reporting framework.
 
-\subsection{Fuzz Testing with Hypothesis}
-Fuzz testing or fuzzing is a software testing technique, often automated or semi-automated, that involves providing invalid, unexpected, or random data to the inputs of a computer program. The program is then monitored for exceptions such as crashes, or failing built-in code assertions or for finding potential memory leaks. Fuzzing is a form of random testing commonly used to test for security problems in software or computer systems.\\
-Use \href{https://hypothesis.readthedocs.io/en/latest/}{Hypothesis}.
+
+
+%\subsection{Fuzz Testing with Hypothesis}
+%Fuzz testing or fuzzing is a software testing technique, often automated or semi-automated, that involves providing invalid, unexpected, or random data to the inputs of a computer program. The program is then monitored for exceptions such as crashes, or failing built-in code assertions or for finding potential memory leaks. Fuzzing is a form of random testing commonly used to test for security problems in software or computer systems.\\
+%Use \href{https://hypothesis.readthedocs.io/en/latest/}{Hypothesis}.
 
 \subsection{Code Coverage Tool with Coverage.py}
 \href{http://coverage.readthedocs.io/en/latest/}{Coverage.py} is a tool for measuring code coverage of Python programs. It monitors your program, noting which parts of the code have been executed, then analyzes the source to identify code that could have been executed but was not.
 
-\subsection{Stress}
-\begin{itemize}
-\item Flood a server with requests
-\item Execution with constrained resources (memory, disk)   
-\item Create latency (network)%
-\end{itemize}
+%\subsection{Stress}
+%\begin{itemize}
+%\item Flood a server with requests
+%\item Execution with constrained resources (memory, disk)   
+%\item Create latency (network)%
+%\end{itemize}
 
-\subsection{GUI Testing Tools}
-\href{http://texttest.sourceforge.net/index.php?page=ui_testing}{TestText}
+%\subsection{GUI Testing Tools}
+%\href{http://texttest.sourceforge.net/index.php?page=ui_testing}{TestText}
 
-\section{Procédures facilitant les test}
-\subsection{Hooks on commit}
-Les hooks permettent de lancer automatiquement ma suite de tests avant de commiter. 
-
-\subsection{Continuous integration}
-Jenkins, Travis CI
+\section{Continuous integration}
+Travis CI
 
 
 \chapter*{References}

@@ -24,19 +24,14 @@ echo 'Setting up the script...'
 # Exit with nonzero exit code if anything fails
 set -e
 
-
-# On recupère le nom de la branche dans laquelle on se trouve
-branch_name="$( git branch -a --no-color  | awk '/^\*/{getline; print}' | sed 's/\*[^a-z]*//g')"
-echo $branch_name
-
 # Create a clean working directory for this script.
 mkdir code_docs
 cd code_docs
 
 # Get the current master branch
-echo "Get a clone of $branch_name"
+echo "Get a clone of master"
 
-git clone -b $branch_name "https://${GH_REPO_REF}"
+git clone -b master "https://${GH_REPO_REF}"
 cd $GH_REPO_NAME
 
 ##### Configure git.

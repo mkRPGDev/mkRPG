@@ -1,9 +1,5 @@
-<a href='https://travis-ci.org/mkRPGDev/mkRPG'><img
- src='https://travis-ci.org/mkRPGDev/mkRPG.svg?branch=master'></a>
-
 # Utilisation:
 (Se placer dans src)
-
 
 ### Serveur
 Generic game server.

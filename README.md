@@ -1,8 +1,7 @@
 README for mkRPG
 ==========================================
-
-.. image:: https://travis-ci.org/mkRPGDev/mkRPG.svg?branch=master
-    :target: https://travis-ci.org/mkRPGDev/mkRPG
+<a href='https://travis-ci.org/mkRPGDev/mkRPG'><img
+ src='https://travis-ci.org/mkRPGDev/mkRPG.svg?branch=master'></a>
 
 # Utilisation:
 (Se placer dans src)

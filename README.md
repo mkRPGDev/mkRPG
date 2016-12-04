@@ -1,5 +1,12 @@
+README for mkRPG
+==========================================
+
+.. image:: https://travis-ci.org/mkRPGDev/mkRPG.svg?branch=master
+    :target: https://travis-ci.org/mkRPGDev/mkRPG
+
 # Utilisation:
 (Se placer dans src)
+
 
 ### Serveur
 Generic game server.

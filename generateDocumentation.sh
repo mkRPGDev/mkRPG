@@ -71,6 +71,12 @@ mv "doc_py_new" "doc_py"
 #make
 #cd ..
 
+#On génère le rapport de pylint
+cd src
+pylint * -f html > pylint_report.html
+mv pylint_report.html ../
+cd ..
+
 
 ################################################################################
 ##### Upload the documentation to the gh-pages branch of the repository.   #####

@@ -21,8 +21,7 @@ env:
     - GH_REPO_REF: github.com/mkRPGDev/mkRPG.git
 
 before_install:
-  #  - sudo apt-get install -y xvfb
-    - sudo apt-get install -y mercurial libfreetype6-dev
+#    - sudo apt-get install -y mercurial libfreetype6-dev
     - sudo apt-get build-dep -y python-pygame
     - pip install hg+http://bitbucket.org/pygame/pygame
     - python -c "import pygame"

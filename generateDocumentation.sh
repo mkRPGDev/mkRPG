@@ -34,7 +34,10 @@ git config user.email "travis@travis-ci.org"
 ################################################################################
 ##### Generate the Pylint report ###############################################
 cd src
+echo "On est là"
+ls
 pylint * -f html > pylint_report.html
+echo "Pourquoi?"
 mv pylint_report.html ../
 cd ..
 

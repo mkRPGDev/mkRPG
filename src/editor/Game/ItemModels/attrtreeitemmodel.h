@@ -61,6 +61,11 @@ private:
     bool setAttrData(int col, QVariant value, int role);
     bool setValueData(int col, QVariant value, int role);
 
+    Qt::ItemFlags typeFlags(int) const;
+    Qt::ItemFlags objectFlags(int) const;
+    Qt::ItemFlags attrFlags(int col) const;
+    Qt::ItemFlags valueFlags(int col) const;
+
     GameObject *obj;
     InheritableObject *typ;
 
@@ -70,6 +75,7 @@ private:
     QList<QString> attrs;
 
     State state;
+    QColor bgColor;
 };
 
 
@@ -94,12 +100,12 @@ public:
     QModelIndex parent(const QModelIndex &child) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
+    void addParam(const QString &name);
 
 private:
     Game *game;
     GameObject *obj;
     InheritableObject *type;
-
 
     GameTreeItem<true> *item;
 };
@@ -125,6 +131,7 @@ public:
     QModelIndex parent(const QModelIndex &child) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
+    void addFlag(const QString &name);
 
 private:
     Game *game;

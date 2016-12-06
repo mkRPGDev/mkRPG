@@ -51,7 +51,6 @@ public:
 
 private:
     QList<CellType*> cellTypes;
-    QPixmap empty;
 };
 
 

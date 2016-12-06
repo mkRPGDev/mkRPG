@@ -68,22 +68,19 @@ bool MapsListModel::removeRows(int row, int count, const QModelIndex &parent){
 
 
 CellTypeListModel::CellTypeListModel(World* w, QObject* parent) :
-    QAbstractListModel(parent), cellTypes(w->cellTypes()), empty(QPixmap(32,32))
+    QAbstractListModel(parent), cellTypes(w->cellTypes())
 {
-    empty.fill(QColor(0,0,0,0));
 }
 
 int CellTypeListModel::rowCount(const QModelIndex &parent) const{
     //qDebug() << maps.length() << parent.isValid() << parent.model() << parent;
-    return parent.isValid() ? 0 : cellTypes.length()+1;
+    return parent.isValid() ? 0 : cellTypes.length();
 }
 
 QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
     //qDebug() << "data" << role;
     if(index.isValid()){
-        if(index.row() == 0) return role == Qt::DisplayRole ? QVariant(tr("EmptyType")) :
-                                    role == Qt::DecorationRole ? QVariant(empty) : QVariant();
-        CellType *ct = cellTypes.at(index.row()-1);
+        CellType *ct = cellTypes.at(index.row());
         switch (role) {
         case Qt::DisplayRole:
             return QVariant(QString("Ident : ")+QString::number(ct->ident()));

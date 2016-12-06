@@ -6,15 +6,10 @@
 
 
 ObjectEditor::ObjectEditor(QWidget *parent) :
-    TabWidget(parent)
+    TabWidget(parent), currentObject(nullptr)
 {
     setupUi(this);
 
-    //params->header()->setStretchLastSection(true);
-    params->header()->setStretchLastSection(true);
-    flags->header()->setStretchLastSection(true);
-    params->setItemDelegateForColumn(1, new ParamItemDelegate(this));
-    flags->setItemDelegateForColumn(1, new FlagItemDelegate(this));
     objects->setItemDelegateForColumn(1, new ObjectNameItemDelegate(this));
     paramsModel = new ParamTreeItemModel(this);
     flagsModel = new FlagTreeItemModel(this);
@@ -27,6 +22,7 @@ ObjectEditor::ObjectEditor(QWidget *parent) :
     objects->setColumnWidth(0, objects->width()/2);
     types->setModel(typesModel);
 
+
     connect(objects->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
             this, SLOT(currentElementChanged(QModelIndex)));
 //    params->horizontalHeader()->setModel(paramHeader);
@@ -38,16 +34,26 @@ void ObjectEditor::setGame(Game *g){
     flagsModel->setObject(nullptr);
     objectsModel->setGame(g);
     typesModel->setGame(g);
-    int l = objectsModel->rowCount(QModelIndex());
-    for(int i(0); i<l; ++i) objects->expand(objectsModel->index(i,0,QModelIndex()));
+    expand(objectsModel, QModelIndex());
     objects->resizeColumnToContents(0);
 }
 
+void ObjectEditor::expand(QAbstractItemModel *model, const QModelIndex &index){
+    int l = model->rowCount(index);
+    for(int i(0); i<l; ++i){
+        QModelIndex c(model->index(i,0,index));
+        objects->expand(c);
+        expand(model, c);
+    }
+}
+
 void ObjectEditor::currentElementChanged(const QModelIndex &ind){
-    GameObject *o = static_cast<GameObject*>(ind.internalPointer());
-    paramsModel->setObject(o);
-    flagsModel->setObject(o);
-    if(dynamic_cast<InheritableObject*>(o) != nullptr){
+    currentObject = static_cast<GameObject*>(ind.internalPointer());
+    newParam->setEnabled(currentObject != nullptr);
+    newFlag->setEnabled(currentObject != nullptr);
+    paramsModel->setObject(currentObject);
+    flagsModel->setObject(currentObject);
+    if(dynamic_cast<InheritableObject*>(currentObject) != nullptr){
         for(int i(0); i<paramsModel->rowCount(QModelIndex()); ++i){
             params->setFirstColumnSpanned(i, QModelIndex(), true);
             params->setExpanded(paramsModel->index(i,0,QModelIndex()), true);
@@ -61,4 +67,32 @@ void ObjectEditor::currentElementChanged(const QModelIndex &ind){
     //params->update(flagsModel->index(0,0));
     //flags->update(flagsModel->index(0,0));
 
+}
+
+
+void ObjectEditor::on_newParam_clicked(){
+    if(currentObject != nullptr){
+        QList<QString> p(currentObject->params());
+        QString name(tr("new_param"));
+        if(p.contains(name)){
+            int k(1);
+            while(p.contains(name+" ("+QString::number(++k)+")"));
+            name+=" ("+QString::number(k)+")";
+        }
+        paramsModel->addParam(name);
+    }
+}
+
+
+void ObjectEditor::on_newFlag_clicked(){
+    if(currentObject != nullptr){
+        QList<QString> p(currentObject->flags());
+        QString name(tr("new_flag"));
+        if(p.contains(name)){
+            int k(1);
+            while(p.contains(name+" ("+QString::number(++k)+")"));
+            name+=" ("+QString::number(k)+")";
+        }
+        flagsModel->addFlag(name);
+    }
 }

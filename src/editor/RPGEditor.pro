@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     Game/ItemModels/mapslistmodel.cpp \
     Game/ItemModels/typeitemmodel.cpp \
     Game/ItemModels/attrtreeitemmodel.cpp \
-    GUI/Tabs/mapeditor.cpp
+    GUI/Tabs/mapeditor.cpp \
+    GUI/Tabs/treeviews.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -81,7 +82,8 @@ HEADERS  += \
     Game/ItemModels/mapslistmodel.h \
     Game/ItemModels/typeitemmodel.h \
     Game/ItemModels/attrtreeitemmodel.h \
-    GUI/Tabs/mapeditor.h
+    GUI/Tabs/mapeditor.h \
+    GUI/Tabs/treeviews.h
 
 FORMS    += \
     GUI/editor.ui \

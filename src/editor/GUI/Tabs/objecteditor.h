@@ -36,12 +36,19 @@ public:
 
 private slots:
     void currentElementChanged(const QModelIndex &ind);
+    void on_newParam_clicked();
+    void on_newFlag_clicked();
+
+
 
 private:
+    void expand(QAbstractItemModel *model, const QModelIndex &index);
+
     ParamTreeItemModel *paramsModel;
     FlagTreeItemModel *flagsModel;
     ObjectsTreeModel *objectsModel;
     TypeItemModel *typesModel;
+    GameObject *currentObject;
 
 };
 

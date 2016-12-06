@@ -538,7 +538,7 @@ public:
      *
      * \see getParam, setParam, flags
      */
-    virtual void renameParam(const QString &param, QString &newParam);                          /**<
+    virtual void renameParam(const QString &param, const QString &newParam);                    /**<
      * Changes the name of the \c param parameter to \c newParam.
      *
      * \note
@@ -591,7 +591,7 @@ public:
      *
      * \see getFlag, setFlag, params
      */
-    virtual void renameFlag(const QString &flag, QString &newFlag);                             /**<
+    virtual void renameFlag(const QString &flag, const QString &newFlag);                       /**<
      * Changes the name of the \c flag flag to \c newFlag.
      *
      * \note

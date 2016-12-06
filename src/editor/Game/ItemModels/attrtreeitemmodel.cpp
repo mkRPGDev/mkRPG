@@ -13,7 +13,7 @@ GameTreeItem<ParamItem>::GameTreeItem(InheritableObject &typ) :
 template<bool ParamItem>
 GameTreeItem<ParamItem>::GameTreeItem(int rowNb, GameObject *obj, InheritableObject *typ, State state, GameTreeItem *parent) :
     rowNb(rowNb), parentItem(parent), obj(obj), typ(typ),
-    anc(nullptr), attr(""), state(state)
+    anc(nullptr), attr(""), state(state), bgColor(QColor(250,250,250))
 {
     switch (state) {
     case Type:
@@ -22,8 +22,10 @@ GameTreeItem<ParamItem>::GameTreeItem(int rowNb, GameObject *obj, InheritableObj
             children.append(new GameTreeItem<ParamItem>(i, obj, typ, Object, this));
         break;
     case Object:
-        if(parent != nullptr)
+        if(parent != nullptr){
             anc = parent->ancestors[rowNb];
+            bgColor = QColor::fromHsv(30*rowNb % 360,150, 255);
+        }
         if(ParamItem)
             attrs = anc == nullptr ? obj->params() : anc->properParams();
         else
@@ -33,12 +35,14 @@ GameTreeItem<ParamItem>::GameTreeItem(int rowNb, GameObject *obj, InheritableObj
         break;
     case Attribute:
         attr = parent->attrs[rowNb];
+        bgColor = QColor::fromHsv(parent->bgColor.hue(), 40 + 20*(rowNb%2), parent->bgColor.value());
         if(ParamItem){
             children.append(new GameTreeItem<ParamItem>(0, obj, typ, Value, this));
             children.append(new GameTreeItem<ParamItem>(1, obj, typ, Value, this));
         }
         break;
     case Value:
+        bgColor = QColor::fromHsv(parent->bgColor.hue(), 40 + 20*((1 + parent->rowNb + rowNb)%2), parent->bgColor.value());
         attr = parent->attr;
         break;
     default:
@@ -86,11 +90,42 @@ GameTreeItem<ParamItem>* GameTreeItem<ParamItem>::child(int row) const{
 
 template<bool ParamItem>
 Qt::ItemFlags GameTreeItem<ParamItem>::flags(int col) const{
-    Qt::ItemFlags fl(Qt::NoItemFlags);
-    if(col == 1 && (state == Attribute || state == Value)) fl |= Qt::ItemIsEditable;
-    if(typ == nullptr || typ == obj || state != Value) fl |= Qt::ItemIsEnabled;
+    switch (state) {
+    case Type: return typeFlags(col);
+    case Object: return objectFlags(col);
+    case Attribute: return attrFlags(col);
+    case Value: return valueFlags(col);
+    default: return Qt::NoItemFlags;
+    }
+}
+
+
+template<bool ParamItem>
+Qt::ItemFlags GameTreeItem<ParamItem>::typeFlags(int) const{
+    return Qt::NoItemFlags;
+}
+template<bool ParamItem>
+Qt::ItemFlags GameTreeItem<ParamItem>::objectFlags(int) const{
+    return Qt::NoItemFlags;
+}
+template<bool ParamItem>
+Qt::ItemFlags GameTreeItem<ParamItem>::attrFlags(int col) const{
+    Qt::ItemFlags fl(Qt::ItemIsEnabled);
+    if(col == 0 && (typ == nullptr || typ == obj)) fl |= Qt::ItemIsEditable;
+    if(col == 1) fl |= Qt::ItemIsEditable;
     return fl;
 }
+template<bool ParamItem>
+Qt::ItemFlags GameTreeItem<ParamItem>::valueFlags(int col) const{
+    Qt::ItemFlags fl(Qt::NoItemFlags);
+    if(typ == nullptr || typ == obj){
+        fl |= Qt::ItemIsEnabled;
+        if(col == 1)
+            fl |= Qt::ItemIsEditable;
+    }
+    return fl;
+}
+
 
 template<bool ParamItem>
 QVariant GameTreeItem<ParamItem>::data(int col, int role) const{
@@ -108,20 +143,27 @@ template<bool ParamItem>
 QVariant GameTreeItem<ParamItem>::typeData(int UNUSED(col), int UNUSED(role)) const{
     return QVariant();
 }
-
 template<bool ParamItem>
 QVariant GameTreeItem<ParamItem>::objectData(int col, int role) const{
     if(col) return QVariant();
     switch (role) {
     case Qt::DisplayRole: return QVariant(anc->name());
+    case Qt::BackgroundRole: return QVariant(QBrush(QColor(100,100,100)));
+    case Qt::ForegroundRole: return QVariant(QBrush(bgColor));
+    case Qt::FontRole:{
+        QFont f;
+        f.setItalic(true);
+        return QVariant(f);
+    }
     default: return QVariant();
     }
 }
-
 template<bool ParamItem>
 QVariant GameTreeItem<ParamItem>::attrData(int col, int role) const{
+    if(role == Qt::BackgroundRole) return QVariant(QBrush(bgColor));
     if(col == 0)
         switch (role) {
+        case Qt::EditRole:
         case Qt::DisplayRole: return QVariant(attr);
         case Qt::FontRole:
             if(typ != nullptr && (ParamItem ? typ->isRedefiniedParam(attr) : typ->isRedefiniedFlag(attr))){
@@ -139,12 +181,15 @@ QVariant GameTreeItem<ParamItem>::attrData(int col, int role) const{
                 return QVariant(typ ? typ->getParam(attr) : obj->getParam(attr));
             else
                 return QVariant(typ ? typ->getFlag(attr) : obj->getFlag(attr));
+        case Qt::UserRole:
+            return QVariant(typ ? ParamItem ? typ->isRedefiniedParam(attr) : typ->isRedefiniedFlag(attr) : false);
         default: return QVariant();
         }
 }
-
 template<bool ParamItem>
 QVariant GameTreeItem<ParamItem>::valueData(int col, int role) const{
+    if(role == Qt::BackgroundRole) return QVariant(QBrush(bgColor));
+    if(role == Qt::UserRole) return QVariant(false);
     if(!ParamItem) return QVariant();
     if(col == 0)
         switch (role) {
@@ -167,26 +212,48 @@ bool GameTreeItem<ParamItem>::setData(int col, QVariant value, int role){
     default: return false;
     }
 }
-
 template<bool ParamItem>
 bool GameTreeItem<ParamItem>::setAttrData(int col, QVariant value, int role){
     if(col == 1){
         if(role == Qt::EditRole){
             if(ParamItem){
-                if(typ) typ->setParam(attr, value.toInt());
-                else obj->setParam(attr, value.toInt());
+                if(typ){
+                    if(typ->getParam(attr) != value.toInt())
+                        typ->setParam(attr, value.toInt());
+                }
+                else if(obj->getParam(attr) != value.toInt())
+                    obj->setParam(attr, value.toInt());
             }
             else{
-                if(typ) typ->setFlag(attr, value.toBool());
-                else obj->setFlag(attr, value.toBool());
+                if(typ){
+                    if(typ->getFlag(attr) != value.toBool())
+                        typ->setFlag(attr, value.toBool());
+                }
+                else if(obj->getFlag(attr) != value.toBool())
+                    obj->setFlag(attr, value.toBool());
             }
+            return true;
+        }
+        if(role == Qt::UserRole && typ != nullptr && typ->hasAncestor()){
+            if(ParamItem)
+                typ->removeParam(attr);
+            else
+                typ->removeFlag(attr);
+            return true;
+        }
+    }
+    else if(col == 0){
+        if(role == Qt::EditRole && value.toString() != attr){
+            if(ParamItem)
+                obj->renameParam(attr, value.toString());
+            else
+                obj->renameFlag(attr, value.toString());
+            attr = value.toString();
             return true;
         }
     }
     return false;
 }
-
-
 template<bool ParamItem>
 bool GameTreeItem<ParamItem>::setValueData(int col, QVariant value, int role){
     if(col == 1){
@@ -272,7 +339,19 @@ void ParamTreeItemModel::setObject(GameObject *o){
 
 
 bool ParamTreeItemModel::setData(const QModelIndex &index, const QVariant &value, int role){
-    return static_cast<GameTreeItem<true>*>(index.internalPointer())->setData(index.column(), value, role);
+    if(!static_cast<GameTreeItem<true>*>(index.internalPointer())->setData(index.column(), value, role))
+        return false;
+    emit dataChanged(index.parent().child(index.row(),0),index);
+    return true;
+}
+
+void ParamTreeItemModel::addParam(const QString &name){
+    qDebug() << "Hum";
+    if(obj != nullptr){
+        beginResetModel();
+        obj->addParam(name);
+        endResetModel();
+    }
 }
 
 
@@ -347,5 +426,16 @@ void FlagTreeItemModel::setObject(GameObject *o){
 
 
 bool FlagTreeItemModel::setData(const QModelIndex &index, const QVariant &value, int role){
-    return static_cast<GameTreeItem<false>*>(index.internalPointer())->setData(index.column(), value, role);
+    if(!static_cast<GameTreeItem<false>*>(index.internalPointer())->setData(index.column(), value, role))
+        return false;
+    emit dataChanged(index.parent(),index);
+    return true;
+}
+
+void FlagTreeItemModel::addFlag(const QString &name){
+    if(obj != nullptr){
+        beginResetModel();
+        obj->addFlag(name);
+        endResetModel();
+    }
 }

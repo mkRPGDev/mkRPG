@@ -128,6 +128,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     g->addImage(im);
     CellType *ct = new CellType(*g->world());
     ct->setName("Eau");
+    ct->setImage(im);
     ct->setParam("Profondeur", 75);
 
 
@@ -135,7 +136,12 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     ct3->setName("Mer");
     ct3->setImage(im);
     ct3->setParam("Salinité", 12);
+    ct3->setParam("Pollution", 70);
     ct3->setParam("boue", 0);
+    CellType *ctt = new CellType(*ct3);
+    ctt->setName("Atlantique");
+    ctt->setParam("Salinité", 8);
+    ctt->setParam("Concentration de requins", 20);
     g->world()->addCellType(ct);
     Map *m = new Map(*g->world());
     g->world()->addMap(m);

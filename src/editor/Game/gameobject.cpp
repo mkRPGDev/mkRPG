@@ -137,7 +137,7 @@ QList<QString> GameObject::params() const {
     return filter(aParams.keys());
 }
 
-void GameObject::renameParam(const QString &param, QString &newParam){
+void GameObject::renameParam(const QString &param, const QString &newParam){
     aParams[newParam] = aParams.value(param);
     removeParam(param);
 }
@@ -168,7 +168,7 @@ QList<QString> GameObject::flags() const {
     return filter(aFlags.keys());
 }
 
-void GameObject::renameFlag(const QString &flag, QString &newFlag){
+void GameObject::renameFlag(const QString &flag, const QString &newFlag){
     aFlags[newFlag] = aFlags.value(flag);
     removeFlag(flag);
 }
@@ -265,6 +265,10 @@ HierarchicalAttr InheritableObject::flagTree() const{
 
 InheritableObject *InheritableObject::ancestor() const{
     return aAncestor;
+}
+
+bool InheritableObject::hasAncestor() const{
+    return aAncestor != nullptr;
 }
 
 void InheritableObject::removeLastRedondances(HierarchicalAttr &attr){

@@ -17,6 +17,33 @@
  */
 
 
+class ItemEditor : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit ItemEditor(QWidget *edit, bool redef, QWidget* parent);
+    void setEditorProperty(const char *name, const QVariant &value);
+    QVariant editorProperty(const char *name) const;
+    bool resetRequested() const;
+
+signals:
+    void dataChanged(QWidget*);
+    void dataReset(QWidget*);
+
+public slots:
+    void dataReseted();
+    void changeData();
+    void setResetable(bool r);
+
+private slots:
+    void resetData();
+
+private:
+    QWidget *edit;
+    bool resetRequest;
+    QToolButton *tb;
+};
+
 
 /*!
  * \brief The ParamItemDelegate class provides to view classes
@@ -36,6 +63,9 @@ public:
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     //void sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+private:
+    bool reseting;
 };
 
 

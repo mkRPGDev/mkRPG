@@ -33,6 +33,8 @@ git config user.email "travis@travis-ci.org"
 
 ################################################################################
 ##### Generate the Pylint report ###############################################
+ls
+echo 'WHAAAAT'
 chmod +x pylint_test.sh
 - ./pylint_test.sh
 

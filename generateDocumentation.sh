@@ -35,9 +35,9 @@ git config user.email "travis@travis-ci.org"
 ##### Generate the Pylint report ###############################################
 cd src
 echo 'Generating Pylint report'
-pylint --version
-pylint * -f html > pylint_report.html
-mv pylint_report.html ../
+pylint *
+mv pylint_global.html ../
+rm *.html
 cd ..
 
 ################################################################################

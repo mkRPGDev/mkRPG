@@ -15,9 +15,9 @@
 class World;
 class DefaultTypes : public GameObject
 {
+public:
     TypeName(Types)
 
-public:
     DefaultTypes(World &parent);
     C0(DefaultType,c,C,ellType)
     C0(DefaultType,o,O,bjectType)

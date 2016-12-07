@@ -285,7 +285,7 @@ void GameTreeItem<ParamItem>::addAttr(const QString &attr){
 
 template<bool ParamItem>
 void GameTreeItem<ParamItem>::sort(){
-    assert(state == Object);
+    if(state != Object) return;
     std::sort(children.begin(), children.end(),
               [](const GameTreeItem<ParamItem>* it1,
               const GameTreeItem<ParamItem>* it2){
@@ -373,6 +373,8 @@ bool ParamTreeItemModel::setData(const QModelIndex &index, const QVariant &value
     if(!static_cast<GameTreeItem<true>*>(index.internalPointer())->setData(index.column(), value, role))
         return false;
     emit dataChanged(index.parent().child(index.row(),0),index);
+    if(index.column() == 0)
+        sortAttr(index.parent());
     return true;
 }
 
@@ -387,7 +389,7 @@ void ParamTreeItemModel::addParam(const QString &name){
     }
 }
 
-void ParamTreeItemModel::sortAttr(QModelIndex &par){
+void ParamTreeItemModel::sortAttr(const QModelIndex &par){
     emit layoutAboutToBeChanged();
     static_cast<GameTreeItem<true>*>(par.internalPointer())->sort();
     emit layoutChanged();
@@ -467,6 +469,8 @@ bool FlagTreeItemModel::setData(const QModelIndex &index, const QVariant &value,
     if(!static_cast<GameTreeItem<false>*>(index.internalPointer())->setData(index.column(), value, role))
         return false;
     emit dataChanged(index.parent(),index);
+    if(index.column() == 0)
+        sortAttr(index.parent());
     return true;
 }
 
@@ -481,7 +485,7 @@ void FlagTreeItemModel::addFlag(const QString &name){
     }
 }
 
-void FlagTreeItemModel::sortAttr(QModelIndex &par){
+void FlagTreeItemModel::sortAttr(const QModelIndex &par){
     emit layoutAboutToBeChanged();
     static_cast<GameTreeItem<false>*>(par.internalPointer())->sort();
     emit layoutChanged();

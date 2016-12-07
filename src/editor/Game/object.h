@@ -112,6 +112,7 @@ class ObjectType; /*!
 class ObjectType : public Type<ObjectType>
 {
 public:
+    TypeName(ObjectType)
     ObjectType(ObjectType &ancestor);
     ObjectType(DefaultTypes &parent);
 private:

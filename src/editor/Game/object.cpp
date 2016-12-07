@@ -12,7 +12,8 @@ ObjectType::ObjectType(ObjectType &ancestor) :
 ObjectType::ObjectType(DefaultTypes &parent) :
     Type(parent)
 {
-    setName(QObject::tr("ObjectTyper"));
+    setName(QObject::tr("ObjectTypes"));
+    setName(typeName());
     SetFlag(visible, true);
     SetFlag(movable, false);
     SetFlag(interactive, false);

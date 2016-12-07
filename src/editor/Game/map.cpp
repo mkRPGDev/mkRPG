@@ -15,6 +15,7 @@ CellType::CellType(DefaultTypes &parent) :
     Type(parent)
 {
     setName(QObject::tr("CellType"));
+    setName(typeName());
     aImage = nullptr;
     //aName = QObject::tr("Cell_type", "name of a CellType");
     SetFlag(walkable,true);

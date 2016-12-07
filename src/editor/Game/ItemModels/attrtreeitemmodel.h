@@ -105,7 +105,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     void addParam(const QString &name);
-    void sortAttr(QModelIndex &par);
+    void sortAttr(const QModelIndex &par);
 
 private:
     Game *game;
@@ -137,7 +137,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     void addFlag(const QString &name);
-    void sortAttr(QModelIndex &par);
+    void sortAttr(const QModelIndex &par);
 
 private:
     Game *game;

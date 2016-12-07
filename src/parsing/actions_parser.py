@@ -52,8 +52,6 @@ def parse_action(action_tag):
 
     # What orders are defined for this action ?
     _orders = action_tag.findall('Order')
-    if not _orders:
-        parsing_utils._fail_not_found('Orders')
     orders = []
     for order in _orders:
         orders += [ parse_order(order) ]

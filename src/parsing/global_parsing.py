@@ -42,6 +42,9 @@ def game_parser(game_xml):
     # Try to open and parse the given file.
     root = parsing_utils.try_open_and_parse(game_xml)
 
+    # The result dictionnary
+    result = {}
+
     # Gets the important data.
     world_tag = root.find('World')
     if world_tag is not None:
@@ -51,40 +54,76 @@ def game_parser(game_xml):
         if world_file is None:
             parsing_utils._fail_not_found("World")
         world_file = [join(dir_path, world_file.text.replace('/', sep))]
+
+        # Gets the world data.
+        world_data = world_parser.parse_world(world_file[0])
+        if world_data:
+            result.update({"World": [world_data]})
+
         map_files = world_tag.findall('Map')
         if not map_files:
             parsing_utils._fail_not_found("Map")
         map_files = [join(dir_path, x.text.replace('/', sep))
                      for x in map_files]
-        entities_files = world_tag.findall('Entities')
-        if not entities_files:
-            parsing_utils._fail_not_found("Map")
-        entities_files = [join(dir_path, x.text.replace('/', sep))
-                     for x in entities_files]
+
+        # Gets the map data.
+        default_cells, map_data = map_parser.collect_map_data(map_files)
+
+        result.update({"Map" : map_data})
+
         cells = world_tag.findall('Cell')
-        if not cells:
-            parsing_utils._fail_not_found("Cell")
+#        if not cells:
+#            parsing_utils._fail_not_found("Cell")
         cells = [join(dir_path, cell.text.replace('/', sep))
                  for cell in cells]
+
+        available_cells = map_parser.collect_cells_data(*cells)
+
+        if cells or default_cells:
+            result.update({"Cell": available_cells + default_cells})
+
+        entities_files = world_tag.findall('Entities')
+        if not entities_files:
+            parsing_utils._fail_not_found("Entities")
+        entities_files = [join(dir_path, x.text.replace('/', sep))
+                     for x in entities_files]
+
+        result.update({"Entity" :
+            entity_parser.parse_multiple_entities(*entities_files)})
+
+
         objects = world_tag.findall('Objects')
-        if not objects:
-            parsing_utils._fail_not_found("Objects")
         objects = [join(dir_path, obj.text.replace('/', sep)) for obj in objects]
+        if objects:
+            result.update({"Object":
+                objects_parser.multiple_files_object_parser(*objects)})
+
         objects_types = world_tag.findall('ObjectTypes')
         if not objects_types:
             object_types = []
-        objects_types = [join(dir_path, obj_t.text.replace('/', sep)) for obj_t in objects_types]
+        objects_types = [join(dir_path, obj_t.text.replace('/', sep)) for obj_t
+                in objects_types]
+        if objects_types:
+            result.update({"ObjectType":
+                objects_parser.multiple_files_object_types_parser(*objects_types)})
     # Gets the available actions files.
     action_tag = root.find('Actions')
     if action_tag is not None:
         action_files = action_tag.findall('Action')
-        action_files = [join(dir_path, action.text.replace('/', sep)) for action in action_files]
+        action_files = [join(dir_path, action.text.replace('/', sep)) for
+                action in action_files]
+
+    result.update({"Actions":
+        actions_parser.parse_multiple_files(*action_files)})
     # Gets the available interactions files.
     interactions_tag = root.find('Interactions')
     if interactions_tag is not None:
         interaction_files = interactions_tag.findall('Interaction')
-        interaction_files = [join(dir_path, interaction.text.replace('/', sep)) for interaction in interaction_files]
+        interaction_files = [join(dir_path, interaction.text.replace('/', sep))
+                for interaction in interaction_files]
 
+    result.update({"Interactions":
+        interactions_parser.interactions_files_parser(*interaction_files)})
     # Checks if all files defined in game.xml as game files are present in
     # the directories.
     if not check_files(*world_file, *map_files,
@@ -92,20 +131,4 @@ def game_parser(game_xml):
                        *objects, *objects_types, *entities_files):
         sys.exit(1)
 
-    # Gets the map data.
-    map_data = map_parser.collect_map_data(map_files)
-
-    # Gets the world data.
-    world_data = world_parser.parse_world(world_file[0])
-
-    available_cells = map_parser.collect_cells_data(*cells)
-    return {
-        "Map": map_data,
-        "Cell": available_cells,
-        "World": [world_data],
-        "Actions": actions_parser.parse_multiple_files(*action_files),
-        "Interactions": interactions_parser.interactions_files_parser(*interaction_files),
-        "Object": objects_parser.multiple_files_object_parser(*objects),
-        "ObjectType": objects_parser.multiple_files_object_types_parser(*objects_types),
-        "Entity": entity_parser.parse_multiple_entities(*entities_files)
-            }
+    return result

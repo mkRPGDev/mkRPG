@@ -12,11 +12,14 @@ def parse_cell(cell_object):
     """
     Parses a CellType attribute.
     """
-    name = cell_object.attrib['name']
-    answer = {'name': name}
+    answer = {'type' : 'Cell'}
+    name = cell_object.attrib.get('name')
+    if name:
+        answer.update({'name': name})
     cell_params = cell_object.find('Params')
+    answer.update({'params' : {}})
     for param in cell_params.getchildren():
-        answer.update({param.tag: param.text})
+        answer['params'].update({param.tag: param.text})
     _entities = cell_object.find("Entities")
     if _entities is not None:
         entities = _entities.findall("Entity")
@@ -50,25 +53,33 @@ def map_parser(map_xml):
             value = {"id" : parsing_utils.format_type(_param.attrib.get("id"))}
         else:
             value = parsing_utils.format_type(_param.text)
-            answer['params'].update({_param.tag : value})
+        answer['params'].update({_param.tag : value})
 
     available_cells = []
     cells = root.find('Cells')
     for cell in cells.findall("Cell"):
-        available_cells.append(cell.attrib)
+        if cell.attrib.get("id"):
+            available_cells.append(cell.attrib)
+        else:
+            available_cells.append(parse_cell(cell))
+    # Gets the default cell value. Returns it separately since it is a cell
+    # defined in a map and not in a cell file.
     celltype = root.find("CellType")
     cell = parse_cell(celltype)
-    available_cells.append(cell)
+    available_cells.append({'id': cell['name']})
     answer.update({"Cell":available_cells})
     # Getting the default cell.
-    return answer
+    cell.update({'type' : 'CellType'})
+    return cell, answer
 
 
 def collect_map_data(map_files):
     """ Collects all map descriptions in the given files."""
     map_data = []
+    default_cells = []
     for map_file in map_files:
-        data = map_parser(map_file)
+        cell, data = map_parser(map_file)
         map_data.append(data)
-    return map_data
+        default_cells.append(cell)
+    return default_cells, map_data
 

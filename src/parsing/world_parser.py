@@ -20,9 +20,11 @@ def parse_world(world_file):
     params = root.find('Params')
     entities = root.find('Entities')
     objects = root.find('Objects')
+    maps = root.find('Maps')
     params_dict = {}
     entities_list = []
     objects_list = []
+    maps_list = []
     if params is not None:
         for param in params.getchildren():
             if param.attrib.get('id'):
@@ -35,5 +37,8 @@ def parse_world(world_file):
     if objects is not None:
         for object_ in objects.getchildren():
             objects_list += [object_.attrib]
-    return {'name':'world', 'entities': entities_list, 'params': params_dict, 'objects': objects_list}
+    if maps is not None:
+        for map_ in maps.getchildren():
+            maps_list += [map_.attrib]
+    return {'name':'world', 'Entities': entities_list, 'params': params_dict, 'Objects': objects_list, 'Maps': maps_list}
 

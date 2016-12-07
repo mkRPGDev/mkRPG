@@ -26,10 +26,9 @@ def object_parser(object_tag):
     if _picture is None:
         parsing_utils._fail_not_found("picture")
 
-    object_params = {'name': name}
+    object_params = {'name': name, 'type' : 'Object', 'params': {}}
     for tag in _params.getchildren():
-        object_params.update({tag.tag: tag.text})
-
+        object_params['params'].update({tag.tag: tag.text})
     return object_params
 
 def object_type_parser(object_type_tag):
@@ -46,11 +45,12 @@ def object_type_parser(object_type_tag):
     if _params is None:
         parsing_utils._fail_not_found("Params")
     params_dict = {'name': name}
+    params_dict.update({'params' : {}})
     for param in _params:
         if param.attrib.get('id'):
-            params_dict.update({param.tag: param.attrib})
+            params_dict['params'].update({param.tag: { "id": param.attrib.get("id")}})
         else:
-            params_dict.update({param.tag: param.text})
+            params_dict['params'].update({param.tag: param.text})
     return params_dict
 
 

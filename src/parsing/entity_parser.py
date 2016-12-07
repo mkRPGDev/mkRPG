@@ -45,13 +45,13 @@ def parse_entity(entity_element):
     if name is None:
         # No name, exit now and alert the user.
         parsing_utils._fail_not_found("name")
-    answer = {'name': name}
+    answer = {'name': name, 'type' : "Entity"}
     _params = entity_element.find('Params')
     if _params is None:
         parsing_utils._fail_not_found("Params")
-    picture = _params.find("Picture")
+    picture = _params.find("picture")
     if picture is None:
-        parsing_utils._fail_not_found("Picture")
+        parsing_utils._fail_not_found("picture")
     answer.update({'params': get_characteristics(_params)})
     return answer
 

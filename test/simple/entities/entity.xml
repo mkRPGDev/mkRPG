@@ -1,13 +1,14 @@
-<Entity name="moi">
-    <Params>
-        <dir val="2"/>
-        
-        <picture val="88"/>
-        
-        <x val="15"/>
-        <y val="15"/>
-        <case id="cell0"/>
-        <map id="main"/>
-        <score val="1"/>
-    </Params>
-</Entity>
+<Entities>
+    <Entity name="moi">
+        <Params>
+            <dir>2</dir>
+            <picture>88</picture>
+
+            <x>15</x>
+            <y>15</y>
+            <case id="cell0"/>
+            <map id="main"/>
+            <score>1</score>
+        </Params>
+    </Entity>
+</Entities>

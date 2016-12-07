@@ -1,9 +1,13 @@
 <Game>
     <World>
-        <xml file="world.xml"/>
-        <xml file="maps/map.xml"/>
-        <xml file="entities/entity.xml"/>
+        <World>world.xml</World>
+        <Map>maps/map.xml</Map>
+        <Entities>entities/entity.xml</Entities>
    </World>
-    <Actions file="actions.xml"/>
-    <Interactions file="interactions.xml"/>
+   <Actions>
+       <Action>actions.xml</Action>
+   </Actions>
+   <Interactions>
+       <Interaction>interactions.xml</Interaction>
+   </Interactions>
 </Game>

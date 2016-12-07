@@ -47,15 +47,15 @@ doxygen Doxyfile_py
 #On le renomme pour préparer au changement de branche
 mv "doc_c" "doc_c_new"
 mv "doc_py" "doc_py_new"
-mv "pylint_report.html" "pylint_report_new.html"
+#mv "pylint_global.html" "pylint_global_new.html"
 #On change de branche si on est dans master
 git checkout gh-pages
 #On écrase l'ancienne documentation
-rm pylint_report.html
+#rm pylint_global.html
 rm -r doc_c doc_py
 mv "doc_c_new" "doc_c"
 mv "doc_py_new" "doc_py"
-mv "pylint_report_new.html" "pylint_report.html"
+#mv "pylint_global_new.html" "pylint_global.html"
 
 
 #On compile le tex

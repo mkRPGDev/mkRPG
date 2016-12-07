@@ -36,7 +36,7 @@ git config user.email "travis@travis-ci.org"
 ls
 echo 'WHAAAAT'
 chmod +x pylint_test.sh
-- ./pylint_test.sh
+./pylint_test.sh
 
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####

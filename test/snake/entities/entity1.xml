@@ -1,12 +1,10 @@
 <Entities>
     <Entity name="serpent2">
-        <Position>
+        <Params>
             <x>15</x>
             <y>15</y>
-        </Position>
-        <Params>
             <dir>2</dir>
-            <Picture>88</Picture>
+            <picture>88</picture>
             <case id="cell1"/>
             <map id="main"/>
             <score>1</score>

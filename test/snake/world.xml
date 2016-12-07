@@ -5,6 +5,10 @@
         <pomme id="pomme"/>
     </Params>
 
+    <Maps>
+        <Map id="main"/>
+    </Maps>
+
     <Entities>
         <Entity id="serpent"/>
         <Entity id="serpent2"/>

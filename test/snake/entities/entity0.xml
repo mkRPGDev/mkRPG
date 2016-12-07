@@ -4,7 +4,7 @@
             <x>5</x>
             <y>5</y>
             <dir>2</dir>
-            <Picture>79</Picture>
+            <picture>79</picture>
             <case id="cell0"/>
             <map id="main"/>
             <score>1</score>

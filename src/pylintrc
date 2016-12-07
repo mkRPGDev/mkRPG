@@ -56,7 +56,7 @@ disable-msg=C0323,W0142,C0301,C0103,C0111,E0213,C0302,C0203,W0703,R0201
 
 # set the output format. Available formats are text, parseable, colorized and
 # html
-output-format=colorized
+output-format=html
 
 # Include message's id in output
 include-ids=yes
@@ -64,7 +64,7 @@ include-ids=yes
 # Put messages in a separate file for each module / package specified on the
 # command line instead of printing them on stdout. Reports (if any) will be
 # written in a file name "pylint_global.[txt|html]".
-files-output=no
+files-output=yes
 
 # Tells wether to display a full report or only the messages
 reports=yes
@@ -135,8 +135,6 @@ acquired-members=REQUEST,acl_users,aq_parent
 #
 [BASIC]
 
-# Required attributes for module, separated by a comma
-required-attributes=
 
 # Regular expression which should only match functions or classes name which do
 # not require a docstring
@@ -247,10 +245,6 @@ int-import-graph=
 # * unreachable code
 #
 [CLASSES]
-
-# List of interface methods to ignore, separated by a comma. This is used for
-# instance to not check methods defines in Zope's Interface base class.
-ignore-iface-methods=isImplementedBy,deferred,extends,names,namesAndDescriptions,queryDescriptionFor,getBases,getDescriptionFor,getDoc,getName,getTaggedValue,getTaggedValueTags,isEqualOrExtendedBy,setTaggedValue,isImplementedByInstancesOf,adaptWith,is_implemented_by
 
 # List of method names used to declare (i.e. assign) instance attributes.
 defining-attr-methods=__init__,__new__,setUp

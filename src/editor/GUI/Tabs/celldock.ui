@@ -21,18 +21,12 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QListView" name="objects"/>
-   </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Cell objects :</string>
+      <string>Cell flags :</string>
      </property>
     </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="QColumnView" name="columnView"/>
    </item>
    <item row="0" column="1">
     <widget class="QuietComboBox" name="cellTypes"/>
@@ -44,9 +38,25 @@
      </property>
     </widget>
    </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="ParamTreeView" name="params"/>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="FlagTreeView" name="flags"/>
+   </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ParamTreeView</class>
+   <extends>QTreeView</extends>
+   <header location="global">GUI/Tabs/treeviews.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FlagTreeView</class>
+   <extends>QTreeView</extends>
+   <header location="global">GUI/Tabs/treeviews.h</header>
+  </customwidget>
   <customwidget>
    <class>QuietComboBox</class>
    <extends>QComboBox</extends>

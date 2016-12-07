@@ -9,6 +9,11 @@ CellDock::CellDock(QWidget *parent) :
     BDockWidget(parent), map(nullptr)
 {
     setupUi(this);
+
+    paramModel = new ParamTreeItemModel(this);
+    flagsModel = new FlagTreeItemModel(this);
+    params->setModel(paramModel);
+    flags->setModel(flagsModel);
 }
 
 void CellDock::updateGame(){
@@ -26,9 +31,17 @@ void CellDock::updateGame(){
 
 void CellDock::selectionChanged(){
     int sel = 0;
+    Cell *lastSelCell = nullptr;
     for(int i(0); i<map->width(); ++i)
         for(int j(0); j<map->height(); ++j)
-            sel += map->cell(i,j).isSelected();
+            if(map->cell(i,j).isSelected()){
+                sel += 1;
+                lastSelCell = &map->cell(i,j);
+            }
+    paramModel->setObject(lastSelCell);
+    flagsModel->setObject(lastSelCell);
+    params->expandView();
+    flags->expandView();
     emit changeDockName(tr("Cell (")+QString::number(sel) + tr(" selected)", "the number or selected cells", sel));
 }
 

@@ -4,6 +4,7 @@
 #include "ui_celldock.h"
 #include "Docks/bdockwidget.h"
 #include "Game/ItemModels/mapslistmodel.h"
+#include "Game/ItemModels/attrtreeitemmodel.h"
 
 
 /*!
@@ -33,6 +34,8 @@ private slots:
 
 private:
     Map *map;
+    ParamTreeItemModel *paramModel;
+    FlagTreeItemModel *flagsModel;
 };
 
 #endif // CELLDOCK_H

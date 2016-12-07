@@ -10,7 +10,24 @@
  * \brief Definition of the Game and World classes.
  */
 
+template<class T>
+class GameObjectTreeRoot : public GameObject
+{
+public:
+    GameObjectTreeRoot(const QString &name, GameObject &parent) :
+        GameObject(parent)
+    {
+        setName(name);
+    }
+    const QList<T> &objects() const{
+        return childrenOf(this);
+    }
 
+private:
+    const QList<T> &childrenOf(const T *obj){
+        return QList<T>();
+    }
+};
 
 /*!
  * \brief The World class
@@ -25,6 +42,7 @@ public:
     ObjectListD(c,C,ellType,,s, CellType)
 
 private:
+
 };
 
 

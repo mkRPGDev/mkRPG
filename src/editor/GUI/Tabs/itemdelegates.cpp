@@ -175,6 +175,7 @@ void FlagItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
     l.setText(index.data());
     l.setGeometry(option.rect);
     painter->draw*/
+    if(!(index.flags() & Qt::ItemIsEditable)) return;
     QStyleOptionButton check;
     check.state = check.state & ~QStyle::State_HasFocus;
     check.state |= index.data().toBool() ? QStyle::State_On : QStyle::State_Off;

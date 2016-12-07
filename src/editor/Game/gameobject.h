@@ -15,7 +15,7 @@
 
 #define UNUSED(p)
 
-#define TypeName(Type) virtual QString typeName() const{return QString(#Type);}
+#define TypeName(Type) virtual QString typeName() const{return QObject::tr(#Type);}
 
 #define ObjectListDef(Objects,Type) private: QMap<int, Type*> a##Objects; public:
 #define ObjectListAdd(Object,Objects, Type) void add##Object(Type* new##Object){a##Objects[new##Object->ident()] = new##Object; touch();}

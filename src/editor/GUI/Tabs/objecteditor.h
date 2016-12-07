@@ -42,7 +42,6 @@ private slots:
 
 
 private:
-    void expand(QAbstractItemModel *model, const QModelIndex &index);
 
     ParamTreeItemModel *paramsModel;
     FlagTreeItemModel *flagsModel;

@@ -34,18 +34,12 @@ void ObjectEditor::setGame(Game *g){
     flagsModel->setObject(nullptr);
     objectsModel->setGame(g);
     typesModel->setGame(g);
-    expand(objectsModel, QModelIndex());
+    params->expandView();
+    flags->expandView();
+    objects->expandAll();
     objects->resizeColumnToContents(0);
 }
 
-void ObjectEditor::expand(QAbstractItemModel *model, const QModelIndex &index){
-    int l = model->rowCount(index);
-    for(int i(0); i<l; ++i){
-        QModelIndex c(model->index(i,0,index));
-        objects->expand(c);
-        expand(model, c);
-    }
-}
 
 void ObjectEditor::currentElementChanged(const QModelIndex &ind){
     currentObject = static_cast<GameObject*>(ind.internalPointer());

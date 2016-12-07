@@ -9,6 +9,7 @@ class ParamTreeView : public QTreeView
     Q_OBJECT
 public:
     explicit ParamTreeView(QWidget *parent = nullptr);
+    void expandView(const QModelIndex &index = QModelIndex());
 
 private:
     void contextMenuEvent(QContextMenuEvent *me);
@@ -21,6 +22,7 @@ class FlagTreeView : public QTreeView
     Q_OBJECT
 public:
     explicit FlagTreeView(QWidget *parent = nullptr);
+    void expandView(const QModelIndex &index = QModelIndex());
 
 private:
     void contextMenuEvent(QContextMenuEvent *me);

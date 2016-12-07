@@ -160,7 +160,7 @@ QVariant GameTreeItem<ParamItem>::objectData(int col, int role) const{
 }
 template<bool ParamItem>
 QVariant GameTreeItem<ParamItem>::attrData(int col, int role) const{
-    if(role == Qt::BackgroundRole) return QVariant(QBrush(bgColor));
+    if(role == Qt::BackgroundRole) return typ ? QVariant(QBrush(bgColor)) : QVariant();
     if(col == 0)
         switch (role) {
         case Qt::EditRole:
@@ -334,6 +334,7 @@ void ParamTreeItemModel::setObject(GameObject *o){
         delete item;
     if(o != nullptr)
         item = type == nullptr ? new GameTreeItem<true>(*obj) : new GameTreeItem<true>(*type);
+    else item = nullptr;
     endResetModel();
 }
 
@@ -346,11 +347,12 @@ bool ParamTreeItemModel::setData(const QModelIndex &index, const QVariant &value
 }
 
 void ParamTreeItemModel::addParam(const QString &name){
-    qDebug() << "Hum";
     if(obj != nullptr){
-        beginResetModel();
+
+        emit layoutAboutToBeChanged();
         obj->addParam(name);
-        endResetModel();
+        setObject(obj);
+        emit layoutChanged();
     }
 }
 
@@ -421,6 +423,7 @@ void FlagTreeItemModel::setObject(GameObject *o){
         delete item;
     if(o != nullptr)
         item = type == nullptr ? new GameTreeItem<false>(*obj) : new GameTreeItem<false>(*type);
+    else item = nullptr;
     endResetModel();
 }
 

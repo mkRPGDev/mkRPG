@@ -49,7 +49,7 @@ mv "doc_c" "doc_c_new"
 mv "doc_py" "doc_py_new"
 #mv "pylint_global.html" "pylint_global_new.html"
 #On change de branche si on est dans master
-git checkout gh-pages
+git checkout -f gh-pages
 #On écrase l'ancienne documentation
 #rm pylint_global.html
 rm -r doc_c doc_py

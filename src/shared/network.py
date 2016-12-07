@@ -2,7 +2,7 @@ from time import sleep
 import asyncio
 
 from const import *
-from shared.world import BaseObject
+from shared.world import Object
 from shared.orders import Order # XXX à sa place ?
 
 class NetworkClient:
@@ -99,8 +99,8 @@ class ServerConnection:
                 else:
                     length = msg[2]
                     event = msg[3:3+length].decode(CODING)
-                    assert ident in BaseObject.ids
-                    emitter = BaseObject.ids[ident]
+                    assert ident in Object.ids
+                    emitter = Object.ids[ident]
                     if self.entity: # TODO and self.entity.ident == ident:
                         await self.handle(emitter, event)
                     else:

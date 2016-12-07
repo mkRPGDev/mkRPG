@@ -160,7 +160,7 @@ class Client(Interface):
         ImageCache.init_images(GRID_IMGSET.values())
 
     def handleOrder(self, ident, order):
-        emitter = world.BaseObject.ids[ident]
+        emitter = world.Object.ids[ident]
         self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 

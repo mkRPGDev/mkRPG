@@ -4,6 +4,7 @@
 
 #include <QAbstractItemModel>
 #include "../game.h"
+#include <algorithm>
 
 /*!
  * \file attrtreeitemmodel.h
@@ -43,6 +44,9 @@ public:
     int rowCount() const;
     int row() const;
     bool setData(int col, QVariant value, int role);
+    void addAttr(const QString &attr);
+    void sort();
+    void setAttributeRowNb(int r);
 
 private:
     explicit GameTreeItem(int rowNb, GameObject *obj, InheritableObject* typ, State state, GameTreeItem *parent);
@@ -101,6 +105,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     void addParam(const QString &name);
+    void sortAttr(QModelIndex &par);
 
 private:
     Game *game;
@@ -132,6 +137,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     void addFlag(const QString &name);
+    void sortAttr(QModelIndex &par);
 
 private:
     Game *game;

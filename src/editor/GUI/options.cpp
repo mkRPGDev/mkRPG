@@ -1,6 +1,6 @@
 #include "options.h"
 
-Options *Options::instance = NULL;
+Options *Options::instance = nullptr;
 
 Options &Options::options(){
     if(!instance) instance = new Options;

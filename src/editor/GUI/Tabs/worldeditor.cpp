@@ -9,7 +9,7 @@ WorldEditor::WorldEditor(QWidget *parent) :
 
 void WorldEditor::setGame(Game *g){
     game = g;
-    mapsView->setModel(new MapsListModel(g->world(), this));
+    mapsView->setModel(new MapsListModel(&g->world(), this));
 }
 
 WorldEditor::~WorldEditor(){
@@ -17,6 +17,6 @@ WorldEditor::~WorldEditor(){
 }
 
 void WorldEditor::on_mapsView_doubleClicked(const QModelIndex &index){
-    game->setCurrentMap(game->world()->maps().at(index.row()));
+    game->setCurrentMap(game->world().maps().at(index.row()));
     emit editMap();
 }

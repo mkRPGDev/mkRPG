@@ -8,5 +8,5 @@ CellTypesDock::CellTypesDock(QWidget *parent) :
 
 
 void CellTypesDock::updateGame(){
-    cellTypes->setModel(game ? new CellTypeListModel(game->world(), this) : nullptr);
+    cellTypes->setModel(game ? new CellTypeListModel(&game->world(), this) : nullptr);
 }

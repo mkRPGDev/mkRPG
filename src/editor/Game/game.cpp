@@ -1,13 +1,20 @@
 #include "game.h"
 
-
+DefaultTypes::DefaultTypes(World &parent) :
+    GameObject(parent)
+{
+    setName(QObject::tr("Types"));
+}
 
 
 World::World(Game *g, GameObject *parent) :
-    GameObject(g, parent)
+    GameObject(g, parent), aTypes(new DefaultTypes(*this))
 {
 }
 
+const DefaultTypes & World::types() const{
+    return *aTypes;
+}
 
 
 

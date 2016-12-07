@@ -11,9 +11,10 @@ CellType::CellType(CellType &ancestor) :
 }
 
 
-CellType::CellType(GameObject &parent) :
+CellType::CellType(DefaultTypes &parent) :
     Type(parent)
 {
+    setName(QObject::tr("CellType"));
     aImage = nullptr;
     //aName = QObject::tr("Cell_type", "name of a CellType");
     SetFlag(walkable,true);
@@ -125,11 +126,14 @@ Map::~Map(){
 #include "game.h"
 void Map::resize(int w, int h){
     if(cells) delete[] cells;
-    cells = Cell::cellArray(*game->world()->cellTypes().first(),*this, w*h);
+    cells = Cell::cellArray(game->world().types().cellType(),*this, w*h);
     SetParam(width, w);
     SetParam(height, h);
     wi = w;
     he = h;
+    for(int i(0); i<w; ++i)
+        for(int j(0); j<h; ++j)
+            cells[i+w*j].setName(QObject::tr("Cell_<")+QString::number(i)+","+QString::number(j)+">");
     touch();
 }
 

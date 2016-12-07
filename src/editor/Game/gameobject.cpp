@@ -2,6 +2,20 @@
 
 #include "game.h"
 
+bool cleverComp(const QString &na, const QString &nb){
+    if(na.startsWith(nb)) return false;
+    if(nb.startsWith(na)) return true;
+    int k(0);
+    for(;na[k]==nb[k];++k);
+    for(;k+1 && na[k].isDigit(); --k);
+    if(!++k || na[k-1] != '(' || nb[k-1] != '(') return na < nb;
+    int ka(k);
+    for(;ka<na.length() && na[ka].isDigit();ka++);
+    int kb(k);
+    for(;kb<nb.length() && nb[kb].isDigit();kb++);
+    if(k==ka || k==kb || ka==na.length() || kb==nb.length() || na[ka] != ')' || nb[kb] != ')') return na < nb;
+    return na.midRef(k, ka-k).toInt() < nb.midRef(k, kb-k).toInt();
+}
 
 
 
@@ -287,8 +301,8 @@ void InheritableObject::removeLastRedondances(HierarchicalAttr &attr){
 
 
 
-
-GameObjectType::GameObjectType(GameObject &parent) :
+#include "game.h"
+GameObjectType::GameObjectType(DefaultTypes &parent) :
     InheritableObject(parent), ancestorType(nullptr)
 {
 }

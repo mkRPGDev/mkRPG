@@ -3,14 +3,26 @@
 
 
 
+ObjectType::ObjectType(ObjectType &ancestor) :
+    Type(ancestor)
+{
+
+}
+
+ObjectType::ObjectType(DefaultTypes &parent) :
+    Type(parent)
+{
+    setName(QObject::tr("ObjectTyper"));
+    SetFlag(visible, true);
+    SetFlag(movable, false);
+    SetFlag(interactive, false);
+    setParam("life", 42);
+}
 
 
 Object::Object(ObjectType &type, GameObject &parent) :
     TypedObject(type,parent)
 {
-    SetFlag(visible, true);
-    SetFlag(movable, false);
-    SetFlag(interactive, false);
 
 }
 

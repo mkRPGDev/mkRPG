@@ -7,7 +7,7 @@ GameTreeItem<ParamItem>::GameTreeItem(GameObject &obj) :
 
 template<bool ParamItem>
 GameTreeItem<ParamItem>::GameTreeItem(InheritableObject &typ) :
-    GameTreeItem<ParamItem>(0, nullptr, &typ, Type, nullptr) {}
+GameTreeItem<ParamItem>(0, nullptr, &typ, Type, nullptr) {}
 
 
 template<bool ParamItem>
@@ -24,7 +24,7 @@ GameTreeItem<ParamItem>::GameTreeItem(int rowNb, GameObject *obj, InheritableObj
     case Object:
         if(parent != nullptr){
             anc = parent->ancestors[rowNb];
-            bgColor = QColor::fromHsv(30*rowNb % 360,150, 255);
+            bgColor = QColor::fromHsv(25*rowNb % 360,150, 255);
         }
         if(ParamItem)
             attrs = anc == nullptr ? obj->params() : anc->properParams();
@@ -35,7 +35,7 @@ GameTreeItem<ParamItem>::GameTreeItem(int rowNb, GameObject *obj, InheritableObj
         break;
     case Attribute:
         attr = parent->attrs[rowNb];
-        bgColor = QColor::fromHsv(parent->bgColor.hue(), 40 + 20*(rowNb%2), parent->bgColor.value());
+        setAttributeRowNb(rowNb);
         if(ParamItem){
             children.append(new GameTreeItem<ParamItem>(0, obj, typ, Value, this));
             children.append(new GameTreeItem<ParamItem>(1, obj, typ, Value, this));
@@ -49,6 +49,12 @@ GameTreeItem<ParamItem>::GameTreeItem(int rowNb, GameObject *obj, InheritableObj
         assert(false);
         break;
     }
+}
+
+template<bool ParamItem>
+void GameTreeItem<ParamItem>::setAttributeRowNb(int r){
+    rowNb = r;
+    bgColor = QColor::fromHsv(parentItem->bgColor.hue(), 40 + 20*(rowNb%2), parentItem->bgColor.value());
 }
 
 template<bool ParamItem>
@@ -267,7 +273,31 @@ bool GameTreeItem<ParamItem>::setValueData(int col, QVariant value, int role){
     return false;
 }
 
+template<bool ParamItem>
+void GameTreeItem<ParamItem>::addAttr(const QString &attr){
+    if(ParamItem)
+        typ == nullptr ? obj->addParam(attr) : typ->addParam(attr);
+    else
+        typ == nullptr ? obj->addFlag(attr) : typ->addFlag(attr);
+    attrs.append(attr);
+    children.append(new GameTreeItem(attrs.length()-1,typ, typ, Attribute, this));
+}
 
+template<bool ParamItem>
+void GameTreeItem<ParamItem>::sort(){
+    assert(state == Object);
+    std::sort(children.begin(), children.end(),
+              [](const GameTreeItem<ParamItem>* it1,
+              const GameTreeItem<ParamItem>* it2){
+        return cleverComp(it1->attr, it2->attr);
+    });
+    attrs.clear();
+    int k(0);
+    for(GameTreeItem *&i : children){
+        i->setAttributeRowNb(k++);
+        attrs.append(i->attr);
+    }
+}
 
 
 
@@ -348,15 +378,20 @@ bool ParamTreeItemModel::setData(const QModelIndex &index, const QVariant &value
 
 void ParamTreeItemModel::addParam(const QString &name){
     if(obj != nullptr){
-
-        emit layoutAboutToBeChanged();
-        obj->addParam(name);
-        setObject(obj);
-        emit layoutChanged();
+        QModelIndex ins = type == nullptr ? QModelIndex() : index(rowCount(QModelIndex())-1, 0, QModelIndex());
+        int l = rowCount(ins);
+        emit beginInsertRows(ins, l, l);
+        static_cast<GameTreeItem<true>*>(ins.internalPointer())->addAttr(name);
+        emit endInsertRows();
+        sortAttr(ins);
     }
 }
 
-
+void ParamTreeItemModel::sortAttr(QModelIndex &par){
+    emit layoutAboutToBeChanged();
+    static_cast<GameTreeItem<true>*>(par.internalPointer())->sort();
+    emit layoutChanged();
+}
 
 
 
@@ -437,8 +472,17 @@ bool FlagTreeItemModel::setData(const QModelIndex &index, const QVariant &value,
 
 void FlagTreeItemModel::addFlag(const QString &name){
     if(obj != nullptr){
-        beginResetModel();
-        obj->addFlag(name);
-        endResetModel();
+        QModelIndex ins = type == nullptr ? QModelIndex() : index(rowCount(QModelIndex())-1, 0, QModelIndex());
+        int l = rowCount(ins);
+        emit beginInsertRows(ins, l, l);
+        static_cast<GameTreeItem<false>*>(ins.internalPointer())->addAttr(name);
+        emit endInsertRows();
+        sortAttr(ins);
     }
+}
+
+void FlagTreeItemModel::sortAttr(QModelIndex &par){
+    emit layoutAboutToBeChanged();
+    static_cast<GameTreeItem<false>*>(par.internalPointer())->sort();
+    emit layoutChanged();
 }

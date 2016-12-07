@@ -22,7 +22,7 @@ class CellType : public Type<CellType>
 public:
     TypeName(CellType)
     CellType(CellType &ancestor);
-    CellType(GameObject &parent);
+    CellType(DefaultTypes &parent);
 
 
     C0(AttrT, i,I,mage)

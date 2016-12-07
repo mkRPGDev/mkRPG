@@ -114,19 +114,19 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
 
     im = new Image(*g, ":/Icons/herbe.png");
     g->addImage(im);
-    ct1 = new CellType(*g->world());
+    ct1 = new CellType(g->world().types().cellType());
     ct1->setName("Herbe");
     ct1->setImage(im);
-    g->world()->addCellType(ct1);
+    g->world().addCellType(ct1);
     im = new Image(*g, ":/Icons/glace.png");
     g->addImage(im);
-    ct2 = new CellType(*g->world());
+    ct2 = new CellType(g->world().types().cellType());
     ct2->setName("Glace");
     ct2->setImage(im);
-    g->world()->addCellType(ct2);
+    g->world().addCellType(ct2);
     im = new Image(*g, ":/Icons/mer.png");
     g->addImage(im);
-    CellType *ct = new CellType(*g->world());
+    CellType *ct = new CellType(g->world().types().cellType());
     ct->setName("Eau");
     ct->setImage(im);
     ct->setParam("Profondeur", 75);
@@ -142,9 +142,9 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     ctt->setName("Atlantique");
     ctt->setParam("Salinité", 8);
     ctt->setParam("Concentration de requins", 20);
-    g->world()->addCellType(ct);
-    Map *m = new Map(*g->world());
-    g->world()->addMap(m);
+    g->world().addCellType(ct);
+    Map *m = new Map(g->world());
+    g->world().addMap(m);
     m->setName("Paysage bucolique");
     int l = m->width();
     int h = m->height();
@@ -155,9 +155,9 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
         }
     tabBar->setTabsEnabled(true);
 
-    m = new Map(*g->world());
+    m = new Map(g->world());
     m->setName("Le grand large");
-    g->world()->addMap(m);
+    g->world().addMap(m);
     l = m->width();
     h = m->height();
     for(int i(0); i<l; ++i)

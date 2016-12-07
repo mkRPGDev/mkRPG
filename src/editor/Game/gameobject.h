@@ -13,6 +13,9 @@
  * \brief Definition of the base class of the game internal model.
  */
 
+bool cleverComp(const QString &na, const QString &nb);
+
+
 #define UNUSED(p)
 
 #define TypeName(Type) virtual QString typeName() const{return QObject::tr(#Type);}
@@ -803,10 +806,11 @@ private:
  *
  * \see Type
  */
+class DefaultTypes;
 class GameObjectType : public InheritableObject
 {
 protected:
-    GameObjectType(GameObject &parent);
+    GameObjectType(DefaultTypes &parent);
     GameObjectType(GameObjectType &ancestor);
     virtual ~GameObjectType();
 public:

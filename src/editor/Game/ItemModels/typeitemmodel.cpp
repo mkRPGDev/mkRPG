@@ -4,10 +4,9 @@
 TypeTreeItem::TypeTreeItem(Game *game) :
     state(RootItem), parentItem(nullptr), type(nullptr)
 {
-    game->world()->cellTypes();
     TypeTreeItem *cellTypes = new TypeTreeItem("CellType", this);
     children.append(cellTypes);
-    for(CellType *c : game->world()->cellTypes())
+    for(CellType *c : game->world().cellTypes())
         cellTypes->children.append(new TypeTreeItem(c, cellTypes));
 }
 

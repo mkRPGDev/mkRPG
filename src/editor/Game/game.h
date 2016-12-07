@@ -10,23 +10,17 @@
  * \brief Definition of the Game and World classes.
  */
 
-template<class T>
-class GameObjectTreeRoot : public GameObject
-{
-public:
-    GameObjectTreeRoot(const QString &name, GameObject &parent) :
-        GameObject(parent)
-    {
-        setName(name);
-    }
-    const QList<T> &objects() const{
-        return childrenOf(this);
-    }
+#define DefaultType(type,Type) private: Type *default##Type = new Type(*this); public: Type &type() const{return *default##Type;}
 
-private:
-    const QList<T> &childrenOf(const T *obj){
-        return QList<T>();
-    }
+class World;
+class DefaultTypes : public GameObject
+{
+    TypeName(Types)
+
+public:
+    DefaultTypes(World &parent);
+    C0(DefaultType,c,C,ellType)
+    C0(DefaultType,o,O,bjectType)
 };
 
 /*!
@@ -41,8 +35,9 @@ public:
     ObjectListD(o,O,bject,,s, Object)
     ObjectListD(c,C,ellType,,s, CellType)
 
+    const DefaultTypes &types() const;
 private:
-
+    DefaultTypes *aTypes;
 };
 
 
@@ -71,7 +66,7 @@ public:
      * \note
      * It should only be used by GameObject methods \ref GameObject::init and GameObject::GameObject.
      */
-    inline World* world(){return w;}
+    inline World &world(){return *w;}
     inline Map* currentMap(){return map;}
     void setCurrentMap(Map *m);
 

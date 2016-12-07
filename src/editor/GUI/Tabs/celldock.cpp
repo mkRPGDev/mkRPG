@@ -23,7 +23,7 @@ void CellDock::updateGame(){
     }
     Map *newMap = game->currentMap();
     if(newMap != map){ // TODO vérifier si il y a eu des modifications
-        cellTypes->setModel(new CellTypeListModel(game->world(), this));
+        cellTypes->setModel(new CellTypeListModel(&game->world(), this));
         map = newMap;
         selectionChanged();
     }
@@ -47,7 +47,7 @@ void CellDock::selectionChanged(){
 
 void CellDock::on_cellTypes_userChangedCurrentIndex(int i){
     if(map == nullptr) return;
-    CellType *ct(game->world()->cellType(cellTypes->itemData(i).toInt()));
+    CellType *ct(game->world().cellType(cellTypes->itemData(i).toInt()));
     for(int i(0); i<map->width(); ++i)
         for(int j(0); j<map->height(); ++j)
             if(map->cell(i,j).isSelected())

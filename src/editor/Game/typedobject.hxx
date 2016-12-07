@@ -28,16 +28,13 @@ template<class T>
 class Type : public GameObjectType
 {
 public:
-    Type(GameObject &parent) :
+    Type(DefaultTypes &parent) :
         GameObjectType(parent)
     {}
     Type(T &ancestor) :
         GameObjectType(ancestor)
     {}
-
-protected:
 };
-
 
 /*!
  * \brief The TypedObject class is the base class for GameObject

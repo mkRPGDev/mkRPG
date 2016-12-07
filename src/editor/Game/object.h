@@ -112,8 +112,8 @@ class ObjectType; /*!
 class ObjectType : public Type<ObjectType>
 {
 public:
-    ObjectType(ObjectType &ancestor) : Type(ancestor){}
-    ObjectType(GameObject &parent) : Type(parent){}
+    ObjectType(ObjectType &ancestor);
+    ObjectType(DefaultTypes &parent);
 private:
 };
 

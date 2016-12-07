@@ -33,12 +33,8 @@ git config user.email "travis@travis-ci.org"
 
 ################################################################################
 ##### Generate the Pylint report ###############################################
-cd src
-echo 'Generating Pylint report'
-pylint *
-mv pylint_global.html ../
-rm *.html
-cd ..
+chmod +x pylint_test.sh
+- ./pylint_test.sh
 
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####

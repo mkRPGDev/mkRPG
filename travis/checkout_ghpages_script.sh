@@ -40,7 +40,7 @@ chmod +x travis/pylint_script.sh
 
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####
-chmod +x doxgyen_script.sh
+chmod +x doxygen_script.sh
 ./doxygen_script.sh
 
 #On le renomme pour préparer au changement de branche

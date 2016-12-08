@@ -13,7 +13,7 @@ toResolve = []
 world = None
 
 def loadGame(path):
-    """ Lit le game.xml et renvoie le monde chargé """
+    """ Load game.xml and returns the loaded world """
     global world
     dat = readXml(path + "game.xml")
     assert dat.name == "Game"
@@ -29,7 +29,7 @@ def loadGame(path):
     return world
 
 class BaseObject:
-    """ Tout objet du monde """
+    """ Any world object """
     ident = 0
     ids = {} # liste si sans deletion
 
@@ -90,7 +90,7 @@ class BaseObject:
         return self
 
     def contextEval(self, value):
-        """ Évalue une expression dans le contexte de l'objet pour les ordres """
+        """ Eval an expression in the context of the object for orders """ 
         return eval(value)
 
     # TODO traitement d'ordres ?
@@ -103,13 +103,13 @@ MagicObject = BaseObject
 # pour éviter la confusion avec object
 
 class ObjectType(MagicObject):
-    """ Les types d'objets (au sens informatique) """
+    """ Allowing to create objects with default parameters """
     def __init__(self, typ = MagicObject):
         super().__init__()
         self.type = typ
 
     def create(self):
-        """ Instanticiation d'un objet à partir du type """
+        """ Instanticiation of an object from the type """
         instance = self.type()
         instance.type = self
         for p,v in self.params.items():
@@ -120,6 +120,7 @@ class ObjectType(MagicObject):
         return str(self.params)
 
 class World(MagicObject):
+    """  """
     def __init__(self):
         MagicObject.__init__(self)
         self.maps = [] # une liste c'est mieux non ?
@@ -127,12 +128,14 @@ class World(MagicObject):
         self.objects = []
 
 class Map(MagicObject):
+    """ Orthonormed map with associated alogrithms """
     def __init__(self):
         MagicObject.__init__(self)
         self.cells = []
 
     def fill(self):
-        """ Complète les cases par défaut """
+        """ Fill the cellsGrid attribute with cells and default cell
+        To be called after the Xml reading only """
         self.cellsGrid = [[None] * self.height
                             for _ in range(self.width)]
         for c in self.cells:
@@ -146,14 +149,14 @@ class Map(MagicObject):
                     cell.x = i; cell.y = j
     
     def dist(self, source, dest):
+        """ Manhattan distance """
         return abs(source.x-dest.x) + abs(source.y-dest.y)
     
     def lov(self, source, dest):
-        """ 
-        Calcule si la vue est dégagée entre source et dest,
-        ces derniers doivent avoir des paramètres x et y et
-        les cellules de la carte un paramètre "visible"
-        O(dist(source, dest)) environ
+        """ Computes if the view is degaged between source and dest
+        those laters must have x and y parameters and the map
+        cells a parameter "visible"
+        About O(dist(source, dest))
         """
         x1,y1 = source.x, source.y
         x2,y2 = dest.x, dest.y
@@ -175,7 +178,7 @@ class Map(MagicObject):
 
     def fromPos(self, pos, maxi=None):
         """ Yield cells further and further from pos, stopping at maxi
-        Assuming >x vy it turns as the trigo circle,
+        Assuming x goes right and y down it turns as the trigo circle,
         it is therefore not a "serpentin" (sadly ?) """
         x,y = pos.x, pos.y
         if maxi is None: maxi = max(x, self.width-x) + max(y, self.height-y)
@@ -188,12 +191,14 @@ class Map(MagicObject):
             x+=1 
         
 class Cell(MagicObject):
+    """  """
     def __init__(self):
         MagicObject.__init__(self)
         self.entities = []
         self.objects = []
 
 class Entity(MagicObject):
+    """  """
     def __init__(self):
         MagicObject.__init__(self)
         self.quests = []
@@ -203,7 +208,3 @@ class Entity(MagicObject):
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":MagicObject,
        "types":ObjectType, "inventory":MagicObject, "quests":MagicObject}
 
-if __name__=="__main__":
-    verbose = True
-    w = World()
-    w.load("../Test/") # désuet

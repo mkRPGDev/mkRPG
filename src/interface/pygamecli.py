@@ -6,6 +6,7 @@ from sys import argv
 from time import time
 import configparser
 
+from interface.const import *
 from const import *
 from interface.interactions import registerInteractions, InteractionType
 from shared.orders import OrderDispatcher
@@ -14,7 +15,7 @@ from interface.cache import ChunkCache
 if USETCP:
     from shared.network import NetworkClient
 else:
-    from networkudp import NetworkClient
+    from shared.networkudp import NetworkClient
 
 #TODO trouver mieux cf world
 with open("isserver.py","w") as file:
@@ -32,7 +33,6 @@ class Client(Interface):
         pygame.display.init()
         self.screen_size = SCREEN_WIDTH, SCREEN_HEIGHT
         self.screen = pygame.display.set_mode(self.screen_size)
-
         self.interface = WorldViewer(self.world)
         self.perso = None
 

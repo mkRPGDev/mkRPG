@@ -57,7 +57,7 @@ class CursesPlugin:
         return False
 
     def draw(self):
-        """ don't forget to call self.win.noutrefresh after some changes """
+        """ don't call self.win.noutrefresh, it will be done when needed """
         self.height, self.width = self.win.getmaxyx() # XXX bof bof
 
     def repaint(self):
@@ -65,12 +65,14 @@ class CursesPlugin:
         curses.doupdate()
 
 def loadPluginsServer(path, engine):
+    """ Load serverside plugins, may disappear when loadGame will handle it """
     # FIXME gros bricolage
     import plugins.chat as chat
     ch = chat.Chat(engine)
     return [ch]
 
 def loadPluginsClient(path, engine):
+    """ Load clientside plugins, may disappear when loadGame will handle it """
     import plugins.chat as chat
     import plugins.menu as menu
     ch = chat.Chat(engine)

@@ -8,7 +8,7 @@ import struct
 from interface.utils import merge_rect_lists, sublist, WalkableGraph
 from interface.cache import ChunkCache
 
-import const
+import interface.const as const
 
 class MapViewer(pygame.sprite.Group):
 

@@ -3,7 +3,8 @@ from pygame.locals import Rect
 
 from time import sleep
 
-import shared.world
+import shared.world as world
+
 from interface.map import MapViewer
 from interface.entity import Entity
 from interface.utils import merge_rect_lists

@@ -4,10 +4,10 @@
 import pygame
 from pygame.locals import Rect
 
-from cache import ImageCache
-from utils import load_png, add_to_rect_list, merge_rect_lists
+from interface.cache import ImageCache
+from interface.utils import load_png, add_to_rect_list, merge_rect_lists
 
-import const
+import interface.const as const
 
 class Character():
 

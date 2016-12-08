@@ -8,6 +8,7 @@ path.append('parsing/')
 from const import *
 from interface.interactions import registerInteractions, InteractionType
 from interface.interface import skeys
+from interface.const import UPDTIME
 from shared.orders import OrderDispatcher
 from shared.network import NetworkClient
 import shared.world as world
@@ -50,6 +51,7 @@ class Client():
         print("Client killed")
 
     def run(self):
+        """ Launch tasks """
         self.loop.run_until_complete(self.net.connect())
         print("Main")
         self.loop.run_until_complete(self.getEntity())
@@ -59,6 +61,8 @@ class Client():
         self.loop.run_until_complete(self.main())
 
     async def getEntity(self):
+        """ Ask for a free entity to the server
+        May disappear with a proper initialisation process """
         for ent in self.world.entities:
             if await self.net.askEntity(ent):
                 self.perso = ent
@@ -69,6 +73,7 @@ class Client():
             return
 
     async def main(self):
+        """ Init stuff, listen for inputs and send corresponding events """
         self.interface.init()
         while True:
             self.interface.update()
@@ -88,11 +93,13 @@ class Client():
                         await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
 
     async def handleOrder(self, ident, order):
+        """ Call dispatcher and update display """
         emitter = world.BaseObject.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
     async def pluginHandle(self, msg):
+        """ Search for plugins that want to handle the message """
         for plug in self.plugins:
             if msg.startswith(plug.MSGID):
                 await plug.clientMessage(msg[len(plug.MSGID):])

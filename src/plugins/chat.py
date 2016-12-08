@@ -84,4 +84,3 @@ class ChatUI(CursesPlugin):
             self.win.addch(self.height-2,len(text)+1,ord('|'))
         else:
             self.win.addch(self.height-2,len(text)+1,ord('_'))
-        self.win.noutrefresh()

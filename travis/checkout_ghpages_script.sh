@@ -37,11 +37,10 @@ git config user.email "travis@travis-ci.org"
 ##### Generate the Pylint report ###############################################
 chmod +x travis/pylint_script.sh
 ./travis/pylint_script.sh
-echo "YEEES"
 
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####
-chmod +x doxyen_script.sh
+chmod +x doxgyen_script.sh
 ./doxygen_script.sh
 
 #On le renomme pour préparer au changement de branche

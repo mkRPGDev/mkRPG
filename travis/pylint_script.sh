@@ -1,4 +1,6 @@
 ## Ce script a pour but d'utiliser pylint sur notre code python
+ls
+echo "LS"
 mv pylintrc ../src
 cd ../src
 echo 'Generating Pylint report'

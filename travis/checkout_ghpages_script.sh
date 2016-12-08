@@ -35,8 +35,9 @@ git config user.email "travis@travis-ci.org"
 
 ################################################################################
 ##### Generate the Pylint report ###############################################
-chmod +x pylint_script.sh
-./pylint_script.sh
+chmod +x travis/pylint_script.sh
+./travis/pylint_script.sh
+echo "YEEES"
 
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####

@@ -1,20 +1,11 @@
 #!/bin/sh
+## Ce script permet de faire des tâches dans master, de checkout dans gh-pages
+## puis de push dans gh-pages
+
 ################################################################################
-# Title         : generateDocumentationAndDeploy.sh
-# Date created  : 2016/02/22
-# Preconditions:
-# - Packages doxygen doxygen-doc doxygen-latex doxygen-gui graphviz
-#   must be installed.
-# - Doxygen configuration file must have the destination directory empty and
-#   source code directory with a $(TRAVIS_BUILD_DIR) prefix.
-# - An gh-pages branch should already exist. See below for mor info on hoe to
-#   create a gh-pages branch.
-#
 # Required global variables:
 # - TRAVIS_BUILD_NUMBER : The number of the current build.
 # - TRAVIS_COMMIT       : The commit that the current build is testing.
-# - GH_REPO_NAME        : The name of the repository.
-# - GH_REPO_REF         : The GitHub reference to the repository.
 # - GH_REPO_TOKEN       : Secure token to the github repository.
 ################################################################################
 
@@ -24,20 +15,15 @@ echo 'Setting up the script...'
 # Exit with nonzero exit code if anything fails
 set -e
 
-
-# On recupère le nom de la branche dans laquelle on se trouve
-branch_name="$( git branch -a --no-color  | awk '/^\*/{getline; print}' | sed 's/\*[^a-z]*//g')"
-echo $branch_name
-
 # Create a clean working directory for this script.
 mkdir code_docs
 cd code_docs
 
-# Get the current master branch
-echo "Get a clone of $branch_name"
+##### Get the current master branch
+echo "Get a clone of master"
 
-git clone -b $branch_name "https://${GH_REPO_REF}"
-cd $GH_REPO_NAME
+git clone -b master "https://github.com/mkRPGDev/mkRPG.git"
+cd mkRPG
 
 ##### Configure git.
 # Set the push default to simple i.e. push only the current branch.
@@ -47,22 +33,27 @@ git config user.name "Travis CI"
 git config user.email "travis@travis-ci.org"
 
 
+################################################################################
+##### Generate the Pylint report ###############################################
+chmod +x travis/pylint_script.sh
+./travis/pylint_script.sh
 
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####
-echo 'Generating Doxygen code documentation...'
-doxygen Doxyfile_c
-doxygen Doxyfile_py
+./travis/doxygen_script.sh
 
 #On le renomme pour préparer au changement de branche
 mv "doc_c" "doc_c_new"
 mv "doc_py" "doc_py_new"
+mv "pylint_global.html" "pylint_global_new.html"
 #On change de branche si on est dans master
 git checkout gh-pages
 #On écrase l'ancienne documentation
+rm pylint_global.html
 rm -r doc_c doc_py
 mv "doc_c_new" "doc_c"
 mv "doc_py_new" "doc_py"
+mv "pylint_global_new.html" "pylint_global.html"
 
 
 #On compile le tex
@@ -72,12 +63,9 @@ mv "doc_py_new" "doc_py"
 #cd ..
 
 
+
 ################################################################################
 ##### Upload the documentation to the gh-pages branch of the repository.   #####
-# Only upload if Doxygen successfully created the documentation.
-# Check this by verifying that the html directory and the file html/index.html
-# both exist. This is a good indication that Doxygen did it's work.
-
 
 echo 'Uploading documentation to the gh-pages branch...'
 # Add everything in this directory (the Doxygen code documentation) to the
@@ -93,8 +81,5 @@ git commit -m "Deploy code docs to GitHub Pages Travis build: ${TRAVIS_BUILD_NUM
 echo "Status : git commit has passed"
 
 # Force push to the remote gh-pages branch.
-# The ouput is redirected to /dev/null to hide any sensitive credential data
-# that might otherwise be exposed.
-
-git push -v --force "https://${GH_REPO_TOKEN}@${GH_REPO_REF}"
+git push -v --force "https://${GH_REPO_TOKEN}@github.com/mkRPGDev/mkRPG.git"
 echo "Status : git push has passed"

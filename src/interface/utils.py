@@ -116,9 +116,10 @@ def cell_to_point(x, y, nb_cells_x, nb_cells_y, cell_width,
     return ((( x            *cos(angle_x) - (nb_cells_y-y)*cos(angle_y))*cell_width),
             (((nb_cells_x-x)*sin(angle_x) + (nb_cells_y-y)*sin(angle_y))*cell_width))
 
+
 def point_to_cell(x, y, nb_cells_x, nb_cells_y, cell_width,
                   angle_x, angle_y):
-    """ Convert map coordinates to cell related coordinates 
+    """ Convert map coordinates to cell related coordinates
 
     \warning Angles must be given in radian.
     """

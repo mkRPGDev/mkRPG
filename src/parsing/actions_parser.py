@@ -15,7 +15,7 @@ def get_tag(order_tag, tag, optionnal=False):
     _tag = order_tag.find(tag)
     if _tag is None:
         if not optionnal:
-            parsing_utils._fail_not_found(tag)
+            parsing_utils.fail_not_found(tag)
         else:
             return None
     if _tag.attrib.get("id"):
@@ -30,7 +30,7 @@ def parse_order(order_tag):
     res = {}
     type_order = order_tag.attrib.get("type")
     if type_order is None:
-        parsing_utils._fail_not_found("Type in order tag")
+        parsing_utils.fail_not_found("Type in order tag")
     res.update({"type": type_order})
 
     for tag in ["value", "event", "param", "target", "init", "once", "base"]:
@@ -47,14 +47,14 @@ def parse_action(action_tag):
     # What event can produce this action ?
     _event = action_tag.find('Event')
     if _event is None:
-        parsing_utils._fail_not_found('Event')
+        parsing_utils.fail_not_found('Event')
     event = _event.attrib.get("val")
 
     # What orders are defined for this action ?
     _orders = action_tag.findall('Order')
     orders = []
     for order in _orders:
-        orders += [ parse_order(order) ]
+        orders += [parse_order(order)]
     return(event, orders)
 
 def parse_actions(action_xml):
@@ -82,6 +82,6 @@ def parse_multiple_files(*actions_files):
 
 def get_all_names(actions):
     """ Returns all action names present in the given actions dictionnary."""
-    assert type(actions)==dict
+    assert type(actions) == dict
     names = set(actions.keys())
     return names

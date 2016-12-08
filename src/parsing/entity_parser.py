@@ -12,9 +12,8 @@ it always have a picture, its grpahical representation in the GUI client
 """
 
 #-*- coding : utf-8 -*-
-import xml.etree.ElementTree as ET
-import sys
 
+import xml.etree.ElementTree
 import parsing_utils
 
 
@@ -44,14 +43,14 @@ def parse_entity(entity_element):
     name = entity_element.attrib['name']
     if name is None:
         # No name, exit now and alert the user.
-        parsing_utils._fail_not_found("name")
+        parsing_utils.fail_not_found("name")
     answer = {'name': name, 'type' : "Entity"}
     _params = entity_element.find('Params')
     if _params is None:
-        parsing_utils._fail_not_found("Params")
+        parsing_utils.fail_not_found("Params")
     picture = _params.find("picture")
     if picture is None:
-        parsing_utils._fail_not_found("picture")
+        parsing_utils.fail_not_found("picture")
     answer.update({'params': get_characteristics(_params)})
     return answer
 

@@ -16,13 +16,13 @@ def parse_image(image_tag):
     _path = image_tag.find("Path")
 
     if _identifier is None:
-        parsing_utils._fail_not_found("Identifier")
+        parsing_utils.fail_not_found("Identifier")
     identifier = parsing_utils.format_type(_identifier.text)
     if type(identifier) != int:
         print("Fail : identifier couldn't be cast in integer.")
         sys.exit(1)
     if _path is None:
-        parsing_utils._fail_not_found("Path")
+        parsing_utils.fail_not_found("Path")
     path = _path.text
 
     return {identifier:path.replace("/", sep)}

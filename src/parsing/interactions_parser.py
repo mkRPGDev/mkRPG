@@ -6,7 +6,7 @@ these interactions.
 
 # -*- coding: utf-8 -*-
 
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree
 import sys
 import parsing_utils
 import actions_parser
@@ -18,9 +18,9 @@ def interaction_parser(interaction_tag):
 
     interaction = {}
 
-    _key  = interaction_tag.find('key')
+    _key = interaction_tag.find('key')
     if _key is None:
-        parsing_utils._fail_not_found('key')
+        parsing_utils.fail_not_found('key')
     if _key.get('val') is None:
         print("Tag %s found, but value not present" % 'key')
     interaction.update({"key": parsing_utils.format_type(_key.get('val'))})
@@ -28,12 +28,12 @@ def interaction_parser(interaction_tag):
     for tag in ['target', 'event']:
         val = interaction_tag.find(tag)
         if val is None:
-            parsing_utils._fail_not_found(tag)
+            parsing_utils.fail_not_found(tag)
         if val.get("val") is None:
             print("Tag  %s found, but value not present" % tag)
             sys.exit(1)
         interaction.update({tag : val.get("val")})
-    return(interaction)
+    return interaction
 
 def interactions_parser(interaction_xml):
     """This function parses a whole file, and returns the dictionnary of all
@@ -41,8 +41,7 @@ def interactions_parser(interaction_xml):
     """
 
     interactions = parsing_utils.try_open_and_parse(interaction_xml)
-    keys_found = []
-    interactions_list= []
+    interactions_list = []
 
     for interaction in interactions.findall('Interaction'):
         interactions_list.append(interaction_parser(interaction))
@@ -70,4 +69,4 @@ def check_actions(interactions, actions):
 
     interaction_names = get_all_actions(interactions)
     action_names = actions_parser.get_all_names(actions)
-    return (interaction_names <= action_names)
+    return interaction_names <= action_names

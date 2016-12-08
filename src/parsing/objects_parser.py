@@ -15,16 +15,16 @@ def object_parser(object_tag):
     # Gets the name of the object, and stops if it is not found.
     name = object_tag.attrib.get("name")
     if name is None:
-        parsing_utils._fail_not_found("name")
+        parsing_utils.fail_not_found("name")
 
     # Gets the params of the object
     _params = object_tag.find("Params")
     if _params is None:
-        parsing_utils._fail_not_found("Params")
+        parsing_utils.fail_not_found("Params")
 
     _picture = _params.find("picture")
     if _picture is None:
-        parsing_utils._fail_not_found("picture")
+        parsing_utils.fail_not_found("picture")
 
     object_params = {'name': name, 'type' : 'Object', 'params': {}}
     for tag in _params.getchildren():
@@ -38,17 +38,17 @@ def object_type_parser(object_type_tag):
 
     name = object_type_tag.attrib.get("name")
     if name is None:
-        parsing_utils._fail_not_found("name")
+        parsing_utils.fail_not_found("name")
 
     _params = object_type_tag.find("Params")
 
     if _params is None:
-        parsing_utils._fail_not_found("Params")
+        parsing_utils.fail_not_found("Params")
     params_dict = {'name': name}
     params_dict.update({'params' : {}})
     for param in _params:
         if param.attrib.get('id'):
-            params_dict['params'].update({param.tag: { "id": param.attrib.get("id")}})
+            params_dict['params'].update({param.tag: {"id": param.attrib.get("id")}})
         else:
             params_dict['params'].update({param.tag: param.text})
     return params_dict
@@ -90,7 +90,7 @@ def multiple_files_object_parser(*files_list):
     """
     return parsing_utils.parse_multiple_files(objects_parser, *files_list)
 
-def multiple_files_object_types_parser(*files_list):
+def multiple_files_otype_parser(*files_list):
     """Parses a list of files, and returns the dictionary containing all data
     defined in these files.
     """

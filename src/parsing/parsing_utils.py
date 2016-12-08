@@ -12,7 +12,7 @@ import re
 from os.path import abspath
 
 INT = re.compile('[0-9]+$')
-FLOAT = re.compile('[0-9]+[\.,][0-9]$')
+FLOAT = re.compile(r'[0-9]+[\.,][0-9]$')
 
 def try_open_and_parse(xml_file):
     """
@@ -33,11 +33,14 @@ def try_open_and_parse(xml_file):
     root = parsed_file.getroot()
     return root
 
-def _fail_not_found(tag):
+def fail_not_found(tag):
+    """ Error when a tag is not found in a file, and should be in."""
     print("Tag %s not found" % tag)
     sys.exit(1)
 
 def format_type(string):
+    """ If the string can be converted to an int or a float, converts it."""
+
     if re.match(INT, string):
         return int(string)
     elif re.match(FLOAT, string) or string == 'inf':

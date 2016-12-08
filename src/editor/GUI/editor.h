@@ -10,6 +10,7 @@
 #include "Tabs/worldeditor.h"
 #include "Tabs/mapeditor.h"
 #include "Tabs/objecteditor.h"
+#include "Game/xmlwritter.h"
 
 /*!
  * \file editor.h

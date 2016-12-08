@@ -108,6 +108,11 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 
 Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     Game* g = new Game();
+
+    g->setName("Trop_cool_mon_jeu");
+    XmlWritter xml(QDir::homePath()+"/"+g->name()+".xml");
+    xml << *g;
+
     Image *im;
     CellType *ct1, *ct2, *ct3;
 

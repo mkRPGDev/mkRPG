@@ -11,8 +11,18 @@
  */
 
 #define DefaultType(type,Type) private: Type *default##Type = new Type(*this); public: Type &type() const{return *default##Type;}
+/**<
+ * Todoc
+ */
 
-class World;
+
+class World; /*!
+ * \brief The DefaultTypes class represents the object that
+ * will contains all types.
+ *
+ * This DefaultTypes object has to be given for the construction
+ * of the empty type of each type.
+ */
 class DefaultTypes : public GameObject
 {
 public:
@@ -20,6 +30,7 @@ public:
 
     DefaultTypes(World &parent);
     C0(DefaultType,c,C,ellType)
+    C0(DefaultType,m,M,apType)
     C0(DefaultType,o,O,bjectType)
 };
 

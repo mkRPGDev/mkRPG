@@ -226,6 +226,20 @@ bool InheritableObject::hasParam(const QString &param) const {
     return  GameObject::hasParam(param) || (aAncestor && aAncestor->hasParam(param));
 }
 
+void InheritableObject::setParam(const QString &param, int value){
+    if(isInheritedParam(param))
+        setParamDomain(param, getParamMin(param), getParamMax(param));
+    GameObject::setParam(param, value);
+}
+
+int InheritableObject::getParamMax(const QString &param) const{
+    return isInheritedParam(param) ? aAncestor->getParamMax(param) : GameObject::getParamMax(param);
+}
+
+int InheritableObject::getParamMin(const QString &param) const{
+    return isInheritedParam(param) ? aAncestor->getParamMin(param) : GameObject::getParamMin(param);
+}
+
 QList<QString> InheritableObject::params() const {
     return filter(aParams.keys()); // NOTE Vraiment ?
 }

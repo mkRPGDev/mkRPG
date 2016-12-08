@@ -197,7 +197,7 @@ QVariant GameTreeItem<ParamItem>::attrData(int col, int role) const{
 }
 template<bool ParamItem>
 QVariant GameTreeItem<ParamItem>::valueData(int col, int role) const{
-    if(role == Qt::BackgroundRole) return QVariant(QBrush(bgColor));
+    if(role == Qt::BackgroundRole && parentItem->typ != nullptr) return QVariant(QBrush(bgColor));
     if(role == Qt::UserRole) return QVariant(false);
     if(!ParamItem) return QVariant();
     if(col == 0)
@@ -284,7 +284,7 @@ void GameTreeItem<ParamItem>::addAttr(const QString &attr){
     else
         typ == nullptr ? obj->addFlag(attr) : typ->addFlag(attr);
     attrs.append(attr);
-    children.append(new GameTreeItem(attrs.length()-1,typ, typ, Attribute, this));
+    children.append(new GameTreeItem(attrs.length()-1,typ == nullptr ? obj : typ, typ, Attribute, this));
 }
 
 template<bool ParamItem>
@@ -387,7 +387,9 @@ void ParamTreeItemModel::addParam(const QString &name){
         QModelIndex ins = type == nullptr ? QModelIndex() : index(rowCount(QModelIndex())-1, 0, QModelIndex());
         int l = rowCount(ins);
         emit beginInsertRows(ins, l, l);
-        static_cast<GameTreeItem<true>*>(ins.internalPointer())->addAttr(name);
+        GameTreeItem<true> *it = ins.isValid() ? static_cast<GameTreeItem<true>*>(ins.internalPointer())
+                                               : item;
+        it->addAttr(name);
         emit endInsertRows();
         sortAttr(ins);
     }
@@ -395,7 +397,10 @@ void ParamTreeItemModel::addParam(const QString &name){
 
 void ParamTreeItemModel::sortAttr(const QModelIndex &par){
     emit layoutAboutToBeChanged();
-    static_cast<GameTreeItem<true>*>(par.internalPointer())->sort();
+    if(par.isValid())
+        static_cast<GameTreeItem<true>*>(par.internalPointer())->sort();
+    else
+        item->sort();
     emit layoutChanged();
 }
 
@@ -483,7 +488,9 @@ void FlagTreeItemModel::addFlag(const QString &name){
         QModelIndex ins = type == nullptr ? QModelIndex() : index(rowCount(QModelIndex())-1, 0, QModelIndex());
         int l = rowCount(ins);
         emit beginInsertRows(ins, l, l);
-        static_cast<GameTreeItem<false>*>(ins.internalPointer())->addAttr(name);
+        GameTreeItem<false> *it = ins.isValid() ? static_cast<GameTreeItem<false>*>(ins.internalPointer())
+                                                : item;
+        it->addAttr(name);
         emit endInsertRows();
         sortAttr(ins);
     }
@@ -491,6 +498,9 @@ void FlagTreeItemModel::addFlag(const QString &name){
 
 void FlagTreeItemModel::sortAttr(const QModelIndex &par){
     emit layoutAboutToBeChanged();
-    static_cast<GameTreeItem<false>*>(par.internalPointer())->sort();
+    if(par.isValid())
+        static_cast<GameTreeItem<false>*>(par.internalPointer())->sort();
+    else
+        item->sort();
     emit layoutChanged();
 }

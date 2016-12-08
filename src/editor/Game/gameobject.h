@@ -706,7 +706,6 @@ public:
      * \see hasAncestor
      */
 
-
     virtual bool isInheritedParam(const QString &p) const;          /**<
      * Returns true if the \c param parameter is define in one of
      * the ancestors of the object.
@@ -718,6 +717,31 @@ public:
      * with a object proper value.
      *
      * \see isInheritedParam, isRedefiniedFlag
+     */
+    virtual int getParamMin(const QString &param) const;            /**<
+     * Returns the lower bound of the \c param parameter if
+     * it exists (or is inherited).
+     *
+     * \note
+     * If the \c param param is not defined, a default value
+     * is returned (0).
+     *
+     * \see getParamMax
+     */
+    virtual int getParamMax(const QString &param) const;            /**<
+     * Returns the upeer bound of the \c param parameter if
+     * it exists (or is inherited).
+     *
+     * \note
+     * If the \c param param is not defined, a default value
+     * is returned (100).
+     *
+     * \see getParamMax
+     */
+    virtual void setParam(const QString &param, int value);         /**<
+     * Reimplemented function.
+     *
+     * \see GameObject::setParam
      */
     virtual int getParam(const QString &param) const;               /**<
      * Returns the value of the \c param parameter, loocking
@@ -731,12 +755,17 @@ public:
      *
      * \see getParam, hasFlag, GameObject::hasParam
      */
-    virtual QList<QString> params() const;
+    virtual QList<QString> params() const;                          /**<
+     * Returns the list of the parameters of the object,
+     * both proper and inherited.
+     *
+     * \see properParams, paramTree, flags
+     */
     virtual QList<QString> properParams() const;                    /**<
      * Returns the list of the parameters that are only defined
      * in the object (the uninherited parameters)
      *
-     * \see paramTree, properFlags
+     * \see params, paramTree, properFlags
      */
     HierarchicalAttr paramTree() const;                             /**<
      * Returns the hierarchy of parameters, that is the list of
@@ -769,7 +798,12 @@ public:
      *
      * \see getFlag, hasParam, GameObject::hasFlag
      */
-    virtual QList<QString> flags() const;
+    virtual QList<QString> flags() const;                           /**<
+     * Returns the list of the flags of the object,
+     * both proper and inherited.
+     *
+     * \see properFlags, flagTree, params
+     */
     virtual QList<QString> properFlags() const;                     /**<
      * Returns the list of the flags that are only defined
      * in the object (the uninherited flags)

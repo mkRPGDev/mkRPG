@@ -20,7 +20,7 @@ before_install:
     - python -c "import pygame"
 
 install:
-    - pip install -r test-requirements.txt
+    - pip install -r travis/test-requirements.txt
 
 # Install dependencies
 addons:
@@ -41,5 +41,5 @@ script:
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR
-  - chmod +x generateDocumentation.sh
-  - ./generateDocumentation.sh
+  - chmod +x travis/generateDocumentation.sh
+  - ./travis/generateDocumentation.sh

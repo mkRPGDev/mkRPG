@@ -33,16 +33,13 @@ git config user.email "travis@travis-ci.org"
 
 ################################################################################
 ##### Generate the Pylint report ###############################################
-ls
-echo 'WHAAAAT'
-chmod +x pylint_test.sh
-./pylint_test.sh
+chmod +x pylint_script.sh
+./pylint_script.sh
 
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####
-echo 'Generating Doxygen code documentation...'
-doxygen Doxyfile_c
-doxygen Doxyfile_py
+chmod +x doxyen_script.sh
+./doxygen_script.sh
 
 #On le renomme pour préparer au changement de branche
 mv "doc_c" "doc_c_new"

@@ -34,7 +34,7 @@ class Client():
         self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
         self.world = world.loadGame(path)
-        self.plugins = loadPluginsClient(path, self)
+        self.plugins = ([],[]) #loadPluginsClient(path, self)
         # TODO intégrer au loadGame, faire une autre classe client ?
         self.interface = Interface(self.world, self.plugins[1])
         self.plugins = self.plugins[0]
@@ -51,8 +51,11 @@ class Client():
 
     def run(self):
         self.loop.run_until_complete(self.net.connect())
+        print("Main")
         self.loop.run_until_complete(self.getEntity())
+        print("Main")
         self.netTask = self.loop.create_task(self.net.run())
+        print("Main")
         self.loop.run_until_complete(self.main())
 
     async def getEntity(self):
@@ -68,7 +71,7 @@ class Client():
     async def main(self):
         self.interface.init()
         while True:
-#            self.interface.update()
+            self.interface.update()
             # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
             keys = self.interface.getEvent()
             if not keys:

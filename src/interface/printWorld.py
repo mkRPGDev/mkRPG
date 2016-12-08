@@ -8,22 +8,14 @@ from interface.map import MapViewer
 from interface.entity import Entity
 from interface.utils import merge_rect_lists
 from interface.cache import ImageCache
+from interface.interface import Interface
 import const
 
-class Interface: # XXX inutile en python
-    def __init__(self, w):
-        assert type(w) == world.World
-        self.world = w
-    def update(self): pass
-    def end(self): pass
-    def get_event(self):
-        while True: sleep(1)
-
-class WorldViewer(Interface):
+class WorldViewer:
 
     def __init__(self, w):
         """ Initialize the pygame Interface """
-        super().__init__(w)
+        self.world = w
         self.screen_size = const.SCREEN_WIDTH, const.SCREEN_HEIGHT
 
         # Create current map by calling MapViewer
@@ -71,7 +63,7 @@ class WorldViewer(Interface):
 
         # Create empty Surface
         res = pygame.Surface(self.screen_size)
-        res.convert_alpha()
+        res = res.convert_alpha()
 
         # Get the new map to show
         image = self.current_map.render()

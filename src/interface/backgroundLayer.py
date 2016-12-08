@@ -3,10 +3,10 @@
 import pygame
 from pygame.locals import Rect
 
-from cache import ImageCache
+from interface.cache import ImageCache
 
-from layer import Layer
-from utils import merge_rect_lists
+from interface.layer import Layer
+from interface.utils import merge_rect_lists
 import const
 
 class BackgroundLayer(Layer):

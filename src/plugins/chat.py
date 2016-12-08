@@ -1,4 +1,4 @@
-from plugins.plugin import Plugin, CursesPlugin
+from plugins.plugin import Plugin, CursesPlugin, PygamePlugin
 
 class Chat(Plugin):
     MSGID = b"chat"
@@ -6,18 +6,29 @@ class Chat(Plugin):
     def __init__(self, e):
         super().__init__(e)
         self.msgs = ["Connecté"]
-        
+
     async def serverMessage(self, msg):
         await self.engine.net.broadcast(bytes([0,0,len(msg)//256, len(msg)%256])+msg)
-    
+
     async def clientMessage(self, msg):
         self.msgs.append(msg)
         if self.ui: self.ui.repaint()
-    
+
     def serverCallback(self):
         pass
 
-import curses
+class ChatGUI(PygamePlugin):
+    def __init__(self, *args):
+        pass
+
+    def reset(self):
+        pass
+
+    def handleKey(self, key):
+        pass
+
+    def draw(self):
+        pass
 
 class ChatUI(CursesPlugin):
     MINW = 1000
@@ -26,16 +37,17 @@ class ChatUI(CursesPlugin):
     Y = -MINH
     NAME = b"Chat"
     HELP = b"space : begin message", b"enter : send message"
-    
+
     def __init__(self, *args):
+        import curses
         super().__init__(*args)
         self.writing = False
         self.text = bytearray()
-    
+
     def reset(self):
-        self.writing = False 
+        self.writing = False
         self.text = bytearray()
-        
+
     def handleKey(self, key):
         """ return True if the key has been used """
         if key==ord(' ') and not self.writing:
@@ -54,7 +66,7 @@ class ChatUI(CursesPlugin):
         else:
             return False
         return True
-    
+
     def draw(self):
         super().draw()
         self.win.erase()
@@ -73,4 +85,3 @@ class ChatUI(CursesPlugin):
         else:
             self.win.addch(self.height-2,len(text)+1,ord('_'))
         self.win.noutrefresh()
-

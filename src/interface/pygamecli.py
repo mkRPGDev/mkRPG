@@ -21,16 +21,18 @@ with open("isserver.py","w") as file:
     file.write("SERVER = False\n")
 
 import shared.world as world
-from interface.printWorld import WorldViewer, Interface
+from interface.printWorld import WorldViewer
+from interface.interface import Interface
 from interface.utils import add_to_rect_list
 
 class Client(Interface):
-    def __init__(self, w):
+    def __init__(self, w, p):
+        super().__init__(w, p)
+
         pygame.display.init()
         self.screen_size = SCREEN_WIDTH, SCREEN_HEIGHT
         self.screen = pygame.display.set_mode(self.screen_size)
 
-        self.world = w
         self.interface = WorldViewer(self.world)
         self.perso = None
 
@@ -99,7 +101,6 @@ class Client(Interface):
         if next(self.refresh_counter) :
             pygame.display.flip()
         else : pygame.display.update(rect_list)
-        self.interface.update()
 
     def frame_counter(self, n):
         i = n

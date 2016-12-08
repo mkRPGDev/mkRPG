@@ -7,18 +7,12 @@ python:
 sudo: true
 
 notifications:
-  email: false
+  email: true
 
 # Blacklist
 branches:
   except:
     - gh-pages
-
-# Environment variables
-env:
-  global:
-    - GH_REPO_NAME: mkRPG
-    - GH_REPO_REF: github.com/mkRPGDev/mkRPG.git
 
 before_install:
     - sudo apt-get build-dep -y python-pygame
@@ -26,7 +20,7 @@ before_install:
     - python -c "import pygame"
 
 install:
-    - pip install -r test-requirements.txt
+    - pip install -r travis/test-requirements.txt
 
 # Install dependencies
 addons:
@@ -47,5 +41,5 @@ script:
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR
-  - chmod +x generateDocumentation.sh
-  - ./generateDocumentation.sh
+  - chmod +x travis/checkout_ghpages_script.sh
+  - ./travis/checkout_ghpages_script.sh

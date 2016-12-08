@@ -42,5 +42,8 @@ Version ncurses qui fonctionne : cf commit 94039af (ou branche server actuelle)
 [Documentation du C ](https://mkrpgdev.github.io/mkRPG/doc_c/html/) et
 [documentation du Python ](https://mkrpgdev.github.io/mkRPG/doc_py/html/)
 
+# Pylint report 
+[Résultat de pylint](https://mkrpgdev.github.io/mkRPG/pylint_global.html)
+
 # Guide pour la documentation
 [Guide](https://github.com/mkRPGDev/mkRPG/raw/gh-pages/doc.pdf)

@@ -50,6 +50,8 @@ mv "pylint_global.html" "pylint_global_new.html"
 echo "CHECKOUUUUUUT"
 ls
 echo "GIT Status"
+cat travis/doxygen_script.sh
+echo  "GIT STATUS"
 git status
 #On change de branche si on est dans master
 git checkout gh-pages

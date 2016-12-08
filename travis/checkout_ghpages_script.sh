@@ -40,19 +40,12 @@ chmod +x travis/pylint_script.sh
 
 ################################################################################
 ##### Generate the Doxygen code documentation and log the output.          #####
-chmod +x travis/doxygen_script.sh
 ./travis/doxygen_script.sh
 
 #On le renomme pour préparer au changement de branche
 mv "doc_c" "doc_c_new"
 mv "doc_py" "doc_py_new"
 mv "pylint_global.html" "pylint_global_new.html"
-echo "CHECKOUUUUUUT"
-ls
-echo "GIT Status"
-cat travis/doxygen_script.sh
-echo  "GIT STATUS"
-git status
 #On change de branche si on est dans master
 git checkout gh-pages
 #On écrase l'ancienne documentation

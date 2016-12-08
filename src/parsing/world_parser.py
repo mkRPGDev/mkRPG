@@ -5,8 +5,6 @@ to load a game, that is to say the current map, the entities...
 
 # -*- coding : utf-8 -*-
 
-import sys
-
 import parsing_utils
 
 def parse_world(world_file):
@@ -39,5 +37,11 @@ def parse_world(world_file):
     if maps is not None:
         for map_ in maps.getchildren():
             maps_list += [map_.attrib]
-    return {'name':'world', 'Entities': entities_list, 'params': params_dict, 'Objects': objects_list, 'Maps': maps_list}
+    return {
+        'name' : 'world',
+        'Entities': entities_list,
+        'params': params_dict,
+        'Objects': objects_list,
+        'Maps': maps_list
+    }
 

@@ -89,7 +89,7 @@ def multiple_files_object_parser(*files_list):
     """
     return parsing_utils.parse_multiple_files(objects_parser, *files_list)
 
-def multiple_files_otype_parser(*files_list):
+def multiple_files_otypes_parser(*files_list):
     """Parses a list of files, and returns the dictionary containing all data
     defined in these files.
     """

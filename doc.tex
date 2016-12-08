@@ -201,6 +201,20 @@ Doxyfile
 
 %Use \href{https://andreacensi.github.io/contracts/}{\textbf{PyContracts}}.
 
+\subsection{Pylint on pre-commit}
+We can execute pylint just before committing and fail the commit if the pylint's score is inferior to a fixed limit. To do this : 
+\begin{enumerate}
+\item Install \textit{git-pylint-commit-hook} with pip : 
+\emph{pip3 install git-pylint-commit-hook}
+\item Create a file \emph{pre-commit} with : 
+\begin{verbatim}
+#!/usr/bin/env bash
+git-pylint-commit-hook --limit "5.0"
+\end{verbatim}
+\item Put the file in \emph{.git/hooks}
+
+\end{enumerate}
+
 
 \subsection{Unit testing infrastructure with unittest}
 \href{https://docs.python.org/3/library/unittest.html}{Unittest} supports test automation, sharing of setup and shutdown code for tests, aggregation of tests into collections, and independence of the tests from the reporting framework.

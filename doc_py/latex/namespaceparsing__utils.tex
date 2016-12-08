@@ -1,0 +1,69 @@
+\hypertarget{namespaceparsing__utils}{\section{parsing\-\_\-utils \-Namespace \-Reference}
+\label{namespaceparsing__utils}\index{parsing\-\_\-utils@{parsing\-\_\-utils}}
+}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceparsing__utils_a26c14f2e6058ca8d95c4736e40d9a67a}{try\-\_\-open\-\_\-and\-\_\-parse}
+\item 
+\hypertarget{namespaceparsing__utils_a332025bb554b8559ab10e101fa976f5a}{def {\bfseries format\-\_\-type}}\label{namespaceparsing__utils_a332025bb554b8559ab10e101fa976f5a}
+
+\item 
+def \hyperlink{namespaceparsing__utils_a5b5e8f373e7060c8e92ac634aac95001}{collect\-\_\-data}
+\item 
+def \hyperlink{namespaceparsing__utils_a3c916b85614f8335586ba81162362fe6}{parse\-\_\-multiple\-\_\-files}
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceparsing__utils_a9d5465b550734410b49f0c8d211c74c5}{tuple {\bfseries \-I\-N\-T} = re.\-compile('\mbox{[}0-\/9\mbox{]}+\$')}\label{namespaceparsing__utils_a9d5465b550734410b49f0c8d211c74c5}
+
+\item 
+\hypertarget{namespaceparsing__utils_a3c22f04fcad5a9e6c2aeb9de8cfbd419}{tuple {\bfseries \-F\-L\-O\-A\-T} = re.\-compile('\mbox{[}0-\/9\mbox{]}+\mbox{[}$\backslash$.,\mbox{]}\mbox{[}0-\/9\mbox{]}\$')}\label{namespaceparsing__utils_a3c22f04fcad5a9e6c2aeb9de8cfbd419}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This module contains many utilities that are called almost everywhere
+during the parsing.
+It is more a toolbox than anything.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{namespaceparsing__utils_a5b5e8f373e7060c8e92ac634aac95001}{\index{parsing\-\_\-utils@{parsing\-\_\-utils}!collect\-\_\-data@{collect\-\_\-data}}
+\index{collect\-\_\-data@{collect\-\_\-data}!parsing_utils@{parsing\-\_\-utils}}
+\subsubsection[{collect\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing\-\_\-utils.\-collect\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{}]{key, }
+\item[{}]{args}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing__utils_a5b5e8f373e7060c8e92ac634aac95001}
+\begin{DoxyVerb}Collects all items corresponding to key argument in *args.  It realizes
+a depth-first travel of the dictionary, calling itself recursively on the
+structures.\end{DoxyVerb}
+ \hypertarget{namespaceparsing__utils_a3c916b85614f8335586ba81162362fe6}{\index{parsing\-\_\-utils@{parsing\-\_\-utils}!parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}}
+\index{parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}!parsing_utils@{parsing\-\_\-utils}}
+\subsubsection[{parse\-\_\-multiple\-\_\-files}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing\-\_\-utils.\-parse\-\_\-multiple\-\_\-files} (
+\begin{DoxyParamCaption}
+\item[{}]{parsing\-\_\-method, }
+\item[{}]{args}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing__utils_a3c916b85614f8335586ba81162362fe6}
+\begin{DoxyVerb}Parses the given file lists, and returns the dictionary containing the
+whole data parsed by the parsing_method function.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing__utils_a26c14f2e6058ca8d95c4736e40d9a67a}{\index{parsing\-\_\-utils@{parsing\-\_\-utils}!try\-\_\-open\-\_\-and\-\_\-parse@{try\-\_\-open\-\_\-and\-\_\-parse}}
+\index{try\-\_\-open\-\_\-and\-\_\-parse@{try\-\_\-open\-\_\-and\-\_\-parse}!parsing_utils@{parsing\-\_\-utils}}
+\subsubsection[{try\-\_\-open\-\_\-and\-\_\-parse}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing\-\_\-utils.\-try\-\_\-open\-\_\-and\-\_\-parse} (
+\begin{DoxyParamCaption}
+\item[{}]{xml\-\_\-file}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing__utils_a26c14f2e6058ca8d95c4736e40d9a67a}
+\begin{DoxyVerb}
+This function tries to open the file ```xml_file```, and to parse it.
+The program exits if one of both action fails.
+\end{DoxyVerb}
+ 

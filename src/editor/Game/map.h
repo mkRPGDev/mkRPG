@@ -35,10 +35,6 @@ private:
 
 
 
-/*!
- * Usefull macro to set up a for on the cells
- */
-#define forCells(i) int nbCell = width()*height(); for(int i(0); i<nbCell; ++i)
 
 /*!
  * \brief The Cell class
@@ -102,6 +98,13 @@ public:
 };
 
 
+
+
+/*!
+ * Usefull macro to set up a for on the cells
+ */
+#define forCells(i) int nbCell = width()*height(); for(int i(0); i<nbCell; ++i)
+
 /*!
  * \brief The Map class
  */
@@ -120,17 +123,42 @@ public:
     void resize(int w, int h);
     C0(Param,a,A,ngleX)
     C0(Param,a,A,ngleY)
-    Cell& cell(int i, int j) const;
-    Cell& cell(const QPoint &p) const;
-    void selectAll();
-    void unSelectAll();
+    Cell& cell(int i, int j) const;                     /**<
+     * Returns a reference to the cell at pos (x,y).
+     */
+    Cell& cell(const QPoint &p) const;                  /**<
+     * \overload
+     */
+    void selectAll();                                   /**<
+     * Unselects all the \ref Cell "cells" of the map.
+     *
+     * \see unSelectAll
+     */
+    void unSelectAll();                                 /**<
+     * Selects all the \ref Cell "cells" of the map.
+     *
+     * \see selectAll
+     */
 
 
 
-
-    void confirmPreSelection(bool add = true);
-    void clearPreSelection();
-    QList<GameObject*> children() const;
+    void confirmPreSelection(bool add = true);          /**<
+     * Converts the pre-selection into selection for every \ref Cell "cell".
+     *
+     * \see clearPreSelection
+     */
+    void clearPreSelection();                           /**<
+     * Resets the pre-selection information on every \ref Cell "cell".
+     *
+     * \see confirmPreSelection;
+     */
+    QList<GameObject*> children() const;                /**<
+     * Reimplemented from GameObject to remove the \ref Cell "cells"
+     * from the children list.
+     *
+     * \see GameObject::children
+     *
+     */
 
 private:
     Cell* cells;

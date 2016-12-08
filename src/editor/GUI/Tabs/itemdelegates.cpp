@@ -67,8 +67,8 @@ QWidget* ParamItemDelegate::createEditor(QWidget *parent, const QStyleOptionView
     sp->setAutoFillBackground(true);
     sp->setButtonSymbols(QSpinBox::NoButtons);
     QPoint dom = index.data(Qt::SizeHintRole).toPoint();
-    sp->setMaximum(dom.x());
-    sp->setMinimum(dom.y());
+    sp->setMinimum(dom.x());
+    sp->setMaximum(dom.y());
     sp->setFrame(false);
     ItemEditor * ie = new ItemEditor(sp, index.data(Qt::UserRole).toBool(), parent);
     connect(sp, SIGNAL(valueChanged(int)), ie, SLOT(changeData()));

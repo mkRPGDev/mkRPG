@@ -19,27 +19,24 @@ def loadGame(path):
     parsed_data = global_parsing.game_parser(path+"game.xml")
     for data_list in parsed_data:
         if data_list != 'Actions' and  data_list != 'Interactions':
-            print("Handling tag %s " % data_list)
             for data in parsed_data[data_list]:
                 eval(data_list)().load(data, typ=data_list)
 
     world = named["world"]
-    for m in world.maps: m.fill()
-    print("Finished loading world. What lasts:\n%s" % toResolve)
-    print("Named files\n%s" % named)
-    print("World is\n%s" % world)
+    for m in world.maps:
+        m.fill()
     return world
 
-class BaseObject:
+class Object:
     """ Tout objet du monde """
     ident = 0
     ids = {} # liste si sans deletion
 
     def __init__(self):
-        BaseObject.ident += 1
-        BaseObject.ids[BaseObject.ident] = self
+        Object.ident += 1
+        Object.ids[Object.ident] = self
         self.params = {} # Ne pas déplacer =)
-        self.ident = BaseObject.ident
+        self.ident = Object.ident
 
         self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
 
@@ -54,51 +51,47 @@ class BaseObject:
         else:
             self.params[attr] = val
 
-    def __str__(self):
-        return "Représentation de l'objet %s : %s" % (self.__class__, self.params)
-
     def load(self, data, typ=None):
         """ Charge l'objet depuis une structure Xml """
-        if verbose: print("Data to load~: %s" % data)
-        if typ != None and type(eval(typ)) == type and typ.endswith("Type"):
+
+        _type = data.get("type")
+        if _type:
+            typ = _type
+        if typ and typ.endswith("Type") and type(eval(typ[:-4])) == type:
+            data.pop('type', None)
+            ObjectType(eval(typ[:-4])).load(data, None)
+        else:
             for key in data.keys():
-                ObjectType(typ[:-4]).load(data)
+                if key == 'params':
+                    for sub_data in data[key].keys():
+                        if type(data[key][sub_data])== dict and data[key][sub_data].get("id"):
+                            toResolve.append((data[key][sub_data].get("id"), self.params, sub_data))
+                        else:
+                            self.params[sub_data] = int(data[key][sub_data])
+                elif key == self.__class__.__name__+"Type":
+                    pass
+                elif key.lower() in self.__dict__ and\
+                    type(self.__dict__[key.lower()])==list:
 
-        elif typ != None and (type(eval(typ))) == type and 'name' in data.keys():
-            print("Evaluating %s" % data)
-            eval(typ)().load(data)
+                    lowered = key.lower()
+                    data_collected = self.__dict__[lowered]
+                    class_type = plurals[lowered]
+                    for sub_data in data[key]:
+                        if sub_data.get('id'):
+                            toResolve.append((sub_data['id'], data_collected, len(data_collected)))
+                            data_collected.append(None)
+                        else:
+                            data_collected.append(class_type().load(sub_data))
+                elif typ and type(eval(typ))==type and 'name' in data[key]:
+                    eval(typ)().load(data[key], typ)
 
-        for key in data.keys():
-            if key == 'name':
-                continue
-            elif key == 'params':
-                for sub_data in data[key].keys():
-                    if type(data[key][sub_data])== dict and data[key][sub_data].get("id"):
-                        toResolve.append((data[key][sub_data].get("id"), self.params, sub_data))
-                    else:
-                        self.params[sub_data] = int(data[key][sub_data])
-            elif key.lower() in self.__dict__ and\
-                type(self.__dict__[key.lower()])==list:
-
-                lowered = key.lower()
-                data_collected = self.__dict__[lowered]
-                class_type = plurals[lowered]
-                for sub_data in data[key]:
-                    if sub_data.get('id'):
-                        toResolve.append((sub_data['id'], data_collected, len(data_collected)))
-                        data_collected.append(None)
-                    else:
-                        data_collected.append(class_type().load(sub_data))
-            else:
-                self.params[key] = data[key]
-        if 'name' in data.keys():
-            named[data['name']] = self
+            if 'name' in data.keys():
+                named[data['name']] = self
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue
             if verbose: print(nm, "-->", named[nm])
             li[ln] = named[nm]
             #assert nm in named, nm+" non résolu" FIXME
-        print("Self %s is %s" % (typ, self))
         return self
 
     def contextEval(self, value):
@@ -110,7 +103,6 @@ class BaseObject:
 #class ServerObject(BaseObject): pass
 #class ClientObject(BaseObject): pass
 
-Object = BaseObject
 #ServerObject if SERVER else ClientObject
 # pour éviter la confusion avec object
 
@@ -128,17 +120,15 @@ class ObjectType(Object):
             instance.params[p] = v
         return instance
 
-    def __str__(self):
-        return str(self.params)
 
-    
 class World(Object):
     def __init__(self):
         Object.__init__(self)
         self.maps = [] # une liste c'est mieux non ?
         self.entities = []
         self.objects = []
-        
+
+
 class Map(Object):
     def __init__(self):
         Object.__init__(self)

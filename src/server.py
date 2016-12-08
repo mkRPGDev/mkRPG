@@ -58,7 +58,6 @@ class Server():
             if event not in self.actions: continue
             for act in self.actions[event]:
                 for order in act.orders:
-                    print(emitter)
                     returnOrder = await self.orderDispatcher.treat(emitter, order)
                     if returnOrder:
                         await self.net.sendOrder(emitter.ident, returnOrder)

@@ -34,6 +34,7 @@ class Client():
         self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
         self.world = world.loadGame(path)
+        #print(self.world.objects, self.world.entities)
         self.plugins = loadPluginsClient(path, self)
         # TODO intégrer au loadGame, faire une autre classe client ?
         self.interface = Interface(self.world, self.plugins[1])
@@ -85,7 +86,7 @@ class Client():
                         await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
 
     async def handleOrder(self, ident, order):
-        emitter = world.BaseObject.ids[ident]
+        emitter = world.Object.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 

@@ -1,4 +1,6 @@
 #!/bin/sh
+## Ce script permet de faire des tâches dans master, de checkout dans gh-pages
+## puis de push dans gh-pages
 
 ################################################################################
 # Required global variables:

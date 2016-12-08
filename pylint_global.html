@@ -1,0 +1,510 @@
+<html>
+<body>
+<div>
+<h1>Report</h1>
+<p>1427 statements analysed.</p><div>
+<h2>Statistics by type</h2>
+<table>
+<tr class="header">
+<th>type</th>
+<th>number</th>
+<th>old number</th>
+<th>difference</th>
+<th>%documented</th>
+<th>%badname</th>
+</tr>
+<tr class="even">
+<td>module</td>
+<td>25</td>
+<td>25</td>
+<td>=</td>
+<td>20.00</td>
+<td>8.00</td>
+</tr>
+<tr class="odd">
+<td>class</td>
+<td>27</td>
+<td>27</td>
+<td>=</td>
+<td>59.26</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>method</td>
+<td>155</td>
+<td>155</td>
+<td>=</td>
+<td>41.29</td>
+<td>10.97</td>
+</tr>
+<tr class="odd">
+<td>function</td>
+<td>20</td>
+<td>20</td>
+<td>=</td>
+<td>60.00</td>
+<td>25.00</td>
+</tr>
+</table>
+</div>
+<div>
+<h2>External dependencies</h2>
+<pre>const (interface.backgroundLayer,interface.printWorld,interface.character,interface.entity,interface.map,interface.layer,interface.chunk,interface.cache)
+interface (interface.printWorld,interface.entity,interface.map,interface.pygamecli)
+  \-cursescli 
+  | \-Curses (client)
+  \-interactions (client)
+  \-interface (interface.cursescli,client)
+  | \-Interface (interface.cursescli,client)
+  \-pygamecli 
+  | \-Client (client)
+  \-utils (interface.printWorld,const,interface.pygamecli,interface.entity,interface.map,interface.cache)
+plugins 
+  \-chat (plugins.plugin)
+  \-menu (plugins.plugin)
+  \-plugin (plugins.chat,server,plugins.menu,client)
+utils (interface.character,interface.backgroundLayer,interface.layer,interface.chunk)</pre></div>
+<div>
+<h2>Raw metrics</h2>
+<table>
+<tr class="header">
+<th>type</th>
+<th>number</th>
+<th>%</th>
+<th>previous</th>
+<th>difference</th>
+</tr>
+<tr class="even">
+<td>code</td>
+<td>1618</td>
+<td>73.01</td>
+<td>1618</td>
+<td>=</td>
+</tr>
+<tr class="odd">
+<td>docstring</td>
+<td>145</td>
+<td>6.54</td>
+<td>145</td>
+<td>=</td>
+</tr>
+<tr class="even">
+<td>comment</td>
+<td>75</td>
+<td>3.38</td>
+<td>75</td>
+<td>=</td>
+</tr>
+<tr class="odd">
+<td>empty</td>
+<td>378</td>
+<td>17.06</td>
+<td>378</td>
+<td>=</td>
+</tr>
+</table>
+</div>
+<div>
+<h2>Duplication</h2>
+<table>
+<tr class="header">
+<th>&#160;</th>
+<th>now</th>
+<th>previous</th>
+<th>difference</th>
+</tr>
+<tr class="even">
+<th>nb duplicated lines</th>
+<td>0</td>
+<td>0</td>
+<td>=</td>
+</tr>
+<tr class="odd">
+<th>percent duplicated lines</th>
+<td>0.000</td>
+<td>0.000</td>
+<td>=</td>
+</tr>
+</table>
+</div>
+<div>
+<h2>Messages by category</h2>
+<table>
+<tr class="header">
+<th>type</th>
+<th>number</th>
+<th>previous</th>
+<th>difference</th>
+</tr>
+<tr class="even">
+<td>convention</td>
+<td>758</td>
+<td>758</td>
+<td>=</td>
+</tr>
+<tr class="odd">
+<td>refactor</td>
+<td>18</td>
+<td>18</td>
+<td>=</td>
+</tr>
+<tr class="even">
+<td>warning</td>
+<td>322</td>
+<td>322</td>
+<td>=</td>
+</tr>
+<tr class="odd">
+<td>error</td>
+<td>83</td>
+<td>83</td>
+<td>=</td>
+</tr>
+</table>
+</div>
+<div>
+<h2>% errors / warnings by module</h2>
+<table>
+<tr class="header">
+<th>module</th>
+<th>error</th>
+<th>warning</th>
+<th>refactor</th>
+<th>convention</th>
+</tr>
+<tr class="even">
+<td>interface.pygamecli</td>
+<td>13.25</td>
+<td>17.08</td>
+<td>16.67</td>
+<td>5.28</td>
+</tr>
+<tr class="odd">
+<td>client</td>
+<td>12.05</td>
+<td>14.29</td>
+<td>5.56</td>
+<td>3.96</td>
+</tr>
+<tr class="even">
+<td>interface.cursescli</td>
+<td>10.84</td>
+<td>1.24</td>
+<td>0.00</td>
+<td>15.17</td>
+</tr>
+<tr class="odd">
+<td>interface.layer</td>
+<td>8.43</td>
+<td>0.93</td>
+<td>5.56</td>
+<td>6.20</td>
+</tr>
+<tr class="even">
+<td>interface.chunk</td>
+<td>8.43</td>
+<td>0.31</td>
+<td>5.56</td>
+<td>2.37</td>
+</tr>
+<tr class="odd">
+<td>interface.character</td>
+<td>7.23</td>
+<td>0.31</td>
+<td>5.56</td>
+<td>6.73</td>
+</tr>
+<tr class="even">
+<td>server</td>
+<td>6.02</td>
+<td>13.98</td>
+<td>0.00</td>
+<td>2.90</td>
+</tr>
+<tr class="odd">
+<td>interface.backgroundLayer</td>
+<td>6.02</td>
+<td>0.62</td>
+<td>5.56</td>
+<td>3.30</td>
+</tr>
+<tr class="even">
+<td>interface.printWorld</td>
+<td>4.82</td>
+<td>0.93</td>
+<td>5.56</td>
+<td>2.64</td>
+</tr>
+<tr class="odd">
+<td>interface.interactions</td>
+<td>3.61</td>
+<td>1.55</td>
+<td>0.00</td>
+<td>1.19</td>
+</tr>
+<tr class="even">
+<td>interface.cache</td>
+<td>3.61</td>
+<td>0.93</td>
+<td>0.00</td>
+<td>3.17</td>
+</tr>
+<tr class="odd">
+<td>path</td>
+<td>3.61</td>
+<td>0.62</td>
+<td>11.11</td>
+<td>0.66</td>
+</tr>
+<tr class="even">
+<td>interface.map</td>
+<td>2.41</td>
+<td>1.55</td>
+<td>11.11</td>
+<td>8.44</td>
+</tr>
+<tr class="odd">
+<td>plugins.chat</td>
+<td>2.41</td>
+<td>0.31</td>
+<td>0.00</td>
+<td>5.41</td>
+</tr>
+<tr class="even">
+<td>interface.entity</td>
+<td>2.41</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>1.32</td>
+</tr>
+<tr class="odd">
+<td>interface.trans</td>
+<td>1.20</td>
+<td>24.84</td>
+<td>0.00</td>
+<td>4.62</td>
+</tr>
+<tr class="even">
+<td>interface.utils</td>
+<td>1.20</td>
+<td>5.59</td>
+<td>5.56</td>
+<td>12.53</td>
+</tr>
+<tr class="odd">
+<td>readme</td>
+<td>1.20</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>pylintrc</td>
+<td>1.20</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td>interface.interface</td>
+<td>0.00</td>
+<td>12.11</td>
+<td>5.56</td>
+<td>2.37</td>
+</tr>
+<tr class="even">
+<td>plugins.plugin</td>
+<td>0.00</td>
+<td>2.17</td>
+<td>5.56</td>
+<td>4.35</td>
+</tr>
+<tr class="odd">
+<td>const</td>
+<td>0.00</td>
+<td>0.31</td>
+<td>0.00</td>
+<td>3.30</td>
+</tr>
+<tr class="even">
+<td>parsing.map_parser</td>
+<td>0.00</td>
+<td>0.31</td>
+<td>0.00</td>
+<td>0.40</td>
+</tr>
+<tr class="odd">
+<td>shared</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>11.11</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>plugins.menu</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>3.69</td>
+</tr>
+</table>
+</div>
+<div>
+<h2>Messages</h2>
+<table>
+<tr class="header">
+<th>message id</th>
+<th>occurrences</th>
+</tr>
+<tr class="even">
+<td>bad-whitespace</td>
+<td>302</td>
+</tr>
+<tr class="odd">
+<td>unused-wildcard-import</td>
+<td>223</td>
+</tr>
+<tr class="even">
+<td>invalid-name</td>
+<td>152</td>
+</tr>
+<tr class="odd">
+<td>missing-docstring</td>
+<td>130</td>
+</tr>
+<tr class="even">
+<td>multiple-statements</td>
+<td>40</td>
+</tr>
+<tr class="odd">
+<td>import-error</td>
+<td>38</td>
+</tr>
+<tr class="even">
+<td>trailing-whitespace</td>
+<td>35</td>
+</tr>
+<tr class="odd">
+<td>no-member</td>
+<td>33</td>
+</tr>
+<tr class="even">
+<td>bad-continuation</td>
+<td>33</td>
+</tr>
+<tr class="odd">
+<td>unused-import</td>
+<td>22</td>
+</tr>
+<tr class="even">
+<td>attribute-defined-outside-init</td>
+<td>21</td>
+</tr>
+<tr class="odd">
+<td>line-too-long</td>
+<td>19</td>
+</tr>
+<tr class="even">
+<td>bad-indentation</td>
+<td>19</td>
+</tr>
+<tr class="odd">
+<td>wrong-import-position</td>
+<td>15</td>
+</tr>
+<tr class="even">
+<td>wrong-import-order</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td>no-self-use</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td>fixme</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<td>unused-argument</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>ungrouped-imports</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>undefined-variable</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>wildcard-import</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>trailing-newlines</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>unused-variable</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>no-name-in-module</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>unidiomatic-typecheck</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>redefined-builtin</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>parse-error</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>consider-using-enumerate</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>too-many-branches</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>syntax-error</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>redefined-outer-name</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>cyclic-import</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>anomalous-backslash-in-string</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>super-init-not-called</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>redefined-variable-type</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>expression-not-assigned</td>
+<td>1</td>
+</tr>
+</table>
+</div>
+<div>
+<h2>Global evaluation</h2>
+Your code has been rated at -0.60/10 (previous run: -0.60/10, +0.00)</div>
+</div>
+</body>
+</html>

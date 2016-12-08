@@ -47,6 +47,10 @@ chmod +x travis/doxygen_script.sh
 mv "doc_c" "doc_c_new"
 mv "doc_py" "doc_py_new"
 mv "pylint_global.html" "pylint_global_new.html"
+echo "CHECKOUUUUUUT"
+ls
+echo "GIT Status"
+git status
 #On change de branche si on est dans master
 git checkout gh-pages
 #On écrase l'ancienne documentation

@@ -13,7 +13,6 @@ it always have a picture, its grpahical representation in the GUI client
 
 #-*- coding : utf-8 -*-
 
-import xml.etree.ElementTree
 import parsing_utils
 
 

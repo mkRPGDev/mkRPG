@@ -5,7 +5,6 @@ There should be one map description per xml file.
 
 # -*- coding : utf-8 -*-
 
-import xml.etree.ElementTree as ET
 import parsing_utils
 
 def parse_cell(cell_object):

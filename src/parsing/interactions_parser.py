@@ -6,7 +6,6 @@ these interactions.
 
 # -*- coding: utf-8 -*-
 
-import xml.etree.ElementTree
 import sys
 import parsing_utils
 import actions_parser

@@ -4,7 +4,6 @@ Recall that the actions should all be defined in such a file.
 """
 # -*- coding : utf-8 -*-
 
-import xml.etree.ElementTree as ET
 import sys
 import parsing_utils
 

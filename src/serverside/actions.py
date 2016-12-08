@@ -9,8 +9,7 @@ from shared.orders import Order
 
 # TODO enlever named
 def loadAction(dat, named):
-    """ Renvoie une instance d'action à partir d'une 
-        structure et de la résolution des noms """
+    """ Returns an action instance from a Xml structure and name mapping """
     assert dat.name == "Action"
     orders = []
     for d in dat.list:
@@ -20,7 +19,7 @@ def loadAction(dat, named):
     return Action(ev, orders, [])
 
 def registerActions(path, named):
-    """ Créé une liste d'action à partir d'un Xml les décrivant """
+    """ Create a list of action from a Xml describing them """
     dat = readXml(path + "actions.xml")
     assert dat.name == "Actions"
     actions = {}

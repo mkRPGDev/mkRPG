@@ -2,9 +2,9 @@
 
 import pygame
 
-from cache import ImageCache
-import const
-import utils
+from interface.cache import ImageCache
+import interface.const as const
+import interface.utils as utils
 from math import pi
 
 class Layer(pygame.sprite.Sprite):

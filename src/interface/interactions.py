@@ -5,8 +5,7 @@ from shared.tools import readXml
 InteractionType = IntEnum("InteractionType", "Key Mouse Scroll Multi")
 
 class Interaction():
-    """ Représente une connection entre une entrée utilisateur 
-        et un événement à déclencher sur une cible """
+    """ Link between an user input and a event to trigger on a target """
     def __init__(self):
         self.target = None
 
@@ -25,7 +24,7 @@ class Interaction():
         return self
 
 def registerInteractions(path):
-    """ Créé une liste d'interaction à partir d'un Xml les décrivant """
+    """ Create a list of interaction from a Xml describing them """
     dat = readXml(path + "interactions.xml")
     assert dat.name == "Interactions"
     l = []

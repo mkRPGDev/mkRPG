@@ -66,8 +66,8 @@ class NetworkClient:
 
 class ServerConnection:
     """
-    This thread manages the communications with one particular client (one
-    thread is created by client).
+    This class manages the communications with one particular client (one
+    task is created by client).
     """
     def __init__(self, reader, writer, handle, pluginHandle, parent):
         self.reader = reader
@@ -123,7 +123,7 @@ class ServerConnection:
 
     def end(self):
         if not self.server: return
-        print("Déco")
+#        print("Déco")
         if self.entity: self.entity.user = None
         self.writer.close()
         self.server.connections.remove(self)
@@ -174,7 +174,6 @@ class NetworkServer:
         for co in self.connections:
             await co.send(m)
         
-
 
 # Prémices de tests
 

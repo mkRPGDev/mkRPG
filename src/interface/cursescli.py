@@ -5,30 +5,38 @@ import curses
 
 class Curses(Interface):
     """ ncurses-based UI """
-    def __init__(self, w, p):
-        super().__init__(w, p)
+    def __init__(self, *args):
+        super().__init__(*args)
         self.win = curses.initscr()
         curses.cbreak()
         curses.noecho()
         curses.curs_set(0)
         self.win.keypad(True)
         self.win.nodelay(True)
+        self.mapView = MapView(self.world)
+        self.toSmall = True
+        self.resize()
+
+    def resize(self):
+        """ Computes plugins positions """
+        curses.update_lines_cols()
         xmin, xmax, ymin, ymax = 0, curses.COLS, 0, curses.LINES
-#        xmax = xmax - MenuView.MINW
-#        self.menuView = MenuView(curses.newwin(curses.LINES, MenuView.MINW,
-#                                               0, curses.COLS-MenuView.MINW), w, self.plugins)
-        for p in self.plugins:
-            # les premiers plugins sont prioritaires en taille
-            p.win = curses.newwin(min(p.MINH, ymax), min(p.MINW, xmax), 
-                                  p.Y if p.Y>=0 else curses.LINES+p.Y,
-                                  p.X if p.X>=0 else curses.COLS+p.X)
-            xmin = max(xmin, p.X if p.X>=0 else 0)
-            xmax = min(xmax, xmax if p.X>=0 else curses.COLS+p.X)
-            ymin = max(ymin, p.Y if p.Y>=0 else 0)
-            ymax = min(ymax, ymax if p.Y>=0 else curses.LINES+p.Y)
-            p.interface = self
-        self.mapView = MapView(curses.newwin(ymax-ymin, xmax-xmin, ymin, xmin), w)
-        
+        try:
+            for p in self.plugins:
+                # les premiers plugins sont prioritaires en taille
+                p.win = curses.newwin(min(p.MINH, ymax), min(p.MINW, xmax), 
+                                      p.Y if p.Y>=0 else curses.LINES+p.Y,
+                                      p.X if p.X>=0 else curses.COLS+p.X)
+                xmin = max(xmin, p.X if p.X>=0 else 0)
+                xmax = min(xmax, xmax if p.X>=0 else curses.COLS+p.X)
+                ymin = max(ymin, p.Y if p.Y>=0 else 0)
+                ymax = min(ymax, ymax if p.Y>=0 else curses.LINES+p.Y)
+                p.interface = self
+            self.mapView.setWin(curses.newwin(ymax-ymin, xmax-xmin, ymin, xmin))
+            self.toSmall = False
+        except:
+            self.toSmall = True
+#        self.draw()
         
     def init(self): # eurk !
         self.getEvent()
@@ -38,10 +46,25 @@ class Curses(Interface):
         self.mapView.perso = perso
     
     def repaint(self):
-#        self.menuView.draw()
-        self.mapView.draw()
-        for p in self.plugins:
-            p.draw()
+        if self.toSmall:
+            self.win.clear()
+            h, w = self.win.getmaxyx()
+            msg = b"To small console !"
+            w = w-len(msg)
+            if w>=0:
+                self.win.addstr(h//2,w//2, msg)
+        else:
+            try:
+                self.mapView.draw()
+                for p in self.plugins:
+                    p.draw()
+            except curses.error:
+                self.toSmall = True
+                self.repaint()
+                return
+            self.mapView.win.noutrefresh()
+            for p in self.plugins:
+                p.win.noutrefresh()                
         curses.doupdate()
         # TODO insérer ici le xml d'interface
         #self.win.addstr(26,0,"Score "+str(self.world.entities[0].score)+'\n')
@@ -56,6 +79,10 @@ class Curses(Interface):
             if p.handleKey(key):
                 self.repaint()
                 return []
+        if key==curses.KEY_RESIZE:
+            self.resize()
+            self.repaint()
+            return []
         if key==ord('w'): return [skeys.QUIT]
         if key==ord('p'): return [skeys.PAUSE]
         if key==ord('r'): return [skeys.RESUME]
@@ -66,26 +93,31 @@ class Curses(Interface):
 
 
 class MapView:
-    """ manages the map display """
-    def __init__(self, win, world):
-        self.win = win
+    """ Manages the map display """
+    def __init__(self, world):
         self.world = world
         self.offX = 0
         self.offY = 0
         #self.mapWin = self.win.derwin(0,0)
         self.map = None
-        self.maxHeight, self.maxWidth = self.win.getmaxyx()
         self.showLov = False
         self.perso = None#self.world.entities[0]
         self.follow = False
-        
+    
+    def setWin(self, win):
+        self.win = win
+        self.maxHeight, self.maxWidth = self.win.getmaxyx()
+        self.updateMap()
+    
+    def updateMap(self):
+        """ Center map in the window """
+        self.map = self.world.currentMap
+        self.height = min(self.map.height, self.maxHeight-2)
+        self.width = min(self.map.width, self.maxWidth-2)
+    
     def draw(self):
-#        win = self.mapWin
         if self.map != self.world.currentMap:
-            self.map = self.world.currentMap
-            self.height = min(self.map.height, self.maxHeight-2)
-            self.width = min(self.map.width, self.maxWidth-2)
-#            win.resize(self.height+2, self.width+2)
+            self.updateMap()
         win = self.win.derwin(self.height+2, self.width+2, 
                               (self.maxHeight-self.height-2)//2,
                               (self.maxWidth-self.width-2)//2)
@@ -110,15 +142,17 @@ class MapView:
             x, y = ent.x-self.offX, ent.y-self.offY
             if x in range(self.width) and y in range(self.height):
                 win.addch(y+1, x+1, ent.picture)
-        self.win.noutrefresh()
+        #self.win.noutrefresh()
 
     def cellChar(self, cell):
+        """ Return the char associated to a cell and some overlays """
         if self.showLov and cell.picture==32 and self.lovs[cell.x-self.offX][cell.y-self.offY]:
             return '.'
         else:
             return chr(cell.picture)
 
     def clipOffset(self):
+        """ Ensure the offX, offY lead to a valid display """
         self.offX = max(0, min(self.offX,self.map.width-self.width))
         self.offY = max(0, min(self.offY,self.map.height-self.height))
 

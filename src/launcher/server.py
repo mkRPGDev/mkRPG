@@ -10,8 +10,7 @@ for filename in filesToSend:
     print('\t'+filename)
 
 psock = socket.socket()
-host = socket.gethostname()
-psock.bind((host, SYNC_PORT))
+psock.bind(("", SYNC_PORT))
 psock.listen(SYNC_MAX_SERVER_QUEUE)
 
 forkedpids = []

@@ -7,7 +7,7 @@ python:
 sudo: true
 
 notifications:
-  email: false
+  email: true
 
 # Blacklist
 branches:

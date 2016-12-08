@@ -22,7 +22,7 @@ cd code_docs
 ##### Get the current master branch
 echo "Get a clone of master"
 
-git clone -b travis "https://github.com/mkRPGDev/mkRPG.git"
+git clone -b master "https://github.com/mkRPGDev/mkRPG.git"
 cd mkRPG
 
 ##### Configure git.

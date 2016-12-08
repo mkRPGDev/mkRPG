@@ -35,7 +35,8 @@ class Client():
         self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
         self.world = world.loadGame(path)
-        self.plugins = ([],[]) #loadPluginsClient(path, self)
+        self.plugins = ([],[]) if args.pygame else loadPluginsClient(path, self)
+        # on va bien trouver mieux
         # TODO intégrer au loadGame, faire une autre classe client ?
         self.interface = Interface(self.world, self.plugins[1])
         self.plugins = self.plugins[0]

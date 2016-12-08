@@ -5,6 +5,8 @@ from const import *
 from shared.world import BaseObject
 from shared.orders import Order # XXX à sa place ?
 
+PRINTDEBUG = False
+
 class NetworkClient:
     """
     This class manages the network activities of the client.
@@ -49,7 +51,7 @@ class NetworkClient:
 
     async def send(self, m):
         self.writer.write(m)
-        print("Sent %s" % str(m)[1:])
+        if PRINTDEBUG: print("Sent %s" % str(m)[1:])
         await self.writer.drain()
 
     async def sendEvent(self, obj, event):
@@ -118,7 +120,7 @@ class ServerConnection:
     async def send(self, m):
         try:
             self.writer.write(m)
-            print("Sent %s" % str(m)[1:])
+            if PRINTDEBUG: print("Sent %s" % str(m)[1:])
             await self.writer.drain()
         except ConnectionResetError:
             self.end()

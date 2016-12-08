@@ -5,7 +5,7 @@
 
 
 XmlWritter::XmlWritter(const QString &fileName) :
-    file(fileName), stream(&file), indent(0), newLine(true)
+    file(fileName), stream(&file), newLine(true), mode(Default)
 {
     file.open(QIODevice::WriteOnly);
 }
@@ -19,11 +19,29 @@ XmlWritter::~XmlWritter(){
 XmlWritter &XmlWritter::operator << (const Element &elem){
     switch (elem) {
     case EndL:
+        *this << "\n";
         newLine = true;
-        stream << "\n";
         break;
     case Eg:
         return *this << "=";
+    case OpenMarkUp:
+        mode = newMarkUp;
+        return *this;
+    case CloseMarkUp:{
+        assert(!markUps.empty());
+        Mode m = mode;
+        mode = Default;
+        if(m != Default){
+            *this << "/>";
+            markUps.pop();
+        }
+        else
+            *this << "</" << markUps.pop() << ">";
+        return *this << EndL;
+    }
+    case MarkUpParam:
+        mode = ParamName;
+        break;
     default:
         break;
     }
@@ -31,57 +49,52 @@ XmlWritter &XmlWritter::operator << (const Element &elem){
 }
 
 XmlWritter &XmlWritter::operator << (const QString &s){
-    beginLine();
-    stream << s;
+    if(newLine){
+        int n = markUps.length();
+        for(int k(0); k<n; ++k)
+            stream << "  ";
+        newLine = false;
+    }
+    switch (mode) {
+    case newMarkUp:
+        stream << "<" << s;
+        markUps.push(s);
+        mode = MarkUpNamed;
+        break;
+    case MarkUpNamed:
+        stream << ">";
+        stream << s;
+        mode = Default;
+        break;
+    case ParamName:
+        mode = ParamValue;
+        stream << " " << s;
+        break;
+    case ParamValue:
+        stream << "=\"" << s << "\"";
+        mode = MarkUpNamed;
+        break;
+    default:
+        stream << s;
+        break;
+    }
     return *this;
 }
 
 
 XmlWritter &XmlWritter::operator << (const int &i){
-    beginLine();
-    stream << "\"" << i << "\"";
-    return *this;
+    return *this << QString::number(i);
 }
 
 
 
-void XmlWritter::beginLine(){
-    if(newLine){
-        for(int k(0); k<indent; ++k)
-            stream << "  ";
-        newLine = false;
-    }
-}
 
-void XmlWritter::openMarkUp(const QString &m){
-    openParamMarkUp(m, "");
-    endNewMarkUp();
-}
-
-void XmlWritter::openParamMarkUp(const QString &m, const QString &end){
-    markUps.push(m);
-    *this << "<" << m << end;
-}
-
-void XmlWritter::endNewMarkUp(){
-    *this << ">" << EndL;
-    indent++;
-}
-
-void XmlWritter::closeMarkUp(){
-    assert(!markUps.isEmpty());
-    indent--;
-    *this << "</" << markUps.pop() << ">" << EndL;
-}
-
-
-XmlWritter &XmlWritter::operator << (const Game &game){
-    openMarkUp("Game");
-    *this << "Bonjour" << EndL;
-    openParamMarkUp("empty");
-    *this << "ident" << Eg << 42;
-    endNewMarkUp();
-    closeMarkUp();
-    closeMarkUp();
+XmlWritter &XmlWritter::operator << (Game &game){
+    *this << OpenMarkUp << "Game" << EndL;
+    *this << OpenMarkUp << "World" << EndL;
+    *this << OpenMarkUp << "World" << game.world().name() << CloseMarkUp;
+    *this << OpenMarkUp << "World2" << MarkUpParam << "la" << "reprise" << game.world().name() << CloseMarkUp;
+    *this << OpenMarkUp << "tentative" << MarkUpParam << "hum" << 42 << CloseMarkUp;
+    *this << CloseMarkUp << CloseMarkUp;
     return *this;
 }

@@ -5,31 +5,30 @@
 #include <QFileDevice>
 
 class XmlWritter{
-    enum Element{EndL, Eg};
+    enum Element{EndL, Eg, OpenMarkUp, CloseMarkUp, MarkUpParam};
+    enum Mode{Default, newMarkUp, MarkUpNamed, ParamName,ParamValue};
 public:
     XmlWritter(const QString &fileName);
     ~XmlWritter();
 
-    XmlWritter &operator<<(const Game &game);
+    XmlWritter &operator<<(Game &game);
+    XmlWritter &operator<<(const World &World);
 
 private:
     XmlWritter &operator<<(const QString &s);
     XmlWritter &operator<<(const int &i);
     XmlWritter &operator<<(const Element &e);
 
-    void openMarkUp(const QString &m);
-    void openParamMarkUp(const QString &m, const QString &end = " ");
-    void endNewMarkUp();
-    void closeMarkUp();
-    void beginLine();
+
 
     QFile file;
     QTextStream stream;
     QStack<QString> markUps;
 
-    int indent;
+
 
     bool newLine;
+    Mode mode;
 
 };
 

@@ -41,5 +41,5 @@ script:
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR
-  - chmod +x travis/generateDocumentation.sh
-  - ./travis/generateDocumentation.sh
+  - chmod +x travis/checkout_ghpages_script.sh
+  - ./travis/checkout_ghpages_script.sh

@@ -90,15 +90,8 @@ class ImageCache(ScaledCache):
         for image in images:
             if type(image) == str:
                 cls.init_image_from_file(image)
-                key = image
             else:
                 cls.init_image_from_surface(image[0], image[1])
-                key = image[0]
-
-            scale = const.MIN_ZOOM
-            # while scale < const.MAX_ZOOM:
-            #     cls.get_elt(image, scale)
-            #     scale += const.ZOOM_STEP
 
     @classmethod
     def add_scaled(cls, image, scale=1):
@@ -110,7 +103,7 @@ class ImageCache(ScaledCache):
 
         cls.free_cache()
 
-from chunk import Chunk
+from interface.chunk import Chunk
 
 class ChunkCache(ScaledCache):
     """

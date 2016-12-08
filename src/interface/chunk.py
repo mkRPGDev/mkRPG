@@ -5,7 +5,7 @@ from pygame.locals import Rect
 
 from interface.backgroundLayer import BackgroundLayer
 
-import interface.const as const
+import const
 import interface.utils as utils
 
 class Chunk(pygame.sprite.Sprite):

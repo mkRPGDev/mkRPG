@@ -35,7 +35,7 @@ class Client():
         self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
         self.world = world.loadGame(path)
-        self.plugins = loadPluginsClient(path, self)
+        self.plugins = ([],[]) #loadPluginsClient(path, self)
         # TODO intégrer au loadGame, faire une autre classe client ?
         self.interface = Interface(self.world, self.plugins[1])
         self.plugins = self.plugins[0]
@@ -53,12 +53,15 @@ class Client():
     def run(self):
         """ Launch tasks """
         self.loop.run_until_complete(self.net.connect())
+        print("Main")
         self.loop.run_until_complete(self.getEntity())
+        print("Main")
         self.netTask = self.loop.create_task(self.net.run())
+        print("Main")
         self.loop.run_until_complete(self.main())
 
     async def getEntity(self):
-        """ Ask for a free entity to the server 
+        """ Ask for a free entity to the server
         May disappear with a proper initialisation process """
         for ent in self.world.entities:
             if await self.net.askEntity(ent):
@@ -73,7 +76,7 @@ class Client():
         """ Init stuff, listen for inputs and send corresponding events """
         self.interface.init()
         while True:
-            #self.interface.update()
+            self.interface.update()
             # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
             keys = self.interface.getEvent()
             if not keys:
@@ -96,7 +99,7 @@ class Client():
         self.interface.update()
 
     async def pluginHandle(self, msg):
-        """ Search for plugins that want to handle the message """        
+        """ Search for plugins that want to handle the message """
         for plug in self.plugins:
             if msg.startswith(plug.MSGID):
                 await plug.clientMessage(msg[len(plug.MSGID):])

@@ -1,7 +1,5 @@
 from plugins.plugin import CursesPlugin
 
-import curses
-
 class MenuView(CursesPlugin):
     """ Manages the curses menu windows """
     MINW = 26
@@ -13,7 +11,7 @@ class MenuView(CursesPlugin):
     def draw(self):
         super().draw()
         self.win.border()
-        self.centered(3, "MKRPG", curses.A_BOLD)    
+        self.centered(3, "MKRPG", curses.A_BOLD)
         self.centered(5, "The curses client", curses.A_BOLD)
         self.win.addstr(9,  2, b"[r] : start/resume")
         self.win.addstr(10, 2, b"[p] : pause")
@@ -37,6 +35,5 @@ class MenuView(CursesPlugin):
         if len(st)>self.width: return
         if attr:
             self.win.addstr(y, (self.width-len(st))//2, st, attr)
-        else: 
+        else:
             self.win.addstr(y, (self.width-len(st))//2, st)
-

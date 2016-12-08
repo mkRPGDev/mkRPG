@@ -49,6 +49,7 @@ class NetworkClient:
 
     async def send(self, m):
         self.writer.write(m)
+        print("Sent %s" % str(m)[1:])
         await self.writer.drain()
 
     async def sendEvent(self, obj, event):
@@ -117,6 +118,7 @@ class ServerConnection:
     async def send(self, m):
         try:
             self.writer.write(m)
+            print("Sent %s" % str(m)[1:])
             await self.writer.drain()
         except ConnectionResetError:
             self.end()
@@ -173,7 +175,7 @@ class NetworkServer:
     async def broadcast(self, m):
         for co in self.connections:
             await co.send(m)
-        
+
 
 # Prémices de tests
 

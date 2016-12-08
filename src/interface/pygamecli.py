@@ -26,11 +26,11 @@ from interface.printWorld import WorldViewer, Interface
 from interface.utils import add_to_rect_list
 
 class Client(Interface):
-    def __init__(self, w):
+    def __init__(self, w, plugins):
         pygame.display.init()
         self.screen_size = SCREEN_WIDTH, SCREEN_HEIGHT
         self.screen = pygame.display.set_mode(self.screen_size)
-
+        
         self.world = w
         self.interface = WorldViewer(self.world)
         self.perso = None

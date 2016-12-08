@@ -16,6 +16,10 @@ ItemEditor::ItemEditor(QWidget *edit, bool redef, QWidget *parent) :
     layout()->addWidget(tb);
 }
 
+QWidget* ItemEditor::editor() const{
+    return edit;
+}
+
 void ItemEditor::setEditorProperty(const char *name, const QVariant &value){
     edit->setProperty(name, value);
 }
@@ -74,8 +78,10 @@ QWidget* ParamItemDelegate::createEditor(QWidget *parent, const QStyleOptionView
 
 
 void ParamItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const{
-    static_cast<ItemEditor*>(editor)->setEditorProperty("value", index.data(Qt::DisplayRole));
-    static_cast<ItemEditor*>(editor)->setResetable(index.data(Qt::UserRole).toBool());
+    ItemEditor *ed(static_cast<ItemEditor*>(editor));
+    ed->setEditorProperty("value", index.data(Qt::DisplayRole));
+    ed->setResetable(index.data(Qt::UserRole).toBool());
+    static_cast<QSpinBox*>(ed->editor())->selectAll();
 }
 
 void ParamItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &UNUSED(index)) const{

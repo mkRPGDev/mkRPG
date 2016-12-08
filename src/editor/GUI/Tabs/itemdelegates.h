@@ -25,6 +25,7 @@ public:
     void setEditorProperty(const char *name, const QVariant &value);
     QVariant editorProperty(const char *name) const;
     bool resetRequested() const;
+    QWidget* editor() const;
 
 signals:
     void dataChanged(QWidget*);

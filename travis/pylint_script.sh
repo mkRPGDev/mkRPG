@@ -5,3 +5,4 @@ pylint *
 mv pylint_global.html ../
 rm *.html
 cd ..
+cat pylint_global.html

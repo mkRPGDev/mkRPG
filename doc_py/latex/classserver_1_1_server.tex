@@ -10,17 +10,13 @@
 \hypertarget{classserver_1_1_server_ac80c3a945398c3c941f5d0820c823b88}{def {\bfseries \-\_\-\-\_\-del\-\_\-\-\_\-}}\label{classserver_1_1_server_ac80c3a945398c3c941f5d0820c823b88}
 
 \item 
-\hypertarget{classserver_1_1_server_a9b3fa0cb53b66ff0f4b5cab8257e1f97}{def {\bfseries run}}\label{classserver_1_1_server_a9b3fa0cb53b66ff0f4b5cab8257e1f97}
-
+def \hyperlink{classserver_1_1_server_a9b3fa0cb53b66ff0f4b5cab8257e1f97}{run}
 \item 
-\hypertarget{classserver_1_1_server_a00234be60c5d9f6fcb3dd40ce8b7eaf0}{def {\bfseries main}}\label{classserver_1_1_server_a00234be60c5d9f6fcb3dd40ce8b7eaf0}
-
+def \hyperlink{classserver_1_1_server_a00234be60c5d9f6fcb3dd40ce8b7eaf0}{main}
 \item 
-\hypertarget{classserver_1_1_server_a27e7213342658fc1f0a689647963be9a}{def {\bfseries handle\-Event}}\label{classserver_1_1_server_a27e7213342658fc1f0a689647963be9a}
-
+def \hyperlink{classserver_1_1_server_a27e7213342658fc1f0a689647963be9a}{handle\-Event}
 \item 
-\hypertarget{classserver_1_1_server_a96a93fb7b3ede34e861cba3952cd85e2}{def {\bfseries plugin\-Handle}}\label{classserver_1_1_server_a96a93fb7b3ede34e861cba3952cd85e2}
-
+def \hyperlink{classserver_1_1_server_a96a93fb7b3ede34e861cba3952cd85e2}{plugin\-Handle}
 \end{DoxyCompactItemize}
 \subsection*{\-Public \-Attributes}
 \begin{DoxyCompactItemize}
@@ -55,7 +51,45 @@
 
 
 \subsection{\-Detailed \-Description}
-\begin{DoxyVerb}Classe principale du processus serveur, concilie réseau, monde, actions et timer \end{DoxyVerb}
+\begin{DoxyVerb}Main class of the server process, gathering network, world, actions and timer \end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classserver_1_1_server_a27e7213342658fc1f0a689647963be9a}{\index{server\-::\-Server@{server\-::\-Server}!handle\-Event@{handle\-Event}}
+\index{handle\-Event@{handle\-Event}!server::Server@{server\-::\-Server}}
+\subsubsection[{handle\-Event}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf server.\-Server.\-handle\-Event} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{emitter, }
+\item[{}]{event}
+\end{DoxyParamCaption}
+)}}\label{classserver_1_1_server_a27e7213342658fc1f0a689647963be9a}
+\begin{DoxyVerb}Add a event to the queue \end{DoxyVerb}
+ \hypertarget{classserver_1_1_server_a00234be60c5d9f6fcb3dd40ce8b7eaf0}{\index{server\-::\-Server@{server\-::\-Server}!main@{main}}
+\index{main@{main}!server::Server@{server\-::\-Server}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf server.\-Server.\-main} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classserver_1_1_server_a00234be60c5d9f6fcb3dd40ce8b7eaf0}
+\begin{DoxyVerb}Init stuff, read events and ask for treatment \end{DoxyVerb}
+ \hypertarget{classserver_1_1_server_a96a93fb7b3ede34e861cba3952cd85e2}{\index{server\-::\-Server@{server\-::\-Server}!plugin\-Handle@{plugin\-Handle}}
+\index{plugin\-Handle@{plugin\-Handle}!server::Server@{server\-::\-Server}}
+\subsubsection[{plugin\-Handle}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf server.\-Server.\-plugin\-Handle} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)}}\label{classserver_1_1_server_a96a93fb7b3ede34e861cba3952cd85e2}
+\begin{DoxyVerb}Search for plugins that want to handle the message \end{DoxyVerb}
+ \hypertarget{classserver_1_1_server_a9b3fa0cb53b66ff0f4b5cab8257e1f97}{\index{server\-::\-Server@{server\-::\-Server}!run@{run}}
+\index{run@{run}!server::Server@{server\-::\-Server}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf server.\-Server.\-run} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classserver_1_1_server_a9b3fa0cb53b66ff0f4b5cab8257e1f97}
+\begin{DoxyVerb}Launch tasks \end{DoxyVerb}
  
 
 \-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}

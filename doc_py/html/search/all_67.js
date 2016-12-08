@@ -10,5 +10,6 @@ var searchData=
   ['get_5fstatic_5ffile',['get_static_file',['../classpath_1_1_archi.html#ac2bfc613455e4f2fbc1e6fb8062725a4',1,'path::Archi']]],
   ['get_5fxml_5fdir',['get_xml_dir',['../classpath_1_1_archi.html#acd1b663ed5d2cce1bd0b46b834a9d4f5',1,'path::Archi']]],
   ['get_5fxml_5ffile',['get_xml_file',['../classpath_1_1_archi.html#a833a9e6f4fdc1970f641a0421659bd4b',1,'path::Archi']]],
+  ['getentity',['getEntity',['../classclient_1_1_client.html#aeff3316ccd3dc3efc6e216657ad11209',1,'client::Client']]],
   ['globalcache',['GlobalCache',['../classinterface_1_1cache_1_1_global_cache.html',1,'interface::cache']]]
 ];

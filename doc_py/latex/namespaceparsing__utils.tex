@@ -6,8 +6,9 @@
 \item 
 def \hyperlink{namespaceparsing__utils_a26c14f2e6058ca8d95c4736e40d9a67a}{try\-\_\-open\-\_\-and\-\_\-parse}
 \item 
-\hypertarget{namespaceparsing__utils_a332025bb554b8559ab10e101fa976f5a}{def {\bfseries format\-\_\-type}}\label{namespaceparsing__utils_a332025bb554b8559ab10e101fa976f5a}
-
+def \hyperlink{namespaceparsing__utils_a194aba83bf612df0d084b30a23f96049}{fail\-\_\-not\-\_\-found}
+\item 
+def \hyperlink{namespaceparsing__utils_a332025bb554b8559ab10e101fa976f5a}{format\-\_\-type}
 \item 
 def \hyperlink{namespaceparsing__utils_a5b5e8f373e7060c8e92ac634aac95001}{collect\-\_\-data}
 \item 
@@ -19,7 +20,7 @@ def \hyperlink{namespaceparsing__utils_a3c916b85614f8335586ba81162362fe6}{parse\
 \hypertarget{namespaceparsing__utils_a9d5465b550734410b49f0c8d211c74c5}{tuple {\bfseries \-I\-N\-T} = re.\-compile('\mbox{[}0-\/9\mbox{]}+\$')}\label{namespaceparsing__utils_a9d5465b550734410b49f0c8d211c74c5}
 
 \item 
-\hypertarget{namespaceparsing__utils_a3c22f04fcad5a9e6c2aeb9de8cfbd419}{tuple {\bfseries \-F\-L\-O\-A\-T} = re.\-compile('\mbox{[}0-\/9\mbox{]}+\mbox{[}$\backslash$.,\mbox{]}\mbox{[}0-\/9\mbox{]}\$')}\label{namespaceparsing__utils_a3c22f04fcad5a9e6c2aeb9de8cfbd419}
+\hypertarget{namespaceparsing__utils_a3c22f04fcad5a9e6c2aeb9de8cfbd419}{tuple {\bfseries \-F\-L\-O\-A\-T} = re.\-compile(r'\mbox{[}0-\/9\mbox{]}+\mbox{[}$\backslash$.,\mbox{]}\mbox{[}0-\/9\mbox{]}\$')}\label{namespaceparsing__utils_a3c22f04fcad5a9e6c2aeb9de8cfbd419}
 
 \end{DoxyCompactItemize}
 
@@ -44,6 +45,22 @@ It is more a toolbox than anything.
 \begin{DoxyVerb}Collects all items corresponding to key argument in *args.  It realizes
 a depth-first travel of the dictionary, calling itself recursively on the
 structures.\end{DoxyVerb}
+ \hypertarget{namespaceparsing__utils_a194aba83bf612df0d084b30a23f96049}{\index{parsing\-\_\-utils@{parsing\-\_\-utils}!fail\-\_\-not\-\_\-found@{fail\-\_\-not\-\_\-found}}
+\index{fail\-\_\-not\-\_\-found@{fail\-\_\-not\-\_\-found}!parsing_utils@{parsing\-\_\-utils}}
+\subsubsection[{fail\-\_\-not\-\_\-found}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing\-\_\-utils.\-fail\-\_\-not\-\_\-found} (
+\begin{DoxyParamCaption}
+\item[{}]{tag}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing__utils_a194aba83bf612df0d084b30a23f96049}
+\begin{DoxyVerb}Error when a tag is not found in a file, and should be in.\end{DoxyVerb}
+ \hypertarget{namespaceparsing__utils_a332025bb554b8559ab10e101fa976f5a}{\index{parsing\-\_\-utils@{parsing\-\_\-utils}!format\-\_\-type@{format\-\_\-type}}
+\index{format\-\_\-type@{format\-\_\-type}!parsing_utils@{parsing\-\_\-utils}}
+\subsubsection[{format\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing\-\_\-utils.\-format\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{}]{string}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing__utils_a332025bb554b8559ab10e101fa976f5a}
+\begin{DoxyVerb}If the string can be converted to an int or a float, converts it.\end{DoxyVerb}
  \hypertarget{namespaceparsing__utils_a3c916b85614f8335586ba81162362fe6}{\index{parsing\-\_\-utils@{parsing\-\_\-utils}!parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}}
 \index{parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}!parsing_utils@{parsing\-\_\-utils}}
 \subsubsection[{parse\-\_\-multiple\-\_\-files}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing\-\_\-utils.\-parse\-\_\-multiple\-\_\-files} (

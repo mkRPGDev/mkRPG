@@ -86,8 +86,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing__utils.html#a26c14f2e6058ca8d95c4736e40d9a67a">try_open_and_parse</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a332025bb554b8559ab10e101fa976f5a"></a><!-- doxytag: member="parsing_utils::format_type" ref="a332025bb554b8559ab10e101fa976f5a" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>format_type</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing__utils.html#a194aba83bf612df0d084b30a23f96049">fail_not_found</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing__utils.html#a332025bb554b8559ab10e101fa976f5a">format_type</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing__utils.html#a5b5e8f373e7060c8e92ac634aac95001">collect_data</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing__utils.html#a3c916b85614f8335586ba81162362fe6">parse_multiple_files</a></td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
@@ -95,7 +95,7 @@ Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d5465b550734410b49f0c8d211c74c5"></a><!-- doxytag: member="parsing_utils::INT" ref="a9d5465b550734410b49f0c8d211c74c5" args="" -->
 tuple&#160;</td><td class="memItemRight" valign="bottom"><b>INT</b> = re.compile('[0-9]+$')</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c22f04fcad5a9e6c2aeb9de8cfbd419"></a><!-- doxytag: member="parsing_utils::FLOAT" ref="a3c22f04fcad5a9e6c2aeb9de8cfbd419" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>FLOAT</b> = re.compile('[0-9]+[\.,][0-9]$')</td></tr>
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>FLOAT</b> = re.compile(r'[0-9]+[\.,][0-9]$')</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
@@ -130,6 +130,40 @@ It is more a toolbox than anything.
 <div class="fragment"><pre class="fragment">Collects all items corresponding to key argument in *args.  It realizes
 a depth-first travel of the dictionary, calling itself recursively on the
 structures.</pre></div> 
+</div>
+</div>
+<a class="anchor" id="a194aba83bf612df0d084b30a23f96049"></a><!-- doxytag: member="parsing_utils::fail_not_found" ref="a194aba83bf612df0d084b30a23f96049" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceparsing__utils.html#a194aba83bf612df0d084b30a23f96049">parsing_utils.fail_not_found</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>tag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Error when a tag is not found in a file, and should be in.</pre></div> 
+</div>
+</div>
+<a class="anchor" id="a332025bb554b8559ab10e101fa976f5a"></a><!-- doxytag: member="parsing_utils::format_type" ref="a332025bb554b8559ab10e101fa976f5a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceparsing__utils.html#a332025bb554b8559ab10e101fa976f5a">parsing_utils.format_type</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>string</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">If the string can be converted to an int or a float, converts it.</pre></div> 
 </div>
 </div>
 <a class="anchor" id="a3c916b85614f8335586ba81162362fe6"></a><!-- doxytag: member="parsing_utils::parse_multiple_files" ref="a3c916b85614f8335586ba81162362fe6" args="" -->

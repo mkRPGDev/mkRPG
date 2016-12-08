@@ -34,6 +34,7 @@ private:
 
 
 
+
 /*!
  * Usefull macro to set up a for on the cells
  */
@@ -87,14 +88,28 @@ class MapType : public Type<MapType>
 };*/
 
 
+
+
+class MapType;
+class MapType : public Type<MapType>
+{
+public:
+    TypeName(MapType)
+    MapType(MapType &ancestor);
+    MapType(DefaultTypes &parent);
+    C0(Param,a,A,ngleX)
+    C0(Param,a,A,ngleY)
+};
+
+
 /*!
  * \brief The Map class
  */
-class Map : public GameObject
+class Map : public TypedObject<MapType>
 {
 public:
     TypeName(Map)
-    Map(GameObject &parent);
+    Map(MapType &type, GameObject &parent);
     ~Map();
 
     int width() const;
@@ -110,7 +125,7 @@ public:
     void selectAll();
     void unSelectAll();
 
-    C0(Flag, i,I,nutile)
+
 
 
     void confirmPreSelection(bool add = true);

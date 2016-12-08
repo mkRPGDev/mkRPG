@@ -143,7 +143,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     ctt->setParam("Salinité", 8);
     ctt->setParam("Concentration de requins", 20);
     g->world().addCellType(ct);
-    Map *m = new Map(g->world());
+    Map *m = new Map(g->world().types().mapType(), g->world());
     g->world().addMap(m);
     m->setName("Paysage bucolique");
     int l = m->width();
@@ -155,7 +155,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
         }
     tabBar->setTabsEnabled(true);
 
-    m = new Map(g->world());
+    m = new Map(g->world().types().mapType(), g->world());
     m->setName("Le grand large");
     g->world().addMap(m);
     l = m->width();

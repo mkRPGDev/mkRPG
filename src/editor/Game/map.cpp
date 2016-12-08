@@ -27,8 +27,6 @@ CellType::CellType(DefaultTypes &parent) :
 
 
 
-
-
 CellType* Cell::defaultCellType = nullptr;
 GameObject* Cell::defaultParent = nullptr;
 
@@ -97,24 +95,33 @@ Cell* Cell::cellArray(CellType &type, GameObject &parent, int n){
 
 
 
+MapType::MapType(MapType &ancestor) :
+    Type(ancestor)
+{}
 
-
-
-
-
-Map::Map(GameObject &parent) :
-    GameObject(parent),
-    cells(nullptr)
+MapType::MapType(DefaultTypes &parent) :
+    Type(parent)
 {
-    resize(100,75);
+    setName(typeName());
     SetParam(angleX, 0);
     SetParam(angleY, 0);
     setAngleXMax(900);
     setAngleYMax(900);
     SetFlag(inutile, false);
+}
+
+
+
+
+
+Map::Map(MapType &type, GameObject &parent) :
+    TypedObject(type, parent),
+    cells(nullptr)
+{
+    resize(100,75);
     ProtectParam(height);
-    //SetParam(znull,42);
     ProtectParam(width);
+    //SetParam(znull,42);
 }
 
 Map::~Map(){

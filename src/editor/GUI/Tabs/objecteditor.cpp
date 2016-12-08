@@ -38,6 +38,8 @@ void ObjectEditor::setGame(Game *g){
     flags->expandView();
     objects->expandAll();
     objects->resizeColumnToContents(0);
+
+    types->expandAll();
 }
 
 

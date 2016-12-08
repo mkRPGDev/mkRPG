@@ -189,6 +189,9 @@ QVariant GameTreeItem<ParamItem>::attrData(int col, int role) const{
                 return QVariant(typ ? typ->getFlag(attr) : obj->getFlag(attr));
         case Qt::UserRole:
             return QVariant(typ ? ParamItem ? typ->isRedefiniedParam(attr) : typ->isRedefiniedFlag(attr) : false);
+        case Qt::SizeHintRole:
+            return ParamItem ? QVariant(QPoint(typ ? typ->getParamMin(attr) : obj->getParamMin(attr),
+                                               typ ? typ->getParamMax(attr) : obj->getParamMax(attr))) : QVariant();
         default: return QVariant();
         }
 }
@@ -200,6 +203,7 @@ QVariant GameTreeItem<ParamItem>::valueData(int col, int role) const{
     if(col == 0)
         switch (role) {
         case Qt::DisplayRole: return QVariant(rowNb ? "Maximum" : "Minimum");
+        case Qt::SizeHintRole: return QVariant(QPoint(-10000,10000));
         default: return QVariant();
         }
     else

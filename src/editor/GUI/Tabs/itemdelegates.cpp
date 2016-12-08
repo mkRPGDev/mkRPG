@@ -66,12 +66,15 @@ QWidget* ParamItemDelegate::createEditor(QWidget *parent, const QStyleOptionView
     QSpinBox *sp = new QSpinBox();
     sp->setAutoFillBackground(true);
     sp->setButtonSymbols(QSpinBox::NoButtons);
-    sp->setMaximum(10000);
+    QPoint dom = index.data(Qt::SizeHintRole).toPoint();
+    sp->setMaximum(dom.x());
+    sp->setMinimum(dom.y());
     sp->setFrame(false);
     ItemEditor * ie = new ItemEditor(sp, index.data(Qt::UserRole).toBool(), parent);
     connect(sp, SIGNAL(valueChanged(int)), ie, SLOT(changeData()));
     connect(ie, SIGNAL(dataChanged(QWidget*)), this, SIGNAL(commitData(QWidget*)));
     connect(ie, SIGNAL(dataReset(QWidget*)), this, SIGNAL(closeEditor(QWidget*)));
+    sp->selectAll();
     return ie;
 }
 
@@ -81,7 +84,6 @@ void ParamItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index)
     ItemEditor *ed(static_cast<ItemEditor*>(editor));
     ed->setEditorProperty("value", index.data(Qt::DisplayRole));
     ed->setResetable(index.data(Qt::UserRole).toBool());
-    static_cast<QSpinBox*>(ed->editor())->selectAll();
 }
 
 void ParamItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &UNUSED(index)) const{

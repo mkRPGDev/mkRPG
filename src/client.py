@@ -1,14 +1,9 @@
-from time import sleep, time
 from argparse import ArgumentParser
 import asyncio
-from sys import path
 
-path.append('parsing/')
-
-from const import *
 from interface.interactions import registerInteractions, InteractionType
 from interface.interface import skeys
-from const import UPDTIME
+from const import UPDTIME, PATH
 from shared.orders import OrderDispatcher
 from shared.network import NetworkClient
 import shared.world as world
@@ -29,8 +24,8 @@ def interface(args):
         return interface(args)
     return Interface
 
-class Client():
-    """ Main class of the client process, gathering interface, world and networking"""
+class Client:
+    """ Main class of the client process, gathering interface, world and networking """
     def __init__(self, path, Interface):
         self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
@@ -54,15 +49,12 @@ class Client():
     def run(self):
         """ Launch tasks """
         self.loop.run_until_complete(self.net.connect())
-        print("Main")
         self.loop.run_until_complete(self.getEntity())
-        print("Main")
         self.netTask = self.loop.create_task(self.net.run())
-        print("Main")
         self.loop.run_until_complete(self.main())
 
     async def getEntity(self):
-        """ Ask for a free entity to the server
+        """ Ask for a free entity to the server.
         May disappear with a proper initialisation process """
         for ent in self.world.entities:
             if await self.net.askEntity(ent):
@@ -91,7 +83,8 @@ class Client():
                 for inte in self.interactions:
                     if (inte.type == InteractionType.Key and
                         inte.key == key):
-                        await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
+                        await self.net.sendEvent(self.__getattribute__(inte.target),
+                                                 inte.event)
 
     async def handleOrder(self, ident, order):
         """ Call dispatcher and update display """
@@ -126,7 +119,7 @@ args = parser.parse_args()
 
 if args.debug: asyncio.get_event_loop().set_debug(True)
 
-cli = Client(args.path, interface(args))
+cli = Client(args.path+"/", interface(args))
 try:
     cli.run()
 except KeyboardInterrupt:

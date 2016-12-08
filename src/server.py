@@ -1,5 +1,4 @@
 from sys import stdin
-from queue import Queue
 from argparse import ArgumentParser
 from functools import partial
 import asyncio
@@ -47,7 +46,6 @@ class Server():
         await self.handleEvent(self.world, "start")
         while True:
             emitter, event = await self.events.get()
-            #print("ev", event)
             if event == "end": break # TODO gérer la fin
             if event == "pause":
                 self.orderDispatcher.timer.pause = True
@@ -80,7 +78,7 @@ parser.add_argument("-p", "--path", default=PATH,
     help="Path of the game directory, should contain game.xml."
     "If this argument is not present, const.py will be used.")
 args = parser.parse_args()
-server = Server(args.path)
+server = Server(args.path+"/")
 
 try:
     server.run()

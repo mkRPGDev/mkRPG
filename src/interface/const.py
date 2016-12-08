@@ -52,4 +52,4 @@ ZOOM_STEP = 0.1
 
 VERBOSE = False
 
-
+from const import MAXFPS, UPDTIME

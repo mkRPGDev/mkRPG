@@ -2,25 +2,10 @@ import pygame
 from pygame.locals import QUIT, K_ESCAPE, KEYUP, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 from pygame.locals import Rect
 
-from sys import argv
-from time import time
 import configparser
 
 from interface.const import *
-from interface.interactions import registerInteractions, InteractionType
-from shared.orders import OrderDispatcher
 from interface.cache import ChunkCache
-
-if USETCP:
-    from shared.network import NetworkClient
-else:
-    from shared.networkudp import NetworkClient
-
-#TODO trouver mieux cf world
-with open("isserver.py","w") as file:
-    file.write("SERVER = False\n")
-
-import shared.world as world
 from interface.printWorld import WorldViewer
 from interface.interface import Interface
 from interface.utils import add_to_rect_list
@@ -164,5 +149,5 @@ class Client(Interface):
         self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
-if __name__ == "__main__":
-    cli = Client(argv[1] if len(argv)>1 else PATH).run()
+#if __name__ == "__main__":
+ #   cli = Client(argv[1] if len(argv)>1 else PATH).run()

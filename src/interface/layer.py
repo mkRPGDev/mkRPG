@@ -3,7 +3,7 @@
 import pygame
 
 from interface.cache import ImageCache
-import const
+import interface.const as const
 import interface.utils as utils
 from math import pi
 

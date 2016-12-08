@@ -7,7 +7,7 @@ from interface.cache import ImageCache
 
 from interface.layer import Layer
 from interface.utils import merge_rect_lists
-import const
+import interface.const as const
 
 class BackgroundLayer(Layer):
 

@@ -10,7 +10,7 @@ from interface.entity import Entity
 from interface.utils import merge_rect_lists
 from interface.cache import ImageCache
 from interface.interface import Interface
-import const
+import interface.const as const
 
 class WorldViewer:
 

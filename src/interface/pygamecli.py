@@ -7,7 +7,6 @@ from time import time
 import configparser
 
 from interface.const import *
-from const import *
 from interface.interactions import registerInteractions, InteractionType
 from shared.orders import OrderDispatcher
 from interface.cache import ChunkCache

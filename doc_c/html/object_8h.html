@@ -77,7 +77,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Defines</a>  </div>
   <div class="headertitle">
 <div class="title">src/editor/Game/object.h File Reference</div>  </div>
 </div><!--header-->
@@ -85,18 +86,63 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Definition of the base class <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>, and some inherited classes.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="typedobject_8hxx_source.html">typedobject.hxx</a>&quot;</code><br/>
+<div class="textblock"><code>#include &lt;QtCore&gt;</code><br/>
+<code>#include &lt;QtGui&gt;</code><br/>
+<code>#include &lt;assert.h&gt;</code><br/>
+<code>#include &lt;algorithm&gt;</code><br/>
 </div>
 <p><a href="object_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html">GameObject</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> class is the base class for every part of games.  <a href="class_game_object.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_image.html">Image</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a> class stores an external file in a QImage, and gives each image ressources a unique identifier.  <a href="class_image.html#details">More...</a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object_type.html">ObjectType</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> class defines the properties that are mandatory in any <a class="el" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> object.  <a href="class_object_type.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html">Object</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_object.html" title="The Object class.">Object</a> class.  <a href="class_object.html#details">More...</a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="define-members"></a>
+Defines</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c09ffbe0bea5710ddb0f2bba0c605ae"></a><!-- doxytag: member="object.h::TypeName" ref="a9c09ffbe0bea5710ddb0f2bba0c605ae" args="(Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b>(Type)&#160;&#160;&#160;virtual QString typeName() const{return QString(#Type);}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4e4db36d846a9d6dff95def8d7507c3"></a><!-- doxytag: member="object.h::ObjectListDef" ref="aa4e4db36d846a9d6dff95def8d7507c3" args="(Objects, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListDef</b>(Objects, Type)&#160;&#160;&#160;private: QMap&lt;int, Type*&gt; a##Objects; public:</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e0c32abad0e9e137742babb45a9799e"></a><!-- doxytag: member="object.h::ObjectListAdd" ref="a3e0c32abad0e9e137742babb45a9799e" args="(Object, Objects, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListAdd</b>(<a class="el" href="class_object.html">Object</a>, Objects, Type)&#160;&#160;&#160;void add##<a class="el" href="class_object.html">Object</a>(Type* new##<a class="el" href="class_object.html">Object</a>){a##Objects[new##<a class="el" href="class_object.html">Object</a>-&gt;ident()] = new##<a class="el" href="class_object.html">Object</a>; touch();}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae19013938d6d09feb96ca117ee851289"></a><!-- doxytag: member="object.h::ObjectListTake" ref="ae19013938d6d09feb96ca117ee851289" args="(Object, Objects, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListTake</b>(<a class="el" href="class_object.html">Object</a>, Objects, Type)&#160;&#160;&#160;Type* take##<a class="el" href="class_object.html">Object</a>(int id){touch(); return a##Objects.take(id);}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cd159f72be6e7310f3b9e370541dc95"></a><!-- doxytag: member="object.h::ObjectListGetter" ref="a5cd159f72be6e7310f3b9e370541dc95" args="(object, Objects, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListGetter</b>(object, Objects, Type)&#160;&#160;&#160;inline Type* object(int id) const{return a##Objects.value(id, nullptr);}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac998674f36a474adb6d33e0d063fbb86"></a><!-- doxytag: member="object.h::ObjectListValues" ref="ac998674f36a474adb6d33e0d063fbb86" args="(objects, Objects, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListValues</b>(objects, Objects, Type)&#160;&#160;&#160;inline QList&lt;Type*&gt; objects() const{return a##Objects.values();}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe4d35582ec32f703d1258d7a115b7cc"></a><!-- doxytag: member="object.h::ObjectListGetters" ref="afe4d35582ec32f703d1258d7a115b7cc" args="(object, Object, objects, Objects, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListGetters</b>(object, <a class="el" href="class_object.html">Object</a>, objects, Objects, Type)&#160;&#160;&#160;ObjectListGetter(object,Objects, Type) ObjectListValues(objects,Objects, Type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0b5fda5c58dfc337f2243b2dc2de562"></a><!-- doxytag: member="object.h::ObjectListModifiers" ref="ae0b5fda5c58dfc337f2243b2dc2de562" args="(Object, Objects, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListModifiers</b>(<a class="el" href="class_object.html">Object</a>, Objects, Type)&#160;&#160;&#160;ObjectListAdd(<a class="el" href="class_object.html">Object</a>,Objects, Type) ObjectListTake(<a class="el" href="class_object.html">Object</a>, Objects, Type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a798ee6ceb752ddc6cd1624bf28ef706e"></a><!-- doxytag: member="object.h::ObjectList" ref="a798ee6ceb752ddc6cd1624bf28ef706e" args="(object, Object, objects, Objects, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectList</b>(object, <a class="el" href="class_object.html">Object</a>, objects, Objects, Type)&#160;&#160;&#160;ObjectListDef(Objects,Type) ObjectListGetters(object,<a class="el" href="class_object.html">Object</a>,objects,Objects,Type) ObjectListModifiers(<a class="el" href="class_object.html">Object</a>, Objects, Type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f0140d1b7fcc1df10ca30d191d5107c"></a><!-- doxytag: member="object.h::ObjectListD" ref="a0f0140d1b7fcc1df10ca30d191d5107c" args="(init, Init, body, sg, pl, Type)" -->
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListD</b>(init, Init, body, sg, pl, Type)&#160;&#160;&#160;ObjectList(init##body##sg,Init##body##sg,init##body##pl,Init##body##pl,Type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a>(Macro, init, Init, body,...)&#160;&#160;&#160;Macro(init##body, Init##body, ##__VA_ARGS__)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(Macro, init, Init, body)&#160;&#160;&#160;Macro(init##body, Init##body)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a4f05201336d20b10dad322cfbd30c0af">C1</a>(Macro, init, Init, body, arg)&#160;&#160;&#160;Macro(init##body, Init##body, arg)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a65a30247a861dc15363de8b7264e09a6">ProtectFlag</a>(flag)&#160;&#160;&#160;reserved.insert(QString(#flag));</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#ad1f082144869225c63b2194de68e2cd5">SetFlag</a>(flag, value)&#160;&#160;&#160;aFlags[#flag] = value</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)&#160;&#160;&#160;inline bool is##<a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>() const{return aFlags[#flag];}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>(bool flag){<a class="el" href="object_8h.html#ad1f082144869225c63b2194de68e2cd5">SetFlag</a>(flag,flag); touch();}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)&#160;&#160;&#160;<a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>) <a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a444f505d8782523427517f998fdb9e12">ProtectParam</a>(param)&#160;&#160;&#160;reserved.insert(QString(#param));</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">SetParam</a>(param, value)&#160;&#160;&#160;aParams[#param] = value</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a>(param)&#160;&#160;&#160;inline int param() const{return aParams[#param];}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a>(param, <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>)&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>(int param##Value){<a class="el" href="object_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">SetParam</a>(param,param##Value); touch();}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>(param, <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>)&#160;&#160;&#160;<a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a>(param) <a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a>(param, <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;inline Type* attr() const{return a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>;}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>)&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;removeReference();</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>)&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;addReference();</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(Type* new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>){<a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>; <a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); touch();}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a9af19ccbd1471e4daaa056e495734fe5">AttrDef</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;private: Type* a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = nullptr; public:</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)&#160;&#160;&#160;<a class="el" href="object_8h.html#a9af19ccbd1471e4daaa056e495734fe5">AttrDef</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type) <a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>(attr,<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>,Type) <a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a>(type, Type)&#160;&#160;&#160;<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(type, Type, Type)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Definition of the base class <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>, and some inherited classes. </p>
@@ -124,19 +170,720 @@ Data Structures</h2></td></tr>
 <p>To define a new attribute, a global macro can be used in the class declaration. The provided basic implementations keep the object edition synchronization.</p>
 <p>If a cleverer process is needed, custom getter or setter can be implemented, and the getter and setter macros can be used separately to define the obvious methods</p>
 <p>**Provided macros**</p>
-<p>Attribute type | Complete declaration | Getter | Setter -----------------------------|-----------------------|-------------|------------ Flags (bool) | <a class="el" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a> |<a class="el" href="gameobject_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a> |<a class="el" href="gameobject_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a> Parameters (int) | <a class="el" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a> |<a class="el" href="gameobject_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a> |<a class="el" href="gameobject_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a> <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> based Attributes | <a class="el" href="gameobject_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> |<a class="el" href="gameobject_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a> |<a class="el" href="gameobject_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a></p>
+<p>Attribute Type | Complete declaration | Getter | Setter -----------------------------|-----------------------|-------------|------------ Flags (bool) | <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a> |<a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a> |<a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a> Parameters (int) | <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a> |<a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a> |<a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a> <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> based Attributes | <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> |<a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a> |<a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a></p>
 <p>**The case of attributes**</p>
-<p>An additionnal <a class="el" href="gameobject_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a> macro is provided, that deduce a default name from the type.</p>
+<p>An additionnal <a class="el" href="object_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a> macro is provided, that deduce a default name from the type.</p>
 <p>### Name tools</p>
-<p>To make the definition easier and avoid the name repetition that is introduced by the name convention, a <a class="el" href="gameobject_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> macro is provided to construct the names with lower and upper initial letter from theses letter and the end of the name.</p>
+<p>To make the definition easier and avoid the name repetition that is introduced by the name convention, a <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> macro is provided to construct the names with lower and upper initial letter from theses letter and the end of the name.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Baptiste Pauget </dd></dl>
-</div></div><!-- contents -->
+</div><hr/><h2>Define Documentation</h2>
+<a class="anchor" id="a64aa6604561401f0e8e846061093a38f"></a><!-- doxytag: member="object.h::Attr" ref="a64aa6604561401f0e8e846061093a38f" args="(attr, Attr, Type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">attr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Type&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="object_8h.html#a9af19ccbd1471e4daaa056e495734fe5">AttrDef</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type) <a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>(attr,<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>,Type) <a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>(attr, <a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, Type)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The Attr macro defines a new &lt;a<code>Attr&gt;</code> named attribute of type <code>Type</code>, with its generic getter and setter methods.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the parameter's name with lower and upper initial letter case.</p>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(parent,Parent, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+     --&gt;
+     <span class="keyword">private</span>:
+         <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *aParent;
+     <span class="keyword">public</span>:
+         <span class="keyword">inline</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>* parent()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aParent;}
+         <span class="keyword">inline</span> <span class="keywordtype">void</span> setParent(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>* parentObject){aParent = parentObject; touch();}
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a>, <a class="el" href="object_8h.html#a9af19ccbd1471e4daaa056e495734fe5">AttrDef</a>, <a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>, <a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9af19ccbd1471e4daaa056e495734fe5"></a><!-- doxytag: member="object.h::AttrDef" ref="a9af19ccbd1471e4daaa056e495734fe5" args="(Attr, Type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a9af19ccbd1471e4daaa056e495734fe5">AttrDef</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Type&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;private: Type* a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = nullptr; public:</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The AttrDef macro defines a private attribute name &lt;a<code>Attr&gt;</code>.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>To avoid redefinition error, no attribute or method name &lt;a<code>Attr</code> &gt; must exist.</dd></dl>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>This macro is designed to be used in a public part of the class. Please note that inserting this macro in a private or protected part will change the visibility of the next declaration to public.</dd></dl>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(Parent,<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+     --&gt;
+     <span class="keyword">private</span>:
+         <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *aParent;
+     <span class="keyword">public</span>:
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af7f0444b589b5ad4d64229ffbfb5437b"></a><!-- doxytag: member="object.h::AttrFree" ref="af7f0444b589b5ad4d64229ffbfb5437b" args="(Attr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a></td><td>)</td>
+          <td>&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;removeReference();</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The AttrFree macro decrease the number of references of the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> attribut attr. It should be used before the deletion/modifcation of the pointer.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abb51a31972a5cd870c4d8f4f3eada448"></a><!-- doxytag: member="object.h::AttrGetter" ref="abb51a31972a5cd870c4d8f4f3eada448" args="(attr, Attr, Type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">attr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Type&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;inline Type* attr() const{return a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>;}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The AttrGetter macro defines a generic getter method for the attribute named <code>attr</code> of type <code>Type</code>.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the attribute's name with lower and upper initial letter case.</p>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>(parent,Parent,<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+     --&gt; <span class="keyword">inline</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>* parent()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aParent;}
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, <a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a509cabc64fe810c7b9f860b56b5cf59b"></a><!-- doxytag: member="object.h::AttrLink" ref="a509cabc64fe810c7b9f860b56b5cf59b" args="(Attr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a></td><td>)</td>
+          <td>&#160;&#160;&#160;if(a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>) a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>-&gt;addReference();</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The AttrLink macro increase the number of references of the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> attribut attr. It should be used before the saving of a pointer as an attribute.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a076a8c1470b0de69b7dfdf442d9ed949"></a><!-- doxytag: member="object.h::AttrSetter" ref="a076a8c1470b0de69b7dfdf442d9ed949" args="(attr, Attr, Type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">attr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Type&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(Type* new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>){<a class="el" href="object_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">AttrFree</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); a##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> = new##<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>; <a class="el" href="object_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">AttrLink</a>(<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>); touch();}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The AttrSetter macro defines a generic setter method for the attribute named <code>attr</code> of type <code>Type</code>.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the attribute's name with lower and upper initial letter case.</p>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>(parent,Parent,<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+     --&gt; <span class="keyword">inline</span> <span class="keywordtype">void</span> setParent(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>* &amp;parentObject){aParent = parentObject; touch();}
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, <a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab34851071e0bcd61ba26ebc3893a683a"></a><!-- doxytag: member="object.h::AttrT" ref="ab34851071e0bcd61ba26ebc3893a683a" args="(type, Type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Type&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(type, Type, Type)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The AttrT macro defines a new attribute of type <code>Type</code>, named after the type name, with its generic getter and setter methods.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the parameter's type with lower and upper initial letter case.</p>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a>(cellType,<a class="code" href="class_cell_type.html" title="The CellType class.">CellType</a>)
+     --&gt;
+     <span class="keyword">private</span>:
+         <a class="code" href="class_cell_type.html" title="The CellType class.">CellType</a> *aCellType;
+     <span class="keyword">public</span>:
+         <span class="keyword">inline</span> <a class="code" href="class_cell_type.html" title="The CellType class.">CellType</a>* cellType()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aCellType;}
+         <span class="keyword">inline</span> <span class="keywordtype">void</span> setCellType(<a class="code" href="class_cell_type.html" title="The CellType class.">CellType</a>* cellTypeObject){aCellType = cellTypeObject; touch();}
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, <a class="el" href="object_8h.html#a9af19ccbd1471e4daaa056e495734fe5">AttrDef</a>, <a class="el" href="object_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a>, <a class="el" href="object_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af50e2bbaaebe8da60a8d514fca706273"></a><!-- doxytag: member="object.h::C" ref="af50e2bbaaebe8da60a8d514fca706273" args="(Macro, init, Init, body,...)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Macro, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">init, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Init, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">body, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;Macro(init##body, Init##body, ##__VA_ARGS__)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The C macro calls the Macro argument with argument tokens formed by the concatenation of init and body, and Init and body.</p>
+<p>This enables to call a macro with the same argument, with the initial letter in lower and upper case.</p>
+<p>A custom number of arguments can be added after the <code>body</code> one.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>This use of variadic arguments follow the <a href="https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html">gcc specification</a>, but can be not supported by some compilers.</dd>
+<dd>
+As some IDE does not fully support variadic macro expansion, the <a class="el" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a> and <a class="el" href="object_8h.html#a4f05201336d20b10dad322cfbd30c0af">C1</a> macros can be used to avoid some inconvenience due to uncomplete code undersanding.</dd></dl>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a>(<a class="code" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>,w,W,idth)
+     --&gt; <a class="code" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>(width, Width)
+
+ <a class="code" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a>(<a class="code" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>, p,P,arent, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+     --&gt; Attr(parent, Parent, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html">object.h</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9c4adf8b1c7a56a81c6b66945d6ec4d2"></a><!-- doxytag: member="object.h::C0" ref="a9c4adf8b1c7a56a81c6b66945d6ec4d2" args="(Macro, init, Init, body)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Macro, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">init, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Init, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">body&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;Macro(init##body, Init##body)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The C0 macro is equivalent to the <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> macro, with no additional argument.</p>
+<p>This macro is provided to avoid the use of variadic arguments that are currently not totally supported by some IDE. <b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a>(<a class="code" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, v,V,isible)
+     --&gt; <a class="code" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>(visible, Visible)
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a4f05201336d20b10dad322cfbd30c0af">C1</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4f05201336d20b10dad322cfbd30c0af"></a><!-- doxytag: member="object.h::C1" ref="a4f05201336d20b10dad322cfbd30c0af" args="(Macro, init, Init, body, arg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a4f05201336d20b10dad322cfbd30c0af">C1</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Macro, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">init, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Init, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">body, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">arg&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;Macro(init##body, Init##body, arg)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The C1 macro is equivalent to the <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> macro, with one additional argument.</p>
+<p>This macro is provided to avoid the use of variadic arguments that are currently not totally supported by some IDE. <b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a>(Attr, p,P,arent, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+     --&gt; <a class="code" href="object_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a>(parent, Parent, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9ba0b87f0be2ba389283351696aa9f59"></a><!-- doxytag: member="object.h::Flag" ref="a9ba0b87f0be2ba389283351696aa9f59" args="(flag, Flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">flag, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>) <a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>(flag, <a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The Flag macro defines generic getter and setter methods for the flag named <code>flag</code>.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the flag's name with lower and upper initial letter case.</p>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>(visible,Visible)
+     --&gt; <span class="keyword">inline</span> <span class="keywordtype">bool</span> isVisible()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aFlags[<span class="stringliteral">&quot;visible&quot;</span>];}
+         <span class="keyword">inline</span> <span class="keywordtype">void</span> setVisible(<span class="keywordtype">bool</span> visible){aFlags[<span class="stringliteral">&quot;visible&quot;</span>] = visible; touch()}
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a>, <a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afde5dda87eae392282bcbae5db29ca2a"></a><!-- doxytag: member="object.h::FlagGetter" ref="afde5dda87eae392282bcbae5db29ca2a" args="(flag, Flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">flag, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;inline bool is##<a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>() const{return aFlags[#flag];}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The FlagGetter macro defines a generic getter method for the flag named <code>flag</code>.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the flag's name with lower and upper initial letter case.</p>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>The default getter method does not check wether the <code>flag</code> named flag really exist. To avoid runtime access error, it is strongly advice to initialize the flag in the object's contructor, using the setter method or the <a class="el" href="object_8h.html#ad1f082144869225c63b2194de68e2cd5">SetFlag</a> macro.</dd></dl>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a>(visible,Visible)
+     --&gt; <span class="keyword">inline</span> <span class="keywordtype">bool</span> isVisible()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aFlags[<span class="stringliteral">&quot;visible&quot;</span>];}
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, <a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1c9cbf9b06bc4624d68881c7cafa2374"></a><!-- doxytag: member="object.h::FlagSetter" ref="a1c9cbf9b06bc4624d68881c7cafa2374" args="(flag, Flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">flag, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>(bool flag){<a class="el" href="object_8h.html#ad1f082144869225c63b2194de68e2cd5">SetFlag</a>(flag,flag); touch();}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The FlagSetter macro defines a generic setter method for the flag named <code>flag</code>.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the flag's name with lower and upper initial letter case.</p>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>(visible,Visible)
+     --&gt; <span class="keyword">inline</span> <span class="keywordtype">void</span> setVisible(<span class="keywordtype">bool</span> visible){aFlags[<span class="stringliteral">&quot;visible&quot;</span>] = visible; touch()}
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, <a class="el" href="object_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac2415051beaa606375358688bcb8ff37"></a><!-- doxytag: member="object.h::Param" ref="ac2415051beaa606375358688bcb8ff37" args="(param, Param)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">param, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a>(param) <a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a>(param, <a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The Param macro defines generic getter and setter methods for the parameter named <code>param</code>.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the parameter's name with lower and upper initial letter case.</p>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>(width,Width)
+     --&gt; <span class="keyword">inline</span> <span class="keywordtype">int</span> width()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aParams[<span class="stringliteral">&quot;width&quot;</span>];}
+         <span class="keyword">inline</span> <span class="keywordtype">void</span> setWidth(<span class="keywordtype">int</span> widthValue){aParams[<span class="stringliteral">&quot;width&quot;</span>] = widthValue; touch();}
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a>, <a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af9a40c8fc717d608bcb25e9effa6e1f3"></a><!-- doxytag: member="object.h::ParamGetter" ref="af9a40c8fc717d608bcb25e9effa6e1f3" args="(param)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">param</td><td>)</td>
+          <td>&#160;&#160;&#160;inline int param() const{return aParams[#param];}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The ParamGetter macro defines a generic getter method for the parameter named <code>param</code>.</p>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>The default getter method does not check wether the <code>param</code> named parameter really exist. To avoid runtime access error, it is strongly advice to initialize the parameter in the object's contructor, using the setter method or the <a class="el" href="object_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">SetParam</a> macro.</dd></dl>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a>(width)
+     --&gt; <span class="keyword">inline</span> <span class="keywordtype">int</span> width()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aParams[<span class="stringliteral">&quot;width&quot;</span>];}
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>, <a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a40afef3dd9a129b4d02f06bada05ebbb"></a><!-- doxytag: member="object.h::ParamSetter" ref="a40afef3dd9a129b4d02f06bada05ebbb" args="(param, Param)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">param, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;inline void set##<a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>(int param##Value){<a class="el" href="object_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">SetParam</a>(param,param##Value); touch();}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The ParamSetter macro defines a generic setter method for the parameter named <code>param</code>.</p>
+<p>With respect to the <a class="el" href="object_8h.html">name convention</a>, this macro needs the parameter's name with lower and upper initial letter case.</p>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a>(width,Width)
+     --&gt; <span class="keyword">inline</span> <span class="keywordtype">void</span> setWidth(<span class="keywordtype">bool</span> widthValue){aParams[<span class="stringliteral">&quot;width&quot;</span>] = widthValue; touch();}
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>, <a class="el" href="object_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a>, <a class="el" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a65a30247a861dc15363de8b7264e09a6"></a><!-- doxytag: member="object.h::ProtectFlag" ref="a65a30247a861dc15363de8b7264e09a6" args="(flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a65a30247a861dc15363de8b7264e09a6">ProtectFlag</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">flag</td><td>)</td>
+          <td>&#160;&#160;&#160;reserved.insert(QString(#flag));</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The ProtectFlag macro registers the flag named <code>flag</code> as protected  ie it cannot be modified directly in a flag editor (it will not appear).</p>
+<dl class="see"><dt><b>See also:</b></dt><dd>flag, <a class="el" href="object_8h.html#a444f505d8782523427517f998fdb9e12">ProtectParam</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a444f505d8782523427517f998fdb9e12"></a><!-- doxytag: member="object.h::ProtectParam" ref="a444f505d8782523427517f998fdb9e12" args="(param)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a444f505d8782523427517f998fdb9e12">ProtectParam</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">param</td><td>)</td>
+          <td>&#160;&#160;&#160;reserved.insert(QString(#param));</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The ProtectParam macro registers the flag named <code>param</code> as protected  ie it cannot be modified directly in a param editor (it will not appear).</p>
+<dl class="see"><dt><b>See also:</b></dt><dd>param, <a class="el" href="object_8h.html#a65a30247a861dc15363de8b7264e09a6">ProtectFlag</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad1f082144869225c63b2194de68e2cd5"></a><!-- doxytag: member="object.h::SetFlag" ref="ad1f082144869225c63b2194de68e2cd5" args="(flag, value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#ad1f082144869225c63b2194de68e2cd5">SetFlag</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">flag, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">value&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;aFlags[#flag] = value</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Conveniant macro to set a flag directly.</p>
+<p>This is usefull in custom setters, to avoid call loops.</p>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>The <a class="el" href="class_game_object.html#a2130d5674df041b5a7eaf987f9b1e642">touch</a> function isn't called. After this macro use, the <a class="el" href="class_game_object.html">object</a> is no longer synchronised.</dd></dl>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#ad1f082144869225c63b2194de68e2cd5">SetFlag</a>(visible, <span class="keyword">false</span>)
+     --&gt; aFlags[<span class="stringliteral">&quot;visible&quot;</span>] = <span class="keyword">false</span>
+</pre></div> <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, <a class="el" href="object_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a>, <a class="el" href="object_8h.html">object.h</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7ea6e146fa4b193d62fdb8c53bd27c09"></a><!-- doxytag: member="object.h::SetParam" ref="a7ea6e146fa4b193d62fdb8c53bd27c09" args="(param, value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="object_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">SetParam</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">param, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">value&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;aParams[#param] = value</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Conveniant macro to set a param directly.</p>
+<p>This is usefull in custom setters, to avoid call loops.</p>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>The <a class="el" href="class_game_object.html#a2130d5674df041b5a7eaf987f9b1e642">touch</a> function isn't called. After this macro use, the <a class="el" href="class_game_object.html">object</a> is no longer synchronised.</dd></dl>
+<p><b>Example</b> </p>
+<div class="fragment"><pre class="fragment"> {.cpp}
+ <a class="code" href="object_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">SetParam</a>(width, 42)
+     --&gt; aParams[<span class="stringliteral">&quot;width&quot;</span>] = 42
+</pre></div><dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>, <a class="el" href="object_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a>, <a class="el" href="object_8h.html">object.h</a> </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

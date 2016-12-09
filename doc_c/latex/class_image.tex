@@ -19,7 +19,7 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_image_a0a63f452fb75e54d2d801cd88b968fc7}{{\bfseries \-Type\-Name} (\hyperlink{class_image}{\-Image}) \hyperlink{class_image}{\-Image}(\hyperlink{class_game_object}{\-Game\-Object} \&\hyperlink{class_game_object_af3deaf39cde23c189765634e32e95bb4}{parent}}\label{class_image_a0a63f452fb75e54d2d801cd88b968fc7}
+\hypertarget{class_image_ad2943bbacb3aa6ddef591afa8d1b5040}{{\bfseries \-Type\-Name} (\hyperlink{class_image}{\-Image}) \hyperlink{class_image}{\-Image}(\hyperlink{class_game}{\-Game} $\ast$g}\label{class_image_ad2943bbacb3aa6ddef591afa8d1b5040}
 
 \item 
 bool \hyperlink{class_image_a0bc052fef9ea98e416e11af385cd93b4}{is\-Valid} () const 
@@ -36,7 +36,9 @@ bool \hyperlink{class_image_a0bc052fef9ea98e416e11af385cd93b4}{is\-Valid} () con
 \subsection*{\-Data \-Fields}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_image_a6629093512476f5d3b53a2fe19df14f3}{const \-Q\-String \& {\bfseries file\-Name}}\label{class_image_a6629093512476f5d3b53a2fe19df14f3}
+\hyperlink{class_game_object}{\-Game\-Object} $\ast$ \hyperlink{class_image_ae2af89a54e82c3002f0feb8a25ca714b}{a\-Parent}
+\item 
+\hypertarget{class_image_a08fa6983394b27b265a4003088a9365a}{\hyperlink{class_game_object}{\-Game\-Object} const \-Q\-String \& {\bfseries file\-Name}}\label{class_image_a08fa6983394b27b265a4003088a9365a}
 
 \end{DoxyCompactItemize}
 
@@ -55,6 +57,21 @@ bool \hyperlink{class_image_a0bc052fef9ea98e416e11af385cd93b4}{is\-Valid} () con
 \-Checks if the \hyperlink{class_game_object}{\-Game\-Object} is valid and if the image really exists. 
 
 \-Reimplemented from \hyperlink{class_game_object_a88676a10f8e905747f1d64c2da490524}{\-Game\-Object}.
+
+
+
+\subsection{\-Field \-Documentation}
+\hypertarget{class_image_ae2af89a54e82c3002f0feb8a25ca714b}{\index{\-Image@{\-Image}!a\-Parent@{a\-Parent}}
+\index{a\-Parent@{a\-Parent}!Image@{\-Image}}
+\subsubsection[{a\-Parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object}$\ast$ {\bf \-Image\-::a\-Parent}}}\label{class_image_ae2af89a54e82c3002f0feb8a25ca714b}
+\-Constructs a new \hyperlink{class_game_object}{\-Game\-Object} with parent {\ttfamily parent} and the reference to the game {\ttfamily g}.
+
+\begin{DoxyNote}{\-Note}
+\-If these objects cannot be given to the constructor (case of an array of objects), the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} method must be called after the creation to make the \hyperlink{class_game_object}{\-Game\-Object} valid. 
+\end{DoxyNote}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a41d4afe43f955e78ede0bbd4ad8957f8}{\-Game\-Object}.
 
 
 

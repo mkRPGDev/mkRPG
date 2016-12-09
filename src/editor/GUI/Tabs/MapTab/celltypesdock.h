@@ -2,7 +2,7 @@
 #define CELLTYPESLIST_H
 
 #include "ui_celltypesdock.h"
-#include "Docks/bdockwidget.h"
+#include "../Docks/bdockwidget.h"
 #include "Game/ItemModels/mapslistmodel.h"
 
 

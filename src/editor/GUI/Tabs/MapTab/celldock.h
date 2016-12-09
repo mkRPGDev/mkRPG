@@ -2,7 +2,7 @@
 #define CELLDOCK_H
 
 #include "ui_celldock.h"
-#include "Docks/bdockwidget.h"
+#include "../Docks/bdockwidget.h"
 #include "Game/ItemModels/mapslistmodel.h"
 #include "Game/ItemModels/attrtreeitemmodel.h"
 

@@ -1,7 +1,7 @@
 #ifndef OBJECTEDITOR_H
 #define OBJECTEDITOR_H
 
-#include "ui_objecteditor.h"
+#include "ui_objecttab.h"
 #include "tabwidget.h"
 #include "Game/ItemModels/itemmodels.h"
 #include "Game/ItemModels/typeitemmodel.h"
@@ -16,22 +16,22 @@
 
 
 /*!
- * \file objecteditor.h
+ * \file objecttab.h
  * \brief Definition of the ObjectEditor class
  *
  */
 
 
 /*!
- * \brief The ObjectEditor class is the TabWidget that
+ * \brief The ObjectTab class is the TabWidget that
  * provides object edition features
  */
-class ObjectEditor : public TabWidget, private Ui::ObjectEditor
+class ObjectTab : public TabWidget, private Ui::ObjectTab
 {
     Q_OBJECT
 
 public:
-    explicit ObjectEditor(QWidget *parent = 0);
+    explicit ObjectTab(QWidget *parent = 0);
     void setGame(Game *g);
 
 private slots:

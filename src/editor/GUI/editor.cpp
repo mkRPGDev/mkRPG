@@ -10,9 +10,9 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     hidden->setHidden(true);
     connect(tabBar, SIGNAL(currentTabChanged(int)), stackedWidget, SLOT(setCurrentIndex(int)));
 
-    worldEditor = new WorldEditor;
-    mapsEditor = new MapsEditor;
-    objectEditor = new ObjectEditor;
+    worldEditor = new WorldTab;
+    mapsEditor = new MapsTab;
+    objectEditor = new ObjectTab;
 
     addTab(tr("Welcome"), QPixmap(":Icons/main.png"), new Welcome);
     addTab(tr("Game"), QPixmap(":Icons/main.png"), worldEditor);

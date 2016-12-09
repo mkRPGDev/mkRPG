@@ -1,8 +1,8 @@
 #ifndef MAPEDITOR_H
 #define MAPEDITOR_H
 
-#include "ui_mapseditor.h"
-#include "tabwidget.h"
+#include "ui_maptab.h"
+#include "../tabwidget.h"
 #include "celltypesdock.h"
 #include "selectiondock.h"
 #include "celldock.h"
@@ -10,22 +10,22 @@
 
 
 /*!
- * \file mapeditor.h
+ * \file maptab.h
  * \brief Definition of the MapsEditor class
  *
  */
 
 
 /*!
- * \brief The ObjectEditor class is the TabWidget that
+ * \brief The MapTab class is the TabWidget that
  * provides map edition features
  */
-class MapsEditor : public TabWidget, private Ui::MapsEditor
+class MapsTab : public TabWidget, private Ui::MapsTab
 {
     Q_OBJECT
 
 public:
-    explicit MapsEditor(QWidget *parent = 0);
+    explicit MapsTab(QWidget *parent = 0);
     void setGame(Game* g);
 
 public slots:

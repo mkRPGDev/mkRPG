@@ -2,8 +2,8 @@
 #define MAPDOCK_H
 
 #include "ui_mapdock.h"
-#include "Docks/bdockwidget.h"
-#include "mapresizedialog.h"
+#include "../Docks/bdockwidget.h"
+#include "../ObjectEditors/mapresizedialog.h"
 
 
 /*!

@@ -2,7 +2,7 @@
 #define SELECTIONDOCK_H
 
 #include "ui_selectiondock.h"
-#include "Docks/bdockwidget.h"
+#include "../Docks/bdockwidget.h"
 #include "mapviewer.h"
 
 

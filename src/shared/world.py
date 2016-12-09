@@ -21,8 +21,6 @@ def loadGame(path):
         if data_list != 'Actions' and  data_list != 'Interactions':
             for data in parsed_data[data_list]:
                 ident = data.pop('ident')
-                print("Ident is %s" % ident)
-                print("Data is %s" % data)
                 eval(data_list)(ident).load(data, typ=data_list)
 
     world = named["world"]

@@ -72,9 +72,19 @@ void MapPainter::updateViewParameters(){
     centerVarY = std::max(0.,(1-pHeight/fHeight)/2);
     centerX = MINMAX(.5-centerVarX,centerX,.5+centerVarX);
     centerY = MINMAX(.5-centerVarY,centerY,.5+centerVarY);
-    for(int i(0); i<=nbCellsX; ++i)
-        for(int j(0); j<=nbCellsY; ++j)
-            intersec[i+(nbCellsX+1)*j] = cooToPt(ClCoords(i,j));
+    QPointF xy = cooToPt(ClCoords(0,0));
+    QPointF xY = cooToPt(ClCoords(0,nbCellsY));
+    QPointF Xy = cooToPt(ClCoords(nbCellsX,0));
+    QPointF XY = cooToPt(ClCoords(nbCellsX,nbCellsY));
+    for(int i(0); i<=nbCellsX; ++i){
+        QPointF y = (i*Xy + (nbCellsX - i)*xy)/nbCellsX;
+        QPointF Y = (i*XY + (nbCellsX - i)*xY)/nbCellsX;
+        for(int j(0); j<=nbCellsY; ++j){
+            QPointF o = (j*Y + (nbCellsY - j)*y)/nbCellsY;
+            intersec[i+(nbCellsX+1)*j].setX(o.x());
+            intersec[i+(nbCellsX+1)*j].setY(o.y());
+        }
+    }
     cellSize = QSize((-ptToPxl(indToPt(0,1))+ptToPxl(indToPt(1,0))).x()+1.,
                      (-ptToPxl(indToPt(1,1))+ptToPxl(indToPt(0,0))).y()+1.);
     emit viewCenterChanged(QPoint(fWidth*centerX + .5 - pWidth/2., fHeight*centerY + .5 - pHeight/2.));
@@ -125,7 +135,7 @@ void MapPainter::resize(int w, int h){
     updateViewParameters();
 }
 
-QImage& MapPainter::getBackground(CellType *ct){
+QImage& MapPainter::getBackground(const CellType *ct){
     assert(ct != nullptr);
     int id = ct->ident();
     if(scaledCellBackgrounds.contains(id))
@@ -151,13 +161,11 @@ void MapPainter::updateBackground(){
     iMax = std::min(nbCellsX+0.,ptToCoo(pxlToPt(PxCoords(pWidth,0))).x()+1);
     jMin = std::max(0.,ptToCoo(pxlToPt(PxCoords(pWidth,pHeight))).y());
     jMax = std::min(nbCellsY+0.,ptToCoo(pxlToPt(PxCoords(0,0))).y()+1);
-    CellType *ct;
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
-            ct = map->cell(i,j).cellType();
-            if(ct) p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(ct));
+            const CellType &ct(map->cell(i,j).cellType());
+            p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(&ct));
         }
-    return;
     if(displayed & Grid){
         p.setPen(QColor(80,80,80));
         p.setBrush(Qt::NoBrush);
@@ -208,8 +216,8 @@ void MapPainter::paint(QPainter &p){
 }
 
 const QImage& MapPainter::render(){
-    if(map == nullptr) return QImage();
-    updateBackground(); // TODO pas que le fond...
+    if(map == nullptr) im.fill(QColor(0,0,0));
+    else updateBackground(); // TODO pas que le fond...
     return im;
 }
 

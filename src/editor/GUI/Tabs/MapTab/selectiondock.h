@@ -2,8 +2,23 @@
 #define SELECTIONDOCK_H
 
 #include "ui_selectiondock.h"
-#include "Docks/bdockwidget.h"
+#include "../Docks/bdockwidget.h"
 #include "mapviewer.h"
+
+
+
+
+/*!
+ * \file selectiondock.h
+ * \brief Definition of the SelectionDock class.
+ *
+ */
+
+
+/*!
+ * \brief The SelectionDock class provides a BDockWidget to edit
+ * how the \ref "cell" Cell selection behaves.
+ */
 class SelectionDock : public BDockWidget, private Ui::SelectionDock
 {
     Q_OBJECT

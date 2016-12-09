@@ -4,6 +4,20 @@
 #include <QComboBox>
 
 
+
+/*!
+ * \file quietwidgets.h
+ * \brief Definition of the editors that does not emit
+ * signal when their value is changed by setting directly it.
+ *
+ * These classes are usefull to avoid event loops.
+ */
+
+
+/*!
+ * \brief The QuietComboBox class is a QComboBox with a
+ * \ref userChangedCurrentIndex signal.
+ */
 class QuietComboBox : public QComboBox
 {
     Q_OBJECT

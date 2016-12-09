@@ -6,7 +6,7 @@
 // all blocks and unfold the class you want to see. :)
 
 
-/**
+/*!
  * \file mappainter.h
  *
  * \brief Definition of the MapPainter class and other related classes to
@@ -328,7 +328,7 @@ private:
 
     inline void changeBackgroundSize();
     inline void changeBackgroundDistortion();
-    QImage &getBackground(CellType *ct);
+    QImage &getBackground(const CellType *ct);
 
     Map* map;
     Element displayed;

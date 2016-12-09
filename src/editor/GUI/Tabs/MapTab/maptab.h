@@ -1,8 +1,8 @@
-#ifndef MAPSEDITOR_H
-#define MAPSEDITOR_H
+#ifndef MAPEDITOR_H
+#define MAPEDITOR_H
 
-#include "ui_mapseditor.h"
-#include "tabwidget.h"
+#include "ui_maptab.h"
+#include "../tabwidget.h"
 #include "celltypesdock.h"
 #include "selectiondock.h"
 #include "celldock.h"
@@ -10,17 +10,22 @@
 
 
 /*!
- * \brief The MapsEditor class is the tab offering map editing
- * facilities
- *
+ * \file maptab.h
+ * \brief Definition of the MapsEditor class
  *
  */
-class MapsEditor : public TabWidget, private Ui::MapsEditor
+
+
+/*!
+ * \brief The MapTab class is the TabWidget that
+ * provides map edition features
+ */
+class MapsTab : public TabWidget, private Ui::MapsTab
 {
     Q_OBJECT
 
 public:
-    explicit MapsEditor(QWidget *parent = 0);
+    explicit MapsTab(QWidget *parent = 0);
     void setGame(Game* g);
 
 public slots:
@@ -42,4 +47,4 @@ private:
     QList<BDockWidget*> docksW;
 };
 
-#endif // MAPSEDITOR_H
+#endif // MAPEDITOR_H

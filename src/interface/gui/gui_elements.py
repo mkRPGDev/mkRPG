@@ -8,7 +8,7 @@ from pygame.locals import Rect
 from interface.cache import ImageCache
 from interface.utils import debug
 
-guiEvent = IntEnum('guiEvent', 'CLICK MOVE NONE')
+guiEvent = IntEnum('guiEvent', 'CLICK MOVE NONE SCROLL_UP SCROLL_DOWN')
 
 class GUIElement(pygame.sprite.Sprite):
     """ Base class for GUI elements """
@@ -118,8 +118,6 @@ class Container(pygame.sprite.Group):
 
             return result
 
-
-
 class TextField(GUIElement):
     """ Simple text field """
 
@@ -130,6 +128,10 @@ class TextField(GUIElement):
                 text_color : int * int * int * int (R,G,B and alpha values)
                 text_font : string (name of the font file or None)
                 text_align : string (should be "centered", "right" or "left")
+
+            Note : Rendered text won't fit automatically on the given size if
+            it's too big, one should put endlines where needed and a correct
+            size
         """
         super().__init__(style)
         self.text = text
@@ -211,7 +213,57 @@ class TextField(GUIElement):
 
         self.image.blit(self.textRender, (textx, texty))
 
-        return "gui_"+self.my_id
+class ScrollableTextField(GUIElement):
+    """ Scrollable text field (only on y axis) """
+
+    def __init__(self, text, style):
+        """ Style should have the following attributes:
+                size : int * int (required)
+                text_size : int
+                text_color : int * int * int * int (R,G,B and alpha values)
+                text_font : string (name of the font file or None)
+                text_align : string (should be "centered", "right" or "left")
+
+                scroll_step : int (pixels to scroll at each scroll step)
+
+            Note : Rendered text won't fit automatically on the given size if
+            it's too big, one should put endlines where needed
+        """
+        super().__init__(style)
+        self.textField = None # TextField that will be scrolled
+        self.tf_ypos = 0 # relative position in the wrapper
+        self.wrapper = None # pygame.Surface that contain the TextField object
+                            # to be scrolled
+
+        self.build()
+        self.update()
+
+    def build(self):
+        tf_style = style
+        tf_style['size'] = (0,0)
+        self.textfield = TextField(text, tf_style)
+        self.tf_ypos = 0
+
+        self.rect = Rect((0,0), self.style['size'])
+
+    def update(self):
+        self.wrapper = pygame.Surface(self.style['size'], pygame.SRCALPHA)
+        self.wrapper = self.wrapper.convert_alpha()
+
+        self.wrapper.blit(self.textfield, self.tf_ypos)
+        self.image = self.wrapper
+
+    def scroll(self, dz):
+        self.tf_ypos += dz
+
+    def handleEvent(self, event):
+        if event == guiEvent.SCROLL_UP:
+            if self.tf_ypos < 0:
+                self.scroll(-self.style['scroll_step'])
+        elif event == guiEvent.SCROLL_DOWN:
+            if self.tf_ypos > -self.style['size'][1]
+                self.scroll(self.style['scroll_step'])
+
 
 class Button(TextField):
     """ Simple button """
@@ -297,8 +349,6 @@ class Button(TextField):
             self.image.blit(self.textRender, (textx, texty))
 
             ImageCache.init_images([("gui_"+self.my_id+"_"+state, self.image)])
-
-        return "gui_"+self.my_id
 
     def update(self, state="default"):
         """ switch between images depending on state """

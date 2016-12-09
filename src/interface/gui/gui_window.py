@@ -8,7 +8,11 @@ class GUIWindow:
 class GUIWindowView(PygamePlugin):
     """ Viewer of a gui window, pygame client uses instances of this class """
 
-    def __init__(self, guiElement, netPlugin):
+    # TODO : Should build a single GUIElement (probably a
+    #        gui_elements.Container) that represents the window given
+    #        the GUIWindow representation.
+
+    def __init__(self, guiWindow, netPlugin):
         super().__init__(netPlugin)
         self.guiElement = guiElement
 

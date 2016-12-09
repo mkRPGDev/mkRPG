@@ -3,6 +3,9 @@ import pygame
 from heapq import heappush, heappop
 from math import sqrt, cos, sin, pi
 
+def debug(tag, message):
+    print("[%s] %s" % (tag, message))
+
 def load_png(name, scale=1):
         """ Load image and return image object"""
         image = pygame.image.load(name)

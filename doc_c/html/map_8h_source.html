@@ -84,100 +84,133 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define MAP_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="object_8h.html" title="Definition of the base class GameObject, and some inherited classes.">object.h</a>&quot;</span>
-<a name="l00005"></a>00005 
-<a name="l00017"></a><a class="code" href="class_cell_type.html">00017</a> <span class="keyword">class </span><a class="code" href="class_cell_type.html" title="The CellType class.">CellType</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
-<a name="l00018"></a>00018 {
-<a name="l00019"></a>00019 <span class="keyword">public</span>:
-<a name="l00020"></a>00020     TypeName(<a class="code" href="class_cell_type.html" title="The CellType class.">CellType</a>)
-<a name="l00021"></a><a class="code" href="class_cell_type.html#a7ac20d29216624b54218a54bde6593f2">00021</a>     <a class="code" href="class_cell_type.html" title="The CellType class.">CellType</a>(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *g, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *<a class="code" href="class_cell_type.html#a7ac20d29216624b54218a54bde6593f2">aParent</a>);
-<a name="l00022"></a>00022     <a class="code" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="object_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a>, i,I,mage)
-<a name="l00023"></a>00023     <a class="code" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="object_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>,w,W,alkable)
-<a name="l00024"></a>00024 private:
-<a name="l00025"></a>00025 
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;QMutex&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;QMutexLocker&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00016"></a>00016 <span class="keyword">class </span><a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a>;
+<a name="l00020"></a><a class="code" href="class_cell_type.html">00020</a> <span class="keyword">class </span><a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> : <span class="keyword">public</span> <a class="code" href="class_type.html" title="The Type class represent a type of object.">Type</a>&lt;CellType&gt;
+<a name="l00021"></a>00021 {
+<a name="l00022"></a>00022 <span class="keyword">public</span>:
+<a name="l00023"></a>00023     TypeName(<a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a>)
+<a name="l00024"></a>00024     <a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a>(<a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> &amp;<a class="code" href="class_inheritable_object.html#ac87a3c55ca4be252c527a29fe162bb15">ancestor</a>);
+<a name="l00025"></a>00025     <a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a>(<a class="code" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);
 <a name="l00026"></a>00026 
-<a name="l00027"></a>00027 };
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a>, i,I,mage)
+<a name="l00029"></a>00029     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>,w,W,alkable)
+<a name="l00030"></a>00030 <span class="keyword">private</span>:
 <a name="l00031"></a>00031 
-<a name="l00035"></a><a class="code" href="map_8h.html#a1da99354662deb7f8f42e6ae45e03781">00035</a> <span class="preprocessor">#define forCells(i) int nbCell = width()*height(); for(int i(0); i&lt;nbCell; ++i)</span>
-<a name="l00036"></a>00036 <span class="preprocessor"></span>
-<a name="l00040"></a><a class="code" href="class_cell.html">00040</a> <span class="keyword">class </span><a class="code" href="class_cell.html" title="The Cell class.">Cell</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
-<a name="l00041"></a>00041 {
-<a name="l00042"></a>00042 <span class="keyword">public</span>:
-<a name="l00043"></a>00043     TypeName(<a class="code" href="class_cell.html" title="The Cell class.">Cell</a>)
-<a name="l00044"></a><a class="code" href="class_cell.html#ab1ecd1ed6ff618f6a7195f817bc0cef2">00044</a>     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>* g = nullptr, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *aParent = nullptr);
-<a name="l00045"></a>00045     <span class="keywordtype">bool</span> isSelected() const;
-<a name="l00046"></a>00046     <span class="keywordtype">void</span> setSelected(<span class="keywordtype">bool</span> s = true);
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> invertSelected();
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050     <span class="keywordtype">void</span> addSelection();
-<a name="l00051"></a>00051     <span class="keywordtype">bool</span> isPreSelected() const;
-<a name="l00052"></a>00052     <span class="keywordtype">void</span> confirmPreSelection(<span class="keywordtype">bool</span> add = true);
-<a name="l00053"></a>00053     <span class="keywordtype">void</span> clearPreSelection();
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056     <a class="code" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(Flag, a,A,ccessible)
+<a name="l00032"></a>00032 };
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 
+<a name="l00042"></a><a class="code" href="class_cell.html">00042</a> <span class="keyword">class </span><a class="code" href="class_cell.html" title="The Cell class.">Cell</a> : <span class="keyword">public</span> <a class="code" href="class_typed_object.html" title="The TypedObject class is the base class for GameObject with a mutable Type.">TypedObject</a>&lt;CellType&gt;
+<a name="l00043"></a>00043 {
+<a name="l00044"></a>00044 <span class="keyword">public</span>:
+<a name="l00045"></a>00045     TypeName(<a class="code" href="class_cell.html" title="The Cell class.">Cell</a>)
+<a name="l00046"></a>00046     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>(<a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> &amp;type, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     <span class="keywordtype">bool</span> isSelected() <span class="keyword">const</span>;
+<a name="l00049"></a>00049     <span class="keywordtype">void</span> setSelected(<span class="keywordtype">bool</span> s = <span class="keyword">true</span>);
+<a name="l00050"></a>00050     <span class="keywordtype">void</span> invertSelected();
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053     <span class="keywordtype">void</span> addSelection();
+<a name="l00054"></a>00054     <span class="keywordtype">bool</span> isPreSelected() <span class="keyword">const</span>;
+<a name="l00055"></a>00055     <span class="keywordtype">void</span> confirmPreSelection(<span class="keywordtype">bool</span> add = <span class="keyword">true</span>);
+<a name="l00056"></a>00056     <span class="keywordtype">void</span> clearPreSelection();
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058     <a class="code" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(AttrT,c,<a class="code" href="object_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a>,ellType)
-<a name="l00059"></a>00059     ObjectListD(o,O,bject,,s,<a class="code" href="class_object.html" title="The Object class.">Object</a>)
+<a name="l00058"></a>00058     <span class="keyword">const</span> <a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> &amp;cellType() <span class="keyword">const</span>;
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> setCellType(<a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> &amp;type);
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061 <span class="comment">//    ObjectsMap(c,o,O,bject,,s)</span>
-<a name="l00062"></a>00062 private:
-<a name="l00063"></a>00063     <span class="keywordtype">bool</span> select;
-<a name="l00064"></a>00064     <span class="keywordtype">int</span> nbSel;
-<a name="l00065"></a>00065     <span class="keywordtype">bool</span> selectMod;
-<a name="l00066"></a>00066 };
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069 
-<a name="l00073"></a><a class="code" href="class_map.html">00073</a> class <a class="code" href="class_map.html" title="The Map class.">Map</a> : public <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
-<a name="l00074"></a>00074 {
-<a name="l00075"></a>00075 <span class="keyword">public</span>:
-<a name="l00076"></a>00076     TypeName(<a class="code" href="class_map.html" title="The Map class.">Map</a>)
-<a name="l00077"></a><a class="code" href="class_map.html#ac0d4bf203db2a4372ea6923729f978f1">00077</a>     <a class="code" href="class_map.html" title="The Map class.">Map</a>(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>* g, GameObject *aParent);
-<a name="l00078"></a>00078     ~<a class="code" href="class_map.html" title="The Map class.">Map</a>();
+<a name="l00061"></a>00061     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, a,A,ccessible)
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063     ObjectListD(o,O,bject,,s,<a class="code" href="class_object.html" title="The Object class.">Object</a>)
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065 <span class="comment">//    ObjectsMap(c,o,O,bject,,s)</span>
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="comment">// TODO destruction</span>
+<a name="l00068"></a>00068     <span class="keyword">static</span> <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>* cellArray(<a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> &amp;type, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;parent, <span class="keywordtype">int</span> n);
+<a name="l00069"></a>00069 <span class="keyword">private</span>:
+<a name="l00070"></a>00070     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>();
+<a name="l00071"></a>00071     <span class="keywordtype">bool</span> select;
+<a name="l00072"></a>00072     <span class="keywordtype">int</span> nbSel;
+<a name="l00073"></a>00073     <span class="keywordtype">bool</span> selectMod;
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075     <span class="keyword">static</span> QMutex sync;
+<a name="l00076"></a>00076     <span class="keyword">static</span> <a class="code" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> *defaultCellType;
+<a name="l00077"></a>00077     <span class="keyword">static</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *defaultParent;
+<a name="l00078"></a>00078 };
 <a name="l00079"></a>00079 
-<a name="l00080"></a>00080     <span class="keywordtype">int</span> width() const;
-<a name="l00081"></a>00081     <span class="keywordtype">int</span> height() const;
-<a name="l00082"></a>00082     QSize size()<span class="keyword"> const</span>{<span class="keywordflow">return</span> QSize(width(),height());}
-<a name="l00083"></a>00083     <span class="keywordtype">void</span> setWidth(<span class="keywordtype">int</span> w);
-<a name="l00084"></a>00084     <span class="keywordtype">void</span> setHeight(<span class="keywordtype">int</span> h);
-<a name="l00085"></a>00085     <span class="keywordtype">void</span> resize(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);
-<a name="l00086"></a>00086     <a class="code" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>,a,A,ngleX)
-<a name="l00087"></a>00087     <a class="code" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="object_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>,a,A,ngleY)
-<a name="l00088"></a>00088     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>&amp; cell(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j) const;
-<a name="l00089"></a>00089     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>&amp; cell(const QPoint &amp;p) const;
-<a name="l00090"></a>00090     <span class="keywordtype">void</span> selectAll();
-<a name="l00091"></a>00091     <span class="keywordtype">void</span> unSelectAll();
-<a name="l00092"></a>00092 
-<a name="l00093"></a>00093     <a class="code" href="object_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(Flag, i,I,nutile)
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096     <span class="keywordtype">void</span> confirmPreSelection(<span class="keywordtype">bool</span> add = true);
-<a name="l00097"></a>00097     <span class="keywordtype">void</span> clearPreSelection();
-<a name="l00098"></a>00098     QList&lt;<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>*&gt; <a class="code" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">children</a>() const;
+<a name="l00080"></a>00080 <span class="comment">/*class MapType;</span>
+<a name="l00081"></a>00081 <span class="comment">class MapType : public Type&lt;MapType&gt;</span>
+<a name="l00082"></a>00082 <span class="comment">{</span>
+<a name="l00083"></a>00083 <span class="comment"></span>
+<a name="l00084"></a>00084 <span class="comment">};*/</span>
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089 <span class="keyword">class </span><a class="code" href="class_map_type.html">MapType</a>;
+<a name="l00090"></a><a class="code" href="class_map_type.html">00090</a> <span class="keyword">class </span><a class="code" href="class_map_type.html">MapType</a> : <span class="keyword">public</span> <a class="code" href="class_type.html" title="The Type class represent a type of object.">Type</a>&lt;MapType&gt;
+<a name="l00091"></a>00091 {
+<a name="l00092"></a>00092 <span class="keyword">public</span>:
+<a name="l00093"></a>00093     TypeName(<a class="code" href="class_map_type.html">MapType</a>)
+<a name="l00094"></a>00094     <a class="code" href="class_map_type.html">MapType</a>(<a class="code" href="class_map_type.html">MapType</a> &amp;<a class="code" href="class_inheritable_object.html#ac87a3c55ca4be252c527a29fe162bb15">ancestor</a>);
+<a name="l00095"></a>00095     <a class="code" href="class_map_type.html">MapType</a>(<a class="code" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);
+<a name="l00096"></a>00096     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>,a,A,ngleX)
+<a name="l00097"></a>00097     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>,a,A,ngleY)
+<a name="l00098"></a>00098 };
 <a name="l00099"></a>00099 
-<a name="l00100"></a>00100 private:
-<a name="l00101"></a>00101     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>* cells;
-<a name="l00102"></a>00102     <span class="keywordtype">int</span> wi,he;
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 };
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109 
-<a name="l00110"></a>00110 
-<a name="l00111"></a>00111 <span class="preprocessor">#endif // MAP_H</span>
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102 
+<a name="l00106"></a><a class="code" href="map_8h.html#a1da99354662deb7f8f42e6ae45e03781">00106</a> <span class="preprocessor">#define forCells(i) int nbCell = width()*height(); for(int i(0); i&lt;nbCell; ++i)</span>
+<a name="l00107"></a>00107 <span class="preprocessor"></span>
+<a name="l00111"></a><a class="code" href="class_map.html">00111</a> <span class="keyword">class </span><a class="code" href="class_map.html" title="The Map class.">Map</a> : <span class="keyword">public</span> <a class="code" href="class_typed_object.html" title="The TypedObject class is the base class for GameObject with a mutable Type.">TypedObject</a>&lt;MapType&gt;
+<a name="l00112"></a>00112 {
+<a name="l00113"></a>00113 <span class="keyword">public</span>:
+<a name="l00114"></a>00114     TypeName(<a class="code" href="class_map.html" title="The Map class.">Map</a>)
+<a name="l00115"></a>00115     <a class="code" href="class_map.html" title="The Map class.">Map</a>(<a class="code" href="class_map_type.html">MapType</a> &amp;type, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);
+<a name="l00116"></a>00116     ~<a class="code" href="class_map.html" title="The Map class.">Map</a>();
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118     <span class="keywordtype">int</span> width() <span class="keyword">const</span>;
+<a name="l00119"></a>00119     <span class="keywordtype">int</span> height() <span class="keyword">const</span>;
+<a name="l00120"></a>00120     QSize size()<span class="keyword"> const</span>{<span class="keywordflow">return</span> QSize(width(),height());}
+<a name="l00121"></a>00121     <span class="keywordtype">void</span> setWidth(<span class="keywordtype">int</span> w);
+<a name="l00122"></a>00122     <span class="keywordtype">void</span> setHeight(<span class="keywordtype">int</span> h);
+<a name="l00123"></a>00123     <span class="keywordtype">void</span> resize(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);
+<a name="l00124"></a>00124     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>,a,A,ngleX)
+<a name="l00125"></a>00125     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a>,a,A,ngleY)
+<a name="l00126"></a>00126     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>&amp; <a class="code" href="class_map.html#a6c94b3e99490efa0f170db132dc9f5b8">cell</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j) <span class="keyword">const</span>;                     
+<a name="l00129"></a>00129     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>&amp; <a class="code" href="class_map.html#a6c94b3e99490efa0f170db132dc9f5b8">cell</a>(<span class="keyword">const</span> QPoint &amp;p) <span class="keyword">const</span>;                  
+<a name="l00132"></a>00132     <span class="keywordtype">void</span> <a class="code" href="class_map.html#a16aea6b5c9de3a26b094d964885b33b7">selectAll</a>();                                   
+<a name="l00137"></a>00137     <span class="keywordtype">void</span> <a class="code" href="class_map.html#a5b85190575503a09c5c6de012da64f7c">unSelectAll</a>();                                 
+<a name="l00145"></a>00145     <span class="keywordtype">void</span> <a class="code" href="class_map.html#a89cab58d82e08dacfe0b97899bab5501">confirmPreSelection</a>(<span class="keywordtype">bool</span> add = <span class="keyword">true</span>);          
+<a name="l00150"></a>00150     <span class="keywordtype">void</span> <a class="code" href="class_map.html#a0a637f44f0a59c3a67b6a507ae710c7f">clearPreSelection</a>();                           
+<a name="l00155"></a>00155     QList&lt;GameObject*&gt; <a class="code" href="class_map.html#a939817aa7f5c9e81d3d2b1a42d9403e7">children</a>() <span class="keyword">const</span>;                
+<a name="l00163"></a>00163 <span class="keyword">private</span>:
+<a name="l00164"></a>00164     <a class="code" href="class_cell.html" title="The Cell class.">Cell</a>* cells;
+<a name="l00165"></a>00165     <span class="keywordtype">int</span> wi,he;
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167 };
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169 
+<a name="l00170"></a>00170 
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174 <span class="preprocessor">#endif // MAP_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

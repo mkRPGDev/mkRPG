@@ -1,0 +1,56 @@
+\hypertarget{class_typed_object}{\section{\-Typed\-Object$<$ \-T $>$ \-Class \-Template \-Reference}
+\label{class_typed_object}\index{\-Typed\-Object$<$ T $>$@{\-Typed\-Object$<$ T $>$}}
+}
+
+
+\-The \hyperlink{class_typed_object}{\-Typed\-Object} class is the base class for \hyperlink{class_game_object}{\-Game\-Object} with a mutable \hyperlink{class_type}{\-Type}.  
+
+
+
+
+{\ttfamily \#include $<$typedobject.\-hxx$>$}
+
+\-Inheritance diagram for \-Typed\-Object$<$ \-T $>$\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_typed_object}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_typed_object_a10319b334d59e8c51a05f56b37001381}{{\bfseries \-Typed\-Object} (\-T \&type, \hyperlink{class_game_object}{\-Game\-Object} \&\hyperlink{class_game_object_af3deaf39cde23c189765634e32e95bb4}{parent})}\label{class_typed_object_a10319b334d59e8c51a05f56b37001381}
+
+\item 
+\hypertarget{class_typed_object_a04c82b45381b20f0223452a43eabfeec}{const \-T \& {\bfseries object\-Type} () const }\label{class_typed_object_a04c82b45381b20f0223452a43eabfeec}
+
+\item 
+\hypertarget{class_typed_object_a0ece67a4e69c1cb1c127e2316236f8a3}{void {\bfseries set\-Object\-Type} (\-T \&type)}\label{class_typed_object_a0ece67a4e69c1cb1c127e2316236f8a3}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_typed_object_abcc7402b391c4831a78a008ecd37d937}{const \-T $\ast$ {\bfseries a\-Object\-Type}}\label{class_typed_object_abcc7402b391c4831a78a008ecd37d937}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\subsubsection*{template$<$class \-T$>$class Typed\-Object$<$ T $>$}
+
+\-The \hyperlink{class_typed_object}{\-Typed\-Object} class is the base class for \hyperlink{class_game_object}{\-Game\-Object} with a mutable \hyperlink{class_type}{\-Type}. 
+
+\-It adds to \hyperlink{class_inheritable_object}{\-Inheritable\-Object} the guarranty that the object has a type, with a constrain on it defined by le {\ttfamily class} {\ttfamily \-T} template argument.
+
+\begin{DoxyNote}{\-Note}
+\-The {\ttfamily class} {\ttfamily \-T} template argument has to be inherited from \hyperlink{class_type}{\-Type}. (the application won't compile otherwise)
+\end{DoxyNote}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_cell}{\-Cell}, \hyperlink{class_object}{\-Object} 
+\end{DoxySeeAlso}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/editor/\-Game/\hyperlink{typedobject_8hxx}{typedobject.\-hxx}\end{DoxyCompactItemize}

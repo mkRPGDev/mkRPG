@@ -21,7 +21,8 @@ ObjectTab::ObjectTab(QWidget *parent) :
     objects->setModel(objectsModel);
     objects->setColumnWidth(0, objects->width()/2);
     types->setModel(typesModel);
-
+    edit = new QWidget();
+    editor->layout()->addWidget(edit);
 
     connect(objects->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
             this, SLOT(currentElementChanged(QModelIndex)));
@@ -32,7 +33,7 @@ ObjectTab::ObjectTab(QWidget *parent) :
 void ObjectTab::setGame(Game *g){
     paramsModel->setObject(nullptr);
     flagsModel->setObject(nullptr);
-    objectsModel->setGame(g);
+    objectsModel->setGameObject(g);
     typesModel->setGame(g);
     params->expandView();
     flags->expandView();
@@ -49,6 +50,10 @@ void ObjectTab::currentElementChanged(const QModelIndex &ind){
     newFlag->setEnabled(currentObject != nullptr);
     paramsModel->setObject(currentObject);
     flagsModel->setObject(currentObject);
+    QWidget *newEdit = GameObjectEditor::editor(*currentObject);
+    editor->layout()->replaceWidget(edit, newEdit);
+    delete edit;
+    edit = newEdit;
     if(dynamic_cast<InheritableObject*>(currentObject) != nullptr){
         for(int i(0); i<paramsModel->rowCount(QModelIndex()); ++i){
             params->setFirstColumnSpanned(i, QModelIndex(), true);

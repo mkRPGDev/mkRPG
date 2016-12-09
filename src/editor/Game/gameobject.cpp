@@ -332,7 +332,7 @@ GameObjectType::~GameObjectType(){
         ancestorType->removeDescendant(*this);
 }
 
-const QList<GameObjectType*> GameObjectType::descendants() const{
+const QList<GameObjectType*> &GameObjectType::descendants() const{
     return descendantTypes;
 }
 

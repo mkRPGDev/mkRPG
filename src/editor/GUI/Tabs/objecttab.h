@@ -8,6 +8,7 @@
 #include "Game/ItemModels/mapslistmodel.h"
 #include "Game/ItemModels/attrtreeitemmodel.h"
 #include "itemdelegates.h"
+#include "ObjectEditors/gameobjecteditor.h"
 
 
 #include <QSplitter>
@@ -48,6 +49,8 @@ private:
     ObjectsTreeModel *objectsModel;
     TypeItemModel *typesModel;
     GameObject *currentObject;
+
+    QWidget *edit;
 
 };
 

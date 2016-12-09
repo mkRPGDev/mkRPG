@@ -14,7 +14,7 @@
    <string>Map resizing</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../Icons/ressources.qrc">
+   <iconset resource="../../../Icons/ressources.qrc">
     <normaloff>:/Icons/main.png</normaloff>:/Icons/main.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0">
@@ -164,7 +164,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../Icons/ressources.qrc"/>
+  <include location="../../../Icons/ressources.qrc"/>
  </resources>
  <connections>
   <connection>

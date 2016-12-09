@@ -20,8 +20,8 @@ class ObjectsTreeModel : public QAbstractItemModel
 {
 public:
     explicit ObjectsTreeModel(QObject *parent = nullptr);
-    explicit ObjectsTreeModel(Game *g, QObject *parent = nullptr);
-    void setGame(Game *g);
+    explicit ObjectsTreeModel(GameObject *o, QObject *parent = nullptr);
+    void setGameObject(GameObject *o);
     int columnCount(const QModelIndex &) const;
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
@@ -32,7 +32,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
 
 private:
-    Game *game;
+    GameObject *obj;
 };
 
 #endif // ITEMMODELS_H

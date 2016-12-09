@@ -33,7 +33,16 @@ public:
     {}
     Type(T &ancestor) :
         GameObjectType(ancestor)
-    {}
+    {
+        ancestor.typedDescendants.append(static_cast<T*>(this));
+    }
+
+    const QList<T*> &descendants() const{
+        return typedDescendants;
+    }
+
+private:
+    QList<T*> typedDescendants;
 };
 
 /*!

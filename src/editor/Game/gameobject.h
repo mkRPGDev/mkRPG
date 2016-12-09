@@ -848,7 +848,7 @@ protected:
     GameObjectType(GameObjectType &ancestor);
     virtual ~GameObjectType();
 public:
-    const QList<GameObjectType*> descendants() const; /**<
+    const QList<GameObjectType *> &descendants() const; /**<
      * Returns the list of types that inherite from the current instance.
      */
 private:

@@ -30,10 +30,11 @@ public slots:
     void selectionChanged();
 
 private slots:
-    void on_cellTypes_userChangedCurrentIndex(int i);
+    void on_cellTypes_userChangedCurrentIndex(int k);
 
 private:
     Map *map;
+    CellTypeListModel *typesModel;
     ParamTreeItemModel *paramModel;
     FlagTreeItemModel *flagsModel;
 };

@@ -164,7 +164,8 @@ void MapPainter::updateBackground(){
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
             const CellType &ct(map->cell(i,j).cellType());
-            p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(&ct));
+            if(ct.image())
+                p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(&ct));
         }
     if(displayed & Grid){
         p.setPen(QColor(80,80,80));

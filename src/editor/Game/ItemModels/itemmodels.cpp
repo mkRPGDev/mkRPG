@@ -6,17 +6,17 @@
 ObjectsTreeModel::ObjectsTreeModel(QObject *parent) :
     QAbstractItemModel(parent)
 {
-    game = nullptr;
+    obj = nullptr;
 }
 
-ObjectsTreeModel::ObjectsTreeModel(Game *g, QObject *parent) :
+ObjectsTreeModel::ObjectsTreeModel(GameObject *o, QObject *parent) :
     ObjectsTreeModel(parent)
 {
-    setGame(g);
+    setGameObject(o);
 }
 
-void ObjectsTreeModel::setGame(Game *g){
-    game = g;
+void ObjectsTreeModel::setGameObject(GameObject *o){
+    obj = o;
 }
 
 int ObjectsTreeModel::columnCount(const QModelIndex &) const{
@@ -24,7 +24,7 @@ int ObjectsTreeModel::columnCount(const QModelIndex &) const{
 }
 
 int ObjectsTreeModel::rowCount(const QModelIndex &parent) const{
-    return parent.isValid() ? static_cast<GameObject*>(parent.internalPointer())->children().length() : game->children().length();
+    return parent.isValid() ? static_cast<GameObject*>(parent.internalPointer())->children().length() : obj->children().length();
 }
 
 QVariant ObjectsTreeModel::data(const QModelIndex &index, int role) const{
@@ -41,7 +41,7 @@ QVariant ObjectsTreeModel::data(const QModelIndex &index, int role) const{
 
 QModelIndex ObjectsTreeModel::index(int row, int column, const QModelIndex &parent) const{
     //qDebug() << "index" << row << column;
-    GameObject *parentItem(parent.isValid() ? static_cast<GameObject*>(parent.internalPointer()) : game);
+    GameObject *parentItem(parent.isValid() ? static_cast<GameObject*>(parent.internalPointer()) : obj);
     //if(!hasIndex(row, column, parent)) return QModelIndex();
 
     GameObject *childItem = parentItem->children().at(row);

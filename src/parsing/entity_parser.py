@@ -43,7 +43,16 @@ def parse_entity(entity_element):
     if name is None:
         # No name, exit now and alert the user.
         parsing_utils.fail_not_found("name")
-    answer = {'name': name, 'type' : "Entity"}
+    _ident = entity_element.find("Ident")
+    if _ident is None:
+        # No identifier, exit and alert the user.
+        parsing_utils.fail_not_found("Ident")
+    #The minimum expected for an entitiy
+    answer = {
+        'name': name,
+        'type' : "Entity",
+        "ident": parsing_utils.format_type(_ident.text)
+    }
     _params = entity_element.find('Params')
     if _params is None:
         parsing_utils.fail_not_found("Params")

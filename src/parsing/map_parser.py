@@ -16,6 +16,10 @@ def parse_cell(cell_object):
     name = cell_object.attrib.get('name')
     if name:
         answer.update({'name': name})
+    _ident = cell_object.find("Ident")
+    if _ident is None:
+        parsing_utils.fail_not_found("Ident")
+    answer.update({"ident": parsing_utils.format_type(_ident.text)})
     cell_params = cell_object.find('Params')
     answer.update({'params' : {}})
     for param in cell_params.getchildren():
@@ -46,6 +50,12 @@ def map_parser(map_xml):
     root = parsing_utils.try_open_and_parse(map_xml)
     name = root.attrib['name']
     answer = {'name': name}
+
+    _ident = root.find("Ident")
+    if _ident is None:
+        parsing_utils.fail_not_found("Ident")
+    answer.update({"ident": parsing_utils.format_type(_ident.text)})
+
     params = root.find("Params")
     answer.update({'params' : {}})
     for _param in params.getchildren():

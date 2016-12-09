@@ -20,7 +20,10 @@ def loadGame(path):
     for data_list in parsed_data:
         if data_list != 'Actions' and  data_list != 'Interactions':
             for data in parsed_data[data_list]:
-                eval(data_list)().load(data, typ=data_list)
+                ident = data.pop('ident')
+                print("Ident is %s" % ident)
+                print("Data is %s" % data)
+                eval(data_list)(ident).load(data, typ=data_list)
 
     world = named["world"]
     for m in world.maps:
@@ -29,14 +32,14 @@ def loadGame(path):
 
 class Object:
     """ Tout objet du monde """
-    ident = 0
     ids = {} # liste si sans deletion
 
-    def __init__(self):
-        Object.ident += 1
-        Object.ids[Object.ident] = self
+    def __init__(self, ident=None):
+        if ident is None:
+            ident = len(ids)+1
+        Object.ids[ident] = self
         self.params = {} # Ne pas déplacer =)
-        self.ident = Object.ident
+        self.ident = ident
 
         self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
 
@@ -81,9 +84,11 @@ class Object:
                             toResolve.append((sub_data['id'], data_collected, len(data_collected)))
                             data_collected.append(None)
                         else:
-                            data_collected.append(class_type().load(sub_data))
+                            ident = class_type.pop("ident")
+                            data_collected.append(class_type(ident).load(sub_data))
                 elif typ and type(eval(typ))==type and 'name' in data[key]:
-                    eval(typ)().load(data[key], typ)
+                    ident = data[key]['ident']
+                    eval(typ)(ident).load(data[key], typ)
 
             if 'name' in data.keys():
                 named[data['name']] = self
@@ -108,13 +113,13 @@ class Object:
 
 class ObjectType(Object):
     """ Les types d'objets (au sens informatique) """
-    def __init__(self, typ = Object):
-        super().__init__()
+    def __init__(self, ident=None, typ = Object):
+        super().__init__(ident)
         self.type = typ
 
     def create(self):
         """ Instanticiation d'un objet à partir du type """
-        instance = self.type()
+        instance = self.type(self.ident)
         instance.type = self
         for p,v in self.params.items():
             instance.params[p] = v
@@ -122,16 +127,16 @@ class ObjectType(Object):
 
 
 class World(Object):
-    def __init__(self):
-        Object.__init__(self)
+    def __init__(self, ident=None):
+        Object.__init__(self, ident)
         self.maps = [] # une liste c'est mieux non ?
         self.entities = []
         self.objects = []
 
 
 class Map(Object):
-    def __init__(self):
-        Object.__init__(self)
+    def __init__(self, ident=None):
+        Object.__init__(self, ident)
         self.cells = []
 
     def fill(self):
@@ -188,22 +193,22 @@ class Map(Object):
                     if x in range(self.width) and y in range(self.height):
                         yield self.cellsGrid[x][y]
                     x+=dx; y+=dy
-            x+=1 
-        
+            x+=1
+
 class Cell(Object):
-    def __init__(self):
-        Object.__init__(self)
+    def __init__(self, ident=None):
+        Object.__init__(self, ident)
         self.entities = []
         self.objects = []
-        
+
 class Entity(Object):
-    def __init__(self):
-        Object.__init__(self)
+    def __init__(self, ident=None):
+        Object.__init__(self, ident)
         self.quests = []
         self.inventory = []
         self.user = None
 
-    
+
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":Object,
        "types":ObjectType, "inventory":Object, "quests":Object}
 

@@ -18,6 +18,7 @@ def parse_world(world_file):
     entities = root.find('Entities')
     objects = root.find('Objects')
     maps = root.find('Maps')
+    ident = root.find("Ident")
     params_dict = {}
     entities_list = []
     objects_list = []
@@ -42,6 +43,7 @@ def parse_world(world_file):
         'Entities': entities_list,
         'params': params_dict,
         'Objects': objects_list,
-        'Maps': maps_list
+        'Maps': maps_list,
+        'ident' : parsing_utils.format_type(ident.text)
     }
 

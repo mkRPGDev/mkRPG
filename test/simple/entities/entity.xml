@@ -1,9 +1,9 @@
 <Entities>
     <Entity name="moi">
+        <Ident>1</Ident>
         <Params>
             <dir>2</dir>
             <picture>88</picture>
-
             <x>15</x>
             <y>15</y>
             <case id="cell0"/>

@@ -1,11 +1,11 @@
-#include "objecteditor.h"
+#include "objecttab.h"
 
 
 
 
 
 
-ObjectEditor::ObjectEditor(QWidget *parent) :
+ObjectTab::ObjectTab(QWidget *parent) :
     TabWidget(parent), currentObject(nullptr)
 {
     setupUi(this);
@@ -29,7 +29,7 @@ ObjectEditor::ObjectEditor(QWidget *parent) :
 //    params->verticalHeader()->setModel(paramHeader);
 }
 
-void ObjectEditor::setGame(Game *g){
+void ObjectTab::setGame(Game *g){
     paramsModel->setObject(nullptr);
     flagsModel->setObject(nullptr);
     objectsModel->setGame(g);
@@ -43,7 +43,7 @@ void ObjectEditor::setGame(Game *g){
 }
 
 
-void ObjectEditor::currentElementChanged(const QModelIndex &ind){
+void ObjectTab::currentElementChanged(const QModelIndex &ind){
     currentObject = static_cast<GameObject*>(ind.internalPointer());
     newParam->setEnabled(currentObject != nullptr);
     newFlag->setEnabled(currentObject != nullptr);
@@ -66,7 +66,7 @@ void ObjectEditor::currentElementChanged(const QModelIndex &ind){
 }
 
 
-void ObjectEditor::on_newParam_clicked(){
+void ObjectTab::on_newParam_clicked(){
     if(currentObject != nullptr){
         QList<QString> p(currentObject->params());
         QString name(tr("new_param"));
@@ -80,7 +80,7 @@ void ObjectEditor::on_newParam_clicked(){
 }
 
 
-void ObjectEditor::on_newFlag_clicked(){
+void ObjectTab::on_newFlag_clicked(){
     if(currentObject != nullptr){
         QList<QString> p(currentObject->flags());
         QString name(tr("new_flag"));

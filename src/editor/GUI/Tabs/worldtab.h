@@ -1,29 +1,29 @@
-#ifndef WORLDEDITOR_H
-#define WORLDEDITOR_H
+#ifndef WORLDTAB_H
+#define WORLDTAB_H
 
-#include "ui_worldeditor.h"
+#include "ui_worldtab.h"
 #include "tabwidget.h"
 #include "Game/ItemModels/mapslistmodel.h"
 
 
 /*!
- * \file worldeditor.h
+ * \file worldtab.h
  * \brief Definition of the WorldEditor class.
  *
  */
 
 
 /*!
- * \brief The WorldEditor class is the TabWidget that
+ * \brief The WorldTab class is the TabWidget that
  * provides world edition features.
  */
-class WorldEditor : public TabWidget, private Ui::WorldEditor
+class WorldTab : public TabWidget, private Ui::WorldTab
 {
     Q_OBJECT
 
 public:
-    explicit WorldEditor(QWidget *parent = 0);
-    ~WorldEditor();
+    explicit WorldTab(QWidget *parent = 0);
+    ~WorldTab();
 
     void setGame(Game* g);
 
@@ -37,4 +37,4 @@ private:
     Game* game;
 };
 
-#endif // WORLDEDITOR_H
+#endif // WORLDTAB_H

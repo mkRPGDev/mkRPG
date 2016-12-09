@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WorldEditor</class>
- <widget class="QWidget" name="WorldEditor">
+ <class>WorldTab</class>
+ <widget class="QWidget" name="WorldTab">
   <property name="geometry">
    <rect>
     <x>0</x>

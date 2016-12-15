@@ -3,30 +3,37 @@
 
 #include "game.h"
 #include <QFileDevice>
+#include <QDir>
 
 class XmlWritter{
     enum Element{EndL, Eg, OpenMarkUp, CloseMarkUp, MarkUpParam};
     enum Mode{Default, newMarkUp, MarkUpNamed, ParamName,ParamValue};
 public:
-    XmlWritter(const QString &fileName);
+    XmlWritter(const QDir &path, Game &game);
     ~XmlWritter();
 
-    XmlWritter &operator<<(Game &game);
-    XmlWritter &operator<<(const World &World);
+    const QString fileName() const;
+
 
 private:
+    XmlWritter(const QDir &path, const GameObject *obj);
+    XmlWritter(const QDir &path, World &world);
+    XmlWritter(const QDir &path, Map &map);
+    XmlWritter &operator<<(const GameObject &obj);
     XmlWritter &operator<<(const QString &s);
     XmlWritter &operator<<(const int &i);
     XmlWritter &operator<<(const Element &e);
 
+    void writeCreatedFiles(XmlWritter &wr);
 
 
+    QDir path;
     QFile file;
     QTextStream stream;
     QStack<QString> markUps;
 
 
-
+    QMap<QString, QString> createdFiles;
     bool newLine;
     Mode mode;
 

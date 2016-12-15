@@ -110,8 +110,6 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     Game* g = new Game();
 
     g->setName("Trop_cool_mon_jeu");
-    XmlWritter xml(QDir::homePath()+"/"+g->name()+".xml");
-    xml << *g;
 
     Image *im;
     CellType *ct1, *ct2, *ct3;
@@ -171,6 +169,19 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
             m->cell(i,j).setCellType(o<1 ? *ct1 : o<2 ? *ct2 : *ct3);
         }
     tabBar->setTabsEnabled(true);
+
+
+    QDir d(QDir::homePath()+"/XML");
+    if(d.mkdir(g->name()))
+        d.cd(g->name());
+    else{
+        int k(1);
+        while(!d.mkdir(g->name()+QString::number(++k)));
+        d.cd(g->name()+QString::number(k));
+    }
+
+    XmlWritter xml(d,*g);
+
     return g;
     /* AVANT XML */
 

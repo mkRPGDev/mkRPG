@@ -1,20 +1,68 @@
 #include "xmlwritter.h"
 
 
-
-
-
-XmlWritter::XmlWritter(const QString &fileName) :
-    file(fileName), stream(&file), newLine(true), mode(Default)
+XmlWritter::XmlWritter(const QDir &path, const GameObject * obj) :
+    path(path), stream(&file), newLine(true), mode(Default)
 {
+    file.setFileName(path.filePath(obj->name()+".xml"));
+    int k(1);
+    while(file.exists())
+        file.setFileName(path.filePath(obj->name()+QString::number(++k)+".xml"));
     file.open(QIODevice::WriteOnly);
+    *this << *obj;
 }
 
+
+
+XmlWritter::XmlWritter(const QDir &path, Game &game) :
+    XmlWritter(path, &game)
+{
+    *this << OpenMarkUp << "Files" << EndL;
+    XmlWritter world(path, game.world());
+    *this << OpenMarkUp << "World" << path.relativeFilePath(world.fileName()) << CloseMarkUp;
+    writeCreatedFiles(world);
+    *this << CloseMarkUp;
+}
+
+XmlWritter::XmlWritter(const QDir &path, World &world) :
+    XmlWritter(path, &world)
+{
+    *this << OpenMarkUp << "Maps" << EndL;
+    XmlWritter::path.mkdir("Maps");
+    XmlWritter::path.cd("Maps");
+    for(Map *m : world.maps()){
+        *this << OpenMarkUp << "Map" << MarkUpParam << "id" << m->ident() << CloseMarkUp;
+        XmlWritter map(XmlWritter::path, *m);
+        createdFiles.insertMulti("Map", map.fileName());
+    }
+    XmlWritter::path.cdUp();
+
+    *this << CloseMarkUp;
+}
+
+XmlWritter::XmlWritter(const QDir &path, Map &map) :
+    XmlWritter(path, &map)
+{
+
+    *this << map.cell(0,0) << CloseMarkUp;
+}
+
+
 XmlWritter::~XmlWritter(){
+    *this << CloseMarkUp;
     file.close();
 }
 
 
+void XmlWritter::writeCreatedFiles(XmlWritter &wr){
+    for(QString type : wr.createdFiles.uniqueKeys())
+        for(QString file : wr.createdFiles.values(type))
+            *this << OpenMarkUp << type << path.relativeFilePath(file) << CloseMarkUp;
+}
+
+const QString XmlWritter::fileName() const{
+    return file.fileName();
+}
 
 XmlWritter &XmlWritter::operator << (const Element &elem){
     switch (elem) {
@@ -88,13 +136,7 @@ XmlWritter &XmlWritter::operator << (const int &i){
 
 
 
-
-XmlWritter &XmlWritter::operator << (Game &game){
-    *this << OpenMarkUp << "Game" << EndL;
-    *this << OpenMarkUp << "World" << EndL;
-    *this << OpenMarkUp << "World" << game.world().name() << CloseMarkUp;
-    *this << OpenMarkUp << "World2" << MarkUpParam << "la" << "reprise" << game.world().name() << CloseMarkUp;
-    *this << OpenMarkUp << "tentative" << MarkUpParam << "hum" << 42 << CloseMarkUp;
-    *this << CloseMarkUp << CloseMarkUp;
-    return *this;
+XmlWritter &XmlWritter::operator << (const GameObject &obj){
+    return *this << OpenMarkUp << obj.typeName() << MarkUpParam << "name" << obj.ident() << EndL;
 }
+

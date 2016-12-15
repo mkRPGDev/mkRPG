@@ -78,11 +78,12 @@ class MapView:
         self.showLov = False
         self.perso = None#self.world.entities[0]
         self.follow = False
-        
+ 
     def draw(self):
 #        win = self.mapWin
         if self.map != self.world.currentMap:
             self.map = self.world.currentMap
+            print("map is %s " % self.map)
             self.height = min(self.map.height, self.maxHeight-2)
             self.width = min(self.map.width, self.maxWidth-2)
 #            win.resize(self.height+2, self.width+2)

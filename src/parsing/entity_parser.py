@@ -29,9 +29,9 @@ def get_characteristics(_characteristics):
     for _characteristic in _characteristics.getchildren():
         if _characteristic.attrib.get("id"):
             value = parsing_utils.format_type(_characteristic.attrib.get("id"))
+            characteristics.update({_characteristic.tag: {'id':value}})
         else:
             value = parsing_utils.format_type(_characteristic.text)
-        if isinstance(value, int):
             characteristics.update({_characteristic.tag: value})
     return characteristics
 

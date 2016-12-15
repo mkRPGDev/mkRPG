@@ -23,7 +23,7 @@ def loadGame(path):
                 ident = data.pop('ident')
                 eval(data_list)(ident).load(data, typ=data_list)
 
-    world = named["world"]
+    world = named['world']
     for m in world.maps:
         m.fill()
     return world
@@ -150,12 +150,12 @@ class Map(Object):
                     l[j] = cell
                     self.cells.append(cell)
                     cell.x = i; cell.y = j
-    
+
     def dist(self, source, dest):
         return abs(source.x-dest.x) + abs(source.y-dest.y)
-    
+
     def lov(self, source, dest):
-        """ 
+        """
         Calcule si la vue est dégagée entre source et dest,
         ces derniers doivent avoir des paramètres x et y et
         les cellules de la carte un paramètre "visible"

@@ -9,20 +9,15 @@
 \item 
 def \hyperlink{classclient_1_1_client_a81808356345d9f5b1c37200ce09a03cf}{\-\_\-\-\_\-del\-\_\-\-\_\-}
 \item 
-\hypertarget{classclient_1_1_client_a611a6aa5f1b60a60270b1cacc3522cb8}{def {\bfseries run}}\label{classclient_1_1_client_a611a6aa5f1b60a60270b1cacc3522cb8}
-
+def \hyperlink{classclient_1_1_client_a611a6aa5f1b60a60270b1cacc3522cb8}{run}
 \item 
-\hypertarget{classclient_1_1_client_aeff3316ccd3dc3efc6e216657ad11209}{def {\bfseries get\-Entity}}\label{classclient_1_1_client_aeff3316ccd3dc3efc6e216657ad11209}
-
+def \hyperlink{classclient_1_1_client_aeff3316ccd3dc3efc6e216657ad11209}{get\-Entity}
 \item 
-\hypertarget{classclient_1_1_client_a29ca5ab810f2b176127fabe4a6e6e9f2}{def {\bfseries main}}\label{classclient_1_1_client_a29ca5ab810f2b176127fabe4a6e6e9f2}
-
+def \hyperlink{classclient_1_1_client_a29ca5ab810f2b176127fabe4a6e6e9f2}{main}
 \item 
-\hypertarget{classclient_1_1_client_a411fe3cb0e6bd641925c600482025075}{def {\bfseries handle\-Order}}\label{classclient_1_1_client_a411fe3cb0e6bd641925c600482025075}
-
+def \hyperlink{classclient_1_1_client_a411fe3cb0e6bd641925c600482025075}{handle\-Order}
 \item 
-\hypertarget{classclient_1_1_client_ab33a0618c1e787648f00d5f36cb4fec8}{def {\bfseries plugin\-Handle}}\label{classclient_1_1_client_ab33a0618c1e787648f00d5f36cb4fec8}
-
+def \hyperlink{classclient_1_1_client_ab33a0618c1e787648f00d5f36cb4fec8}{plugin\-Handle}
 \end{DoxyCompactItemize}
 \subsection*{\-Public \-Attributes}
 \begin{DoxyCompactItemize}
@@ -57,7 +52,7 @@ def \hyperlink{classclient_1_1_client_a81808356345d9f5b1c37200ce09a03cf}{\-\_\-\
 
 
 \subsection{\-Detailed \-Description}
-\begin{DoxyVerb}Main class of the client process, gathering interface, world and networking\end{DoxyVerb}
+\begin{DoxyVerb}Main class of the client process, gathering interface, world and networking \end{DoxyVerb}
  
 
 \subsection{\-Constructor \& \-Destructor \-Documentation}
@@ -69,6 +64,53 @@ def \hyperlink{classclient_1_1_client_a81808356345d9f5b1c37200ce09a03cf}{\-\_\-\
 \end{DoxyParamCaption}
 )}}\label{classclient_1_1_client_a81808356345d9f5b1c37200ce09a03cf}
 \begin{DoxyVerb}Kill network and interface \end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classclient_1_1_client_aeff3316ccd3dc3efc6e216657ad11209}{\index{client\-::\-Client@{client\-::\-Client}!get\-Entity@{get\-Entity}}
+\index{get\-Entity@{get\-Entity}!client::Client@{client\-::\-Client}}
+\subsubsection[{get\-Entity}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf client.\-Client.\-get\-Entity} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classclient_1_1_client_aeff3316ccd3dc3efc6e216657ad11209}
+\begin{DoxyVerb}Ask for a free entity to the server.
+May disappear with a proper initialisation process \end{DoxyVerb}
+ \hypertarget{classclient_1_1_client_a411fe3cb0e6bd641925c600482025075}{\index{client\-::\-Client@{client\-::\-Client}!handle\-Order@{handle\-Order}}
+\index{handle\-Order@{handle\-Order}!client::Client@{client\-::\-Client}}
+\subsubsection[{handle\-Order}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf client.\-Client.\-handle\-Order} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{ident, }
+\item[{}]{order}
+\end{DoxyParamCaption}
+)}}\label{classclient_1_1_client_a411fe3cb0e6bd641925c600482025075}
+\begin{DoxyVerb}Call dispatcher and update display \end{DoxyVerb}
+ \hypertarget{classclient_1_1_client_a29ca5ab810f2b176127fabe4a6e6e9f2}{\index{client\-::\-Client@{client\-::\-Client}!main@{main}}
+\index{main@{main}!client::Client@{client\-::\-Client}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf client.\-Client.\-main} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classclient_1_1_client_a29ca5ab810f2b176127fabe4a6e6e9f2}
+\begin{DoxyVerb}Init stuff, listen for inputs and send corresponding events \end{DoxyVerb}
+ \hypertarget{classclient_1_1_client_ab33a0618c1e787648f00d5f36cb4fec8}{\index{client\-::\-Client@{client\-::\-Client}!plugin\-Handle@{plugin\-Handle}}
+\index{plugin\-Handle@{plugin\-Handle}!client::Client@{client\-::\-Client}}
+\subsubsection[{plugin\-Handle}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf client.\-Client.\-plugin\-Handle} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)}}\label{classclient_1_1_client_ab33a0618c1e787648f00d5f36cb4fec8}
+\begin{DoxyVerb}Search for plugins that want to handle the message \end{DoxyVerb}
+ \hypertarget{classclient_1_1_client_a611a6aa5f1b60a60270b1cacc3522cb8}{\index{client\-::\-Client@{client\-::\-Client}!run@{run}}
+\index{run@{run}!client::Client@{client\-::\-Client}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf client.\-Client.\-run} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classclient_1_1_client_a611a6aa5f1b60a60270b1cacc3522cb8}
+\begin{DoxyVerb}Launch tasks \end{DoxyVerb}
  
 
 \-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}

@@ -11,11 +11,29 @@
 \subsection*{\-Data \-Structures}
 \begin{DoxyCompactItemize}
 \item 
+class \hyperlink{class_default_types}{\-Default\-Types}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_default_types}{\-Default\-Types} class represents the object that will contains all types. \end{DoxyCompactList}\item 
 class \hyperlink{class_world}{\-World}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_world}{\-World} class. \end{DoxyCompactList}\item 
 class \hyperlink{class_game}{\-Game}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_game}{\-Game} class gather the differents parts needed to describe a game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{game_8h_afcb37e18a94d1de863c9051aa0ee8cf0}{\-Default\-Type}(type, \hyperlink{class_type}{\-Type})~private\-: \hyperlink{class_type}{\-Type} $\ast$default\#\#\hyperlink{class_type}{\-Type} = new \hyperlink{class_type}{\-Type}($\ast$this); public\-: \hyperlink{class_type}{\-Type} \&type() const\{return $\ast$default\#\#\hyperlink{class_type}{\-Type};\}
+\end{DoxyCompactItemize}
 
 
 \subsection{\-Detailed \-Description}
 \-Definition of the \hyperlink{class_game}{\-Game} and \hyperlink{class_world}{\-World} classes. 
+
+\subsection{\-Define \-Documentation}
+\hypertarget{game_8h_afcb37e18a94d1de863c9051aa0ee8cf0}{\index{game.\-h@{game.\-h}!\-Default\-Type@{\-Default\-Type}}
+\index{\-Default\-Type@{\-Default\-Type}!game.h@{game.\-h}}
+\subsubsection[{\-Default\-Type}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Default\-Type}(
+\begin{DoxyParamCaption}
+\item[{}]{type, }
+\item[{}]{{\bf \-Type}}
+\end{DoxyParamCaption}
+)~private\-: {\bf \-Type} $\ast$default\#\#{\bf \-Type} = new {\bf \-Type}($\ast$this); public\-: {\bf \-Type} \&type() const\{return $\ast$default\#\#{\bf \-Type};\}}}\label{game_8h_afcb37e18a94d1de863c9051aa0ee8cf0}
+\-Todoc 

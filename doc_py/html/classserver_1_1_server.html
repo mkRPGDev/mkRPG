@@ -113,14 +113,10 @@ Public Member Functions</h2></td></tr>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac80c3a945398c3c941f5d0820c823b88"></a><!-- doxytag: member="server::Server::__del__" ref="ac80c3a945398c3c941f5d0820c823b88" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__del__</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b3fa0cb53b66ff0f4b5cab8257e1f97"></a><!-- doxytag: member="server::Server::run" ref="a9b3fa0cb53b66ff0f4b5cab8257e1f97" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>run</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00234be60c5d9f6fcb3dd40ce8b7eaf0"></a><!-- doxytag: member="server::Server::main" ref="a00234be60c5d9f6fcb3dd40ce8b7eaf0" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>main</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a27e7213342658fc1f0a689647963be9a"></a><!-- doxytag: member="server::Server::handleEvent" ref="a27e7213342658fc1f0a689647963be9a" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>handleEvent</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96a93fb7b3ede34e861cba3952cd85e2"></a><!-- doxytag: member="server::Server::pluginHandle" ref="a96a93fb7b3ede34e861cba3952cd85e2" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>pluginHandle</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classserver_1_1_server.html#a9b3fa0cb53b66ff0f4b5cab8257e1f97">run</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classserver_1_1_server.html#a00234be60c5d9f6fcb3dd40ce8b7eaf0">main</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classserver_1_1_server.html#a27e7213342658fc1f0a689647963be9a">handleEvent</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classserver_1_1_server.html#a96a93fb7b3ede34e861cba3952cd85e2">pluginHandle</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa66c4b037c112c4777cdc3d0b021bf0a"></a><!-- doxytag: member="server::Server::loop" ref="aa66c4b037c112c4777cdc3d0b021bf0a" args="" -->
@@ -143,7 +139,102 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>pause</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><div class="fragment"><pre class="fragment">Classe principale du processus serveur, concilie réseau, monde, actions et timer </pre></div> </div><hr/>The documentation for this class was generated from the following file:<ul>
+<div class="textblock"><div class="fragment"><pre class="fragment">Main class of the server process, gathering network, world, actions and timer </pre></div> </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a27e7213342658fc1f0a689647963be9a"></a><!-- doxytag: member="server::Server::handleEvent" ref="a27e7213342658fc1f0a689647963be9a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classserver_1_1_server.html#a27e7213342658fc1f0a689647963be9a">server.Server.handleEvent</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>emitter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Add a event to the queue </pre></div> 
+</div>
+</div>
+<a class="anchor" id="a00234be60c5d9f6fcb3dd40ce8b7eaf0"></a><!-- doxytag: member="server::Server::main" ref="a00234be60c5d9f6fcb3dd40ce8b7eaf0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classserver_1_1_server.html#a00234be60c5d9f6fcb3dd40ce8b7eaf0">server.Server.main</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Init stuff, read events and ask for treatment </pre></div> 
+</div>
+</div>
+<a class="anchor" id="a96a93fb7b3ede34e861cba3952cd85e2"></a><!-- doxytag: member="server::Server::pluginHandle" ref="a96a93fb7b3ede34e861cba3952cd85e2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classserver_1_1_server.html#a96a93fb7b3ede34e861cba3952cd85e2">server.Server.pluginHandle</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Search for plugins that want to handle the message </pre></div> 
+</div>
+</div>
+<a class="anchor" id="a9b3fa0cb53b66ff0f4b5cab8257e1f97"></a><!-- doxytag: member="server::Server::run" ref="a9b3fa0cb53b66ff0f4b5cab8257e1f97" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classserver_1_1_server.html#a9b3fa0cb53b66ff0f4b5cab8257e1f97">server.Server.run</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Launch tasks </pre></div> 
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/server.py</li>
 </ul>
 </div><!-- contents -->

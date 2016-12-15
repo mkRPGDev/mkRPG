@@ -104,16 +104,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">world.Map Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="world::Map" --><!-- doxytag: inherits="world::Object" --><div class="dynheader">
-Inheritance diagram for world.Map:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classworld_1_1_map.png" usemap="#world.Map_map" alt=""/>
-  <map id="world.Map_map" name="world.Map_map">
-<area href="classworld_1_1_object.html" alt="world.Object" shape="rect" coords="0,0,84,24"/>
-</map>
- </div></div>
-
+<!-- doxytag: class="world::Map" -->
 <p><a href="classworld_1_1_map-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
@@ -121,8 +112,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aabfde95675f6b82d9a8afcd676053632"></a><!-- doxytag: member="world::Map::__init__" ref="aabfde95675f6b82d9a8afcd676053632" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworld_1_1_map.html#ac8e650b696f537d9df20ee5d2243e978">fill</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5f255ae58db6b391d0a3d5807365370"></a><!-- doxytag: member="world::Map::dist" ref="ac5f255ae58db6b391d0a3d5807365370" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>dist</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworld_1_1_map.html#ac5f255ae58db6b391d0a3d5807365370">dist</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworld_1_1_map.html#a7b1d3e4419fd5bd48d5f759e63ae55f5">lov</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classworld_1_1_map.html#a12e89884cc3e9da4d024575a85b1d324">fromPos</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
@@ -132,7 +122,41 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec6e18657e8d65b1ab57cdf305e2de37"></a><!-- doxytag: member="world::Map::cellsGrid" ref="aec6e18657e8d65b1ab57cdf305e2de37" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>cellsGrid</b></td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><div class="fragment"><pre class="fragment">Orthonormed map with associated alogrithms </pre></div> </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ac5f255ae58db6b391d0a3d5807365370"></a><!-- doxytag: member="world::Map::dist" ref="ac5f255ae58db6b391d0a3d5807365370" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classworld_1_1_map.html#ac5f255ae58db6b391d0a3d5807365370">world.Map.dist</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Manhattan distance </pre></div> 
+</div>
+</div>
 <a class="anchor" id="ac8e650b696f537d9df20ee5d2243e978"></a><!-- doxytag: member="world::Map::fill" ref="ac8e650b696f537d9df20ee5d2243e978" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -147,7 +171,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<div class="fragment"><pre class="fragment">Complète les cases par défaut </pre></div> 
+<div class="fragment"><pre class="fragment">Fill the cellsGrid attribute with cells and default cell
+To be called after the Xml reading only </pre></div> 
 </div>
 </div>
 <a class="anchor" id="a12e89884cc3e9da4d024575a85b1d324"></a><!-- doxytag: member="world::Map::fromPos" ref="a12e89884cc3e9da4d024575a85b1d324" args="" -->
@@ -181,7 +206,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <div class="fragment"><pre class="fragment">Yield cells further and further from pos, stopping at maxi
-Assuming &gt;x vy it turns as the trigo circle,
+Assuming x goes right and y down it turns as the trigo circle,
 it is therefore not a "serpentin" (sadly ?) </pre></div> 
 </div>
 </div>
@@ -215,11 +240,10 @@ it is therefore not a "serpentin" (sadly ?) </pre></div>
       </table>
 </div>
 <div class="memdoc">
-<div class="fragment"><pre class="fragment">
-Calcule si la vue est dégagée entre source et dest,
-ces derniers doivent avoir des paramètres x et y et
-les cellules de la carte un paramètre "visible"
-O(dist(source, dest)) environ
+<div class="fragment"><pre class="fragment">Computes if the view is degaged between source and dest
+those laters must have x and y parameters and the map
+cells a parameter "visible"
+About O(dist(source, dest))
 </pre></div> 
 </div>
 </div>

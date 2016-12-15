@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>mkRPG: src/editor/GUI/Tabs/celldock.h Source File</title>
+<title>mkRPG: src/editor/GUI/Tabs/MapTab/celldock.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -77,43 +77,46 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="headertitle">
-<div class="title">src/editor/GUI/Tabs/celldock.h</div>  </div>
+<div class="title">src/editor/GUI/Tabs/MapTab/celldock.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef CELLDOCK_H</span>
+<a href="celldock_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef CELLDOCK_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define CELLDOCK_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;ui_celldock.h&quot;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;Docks/bdockwidget.h&quot;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="mapslistmodel_8h.html" title="Definition of Model/View presentation classes.">Game/mapslistmodel.h</a>&quot;</span>
-<a name="l00007"></a>00007 
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;../Docks/bdockwidget.h&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="mapslistmodel_8h.html" title="Definition of Model/View presentation classes.">Game/ItemModels/mapslistmodel.h</a>&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="attrtreeitemmodel_8h.html" title="Definition of the model presentation class for parameter and flags as a tree.">Game/ItemModels/attrtreeitemmodel.h</a>&quot;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a><a class="code" href="class_cell_dock.html">00009</a> <span class="keyword">class </span><a class="code" href="class_cell_dock.html">CellDock</a> : <span class="keyword">public</span> <a class="code" href="class_b_dock_widget.html" title="The BDockWidget class is the base class for game-related docks.">BDockWidget</a>, <span class="keyword">private</span> Ui::<a class="code" href="class_cell_dock.html">CellDock</a>
-<a name="l00010"></a>00010 {
-<a name="l00011"></a>00011     Q_OBJECT
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="keyword">public</span>:
-<a name="l00014"></a>00014     <span class="keyword">explicit</span> <a class="code" href="class_cell_dock.html">CellDock</a>(QWidget *parent = <span class="keyword">nullptr</span>);
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016 <span class="keyword">public</span> slots:
-<a name="l00017"></a>00017     <span class="keywordtype">void</span> updateGame();
-<a name="l00018"></a>00018     <span class="keywordtype">void</span> selectionChanged();
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">private</span> slots:
-<a name="l00021"></a>00021     <span class="keywordtype">void</span> on_cellTypes_userChangedCurrentIndex(<span class="keywordtype">int</span> i);
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="keyword">private</span>:
-<a name="l00024"></a>00024     <a class="code" href="class_map.html" title="The Map class.">Map</a> *map;
-<a name="l00025"></a>00025 };
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 <span class="preprocessor">#endif // CELLDOCK_H</span>
+<a name="l00009"></a>00009 
+<a name="l00021"></a><a class="code" href="class_cell_dock.html">00021</a> <span class="keyword">class </span><a class="code" href="class_cell_dock.html" title="The CellDock class provides a BDockWidget to edit &quot;Cells&quot; Cell.">CellDock</a> : <span class="keyword">public</span> <a class="code" href="class_b_dock_widget.html" title="The BDockWidget class is the base class for game-related docks.">BDockWidget</a>, <span class="keyword">private</span> Ui::<a class="code" href="class_cell_dock.html" title="The CellDock class provides a BDockWidget to edit &quot;Cells&quot; Cell.">CellDock</a>
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023     Q_OBJECT
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025 <span class="keyword">public</span>:
+<a name="l00026"></a>00026     <span class="keyword">explicit</span> <a class="code" href="class_cell_dock.html" title="The CellDock class provides a BDockWidget to edit &quot;Cells&quot; Cell.">CellDock</a>(QWidget *parent = <span class="keyword">nullptr</span>);
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028 <span class="keyword">public</span> slots:
+<a name="l00029"></a>00029     <span class="keywordtype">void</span> updateGame();
+<a name="l00030"></a>00030     <span class="keywordtype">void</span> selectionChanged();
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032 <span class="keyword">private</span> slots:
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> on_cellTypes_userChangedCurrentIndex(<span class="keywordtype">int</span> i);
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="keyword">private</span>:
+<a name="l00036"></a>00036     <a class="code" href="class_map.html" title="The Map class.">Map</a> *map;
+<a name="l00037"></a>00037     <a class="code" href="class_param_tree_item_model.html" title="The ParamTreeItemModel class presents the parameters of an object using the QAbstractItemModel interf...">ParamTreeItemModel</a> *paramModel;
+<a name="l00038"></a>00038     <a class="code" href="class_flag_tree_item_model.html" title="The ParamTreeItemModel class presents the flags of an object using the QAbstractItemModel interface...">FlagTreeItemModel</a> *flagsModel;
+<a name="l00039"></a>00039 };
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="preprocessor">#endif // CELLDOCK_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

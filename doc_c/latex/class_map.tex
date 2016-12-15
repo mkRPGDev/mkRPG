@@ -13,13 +13,13 @@
 \-Inheritance diagram for \-Map\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{class_map}
+\includegraphics[height=4.000000cm]{class_map}
 \end{center}
 \end{figure}
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_map_abb18ba5d4ffce18e1813b77b7f6266c9}{{\bfseries \-Type\-Name} (\hyperlink{class_map}{\-Map}) \hyperlink{class_map}{\-Map}(\hyperlink{class_game}{\-Game} $\ast$g}\label{class_map_abb18ba5d4ffce18e1813b77b7f6266c9}
+\hypertarget{class_map_ad0771dcdce4b2864508b4b9d6fa4453c}{{\bfseries \-Type\-Name} (\hyperlink{class_map}{\-Map}) \hyperlink{class_map}{\-Map}(\hyperlink{class_map_type}{\-Map\-Type} \&type}\label{class_map_ad0771dcdce4b2864508b4b9d6fa4453c}
 
 \item 
 \hypertarget{class_map_a4c35169a60acd3669f198e6c2d20dff5}{int {\bfseries width} () const }\label{class_map_a4c35169a60acd3669f198e6c2d20dff5}
@@ -40,30 +40,25 @@
 \hypertarget{class_map_a5f7c31af6620d00ce8a812c8710345ab}{void {\bfseries resize} (int w, int h)}\label{class_map_a5f7c31af6620d00ce8a812c8710345ab}
 
 \item 
-\hypertarget{class_map_a6c94b3e99490efa0f170db132dc9f5b8}{\hyperlink{class_cell}{\-Cell} \& {\bfseries cell} (int i, int j) const }\label{class_map_a6c94b3e99490efa0f170db132dc9f5b8}
-
+\hyperlink{class_cell}{\-Cell} \& \hyperlink{class_map_a6c94b3e99490efa0f170db132dc9f5b8}{cell} (int i, int j) const 
 \item 
-\hypertarget{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}{\hyperlink{class_cell}{\-Cell} \& {\bfseries cell} (const \-Q\-Point \&p) const }\label{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}
-
+\hyperlink{class_cell}{\-Cell} \& \hyperlink{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}{cell} (const \-Q\-Point \&p) const 
 \item 
-\hypertarget{class_map_a16aea6b5c9de3a26b094d964885b33b7}{void {\bfseries select\-All} ()}\label{class_map_a16aea6b5c9de3a26b094d964885b33b7}
-
+void \hyperlink{class_map_a16aea6b5c9de3a26b094d964885b33b7}{select\-All} ()
 \item 
-\hypertarget{class_map_a5b85190575503a09c5c6de012da64f7c}{void {\bfseries un\-Select\-All} ()}\label{class_map_a5b85190575503a09c5c6de012da64f7c}
-
+void \hyperlink{class_map_a5b85190575503a09c5c6de012da64f7c}{un\-Select\-All} ()
 \item 
-\hypertarget{class_map_a89cab58d82e08dacfe0b97899bab5501}{void {\bfseries confirm\-Pre\-Selection} (bool add=true)}\label{class_map_a89cab58d82e08dacfe0b97899bab5501}
-
+void \hyperlink{class_map_a89cab58d82e08dacfe0b97899bab5501}{confirm\-Pre\-Selection} (bool add=true)
 \item 
-\hypertarget{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}{void {\bfseries clear\-Pre\-Selection} ()}\label{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}
-
+void \hyperlink{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}{clear\-Pre\-Selection} ()
 \item 
 \-Q\-List$<$ \hyperlink{class_game_object}{\-Game\-Object} $\ast$ $>$ \hyperlink{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}{children} () const 
 \end{DoxyCompactItemize}
 \subsection*{\-Data \-Fields}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_game_object}{\-Game\-Object} $\ast$ \hyperlink{class_map_ac0d4bf203db2a4372ea6923729f978f1}{a\-Parent}
+\hypertarget{class_map_a92ac4c5c1217021ff1adc545a29f1294}{\hyperlink{class_game_object}{\-Game\-Object} \& {\bfseries parent}}\label{class_map_a92ac4c5c1217021ff1adc545a29f1294}
+
 \end{DoxyCompactItemize}
 
 
@@ -71,37 +66,85 @@
 \-The \hyperlink{class_map}{\-Map} class. 
 
 \subsection{\-Member \-Function \-Documentation}
-\hypertarget{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}{\index{\-Map@{\-Map}!children@{children}}
+\hypertarget{class_map_a6c94b3e99490efa0f170db132dc9f5b8}{\index{\-Map@{\-Map}!cell@{cell}}
+\index{cell@{cell}!Map@{\-Map}}
+\subsubsection[{cell}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Cell} \& {\bf \-Map\-::cell} (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j}
+\end{DoxyParamCaption}
+) const}}\label{class_map_a6c94b3e99490efa0f170db132dc9f5b8}
+\-Returns a reference to the cell at pos (x,y). \hypertarget{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}{\index{\-Map@{\-Map}!cell@{cell}}
+\index{cell@{cell}!Map@{\-Map}}
+\subsubsection[{cell}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Cell} \& {\bf \-Map\-::cell} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-Point \&}]{p}
+\end{DoxyParamCaption}
+) const}}\label{class_map_ae0b03b422a10edbfa7bd0b4bdd085793}
+\-This is an overloaded member function, provided for convenience. \-It differs from the above function only in what argument(s) it accepts. \hypertarget{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}{\index{\-Map@{\-Map}!children@{children}}
 \index{children@{children}!Map@{\-Map}}
 \subsubsection[{children}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ {\bf \-Game\-Object} $\ast$ $>$ {\bf \-Map\-::children} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 ) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_map_a939817aa7f5c9e81d3d2b1a42d9403e7}
-\-Returns the list of the instance's children.
+\-Reimplemented from \hyperlink{class_game_object}{\-Game\-Object} to remove the \hyperlink{class_cell}{cells} from the children list.
 
 \begin{DoxySeeAlso}{\-See also}
-\hyperlink{class_game_object_a6ac392d25a490bee17b653a374ec94fc}{child} 
+\hyperlink{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{\-Game\-Object\-::children} 
 \end{DoxySeeAlso}
 
 
 \-Reimplemented from \hyperlink{class_game_object_a3f68b64d3a0793048cfe5deab35397e0}{\-Game\-Object}.
 
+\hypertarget{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}{\index{\-Map@{\-Map}!clear\-Pre\-Selection@{clear\-Pre\-Selection}}
+\index{clear\-Pre\-Selection@{clear\-Pre\-Selection}!Map@{\-Map}}
+\subsubsection[{clear\-Pre\-Selection}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Map\-::clear\-Pre\-Selection} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}
+\-Resets the pre-\/selection information on every \hyperlink{class_cell}{cell}.
 
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_map_a89cab58d82e08dacfe0b97899bab5501}{confirm\-Pre\-Selection}; 
+\end{DoxySeeAlso}
+\hypertarget{class_map_a89cab58d82e08dacfe0b97899bab5501}{\index{\-Map@{\-Map}!confirm\-Pre\-Selection@{confirm\-Pre\-Selection}}
+\index{confirm\-Pre\-Selection@{confirm\-Pre\-Selection}!Map@{\-Map}}
+\subsubsection[{confirm\-Pre\-Selection}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Map\-::confirm\-Pre\-Selection} (
+\begin{DoxyParamCaption}
+\item[{bool}]{add = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{class_map_a89cab58d82e08dacfe0b97899bab5501}
+\-Converts the pre-\/selection into selection for every \hyperlink{class_cell}{cell}.
 
-\subsection{\-Field \-Documentation}
-\hypertarget{class_map_ac0d4bf203db2a4372ea6923729f978f1}{\index{\-Map@{\-Map}!a\-Parent@{a\-Parent}}
-\index{a\-Parent@{a\-Parent}!Map@{\-Map}}
-\subsubsection[{a\-Parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game\-Object}$\ast$ {\bf \-Map\-::a\-Parent}}}\label{class_map_ac0d4bf203db2a4372ea6923729f978f1}
-\-Constructs a new \hyperlink{class_game_object}{\-Game\-Object} with parent {\ttfamily parent} and the reference to the game {\ttfamily g}.
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_map_a0a637f44f0a59c3a67b6a507ae710c7f}{clear\-Pre\-Selection} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_a16aea6b5c9de3a26b094d964885b33b7}{\index{\-Map@{\-Map}!select\-All@{select\-All}}
+\index{select\-All@{select\-All}!Map@{\-Map}}
+\subsubsection[{select\-All}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Map\-::select\-All} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_map_a16aea6b5c9de3a26b094d964885b33b7}
+\-Unselects all the \hyperlink{class_cell}{cells} of the map.
 
-\begin{DoxyNote}{\-Note}
-\-If these objects cannot be given to the constructor (case of an array of objects), the \hyperlink{class_game_object_a97be7b59b2e76e7d60de2146b894eed9}{init} method must be called after the creation to make the \hyperlink{class_game_object}{\-Game\-Object} valid. 
-\end{DoxyNote}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_map_a5b85190575503a09c5c6de012da64f7c}{un\-Select\-All} 
+\end{DoxySeeAlso}
+\hypertarget{class_map_a5b85190575503a09c5c6de012da64f7c}{\index{\-Map@{\-Map}!un\-Select\-All@{un\-Select\-All}}
+\index{un\-Select\-All@{un\-Select\-All}!Map@{\-Map}}
+\subsubsection[{un\-Select\-All}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Map\-::un\-Select\-All} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_map_a5b85190575503a09c5c6de012da64f7c}
+\-Selects all the \hyperlink{class_cell}{cells} of the map.
 
-
-\-Reimplemented from \hyperlink{class_game_object_a41d4afe43f955e78ede0bbd4ad8957f8}{\-Game\-Object}.
-
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_map_a16aea6b5c9de3a26b094d964885b33b7}{select\-All} 
+\end{DoxySeeAlso}
 
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}

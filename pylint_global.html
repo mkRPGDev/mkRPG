@@ -50,13 +50,13 @@
 <div>
 <h2>External dependencies</h2>
 <pre>const (interface.const,interface.interface)
-interface (interface.entity,interface.layer,interface.printWorld,interface.character,interface.chunk,interface.pygamecli,interface.backgroundLayer,interface.map)
+interface (interface.character,interface.chunk,interface.map,interface.printWorld,interface.backgroundLayer,interface.pygamecli,interface.layer,interface.entity)
   \-chunk (interface.cache)
-  \-const (interface.entity,interface.layer,interface.printWorld,interface.character,interface.chunk,interface.cache,interface.backgroundLayer,interface.map)
+  \-const (interface.character,interface.chunk,interface.map,interface.cache,interface.printWorld,interface.backgroundLayer,interface.layer,interface.entity)
   \-interface (interface.pygamecli,interface.cursescli,interface.printWorld)
-  \-utils (interface.entity,interface.layer,interface.printWorld,interface.character,interface.chunk,interface.cache,interface.pygamecli,interface.backgroundLayer,interface.const,interface.map)
-pygame (interface.utils,interface.entity,interface.layer,interface.printWorld,interface.character,interface.chunk,interface.cache,interface.trans,interface.pygamecli,interface.backgroundLayer,interface.map)
-  \-locals (interface.entity,interface.printWorld,interface.character,interface.chunk,interface.pygamecli,interface.backgroundLayer,interface.map)</pre></div>
+  \-utils (interface.character,interface.chunk,interface.map,interface.cache,interface.printWorld,interface.backgroundLayer,interface.pygamecli,interface.const,interface.layer,interface.entity)
+pygame (interface.character,interface.chunk,interface.map,interface.utils,interface.cache,interface.printWorld,interface.trans,interface.backgroundLayer,interface.pygamecli,interface.layer,interface.entity)
+  \-locals (interface.character,interface.chunk,interface.map,interface.printWorld,interface.backgroundLayer,interface.pygamecli,interface.entity)</pre></div>
 <div>
 <h2>Raw metrics</h2>
 <table>
@@ -131,7 +131,7 @@ pygame (interface.utils,interface.entity,interface.layer,interface.printWorld,in
 </tr>
 <tr class="even">
 <td>convention</td>
-<td>611</td>
+<td>610</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
@@ -149,7 +149,7 @@ pygame (interface.utils,interface.entity,interface.layer,interface.printWorld,in
 </tr>
 <tr class="odd">
 <td>error</td>
-<td>45</td>
+<td>43</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
@@ -167,169 +167,169 @@ pygame (interface.utils,interface.entity,interface.layer,interface.printWorld,in
 </tr>
 <tr class="even">
 <td>interface.pygamecli</td>
-<td>22.22</td>
+<td>23.26</td>
 <td>24.16</td>
 <td>20.00</td>
-<td>4.09</td>
+<td>4.10</td>
 </tr>
 <tr class="odd">
 <td>interface.cursescli</td>
-<td>22.22</td>
+<td>16.28</td>
 <td>4.49</td>
 <td>0.00</td>
-<td>20.62</td>
+<td>20.66</td>
 </tr>
 <tr class="even">
 <td>path</td>
-<td>8.89</td>
+<td>9.30</td>
 <td>1.12</td>
 <td>13.33</td>
 <td>0.82</td>
 </tr>
 <tr class="odd">
+<td>interface.map</td>
+<td>4.65</td>
+<td>2.81</td>
+<td>13.33</td>
+<td>10.49</td>
+</tr>
+<tr class="even">
 <td>interface.interactions</td>
-<td>6.67</td>
+<td>4.65</td>
 <td>2.81</td>
 <td>0.00</td>
 <td>1.31</td>
 </tr>
-<tr class="even">
-<td>interface.map</td>
-<td>4.44</td>
-<td>2.81</td>
-<td>13.33</td>
-<td>10.47</td>
-</tr>
 <tr class="odd">
 <td>interface.printWorld</td>
-<td>4.44</td>
+<td>4.65</td>
 <td>2.25</td>
 <td>13.33</td>
-<td>1.96</td>
+<td>1.97</td>
 </tr>
 <tr class="even">
 <td>interface.layer</td>
-<td>4.44</td>
+<td>4.65</td>
 <td>1.69</td>
 <td>6.67</td>
-<td>7.69</td>
+<td>7.70</td>
 </tr>
 <tr class="odd">
 <td>plugins.menu</td>
-<td>4.44</td>
+<td>4.65</td>
 <td>0.56</td>
 <td>0.00</td>
 <td>4.26</td>
 </tr>
 <tr class="even">
-<td>interface.trans</td>
-<td>2.22</td>
-<td>44.94</td>
-<td>0.00</td>
-<td>5.40</td>
-</tr>
-<tr class="odd">
 <td>interface.cache</td>
-<td>2.22</td>
+<td>4.65</td>
 <td>0.56</td>
 <td>0.00</td>
-<td>3.76</td>
+<td>3.77</td>
+</tr>
+<tr class="odd">
+<td>interface.trans</td>
+<td>2.33</td>
+<td>44.94</td>
+<td>0.00</td>
+<td>5.41</td>
 </tr>
 <tr class="even">
+<td>interface.interface</td>
+<td>2.33</td>
+<td>0.00</td>
+<td>6.67</td>
+<td>2.79</td>
+</tr>
+<tr class="odd">
 <td>interface.entity</td>
-<td>2.22</td>
+<td>2.33</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>1.47</td>
+<td>1.48</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>server</td>
-<td>2.22</td>
+<td>2.33</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>readme</td>
-<td>2.22</td>
+<td>2.33</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>pylintrc</td>
-<td>2.22</td>
+<td>2.33</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>plugins.plugin</td>
-<td>2.22</td>
+<td>2.33</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>plugins.chat</td>
-<td>2.22</td>
-<td>0.00</td>
-<td>0.00</td>
-<td>0.00</td>
-</tr>
-<tr class="even">
-<td>parsing.map_parser</td>
-<td>2.22</td>
+<td>2.33</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
 </tr>
 <tr class="odd">
-<td>client</td>
-<td>2.22</td>
+<td>parsing.map_parser</td>
+<td>2.33</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
 </tr>
 <tr class="even">
+<td>client</td>
+<td>2.33</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
 <td>interface.utils</td>
 <td>0.00</td>
 <td>10.11</td>
 <td>6.67</td>
-<td>15.55</td>
+<td>15.57</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>interface.backgroundLayer</td>
 <td>0.00</td>
 <td>1.69</td>
 <td>6.67</td>
 <td>3.93</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>interface.const</td>
 <td>0.00</td>
 <td>1.69</td>
 <td>0.00</td>
 <td>4.26</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>interface.character</td>
 <td>0.00</td>
 <td>0.56</td>
 <td>6.67</td>
-<td>8.35</td>
+<td>8.36</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>interface.chunk</td>
 <td>0.00</td>
 <td>0.56</td>
-<td>6.67</td>
-<td>2.95</td>
-</tr>
-<tr class="odd">
-<td>interface.interface</td>
-<td>0.00</td>
-<td>0.00</td>
 <td>6.67</td>
 <td>2.95</td>
 </tr>
@@ -390,20 +390,20 @@ pygame (interface.utils,interface.entity,interface.layer,interface.printWorld,in
 <td>15</td>
 </tr>
 <tr class="even">
-<td>no-member</td>
-<td>15</td>
-</tr>
-<tr class="odd">
 <td>line-too-long</td>
 <td>15</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>no-self-use</td>
 <td>13</td>
 </tr>
+<tr class="even">
+<td>no-member</td>
+<td>10</td>
+</tr>
 <tr class="odd">
 <td>wrong-import-order</td>
-<td>10</td>
+<td>9</td>
 </tr>
 <tr class="even">
 <td>no-name-in-module</td>
@@ -418,27 +418,27 @@ pygame (interface.utils,interface.entity,interface.layer,interface.printWorld,in
 <td>6</td>
 </tr>
 <tr class="odd">
+<td>import-error</td>
+<td>6</td>
+</tr>
+<tr class="even">
 <td>too-many-function-args</td>
 <td>5</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>wrong-import-position</td>
 <td>4</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>parse-error</td>
 <td>4</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>unused-argument</td>
 <td>3</td>
 </tr>
-<tr class="odd">
-<td>redefined-builtin</td>
-<td>3</td>
-</tr>
 <tr class="even">
-<td>import-error</td>
+<td>redefined-builtin</td>
 <td>3</td>
 </tr>
 <tr class="odd">
@@ -493,7 +493,4 @@ pygame (interface.utils,interface.entity,interface.layer,interface.printWorld,in
 </div>
 <div>
 <h2>Global evaluation</h2>
-Your code has been rated at 1.01/10</div>
-</div>
-</body>
-</html>
+Your code has been rated at 1.10/10

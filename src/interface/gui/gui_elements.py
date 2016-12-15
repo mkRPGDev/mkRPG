@@ -3,12 +3,12 @@
 from enum import IntEnum
 
 import pygame
-from pygame.locals import Rect
+from pygame.locals import Rect, MOUSEBUTTONUP, MOUSEBUTTONDOWN, MOUSEMOTION
 
 from interface.cache import ImageCache
 from interface.utils import debug
 
-guiEvent = IntEnum('guiEvent', 'CLICK MOVE NONE SCROLL_UP SCROLL_DOWN')
+guiEvent = IntEnum('guiEvent', 'CLICK MOVE OVER NONE SCROLL_UP SCROLL_DOWN')
 
 class GUIElement(pygame.sprite.Sprite):
     """ Base class for GUI elements """
@@ -17,6 +17,7 @@ class GUIElement(pygame.sprite.Sprite):
 
     def __init__(self, style):
         """ sets style and id of the element """
+        super().__init__()
         self.style = style
         self.my_id = self.elt_id
         self.elt_id += 1
@@ -28,13 +29,19 @@ class GUIElement(pygame.sprite.Sprite):
         """ abstract method """
         pass
 
-    def update(self, state):
+    def update(self, state="default"):
         """ abstract method """
         pass
 
     def handle_event(self, event):
         """ abstract method """
         pass
+
+    def set_position(self, x, y):
+        self.rect = Rect(self.rect.size, (x,y))
+
+    def move(self, dx, dy):
+        self.rect.move_ip(dx, dy)
 
 class Container(pygame.sprite.Group):
     """ Simple container for other elements """
@@ -57,6 +64,10 @@ class Container(pygame.sprite.Group):
                                           used)
         """
         super().__init__(elements)
+
+        self.style = style
+        self.pos = (0,0)
+
         self.build()
         self.need_build = False
 
@@ -64,9 +75,9 @@ class Container(pygame.sprite.Group):
         """ build the background of the container """
         if self.style['size'] == (0, 0):
             rect = Rect(0, 0, 0, 0)
-            for sprite in self.sprits():
+            for sprite in self.sprites():
                 rect.union_ip(sprite.rect)
-            size = rect.size()
+            size = rect.size
         else:
             size = self.style['size']
 
@@ -91,32 +102,70 @@ class Container(pygame.sprite.Group):
                 debug("WARNING", "Container %i : Unrecognized value %s for "+\
                       "background_pattern attribute, assuming it is unique" %\
                       (self.my_id, self.style['background_pattern']))
+                self.background.blit(image, (0, 0))
 
-        def add(self, *sprites):
-            """ add GUIElement sub class instances to the container """
-            super().add(sprites)
-            self.need_build = True
+    def add(self, *sprites):
+        """ add GUIElement sub class instances to the container """
+        for sprite in sprites:
+            super().add(sprite)
+        self.need_build = True
 
-        def remove(self, *sprites):
-            """ remove GUIElement sub class instances to the container """
-            super().remove(sprites)
-            self.need_build = True
+    def remove(self, *sprites):
+        """ remove GUIElement sub class instances to the container """
+        super().remove(sprites)
+        self.need_build = True
 
-        def empty(self):
-            """ remove everything from the container """
-            super().empty()
-            self.need_build = True
+    def empty(self):
+        """ remove everything from the container """
+        super().empty()
+        self.need_build = True
 
-        def render(self):
-            """ draw all the elements over the background and return it """
-            if self.need_build:
-                self.build()
-                self.need_build = False
+    def draw(self, surface):
+        """ draw all elements (except background) on surface """
+        if self.need_build:
+            self.build()
+            self.need_build = False
 
-            result = self.background.copy()
-            self.draw(result)
+        surface.blit(self.background, (0,0))
+        super().draw(surface)
 
-            return result
+    def render(self):
+        """ draw all the elements over the background and return it """
+        result = self.background.copy()
+        self.draw(result)
+
+        return result
+
+    def handle_event(self, event):
+        unmodified_sprites = self.sprites()
+        if event.type == MOUSEBUTTONUP or event.type == MOUSEBUTTONDOWN or\
+           event.type == MOUSEMOTION:
+            rel_pos = (event.pos[0]-self.pos[0], event.pos[1]-self.pos[1])
+            for sprite in self.sprites():
+                if sprite.rect.collidepoint(rel_pos):
+                    if sprite in unmodified_sprites:
+                        unmodified_sprites.remove(sprite)
+
+                    sprite.handle_event(guiEvent.OVER)
+                    if event.type == MOUSEBUTTONUP or\
+                       event.type == MOUSEBUTTONDOWN:
+                        if event.button == 1:
+                            # Click
+                            sprite.handle_event(guiEvent.CLICK)
+                        elif event.button == 4:
+                            # Wheel up
+                            sprite.handle_event(guiEvent.SCROLL_UP)
+                        elif event.button == 5:
+                            # Wheel down
+                            sprite.handle_event(guiEvent.SCROLL_DOWN)
+        for sprite in unmodified_sprites:
+            sprite.handle_event(guiEvent.NONE)
+
+    def move(self, dx, dy):
+        self.pos = (self.pos[0]+dx, self.pos[1]+dy)
+
+    def set_position(self, x, y):
+        self.pos = (x, y)
 
 class TextField(GUIElement):
     """ Simple text field """
@@ -149,7 +198,8 @@ class TextField(GUIElement):
         text_lines = []
         max_width = 0
         for line in text.split("\n"):
-            text_lines.append(self.font.render(line))
+            text_lines.append(self.font.render(line, 1,
+                                               self.style['text_color']))
             line_width = text_lines[-1].get_size()[0]
             if line_width > max_width:
                 max_width = line_width
@@ -261,7 +311,7 @@ class ScrollableTextField(GUIElement):
             if self.tf_ypos < 0:
                 self.scroll(-self.style['scroll_step'])
         elif event == guiEvent.SCROLL_DOWN:
-            if self.tf_ypos > -self.style['size'][1]
+            if self.tf_ypos > -self.style['size'][1]:
                 self.scroll(self.style['scroll_step'])
 
 
@@ -276,8 +326,8 @@ class Button(TextField):
                                         attribute is specified and not empty,
                                         size and background_color will be
                                         ignored)
-                text : string
                 text_size : int
+                text_color : int * int * int * int (R,G,B and alpha values)
                 text_font : string (name of the font file or None)
                 text_align : string (should be "centered", "right" or "left")
                 text_interline : int (pixels between two lines)
@@ -348,12 +398,15 @@ class Button(TextField):
 
             self.image.blit(self.textRender, (textx, texty))
 
-            ImageCache.init_images([("gui_"+self.my_id+"_"+state, self.image)])
+            ImageCache.init_images([("gui_"+str(self.my_id)+"_"+state, self.image)])
 
-    def update(self, state="default"):
+    def update(self, state=None):
         """ switch between images depending on state """
+        if state is None:
+            state == self.state
+
         if state == "clicked" or state == "mover" or state == "default":
-            self.image = ImageCache.get_image("gui_"+state+"_"+self.my_id)
+            self.image = ImageCache.get_image("gui_"+str(self.my_id)+"_"+state)
 
     def handle_event(self, event):
         """ event should be guiEvent.CLICK, guiEvent.OVER or
@@ -366,5 +419,5 @@ class Button(TextField):
             self.update("mover")
             self.state = "mover"
         elif event == guiEvent.NONE and self.state != "default":
-            self.update()
+            self.update("default")
             self.state = "default"

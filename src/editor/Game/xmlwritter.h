@@ -24,6 +24,8 @@ private:
     XmlWritter &operator<<(const int &i);
     XmlWritter &operator<<(const Element &e);
 
+    void writeCell(const Cell &c);
+
     void writeCreatedFiles(XmlWritter &wr);
 
 

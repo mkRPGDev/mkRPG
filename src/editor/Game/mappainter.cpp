@@ -118,6 +118,7 @@ void MapPainter::updateMap(){
 void MapPainter::setMap(Map* m){
     map = m;
     if(map == nullptr) return;
+    updateMap();
     changeBackgroundDistortion();
     lastMapUpdate = m->lastEdition();
 }

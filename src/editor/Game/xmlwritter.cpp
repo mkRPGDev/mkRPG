@@ -44,13 +44,23 @@ XmlWritter::XmlWritter(const QDir &path, Map &map) :
     XmlWritter(path, &map)
 {
 
-    *this << map.cell(0,0) << CloseMarkUp;
+    int w = map.width();
+    int h = map.height();
+    for(int i(0); i<w; ++i)
+        for(int j(0); j<h; ++j)
+            writeCell(map.cell(i,j));
 }
 
 
 XmlWritter::~XmlWritter(){
     *this << CloseMarkUp;
     file.close();
+}
+
+void XmlWritter::writeCell(const Cell &c){
+    *this << c;
+    *this << OpenMarkUp << "CellType" << MarkUpParam << "id" << c.cellType().ident() << CloseMarkUp;
+    *this << CloseMarkUp;
 }
 
 

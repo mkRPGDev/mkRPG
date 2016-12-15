@@ -85,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Object Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="Object" --><!-- doxytag: inherits="TypedObject&lt; ObjectType &gt;" -->
+<!-- doxytag: class="Object" --><!-- doxytag: inherits="GameObject" -->
 <p>The <a class="el" href="class_object.html" title="The Object class.">Object</a> class.  
  <a href="class_object.html#details">More...</a></p>
 
@@ -96,24 +96,39 @@ Inheritance diagram for Object:</div>
  <div class="center">
   <img src="class_object.png" usemap="#Object_map" alt=""/>
   <map id="Object_map" name="Object_map">
-<area href="class_typed_object.html" alt="TypedObject&lt; ObjectType &gt;" shape="rect" coords="0,112,173,136"/>
-<area href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o..." alt="InheritableObject" shape="rect" coords="0,56,173,80"/>
-<area href="class_game_object.html" title="The GameObject class is the base class for every part of games." alt="GameObject" shape="rect" coords="0,0,173,24"/>
+<area href="class_game_object.html" title="The GameObject class is the base class for every part of games." alt="GameObject" shape="rect" coords="0,0,81,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16ba54acfb9c9cb7c4b10e5fddbb2677"></a><!-- doxytag: member="Object::TypeName" ref="a16ba54acfb9c9cb7c4b10e5fddbb2677" args="(Object) Object(ObjectType &amp;type" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_object.html">Object</a>) <a class="el" href="class_object.html">Object</a>(<a class="el" href="class_object_type.html">ObjectType</a> &amp;type</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a034d232268902bc13af1e73b237ef6a0"></a><!-- doxytag: member="Object::TypeName" ref="a034d232268902bc13af1e73b237ef6a0" args="(Object) Object(Game *g" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_object.html">Object</a>) <a class="el" href="class_object.html">Object</a>(<a class="el" href="class_game.html">Game</a> *g</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19a0ee4f314c724d39bd8d50b2cf93e2"></a><!-- doxytag: member="Object::parent" ref="a19a0ee4f314c724d39bd8d50b2cf93e2" args="" -->
-<a class="el" href="class_game_object.html">GameObject</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a4b9173b5a9a1e5c313df5b574716037a">aParent</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_object.html" title="The Object class.">Object</a> class. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/><h2>Field Documentation</h2>
+<a class="anchor" id="a4b9173b5a9a1e5c313df5b574716037a"></a><!-- doxytag: member="Object::aParent" ref="a4b9173b5a9a1e5c313df5b574716037a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_game_object.html">GameObject</a>* <a class="el" href="class_object.html#a4b9173b5a9a1e5c313df5b574716037a">Object::aParent</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructs a new <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> with parent <code>parent</code> and the reference to the game <code>g</code>.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>If these objects cannot be given to the constructor (case of an array of objects), the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> method must be called after the creation to make the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> valid. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_game_object.html#a41d4afe43f955e78ede0bbd4ad8957f8">GameObject</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/editor/Game/<a class="el" href="object_8h_source.html">object.h</a></li>
 </ul>
 </div><!-- contents -->
@@ -122,7 +137,7 @@ Data Fields</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

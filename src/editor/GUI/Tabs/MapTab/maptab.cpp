@@ -28,7 +28,20 @@ MapsTab::MapsTab(QWidget *parent) :
 
 }
 
+
+void MapsTab::mapChanged(const QModelIndex &to, const QModelIndex &UNUSED(from)){
+    game->setCurrentMap(game->world().maps().at(to.row()));
+    // TODO mieux
+    updateGame();
+}
+
 void MapsTab::setGame(Game *g){
+
+    mapsView->setModel(new MapsListModel(&g->world(), this));
+
+
+    connect(mapsView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+            this, SLOT(mapChanged(QModelIndex,QModelIndex)));
     game = g;
     for(BDockWidget *d : docksW)
         d->setGame(g);

@@ -46,6 +46,10 @@ void MapsListModel::update(){
         }
     // TODO : enlever les déchets
 }
+/*
+Qt::ItemFlags MapsListModel::flags(const QModelIndex &UNUSED(index)) const{
+    return Qt::ItemIsEnabled;
+}*/
 
 bool MapsListModel::insertRows(int row, int count, const QModelIndex &parent){
     beginInsertRows(parent, row, row+count);

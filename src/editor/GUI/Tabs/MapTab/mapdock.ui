@@ -128,7 +128,7 @@
    <item row="4" column="2">
     <widget class="QToolButton" name="resizing">
      <property name="icon">
-      <iconset resource="../../Icons/ressources.qrc">
+      <iconset resource="../../../Icons/ressources.qrc">
        <normaloff>:/Icons/editer.png</normaloff>:/Icons/editer.png</iconset>
      </property>
     </widget>
@@ -136,7 +136,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../Icons/ressources.qrc"/>
+  <include location="../../../Icons/ressources.qrc"/>
  </resources>
  <connections/>
 </ui>

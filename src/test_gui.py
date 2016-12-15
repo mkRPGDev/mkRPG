@@ -61,10 +61,40 @@ textfield = TextField("This is a loooooooooooooooooooooooooooooooooooooooo\n"+\
                         'text_align':'left',
                         'text_interline':2
                       })
-textfield.move(200,200)
+textfield.move(350,200)
+
+scrolltextfield = ScrollableTextField("This is a loooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "ooooooooooooooooooooooooooooooooooooooooooooooooooo\n"+\
+                      "oooooooooooooooooooooooooooooooooooooooooooooog\n"+\
+                      "scrollable text!",
+                      {
+                        'size':(450,100),
+                        'text_size':20,
+                        'text_color':(255,0,255,255),
+                        'text_font':None,
+                        'text_align':'left',
+                        'text_interline':2,
+                        'scroll_step':10
+                      })
+scrolltextfield.move(0,100)
 
 container.add(button)
 container.add(textfield)
+container.add(scrolltextfield)
 
 while True:
     clock.tick(60)

@@ -280,6 +280,7 @@ class ScrollableTextField(GUIElement):
             it's too big, one should put endlines where needed
         """
         super().__init__(style)
+        self.text = text
         self.textField = None # TextField that will be scrolled
         self.tf_ypos = 0 # relative position in the wrapper
         self.wrapper = None # pygame.Surface that contain the TextField object
@@ -289,9 +290,9 @@ class ScrollableTextField(GUIElement):
         self.update()
 
     def build(self):
-        tf_style = style
+        tf_style = self.style.copy()
         tf_style['size'] = (0,0)
-        self.textfield = TextField(text, tf_style)
+        self.textfield = TextField(self.text, tf_style)
         self.tf_ypos = 0
 
         self.rect = Rect((0,0), self.style['size'])
@@ -300,18 +301,19 @@ class ScrollableTextField(GUIElement):
         self.wrapper = pygame.Surface(self.style['size'], pygame.SRCALPHA)
         self.wrapper = self.wrapper.convert_alpha()
 
-        self.wrapper.blit(self.textfield, self.tf_ypos)
+        self.wrapper.blit(self.textfield.image, (0,self.tf_ypos))
         self.image = self.wrapper
 
     def scroll(self, dz):
         self.tf_ypos += dz
 
-    def handleEvent(self, event):
+    def handle_event(self, event):
         if event == guiEvent.SCROLL_UP:
-            if self.tf_ypos < 0:
+            if self.tf_ypos >= -self.textfield.rect.size[1] +\
+                               2*self.style['text_size']:
                 self.scroll(-self.style['scroll_step'])
         elif event == guiEvent.SCROLL_DOWN:
-            if self.tf_ypos > -self.style['size'][1]:
+            if self.tf_ypos < 0:
                 self.scroll(self.style['scroll_step'])
 
 

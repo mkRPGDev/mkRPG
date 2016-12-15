@@ -14,7 +14,12 @@ class GUIWindowView(PygamePlugin):
 
     def __init__(self, guiWindow, netPlugin):
         super().__init__(netPlugin)
-        self.guiElement = guiElement
+        self.guiWindow = guiWindow
+        self.guiElements = make_elements(guiWindow)
+
+    def make_elements(self, guiWindow):
+        # TODO : Build a list of guiElements
+        pass
 
     def icon(self):
         return ImageCache.get_image(self.guiElement.icon)

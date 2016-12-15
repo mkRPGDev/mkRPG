@@ -7,7 +7,7 @@ import configparser
 from interface.const import *
 from interface.cache import ChunkCache
 from interface.printWorld import WorldViewer
-from interface.interface import Interface
+from interface.interface import Interface, skeys
 from interface.utils import add_to_rect_list
 
 class Client(Interface):
@@ -31,7 +31,7 @@ class Client(Interface):
         keys = []
         for event in events:
             if event.type == QUIT:
-                keys.append(K_ESCAPE)
+                keys.append(skeys.QUIT)
             elif event.type == KEYUP:
                 keys.append(event.key)
         return keys
@@ -41,7 +41,7 @@ class Client(Interface):
         self.interface.set_perso(self.perso)
 
     def init(self):
-        self.get_conf_file("client_conf.ini")
+        self.get_conf_file("interface/client_conf.ini")
 
         pygame.font.init()
         self.font = pygame.font.Font(None, 18)

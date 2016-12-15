@@ -7,8 +7,9 @@ import interface.const as const
 from interface.utils import add_to_rect_list, cell_to_point
 
 class Entity(pygame.Surface):
-    def __init__(self, pos, map_size, picture):
-        self.x, self.y = pos
+    def __init__(self, worldEntity, map_size, picture):
+        self.worldEntity = worldEntity
+        self.x, self.y = self.worldEntity.x, self.worldEntity.y
         self.map_width, self.map_height = map_size
         self.picture = picture
         self.image = ImageCache.get_image(const.IMG_SET[self.picture])
@@ -30,8 +31,10 @@ class Entity(pygame.Surface):
         posy -= height/2
         return int(posx),int(posy)
 
-    def update(self, newx, newy):
-        self.x, self.y = newx, newy
+    def update(self):#, newx, newy):
+        self.x, self.y = self.worldEntity.x, self.worldEntity.y
+#        print(newx, newy)
+#        self.x, self.y = newx, newy
         lastpos = self.pos
         self.pos = self.get_ent_pos()
         lastrect = Rect(lastpos, self.image.get_size())

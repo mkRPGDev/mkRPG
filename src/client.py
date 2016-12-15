@@ -91,6 +91,7 @@ class Client:
         emitter = world.BaseObject.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
+        print(self.world.entities[0].x)
 
     async def pluginHandle(self, msg):
         """ Search for plugins that want to handle the message """

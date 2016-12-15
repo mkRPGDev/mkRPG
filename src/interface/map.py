@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import pygame
 from pygame.locals import MOUSEBUTTONUP, Rect
 
@@ -14,7 +12,7 @@ class MapViewer(pygame.sprite.Group):
 
     def __init__(self, currentMap, w):
         pygame.sprite.Group.__init__(self)
-        self.map = [[currentMap.defaultCell.params["picture"] for i in range(currentMap.width)]\
+        self.map = [[currentMap.defaultCell.picture for i in range(currentMap.width)]\
                      for j in range(currentMap.height)]
         self.world = w
 
@@ -188,9 +186,9 @@ class MapViewer(pygame.sprite.Group):
 
             print("Current chunk",self.current_chunk)
             print("Offset", pos_offsetx, pos_offsety)
-            print("Screen chunks")
-            for chunk in self.sprites():
-                print(chunk.index,":", str(chunk.rect), str(chunk.base_rect))
+            #print("Screen chunks")
+            #for chunk in self.sprites():
+            #    print(chunk.index,":", str(chunk.rect), str(chunk.base_rect))
 
             return rect_arr
         else:

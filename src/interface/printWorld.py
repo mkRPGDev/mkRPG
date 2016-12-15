@@ -1,15 +1,15 @@
 import pygame
 from pygame.locals import Rect
 
-from time import sleep
+#from time import sleep
 
-import shared.world as world
+#import shared.world as world
 
 from interface.map import MapViewer
 from interface.entity import Entity
 from interface.utils import merge_rect_lists
-from interface.cache import ImageCache
-from interface.interface import Interface
+#from interface.cache import ImageCache
+#from interface.interface import Interface
 import interface.const as const
 
 class WorldViewer:
@@ -25,7 +25,7 @@ class WorldViewer:
         # Load entities
         self.entities = []
         for ent in w.entities:
-            self.entities.append(Entity((ent.x, ent.y),
+            self.entities.append(Entity(ent,#(ent.x, ent.y),
                                    (self.current_map.cm_width,
                                     self.current_map.cm_height),
                                     ent.picture))
@@ -50,7 +50,7 @@ class WorldViewer:
         # Update entities and compute the rectangles of modifications
         charac_rects = []
         for ent in self.entities:
-            rects = ent.update(ent.x, ent.y)
+            rects = ent.update()#ent.x, ent.y)
             if rects is not None:
                 for i in range(len(rects)):
                     rects[i] = rects[i].move(self.current_map.pos_offset)

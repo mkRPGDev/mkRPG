@@ -42,10 +42,10 @@ class Chunk(pygame.sprite.Sprite):
                                     const.ANGLE_X_R, const.ANGLE_Y_R)[1]
         self.width = int(x_max-x_min)
         self.height = int(y_max-y_min)
-        print("---- ICI ----")
-        print(self.index, self.g_map_width, self.g_map_height)
+        #print("---- ICI ----")
+        #print(self.index, self.g_map_width, self.g_map_height)
         self.pos = (int(x_min),int(y_min))
-        print(self.pos, self.width, self.height)
+        #print(self.pos, self.width, self.height)
 
         self.base_rect = Rect(self.pos, (self.width, self.height))
 

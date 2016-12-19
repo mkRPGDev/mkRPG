@@ -5,9 +5,9 @@ Voici le premier exemple amusant de jeu géré par notre "maker".
 ### Utilisation
 
 Pour le lancer :
-    python3 server.py ../Test/Snake
+    `python3 server.py ../test/snake`
 et
-    python3 client.py ../Test/Snake
+    `python3 client.py ../test/snake`
 
 Quelques bricolages subsistent et entraînent ces limitations:
 - il gère un seul joueur et le serveur doit être relancé à chaque partie

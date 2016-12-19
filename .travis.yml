@@ -1,27 +1,36 @@
 language: python
 python:
-  - "3.2"
   - "3.3"
   - "3.4"
   - "3.5"
 
-# This will run on Travis' 'new' container-based infrastructure
-sudo: false
+sudo: true
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - jules.kozolinsky@ens-cachan.fr
+      - pjeanmai@ens-cachan.fr
+      - guinness@crans.org
+      - clement.pascutto@ens.fr
+      - ismail.lahkim.bennani@gmail.com
+      - marc.coudriau@ens.fr
+      - baptiste.pauget@ens.fr
+    on_success: [always|never|change] # default: change
+    on_failure: [always|never|change] # default: always
 
 # Blacklist
 branches:
   except:
     - gh-pages
 
-# Environment variables
-env:
-  global:
-    - GH_REPO_NAME: mkRPG
-    - DOXYFILE: $TRAVIS_BUILD_DIR
-    - GH_REPO_REF: github.com/mkRPGDev/mkRPG.git
+before_install:
+    - sudo apt-get build-dep -y python-pygame
+    - pip install hg+http://bitbucket.org/pygame/pygame
+    - python -c "import pygame"
+
+install:
+    - pip install -r travis/test-requirements.txt
 
 # Install dependencies
 addons:
@@ -37,10 +46,10 @@ addons:
 # Build your code e.g. by calling make
 script:
   - cd $TRAVIS_BUILD_DIR
-  - chmod +x generateDocumentation.sh
-  - ./generateDocumentation.sh
+  - python3 -m unittest discover -v -s pytest -p "*.py"
+
 # Generate and deploy documentation
-#after_success:
-#  - cd $TRAVIS_BUILD_DIR
-#  - chmod +x generateDocumentationAndDeploy.sh
-#  - ./generateDocumentationAndDeploy.sh
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x travis/checkout_ghpages_script.sh
+  - ./travis/checkout_ghpages_script.sh

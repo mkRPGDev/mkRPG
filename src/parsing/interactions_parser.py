@@ -7,8 +7,8 @@ these interactions.
 # -*- coding: utf-8 -*-
 
 import sys
-import parsing_utils
-import actions_parser
+import parsing.parsing_utils as parsing_utils
+import parsing.actions_parser as actions_parser
 
 def interaction_parser(interaction_tag):
     """Parses one interaction tag. An interaction tag is very simple, it

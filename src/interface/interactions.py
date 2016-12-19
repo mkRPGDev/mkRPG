@@ -1,28 +1,34 @@
 from enum import IntEnum
 
 from shared.tools import readXml
-import parsing.global_parsing as global_parsing
 
 InteractionType = IntEnum("InteractionType", "Key Mouse Scroll Multi")
 
 class Interaction():
-    """ Représente une connection entre une entrée utilisateur 
-        et un événement à déclencher sur une cible """
+    """ Link between an user input and a event to trigger on a target """
     def __init__(self):
         self.target = None
 
     def load(self, dat):
-        self.type = InteractionType.Key
-        self.key = dat["key"]
-        self.target = dat["target"]
-        self.event = dat["event"]
+        for d in dat.list:
+            if d.name == "key":
+                self.type = InteractionType.Key
+                self.key = int(d.args["val"])
+            elif d.name == "target":
+                self.target = d.args["val"]
+            elif d.name == "event":
+                self.event = d.args["val"]
+            elif d.name == "button":
+                self.type = InteractionType.Mouse
+                self.key = int(d.args["val"])
         return self
 
 def registerInteractions(path):
-    """ Créé une liste d'interaction à partir d'un Xml les décrivant """
-    interactions_list = global_parsing.game_parser(path+"game.xml")["Interactions"]
+    """ Create a list of interaction from a Xml describing them """
+    dat = readXml(path + "interactions.xml")
+    assert dat.name == "Interactions"
     l = []
-    for d in interactions_list:
+    for d in dat.list:
         l.append(Interaction().load(d))
     return l
 

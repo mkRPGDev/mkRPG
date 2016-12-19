@@ -3,6 +3,22 @@
 
 #include <QWidget>
 
+
+
+/*!
+ * \file tabwidget.h
+ * \brief Definition of the TabWidget class.
+ *
+ */
+
+
+
+/*!
+ * \brief The TabWidget class is the base class for
+ * editing tabs.
+ *
+ * It provides common methods to update the currently edited game.
+ */
 class TabWidget : public QWidget
 {
     Q_OBJECT

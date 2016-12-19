@@ -8,13 +8,13 @@ The most important methods are the game_parser one and the save_xml.
 
 import sys
 from os.path import isfile, abspath, dirname, sep, join
-import map_parser as mp
-import entity_parser as ep
-import world_parser as wp
-import parsing_utils
-import objects_parser as op
-import actions_parser as ap
-import interactions_parser as ip
+import parsing.map_parser as mp
+import parsing.entity_parser as ep
+import parsing.world_parser as wp
+import parsing.parsing_utils as parsing_utils
+import parsing.objects_parser as op
+import parsing.actions_parser as ap
+import parsing.interactions_parser as ip
 
 
 def check_files(*args):

@@ -1,9 +1,13 @@
-<World>
+<World name="world">
     <Params>
         <currentMap id="main"/>
-        <step>0</step>
         <pomme id="pomme"/>
+        <step val="0"/>
     </Params>
+    
+    <Maps>
+        <Map id="main"/>
+    </Maps>
 
     <Maps>
         <Map id="main"/>
@@ -15,7 +19,7 @@
     </Entities>
 
     <Objects>
-        <Object id="pomme"/>
+        <MagicObject id="pomme"/>
     </Objects>
 <!--
     <Map name="principale">

@@ -70,7 +70,7 @@ BDock::BDock(QString title, BDockWidget *dock, QWidget *parent) :
 }
 
 
-void BDock::mouseDoubleClickEvent(QMouseEvent *me){
+void BDock::mouseDoubleClickEvent(QMouseEvent *UNUSED(me)){
     if(name->underMouse())
         dUnfold.swap();
 }

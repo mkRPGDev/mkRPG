@@ -5,7 +5,7 @@ Recall that the actions should all be defined in such a file.
 # -*- coding : utf-8 -*-
 
 import sys
-import parsing_utils
+import parsing.parsing_utils as parsing_utils
 
 def get_tag(order_tag, tag, optionnal=False):
     """Gets the value of an argument. If optionnal is set to True, it returns

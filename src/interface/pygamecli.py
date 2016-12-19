@@ -2,35 +2,21 @@ import pygame
 from pygame.locals import QUIT, K_ESCAPE, KEYUP, MOUSEBUTTONDOWN, MOUSEBUTTONUP
 from pygame.locals import Rect
 
-from sys import argv
-from time import time
 import configparser
 
-from const import *
-from interface.interactions import registerInteractions, InteractionType
-from shared.orders import OrderDispatcher
+from interface.const import *
 from interface.cache import ChunkCache
-
-if USETCP:
-    from shared.network import NetworkClient
-else:
-    from networkudp import NetworkClient
-
-#TODO trouver mieux cf world
-with open("isserver.py","w") as file:
-    file.write("SERVER = False\n")
-
-import shared.world as world
-from interface.printWorld import WorldViewer, Interface
+from interface.printWorld import WorldViewer
+from interface.interface import Interface
 from interface.utils import add_to_rect_list
 
 class Client(Interface):
-    def __init__(self, w):
+    def __init__(self, w, p):
+        super().__init__(w, p)
+
         pygame.display.init()
         self.screen_size = SCREEN_WIDTH, SCREEN_HEIGHT
         self.screen = pygame.display.set_mode(self.screen_size)
-
-        self.world = w
         self.interface = WorldViewer(self.world)
         self.perso = None
 
@@ -99,7 +85,6 @@ class Client(Interface):
         if next(self.refresh_counter) :
             pygame.display.flip()
         else : pygame.display.update(rect_list)
-        self.interface.update()
 
     def frame_counter(self, n):
         i = n
@@ -164,5 +149,5 @@ class Client(Interface):
         self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
-if __name__ == "__main__":
-    cli = Client(argv[1] if len(argv)>1 else PATH).run()
+#if __name__ == "__main__":
+ #   cli = Client(argv[1] if len(argv)>1 else PATH).run()

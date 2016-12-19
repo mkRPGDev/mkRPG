@@ -4,7 +4,7 @@ from random import randint
 
 from shared.tools import readXml
 from shared.orders import Order, OrderType
-import parsing.global_parsing as global_parsing
+from parsing import global_parsing
 
 verbose = False
 
@@ -14,7 +14,7 @@ toResolve = []
 world = None
 
 def loadGame(path):
-    """ Lit le game.xml et renvoie le monde chargé """
+    """ Load game.xml and returns the loaded world """
     global world
     parsed_data = global_parsing.game_parser(path+"game.xml")
     for data_list in parsed_data:
@@ -29,7 +29,8 @@ def loadGame(path):
     return world
 
 class Object:
-    """ Tout objet du monde """
+    """ Any world object """
+    ident = 0
     ids = {} # liste si sans deletion
 
     def __init__(self, ident=None):
@@ -92,13 +93,13 @@ class Object:
                 named[data['name']] = self
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue
-            if verbose: print(nm, "-->", named[nm])
+            if verbose: print(nm, "->", named[nm])
             li[ln] = named[nm]
             #assert nm in named, nm+" non résolu" FIXME
         return self
 
     def contextEval(self, value):
-        """ Évalue une expression dans le contexte de l'objet pour les ordres """
+        """ Eval an expression in the context of the object for orders """ 
         return eval(value)
 
     # TODO traitement d'ordres ?
@@ -131,14 +132,15 @@ class World(Object):
         self.entities = []
         self.objects = []
 
-
 class Map(Object):
+    """ Orthonormed map with associated alogrithms """
     def __init__(self, ident=None):
         Object.__init__(self, ident)
         self.cells = []
 
     def fill(self):
-        """ Complète les cases par défaut """
+        """ Fill the cellsGrid attribute with cells and default cell
+        To be called after the Xml reading only """
         self.cellsGrid = [[None] * self.height
                             for _ in range(self.width)]
         for c in self.cells:
@@ -152,14 +154,14 @@ class Map(Object):
                     cell.x = i; cell.y = j
 
     def dist(self, source, dest):
+        """ Manhattan distance """
         return abs(source.x-dest.x) + abs(source.y-dest.y)
 
     def lov(self, source, dest):
-        """
-        Calcule si la vue est dégagée entre source et dest,
-        ces derniers doivent avoir des paramètres x et y et
-        les cellules de la carte un paramètre "visible"
-        O(dist(source, dest)) environ
+        """ Computes if the view is degaged between source and dest
+        those laters must have x and y parameters and the map
+        cells a parameter "visible"
+        About O(dist(source, dest))
         """
         x1,y1 = source.x, source.y
         x2,y2 = dest.x, dest.y
@@ -181,7 +183,7 @@ class Map(Object):
 
     def fromPos(self, pos, maxi=None):
         """ Yield cells further and further from pos, stopping at maxi
-        Assuming >x vy it turns as the trigo circle,
+        Assuming x goes right and y down it turns as the trigo circle,
         it is therefore not a "serpentin" (sadly ?) """
         x,y = pos.x, pos.y
         if maxi is None: maxi = max(x, self.width-x) + max(y, self.height-y)
@@ -210,8 +212,3 @@ class Entity(Object):
 
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":Object,
        "types":ObjectType, "inventory":Object, "quests":Object}
-
-if __name__=="__main__":
-    verbose = True
-    w = World()
-    w.load("../Test/") # désuet

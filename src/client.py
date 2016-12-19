@@ -1,13 +1,9 @@
-from time import sleep, time
 from argparse import ArgumentParser
 import asyncio
-from sys import path
 
-path.append('parsing/')
-
-from const import *
 from interface.interactions import registerInteractions, InteractionType
 from interface.interface import skeys
+from const import UPDTIME, PATH
 from shared.orders import OrderDispatcher
 from shared.network import NetworkClient
 import shared.world as world
@@ -28,14 +24,14 @@ def interface(args):
         return interface(args)
     return Interface
 
-class Client():
-    """ Main class of the client process, gathering interface, world and networking"""
+class Client:
+    """ Main class of the client process, gathering interface, world and networking """
     def __init__(self, path, Interface):
         self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
         self.world = world.loadGame(path)
-        #print(self.world.objects, self.world.entities)
-        self.plugins = loadPluginsClient(path, self)
+        self.plugins = ([],[]) if args.pygame else loadPluginsClient(path, self)
+        # on va bien trouver mieux
         # TODO intégrer au loadGame, faire une autre classe client ?
         self.interface = Interface(self.world, self.plugins[1])
         self.plugins = self.plugins[0]
@@ -51,12 +47,15 @@ class Client():
         print("Client killed")
 
     def run(self):
+        """ Launch tasks """
         self.loop.run_until_complete(self.net.connect())
         self.loop.run_until_complete(self.getEntity())
         self.netTask = self.loop.create_task(self.net.run())
         self.loop.run_until_complete(self.main())
 
     async def getEntity(self):
+        """ Ask for a free entity to the server.
+        May disappear with a proper initialisation process """
         for ent in self.world.entities:
             if await self.net.askEntity(ent):
                 self.perso = ent
@@ -67,9 +66,10 @@ class Client():
             return
 
     async def main(self):
+        """ Init stuff, listen for inputs and send corresponding events """
         self.interface.init()
         while True:
-#            self.interface.update()
+            self.interface.update()
             # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
             keys = self.interface.getEvent()
             if not keys:
@@ -83,14 +83,17 @@ class Client():
                 for inte in self.interactions:
                     if (inte.type == InteractionType.Key and
                         inte.key == key):
-                        await self.net.sendEvent(self.__getattribute__(inte.target), inte.event)
+                        await self.net.sendEvent(self.__getattribute__(inte.target),
+                                                 inte.event)
 
     async def handleOrder(self, ident, order):
+        """ Call dispatcher and update display """
         emitter = world.Object.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
     async def pluginHandle(self, msg):
+        """ Search for plugins that want to handle the message """
         for plug in self.plugins:
             if msg.startswith(plug.MSGID):
                 await plug.clientMessage(msg[len(plug.MSGID):])
@@ -116,7 +119,7 @@ args = parser.parse_args()
 
 if args.debug: asyncio.get_event_loop().set_debug(True)
 
-cli = Client(args.path, interface(args))
+cli = Client(args.path+"/", interface(args))
 try:
     cli.run()
 except KeyboardInterrupt:

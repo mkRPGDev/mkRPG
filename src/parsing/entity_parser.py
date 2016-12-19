@@ -13,7 +13,7 @@ it always have a picture, its grpahical representation in the GUI client
 
 #-*- coding : utf-8 -*-
 
-import parsing_utils
+import parsing.parsing_utils as parsing_utils
 
 
 def get_characteristics(_characteristics):

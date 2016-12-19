@@ -2,9 +2,9 @@
 
 import pygame
 
-from cache import ImageCache
-import const
-import utils
+from interface.cache import ImageCache
+import interface.const as const
+import interface.utils as utils
 from math import pi
 
 class Layer(pygame.sprite.Sprite):
@@ -36,7 +36,7 @@ class Layer(pygame.sprite.Sprite):
         of cell and cell_ids is the type for each cell.
         """
         res = pygame.Surface(self.size, pygame.SRCALPHA)
-        res.convert_alpha()
+        res = res.convert_alpha()
         # Debug : fond de chunk aléatoire
         import random
         res.fill((random.randint(0,0),random.randint(0,0),random.randint(0,255),255))

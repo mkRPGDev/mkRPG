@@ -1,6 +1,6 @@
 #include "editor.h"
 
-Editor::Editor(QStringList args, QWidget *parent) :
+Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     QMainWindow(parent)
 {
     setupUi(this);
@@ -10,9 +10,9 @@ Editor::Editor(QStringList args, QWidget *parent) :
     hidden->setHidden(true);
     connect(tabBar, SIGNAL(currentTabChanged(int)), stackedWidget, SLOT(setCurrentIndex(int)));
 
-    worldEditor = new WorldEditor;
-    mapsEditor = new MapsEditor;
-    objectEditor = new ObjectEditor;
+    worldEditor = new WorldTab;
+    mapsEditor = new MapsTab;
+    objectEditor = new ObjectTab;
 
     addTab(tr("Welcome"), QPixmap(":Icons/main.png"), new Welcome);
     addTab(tr("Game"), QPixmap(":Icons/main.png"), worldEditor);
@@ -106,53 +106,64 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 }
 
 
-Game* Editor::open(QString fileName){ // NOTE : temporaire
+Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     Game* g = new Game();
-    Map *m = new Map(g, g->world());
-    g->world()->addMap(m);
-    m->setName("Paysage bucolique");
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
 
-    im = new Image(g, g, ":/Icons/herbe.png");
+    im = new Image(*g, ":/Icons/herbe.png");
     g->addImage(im);
-    ct1 = new CellType(g, g->world());
+    ct1 = new CellType(g->world().types().cellType());
     ct1->setName("Herbe");
     ct1->setImage(im);
-    g->world()->addCellType(ct1);
-    m->cell(10,10).setCellType(ct1);
-    im = new Image(g, g, ":/Icons/glace.png");
+    g->world().addCellType(ct1);
+    im = new Image(*g, ":/Icons/glace.png");
     g->addImage(im);
-    ct2 = new CellType(g, g->world());
+    ct2 = new CellType(g->world().types().cellType());
     ct2->setName("Glace");
     ct2->setImage(im);
-    g->world()->addCellType(ct2);
-    m->cell(11,11).setCellType(ct2);
-    im = new Image(g, g, ":/Icons/mer.png");
+    g->world().addCellType(ct2);
+    im = new Image(*g, ":/Icons/mer.png");
     g->addImage(im);
-    ct3 = new CellType(g, g->world());
+    CellType *ct = new CellType(g->world().types().cellType());
+    ct->setName("Eau");
+    ct->setImage(im);
+    ct->setParam("Profondeur", 75);
+
+
+    ct3 = new CellType(*ct);
     ct3->setName("Mer");
     ct3->setImage(im);
-    g->world()->addCellType(ct3);
+    ct3->setParam("Salinité", 12);
+    ct3->setParam("Pollution", 70);
+    ct3->setParam("boue", 0);
+    CellType *ctt = new CellType(*ct3);
+    ctt->setName("Atlantique");
+    ctt->setParam("Salinité", 8);
+    ctt->setParam("Concentration de requins", 20);
+    g->world().addCellType(ct);
+    Map *m = new Map(g->world().types().mapType(), g->world());
+    g->world().addMap(m);
+    m->setName("Paysage bucolique");
     int l = m->width();
     int h = m->height();
     for(int i(0); i<l; ++i)
         for(int j(0); j<h; ++j){
             double o = 3.*j/h+(1.8-8.*(i-l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
-            m->cell(i,j).setCellType(o<1 ? ct1 : o<2 ? ct2 : ct3);
+            m->cell(i,j).setCellType(o<1 ? *ct1 : o<2 ? *ct2 : *ct3);
         }
     tabBar->setTabsEnabled(true);
 
-    m = new Map(g, g->world());
+    m = new Map(g->world().types().mapType(), g->world());
     m->setName("Le grand large");
-    g->world()->addMap(m);
+    g->world().addMap(m);
     l = m->width();
     h = m->height();
     for(int i(0); i<l; ++i)
         for(int j(0); j<h; ++j){
             double o = 3.*j/h+(1.8-8.*(l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
-            m->cell(i,j).setCellType(o<1 ? ct1 : o<2 ? ct2 : ct3);
+            m->cell(i,j).setCellType(o<1 ? *ct1 : o<2 ? *ct2 : *ct3);
         }
     tabBar->setTabsEnabled(true);
     return g;

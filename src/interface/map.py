@@ -8,7 +8,7 @@ import struct
 from interface.utils import merge_rect_lists, sublist, WalkableGraph
 from interface.cache import ChunkCache
 
-import const
+import interface.const as const
 
 class MapViewer(pygame.sprite.Group):
 
@@ -122,7 +122,7 @@ class MapViewer(pygame.sprite.Group):
         size = rect.size
 
         res = pygame.Surface(size)
-        res.convert_alpha()
+        res = res.convert_alpha()
         res.fill((0,0,0))
         pygame.draw.rect(res, (255,255,255,255), Rect((0,0), size),10)
 

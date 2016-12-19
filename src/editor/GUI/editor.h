@@ -7,9 +7,14 @@
 #include "newgame.h"
 #include "Game/xmlhandler.h"
 #include "Tabs/welcome.h"
-#include "Tabs/worldeditor.h"
-#include "Tabs/mapseditor.h"
-#include "Tabs/objecteditor.h"
+#include "Tabs/worldtab.h"
+#include "Tabs/MapTab/maptab.h"
+#include "Tabs/objecttab.h"
+
+/*!
+ * \file editor.h
+ * \brief Definition of the Editor class.
+ */
 
 /*!
  * \brief The constant SHARED is used to open
@@ -70,9 +75,9 @@ private:
     void moveEvent(QMoveEvent *me);
     void closeEvent(QCloseEvent *ce);
 
-    WorldEditor *worldEditor;
-    MapsEditor *mapsEditor;
-    ObjectEditor *objectEditor;
+    WorldTab *worldEditor;
+    MapsTab *mapsEditor;
+    ObjectTab *objectEditor;
 
 };
 

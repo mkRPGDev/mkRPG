@@ -1,6 +1,6 @@
 from time import time
 
-from const import *
+from const import UPDTIME
 from enum import IntEnum
 
 skeys = IntEnum("keys", "QUIT PAUSE RESUME")

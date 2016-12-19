@@ -4,6 +4,13 @@
 #include <QWidget>
 #include "Game/game.h"
 
+
+/*!
+ * \file bdockwidget.h
+ * \brief Definition of the BDockWidget class
+ *
+ */
+
 /*!
  * \brief The BDockWidget class is the base class for
  * game-related docks.

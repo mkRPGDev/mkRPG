@@ -5,6 +5,8 @@ from const import *
 from shared.world import Object
 from shared.orders import Order # XXX à sa place ?
 
+PRINTDEBUG = False
+
 class NetworkClient:
     """
     This class manages the network activities of the client.
@@ -49,6 +51,7 @@ class NetworkClient:
 
     async def send(self, m):
         self.writer.write(m)
+        if PRINTDEBUG: print("Sent %s" % str(m)[1:])
         await self.writer.drain()
 
     async def sendEvent(self, obj, event):
@@ -66,8 +69,8 @@ class NetworkClient:
 
 class ServerConnection:
     """
-    This thread manages the communications with one particular client (one
-    thread is created by client).
+    This class manages the communications with one particular client (one
+    task is created by client).
     """
     def __init__(self, reader, writer, handle, pluginHandle, parent):
         self.reader = reader
@@ -117,13 +120,14 @@ class ServerConnection:
     async def send(self, m):
         try:
             self.writer.write(m)
+            if PRINTDEBUG: print("Sent %s" % str(m)[1:])
             await self.writer.drain()
         except ConnectionResetError:
             self.end()
 
     def end(self):
         if not self.server: return
-        print("Déco")
+#        print("Déco")
         if self.entity: self.entity.user = None
         self.writer.close()
         self.server.connections.remove(self)
@@ -173,7 +177,6 @@ class NetworkServer:
     async def broadcast(self, m):
         for co in self.connections:
             await co.send(m)
-        
 
 
 # Prémices de tests

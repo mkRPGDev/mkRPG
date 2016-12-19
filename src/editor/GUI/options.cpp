@@ -1,6 +1,6 @@
 #include "options.h"
 
-Options *Options::instance = NULL;
+Options *Options::instance = nullptr;
 
 Options &Options::options(){
     if(!instance) instance = new Options;
@@ -40,7 +40,9 @@ void Options::setAdjustable(QString group, QString opt, bool adjust){
 
 
 void Options::reinitialise(QString group){
+    a.beginGroup(group);
     // TODO par group !
-    a.clear();
+    a.remove("");
+    a.endGroup();
 }
 

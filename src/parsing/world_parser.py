@@ -5,7 +5,7 @@ to load a game, that is to say the current map, the entities...
 
 # -*- coding : utf-8 -*-
 
-import parsing_utils
+import parsing.parsing_utils as parsing_utils
 
 def parse_world(world_file):
     """ Parses the file describing the world, and returns the adequate

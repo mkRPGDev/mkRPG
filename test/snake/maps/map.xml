@@ -1,7 +1,7 @@
 <Map name="main">
     <Params>
-        <height>20</height>
-        <width>40</width>
+        <height val="100"/>
+        <width val="100"/>
         <defaultCell id="defc"/>
     </Params>
 
@@ -12,8 +12,8 @@
 
     <CellType name="defc">
         <Params>
-            <mortelle>0</mortelle>
-            <picture>32</picture>
+            <mortelle val="0"/>
+            <picture val="32"/>
         </Params>
     </CellType>
 </Map>

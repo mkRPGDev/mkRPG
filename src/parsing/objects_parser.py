@@ -4,7 +4,7 @@ This file handles the parsing of the objects defined in the game.
 
 # -*- coding : utf-8 -*-
 
-import parsing_utils
+import parsing.parsing_utils as parsing_utils
 
 def object_parser(object_tag):
     """ Parses an object tag, and returns the dictionnary

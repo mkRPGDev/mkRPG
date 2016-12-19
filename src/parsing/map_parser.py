@@ -1,12 +1,11 @@
 """
 This module handles xml parsing for maps description files.
-There should be one map description per xml file.
 """
 
 # -*- coding : utf-8 -*-
 
 import xml.etree.ElementTree as ET
-import parsing_utils
+import parsing.parsing_utils as parsing_utils
 
 def parse_cell(cell_object):
     """
@@ -91,4 +90,3 @@ def collect_map_data(map_files):
         map_data.append(data)
         default_cells.append(cell)
     return default_cells, map_data
-

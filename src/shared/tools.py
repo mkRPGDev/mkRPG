@@ -14,7 +14,7 @@ Node.__doc__ = """ Xml node with the name of the markup,
 
 #TODO mettre une grammaire sur le Xml
 def readXml(path):
-    """ Lit un fichier Xml et renvoie des Nodes imbriqués """
+    """ Read a Xml file and returns imbricated Nodes """
     dirStack = [] #TODO stackiser
     curDir = Node(None,None,[])
     def start(name, attrs):
@@ -41,7 +41,7 @@ def readXml(path):
     return curDir.list[0]
 
 class Perf:
-    """ Calcule les performances d'un morceau de code """
+    """ Times a piece of code """
     def __init__(self):
         self.num = 0
         self.avg = 0
@@ -49,11 +49,11 @@ class Perf:
         self.max = 0
 
     def tic(self):
-        """ À lancer avant la fonction """
+        """ To be run before the timed function """
         self.t = process_time()
 
     def toc(self):
-        """ À lancer après la fonction """
+        """ To be run after the timed function """
         dt = process_time()-self.t
         self.num += 1
         self.avg += (dt-self.avg)/self.num
@@ -61,13 +61,13 @@ class Perf:
         self.min = min(self.min, dt)
 
     def show(self):
-        """ Affiche le rapport """
+        """ Print stats """
         if self.num:
-            print("Temps moyen %es, minimum %es, maximum %es sur %d éxécutions."
+            print("Average time %es, minimum %es, maximum %es over %d executions."
                   % (self.avg, self.min, self.max, self.num))
 
 class Timer:
-    """ Déclenche des appels différés de couroutine """
+    """ Trigger differed couroutine calls """
     def __init__(self, timeFunc = time):
         self.dt = 0.001
         self.step = 0
@@ -77,11 +77,12 @@ class Timer:
         self.time = timeFunc
 
     def add(self, time, func, args):
-        """ Inscrit l'appel de func avec les arguments args """
+        """ Write the function func call with arguments args """
         self.count += 1
         heappush(self.heap, (time + self.step, self.count, (func, args)))
 
     async def run(self):
+        """ Working task """
         while True:
             while self.pause: await asyncio.sleep(self.dt)
             begin = self.time()
@@ -96,7 +97,7 @@ if __name__=="__main__":
     # tests
     #verbose = True
     #perff = Perf()
-    print(readXml("../Test/Snake/world.xml"))
+    #print(readXml("../Test/Snake/world.xml"))
     #perff.show()
     loop = asyncio.get_event_loop()
     t = Timer(loop.time)

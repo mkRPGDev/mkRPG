@@ -3,10 +3,10 @@
 import pygame
 from pygame.locals import Rect
 
-from backgroundLayer import BackgroundLayer
+from interface.backgroundLayer import BackgroundLayer
 
-import const
-import utils
+import interface.const as const
+import interface.utils as utils
 
 class Chunk(pygame.sprite.Sprite):
 

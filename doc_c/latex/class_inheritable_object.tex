@@ -1,0 +1,364 @@
+\hypertarget{class_inheritable_object}{\section{\-Inheritable\-Object \-Class \-Reference}
+\label{class_inheritable_object}\index{\-Inheritable\-Object@{\-Inheritable\-Object}}
+}
+
+
+\-The \hyperlink{class_inheritable_object}{\-Inheritable\-Object} class is the base class for every objects that can inherit attributes from an other \hyperlink{class_inheritable_object}{\-Inheritable\-Object}.  
+
+
+
+
+{\ttfamily \#include $<$gameobject.\-h$>$}
+
+\-Inheritance diagram for \-Inheritable\-Object\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.209945cm]{class_inheritable_object}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_inheritable_object_adcbc6cc43d5f999e9c7758f2c15d06da}{has\-Ancestor} () const 
+\item 
+\hyperlink{class_inheritable_object}{\-Inheritable\-Object} $\ast$ \hyperlink{class_inheritable_object_ac87a3c55ca4be252c527a29fe162bb15}{ancestor} () const 
+\item 
+virtual bool \hyperlink{class_inheritable_object_abc198984005821502425085aeb16c754}{is\-Inherited\-Param} (const \-Q\-String \&p) const 
+\item 
+virtual bool \hyperlink{class_inheritable_object_abe7d327b43331cd5532c1c8228d63a4e}{is\-Redefinied\-Param} (const \-Q\-String \&param) const 
+\item 
+virtual int \hyperlink{class_inheritable_object_aa2f45895bcf254ef252428980c06da83}{get\-Param\-Min} (const \-Q\-String \&param) const 
+\item 
+virtual int \hyperlink{class_inheritable_object_a1edd964a7d01692414ef90f3e88c6a5e}{get\-Param\-Max} (const \-Q\-String \&param) const 
+\item 
+virtual void \hyperlink{class_inheritable_object_af3ebe709ead7a86ed2eaee602f1ffb67}{set\-Param} (const \-Q\-String \&param, int value)
+\item 
+virtual int \hyperlink{class_inheritable_object_a85fdb93d54f9e561acf5effa8012abb8}{get\-Param} (const \-Q\-String \&param) const 
+\item 
+virtual bool \hyperlink{class_inheritable_object_a1f6ee8bcd7cb2e92e260d535518778fc}{has\-Param} (const \-Q\-String \&param) const 
+\item 
+virtual \-Q\-List$<$ \-Q\-String $>$ \hyperlink{class_inheritable_object_a48233a132cc55bce9f73ca6d2dc7d657}{params} () const 
+\item 
+virtual \-Q\-List$<$ \-Q\-String $>$ \hyperlink{class_inheritable_object_a6b7782357091c81101b20fb6ca669eb0}{proper\-Params} () const 
+\item 
+\hyperlink{gameobject_8h_a2679b210263ad72f002dee6909ea222b}{\-Hierarchical\-Attr} \hyperlink{class_inheritable_object_a6bbe68c492529414211ddc8704640d13}{param\-Tree} () const 
+\item 
+virtual bool \hyperlink{class_inheritable_object_abaae23f6ff5781212a88a5faa4f9ed44}{is\-Inherited\-Flag} (const \-Q\-String \&flag) const 
+\item 
+virtual bool \hyperlink{class_inheritable_object_ab691081c80168648c19b60061c1fa148}{is\-Redefinied\-Flag} (const \-Q\-String \&flag) const 
+\item 
+virtual bool \hyperlink{class_inheritable_object_a2982062433ef52c22a669e29dbc42e65}{get\-Flag} (const \-Q\-String \&flag) const 
+\item 
+virtual bool \hyperlink{class_inheritable_object_a3c441caeca4fdc82fb1978595561f101}{has\-Flag} (const \-Q\-String \&flag) const 
+\item 
+virtual \-Q\-List$<$ \-Q\-String $>$ \hyperlink{class_inheritable_object_a2014359fb2260eec0804a0e7be0a6c6d}{flags} () const 
+\item 
+virtual \-Q\-List$<$ \-Q\-String $>$ \hyperlink{class_inheritable_object_a2b0d98c6f8f69698629a4e4c94c85ba4}{proper\-Flags} () const 
+\item 
+\hyperlink{gameobject_8h_a2679b210263ad72f002dee6909ea222b}{\-Hierarchical\-Attr} \hyperlink{class_inheritable_object_a1f5e307cffd3b9d3fc4c4d00079361f7}{flag\-Tree} () const 
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_inheritable_object_af01c47efbda743217889d5e0be652c7b}{{\bfseries \-Inheritable\-Object} (\hyperlink{class_game_object}{\-Game\-Object} \&\hyperlink{class_game_object_af3deaf39cde23c189765634e32e95bb4}{parent}, \hyperlink{class_inheritable_object}{\-Inheritable\-Object} $\ast$\hyperlink{class_inheritable_object_ac87a3c55ca4be252c527a29fe162bb15}{ancestor}=nullptr)}\label{class_inheritable_object_af01c47efbda743217889d5e0be652c7b}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_inheritable_object_a985dc4856beac7cd6bbd3a2f534e42ff}{\hyperlink{class_inheritable_object}{\-Inheritable\-Object} $\ast$ {\bfseries a\-Ancestor}}\label{class_inheritable_object_a985dc4856beac7cd6bbd3a2f534e42ff}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-The \hyperlink{class_inheritable_object}{\-Inheritable\-Object} class is the base class for every objects that can inherit attributes from an other \hyperlink{class_inheritable_object}{\-Inheritable\-Object}. 
+
+\begin{DoxyNote}{\-Note}
+\-The ancerstor of the object can be modified after instanciation.
+\end{DoxyNote}
+\-It is the base class of \hyperlink{class_type}{\-Type} and \hyperlink{class_typed_object}{\-Typed\-Object}.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_type}{\-Type}, \hyperlink{class_typed_object}{\-Typed\-Object} 
+\end{DoxySeeAlso}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_inheritable_object_ac87a3c55ca4be252c527a29fe162bb15}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!ancestor@{ancestor}}
+\index{ancestor@{ancestor}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{ancestor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Inheritable\-Object} $\ast$ {\bf \-Inheritable\-Object\-::ancestor} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_inheritable_object_ac87a3c55ca4be252c527a29fe162bb15}
+\-Returns the object from with the current instance inherits
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_adcbc6cc43d5f999e9c7758f2c15d06da}{has\-Ancestor} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_a2014359fb2260eec0804a0e7be0a6c6d}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!flags@{flags}}
+\index{flags@{flags}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{flags}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ {\bf \-Inheritable\-Object\-::flags} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a2014359fb2260eec0804a0e7be0a6c6d}
+\-Returns the list of the flags of the object, both proper and inherited.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a2b0d98c6f8f69698629a4e4c94c85ba4}{proper\-Flags}, \hyperlink{class_inheritable_object_a1f5e307cffd3b9d3fc4c4d00079361f7}{flag\-Tree}, \hyperlink{class_inheritable_object_a48233a132cc55bce9f73ca6d2dc7d657}{params} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_aa4e80649831f355c14f35f0f9374c691}{\-Game\-Object}.
+
+\hypertarget{class_inheritable_object_a1f5e307cffd3b9d3fc4c4d00079361f7}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!flag\-Tree@{flag\-Tree}}
+\index{flag\-Tree@{flag\-Tree}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{flag\-Tree}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Hierarchical\-Attr} {\bf \-Inheritable\-Object\-::flag\-Tree} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_inheritable_object_a1f5e307cffd3b9d3fc4c4d00079361f7}
+\-Returns the hierarchy of flags, that is the list of ancestors and wich flags they define.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a2b0d98c6f8f69698629a4e4c94c85ba4}{proper\-Flags}, \hyperlink{class_inheritable_object_a6bbe68c492529414211ddc8704640d13}{param\-Tree} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_a2982062433ef52c22a669e29dbc42e65}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!get\-Flag@{get\-Flag}}
+\index{get\-Flag@{get\-Flag}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{get\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Inheritable\-Object\-::get\-Flag} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{flag}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a2982062433ef52c22a669e29dbc42e65}
+\-Returns the value of the {\ttfamily flag} flag, loocking for it in the different ancestors if not found.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a3c441caeca4fdc82fb1978595561f101}{has\-Flag}, \hyperlink{class_inheritable_object_a85fdb93d54f9e561acf5effa8012abb8}{get\-Param}, \hyperlink{class_game_object_ac1df89c8a28a491e1cfd102dcbd044d7}{\-Game\-Object\-::get\-Flag} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_ac1df89c8a28a491e1cfd102dcbd044d7}{\-Game\-Object}.
+
+\hypertarget{class_inheritable_object_a85fdb93d54f9e561acf5effa8012abb8}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!get\-Param@{get\-Param}}
+\index{get\-Param@{get\-Param}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{get\-Param}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Inheritable\-Object\-::get\-Param} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{param}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a85fdb93d54f9e561acf5effa8012abb8}
+\-Returns the value of the {\ttfamily param} parameter, loocking for it in the different ancestors if not found.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a1f6ee8bcd7cb2e92e260d535518778fc}{has\-Param}, \hyperlink{class_inheritable_object_a2982062433ef52c22a669e29dbc42e65}{get\-Flag}, \hyperlink{class_game_object_a4c9a0568afb851340b513207c9745734}{\-Game\-Object\-::get\-Param} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a4c9a0568afb851340b513207c9745734}{\-Game\-Object}.
+
+\hypertarget{class_inheritable_object_a1edd964a7d01692414ef90f3e88c6a5e}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!get\-Param\-Max@{get\-Param\-Max}}
+\index{get\-Param\-Max@{get\-Param\-Max}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{get\-Param\-Max}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Inheritable\-Object\-::get\-Param\-Max} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{param}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a1edd964a7d01692414ef90f3e88c6a5e}
+\-Returns the upeer bound of the {\ttfamily param} parameter if it exists (or is inherited).
+
+\begin{DoxyNote}{\-Note}
+\-If the {\ttfamily param} param is not defined, a default value is returned (100).
+\end{DoxyNote}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a1edd964a7d01692414ef90f3e88c6a5e}{get\-Param\-Max} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a714857ae1ea08935b8beb76675db33e8}{\-Game\-Object}.
+
+\hypertarget{class_inheritable_object_aa2f45895bcf254ef252428980c06da83}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!get\-Param\-Min@{get\-Param\-Min}}
+\index{get\-Param\-Min@{get\-Param\-Min}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{get\-Param\-Min}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Inheritable\-Object\-::get\-Param\-Min} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{param}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_aa2f45895bcf254ef252428980c06da83}
+\-Returns the lower bound of the {\ttfamily param} parameter if it exists (or is inherited).
+
+\begin{DoxyNote}{\-Note}
+\-If the {\ttfamily param} param is not defined, a default value is returned (0).
+\end{DoxyNote}
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a1edd964a7d01692414ef90f3e88c6a5e}{get\-Param\-Max} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a3a308cc3f1d11d66dd5583fb531035c3}{\-Game\-Object}.
+
+\hypertarget{class_inheritable_object_adcbc6cc43d5f999e9c7758f2c15d06da}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!has\-Ancestor@{has\-Ancestor}}
+\index{has\-Ancestor@{has\-Ancestor}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{has\-Ancestor}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Inheritable\-Object\-::has\-Ancestor} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_inheritable_object_adcbc6cc43d5f999e9c7758f2c15d06da}
+\-Returns {\ttfamily true} if the object inherits from an other one.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_ac87a3c55ca4be252c527a29fe162bb15}{ancestor} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_a3c441caeca4fdc82fb1978595561f101}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!has\-Flag@{has\-Flag}}
+\index{has\-Flag@{has\-Flag}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{has\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Inheritable\-Object\-::has\-Flag} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{flag}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a3c441caeca4fdc82fb1978595561f101}
+\-Returns true if the {\ttfamily flag} flag is defined in the object or one of its ancestors.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a2982062433ef52c22a669e29dbc42e65}{get\-Flag}, \hyperlink{class_inheritable_object_a1f6ee8bcd7cb2e92e260d535518778fc}{has\-Param}, \hyperlink{class_game_object_af741fb2fb5e879041c2bd95de4156eb6}{\-Game\-Object\-::has\-Flag} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_af741fb2fb5e879041c2bd95de4156eb6}{\-Game\-Object}.
+
+\hypertarget{class_inheritable_object_a1f6ee8bcd7cb2e92e260d535518778fc}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!has\-Param@{has\-Param}}
+\index{has\-Param@{has\-Param}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{has\-Param}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Inheritable\-Object\-::has\-Param} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{param}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a1f6ee8bcd7cb2e92e260d535518778fc}
+\-Returns true if the {\ttfamily param} parameter is defined in the object or one of its ancestors.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a85fdb93d54f9e561acf5effa8012abb8}{get\-Param}, \hyperlink{class_inheritable_object_a3c441caeca4fdc82fb1978595561f101}{has\-Flag}, \hyperlink{class_game_object_ae5272e52ab14e5d87616a5dcaeb62919}{\-Game\-Object\-::has\-Param} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_ae5272e52ab14e5d87616a5dcaeb62919}{\-Game\-Object}.
+
+\hypertarget{class_inheritable_object_abaae23f6ff5781212a88a5faa4f9ed44}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!is\-Inherited\-Flag@{is\-Inherited\-Flag}}
+\index{is\-Inherited\-Flag@{is\-Inherited\-Flag}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{is\-Inherited\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Inheritable\-Object\-::is\-Inherited\-Flag} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{flag}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_abaae23f6ff5781212a88a5faa4f9ed44}
+\-Returns true if the {\ttfamily flag} flag is define in one of the ancestors of the object.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_ab691081c80168648c19b60061c1fa148}{is\-Redefinied\-Flag}, \hyperlink{class_inheritable_object_abc198984005821502425085aeb16c754}{is\-Inherited\-Param} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_abc198984005821502425085aeb16c754}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!is\-Inherited\-Param@{is\-Inherited\-Param}}
+\index{is\-Inherited\-Param@{is\-Inherited\-Param}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{is\-Inherited\-Param}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Inheritable\-Object\-::is\-Inherited\-Param} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{p}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_abc198984005821502425085aeb16c754}
+\-Returns true if the {\ttfamily param} parameter is define in one of the ancestors of the object.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_abe7d327b43331cd5532c1c8228d63a4e}{is\-Redefinied\-Param}, \hyperlink{class_inheritable_object_abaae23f6ff5781212a88a5faa4f9ed44}{is\-Inherited\-Flag} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_ab691081c80168648c19b60061c1fa148}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!is\-Redefinied\-Flag@{is\-Redefinied\-Flag}}
+\index{is\-Redefinied\-Flag@{is\-Redefinied\-Flag}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{is\-Redefinied\-Flag}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Inheritable\-Object\-::is\-Redefinied\-Flag} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{flag}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_ab691081c80168648c19b60061c1fa148}
+\-Returns true if the {\ttfamily flag} flag is an inherited flag with a object proper value.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_abaae23f6ff5781212a88a5faa4f9ed44}{is\-Inherited\-Flag}, \hyperlink{class_inheritable_object_abe7d327b43331cd5532c1c8228d63a4e}{is\-Redefinied\-Param} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_abe7d327b43331cd5532c1c8228d63a4e}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!is\-Redefinied\-Param@{is\-Redefinied\-Param}}
+\index{is\-Redefinied\-Param@{is\-Redefinied\-Param}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{is\-Redefinied\-Param}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Inheritable\-Object\-::is\-Redefinied\-Param} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{param}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_abe7d327b43331cd5532c1c8228d63a4e}
+\-Returns true if the {\ttfamily param} parameter is an inherited parameter with a object proper value.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_abc198984005821502425085aeb16c754}{is\-Inherited\-Param}, \hyperlink{class_inheritable_object_ab691081c80168648c19b60061c1fa148}{is\-Redefinied\-Flag} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_a48233a132cc55bce9f73ca6d2dc7d657}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!params@{params}}
+\index{params@{params}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{params}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ {\bf \-Inheritable\-Object\-::params} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a48233a132cc55bce9f73ca6d2dc7d657}
+\-Returns the list of the parameters of the object, both proper and inherited.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a6b7782357091c81101b20fb6ca669eb0}{proper\-Params}, \hyperlink{class_inheritable_object_a6bbe68c492529414211ddc8704640d13}{param\-Tree}, \hyperlink{class_inheritable_object_a2014359fb2260eec0804a0e7be0a6c6d}{flags} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a1ef02d136f04abe43628035486dfc254}{\-Game\-Object}.
+
+\hypertarget{class_inheritable_object_a6bbe68c492529414211ddc8704640d13}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!param\-Tree@{param\-Tree}}
+\index{param\-Tree@{param\-Tree}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{param\-Tree}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Hierarchical\-Attr} {\bf \-Inheritable\-Object\-::param\-Tree} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_inheritable_object_a6bbe68c492529414211ddc8704640d13}
+\-Returns the hierarchy of parameters, that is the list of ancestors and wich parameters they define.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a6b7782357091c81101b20fb6ca669eb0}{proper\-Params}, \hyperlink{class_inheritable_object_a1f5e307cffd3b9d3fc4c4d00079361f7}{flag\-Tree} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_a2b0d98c6f8f69698629a4e4c94c85ba4}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!proper\-Flags@{proper\-Flags}}
+\index{proper\-Flags@{proper\-Flags}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{proper\-Flags}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ {\bf \-Inheritable\-Object\-::proper\-Flags} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a2b0d98c6f8f69698629a4e4c94c85ba4}
+\-Returns the list of the flags that are only defined in the object (the uninherited flags)
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a6bbe68c492529414211ddc8704640d13}{param\-Tree}, \hyperlink{class_inheritable_object_a2b0d98c6f8f69698629a4e4c94c85ba4}{proper\-Flags} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_a6b7782357091c81101b20fb6ca669eb0}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!proper\-Params@{proper\-Params}}
+\index{proper\-Params@{proper\-Params}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{proper\-Params}]{\setlength{\rightskip}{0pt plus 5cm}\-Q\-List$<$ \-Q\-String $>$ {\bf \-Inheritable\-Object\-::proper\-Params} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_a6b7782357091c81101b20fb6ca669eb0}
+\-Returns the list of the parameters that are only defined in the object (the uninherited parameters)
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_inheritable_object_a48233a132cc55bce9f73ca6d2dc7d657}{params}, \hyperlink{class_inheritable_object_a6bbe68c492529414211ddc8704640d13}{param\-Tree}, \hyperlink{class_inheritable_object_a2b0d98c6f8f69698629a4e4c94c85ba4}{proper\-Flags} 
+\end{DoxySeeAlso}
+\hypertarget{class_inheritable_object_af3ebe709ead7a86ed2eaee602f1ffb67}{\index{\-Inheritable\-Object@{\-Inheritable\-Object}!set\-Param@{set\-Param}}
+\index{set\-Param@{set\-Param}!InheritableObject@{\-Inheritable\-Object}}
+\subsubsection[{set\-Param}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Inheritable\-Object\-::set\-Param} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{param, }
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}\label{class_inheritable_object_af3ebe709ead7a86ed2eaee602f1ffb67}
+\-Reimplemented function.
+
+\begin{DoxySeeAlso}{\-See also}
+\hyperlink{class_game_object_a2cd8c2defab5b5327a65253b2a6773b9}{\-Game\-Object\-::set\-Param} 
+\end{DoxySeeAlso}
+
+
+\-Reimplemented from \hyperlink{class_game_object_a2cd8c2defab5b5327a65253b2a6773b9}{\-Game\-Object}.
+
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+src/editor/\-Game/\hyperlink{gameobject_8h}{gameobject.\-h}\item 
+src/editor/\-Game/gameobject.\-cpp\end{DoxyCompactItemize}

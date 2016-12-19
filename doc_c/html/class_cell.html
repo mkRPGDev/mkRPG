@@ -85,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Cell Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="Cell" --><!-- doxytag: inherits="GameObject" -->
+<!-- doxytag: class="Cell" --><!-- doxytag: inherits="TypedObject&lt; CellType &gt;" -->
 <p>The <a class="el" href="class_cell.html" title="The Cell class.">Cell</a> class.  
  <a href="class_cell.html#details">More...</a></p>
 
@@ -96,14 +96,16 @@ Inheritance diagram for Cell:</div>
  <div class="center">
   <img src="class_cell.png" usemap="#Cell_map" alt=""/>
   <map id="Cell_map" name="Cell_map">
-<area href="class_game_object.html" title="The GameObject class is the base class for every part of games." alt="GameObject" shape="rect" coords="0,0,81,24"/>
+<area href="class_typed_object.html" alt="TypedObject&lt; CellType &gt;" shape="rect" coords="0,112,158,136"/>
+<area href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o..." alt="InheritableObject" shape="rect" coords="0,56,158,80"/>
+<area href="class_game_object.html" title="The GameObject class is the base class for every part of games." alt="GameObject" shape="rect" coords="0,0,158,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a822cb9d9d4df2c9095e45a161ea13aed"></a><!-- doxytag: member="Cell::TypeName" ref="a822cb9d9d4df2c9095e45a161ea13aed" args="(Cell) Cell(Game *g" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_cell.html">Cell</a>) <a class="el" href="class_cell.html">Cell</a>(<a class="el" href="class_game.html">Game</a> *g</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af6817ea38b4a055aef1eab862b412bd4"></a><!-- doxytag: member="Cell::TypeName" ref="af6817ea38b4a055aef1eab862b412bd4" args="(Cell) Cell(CellType &amp;type" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_cell.html">Cell</a>) <a class="el" href="class_cell.html">Cell</a>(<a class="el" href="class_cell_type.html">CellType</a> &amp;type</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a394830e18401f3b414c3dde4a2b4e2e8"></a><!-- doxytag: member="Cell::isSelected" ref="a394830e18401f3b414c3dde4a2b4e2e8" args="() const " -->
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isSelected</b> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40146bbb2b74cf56337462abc4d0327c"></a><!-- doxytag: member="Cell::setSelected" ref="a40146bbb2b74cf56337462abc4d0327c" args="(bool s=true)" -->
@@ -118,36 +120,22 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isPreSelected</b> () 
 void&#160;</td><td class="memItemRight" valign="bottom"><b>confirmPreSelection</b> (bool add=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0704872b8d4ae7f40022cfebfa48944"></a><!-- doxytag: member="Cell::clearPreSelection" ref="aa0704872b8d4ae7f40022cfebfa48944" args="()" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clearPreSelection</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a218280087c0d77011b0d93d3f56e1b8f"></a><!-- doxytag: member="Cell::cellType" ref="a218280087c0d77011b0d93d3f56e1b8f" args="() const " -->
+const <a class="el" href="class_cell_type.html">CellType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>cellType</b> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7247ed72579ece05d6937de36ad5d55"></a><!-- doxytag: member="Cell::setCellType" ref="aa7247ed72579ece05d6937de36ad5d55" args="(CellType &amp;type)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCellType</b> (<a class="el" href="class_cell_type.html">CellType</a> &amp;type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0fd3d547365e2f04de777f171277f45"></a><!-- doxytag: member="Cell::ObjectListD" ref="ad0fd3d547365e2f04de777f171277f45" args="(o, O, bject,, s, Object) static Cell *cellArray(CellType &amp;type" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListD</b> (o, O, bject,, s, <a class="el" href="class_object.html">Object</a>) static <a class="el" href="class_cell.html">Cell</a> *cellArray(<a class="el" href="class_cell_type.html">CellType</a> &amp;type</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cell.html#ab1ecd1ed6ff618f6a7195f817bc0cef2">aParent</a> = nullptr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70f60ede53fb663eb11dd543211bf4cf"></a><!-- doxytag: member="Cell::nbSel" ref="a70f60ede53fb663eb11dd543211bf4cf" args="" -->
-ObjectListD(o, O, bject,, s, <br class="typebreak"/>
-<a class="el" href="class_object.html">Object</a>) private int&#160;</td><td class="memItemRight" valign="bottom"><b>nbSel</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5891847674379c2fd25a4d08962a21ba"></a><!-- doxytag: member="Cell::selectMod" ref="a5891847674379c2fd25a4d08962a21ba" args="" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>selectMod</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00ea67e68bfb838eb46da7309a5cb56e"></a><!-- doxytag: member="Cell::parent" ref="a00ea67e68bfb838eb46da7309a5cb56e" args="" -->
+<a class="el" href="class_game_object.html">GameObject</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad2e41db325c0c70d969c98a3f90776a2"></a><!-- doxytag: member="Cell::n" ref="ad2e41db325c0c70d969c98a3f90776a2" args="" -->
+<a class="el" href="class_game_object.html">GameObject</a> int&#160;</td><td class="memItemRight" valign="bottom"><b>n</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_cell.html" title="The Cell class.">Cell</a> class. </p>
-</div><hr/><h2>Field Documentation</h2>
-<a class="anchor" id="ab1ecd1ed6ff618f6a7195f817bc0cef2"></a><!-- doxytag: member="Cell::aParent" ref="ab1ecd1ed6ff618f6a7195f817bc0cef2" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_game_object.html">GameObject</a>* <a class="el" href="class_cell.html#ab1ecd1ed6ff618f6a7195f817bc0cef2">Cell::aParent</a> = nullptr)</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Constructs a new <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> with parent <code>parent</code> and the reference to the game <code>g</code>.</p>
-<dl class="note"><dt><b>Note:</b></dt><dd>If these objects cannot be given to the constructor (case of an array of objects), the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> method must be called after the creation to make the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> valid. </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_game_object.html#a41d4afe43f955e78ede0bbd4ad8957f8">GameObject</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/editor/Game/<a class="el" href="map_8h_source.html">map.h</a></li>
 <li>src/editor/Game/map.cpp</li>
 </ul>
@@ -157,7 +145,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>selectMod</b></td></t
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

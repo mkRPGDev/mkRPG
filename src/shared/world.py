@@ -72,7 +72,7 @@ class Object:
                 elif key == self.__class__.__name__+"Type":
                     pass
                 elif key.lower() in self.__dict__ and\
-                    type(self.__dict__[key.lower()])==list:
+                    type(self.__dict__[key.lower()]) == list:
 
                     lowered = key.lower()
                     data_collected = self.__dict__[lowered]
@@ -82,7 +82,7 @@ class Object:
                             toResolve.append((sub_data['id'], data_collected, len(data_collected)))
                             data_collected.append(None)
                         else:
-                            ident = class_type.pop("ident")
+                            ident = sub_data.pop("ident")
                             data_collected.append(class_type(ident).load(sub_data))
                 elif typ and type(eval(typ))==type and 'name' in data[key]:
                     ident = data[key]['ident']
@@ -198,6 +198,7 @@ class Cell(Object):
         Object.__init__(self, ident)
         self.entities = []
         self.objects = []
+
 
 class Entity(Object):
     def __init__(self, ident=None):

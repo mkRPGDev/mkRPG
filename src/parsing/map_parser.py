@@ -23,7 +23,7 @@ def parse_cell(cell_object):
     cell_params = cell_object.find('Params')
     answer.update({'params' : {}})
     for param in cell_params.getchildren():
-        answer['params'].update({param.tag: param.text})
+        answer['params'].update({param.tag: parsing_utils.format_type(param.text)})
     _entities = cell_object.find("Entities")
     if _entities is not None:
         entities = _entities.findall("Entity")
@@ -72,12 +72,11 @@ def map_parser(map_xml):
             available_cells.append(cell.attrib)
         else:
             available_cells.append(parse_cell(cell))
+    answer.update({"cells":available_cells})
     # Gets the default cell value. Returns it separately since it is a cell
     # defined in a map and not in a cell file.
     celltype = root.find("CellType")
     cell = parse_cell(celltype)
-    available_cells.append({'id': cell['name']})
-    answer.update({"Cell":available_cells})
     # Getting the default cell.
     cell.update({'type' : 'CellType'})
     return cell, answer

@@ -43,12 +43,19 @@ XmlWritter::XmlWritter(const QDir &path, World &world) :
 XmlWritter::XmlWritter(const QDir &path, Map &map) :
     XmlWritter(path, &map)
 {
-
     int w = map.width();
     int h = map.height();
+
+    *this << OpenMarkUp << "Ident" << map.ident() << CloseMarkUp;
+    *this << OpenMarkUp << "Params" << EndL;
+    *this << OpenMarkUp << "width" << w << CloseMarkUp;
+    *this << OpenMarkUp << "height" << h << CloseMarkUp;
+    *this << CloseMarkUp;
+    *this << OpenMarkUp << "Cells" << EndL;
     for(int i(0); i<w; ++i)
         for(int j(0); j<h; ++j)
-            writeCell(map.cell(i,j));
+            writeCellAndPos(map.cell(i,j), i, j);
+    *this << CloseMarkUp;
 }
 
 
@@ -63,6 +70,18 @@ void XmlWritter::writeCell(const Cell &c){
     *this << CloseMarkUp;
 }
 
+void XmlWritter::writeCellAndPos(const Cell &c, int i, int j){
+    // TODO enlever l'ancien ident
+    // on ne peux pas enchainer des ouvertures sans endl
+    *this << c;
+    *this << OpenMarkUp << "Ident" << c.ident() << CloseMarkUp;
+    *this << OpenMarkUp << "Params" << EndL;
+    *this << OpenMarkUp << "picture" << c.cellType().ident() << CloseMarkUp;
+    *this << OpenMarkUp << "x" << i << CloseMarkUp;
+    *this << OpenMarkUp << "y" << j << CloseMarkUp;
+    *this << CloseMarkUp;
+    *this << CloseMarkUp;
+}
 
 void XmlWritter::writeCreatedFiles(XmlWritter &wr){
     for(QString type : wr.createdFiles.uniqueKeys())
@@ -147,6 +166,6 @@ XmlWritter &XmlWritter::operator << (const int &i){
 
 
 XmlWritter &XmlWritter::operator << (const GameObject &obj){
-    return *this << OpenMarkUp << obj.typeName() << MarkUpParam << "name" << obj.ident() << EndL;
+    return *this << OpenMarkUp << obj.typeName() << MarkUpParam << "name" << "m"+QString::number(obj.ident()) << EndL;
 }
 

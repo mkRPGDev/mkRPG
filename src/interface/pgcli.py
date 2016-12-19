@@ -4,14 +4,12 @@ from pygame.locals import QUIT, KEYDOWN, VIDEORESIZE, RESIZABLE, \
                           K_ESCAPE, K_UP, K_DOWN, K_RIGHT, K_LEFT, K_PAGEUP, K_PAGEDOWN
 import pygame
 
-from interface.const import SCREEN_WIDTH, SCREEN_HEIGHT
+from interface.const import *
 from interface.interface import Interface, skeys
 from interface.utils import load_png
 from interface.trans import applyMatrix
 
 from time import time
-
-IMGS = {32:"herbe.png",79:"head.png",88:"head.png",120:"apple.png",111:"body.png"}
 
 class Pygame(Interface):
     """ pygame-based UI """
@@ -86,9 +84,9 @@ class MapView:
         self.world = world
         self.offX = 0
         self.offY = 0
-        self.angleX = pi/8#ANGLE_X_R
-        self.angleY = -pi/8#ANGLE_Y_R
-        self.cellWidth = 32
+        self.angleX = ANGLE_X
+        self.angleY = ANGLE_Y
+        self.cellWidth = CELL_WIDTH
         self.map = None
         self.perso = None
         self.showLov = False
@@ -107,7 +105,7 @@ class MapView:
         """ Fill the picture dictionnary using current angles and zoom """
         self.cellWidth = max(3, min(self.cellWidth, 90))
         for i in IMGS:
-            p = load_png("../content/imgs/"+IMGS[i])
+            p = load_png(IMG_PATH+IMGS[i])
             p = pygame.transform.scale(p, (int(self.cellWidth+3), int(self.cellWidth+3)))
             p = applyMatrix(p, [-cos(self.angleX),sin(self.angleX),-cos(self.angleY),sin(self.angleY)])
             self.pics[i] = p
@@ -162,7 +160,7 @@ class MapView:
                 u -= self.offX
                 v -= self.offY
                 if sceneRect.collidepoint(u,v):
-                    self.shown.append((u,v))
+                    self.shown.append((u,v,self.map.cellsGrid[x][y]))
                     j+=1
                     seen = True
                 elif seen: break
@@ -179,8 +177,8 @@ class MapView:
             self.clipOffset() 
         t=time()
         # Cells
-        for u,v in self.shown:
-            self.surf.blit(self.pics[32], (u,v))
+        for u,v,cell in self.shown:
+            self.surf.blit(self.pics[cell.picture], (u,v))
         print(time()-t)
         # Entities and objects
         sceneRect = self.surf.get_rect()

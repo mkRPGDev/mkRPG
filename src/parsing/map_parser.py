@@ -75,7 +75,7 @@ def map_parser(map_xml):
     # Gets the default cell value. Returns it separately since it is a cell
     # defined in a map and not in a cell file.
     celltype = root.find("CellType")
-    cell = parse_cell(celltype)
+    cell = {"ident":987987} if not celltype else parse_cell(celltype)
     # Getting the default cell.
     cell.update({'type' : 'CellType'})
     return cell, answer

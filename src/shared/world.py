@@ -45,7 +45,7 @@ class Object:
     def __getattr__(self, attr):
         if attr in self.params:
             return self.params[attr]
-        raise AttributeError(attr)
+        raise AttributeError(repr(self)+" has no "+repr(attr))
 
     def __setattr__(self, attr, val):
         if attr is "params" or attr not in self.params:

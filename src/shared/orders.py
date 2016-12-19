@@ -59,9 +59,9 @@ class Order:
         """ Bytes to send the order on the network """
         def addStr(s):
             assert len(s) < 1<<16
-#            b.append(len(s)//256)
-#            b.append(len(s)%256)
-            b.extend(len(s).to_bytes(2, 'big'))
+            b.append(len(s)//256)
+            b.append(len(s)%256)
+#            b.extend(len(s).to_bytes(2, 'big'))
             b.extend(s.encode(CODING))
         b = bytearray()
         b.append(self.type)
@@ -72,13 +72,18 @@ class Order:
         """ Retrieve order from network bytes """
         def getStr():
             nonlocal i
-            l = int.from_bytes(byt[i:i+2], 'big') #256*b[i] + b[i+1]
+#            l = int.from_bytes(byt[i:i+2], 'big') 
+            l = 256*byt[i] + byt[i+1]
             s = byt[i+2 : i+2+l].decode(CODING)
             i += l+2
             return s
         self.type = byt[0]
         i = 1
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
+        if self.toBytes()!=byt[:i]:
+            print(self.toBytes())
+            print(byt)
+            1/0
         return self, i
     
 class OrderDispatcher:

@@ -36,6 +36,8 @@ class NetworkClient:
 
         while True:
             msg = await self.reader.read(BUFF)
+            if len(msg)==BUFF:
+                raise RuntimeError("Network flooded, consider increasing BUFF")
             size = 0
             if not msg: return # TODO remonter l'info et l'afficher
             while size < len(msg):
@@ -92,7 +94,6 @@ class ServerConnection:
                 self.end()
                 return
             if not msg: return
-#            print(msg)
             while msg:
                 ident = msg[0]*256 + msg[1]
                 if ident == 0:

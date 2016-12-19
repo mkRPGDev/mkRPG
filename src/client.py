@@ -9,6 +9,9 @@ from shared.network import NetworkClient
 import shared.world as world
 from plugins.plugin import loadPluginsClient
 
+from shared.tools import Perf
+
+perf=Perf()
 
 def interface(args):
     """ Import the correct interface according to user choice """
@@ -17,10 +20,10 @@ def interface(args):
     elif args.noui:
         from interface.interface import Interface
     elif args.pygame:
-        from interface.pygamecli import Client as Interface
+        from interface.pgcli import Pygame as Interface
     else:
         # choix par défaut
-        args.curses = True
+        args.pygame = True
         return interface(args)
     return Interface
 
@@ -34,6 +37,7 @@ class Client:
         # on va bien trouver mieux
         # TODO intégrer au loadGame, faire une autre classe client ?
         self.interface = Interface(self.world, self.plugins[1])
+        if args.debug: exit(0)
         self.plugins = self.plugins[0]
         self.interactions = registerInteractions(path)
         self.perso = None
@@ -69,9 +73,11 @@ class Client:
         """ Init stuff, listen for inputs and send corresponding events """
         self.interface.init()
         while True:
-            self.interface.update()
+            #self.interface.update()
             # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
+            perf.tic()
             keys = self.interface.getEvent()
+            perf.toc()
             if not keys:
                 await asyncio.sleep(UPDTIME)
             for key in keys:
@@ -91,7 +97,6 @@ class Client:
         emitter = world.BaseObject.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
-        print(self.world.entities[0].x)
 
     async def pluginHandle(self, msg):
         """ Search for plugins that want to handle the message """
@@ -128,3 +133,6 @@ except KeyboardInterrupt:
 except:
     cli.interface.end()
     raise
+finally:
+    perf.show()
+

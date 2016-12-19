@@ -1,10 +1,11 @@
 <World name="world">
+    <Ident>0</Ident>
     <Params>
         <currentMap id="main"/>
         <pomme id="pomme"/>
         <step val="0"/>
     </Params>
-    
+
     <Maps>
         <Map id="main"/>
     </Maps>

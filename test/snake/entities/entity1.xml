@@ -1,5 +1,6 @@
 <Entities>
     <Entity name="serpent2">
+        <Ident>4</Ident>
         <Params>
             <x>15</x>
             <y>15</y>

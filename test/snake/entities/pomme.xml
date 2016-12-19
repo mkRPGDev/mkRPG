@@ -1,7 +1,8 @@
-<MagicObject name="pomme">
+<Object name="pomme">
+    <Ident>2</Ident>
     <Params>
-        <x val="0"/>
-        <y val="0"/>
-        <picture val="120"/>
+        <x>0</x>
+        <y>0</y>
+        <picture>120</picture>
     </Params>
-</MagicObject>
+</Object>

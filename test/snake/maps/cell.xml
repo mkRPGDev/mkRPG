@@ -1,26 +1,29 @@
-<Cell name="cell0">
-    <Params>
-        <x val="5"/>
-        <y val="5"/>
-        <picture val="32"/>
-        <mortelle val="0"/>
-    </Params>
-    
-    <Entities>
-        <Entity id="serpent"/>
-    </Entities>
+<Cells>
+    <Cell name="cell0">
+        <Ident>7</Ident>
+        <Params>
+            <x>5</x>
+            <y>5</y>
+            <picture>32</picture>
+            <mortelle>0</mortelle>
+        </Params>
+
+        <Entities>
+            <Entity id="serpent"/>
+        </Entities>
+    </Cell>
 
     <Cell name="cell1">
-    <Params>
-        <x val="15"/>
-        <y val="15"/>
-        <picture val="32"/>
-        <mortelle val="0"/>
-    </Params>
-    
-    <Entities>
-        <Entity id="serpent2"/>
-    </Entities>
-</Cell>
+        <Ident>8</Ident>
+        <Params>
+            <x>15</x>
+            <y>15</y>
+            <picture>32</picture>
+            <mortelle>0</mortelle>
+        </Params>
 
-</Cell>
+        <Entities>
+            <Entity id="serpent2"/>
+        </Entities>
+    </Cell>
+</Cells>

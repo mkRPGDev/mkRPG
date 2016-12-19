@@ -170,8 +170,9 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
         }
     tabBar->setTabsEnabled(true);
 
-
+    // TODO Mettre le dossier ailleurs
     QDir d(QDir::homePath()+"/XML");
+    if(!d.exists()) assert(QDir::home().mkdir("XML"));
     if(d.mkdir(g->name()))
         d.cd(g->name());
     else{

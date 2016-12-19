@@ -103,13 +103,9 @@ Inheritance diagram for Game:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8df2d5e5d28872b8a1d275d1ca92be4a"></a><!-- doxytag: member="Game::TypeName" ref="a8df2d5e5d28872b8a1d275d1ca92be4a" args="(Game) Game()" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_game.html">Game</a>) <a class="el" href="class_game.html">Game</a>()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae64a3a16c7460ff0709ff5935ac0b0dd"></a><!-- doxytag: member="Game::newIdent" ref="ae64a3a16c7460ff0709ff5935ac0b0dd" args="(GameObject *obj)" -->
-int&#160;</td><td class="memItemRight" valign="bottom"><b>newIdent</b> (<a class="el" href="class_game_object.html">GameObject</a> *obj)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a944eb939fcae4546db1ef3b9bc199417"></a><!-- doxytag: member="Game::aboutToDestroy" ref="a944eb939fcae4546db1ef3b9bc199417" args="(GameObject *obj)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>aboutToDestroy</b> (<a class="el" href="class_game_object.html">GameObject</a> *obj)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#afc34f1c4cf865c1af7acc4b30ba44cb9">object</a> (int id)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a505763c778d70a1f03fbb3d231394b8a"></a><!-- doxytag: member="Game::world" ref="a505763c778d70a1f03fbb3d231394b8a" args="()" -->
-<a class="el" href="class_world.html">World</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>world</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html#aeed0ba100700fb2f5d701fcf14d8871e">newIdent</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38feaf6c233d25c2ad353bab65559790"></a><!-- doxytag: member="Game::world" ref="a38feaf6c233d25c2ad353bab65559790" args="()" -->
+<a class="el" href="class_world.html">World</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>world</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b242dcb7703b409692ce0c91e799a8c"></a><!-- doxytag: member="Game::currentMap" ref="a3b242dcb7703b409692ce0c91e799a8c" args="()" -->
 <a class="el" href="class_map.html">Map</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>currentMap</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7394ea8ff98b0b819125a6bac47db2b"></a><!-- doxytag: member="Game::setCurrentMap" ref="af7394ea8ff98b0b819125a6bac47db2b" args="(Map *m)" -->
@@ -122,22 +118,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addImage</b> (<a clas
 <p>It contains mainly the <a class="el" href="class_world.html" title="The World class.">World</a>, and the ressources used by it (images and strings)</p>
 <p>For editing purposes, it contains also the active map (the one being editing) </p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="afc34f1c4cf865c1af7acc4b30ba44cb9"></a><!-- doxytag: member="Game::object" ref="afc34f1c4cf865c1af7acc4b30ba44cb9" args="(int id)" -->
+<a class="anchor" id="aeed0ba100700fb2f5d701fcf14d8871e"></a><!-- doxytag: member="Game::newIdent" ref="aeed0ba100700fb2f5d701fcf14d8871e" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_game_object.html">GameObject</a> * <a class="el" href="class_game.html#afc34f1c4cf865c1af7acc4b30ba44cb9">Game::object</a> </td>
+          <td class="memname">int <a class="el" href="class_game.html#aeed0ba100700fb2f5d701fcf14d8871e">Game::newIdent</a> </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>Returns a new unused identifiers</p>
-<dl class="note"><dt><b>Note:</b></dt><dd>It should only be used by <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> methods <a class="el" href="class_game_object.html#abb6a1fa1a89307820874179b20010f6d">GameObject::init</a> and GameObject::GameObject. </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>It should only be used by <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> methods <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">GameObject::init</a> and GameObject::GameObject. </dd></dl>
 
 </div>
 </div>
@@ -151,7 +146,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addImage</b> (<a clas
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

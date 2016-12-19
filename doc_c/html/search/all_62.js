@@ -5,9 +5,7 @@ var searchData=
   ['bdock',['BDock',['../class_b_dock.html',1,'']]],
   ['bdock_2eh',['bdock.h',['../bdock_8h.html',1,'']]],
   ['bdockszone',['BDocksZone',['../class_b_docks_zone.html',1,'']]],
-  ['bdockszone_2eh',['bdockszone.h',['../bdockszone_8h.html',1,'']]],
   ['bdockwidget',['BDockWidget',['../class_b_dock_widget.html',1,'']]],
-  ['bdockwidget_2eh',['bdockwidget.h',['../bdockwidget_8h.html',1,'']]],
   ['binarystatemachine',['BinaryStateMachine',['../class_binary_state_machine.html',1,'']]],
   ['blayout',['BLayout',['../class_b_layout.html',1,'']]]
 ];

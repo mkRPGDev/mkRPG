@@ -85,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Map Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="Map" --><!-- doxytag: inherits="TypedObject&lt; MapType &gt;" -->
+<!-- doxytag: class="Map" --><!-- doxytag: inherits="GameObject" -->
 <p>The <a class="el" href="class_map.html" title="The Map class.">Map</a> class.  
  <a href="class_map.html#details">More...</a></p>
 
@@ -96,16 +96,14 @@ Inheritance diagram for Map:</div>
  <div class="center">
   <img src="class_map.png" usemap="#Map_map" alt=""/>
   <map id="Map_map" name="Map_map">
-<area href="class_typed_object.html" alt="TypedObject&lt; MapType &gt;" shape="rect" coords="0,112,161,136"/>
-<area href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o..." alt="InheritableObject" shape="rect" coords="0,56,161,80"/>
-<area href="class_game_object.html" title="The GameObject class is the base class for every part of games." alt="GameObject" shape="rect" coords="0,0,161,24"/>
+<area href="class_game_object.html" title="The GameObject class is the base class for every part of games." alt="GameObject" shape="rect" coords="0,0,81,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0771dcdce4b2864508b4b9d6fa4453c"></a><!-- doxytag: member="Map::TypeName" ref="ad0771dcdce4b2864508b4b9d6fa4453c" args="(Map) Map(MapType &amp;type" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_map.html">Map</a>) <a class="el" href="class_map.html">Map</a>(<a class="el" href="class_map_type.html">MapType</a> &amp;type</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb18ba5d4ffce18e1813b77b7f6266c9"></a><!-- doxytag: member="Map::TypeName" ref="abb18ba5d4ffce18e1813b77b7f6266c9" args="(Map) Map(Game *g" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b> (<a class="el" href="class_map.html">Map</a>) <a class="el" href="class_map.html">Map</a>(<a class="el" href="class_game.html">Game</a> *g</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c35169a60acd3669f198e6c2d20dff5"></a><!-- doxytag: member="Map::width" ref="a4c35169a60acd3669f198e6c2d20dff5" args="() const " -->
 int&#160;</td><td class="memItemRight" valign="bottom"><b>width</b> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a009f197c2e488d8dd5f02b1a2920a15c"></a><!-- doxytag: member="Map::height" ref="a009f197c2e488d8dd5f02b1a2920a15c" args="() const " -->
@@ -118,67 +116,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setWidth</b> (int w)<
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setHeight</b> (int h)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f7c31af6620d00ce8a812c8710345ab"></a><!-- doxytag: member="Map::resize" ref="a5f7c31af6620d00ce8a812c8710345ab" args="(int w, int h)" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resize</b> (int w, int h)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cell.html">Cell</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a6c94b3e99490efa0f170db132dc9f5b8">cell</a> (int i, int j) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cell.html">Cell</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ae0b03b422a10edbfa7bd0b4bdd085793">cell</a> (const QPoint &amp;p) const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a16aea6b5c9de3a26b094d964885b33b7">selectAll</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a5b85190575503a09c5c6de012da64f7c">unSelectAll</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a89cab58d82e08dacfe0b97899bab5501">confirmPreSelection</a> (bool add=true)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a0a637f44f0a59c3a67b6a507ae710c7f">clearPreSelection</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c94b3e99490efa0f170db132dc9f5b8"></a><!-- doxytag: member="Map::cell" ref="a6c94b3e99490efa0f170db132dc9f5b8" args="(int i, int j) const " -->
+<a class="el" href="class_cell.html">Cell</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>cell</b> (int i, int j) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0b03b422a10edbfa7bd0b4bdd085793"></a><!-- doxytag: member="Map::cell" ref="ae0b03b422a10edbfa7bd0b4bdd085793" args="(const QPoint &amp;p) const " -->
+<a class="el" href="class_cell.html">Cell</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>cell</b> (const QPoint &amp;p) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16aea6b5c9de3a26b094d964885b33b7"></a><!-- doxytag: member="Map::selectAll" ref="a16aea6b5c9de3a26b094d964885b33b7" args="()" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>selectAll</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5b85190575503a09c5c6de012da64f7c"></a><!-- doxytag: member="Map::unSelectAll" ref="a5b85190575503a09c5c6de012da64f7c" args="()" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>unSelectAll</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a89cab58d82e08dacfe0b97899bab5501"></a><!-- doxytag: member="Map::confirmPreSelection" ref="a89cab58d82e08dacfe0b97899bab5501" args="(bool add=true)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>confirmPreSelection</b> (bool add=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a637f44f0a59c3a67b6a507ae710c7f"></a><!-- doxytag: member="Map::clearPreSelection" ref="a0a637f44f0a59c3a67b6a507ae710c7f" args="()" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clearPreSelection</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QList&lt; <a class="el" href="class_game_object.html">GameObject</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#a939817aa7f5c9e81d3d2b1a42d9403e7">children</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a92ac4c5c1217021ff1adc545a29f1294"></a><!-- doxytag: member="Map::parent" ref="a92ac4c5c1217021ff1adc545a29f1294" args="" -->
-<a class="el" href="class_game_object.html">GameObject</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_object.html">GameObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_map.html#ac0d4bf203db2a4372ea6923729f978f1">aParent</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_map.html" title="The Map class.">Map</a> class. </p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a6c94b3e99490efa0f170db132dc9f5b8"></a><!-- doxytag: member="Map::cell" ref="a6c94b3e99490efa0f170db132dc9f5b8" args="(int i, int j) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_cell.html">Cell</a> &amp; <a class="el" href="class_map.html#a6c94b3e99490efa0f170db132dc9f5b8">Map::cell</a> </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>i</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>j</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Returns a reference to the cell at pos (x,y). </p>
-
-</div>
-</div>
-<a class="anchor" id="ae0b03b422a10edbfa7bd0b4bdd085793"></a><!-- doxytag: member="Map::cell" ref="ae0b03b422a10edbfa7bd0b4bdd085793" args="(const QPoint &amp;p) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_cell.html">Cell</a> &amp; <a class="el" href="class_map.html#a6c94b3e99490efa0f170db132dc9f5b8">Map::cell</a> </td>
-          <td>(</td>
-          <td class="paramtype">const QPoint &amp;&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-
-</div>
-</div>
 <a class="anchor" id="a939817aa7f5c9e81d3d2b1a42d9403e7"></a><!-- doxytag: member="Map::children" ref="a939817aa7f5c9e81d3d2b1a42d9403e7" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -192,83 +149,28 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Reimplemented from <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> to remove the <a class="el" href="class_cell.html">cells</a> from the children list.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">GameObject::children</a> </dd></dl>
+<p>Returns the list of the instance's children.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_game_object.html#a6ac392d25a490bee17b653a374ec94fc">child</a> </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">GameObject</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0a637f44f0a59c3a67b6a507ae710c7f"></a><!-- doxytag: member="Map::clearPreSelection" ref="a0a637f44f0a59c3a67b6a507ae710c7f" args="()" -->
+<hr/><h2>Field Documentation</h2>
+<a class="anchor" id="ac0d4bf203db2a4372ea6923729f978f1"></a><!-- doxytag: member="Map::aParent" ref="ac0d4bf203db2a4372ea6923729f978f1" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="class_map.html#a0a637f44f0a59c3a67b6a507ae710c7f">Map::clearPreSelection</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="class_game_object.html">GameObject</a>* <a class="el" href="class_map.html#ac0d4bf203db2a4372ea6923729f978f1">Map::aParent</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Resets the pre-selection information on every <a class="el" href="class_cell.html">cell</a>.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_map.html#a89cab58d82e08dacfe0b97899bab5501">confirmPreSelection</a>; </dd></dl>
+<p>Constructs a new <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> with parent <code>parent</code> and the reference to the game <code>g</code>.</p>
+<dl class="note"><dt><b>Note:</b></dt><dd>If these objects cannot be given to the constructor (case of an array of objects), the <a class="el" href="class_game_object.html#a97be7b59b2e76e7d60de2146b894eed9">init</a> method must be called after the creation to make the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> valid. </dd></dl>
 
-</div>
-</div>
-<a class="anchor" id="a89cab58d82e08dacfe0b97899bab5501"></a><!-- doxytag: member="Map::confirmPreSelection" ref="a89cab58d82e08dacfe0b97899bab5501" args="(bool add=true)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="class_map.html#a89cab58d82e08dacfe0b97899bab5501">Map::confirmPreSelection</a> </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>add</em> = <code>true</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Converts the pre-selection into selection for every <a class="el" href="class_cell.html">cell</a>.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_map.html#a0a637f44f0a59c3a67b6a507ae710c7f">clearPreSelection</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a16aea6b5c9de3a26b094d964885b33b7"></a><!-- doxytag: member="Map::selectAll" ref="a16aea6b5c9de3a26b094d964885b33b7" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="class_map.html#a16aea6b5c9de3a26b094d964885b33b7">Map::selectAll</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Unselects all the <a class="el" href="class_cell.html">cells</a> of the map.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_map.html#a5b85190575503a09c5c6de012da64f7c">unSelectAll</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a5b85190575503a09c5c6de012da64f7c"></a><!-- doxytag: member="Map::unSelectAll" ref="a5b85190575503a09c5c6de012da64f7c" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="class_map.html#a5b85190575503a09c5c6de012da64f7c">Map::unSelectAll</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Selects all the <a class="el" href="class_cell.html">cells</a> of the map.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_map.html#a16aea6b5c9de3a26b094d964885b33b7">selectAll</a> </dd></dl>
+<p>Reimplemented from <a class="el" href="class_game_object.html#a41d4afe43f955e78ede0bbd4ad8957f8">GameObject</a>.</p>
 
 </div>
 </div>
@@ -282,7 +184,7 @@ Data Fields</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

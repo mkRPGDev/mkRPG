@@ -34,7 +34,7 @@ def test_cells_multiple():
 
 def test_entity_parser():
     print("Testing entity parser")
-    enitities_parsed = entity_parser.parse_entities("entities/entity0.xml")
+    enitities_parsed = entity_parser.parse_entities("entities/entity.xml")
     formatter(enitities_parsed)
 
 def test_multiple_files_entities():
@@ -167,16 +167,16 @@ def test_global_parsing():
     formatter(data)
 
 if __name__=="__main__":
-    test_map_parser()
+#    test_map_parser()
 #    test_cell_parser()
 #    test_cells_multiple()
 #    test_entity_parser()
 #    test_multiple_files_entities()
-    test_world_parser()
+#    test_world_parser()
 #    test_check_entity()
 #    test_collect_data()
 #    test_collect_map_data()
-#    test_game_parser()
+    test_game_parser()
 #    test_actions_parser()
 #    test_multiple_actions_parser()
 #    test_interaction_parser()

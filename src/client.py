@@ -94,7 +94,7 @@ class Client:
 
     async def handleOrder(self, ident, order):
         """ Call dispatcher and update display """
-        emitter = world.BaseObject.ids[ident]
+        emitter = world.Object.ids[ident]
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 

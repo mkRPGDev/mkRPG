@@ -4,6 +4,7 @@ from random import randint
 
 from shared.tools import readXml
 from shared.orders import Order, OrderType
+from parsing import global_parsing
 
 verbose = False
 
@@ -15,29 +16,29 @@ world = None
 def loadGame(path):
     """ Load game.xml and returns the loaded world """
     global world
-    dat = readXml(path + "game.xml")
-    assert dat.name == "Game"
-    lw = []
-    for d in dat.list:
-        if d.name == "World":
-            lw.extend(d.list)
-    for f in lw:
-        dat = readXml(path+f.args["file"])
-        eval(dat.name)().load(dat)
-    world = named["world"]
-    for m in world.maps: m.fill()
+    parsed_data = global_parsing.game_parser(path+"game.xml")
+    for data_list in parsed_data:
+        if data_list != 'Actions' and  data_list != 'Interactions':
+            for data in parsed_data[data_list]:
+                ident = data.pop('ident')
+                eval(data_list)(ident).load(data, typ=data_list)
+
+    world = named['world']
+    for m in world.maps:
+        m.fill()
     return world
 
-class BaseObject:
+class Object:
     """ Any world object """
     ident = 0
     ids = {} # liste si sans deletion
 
-    def __init__(self):
-        BaseObject.ident += 1
-        BaseObject.ids[BaseObject.ident] = self
+    def __init__(self, ident=None):
+        if ident is None:
+            ident = len(ids)+1
+        Object.ids[ident] = self
         self.params = {} # Ne pas déplacer =)
-        self.ident = BaseObject.ident
+        self.ident = ident
 
         self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
 
@@ -52,36 +53,44 @@ class BaseObject:
         else:
             self.params[attr] = val
 
-    def load(self, data):
+    def load(self, data, typ=None):
         """ Charge l'objet depuis une structure Xml """
-        if verbose: print(data.name)
-        for d in data.list:
-            n = d.name
-            if n=="Params": #peut gérer plusieurs def de params
-                for np, ap, _ in d.list:
-                    if "val" in ap:
-                        self.params[np] = int(ap["val"]) # on a supposé un int
-                    else:
-                        toResolve.append((ap["id"], self.params, np))
-            elif n==self.__class__.__name__+"Type": # ObjectType
-                pass
-            elif (n.lower() in self.__dict__ and
-                 type(self.__dict__[n.lower()])==list):
-                li = self.__dict__[n.lower()]
-                C = plurals[n.lower()]
-                for dat in d.list:
-                    if "id" in dat.args:
-                        toResolve.append((dat.args["id"], li, len(li)))
-                        li.append(None)
-                    else:
-                        li.append(C().load(dat))
-            elif n.endswith("Type") and type(eval(n[:-4]))==type and "name" in d.args:
-                ObjectType(eval(n[:-4])).load(d)
-            elif type(eval(n))==type and "name" in d.args:
-                eval(n)().load(d)
 
-        if "name" in data.args:
-            named[data.args["name"]] = self
+        _type = data.get("type")
+        if _type:
+            typ = _type
+        if typ and typ.endswith("Type") and type(eval(typ[:-4])) == type:
+            data.pop('type', None)
+            ObjectType(eval(typ[:-4])).load(data, None)
+        else:
+            for key in data.keys():
+                if key == 'params':
+                    for sub_data in data[key].keys():
+                        if type(data[key][sub_data])== dict and data[key][sub_data].get("id"):
+                            toResolve.append((data[key][sub_data].get("id"), self.params, sub_data))
+                        else:
+                            self.params[sub_data] = int(data[key][sub_data])
+                elif key == self.__class__.__name__+"Type":
+                    pass
+                elif key.lower() in self.__dict__ and\
+                    type(self.__dict__[key.lower()]) == list:
+
+                    lowered = key.lower()
+                    data_collected = self.__dict__[lowered]
+                    class_type = plurals[lowered]
+                    for sub_data in data[key]:
+                        if sub_data.get('id'):
+                            toResolve.append((sub_data['id'], data_collected, len(data_collected)))
+                            data_collected.append(None)
+                        else:
+                            ident = sub_data.pop("ident")
+                            data_collected.append(class_type(ident).load(sub_data))
+                elif typ and type(eval(typ))==type and 'name' in data[key]:
+                    ident = data[key]['ident']
+                    eval(typ)(ident).load(data[key], typ)
+
+            if 'name' in data.keys():
+                named[data['name']] = self
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue
             if verbose: print(nm, "->", named[nm])
@@ -98,39 +107,35 @@ class BaseObject:
 #class ServerObject(BaseObject): pass
 #class ClientObject(BaseObject): pass
 
-MagicObject = BaseObject
-# ServerObject if SERVER else ClientObject
+#ServerObject if SERVER else ClientObject
 # pour éviter la confusion avec object
 
-class ObjectType(MagicObject):
-    """ Allowing to create objects with default parameters """
-    def __init__(self, typ = MagicObject):
-        super().__init__()
+class ObjectType(Object):
+    """ Les types d'objets (au sens informatique) """
+    def __init__(self, ident=None, typ = Object):
+        super().__init__(ident)
         self.type = typ
 
     def create(self):
-        """ Instanticiation of an object from the type """
-        instance = self.type()
+        """ Instanticiation d'un objet à partir du type """
+        instance = self.type(self.ident)
         instance.type = self
         for p,v in self.params.items():
             instance.params[p] = v
         return instance
 
-    def __str__(self):
-        return str(self.params)
 
-class World(MagicObject):
-    """  """
-    def __init__(self):
-        MagicObject.__init__(self)
+class World(Object):
+    def __init__(self, ident=None):
+        Object.__init__(self, ident)
         self.maps = [] # une liste c'est mieux non ?
         self.entities = []
         self.objects = []
 
-class Map(MagicObject):
+class Map(Object):
     """ Orthonormed map with associated alogrithms """
-    def __init__(self):
-        MagicObject.__init__(self)
+    def __init__(self, ident=None):
+        Object.__init__(self, ident)
         self.cells = []
 
     def fill(self):
@@ -147,11 +152,11 @@ class Map(MagicObject):
                     l[j] = cell
                     self.cells.append(cell)
                     cell.x = i; cell.y = j
-    
+
     def dist(self, source, dest):
         """ Manhattan distance """
         return abs(source.x-dest.x) + abs(source.y-dest.y)
-    
+
     def lov(self, source, dest):
         """ Computes if the view is degaged between source and dest
         those laters must have x and y parameters and the map
@@ -188,23 +193,22 @@ class Map(MagicObject):
                     if x in range(self.width) and y in range(self.height):
                         yield self.cellsGrid[x][y]
                     x+=dx; y+=dy
-            x+=1 
-        
-class Cell(MagicObject):
-    """  """
-    def __init__(self):
-        MagicObject.__init__(self)
+            x+=1
+
+class Cell(Object):
+    def __init__(self, ident=None):
+        Object.__init__(self, ident)
         self.entities = []
         self.objects = []
 
-class Entity(MagicObject):
-    """  """
-    def __init__(self):
-        MagicObject.__init__(self)
+
+class Entity(Object):
+    def __init__(self, ident=None):
+        Object.__init__(self, ident)
         self.quests = []
         self.inventory = []
         self.user = None
 
-plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":MagicObject,
-       "types":ObjectType, "inventory":MagicObject, "quests":MagicObject}
 
+plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":Object,
+       "types":ObjectType, "inventory":Object, "quests":Object}

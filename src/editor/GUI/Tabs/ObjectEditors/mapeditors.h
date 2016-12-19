@@ -2,12 +2,12 @@
 #define MAPEDITORS_H
 
 #include "gameobjecteditor.h"
-#include "ui_mapeditor.h"
+#include "ui_mapeditors.h"
 
 
 
 
-class MapEditor : public GameObjectEditor, private Ui::MapEditor
+class MapEditor : public GameObjectEditor, private Ui::MapEditors
 {
     Q_OBJECT
 

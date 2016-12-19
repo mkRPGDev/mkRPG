@@ -19,7 +19,7 @@ void ObjectsTreeModel::setGame(Game *g){
     game = g;
 }
 
-int ObjectsTreeModel::columnCount(const QModelIndex &parent) const{
+int ObjectsTreeModel::columnCount(const QModelIndex &) const{
     return 2;
 }
 

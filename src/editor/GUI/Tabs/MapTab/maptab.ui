@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MapsEditor</class>
- <widget class="QWidget" name="MapsEditor">
+ <class>MapsTab</class>
+ <widget class="QWidget" name="MapsTab">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -79,13 +79,13 @@
   <customwidget>
    <class>MapViewer</class>
    <extends>QWidget</extends>
-   <header>GUI/Tabs/mapviewer.h</header>
+   <header location="global">GUI/Tabs/MapTab/mapviewer.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>BDocksZone</class>
    <extends>QWidget</extends>
-   <header>GUI/Tabs/Docks/bdockszone.h</header>
+   <header location="global">GUI/Tabs/Docks/bdockszone.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

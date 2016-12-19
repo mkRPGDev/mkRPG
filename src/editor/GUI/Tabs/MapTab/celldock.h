@@ -2,10 +2,22 @@
 #define CELLDOCK_H
 
 #include "ui_celldock.h"
-#include "Docks/bdockwidget.h"
-#include "Game/mapslistmodel.h"
+#include "../Docks/bdockwidget.h"
+#include "Game/ItemModels/mapslistmodel.h"
+#include "Game/ItemModels/attrtreeitemmodel.h"
 
 
+/*!
+ * \file celldock.h
+ * \brief Definition of the CellDock class.
+ *
+ */
+
+
+/*!
+ * \brief The CellDock class provides a BDockWidget to edit
+ * \ref "Cells" Cell.
+ */
 class CellDock : public BDockWidget, private Ui::CellDock
 {
     Q_OBJECT
@@ -22,6 +34,8 @@ private slots:
 
 private:
     Map *map;
+    ParamTreeItemModel *paramModel;
+    FlagTreeItemModel *flagsModel;
 };
 
 #endif // CELLDOCK_H

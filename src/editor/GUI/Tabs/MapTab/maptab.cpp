@@ -1,6 +1,6 @@
-#include "mapseditor.h"
+#include "maptab.h"
 
-MapsEditor::MapsEditor(QWidget *parent) :
+MapsTab::MapsTab(QWidget *parent) :
     TabWidget(parent)
 {
     setupUi(this);
@@ -28,7 +28,7 @@ MapsEditor::MapsEditor(QWidget *parent) :
 
 }
 
-void MapsEditor::setGame(Game *g){
+void MapsTab::setGame(Game *g){
     game = g;
     for(BDockWidget *d : docksW)
         d->setGame(g);
@@ -36,47 +36,47 @@ void MapsEditor::setGame(Game *g){
 }
 
 
-void MapsEditor::updateGame(){
+void MapsTab::updateGame(){
     mapViewer->setMap(game->currentMap());
     mapViewer->updateRequest();
     for(BDockWidget *d : docksW)
         d->updateGame();
 }
 
-void MapsEditor::mapSizeChanged(QSize s){
+void MapsTab::mapSizeChanged(QSize s){
     mapHScrollBar->setMaximum(std::max(0,s.width() - mapViewer->width()));
     mapVScrollBar->setMaximum(std::max(0,s.height() - mapViewer->height()));
     checkScrollBarUtility();
 }
 
-void MapsEditor::viewCenterChanged(QPoint p){
+void MapsTab::viewCenterChanged(QPoint p){
     mapHScrollBar->setSliderPosition(p.x());
     mapVScrollBar->setSliderPosition(p.y());
 
 }
 
-void MapsEditor::viewSizeChanged(QSize s){
+void MapsTab::viewSizeChanged(QSize s){
     mapHScrollBar->setPageStep(s.width());
     mapVScrollBar->setPageStep(s.height());
     checkScrollBarUtility();
 }
 
-void MapsEditor::checkScrollBarUtility(){
+void MapsTab::checkScrollBarUtility(){
     // TODO : Option
     mapHScrollBar->setVisible(mapHScrollBar->maximum());
     mapVScrollBar->setVisible(mapVScrollBar->maximum());
 }
 
-void MapsEditor::on_mapHScrollBar_valueChanged(int){
+void MapsTab::on_mapHScrollBar_valueChanged(int){
     if(mapHScrollBar->underMouse()) updateViewCenterPosition();
 }
 
 
-void MapsEditor::on_mapVScrollBar_valueChanged(int){
+void MapsTab::on_mapVScrollBar_valueChanged(int){
     if(mapVScrollBar->underMouse()) updateViewCenterPosition();
 }
 
-void MapsEditor::updateViewCenterPosition(){
+void MapsTab::updateViewCenterPosition(){
     mapViewer->mapPainter().setViewCenterQuiet(
                 (double) mapHScrollBar->value()/mapHScrollBar->maximum(),
                 (double) mapVScrollBar->value()/mapVScrollBar->maximum());

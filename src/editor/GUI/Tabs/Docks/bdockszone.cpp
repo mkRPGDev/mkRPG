@@ -160,7 +160,7 @@ void BLayout::dockMove(int k,const QPoint &p){
     }
 }
 
-void BLayout::dockRelease(int i, const QPoint &p){
+void BLayout::dockRelease(int i, const QPoint &UNUSED(p)){
     if(movingDock == nullptr) return;
     movingDock->moveTo(placement[i].first);
     initPos = -1;
@@ -257,11 +257,11 @@ void BDocksZone::setCurrentLenght(int t){
     setFixedWidth(t);
 }
 
-void BDocksZone::setUnfold(bool u, bool anim){
+void BDocksZone::setUnfold(bool u, bool UNUSED(anim)){
     unfoldStates.setPositive(u);
 }
 
-void BDocksZone::swap(bool anim){
+void BDocksZone::swap(bool UNUSED(anim)){
     unfoldStates.swap();
 }
 
@@ -281,7 +281,7 @@ void BDocksZone::mouseMoveEvent(QMouseEvent *me){
 }
 
 
-void BDocksZone::mouseReleaseEvent(QMouseEvent *me){
+void BDocksZone::mouseReleaseEvent(QMouseEvent *){
     resizing = false;
 }
 

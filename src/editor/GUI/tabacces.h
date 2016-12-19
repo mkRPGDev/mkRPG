@@ -3,6 +3,17 @@
 
 #include "ui_tabacces.h"
 
+/*!
+ * \file tabacces.h
+ * \brief Definition of the TabAcces class
+ */
+
+/*!
+ * \brief The TabAcces class provides a clickable widget
+ * to show the current tab.
+ *
+ * \see TabBar
+ */
 class TabAcces : public QWidget, private Ui::TabAcces
 {
     Q_OBJECT

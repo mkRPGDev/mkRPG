@@ -1,13 +1,13 @@
 from math import sin,cos,pi
 from itertools import chain
-from pygame.locals import QUIT, KEYDOWN, VIDEORESIZE, RESIZABLE, \
+from pygame.locals import QUIT, KEYDOWN, VIDEORESIZE, RESIZABLE, MOUSEBUTTONDOWN,\
                           K_ESCAPE, K_UP, K_DOWN, K_RIGHT, K_LEFT, K_PAGEUP, K_PAGEDOWN
 import pygame
 
 from interface.const import *
 from interface.interface import Interface, skeys
 from interface.utils import load_png
-from interface.trans import applyMatrix
+from interface.applymatrix import applyMatrix
 
 from time import time
 
@@ -39,8 +39,8 @@ class Pygame(Interface):
         self.mapView.perso = perso
     
     def repaint(self):
-        self.clock.tick()
-        self.mapView.draw()
+        deltat = self.clock.tick()
+        self.mapView.draw(deltat)
 #       for p in self.plugins:
 #           p.draw()
         text = self.font.render("FPS : %d" % self.clock.get_fps(), 1, (255,0,0))
@@ -54,8 +54,9 @@ class Pygame(Interface):
         evs = pygame.event.get()
         for i, ev in enumerate(evs):
             if ev.type==QUIT: evs[i]=skeys.QUIT
-            elif ev.type==KEYDOWN:
-                key=ev.key
+            elif ev.type in (KEYDOWN, MOUSEBUTTONDOWN):
+                # les numéros de touche/boutton n'ont pas de collisions
+                key = ev.key if ev.type==KEYDOWN else ev.button
 #                for p in self.plugins:
 #                    if p.handleKey(key):
 #                        self.repaint()
@@ -82,8 +83,8 @@ class MapView:
     """ Manages the map display """
     def __init__(self, world):
         self.world = world
-        self.offX = 0
-        self.offY = 0
+        self.offX, self.offY = 0, 0
+        self.movSpeedX, self.movSpeedY = 0, 0
         self.angleX = ANGLE_X
         self.angleY = ANGLE_Y
         self.cellWidth = CELL_WIDTH
@@ -91,7 +92,7 @@ class MapView:
         self.perso = None
         self.showLov = False
         self.follow = False
-        self.pics={}
+        self.pics = {}
         
     def setSurf(self, surf):
         """ Called when scene is initialised or reshaped """
@@ -103,7 +104,8 @@ class MapView:
     
     def updatePics(self):
         """ Fill the picture dictionnary using current angles and zoom """
-        self.cellWidth = max(3, min(self.cellWidth, 90))
+        lar = cos(self.angleY)*(self.nbCellsY+1)+cos(self.angleX)*(self.nbCellsX+1)
+        self.cellWidth = max(self.maxWidth/lar, min(self.cellWidth, 90))
         for i in IMGS:
             p = load_png(IMG_PATH+IMGS[i])
             p = pygame.transform.scale(p, (int(self.cellWidth+3), int(self.cellWidth+3)))
@@ -164,11 +166,12 @@ class MapView:
                     j+=1
                     seen = True
                 elif seen: break
-        print(i,j,time()-t)
+        #print(i,j,time()-t)
         
-    def draw(self):
+    def draw(self, deltat=0):
         """ Blit visible items of the map on Surface self.surf """
         if self.map != self.world.currentMap: self.updateMap()
+        self.moveView(deltat)
         self.surf.fill((0,0,0))
         if self.follow:
             x,y = self.cellToPoint(self.perso.x, self.perso.y)
@@ -179,7 +182,6 @@ class MapView:
         # Cells
         for u,v,cell in self.shown:
             self.surf.blit(self.pics[cell.picture], (u,v))
-        print(time()-t)
         # Entities and objects
         sceneRect = self.surf.get_rect()
         for ent in chain(self.world.entities, self.world.objects):
@@ -188,14 +190,24 @@ class MapView:
             v -= self.offY
             if sceneRect.collidepoint(u,v):
                 self.surf.blit(self.pics[ent.picture], (u,v))
+        if self.movSpeedX!=0:
+            mask = pygame.Surface((MOV_OFFSET, self.maxHeight))
+            mask.fill((255,255,255))
+            mask.set_alpha(50)
+            self.surf.blit(mask, (0 if self.movSpeedX<0 else self.maxWidth-MOV_OFFSET, 0))
+        if self.movSpeedY!=0:
+            mask = pygame.Surface((self.maxWidth, MOV_OFFSET))
+            mask.fill((255,255,255))
+            mask.set_alpha(50)
+            self.surf.blit(mask, (0, 0 if self.movSpeedY<0 else self.maxHeight-MOV_OFFSET))
 
     def handleKey(self, key):
         if key==K_LEFT: self.offX -= 100
         elif key==K_RIGHT: self.offX += 100
         elif key==K_UP: self.offY -= 100
         elif key==K_DOWN: self.offY += 100
-        elif key==K_PAGEUP: self.cellWidth /= 1.5
-        elif key==K_PAGEDOWN: self.cellWidth *= 1.5
+        elif key==4: self.cellWidth /= 1.5
+        elif key==5: self.cellWidth *= 1.5
         elif key==ord('u'): self.angleX -= pi/16
         elif key==ord('i'): self.angleX += pi/16
         elif key==ord('j'): self.angleY -= pi/16
@@ -206,6 +218,34 @@ class MapView:
         self.updatePics()
         self.clipOffset()
         return True
+
+    def moveView(self, deltat):
+        """ Move view with accelerations if the mouse is on an edge """
+        if not pygame.key.get_focused(): return
+        posX,posY = pygame.mouse.get_pos()
+        
+        maxSpeed = 600 # XXX fonction du zoom ?
+        movAccel = int(0.1*deltat)
+
+        if posX in range(MOV_OFFSET) and -self.movSpeedX in range(maxSpeed):
+            self.movSpeedX -= movAccel
+        elif self.maxWidth-posX in range(MOV_OFFSET) and self.movSpeedX in range(maxSpeed):
+            self.movSpeedX += movAccel
+        else:
+            self.movSpeedX = 0
+
+        if posY in range(MOV_OFFSET) and -self.movSpeedY in range(maxSpeed):
+            self.movSpeedY -= movAccel
+        elif self.maxHeight-posY in range(MOV_OFFSET) and self.movSpeedY in range(maxSpeed):
+            self.movSpeedY += movAccel
+        else:
+            self.movSpeedY = 0
+
+        if self.movSpeedX or self.movSpeedY:
+            self.follow = False
+            self.offX += self.movSpeedX
+            self.offY += self.movSpeedY
+            self.clipOffset()
     
     def cellToPoint(self, x, y):
         """ Convert cell related coordinates to map coordinates """

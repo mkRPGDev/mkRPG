@@ -73,7 +73,7 @@ class Client:
         """ Init stuff, listen for inputs and send corresponding events """
         self.interface.init()
         while True:
-            #self.interface.update()
+            self.interface.update()
             # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
             perf.tic()
             keys = self.interface.getEvent()

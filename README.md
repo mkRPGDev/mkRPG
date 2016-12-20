@@ -16,10 +16,12 @@ Voici comment en obtenir un aperçu:
 ### Utilisation du client
 Z,Q,S et D permettent de déplacer le personnage,
 
-les flèches du clavier déplacent la vue,
+F de le suivre automatiquement
 
-pageup et pagedown permettent de zoomer,
+mettre la souris sur les bords déplace la vue,
 
-U<->I et J<->K font varier les deux angles (à utiliser prudemment)
+la roulette de la souris permet de zoomer,
 
-Le déplacement à la souris va être rétabli sous peu, ainsi que des plugins affichant notamment l'aide.
+U-I et J-K font varier les deux angles (à utiliser prudemment)
+
+Des plugins affichant notamment l'aide ajoutés sous peu

@@ -1,8 +1,15 @@
 import pygame
 from ctypes import CDLL, c_double
+from os import system
+from time import sleep
 
-# gcc -fPIC -std=c99 -shared trans.c -o trans.a
-dll = CDLL("interface/trans.a")
+try:
+    dll = CDLL("interface/applymatrix.a")
+except OSError:
+    print("Compilation de applymatrix.c")
+    system("gcc -fPIC -std=c99 -shared interface/applymatrix.c -o interface/applymatrix.a")
+    sleep(.5) 
+    dll = CDLL("interface/applymatrix.a")
 
 #void trans(int* src, int sw, int sh, int* dst, int dh,
 #           double a, double b, double c, double d, int xm, int ym){

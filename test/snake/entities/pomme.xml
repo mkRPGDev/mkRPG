@@ -1,8 +1,10 @@
-<Object name="pomme">
-    <Ident>2</Ident>
-    <Params>
-        <x>0</x>
-        <y>0</y>
-        <picture>120</picture>
-    </Params>
-</Object>
+<Objects>
+    <Object name="pomme">
+        <Ident>2</Ident>
+        <Params>
+            <x>0</x>
+            <y>0</y>
+            <picture>120</picture>
+        </Params>
+    </Object>
+</Objects>

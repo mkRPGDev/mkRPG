@@ -3,12 +3,8 @@
     <Params>
         <currentMap id="main"/>
         <pomme id="pomme"/>
-        <step val="0"/>
+        <step>0</step>
     </Params>
-
-    <Maps>
-        <Map id="main"/>
-    </Maps>
 
     <Maps>
         <Map id="main"/>

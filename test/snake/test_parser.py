@@ -3,10 +3,15 @@
 import sys
 import xml.etree.ElementTree as ET
 
-sys.path.append('../../src/parsing/')
+sys.path.append('../../src/')
 
-import map_parser, entity_parser, world_parser, global_parsing, actions_parser
-import interactions_parser, objects_parser
+import parsing.map_parser as map_parser
+import parsing.entity_parser as entity_parser
+import parsing.world_parser as world_parser
+import parsing.global_parsing as global_parsing
+import parsing.actions_parser as actions_parser
+import parsing.interactions_parser as interactions_parser
+import parsing.objects_parser as objects_parser
 
 def formatter(l):
     """ Formats the output, to check tests """
@@ -167,12 +172,12 @@ def test_global_parsing():
     formatter(data)
 
 if __name__=="__main__":
-    test_map_parser()
+#    test_map_parser()
 #    test_cell_parser()
 #    test_cells_multiple()
 #    test_entity_parser()
 #    test_multiple_files_entities()
-    test_world_parser()
+#    test_world_parser()
 #    test_check_entity()
 #    test_collect_data()
 #    test_collect_map_data()
@@ -188,6 +193,6 @@ if __name__=="__main__":
 #    test_object_parser()
 #    test_objects_parser()
 #    test_multiple_files_objects_parser()
-#    test_object_type_parser()
+    test_object_type_parser()
 #    test_objects_type_parser()
 #    test_global_parsing()

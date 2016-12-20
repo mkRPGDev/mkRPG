@@ -32,7 +32,7 @@ def parse_cell(cell_object):
 def parse_all_cells(cell_xml):
     """ Parses all cells defined in the given file."""
     root = ET.parse(cell_xml)
-    cells = root.findall("CellType")
+    cells = root.findall("Cell")
     list_cells = []
     for cell in cells:
         list_cells.append(parse_cell(cell))

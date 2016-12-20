@@ -1,5 +1,5 @@
 # ! PATH par défaut en l'absence d'argument
-PATH = "../test/simple/" # et on oublie pas le dernier /
+PATH = "../test/snake/" # et on oublie pas le dernier /
 
 MAXFPS = 60
 UPDTIME = 1/MAXFPS

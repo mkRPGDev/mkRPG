@@ -24,6 +24,7 @@ def loadGame(path):
                 eval(data_list)(ident).load(data, typ=data_list)
 
     world = named['world']
+    print("Ids_obj %s" % ",".join([str(i) for i in Object.ids.items()]))
     for m in world.maps:
         m.fill()
     return world
@@ -33,12 +34,12 @@ class Object:
     ident = 0
     ids = {} # liste si sans deletion
 
-    def __init__(self, ident=None):
-        if ident is None:
-            ident = len(ids)+1
-        Object.ids[ident] = self
+    def __init__(self, identifier=None):
+        if identifier is None:
+            identifier = len(Object.ids)
+        Object.ids[identifier] = self
         self.params = {} # Ne pas déplacer =)
-        self.ident = ident
+        self.ident = identifier
 
         self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
 
@@ -61,7 +62,7 @@ class Object:
             typ = _type
         if typ and typ.endswith("Type") and type(eval(typ[:-4])) == type:
             data.pop('type', None)
-            ObjectType(eval(typ[:-4])).load(data, None)
+            ObjectType(typ=eval(typ[:-4])).load(data)
         else:
             for key in data.keys():
                 if key == 'params':
@@ -99,7 +100,7 @@ class Object:
         return self
 
     def contextEval(self, value):
-        """ Eval an expression in the context of the object for orders """ 
+        """ Eval an expression in the context of the object for orders """
         return eval(value)
 
     # TODO traitement d'ordres ?
@@ -116,9 +117,12 @@ class ObjectType(Object):
         super().__init__(ident)
         self.type = typ
 
+    def __str__(self):
+        return str(self.params)
+
     def create(self):
         """ Instanticiation d'un objet à partir du type """
-        instance = self.type(self.ident)
+        instance = self.type()
         instance.type = self
         for p,v in self.params.items():
             instance.params[p] = v
@@ -201,6 +205,9 @@ class Cell(Object):
         self.entities = []
         self.objects = []
 
+    def __str__(self):
+        return(str(self.params))
+
 
 class Entity(Object):
     def __init__(self, ident=None):
@@ -208,6 +215,9 @@ class Entity(Object):
         self.quests = []
         self.inventory = []
         self.user = None
+
+    def __str__(self):
+        return str(self.params)
 
 
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":Object,

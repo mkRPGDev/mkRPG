@@ -33,7 +33,7 @@ def object_parser(object_tag):
     object_params = {
         'name': name,
         'type' : 'Object',
-        'ident' : parsing_utils.format_type(_ident),
+        'ident' : parsing_utils.format_type(_ident.text),
         'params': {}
     }
     for tag in _params.getchildren():
@@ -50,7 +50,7 @@ def object_type_parser(object_type_tag):
         parsing_utils.fail_not_found("name")
 
     # Gets the identifier of the object
-    _ident = object_tag.find("Ident")
+    _ident = object_type_tag.find("Ident")
     if _ident is None:
         parsing_utils.fail_not_found("Ident")
 
@@ -59,7 +59,7 @@ def object_type_parser(object_type_tag):
     if _params is None:
         parsing_utils.fail_not_found("Params")
     params_dict = {'name': name}
-    params_dict.update({'ident': parsing_utils.format_type(_ident)})
+    params_dict.update({'ident': parsing_utils.format_type(_ident.text)})
     params_dict.update({'params' : {}})
     for param in _params:
         if param.attrib.get('id'):

@@ -10,7 +10,7 @@ Condition = namedtuple("Condition", "target event once")
 class Order:
     """ A change to be done on the world"""
     # Attention aux collisions avec args et type
-    params = [None] * (len(OrderType)+1) #XXX c'pas top 
+    params = [None] * (len(OrderType)+1) #XXX c'pas top
     params[OrderType.Set] = ["target", "param", "value"]
     params[OrderType.Timer] = ["event", "value"]
     params[OrderType.Event] = ["event", "target"]
@@ -24,37 +24,35 @@ class Order:
     def __init__(self):
         self.type = None
         self.args = []
-    
+
     def __getattr__(self, attr):
         return self.args[self.params[self.type].index(attr)]
-    
+
     def __setattr__(self, attr, val):
         if attr in ("type", "args") or attr not in self.params[self.type]:
             object.__setattr__(self, attr, val)
         else:
             self.args[self.params[self.type].index(attr)] = val
-    
+
     def copy(self):
         # une copy.deepcopy aurait copié params
         obj = Order()
         obj.type = self.type
         obj.args = self.args[:]
         return obj
-    
+
     def load(self, dat, named):
         """ Initialise the order with an Xml structure """
-        assert dat.name == "Order"
-        self.type = OrderType.__members__[dat.args["type"].capitalize()]
+        self.type = OrderType.__members__[dat["type"].capitalize()]
         self.args = [0]*len(self.params[self.type])
-        for nm, args, _ in dat.list:
-            if "val" in args:
-                self.args[self.params[self.type].index(nm)] = args["val"]
-            else:
-                # TODO utiliser des pointeurs
-                self.args[self.params[self.type].index(nm)] = \
-                    str(named[args["id"]].ident)
+        for key in dat.keys():
+            if key != 'type':
+                if type(dat[key]) == dict and dat[key].get("id") is not None:
+                    self.args[self.params[self.type].index(key)] = str(named[dat[key]['id']].ident)
+                else:
+                    self.args[self.params[self.type].index(key)] = dat[key]
         return self
-    
+
     def toBytes(self): # TODO éliminer tt les str => ids de param
         """ Bytes to send the order on the network """
         def addStr(s):
@@ -67,7 +65,7 @@ class Order:
         b.append(self.type)
         for arg in self.args: addStr(arg)
         return bytes(b)
-        
+
     def fromBytes(self, byt):
         """ Retrieve order from network bytes """
         def getStr():
@@ -80,7 +78,7 @@ class Order:
         i = 1
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
         return self, i
-    
+
 class OrderDispatcher:
     """ Treat orders for client and server """
     def __init__(self, world, handle, timer):
@@ -124,7 +122,9 @@ class OrderDispatcher:
                 await self.handle(emitter, order.event)
             return None
         if order.type==OrderType.Create:
-            obj = self.world.ids[int(order.base)].create()
+            new = world.ids[int(order.base)]
+            obj = new.create()
+            print("Ids %s " % self.world.ids)
             self.world.objects.append(obj)
             exec(order.init)
             if self.handle:

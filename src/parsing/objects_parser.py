@@ -4,6 +4,7 @@ This file handles the parsing of the objects defined in the game.
 
 # -*- coding : utf-8 -*-
 
+from collections import OrderedDict
 import parsing.parsing_utils as parsing_utils
 
 def object_parser(object_tag):
@@ -30,12 +31,12 @@ def object_parser(object_tag):
     if _picture is None:
         parsing_utils.fail_not_found("picture")
 
-    object_params = {
+    object_params = OrderedDict({
         'name': name,
         'type' : 'Object',
         'ident' : parsing_utils.format_type(_ident.text),
-        'params': {}
-    }
+        'params': OrderedDict()
+    })
     for tag in _params.getchildren():
         object_params['params'].update({tag.tag: tag.text})
     return object_params
@@ -58,9 +59,9 @@ def object_type_parser(object_type_tag):
 
     if _params is None:
         parsing_utils.fail_not_found("Params")
-    params_dict = {'name': name}
+    params_dict = OrderedDict({'name': name})
     params_dict.update({'ident': parsing_utils.format_type(_ident.text)})
-    params_dict.update({'params' : {}})
+    params_dict.update({'params' : OrderedDict()})
     for param in _params:
         if param.attrib.get('id'):
             params_dict['params'].update({param.tag: {"id": param.attrib.get("id")}})

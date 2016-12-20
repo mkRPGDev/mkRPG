@@ -7,6 +7,7 @@ these interactions.
 # -*- coding: utf-8 -*-
 
 import sys
+from collections import OrderedDict
 import parsing.parsing_utils as parsing_utils
 import parsing.actions_parser as actions_parser
 
@@ -15,7 +16,7 @@ def interaction_parser(interaction_tag):
     contains a curses keycode, a target and and event.
     """
 
-    interaction = {}
+    interaction = OrderedDict()
 
     _key = interaction_tag.find('key')
     if _key is None:

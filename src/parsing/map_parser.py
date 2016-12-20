@@ -5,13 +5,14 @@ This module handles xml parsing for maps description files.
 # -*- coding : utf-8 -*-
 
 import xml.etree.ElementTree as ET
+from collections import OrderedDict
 import parsing.parsing_utils as parsing_utils
 
 def parse_cell(cell_object):
     """
     Parses a CellType attribute.
     """
-    answer = {'type' : 'Cell'}
+    answer = OrderedDict({'type' : 'Cell'})
     name = cell_object.attrib.get('name')
     if name:
         answer.update({'name': name})
@@ -20,8 +21,8 @@ def parse_cell(cell_object):
         parsing_utils.fail_not_found("Ident")
     answer.update({"ident": parsing_utils.format_type(_ident.text)})
     cell_params = cell_object.find('Params')
-    answer.update({'params' : {}})
-    for param in cell_params.getchildren():
+    answer.update({'params' : OrderedDict()})
+    for param in list(cell_params):
         answer['params'].update({param.tag: parsing_utils.format_type(param.text)})
     _entities = cell_object.find("Entities")
     if _entities is not None:
@@ -48,7 +49,7 @@ def map_parser(map_xml):
     """
     root = parsing_utils.try_open_and_parse(map_xml)
     name = root.attrib['name']
-    answer = {'name': name}
+    answer = OrderedDict({'name': name})
 
     _ident = root.find("Ident")
     if _ident is None:
@@ -56,7 +57,7 @@ def map_parser(map_xml):
     answer.update({"ident": parsing_utils.format_type(_ident.text)})
 
     params = root.find("Params")
-    answer.update({'params' : {}})
+    answer.update({'params' : OrderedDict()})
     for _param in params.getchildren():
         if _param.attrib.get("id"):
             value = {"id" : parsing_utils.format_type(_param.attrib.get("id"))}

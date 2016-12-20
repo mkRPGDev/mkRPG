@@ -1,5 +1,5 @@
 from enum import IntEnum
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 from random import randint
 
 from shared.tools import readXml
@@ -8,7 +8,7 @@ from parsing import global_parsing
 
 verbose = False
 
-named = {}
+named = OrderedDict()
 toResolve = []
 
 world = None
@@ -18,21 +18,26 @@ def loadGame(path):
     global world
     parsed_data = global_parsing.game_parser(path+"game.xml")
     for data_list in parsed_data:
+        print(data_list)
         if data_list != 'Actions' and  data_list != 'Interactions':
             for data in parsed_data[data_list]:
                 ident = data.pop('ident')
                 eval(data_list)(ident).load(data, typ=data_list)
 
     world = named['world']
-    print("Ids_obj %s" % ",".join([str(i) for i in Object.ids.items()]))
+    print(world.ids)
+    print(world.params)
+    print(world.objects)
+    print(world.entities)
     for m in world.maps:
+        print(m.cells)
         m.fill()
     return world
 
 class Object:
     """ Any world object """
     ident = 0
-    ids = {} # liste si sans deletion
+    ids = OrderedDict() # liste si sans deletion
 
     def __init__(self, identifier=None):
         if identifier is None:
@@ -90,7 +95,7 @@ class Object:
                     ident = data[key]['ident']
                     eval(typ)(ident).load(data[key], typ)
 
-            if 'name' in data.keys():
+            if 'name' in list(data):
                 named[data['name']] = self
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue

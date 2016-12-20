@@ -5,6 +5,7 @@ to load a game, that is to say the current map, the entities...
 
 # -*- coding : utf-8 -*-
 
+from collections import OrderedDict
 import parsing.parsing_utils as parsing_utils
 
 def parse_world(world_file):
@@ -19,7 +20,7 @@ def parse_world(world_file):
     objects = root.find('Objects')
     maps = root.find('Maps')
     ident = root.find("Ident")
-    params_dict = {}
+    params_dict = OrderedDict()
     entities_list = []
     objects_list = []
     maps_list = []
@@ -38,12 +39,12 @@ def parse_world(world_file):
     if maps is not None:
         for map_ in maps.getchildren():
             maps_list += [map_.attrib]
-    return {
+    return OrderedDict({
         'name' : 'world',
         'Entities': entities_list,
         'params': params_dict,
         'Objects': objects_list,
         'Maps': maps_list,
         'ident' : parsing_utils.format_type(ident.text)
-    }
+    })
 

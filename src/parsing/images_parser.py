@@ -7,6 +7,7 @@ in xml files.
 # -*- coding: utf-8 -*-
 
 import sys
+from collections import OrderedDict
 from os.path import sep
 import parsing_utils
 
@@ -25,11 +26,11 @@ def parse_image(image_tag):
         parsing_utils.fail_not_found("Path")
     path = _path.text
 
-    return {identifier:path.replace("/", sep)}
+    return OrderedDict({identifier:path.replace("/", sep)})
 
 def parse_file_image(image_file):
     """ Parses an images files."""
-    images_dict = {}
+    images_dict = OrderedDict()
     root = parsing_utils.try_open_and_parse(image_file)
 
     images = root.findall("Image")

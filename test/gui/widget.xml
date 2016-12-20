@@ -1,0 +1,61 @@
+<Widgets>
+    <Container>
+        <Params>
+            <size>
+                <height>100</height>
+                <width>100</width>
+            </size>
+            <background_color>
+                <R>50</R>
+                <G>75</G>
+                <B>50</B>
+                <alpha>12</alpha>
+            </background_color>
+            <background_image>content/imgs/apple.png</background_image>
+            <background_pattern>repeat</background_pattern>
+        </Params>
+
+        <Content>
+            <TextField>
+                <Params>
+                    <size>
+                        <height>20</height>
+                        <width>50</width>
+                    </size>
+                    <text_size>10</text_size>
+                    <text_color>
+                        <R>50</R>
+                        <G>75</G>
+                        <B>50</B>
+                        <alpha>10</alpha>
+                    </text_color>
+                    <text_font>Monospace</text_font>
+                    <text_align>centered</text_align>
+                </Params>
+                <text>This is a text example</text>
+            </TextField>
+
+            <Button>
+                <Params>
+                    <size>
+                        <height>20</height>
+                        <width>50</width>
+                    </size>
+                    <text_size>10</text_size>
+                    <text_color>
+                        <R>50</R>
+                        <G>75</G>
+                        <B>50</B>
+                        <alpha>10</alpha>
+                    </text_color>
+                    <text_font>Monospace</text_font>
+                    <text_align>centered</text_align>
+                    <text_interline>3</text_interline>
+                    <mover_background_image>contents/imgs/apple.png</mover_background_image>
+                </Params>
+                <action>print("otto")</action>
+                <text>This is an example button</text>
+            </Button>
+        </Content>
+    </Container>
+</Widgets>

@@ -18,30 +18,26 @@ def loadGame(path):
     global world
     parsed_data = global_parsing.game_parser(path+"game.xml")
     for data_list in parsed_data:
-        print(data_list)
         if data_list != 'Actions' and  data_list != 'Interactions':
             for data in parsed_data[data_list]:
                 ident = data.pop('ident')
                 eval(data_list)(ident).load(data, typ=data_list)
-
     world = named['world']
-    print(world.ids)
-    print(world.params)
-    print(world.objects)
-    print(world.entities)
+    print(named['corps'])
     for m in world.maps:
-        print(m.cells)
         m.fill()
     return world
 
 class Object:
     """ Any world object """
-    ident = 0
     ids = OrderedDict() # liste si sans deletion
+
+    numid = 1<<16
 
     def __init__(self, identifier=None):
         if identifier is None:
-            identifier = len(Object.ids)
+            Object.numid -= 1
+            identifier = Object.numid
         Object.ids[identifier] = self
         self.params = {} # Ne pas déplacer =)
         self.ident = identifier
@@ -67,6 +63,7 @@ class Object:
             typ = _type
         if typ and typ.endswith("Type") and type(eval(typ[:-4])) == type:
             data.pop('type', None)
+            print(data)
             ObjectType(typ=eval(typ[:-4])).load(data)
         else:
             for key in data.keys():

@@ -48,7 +48,6 @@ class Order:
         for key in dat.keys():
             if key != 'type':
                 if type(dat[key]) == dict and dat[key].get("id") is not None:
-                    print(named[dat[key]['id']].ident)
                     self.args[self.params[self.type].index(key)] = str(named[dat[key]['id']].ident)
                 else:
                     self.args[self.params[self.type].index(key)] = dat[key]
@@ -124,7 +123,6 @@ class OrderDispatcher:
             return None
         if order.type==OrderType.Create:
             new = world.ids[int(order.base)]
-            print(new)
             obj = new.create()
             self.world.objects.append(obj)
             exec(order.init)

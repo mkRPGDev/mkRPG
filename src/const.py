@@ -10,5 +10,5 @@ HOST = "localhost"
 PORT = 12346
 IPV6 = False#True
 USETCP = True
-BUFF = 1024
+BUFF = 4096
 CODING = "ascii"

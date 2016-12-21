@@ -120,7 +120,7 @@ class ObjectType(Object):
         self.type = typ
 
     def __str__(self):
-        return str(self.params)
+        return (str(self.params) + "\ntype = %s" % self.type)
 
     def create(self):
         """ Instanticiation d'un objet à partir du type """

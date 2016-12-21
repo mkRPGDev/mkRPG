@@ -50,13 +50,13 @@
 <div>
 <h2>External dependencies</h2>
 <pre>const (interface.const,interface.interface)
-interface (interface.pygamecli,interface.character,interface.printWorld,interface.chunk,interface.map,interface.layer,interface.backgroundLayer,interface.entity)
+interface (interface.chunk,interface.pygamecli,interface.entity,interface.printWorld,interface.character,interface.backgroundLayer,interface.layer,interface.map)
   \-chunk (interface.cache)
-  \-const (interface.character,interface.cache,interface.printWorld,interface.chunk,interface.map,interface.layer,interface.backgroundLayer,interface.entity)
-  \-interface (interface.printWorld,interface.pygamecli,interface.cursescli)
-  \-utils (interface.pygamecli,interface.character,interface.cache,interface.printWorld,interface.chunk,interface.map,interface.layer,interface.backgroundLayer,interface.entity,interface.const)
-pygame (interface.utils,interface.pygamecli,interface.character,interface.cache,interface.printWorld,interface.chunk,interface.map,interface.trans,interface.layer,interface.backgroundLayer,interface.entity)
-  \-locals (interface.pygamecli,interface.character,interface.printWorld,interface.chunk,interface.map,interface.backgroundLayer,interface.entity)</pre></div>
+  \-const (interface.chunk,interface.entity,interface.printWorld,interface.character,interface.backgroundLayer,interface.layer,interface.cache,interface.map)
+  \-interface (interface.cursescli,interface.pygamecli,interface.printWorld)
+  \-utils (interface.chunk,interface.pygamecli,interface.entity,interface.printWorld,interface.character,interface.backgroundLayer,interface.const,interface.layer,interface.cache,interface.map)
+pygame (interface.utils,interface.chunk,interface.pygamecli,interface.trans,interface.entity,interface.printWorld,interface.character,interface.backgroundLayer,interface.layer,interface.cache,interface.map)
+  \-locals (interface.chunk,interface.pygamecli,interface.entity,interface.printWorld,interface.character,interface.backgroundLayer,interface.map)</pre></div>
 <div>
 <h2>Raw metrics</h2>
 <table>

@@ -29,7 +29,7 @@
                         <B>50</B>
                         <alpha>10</alpha>
                     </text_color>
-                    <text_font>Monospace</text_font>
+                    <text_font>content/DejaVuSans.ttf</text_font>
                     <text_align>centered</text_align>
                 </Params>
                 <text>This is a text example</text>
@@ -48,7 +48,7 @@
                         <B>50</B>
                         <alpha>10</alpha>
                     </text_color>
-                    <text_font>Monospace</text_font>
+                    <text_font>content/DejaVuSans.ttf</text_font>
                     <text_align>centered</text_align>
                     <text_interline>3</text_interline>
                     <mover_background_image>contents/imgs/apple.png</mover_background_image>

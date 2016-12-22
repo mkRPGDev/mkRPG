@@ -1,14 +1,15 @@
 from enum import IntEnum
-from collections import defaultdict
-from random import randint
+from collections import defaultdict, OrderedDict
+from random import randint # utilisé par eval
 
+from const import IDLEN
 from shared.tools import readXml
 from shared.orders import Order, OrderType
 from parsing import global_parsing
 
 verbose = False
 
-named = {}
+named = OrderedDict()
 toResolve = []
 
 world = None
@@ -22,7 +23,6 @@ def loadGame(path):
             for data in parsed_data[data_list]:
                 ident = data.pop('ident')
                 eval(data_list)(ident).load(data, typ=data_list)
-
     world = named['world']
     for m in world.maps:
         m.fill()
@@ -30,15 +30,19 @@ def loadGame(path):
 
 class Object:
     """ Any world object """
-    ident = 0
-    ids = {} # liste si sans deletion
+    ids = OrderedDict() # liste si sans deletion
 
-    def __init__(self, ident=None):
-        if ident is None:
-            ident = len(ids)+1
-        Object.ids[ident] = self
+    numid = (1<<8*IDLEN)
+
+    def __init__(self, identifier=None):
+        if identifier is None:
+            Object.numid -= 1
+            identifier = Object.numid
+        assert identifier != 0 # l'id 0 est réservé pour les plugins
+        assert identifier not in Object.ids # un id est en double
+        Object.ids[identifier] = self
         self.params = {} # Ne pas déplacer =)
-        self.ident = ident
+        self.ident = identifier
 
         self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
 
@@ -61,7 +65,8 @@ class Object:
             typ = _type
         if typ and typ.endswith("Type") and type(eval(typ[:-4])) == type:
             data.pop('type', None)
-            ObjectType(eval(typ[:-4])).load(data, None)
+            if verbose: print(data)
+            ObjectType(typ=eval(typ[:-4])).load(data)
         else:
             for key in data.keys():
                 if key == 'params':
@@ -89,7 +94,7 @@ class Object:
                     ident = data[key]['ident']
                     eval(typ)(ident).load(data[key], typ)
 
-            if 'name' in data.keys():
+            if 'name' in list(data):
                 named[data['name']] = self
         for nm, li, ln in toResolve: #TODO a optimiser
             if nm not in named: continue
@@ -99,7 +104,7 @@ class Object:
         return self
 
     def contextEval(self, value):
-        """ Eval an expression in the context of the object for orders """ 
+        """ Eval an expression in the context of the object for orders """
         return eval(value)
 
     # TODO traitement d'ordres ?
@@ -116,9 +121,12 @@ class ObjectType(Object):
         super().__init__(ident)
         self.type = typ
 
+    def __str__(self):
+        return (str(self.params) + "\ntype = %s" % self.type)
+
     def create(self):
         """ Instanticiation d'un objet à partir du type """
-        instance = self.type(self.ident)
+        instance = self.type()
         instance.type = self
         for p,v in self.params.items():
             instance.params[p] = v
@@ -201,6 +209,9 @@ class Cell(Object):
         self.entities = []
         self.objects = []
 
+    def __str__(self):
+        return(str(self.params))
+
 
 class Entity(Object):
     def __init__(self, ident=None):
@@ -208,6 +219,9 @@ class Entity(Object):
         self.quests = []
         self.inventory = []
         self.user = None
+
+    def __str__(self):
+        return str(self.params)
 
 
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":Object,

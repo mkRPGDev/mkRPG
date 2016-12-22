@@ -8,6 +8,7 @@ The most important methods are the game_parser one and the save_xml.
 
 import sys
 from os.path import isfile, abspath, dirname, sep, join
+from collections import OrderedDict
 import parsing.map_parser as mp
 import parsing.entity_parser as ep
 import parsing.world_parser as wp
@@ -42,7 +43,7 @@ def game_parser(game_xml):
     root = parsing_utils.try_open_and_parse(game_xml)
 
     # The result dictionnary
-    result = {}
+    result = OrderedDict()
 
     # Gets the important data.
     world_tag = root.find('World')

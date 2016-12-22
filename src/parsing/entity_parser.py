@@ -13,6 +13,7 @@ it always have a picture, its grpahical representation in the GUI client
 
 #-*- coding : utf-8 -*-
 
+from collections import OrderedDict
 import parsing.parsing_utils as parsing_utils
 
 
@@ -25,7 +26,7 @@ def get_characteristics(_characteristics):
     are the characteristics.
     Each characteristic should be an integer.
     """
-    characteristics = {}
+    characteristics = OrderedDict()
     for _characteristic in _characteristics.getchildren():
         if _characteristic.attrib.get("id"):
             value = parsing_utils.format_type(_characteristic.attrib.get("id"))
@@ -48,11 +49,11 @@ def parse_entity(entity_element):
         # No identifier, exit and alert the user.
         parsing_utils.fail_not_found("Ident")
     #The minimum expected for an entitiy
-    answer = {
+    answer = OrderedDict({
         'name': name,
         'type' : "Entity",
         "ident": parsing_utils.format_type(_ident.text)
-    }
+    })
     _params = entity_element.find('Params')
     if _params is None:
         parsing_utils.fail_not_found("Params")

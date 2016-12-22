@@ -1,4 +1,5 @@
 from asyncio import ensure_future
+from const import IDLEN
 
 def try_import(module_name):
     try:
@@ -32,7 +33,7 @@ class Plugin:
 
     def send(self, msg):
         l = len(self.MSGID)+len(msg)
-        ensure_future(self.engine.net.send(bytes([0,0,l//256,l%256])+self.MSGID+msg))
+        ensure_future(self.engine.net.send((0).to_bytes(IDLEN, 'big')+l.to_bytes(2, 'big')+self.MSGID+msg))
 
     def serverCallback(self):
         pass

@@ -5,6 +5,7 @@ Recall that the actions should all be defined in such a file.
 # -*- coding : utf-8 -*-
 
 import sys
+from collections import OrderedDict
 import parsing.parsing_utils as parsing_utils
 
 def get_tag(order_tag, tag, optionnal=False):
@@ -26,7 +27,7 @@ def get_tag(order_tag, tag, optionnal=False):
 
 def parse_order(order_tag):
     """ Parses an order tag. Returns the type of order, and the code to run."""
-    res = {}
+    res = OrderedDict()
     type_order = order_tag.attrib.get("type")
     if type_order is None:
         parsing_utils.fail_not_found("Type in order tag")
@@ -69,7 +70,7 @@ def parse_actions(action_xml):
     # Get all actions, and save it in a dictionnary
     for _action in actions.findall("Action"):
         event, orders = parse_action(_action)
-        actions_list.append({'event': event, 'orders': orders})
+        actions_list.append(OrderedDict({'event': event, 'orders': orders}))
     return actions_list
 
 def parse_multiple_files(*actions_files):

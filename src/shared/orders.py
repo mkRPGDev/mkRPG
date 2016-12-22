@@ -62,12 +62,6 @@ class Order:
         b = bytearray()
         b.append(self.type)
         for arg in self.args: addStr(arg)
-        try:
-            self.fromBytes(bytes(b))
-        except:
-            print("vlan !")
-            print(b)
-            raise
         return bytes(b)
 
     def fromBytes(self, byt):
@@ -81,10 +75,7 @@ class Order:
         self.type = byt[0]
         i = 1
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
-        if self.toBytes()!=byt[:i]:
-            print(self.toBytes())
-            print(byt)
-            1/0
+        assert self.toBytes()==byt[:i]
         return self, i
 
 class OrderDispatcher:

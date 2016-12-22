@@ -1,7 +1,8 @@
 from enum import IntEnum
 from collections import defaultdict, OrderedDict
-from random import randint
+from random import randint # utilisé par eval
 
+from const import IDLEN
 from shared.tools import readXml
 from shared.orders import Order, OrderType
 from parsing import global_parsing
@@ -23,7 +24,6 @@ def loadGame(path):
                 ident = data.pop('ident')
                 eval(data_list)(ident).load(data, typ=data_list)
     world = named['world']
-    print(named['corps'])
     for m in world.maps:
         m.fill()
     return world
@@ -32,12 +32,14 @@ class Object:
     """ Any world object """
     ids = OrderedDict() # liste si sans deletion
 
-    numid = 1<<16
+    numid = (1<<8*IDLEN)
 
     def __init__(self, identifier=None):
         if identifier is None:
             Object.numid -= 1
             identifier = Object.numid
+        assert identifier != 0 # l'id 0 est réservé pour les plugins
+        assert identifier not in Object.ids # un id est en double
         Object.ids[identifier] = self
         self.params = {} # Ne pas déplacer =)
         self.ident = identifier
@@ -63,7 +65,7 @@ class Object:
             typ = _type
         if typ and typ.endswith("Type") and type(eval(typ[:-4])) == type:
             data.pop('type', None)
-            print(data)
+            if verbose: print(data)
             ObjectType(typ=eval(typ[:-4])).load(data)
         else:
             for key in data.keys():

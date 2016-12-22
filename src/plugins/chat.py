@@ -1,4 +1,5 @@
 from plugins.plugin import Plugin, CursesPlugin#, PygamePlugin
+from const import IDLEN
 
 class Chat(Plugin):
     MSGID = b"chat"
@@ -8,7 +9,9 @@ class Chat(Plugin):
         self.msgs = ["Connecté"]
 
     async def serverMessage(self, msg):
-        await self.engine.net.broadcast(bytes([0,0,len(msg)//256, len(msg)%256])+msg)
+        # pas à sa place mais soit l'utilisateur est forcé d'utiliser asyncio
+        # soit on tue les perfs
+        await self.engine.net.broadcast(b"\x00"*IDLEN+len(msg).to_bytes(2,'big')+msg)
 
     async def clientMessage(self, msg):
         self.msgs.append(msg)

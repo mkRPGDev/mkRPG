@@ -1,5 +1,5 @@
 <World name="world">
-    <Ident>0</Ident>
+    <Ident>9</Ident>
     <Params>
         <currentMap id="main"/>
         <pomme id="pomme"/>

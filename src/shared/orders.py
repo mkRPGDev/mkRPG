@@ -64,6 +64,12 @@ class Order:
         b = bytearray()
         b.append(self.type)
         for arg in self.args: addStr(arg)
+        try:
+            self.fromBytes(bytes(b))
+        except:
+            print("vlan !")
+            print(b)
+            raise
         return bytes(b)
 
     def fromBytes(self, byt):

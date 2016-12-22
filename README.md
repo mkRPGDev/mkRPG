@@ -24,4 +24,6 @@ la roulette de la souris permet de zoomer,
 
 U-I et J-K font varier les deux angles (à utiliser prudemment)
 
+F11 permet de passer en plein écran mais c'est expérimental avec parfois perte de contrôle du clavier...
+
 Des plugins affichant notamment l'aide seront ajoutés sous peu

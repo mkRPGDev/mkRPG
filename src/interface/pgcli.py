@@ -1,12 +1,14 @@
 from math import sin,cos,pi
 from itertools import chain
-from pygame.locals import QUIT, KEYDOWN, VIDEORESIZE, RESIZABLE, MOUSEBUTTONDOWN,\
-                          K_ESCAPE, K_UP, K_DOWN, K_RIGHT, K_LEFT, K_PAGEUP, K_PAGEDOWN
+from pygame.locals import FULLSCREEN, RESIZABLE, ACTIVEEVENT,\
+                          QUIT, KEYDOWN, VIDEORESIZE, MOUSEBUTTONDOWN,\
+                          K_ESCAPE, K_UP, K_DOWN, K_RIGHT, K_LEFT, K_PAGEUP,\
+                          K_PAGEDOWN, K_F11
 import pygame
 
 from interface.const import *
 from interface.interface import Interface, skeys
-from interface.utils import load_png
+from interface.utils import loadPng
 from interface.applymatrix import applyMatrix
 
 from time import time
@@ -19,16 +21,18 @@ class Pygame(Interface):
 
         pygame.display.init()
         pygame.key.set_repeat(50,20)
+        self.fullscreen = None # ancienne dim si fullscreen
         
         self.resize(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.clock = pygame.time.Clock()
         pygame.font.init()
         self.font = pygame.font.Font(None, 18)
-
     def resize(self, w, h):
         # FIXME lors d'un agrandissement brutal, l'event ne suit pas toujours
-        self.screen = pygame.display.set_mode((w,h), RESIZABLE)
+        self.screen = pygame.display.set_mode((w,h), (FULLSCREEN if self.fullscreen else RESIZABLE))
         # TODO laisser de la place aux plugins
+        if (w,h)==(0,0): #plein écran
+            w,h = self.screen.get_size()
         self.mapView.setSurf(self.screen.subsurface((0, 0, w-1, h-1)))
         
     def init(self): # eurk !
@@ -65,14 +69,28 @@ class Pygame(Interface):
                 if key==K_ESCAPE: evs[i]=skeys.QUIT
                 elif key==ord('p'): evs[i]=skeys.PAUSE
                 elif key==ord('r'): evs[i]=skeys.RESUME
+                elif key==K_F11:
+                    if self.fullscreen:
+                        dim = self.fullscreen
+                        self.fullscreen = None
+                        self.resize(*dim)
+                    else:
+                        self.fullscreen = self.screen.get_size()
+                        self.resize(1920, 1080)
+                        # FIXME mais utiliser pygame (0,0) ne marche pas
                 elif self.mapView.handleKey(key):
                     self.repaint()
                     evs[i]=None
+                elif ev.type==KEYDOWN:
+                    evs[i]=key 
                 else:
-                    evs[i]=key
+                    evs[i]=None
             elif ev.type==VIDEORESIZE:
                 self.resize(ev.w, ev.h)
                 self.repaint()
+                evs[i]=None
+            elif ev.type==ACTIVEEVENT:
+                self.mapView.active = ev.gain
                 evs[i]=None
             else: evs[i]=None
         return list(filter(None, evs))
@@ -91,6 +109,7 @@ class MapView:
         self.perso = None
         self.showLov = False
         self.follow = False
+        self.active = False
         self.pics = {}
         self.imgs = imgs
         
@@ -107,7 +126,7 @@ class MapView:
         lar = cos(self.angleY)*(self.nbCellsY+1)+cos(self.angleX)*(self.nbCellsX+1)
         self.cellWidth = max(self.maxWidth/lar, min(self.cellWidth, 90))
         for i in self.imgs:
-            p = load_png(self.imgs[i])
+            p = loadPng(self.imgs[i])
             p = pygame.transform.scale(p, (int(self.cellWidth+3), int(self.cellWidth+3)))
             p = applyMatrix(p, [-cos(self.angleX),sin(self.angleX),-cos(self.angleY),sin(self.angleY)])
             self.pics[i] = p
@@ -221,7 +240,9 @@ class MapView:
 
     def moveView(self, deltat):
         """ Move view with accelerations if the mouse is on an edge """
-        if not pygame.key.get_focused(): return
+        if not self.active or not pygame.key.get_focused():
+            self.movSpeedX, self.movSpeedY = 0, 0
+            return
         posX,posY = pygame.mouse.get_pos()
         
         maxSpeed = 600 # XXX fonction du zoom ?

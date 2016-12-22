@@ -1,7 +1,6 @@
 from enum import IntEnum
 
 from shared.tools import readXml
-from parsing import global_parsing
 
 InteractionType = IntEnum("InteractionType", "Key Mouse Scroll Multi")
 
@@ -21,9 +20,8 @@ class Interaction():
         self.event = dat["event"]
         return self
 
-def registerInteractions(path):
+def registerInteractions(interactions_list):
     """ Create a list of interaction from a Xml describing them """
-    interactions_list = global_parsing.game_parser(path+"game.xml")["Interactions"]
     l = []
     for d in interactions_list:
         l.append(Interaction().load(d))

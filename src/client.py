@@ -6,9 +6,10 @@ from interface.interface import skeys
 from const import UPDTIME, PATH
 from shared.orders import OrderDispatcher
 from shared.network import NetworkClient
-import shared.world as world
+from parsing.global_parsing import game_parser
 from plugins.plugin import loadPluginsClient
 
+import shared.world as world
 from shared.tools import Perf
 
 perf=Perf()
@@ -32,17 +33,15 @@ class Client:
     def __init__(self, path, Interface):
         self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
-        self.world = world.loadGame(path)
+        parseData = game_parser(path)
+        self.world = world.loadGame(parseData)
         self.plugins = ([],[]) if args.pygame else loadPluginsClient(path, self)
-        # on va bien trouver mieux
-        # TODO intégrer au loadGame, faire une autre classe client ?
-        self.interface = Interface(self.world, self.plugins[1])
+        self.interface = Interface(self.world, parseData["Images"], self.plugins[1])
         if args.debug: exit(0)
         self.plugins = self.plugins[0]
-        self.interactions = registerInteractions(path)
+        self.interactions = registerInteractions(parseData["Interactions"])
         self.perso = None
         self.orderDispatcher = OrderDispatcher(self.world, None, None)
-
     def __del__(self):
         """ Kill network and interface """
         self.net.kill()
@@ -80,6 +79,8 @@ class Client:
             perf.toc()
             if not keys:
                 await asyncio.sleep(UPDTIME)
+            else:
+                await asyncio.sleep(0)
             for key in keys:
                 if key==skeys.QUIT:
                     return

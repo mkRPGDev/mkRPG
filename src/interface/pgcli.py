@@ -15,7 +15,7 @@ class Pygame(Interface):
     """ pygame-based UI """
     def __init__(self, *args):
         super().__init__(*args)
-        self.mapView = MapView(self.world)
+        self.mapView = MapView(self.world, {i:v.image for i,v in self.images.items()})
 
         pygame.display.init()
         pygame.key.set_repeat(50,20)
@@ -71,7 +71,6 @@ class Pygame(Interface):
                 else:
                     evs[i]=key
             elif ev.type==VIDEORESIZE:
-                print(ev.w, ev.h)
                 self.resize(ev.w, ev.h)
                 self.repaint()
                 evs[i]=None
@@ -81,7 +80,7 @@ class Pygame(Interface):
 
 class MapView:
     """ Manages the map display """
-    def __init__(self, world):
+    def __init__(self, world, imgs):
         self.world = world
         self.offX, self.offY = 0, 0
         self.movSpeedX, self.movSpeedY = 0, 0
@@ -93,6 +92,7 @@ class MapView:
         self.showLov = False
         self.follow = False
         self.pics = {}
+        self.imgs = imgs
         
     def setSurf(self, surf):
         """ Called when scene is initialised or reshaped """
@@ -106,8 +106,8 @@ class MapView:
         """ Fill the picture dictionnary using current angles and zoom """
         lar = cos(self.angleY)*(self.nbCellsY+1)+cos(self.angleX)*(self.nbCellsX+1)
         self.cellWidth = max(self.maxWidth/lar, min(self.cellWidth, 90))
-        for i in IMGS:
-            p = load_png(IMG_PATH+IMGS[i])
+        for i in self.imgs:
+            p = load_png(self.imgs[i])
             p = pygame.transform.scale(p, (int(self.cellWidth+3), int(self.cellWidth+3)))
             p = applyMatrix(p, [-cos(self.angleX),sin(self.angleX),-cos(self.angleY),sin(self.angleY)])
             self.pics[i] = p

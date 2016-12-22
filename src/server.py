@@ -9,6 +9,7 @@ from shared.tools import Perf, Timer
 from shared.network import NetworkServer
 from serverside.actions import registerActions
 from serverside.console import welcomeMessage, inputReady
+from parsing.global_parsing import game_parser
 from plugins.plugin import loadPluginsServer
 
 import shared.world as world
@@ -19,8 +20,9 @@ class Server():
     def __init__(self, path):
         self.loop = asyncio.get_event_loop()
         self.net = NetworkServer(self.handleEvent, self.pluginHandle, self.loop)
-        self.world = world.loadGame(path)
-        self.actions = registerActions(path, world.named) # FIXME -> game
+        parseData = game_parser(path)
+        self.world = world.loadGame(parseData)
+        self.actions = registerActions(parseData['Actions'], world.named) # FIXME -> game
         self.plugins = loadPluginsServer(path, self)
 
         self.timer = Timer()

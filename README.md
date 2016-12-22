@@ -24,4 +24,4 @@ la roulette de la souris permet de zoomer,
 
 U-I et J-K font varier les deux angles (à utiliser prudemment)
 
-Des plugins affichant notamment l'aide ajoutés sous peu
+Des plugins affichant notamment l'aide seront ajoutés sous peu

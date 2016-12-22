@@ -14,4 +14,7 @@
     <Interactions>
         <Interaction>interactions.xml</Interaction>
     </Interactions>
+    <Images>
+       <Image>images.xml</Image>
+    </Images>
 </Game>

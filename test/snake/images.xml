@@ -1,0 +1,29 @@
+<Images>
+  <Image>
+    <Identifier>32</Identifier>
+    <Path>images/sol.png</Path>
+    <Glyph>171</Glyph>
+  </Image>
+  <Image>
+    <Identifier>79</Identifier>
+    <Path>images/head.png</Path>
+    <Glyph>79</Glyph>
+  </Image>
+  <Image>
+    <Identifier>88</Identifier>
+    <Path>images/head2.png</Path>
+    <Glyph>88</Glyph>
+  </Image>
+  <Image>
+    <Identifier>111</Identifier>
+    <Path>images/head.png</Path>
+    <Glyph>111</Glyph>
+  </Image>
+  <Image>
+    <Identifier>120</Identifier>
+    <Path>images/apple.png</Path>
+    <Glyph>111</Glyph>
+  </Image>
+
+</Images>
+

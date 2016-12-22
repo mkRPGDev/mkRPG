@@ -10,5 +10,5 @@ IDLEN = 4
 HOST = "localhost"
 #HOST = "paquebot.ens.fr"
 PORT = 12346
-BUFF = 4096
+BUFF = 8192
 CODING = "ascii"

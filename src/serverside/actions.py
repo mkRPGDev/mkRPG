@@ -4,7 +4,6 @@ Action = namedtuple("Action", "event orders conditions")
 
 from shared.tools import readXml
 from shared.orders import Order
-from parsing import global_parsing
 
 # XXX pas tout à fait partagé mais temporaire
 
@@ -16,9 +15,8 @@ def loadAction(event, dat, named):
         orders.append(Order().load(order, named))
     return Action(event, orders, [])
 
-def registerActions(path, named):
+def registerActions(action_dict, named):
     """ Create a list of action from a Xml describing them """
-    action_dict =  global_parsing.game_parser(path + 'game.xml')['Actions']
     actions = {}
     for action in action_dict:
         act = loadAction(action['event'], action['orders'], named)

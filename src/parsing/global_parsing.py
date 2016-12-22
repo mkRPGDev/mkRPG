@@ -16,6 +16,7 @@ import parsing.parsing_utils as parsing_utils
 import parsing.objects_parser as op
 import parsing.actions_parser as ap
 import parsing.interactions_parser as ip
+import parsing.images_parser as gp
 
 
 def check_files(*args):
@@ -31,13 +32,12 @@ def check_files(*args):
         return False
     return True
 
-def game_parser(game_xml):
+def game_parser(dir_path):
     """
     This is the main parser. It should parse all xml files from a game, and
     generate a World instance.
     """
-
-    dir_path = dirname(abspath(game_xml))
+    game_xml = dir_path + "game.xml"
 
     # Try to open and parse the given file.
     root = parsing_utils.try_open_and_parse(game_xml)
@@ -122,6 +122,14 @@ def game_parser(game_xml):
 
     result.update({"Interactions": ip.interactions_files_parser(
         *interaction_files)})
+    # Gets the available images files.
+    image_tag = root.find('Images')
+    if image_tag is not None:
+        image_files = image_tag.findall('Image')
+        image_files = [join(dir_path, image.text.replace('/', sep)) for
+                       image in image_files]
+
+    result.update({"Images": gp.parse_multiple_files(dir_path, *image_files)})
     # Checks if all files defined in game.xml as game files are present in
     # the directories.
     if not check_files(*world_file, *map_files,

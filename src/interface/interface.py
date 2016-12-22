@@ -7,10 +7,11 @@ skeys = IntEnum("keys", "QUIT PAUSE RESUME")
 
 class Interface:
     """ UI base-class, can be used as a dummy interface """
-    def __init__(self, w, p):
+    def __init__(self, w, i, p):
         self.world = w
         self.lastUpdate = 0
         self.plugins = p
+        self.images = i
 
     def update(self):
         if time() - self.lastUpdate > UPDTIME:

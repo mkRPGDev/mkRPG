@@ -14,12 +14,11 @@ toResolve = []
 
 world = None
 
-def loadGame(path):
+def loadGame(parsed_data):
     """ Load game.xml and returns the loaded world """
     global world
-    parsed_data = global_parsing.game_parser(path+"game.xml")
     for data_list in parsed_data:
-        if data_list != 'Actions' and  data_list != 'Interactions':
+        if data_list not in ('Actions', 'Interactions', 'Images'):
             for data in parsed_data[data_list]:
                 ident = data.pop('ident')
                 eval(data_list)(ident).load(data, typ=data_list)

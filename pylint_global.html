@@ -49,21 +49,21 @@
 </div>
 <div>
 <h2>External dependencies</h2>
-<pre>const (server,interface.const,interface.interface,client)
-interface (interface.chunk,interface.map,interface.printWorld,interface.character,interface.backgroundLayer,interface.layer,interface.entity,interface.pygamecli)
+<pre>const (server,client,interface.interface,interface.const)
+interface (interface.entity,interface.pygamecli,interface.character,interface.layer,interface.map,interface.chunk,interface.backgroundLayer,interface.printWorld)
   \-chunk (interface.cache)
-  \-const (interface.cache,interface.chunk,interface.map,interface.printWorld,interface.character,interface.backgroundLayer,interface.layer,interface.entity)
+  \-const (interface.cache,interface.entity,interface.character,interface.layer,interface.map,interface.chunk,interface.backgroundLayer,interface.printWorld)
   \-cursescli (client)
   \-interactions (client)
-  \-interface (interface.pygamecli,interface.printWorld,interface.cursescli,client)
+  \-interface (interface.cursescli,client,interface.printWorld,interface.pygamecli)
   \-pygamecli (client)
-  \-utils (interface.cache,interface.chunk,interface.map,interface.printWorld,interface.character,interface.backgroundLayer,interface.const,interface.layer,interface.entity,interface.pygamecli)
+  \-utils (interface.cache,interface.entity,interface.pygamecli,interface.character,interface.layer,interface.map,interface.const,interface.chunk,interface.backgroundLayer,interface.printWorld)
 plugins 
   \-chat (plugins.plugin)
   \-menu (plugins.plugin)
-  \-plugin (plugins.menu,server,plugins.chat,client)
-pygame (interface.cache,interface.chunk,interface.pygamecli,interface.map,interface.printWorld,interface.trans,interface.character,interface.backgroundLayer,interface.layer,interface.entity,interface.utils)
-  \-locals (interface.chunk,interface.map,interface.printWorld,interface.character,interface.backgroundLayer,interface.entity,interface.pygamecli)</pre></div>
+  \-plugin (plugins.chat,server,client,plugins.menu)
+pygame (interface.cache,interface.entity,interface.pygamecli,interface.character,interface.layer,interface.map,interface.backgroundLayer,interface.chunk,interface.utils,interface.trans,interface.printWorld)
+  \-locals (interface.entity,interface.pygamecli,interface.character,interface.map,interface.chunk,interface.backgroundLayer,interface.printWorld)</pre></div>
 <div>
 <h2>Raw metrics</h2>
 <table>

@@ -7,7 +7,7 @@ The most important methods are the game_parser one and the save_xml.
 # -*- coding: utf-8 -*-
 
 import sys
-from os.path import isfile, abspath, dirname, sep, join
+from os.path import isfile, sep, join
 from collections import OrderedDict
 import parsing.map_parser as mp
 import parsing.entity_parser as ep

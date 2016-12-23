@@ -8,8 +8,8 @@ in xml files.
 
 import sys
 from collections import OrderedDict
-from os.path import sep
 from collections import namedtuple
+from os.path import sep
 import parsing.parsing_utils as parsing_utils
 
 Image = namedtuple("Image", "ascii image")

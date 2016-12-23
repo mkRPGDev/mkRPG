@@ -1,3 +1,7 @@
+""" This module creates a view of the User Interface.
+It relies on the gui_elements module, and the parsing module in order to create
+the view."""
+
 from plugin import PygamePlugin
 from interface.cache import ImageCache
 

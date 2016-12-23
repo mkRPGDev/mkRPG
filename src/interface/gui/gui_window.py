@@ -36,60 +36,46 @@ class GUIWindow:
             exit(1)
         self.content = _content
 
-    def _set_defaul_value(self, param):
+    def _set_defaul_value(self, widget, param):
         """ Sets the default value for the given param.
             - ```param``` should be a string."""
         assert isinstance(param, str)
         if self.params.get(param) is None:
             try:
-                value = DEFAULT_GUI_VALUES[param]
+                value = DEFAULT_GUI_VALUES[widget][param]
                 self.params[param] = value
             except AttributeError:
-                # Iteratates over general attributes.
-                for possibility in ['color', 'size']:
-                    if possibility in param:
-                        self.params[param] = DEFAULT_GUI_VALUES[possibility]
-                        break
-        try:
-            self.params[param]
-        except AttributeError:
-            raise AttributeError("No default value for parameter %s" % param)
+                raise AttributeError("No default value for parameter %s" %
+                                     param)
 
 
     def _set_content_default_values(self, content, param):
         """ Sets the default value for the given content param.
-        - ```param``` should be a string, content the index of the content in
-        the contents list.
+        - ```param``` should be a string, ```content``` the index of the
+          content in the contents list.
         """
         assert isinstance(param, str)
         assert isinstance(content, int)
-        if self.content[content] is not None\
-            and self.content[content].get(param) is not None:
+        _content = self.content[content]
+        if _content is not None:
+            # No need to check the name, it has been done previously.
             try:
-                value = DEFAULT_GUI_VALUES[param]
+                value = (DEFAULT_GUI_VALUES[_content]["name"])[param]
                 self.content[content][param] = value
             except AttributeError:
-                # Iteratates over general attributes.
-                for possibility in ['color', 'size']:
-                    if possibility in param:
-                        self.content[content][param] = DEFAULT_GUI_VALUES[possibility]
-                        break
-        try:
-            self.params[param]
-        except AttributeError:
-            raise AttributeError(
-                "No default value for parameter %s in content %s " %
-                (param, content)
-            )
+                raise AttributeError(
+                    "No default value for parameter %s in content %s " %
+                    (param, content)
+                    )
 
     def set_default_values(self):
         """ Sets all default values of the object. """
         for param in self.params:
-            self._set_defaul_value(param)
-        for (index, _) in enumerate(self.content):
-            for param in self.params:
-                self._set_content_default_values(index, param)
-
+            self._set_defaul_value(self.name, param)
+        for (index, content) in enumerate(self.content):
+            if content.get('name') is not None:
+                for param in DEFAULT_GUI_VALUES[content]["name"]:
+                    self._set_content_default_values(index, param)
 
 
 class GUIWindowView(PygamePlugin):

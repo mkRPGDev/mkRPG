@@ -49,14 +49,14 @@
 </div>
 <div>
 <h2>External dependencies</h2>
-<pre>const (interface.interface,interface.const)
-interface (interface.printWorld,interface.backgroundLayer,interface.pygamecli,interface.map,interface.character,interface.entity,interface.layer,interface.chunk)
+<pre>const (interface.const,interface.interface)
+interface (interface.backgroundLayer,interface.layer,interface.character,interface.entity,interface.pygamecli,interface.map,interface.chunk,interface.printWorld)
   \-chunk (interface.cache)
-  \-const (interface.printWorld,interface.backgroundLayer,interface.cache,interface.map,interface.character,interface.entity,interface.layer,interface.chunk)
-  \-interface (interface.printWorld,interface.cursescli,interface.pygamecli)
-  \-utils (interface.printWorld,interface.backgroundLayer,interface.pygamecli,interface.cache,interface.const,interface.map,interface.character,interface.entity,interface.layer,interface.chunk)
-pygame (interface.printWorld,interface.backgroundLayer,interface.pygamecli,interface.cache,interface.map,interface.character,interface.entity,interface.layer,interface.chunk,interface.trans,interface.utils)
-  \-locals (interface.printWorld,interface.backgroundLayer,interface.pygamecli,interface.map,interface.character,interface.entity,interface.chunk)</pre></div>
+  \-const (interface.backgroundLayer,interface.cache,interface.layer,interface.character,interface.entity,interface.map,interface.chunk,interface.printWorld)
+  \-interface (interface.pygamecli,interface.cursescli,interface.printWorld)
+  \-utils (interface.backgroundLayer,interface.cache,interface.layer,interface.character,interface.entity,interface.pygamecli,interface.map,interface.chunk,interface.const,interface.printWorld)
+pygame (interface.backgroundLayer,interface.cache,interface.trans,interface.layer,interface.character,interface.pygamecli,interface.entity,interface.map,interface.utils,interface.chunk,interface.printWorld)
+  \-locals (interface.backgroundLayer,interface.character,interface.entity,interface.pygamecli,interface.map,interface.chunk,interface.printWorld)</pre></div>
 <div>
 <h2>Raw metrics</h2>
 <table>

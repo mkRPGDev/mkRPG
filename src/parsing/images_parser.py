@@ -27,7 +27,7 @@ def parse_image(image_tag, dir_path):
         if not isinstance(glyph, int) or glyph not in range(256):
             print("Fail : glyph couldn't be cast in ascii character.")
             sys.exit(1)
-    
+
     if _identifier is None:
         parsing_utils.fail_not_found("Identifier")
     identifier = parsing_utils.format_type(_identifier.text)
@@ -41,7 +41,7 @@ def parse_image(image_tag, dir_path):
     return OrderedDict({identifier:Image(glyph, dir_path+path.replace("/", sep))})
 
 def parse_file_image(image_file, dir_path):
-    """ Parses an images files."""
+    """ Parses an images file."""
     images_dict = OrderedDict()
     root = parsing_utils.try_open_and_parse(image_file)
 
@@ -59,4 +59,3 @@ def parse_multiple_files(dir_path, *images_files):
     for image_file in images_files:
         parsed_data.update(parse_file_image(image_file, dir_path))
     return parsed_data
-

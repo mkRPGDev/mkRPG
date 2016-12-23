@@ -55,3 +55,13 @@ VERBOSE = False
 MAXFPS = 60
 UPDTIME = 1/MAXFPS
 
+# Default values for the gui_loading
+DEFAULT_GUI_VALUES = {
+        'text_font' : None,
+        'text_color' : (0, 0, 0, 255),
+        'background_color' : (146, 98, 57, 255),
+        'pattern' : "unique",
+        'size' : (int(0.4*SCREEN_WIDTH),int(0.4*SCREEN_HEIGHT)),
+        'align' : 'left',
+        'action' : 'None',
+        }

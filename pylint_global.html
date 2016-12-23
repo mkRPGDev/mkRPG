@@ -49,14 +49,14 @@
 </div>
 <div>
 <h2>External dependencies</h2>
-<pre>const (interface.interface,interface.const)
-interface (interface.map,interface.layer,interface.backgroundLayer,interface.character,interface.printWorld,interface.entity,interface.chunk,interface.pygamecli)
+<pre>const (interface.const,interface.interface)
+interface (interface.map,interface.layer,interface.entity,interface.pygamecli,interface.backgroundLayer,interface.chunk,interface.character,interface.printWorld)
   \-chunk (interface.cache)
-  \-const (interface.map,interface.layer,interface.cache,interface.backgroundLayer,interface.character,interface.printWorld,interface.entity,interface.chunk)
-  \-interface (interface.pygamecli,interface.printWorld,interface.cursescli)
-  \-utils (interface.map,interface.layer,interface.cache,interface.backgroundLayer,interface.character,interface.printWorld,interface.entity,interface.chunk,interface.pygamecli,interface.const)
-pygame (interface.map,interface.layer,interface.cache,interface.backgroundLayer,interface.character,interface.printWorld,interface.entity,interface.trans,interface.chunk,interface.pygamecli,interface.utils)
-  \-locals (interface.map,interface.backgroundLayer,interface.character,interface.printWorld,interface.entity,interface.chunk,interface.pygamecli)</pre></div>
+  \-const (interface.cache,interface.map,interface.layer,interface.entity,interface.chunk,interface.backgroundLayer,interface.character,interface.printWorld)
+  \-interface (interface.printWorld,interface.cursescli,interface.pygamecli)
+  \-utils (interface.const,interface.cache,interface.map,interface.layer,interface.entity,interface.pygamecli,interface.backgroundLayer,interface.chunk,interface.character,interface.printWorld)
+pygame (interface.utils,interface.cache,interface.map,interface.layer,interface.entity,interface.pygamecli,interface.backgroundLayer,interface.chunk,interface.trans,interface.character,interface.printWorld)
+  \-locals (interface.map,interface.entity,interface.pygamecli,interface.backgroundLayer,interface.chunk,interface.character,interface.printWorld)</pre></div>
 <div>
 <h2>Raw metrics</h2>
 <table>

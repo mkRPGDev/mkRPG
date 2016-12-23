@@ -64,4 +64,5 @@ DEFAULT_GUI_VALUES = {
         'size' : (int(0.4*SCREEN_WIDTH),int(0.4*SCREEN_HEIGHT)),
         'align' : 'left',
         'action' : 'None',
+        'color' : (0,255,0, 255)
         }

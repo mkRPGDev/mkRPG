@@ -130,6 +130,14 @@ def game_parser(dir_path):
                        image in image_files]
 
     result.update({"Images": gp.parse_multiple_files(dir_path, *image_files)})
+    # Gets the plugins names.
+    plugin_tag = root.find('Plugins')
+    if plugin_tag is not None:
+        plugin_names = plugin_tag.findall('Plugin')
+        # plugins use dotted notation, no need for sep
+        plugin_names = [plugin.text for plugin in plugin_names]
+    result.update({"Plugins": plugin_names})
+
     # Checks if all files defined in game.xml as game files are present in
     # the directories.
     if not check_files(*world_file, *map_files,

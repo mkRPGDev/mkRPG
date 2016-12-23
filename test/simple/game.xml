@@ -4,14 +4,17 @@
         <Map>maps/map.xml</Map>
         <Map>maps/Le grand large.xml</Map>
         <Entities>entities/entity.xml</Entities>
-   </World>
-   <Actions>
-       <Action>actions.xml</Action>
-   </Actions>
-   <Interactions>
-       <Interaction>interactions.xml</Interaction>
-   </Interactions>
-   <Images>
-      <Image>images.xml</Image>
-   </Images>
+    </World>
+    <Actions>
+        <Action>actions.xml</Action>
+    </Actions>
+    <Interactions>
+        <Interaction>interactions.xml</Interaction>
+    </Interactions>
+    <Images>
+        <Image>images.xml</Image>
+    </Images>
+    <Plugins>
+        <Plugin>menu</Plugin>
+    </Plugins>
 </Game>

@@ -23,7 +23,7 @@ class Server():
         parseData = game_parser(path)
         self.world = world.loadGame(parseData)
         self.actions = registerActions(parseData['Actions'], world.named) # FIXME -> game
-        self.plugins = loadPluginsServer(path, self)
+        self.plugins = loadPluginsServer(parseData['Plugins'], self)
 
         self.timer = Timer()
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent, self.timer)
@@ -73,7 +73,7 @@ class Server():
         """ Search for plugins that want to handle the message """
         for plug in self.plugins:
             if msg.startswith(plug.MSGID):
-                await plug.serverMessage(msg)
+                plug.serverMessage(msg[len(plug.MSGID):])
 
 parser = ArgumentParser(description="Generic game server.")
 parser.add_argument("-p", "--path", default=PATH,

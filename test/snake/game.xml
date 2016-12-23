@@ -17,4 +17,8 @@
     <Images>
        <Image>images.xml</Image>
     </Images>
+    <Plugins>
+        <Plugin>menu</Plugin>
+        <Plugin>chat</Plugin>
+    </Plugins>
 </Game>

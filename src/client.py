@@ -16,10 +16,10 @@ perf=Perf()
 
 def interface(args):
     """ Import the correct interface according to user choice """
-    if args.curses:
-        from interface.cursescli import Curses as Interface
-    elif args.noui:
+    if args.noui:
         from interface.interface import Interface
+    elif args.curses:
+        from interface.cursescli import Curses as Interface
     elif args.pygame:
         from interface.pgcli import Pygame as Interface
     else:
@@ -35,10 +35,10 @@ class Client:
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
         parseData = game_parser(path)
         self.world = world.loadGame(parseData)
-        self.plugins = ([],[]) if args.pygame else loadPluginsClient(path, self)
-        self.interface = Interface(self.world, parseData["Images"], self.plugins[1])
+        plugins = loadPluginsClient(parseData["Plugins"], self, args.curses, args.pygame)
+        self.interface = Interface(self.world, parseData["Images"], plugins.graphical)
         if args.debug: exit(0)
-        self.plugins = self.plugins[0]
+        self.plugins = plugins.logical
         self.interactions = registerInteractions(parseData["Interactions"])
         self.perso = None
         self.orderDispatcher = OrderDispatcher(self.world, None, None)
@@ -103,7 +103,7 @@ class Client:
         """ Search for plugins that want to handle the message """
         for plug in self.plugins:
             if msg.startswith(plug.MSGID):
-                await plug.clientMessage(msg[len(plug.MSGID):])
+                plug.clientMessage(msg[len(plug.MSGID):])
 
 
 parser = ArgumentParser(description="Generic game client.")

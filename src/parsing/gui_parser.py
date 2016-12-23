@@ -100,7 +100,6 @@ def parse_element(element_tag):
 def parse_file(path):
     result = []
     root = parsing_utils.try_open_and_parse(path)
-    for elem in list(root):
-        result.append(parse_element(elem))
+    result = parse_element(root)
     return result
 

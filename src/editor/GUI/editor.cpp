@@ -116,18 +116,21 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
 
 
     im = new Image(*g, ":/Icons/herbe.png");
+    im->setName("Herbe");
     g->addImage(im);
     ct1 = new CellType(g->world().types().cellType());
     ct1->setName("Herbe");
     ct1->setImage(im);
     g->world().addCellType(ct1);
     im = new Image(*g, ":/Icons/glace.png");
+    im->setName("Glace");
     g->addImage(im);
     ct2 = new CellType(g->world().types().cellType());
     ct2->setName("Glace");
     ct2->setImage(im);
     g->world().addCellType(ct2);
     im = new Image(*g, ":/Icons/mer.png");
+    im->setName("Mer");
     g->addImage(im);
     CellType *ct = new CellType(g->world().types().cellType());
     ct->setName("Eau");
@@ -144,7 +147,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     CellType *ctt = new CellType(*ct3);
     ctt->setName("Atlantique");
     ctt->setParam("Salinité", 8);
-    ctt->setParam("Concentration de requins", 20);
+    ctt->setParam("Requins", 20);
     g->world().addCellType(ct);
     Map *m = new Map(g->world().types().mapType(), g->world());
     g->world().addMap(m);
@@ -157,6 +160,12 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
             m->cell(i,j).setCellType(o<1 ? *ct1 : o<2 ? *ct2 : *ct3);
         }
     tabBar->setTabsEnabled(true);
+
+
+    ObjectType *ot = new ObjectType(g->world().types().objectType());
+    ot->setName("Potion");
+    ot->setParam("Amertume", 50);
+    ot->setFlag("Fatal", false);
 
     m = new Map(g->world().types().mapType(), g->world());
     m->setName("Le grand large");
@@ -175,9 +184,17 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     if(d.mkdir(g->name()))
         d.cd(g->name());
     else{
+        //*
+        d.cd(g->name());
+        d.removeRecursively();
+        d.cdUp();
+        d.mkdir(g->name());
+        d.cd(g->name());
+        /*/
         int k(1);
         while(!d.mkdir(g->name()+QString::number(++k)));
         d.cd(g->name()+QString::number(k));
+        //*/
     }
 
     XmlWritter xml(d,*g);

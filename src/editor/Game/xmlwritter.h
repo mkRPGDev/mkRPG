@@ -16,15 +16,20 @@ public:
 
 
 private:
+    XmlWritter(const QDir &path, const QString &fileName);
     XmlWritter(const QDir &path, const GameObject *obj);
     XmlWritter(const QDir &path, World &world);
     XmlWritter(const QDir &path, Map &map);
+    XmlWritter(const QDir &path, CellType &cellType);
     XmlWritter &operator<<(const GameObject &obj);
     XmlWritter &operator<<(const QString &s);
     XmlWritter &operator<<(const int &i);
     XmlWritter &operator<<(const Element &e);
 
     void writeCell(const Cell &c);
+    void writeCellType(const CellType &c);
+
+    void writeObjectAttributes(const GameObject &obj);
 
     void writeCreatedFiles(XmlWritter &wr);
 

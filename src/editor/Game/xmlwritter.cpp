@@ -12,6 +12,17 @@ XmlWritter::XmlWritter(const QDir &path, const GameObject * obj) :
     *this << *obj;
 }
 
+XmlWritter::XmlWritter(const QDir &path, const QString &fileName) :
+    path(path), stream(&file), newLine(true), mode(Default)
+{
+    file.setFileName(path.filePath(fileName+".xml"));
+    int k(1);
+    while(file.exists())
+        file.setFileName(path.filePath(fileName+QString::number(++k)+".xml"));
+    file.open(QIODevice::WriteOnly);
+}
+
+
 
 
 XmlWritter::XmlWritter(const QDir &path, Game &game) :
@@ -35,6 +46,9 @@ XmlWritter::XmlWritter(const QDir &path, World &world) :
         XmlWritter map(XmlWritter::path, *m);
         createdFiles.insertMulti("Map", map.fileName());
     }
+    XmlWritter ct(XmlWritter::path, world.types().cellType());
+    createdFiles.insertMulti("CellType", ct.fileName());
+
     XmlWritter::path.cdUp();
 
     *this << CloseMarkUp;
@@ -51,6 +65,13 @@ XmlWritter::XmlWritter(const QDir &path, Map &map) :
             writeCell(map.cell(i,j));
 }
 
+XmlWritter::XmlWritter(const QDir &path, CellType &cellType) :
+    XmlWritter(path, "celltypes")
+{
+    *this << OpenMarkUp << "CellTypes" << EndL;
+    writeCellType(cellType);
+}
+
 
 XmlWritter::~XmlWritter(){
     *this << CloseMarkUp;
@@ -61,6 +82,25 @@ void XmlWritter::writeCell(const Cell &c){
     *this << c;
     *this << OpenMarkUp << "CellType" << MarkUpParam << "id" << c.cellType().ident() << CloseMarkUp;
     *this << CloseMarkUp;
+}
+
+void XmlWritter::writeCellType(const CellType &c){
+    *this << c;
+    if(c.hasAncestor())
+        *this << OpenMarkUp << "Inherits" << MarkUpParam << "id" << c.ancestor()->ident() << CloseMarkUp;
+    writeObjectAttributes(c);
+    *this << CloseMarkUp;
+    for(GameObjectType *ct : c.descendants())
+        writeCellType(*static_cast<CellType*>(ct));
+}
+
+void XmlWritter::writeObjectAttributes(const GameObject &obj){
+    for(QString f : obj.flags())
+        *this << OpenMarkUp << "Flag" << MarkUpParam << f << obj.getFlag(f) << CloseMarkUp;
+    for(QString f : obj.params())
+        *this << OpenMarkUp << "Flag" << MarkUpParam << f << obj.getParam(f)
+                            << MarkUpParam << "min" << obj.getParamMin(f)
+                            << MarkUpParam << "max" << obj.getParamMax(f) << CloseMarkUp;
 }
 
 

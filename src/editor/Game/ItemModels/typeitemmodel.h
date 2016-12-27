@@ -57,11 +57,11 @@ private:
  *
  * \see TypeTreeItem
  */
-class TypeItemModel : public QAbstractItemModel
+class TypeItemModel2 : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    explicit TypeItemModel(QObject *parent = nullptr);
+    explicit TypeItemModel2(QObject *parent = nullptr);
 
     int columnCount(const QModelIndex &parent) const;
     int rowCount(const QModelIndex &parent) const;
@@ -75,8 +75,6 @@ public:
     void setGame(Game* g);
 private:
     TypeTreeItem *rootItem;
-
-
 
 };
 

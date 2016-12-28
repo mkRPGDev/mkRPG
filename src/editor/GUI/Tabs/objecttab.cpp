@@ -73,11 +73,10 @@ void ObjectTab::currentElementChanged(const QModelIndex &ind){
 
 void ObjectTab::on_newParam_clicked(){
     if(currentObject != nullptr){
-        QList<QString> p(currentObject->params());
         QString name(tr("new_param"));
-        if(p.contains(name)){
+        if(currentObject->hasParam(name)){
             int k(1);
-            while(p.contains(name+" ("+QString::number(++k)+")"));
+            while(currentObject->hasParam(name+" ("+QString::number(++k)+")"));
             name+=" ("+QString::number(k)+")";
         }
         paramsModel->addParam(name);
@@ -87,11 +86,10 @@ void ObjectTab::on_newParam_clicked(){
 
 void ObjectTab::on_newFlag_clicked(){
     if(currentObject != nullptr){
-        QList<QString> p(currentObject->flags());
         QString name(tr("new_flag"));
-        if(p.contains(name)){
+        if(currentObject->hasFlag(name)){
             int k(1);
-            while(p.contains(name+" ("+QString::number(++k)+")"));
+            while(currentObject->hasFlag(name+" ("+QString::number(++k)+")"));
             name+=" ("+QString::number(k)+")";
         }
         flagsModel->addFlag(name);

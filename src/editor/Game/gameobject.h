@@ -347,6 +347,51 @@ private:
 };
 
 
+/*!
+ * \brief The Signal class describes the
+ */
+class Signal
+{
+public:
+    /*!
+     * \brief The SignalType enum
+     */
+    enum SignalType{
+        ParamChanged,
+        FlagChanged,
+        ObjectRemoved,
+        ObjectAdded
+    };
+
+    Signal(){}
+
+    QString typeName(){return "signal";}
+private:
+    SignalType aType;
+};
+
+/*!
+ * \brief The Slot class
+ */
+class Slot
+{
+public:
+    /*!
+     * \brief The SlotType enum
+     */
+    enum SlotType{
+        ChangeParam,
+        ChangeFlag
+    };
+
+    Slot(){}
+
+    QString typeName(){return "slot";}
+private:
+    SlotType aType;
+};
+
+
 class Game;
 
 /*!
@@ -415,7 +460,7 @@ public:
      *
      * \see lastEdition, lastInternalEdition
      */
-    inline const QDateTime& lastEdition() const{return lastEdit > lastChildEdit ? lastEdit : lastChildEdit;} /**<
+    inline const QDateTime& lastEdition() const{return std::max(lastEdit, lastChildEdit);}      /**<
      * Returns the last time a modification was made on the object or one of its children.
      *
      * \see lastInternalEdition, lastChildrenEdition
@@ -621,6 +666,72 @@ public:
      */
 
 
+    virtual bool hasSignal(const QString &signal) const;                                        /**<
+     * Return \c true if the GameObject has a signal named \c signal.
+     *
+     * \see getSignal, getSignals, hasSlot
+     */
+    virtual Signal& getSignal(const QString &signal);                                           /**<
+     * Returns the signal named \c signal.
+     *
+     * \note
+     * If the requested signal does not exist, an empty
+     * Signal is inserted.
+     *
+     * \see getSignals, getSlot
+     */
+    virtual Signal& addSignal(const QString &signal);                                           /**<
+     * Create a new signal named \c signal.
+     *
+     * \note
+     * If the a signal name \c signal already exists, it will be discarded.
+     *
+     * \see removeSignal, addSlot
+     */
+    virtual void removeSignal(const QString &signal);                                           /**<
+     * Delete the signal named \c signal, if exists.
+     *
+     * \see addSignal, removeSlot
+     */
+    virtual QList<QString> getSignals() const;                                                  /**<
+     * Returns the list of signal's names of the object.
+     *
+     * \see getSignal, getSlots
+     */
+
+    virtual bool hasSlot(const QString &slot) const;                                            /**<
+     * Return \c true if the GameObject has a slot named \c slot.
+     *
+     * \see getSlot, getSlots, hasSignal
+     */
+    virtual Slot& getSlot(const QString &slot);                                                 /**<
+     * Returns the slot named \c slot.
+     *
+     * \note
+     * If the requested slot does not exist, an empty
+     * Slot object is inserted.
+     *
+     * \see getSlots, getSignal
+     */
+    virtual Slot& addSlot(const QString &slot);                                                 /**<
+     * Create a new slot named \c slot.
+     *
+     * \note
+     * If the a slot name \c slot already exists, it will be discarded.
+     *
+     * \see removeSlot, addSignal
+     */
+    virtual void removeSlot(const QString &slot);                                               /**<
+     * Delete the slot named \c slot, if exists.
+     *
+     * \see addSlot, removeSignal
+     */
+    virtual QList<QString> getSlots() const;                                                    /**<
+     * Returns the list of slot's names of the object.
+     *
+     * \see getSlot, getSignals
+     */
+
 protected:
 
     void init(Game *g, GameObject *parent);                                                     /**<
@@ -635,12 +746,12 @@ protected:
      */
 
 
-    virtual void addChild(GameObject *c); /**<
+    virtual void addChild(GameObject *c);                                                       /**<
      * Registers a new child.
      *
      * \see removeChild, child, children
      */
-    virtual void removeChild(GameObject *c); /**<
+    virtual void removeChild(GameObject *c);                                                    /**<
      * Removes a child from the children list.
      *
      * \note
@@ -657,6 +768,8 @@ protected:
     int nbRef;
     QMap<QString, Parameter> aParams;
     QMap<QString, bool> aFlags;
+    QMap<QString, Signal> aSignals;
+    QMap<QString, Slot> aSlots;
     QString aName;
     QString fileName;
     QDateTime lastEdit, lastChildEdit;
@@ -706,7 +819,7 @@ public:
      * \see hasAncestor
      */
 
-    virtual bool isInheritedParam(const QString &p) const;          /**<
+    virtual bool isInheritedParam(const QString &param) const;      /**<
      * Returns true if the \c param parameter is define in one of
      * the ancestors of the object.
      *
@@ -817,6 +930,19 @@ public:
      * \see properFlags, paramTree
      */
 
+    virtual bool isInheritedSignal(const QString &signal) const;
+    virtual bool hasSignal(const QString &signal) const;
+    virtual Signal& getSignal(const QString &signal);
+    virtual QList<QString> getSignals() const;
+    virtual QList<QString> properSignals() const;
+    HierarchicalAttr signalTree() const;
+
+    virtual bool isInheritedSlot(const QString &slot) const;
+    virtual bool hasSlot(const QString &slot) const;
+    virtual Slot& getSlot(const QString &slot);
+    virtual QList<QString> getSlots() const;
+    virtual QList<QString> properSlots() const;
+    HierarchicalAttr slotTree() const;
 
 protected:
 
@@ -848,7 +974,7 @@ protected:
     GameObjectType(GameObjectType &ancestor);
     virtual ~GameObjectType();
 public:
-    const QList<GameObjectType*> descendants() const; /**<
+    const QList<GameObjectType *> &descendants() const; /**<
      * Returns the list of types that inherite from the current instance.
      */
 private:

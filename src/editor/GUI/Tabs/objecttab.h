@@ -8,6 +8,7 @@
 #include "Game/ItemModels/mapslistmodel.h"
 #include "Game/ItemModels/attrtreeitemmodel.h"
 #include "itemdelegates.h"
+#include "ObjectEditors/gameobjecteditor.h"
 
 
 #include <QSplitter>
@@ -38,16 +39,21 @@ private slots:
     void currentElementChanged(const QModelIndex &ind);
     void on_newParam_clicked();
     void on_newFlag_clicked();
+    void on_newSignal_clicked();
+    void on_newSlot_clicked();
 
 
 
 private:
-
+    SignalTreeItemModel *signalsModel;
     ParamTreeItemModel *paramsModel;
+    SlotTreeItemModel *slotsModel;
     FlagTreeItemModel *flagsModel;
     ObjectsTreeModel *objectsModel;
     TypeItemModel2 *typesModel;
     GameObject *currentObject;
+
+    QWidget *edit;
 
 };
 

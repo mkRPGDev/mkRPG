@@ -46,6 +46,10 @@ void MapsListModel::update(){
         }
     // TODO : enlever les déchets
 }
+/*
+Qt::ItemFlags MapsListModel::flags(const QModelIndex &UNUSED(index)) const{
+    return Qt::ItemIsEnabled;
+}*/
 
 bool MapsListModel::insertRows(int row, int count, const QModelIndex &parent){
     beginInsertRows(parent, row, row+count);
@@ -67,28 +71,36 @@ bool MapsListModel::removeRows(int row, int count, const QModelIndex &parent){
 
 
 
-CellTypeListModel::CellTypeListModel(World* w, QObject* parent) :
-    QAbstractListModel(parent), cellTypes(w->cellTypes())
+CellTypeListModel::CellTypeListModel(CellType &ct, QObject* parent) :
+    QAbstractListModel(parent)
 {
+    readCellTypes(&ct);
+}
+
+void CellTypeListModel::readCellTypes(CellType *ct){
+    cellTypes.append(ct);
+    for(CellType *c : ct->descendants())
+        readCellTypes(c);
 }
 
 int CellTypeListModel::rowCount(const QModelIndex &parent) const{
-    //qDebug() << maps.length() << parent.isValid() << parent.model() << parent;
     return parent.isValid() ? 0 : cellTypes.length();
 }
 
 QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
-    //qDebug() << "data" << role;
     if(index.isValid()){
         CellType *ct = cellTypes.at(index.row());
         switch (role) {
         case Qt::DisplayRole:
-            return QVariant(QString("Ident : ")+QString::number(ct->ident()));
+            return QVariant(ct->name());
         case Qt::DecorationRole:
             if(ct->image() != nullptr)
                 return QVariant(QPixmap::fromImage(ct->image()->image().scaled(32,32)));
-            else
-                return QVariant(QPixmap(32,32));
+            else{
+                QPixmap p(32,32);
+                p.fill(QColor(0,0,0,0));
+                return QVariant(p);
+            }
         case Qt::UserRole:
             return QVariant(ct->ident());
         default:
@@ -100,21 +112,13 @@ QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
 }
 
 
-bool CellTypeListModel::insertRows(int row, int count, const QModelIndex &parent){
-    beginInsertRows(parent, row, row+count);
-
-    endInsertRows();
-    return true;
+Qt::ItemFlags CellTypeListModel::flags(const QModelIndex &index) const{
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-bool CellTypeListModel::removeRows(int row, int count, const QModelIndex &parent){
-    beginRemoveRows(parent, row, row+count);
-
-    endInsertRows();
-    return true;
+CellType &CellTypeListModel::cellTypeAt(int i) const{
+    assert(i<cellTypes.length());
+    return *cellTypes[i];
 }
-
-
-
 
 

@@ -27,13 +27,15 @@ class BColor : public QFrame
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged) /**<
      * The current color that is displayed by the widget
      *
+     * Default value : QColor(0,0,0)
+     *
      * \see \ref setColor,  \ref setColorQuiet, \ref colorChanged.
      */
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged) /**<
      * The name that is shown as title for the color chooser dialog
      * used for user color definition purpose.
      *
-     * see also \ref setName, \ref setNameQuiet, and \ref nameChanged.
+     * \see \ref setName, \ref setNameQuiet, and \ref nameChanged.
      */
 public:
     explicit BColor(QWidget *parent = 0); /**<

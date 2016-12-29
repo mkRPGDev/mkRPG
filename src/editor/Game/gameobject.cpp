@@ -196,6 +196,52 @@ void GameObject::removeFlag(const QString &flag){
     aFlags.remove(flag);
 }
 
+bool GameObject::hasSignal(const QString &signal) const{
+    return aSignals.contains(signal);
+}
+
+Signal& GameObject::getSignal(const QString &signal){
+    return aSignals[signal];
+}
+
+Signal& GameObject::addSignal(const QString &signal){
+    aSignals[signal] = Signal();
+    return aSignals[signal];
+}
+
+void GameObject::removeSignal(const QString &signal){
+    aSignals.remove(signal);
+}
+
+QList<QString> GameObject::getSignals() const{
+    return aSignals.keys();
+}
+
+
+bool GameObject::hasSlot(const QString &slot) const{
+    return aSlots.contains(slot);
+}
+
+Slot& GameObject::getSlot(const QString &slot){
+    return aSlots[slot];
+}
+
+Slot& GameObject::addSlot(const QString &slot){
+    aSlots[slot] = Slot();
+    return aSlots[slot];
+}
+
+void GameObject::removeSlot(const QString &slot){
+    aSlots.remove(slot);
+}
+
+QList<QString> GameObject::getSlots() const{
+    return aSlots.keys();
+}
+
+
+
+
 
 
 
@@ -208,8 +254,8 @@ InheritableObject::InheritableObject(GameObject &parent, InheritableObject *ance
 
 }
 
-bool InheritableObject::isInheritedParam(const QString &p) const {
-    return aAncestor ? aAncestor->hasParam(p) : false;
+bool InheritableObject::isInheritedParam(const QString &param) const {
+    return aAncestor ? aAncestor->hasParam(param) : false;
 }
 
 bool InheritableObject::isRedefiniedParam(const QString &param) const {
@@ -308,7 +354,59 @@ void InheritableObject::removeLastRedondances(HierarchicalAttr &attr){
 }
 
 
+bool InheritableObject::isInheritedSignal(const QString &signal) const{
+    return aAncestor ? aAncestor->hasSignal(signal) : false;
+}
 
+bool InheritableObject::hasSignal(const QString &signal) const{
+    return GameObject::hasSignal(signal) | (aAncestor && aAncestor->hasSignal(signal));
+}
+
+Signal& InheritableObject::getSignal(const QString &signal){
+    if(hasSignal(signal))
+        return aSignals.contains(signal) ? aSignals[signal] : aAncestor->getSignal(signal);
+    return aSignals[signal];
+}
+
+QList<QString> InheritableObject::getSignals() const {
+    return aAncestor ? aAncestor->getSignals() << aSignals.keys() : aSignals.keys();
+}
+
+QList<QString> InheritableObject::properSignals() const {
+    return signalTree().last().second;
+}
+
+HierarchicalAttr InheritableObject::signalTree() const{
+    return (aAncestor ? aAncestor->signalTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::getSignals());
+}
+
+
+
+bool InheritableObject::isInheritedSlot(const QString &slot) const{
+    return aAncestor ? aAncestor->hasSlot(slot) : false;
+}
+
+bool InheritableObject::hasSlot(const QString &slot) const{
+    return GameObject::hasSlot(slot) | (aAncestor && aAncestor->hasSlot(slot));
+}
+
+Slot &InheritableObject::getSlot(const QString &slot){
+    if(hasSlot(slot))
+        return aSlots.contains(slot) ? aSlots[slot] : aAncestor->getSlot(slot);
+    return aSlots[slot];
+}
+
+QList<QString> InheritableObject::getSlots() const {
+    return aAncestor ? aAncestor->getSlots() << aSlots.keys() : aSlots.keys();
+}
+
+QList<QString> InheritableObject::properSlots() const {
+    return slotTree().last().second;
+}
+
+HierarchicalAttr InheritableObject::slotTree() const{
+    return (aAncestor ? aAncestor->slotTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::getSlots());
+}
 
 
 
@@ -330,7 +428,7 @@ GameObjectType::~GameObjectType(){
         ancestorType->removeDescendant(*this);
 }
 
-const QList<GameObjectType*> GameObjectType::descendants() const{
+const QList<GameObjectType*> &GameObjectType::descendants() const{
     return descendantTypes;
 }
 

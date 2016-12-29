@@ -38,6 +38,8 @@ private slots:
     void on_mapHScrollBar_valueChanged(int);
     void on_mapVScrollBar_valueChanged(int);
 
+    void mapChanged(const QModelIndex &to, const QModelIndex &from);
+
 
 private:
     void checkScrollBarUtility();

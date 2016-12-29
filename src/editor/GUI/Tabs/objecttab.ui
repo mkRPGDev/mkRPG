@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QSplitter" name="splitter_4">
+    <widget class="QSplitter" name="splitter_5">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -120,11 +120,39 @@
        </layout>
       </widget>
      </widget>
-     <widget class="QSplitter" name="splitter_2">
+     <widget class="QSplitter" name="splitter_4">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QWidget" name="widget" native="true"/>
+      <widget class="QSplitter" name="splitter_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QWidget" name="editor" native="true">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+        </layout>
+       </widget>
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+       </widget>
+      </widget>
       <widget class="QSplitter" name="splitter">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -277,7 +305,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="newParam_2">
+            <widget class="QPushButton" name="newSignal">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -289,7 +317,7 @@
           </layout>
          </item>
          <item>
-          <widget class="ParamTreeView" name="params_2">
+          <widget class="SignalTreeView" name="signalsV">
            <property name="editTriggers">
             <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
            </property>
@@ -337,7 +365,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="newParam_3">
+            <widget class="QPushButton" name="newSlot">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -349,7 +377,7 @@
           </layout>
          </item>
          <item>
-          <widget class="ParamTreeView" name="params_3">
+          <widget class="SlotTreeView" name="slotsV">
            <property name="editTriggers">
             <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
            </property>
@@ -383,6 +411,16 @@
   </customwidget>
   <customwidget>
    <class>FlagTreeView</class>
+   <extends>QTreeView</extends>
+   <header location="global">GUI/Tabs/treeviews.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SignalTreeView</class>
+   <extends>QTreeView</extends>
+   <header location="global">GUI/Tabs/treeviews.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SlotTreeView</class>
    <extends>QTreeView</extends>
    <header location="global">GUI/Tabs/treeviews.h</header>
   </customwidget>

@@ -18,7 +18,16 @@
  * Meta-Object Compiler.
  */
 
-
+/*!
+ * \brief The ItemType enum describes the several types
+ * of items used in the template class GameTreeItem.
+ */
+enum ItemType{
+    ParamItem,  /**< Integer parameter */
+    FlagItem,   /**< Flag */
+    SignalItem, /**< %Signal */
+    SlotItem    /**< %Slot */
+};
 
 /*!
  * \brief The GameTreeItem define a convienent tree item for
@@ -29,7 +38,7 @@
  *
  * \see ParamTreeItemModel, FlagTreeItemModel
  */
-template<bool ParamItem>
+template<ItemType type>
 class GameTreeItem{
     enum State{Type, Object, Attribute, Value};
 public:
@@ -51,8 +60,8 @@ public:
 private:
     explicit GameTreeItem(int rowNb, GameObject *obj, InheritableObject* typ, State state, GameTreeItem *parent);
     int rowNb;
-    GameTreeItem<ParamItem> *parentItem;
-    QList<GameTreeItem<ParamItem> *> children;
+    GameTreeItem<type> *parentItem;
+    QList<GameTreeItem<type>*> children;
 
     void genealogy(InheritableObject *t);
 
@@ -88,7 +97,7 @@ private:
  * \brief The ParamTreeItemModel class presents the parameters
  * of an object using the QAbstractItemModel interface.
  *
- * \see FlagTreeItemModel
+ * \see FlagTreeItemModel, SignalTreeItemModel, SlotTreeItemModel
  */
 class ParamTreeItemModel : public QAbstractItemModel
 {
@@ -112,7 +121,7 @@ private:
     GameObject *obj;
     InheritableObject *type;
 
-    GameTreeItem<true> *item;
+    GameTreeItem<ParamItem> *item;
 };
 
 
@@ -120,7 +129,7 @@ private:
  * \brief The ParamTreeItemModel class presents the flags
  * of an object using the QAbstractItemModel interface.
  *
- * \see ParamTreeItemModel
+ * \see ParamTreeItemModel, SignalTreeItemModel, SlotTreeItemModel
  */
 class FlagTreeItemModel : public QAbstractItemModel
 {
@@ -145,8 +154,73 @@ private:
     InheritableObject *type;
 
 
-    GameTreeItem<false> *item;
+    GameTreeItem<FlagItem> *item;
 };
 
 
+/*!
+ * \brief The SignalTreeItemModel class presents the signals
+ * of an object using the QAbstractItemModel interface.
+ *
+ * \see ParamTreeItemModel, FlagTreeItemModel, SlotTreeItemModel
+ */
+class SignalTreeItemModel : public QAbstractItemModel
+{
+    Q_OBJECT
+public:
+    explicit SignalTreeItemModel(QObject *parent = 0);
+    void setObject(GameObject *o);
+    int columnCount(const QModelIndex &parent) const;
+    int rowCount(const QModelIndex &parent) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    QModelIndex parent(const QModelIndex &child) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    void addSignal(const QString &name);
+    void sortAttr(const QModelIndex &par);
+
+private:
+    Game *game;
+    GameObject *obj;
+    InheritableObject *type;
+
+
+    GameTreeItem<SignalItem> *item;
+};
+
+
+
+/*!
+ * \brief The SlotTreeItemModel class presents the slots
+ * of an object using the QAbstractItemModel interface.
+ *
+ * \see ParamTreeItemModel, FlagTreeItemModel, SignalTreeItemModel
+ */
+class SlotTreeItemModel : public QAbstractItemModel
+{
+    Q_OBJECT
+public:
+    explicit SlotTreeItemModel(QObject *parent = 0);
+    void setObject(GameObject *o);
+    int columnCount(const QModelIndex &parent) const;
+    int rowCount(const QModelIndex &parent) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    QModelIndex parent(const QModelIndex &child) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    void addSlot(const QString &name);
+    void sortAttr(const QModelIndex &par);
+
+private:
+    Game *game;
+    GameObject *obj;
+    InheritableObject *type;
+
+
+    GameTreeItem<SlotItem> *item;
+};
 #endif // ATTRTREEITEMMODEL_H

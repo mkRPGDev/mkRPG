@@ -365,6 +365,7 @@ public:
 
     Signal(){}
 
+    QString typeName(){return "signal";}
 private:
     SignalType aType;
 };
@@ -385,6 +386,7 @@ public:
 
     Slot(){}
 
+    QString typeName(){return "slot";}
 private:
     SlotType aType;
 };

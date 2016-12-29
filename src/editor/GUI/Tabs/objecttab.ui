@@ -305,7 +305,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="newParam_2">
+            <widget class="QPushButton" name="newSignal">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -317,7 +317,7 @@
           </layout>
          </item>
          <item>
-          <widget class="ParamTreeView" name="params_2">
+          <widget class="SignalTreeView" name="signalsV">
            <property name="editTriggers">
             <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
            </property>
@@ -365,7 +365,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="newParam_3">
+            <widget class="QPushButton" name="newSlot">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -377,7 +377,7 @@
           </layout>
          </item>
          <item>
-          <widget class="ParamTreeView" name="params_3">
+          <widget class="SlotTreeView" name="slotsV">
            <property name="editTriggers">
             <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
            </property>
@@ -411,6 +411,16 @@
   </customwidget>
   <customwidget>
    <class>FlagTreeView</class>
+   <extends>QTreeView</extends>
+   <header location="global">GUI/Tabs/treeviews.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SignalTreeView</class>
+   <extends>QTreeView</extends>
+   <header location="global">GUI/Tabs/treeviews.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SlotTreeView</class>
    <extends>QTreeView</extends>
    <header location="global">GUI/Tabs/treeviews.h</header>
   </customwidget>

@@ -1,13 +1,13 @@
-#ifndef MAPEDITORS_H
-#define MAPEDITORS_H
+#ifndef MAPEDITOR_H
+#define MAPEDITOR_H
 
 #include "gameobjecteditor.h"
-#include "ui_mapeditors.h"
+#include "ui_mapeditor.h"
 
 
 
 
-class MapEditor : public GameObjectEditor, private Ui::MapEditors
+class MapEditor : public GameObjectEditor, private Ui::MapEditor
 {
     Q_OBJECT
 
@@ -20,4 +20,4 @@ signals:
     void mapModified();
 };
 
-#endif // MAPEDITORS_H
+#endif // MAPEDITOR_H

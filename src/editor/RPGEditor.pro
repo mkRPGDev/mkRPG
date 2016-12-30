@@ -40,7 +40,6 @@ SOURCES += main.cpp\
     GUI/Tabs/treeviews.cpp \
     GUI/Tabs/ObjectEditors/gameobjecteditor.cpp \
     GUI/Tabs/ObjectEditors/celltypeeditor.cpp \
-    GUI/Tabs/ObjectEditors/mapeditors.cpp \
     GUI/Tabs/worldtab.cpp \
     GUI/Tabs/objecttab.cpp \
     GUI/Tabs/ObjectEditors/mapresizedialog.cpp \
@@ -49,7 +48,8 @@ SOURCES += main.cpp\
     GUI/Tabs/MapTab/celldock.cpp \
     GUI/Tabs/MapTab/selectiondock.cpp \
     GUI/Tabs/MapTab/celltypesdock.cpp \
-    GUI/Tabs/MapTab/mapdock.cpp
+    GUI/Tabs/MapTab/mapdock.cpp \
+    GUI/Tabs/ObjectEditors/mapeditor.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -80,7 +80,6 @@ HEADERS  += \
     GUI/Tabs/treeviews.h \
     GUI/Tabs/ObjectEditors/gameobjecteditor.h \
     GUI/Tabs/ObjectEditors/celltypeeditor.h \
-    GUI/Tabs/ObjectEditors/mapeditors.h \
     GUI/Tabs/worldtab.h \
     GUI/Tabs/objecttab.h \
     GUI/Tabs/ObjectEditors/mapresizedialog.h \
@@ -89,7 +88,8 @@ HEADERS  += \
     GUI/Tabs/MapTab/mapdock.h \
     GUI/Tabs/MapTab/maptab.h \
     GUI/Tabs/MapTab/mapviewer.h \
-    GUI/Tabs/MapTab/selectiondock.h
+    GUI/Tabs/MapTab/selectiondock.h \
+    GUI/Tabs/ObjectEditors/mapeditor.h
 
 FORMS    += \
     GUI/editor.ui \
@@ -97,7 +97,6 @@ FORMS    += \
     GUI/tabacces.ui \
     GUI/Tabs/welcome.ui \
     GUI/Tabs/ObjectEditors/celltypeeditor.ui \
-    GUI/Tabs/ObjectEditors/mapeditors.ui \
     GUI/Tabs/worldtab.ui \
     GUI/Tabs/objecttab.ui \
     GUI/Tabs/ObjectEditors/mapresizedialog.ui \
@@ -105,7 +104,8 @@ FORMS    += \
     GUI/Tabs/MapTab/mapdock.ui \
     GUI/Tabs/MapTab/maptab.ui \
     GUI/Tabs/MapTab/selectiondock.ui \
-    GUI/Tabs/MapTab/celldock.ui
+    GUI/Tabs/MapTab/celldock.ui \
+    GUI/Tabs/ObjectEditors/mapeditor.ui
 
 RESOURCES += \
     Icons/ressources.qrc

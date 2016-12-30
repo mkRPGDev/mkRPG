@@ -1,5 +1,5 @@
 #include "gameobjecteditor.h"
-#include "mapeditors.h"
+#include "mapeditor.h"
 #include "celltypeeditor.h"
 
 GameObjectEditor::GameObjectEditor(QWidget *parent) : QWidget(parent)

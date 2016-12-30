@@ -1,4 +1,4 @@
-#include "mapeditors.h"
+#include "mapeditor.h"
 
 MapEditor::MapEditor(QWidget *parent) :
     GameObjectEditor(parent)

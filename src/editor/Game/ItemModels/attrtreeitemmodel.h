@@ -25,8 +25,8 @@
 enum ItemType{
     ParamItem,  /**< Integer parameter */
     FlagItem,   /**< Flag */
-    SignalItem, /**< %Signal */
-    SlotItem    /**< %Slot */
+    EventItem, /**< %Event */
+    OrderItem    /**< %Order */
 };
 
 /*!
@@ -97,7 +97,7 @@ private:
  * \brief The ParamTreeItemModel class presents the parameters
  * of an object using the QAbstractItemModel interface.
  *
- * \see FlagTreeItemModel, SignalTreeItemModel, SlotTreeItemModel
+ * \see FlagTreeItemModel, EventTreeItemModel, OrderTreeItemModel
  */
 class ParamTreeItemModel : public QAbstractItemModel
 {
@@ -129,7 +129,7 @@ private:
  * \brief The ParamTreeItemModel class presents the flags
  * of an object using the QAbstractItemModel interface.
  *
- * \see ParamTreeItemModel, SignalTreeItemModel, SlotTreeItemModel
+ * \see ParamTreeItemModel, EventTreeItemModel, OrderTreeItemModel
  */
 class FlagTreeItemModel : public QAbstractItemModel
 {
@@ -159,16 +159,16 @@ private:
 
 
 /*!
- * \brief The SignalTreeItemModel class presents the signals
+ * \brief The EventTreeItemModel class presents the events
  * of an object using the QAbstractItemModel interface.
  *
- * \see ParamTreeItemModel, FlagTreeItemModel, SlotTreeItemModel
+ * \see ParamTreeItemModel, FlagTreeItemModel, OrderTreeItemModel
  */
-class SignalTreeItemModel : public QAbstractItemModel
+class EventTreeItemModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    explicit SignalTreeItemModel(QObject *parent = 0);
+    explicit EventTreeItemModel(QObject *parent = 0);
     void setObject(GameObject *o);
     int columnCount(const QModelIndex &parent) const;
     int rowCount(const QModelIndex &parent) const;
@@ -178,7 +178,7 @@ public:
     QModelIndex parent(const QModelIndex &child) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
-    void addSignal(const QString &name);
+    void addEvent(const QString &name);
     void sortAttr(const QModelIndex &par);
 
 private:
@@ -187,22 +187,22 @@ private:
     InheritableObject *type;
 
 
-    GameTreeItem<SignalItem> *item;
+    GameTreeItem<EventItem> *item;
 };
 
 
 
 /*!
- * \brief The SlotTreeItemModel class presents the slots
+ * \brief The OrderTreeItemModel class presents the orders
  * of an object using the QAbstractItemModel interface.
  *
- * \see ParamTreeItemModel, FlagTreeItemModel, SignalTreeItemModel
+ * \see ParamTreeItemModel, FlagTreeItemModel, EventTreeItemModel
  */
-class SlotTreeItemModel : public QAbstractItemModel
+class OrderTreeItemModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    explicit SlotTreeItemModel(QObject *parent = 0);
+    explicit OrderTreeItemModel(QObject *parent = 0);
     void setObject(GameObject *o);
     int columnCount(const QModelIndex &parent) const;
     int rowCount(const QModelIndex &parent) const;
@@ -212,7 +212,7 @@ public:
     QModelIndex parent(const QModelIndex &child) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
-    void addSlot(const QString &name);
+    void addOrder(const QString &name);
     void sortAttr(const QModelIndex &par);
 
 private:
@@ -221,6 +221,6 @@ private:
     InheritableObject *type;
 
 
-    GameTreeItem<SlotItem> *item;
+    GameTreeItem<OrderItem> *item;
 };
 #endif // ATTRTREEITEMMODEL_H

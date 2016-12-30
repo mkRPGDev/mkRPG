@@ -15,13 +15,13 @@ ObjectTab::ObjectTab(QWidget *parent) :
     flagsModel = new FlagTreeItemModel(this);
     objectsModel = new ObjectsTreeModel(this);
     typesModel = new TypeItemModel(this);
-    signalsModel = new SignalTreeItemModel(this);
-    slotsModel = new SlotTreeItemModel(this);
+    eventsModel = new EventTreeItemModel(this);
+    ordersModel = new OrderTreeItemModel(this);
 
     params->setModel(paramsModel);
     flags->setModel(flagsModel);
-    signalsV->setModel(signalsModel);
-    slotsV->setModel(slotsModel);
+    events->setModel(eventsModel);
+    orders->setModel(ordersModel);
     objects->setModel(objectsModel);
     objects->setColumnWidth(0, objects->width()/2);
     types->setModel(typesModel);
@@ -37,14 +37,14 @@ ObjectTab::ObjectTab(QWidget *parent) :
 void ObjectTab::setGame(Game *g){
     paramsModel->setObject(nullptr);
     flagsModel->setObject(nullptr);
-    signalsModel->setObject(nullptr);
-    slotsModel->setObject(nullptr);
+    eventsModel->setObject(nullptr);
+    ordersModel->setObject(nullptr);
     objectsModel->setGameObject(g);
     typesModel->setGame(g);
     params->expandView();
     flags->expandView();
-    signalsV->expandView();
-    slotsV->expandView();
+    events->expandView();
+    orders->expandView();
     objects->expandAll();
     objects->resizeColumnToContents(0);
 
@@ -56,12 +56,12 @@ void ObjectTab::currentElementChanged(const QModelIndex &ind){
     currentObject = static_cast<GameObject*>(ind.internalPointer());
     newParam->setEnabled(currentObject != nullptr);
     newFlag->setEnabled(currentObject != nullptr);
-    newSignal->setEnabled(currentObject != nullptr);
-    newSlot->setEnabled(currentObject != nullptr);
+    newEvent->setEnabled(currentObject != nullptr);
+    newOrder->setEnabled(currentObject != nullptr);
     paramsModel->setObject(currentObject);
     flagsModel->setObject(currentObject);
-    signalsModel->setObject(currentObject);
-    slotsModel->setObject(currentObject);
+    eventsModel->setObject(currentObject);
+    ordersModel->setObject(currentObject);
     QWidget *newEdit = GameObjectEditor::editor(*currentObject);
     editor->layout()->replaceWidget(edit, newEdit);
     delete edit;
@@ -75,13 +75,13 @@ void ObjectTab::currentElementChanged(const QModelIndex &ind){
             flags->setFirstColumnSpanned(i, QModelIndex(), true);
             flags->setExpanded(flagsModel->index(i,0,QModelIndex()), true);
         }
-        for(int i(0); i<signalsModel->rowCount(QModelIndex()); ++i){
-            signalsV->setFirstColumnSpanned(i, QModelIndex(), true);
-            signalsV->setExpanded(signalsModel->index(i,0,QModelIndex()), true);
+        for(int i(0); i<eventsModel->rowCount(QModelIndex()); ++i){
+            events->setFirstColumnSpanned(i, QModelIndex(), true);
+            events->setExpanded(eventsModel->index(i,0,QModelIndex()), true);
         }
-        for(int i(0); i<slotsModel->rowCount(QModelIndex()); ++i){
-            slotsV->setFirstColumnSpanned(i, QModelIndex(), true);
-            slotsV->setExpanded(slotsModel->index(i,0,QModelIndex()), true);
+        for(int i(0); i<ordersModel->rowCount(QModelIndex()); ++i){
+            orders->setFirstColumnSpanned(i, QModelIndex(), true);
+            orders->setExpanded(ordersModel->index(i,0,QModelIndex()), true);
         }
     }
 //    flags->update(QModelIndex());
@@ -117,27 +117,27 @@ void ObjectTab::on_newFlag_clicked(){
 }
 
 
-void ObjectTab::on_newSignal_clicked(){
+void ObjectTab::on_newEvent_clicked(){
     if(currentObject != nullptr){
-        QString name(tr("new_signal"));
-        if(currentObject->hasSignal(name)){
+        QString name(tr("new_event"));
+        if(currentObject->hasEvent(name)){
             int k(1);
-            while(currentObject->hasSignal(name+" ("+QString::number(++k)+")"));
+            while(currentObject->hasEvent(name+" ("+QString::number(++k)+")"));
             name+=" ("+QString::number(k)+")";
         }
-        signalsModel->addSignal(name);
+        eventsModel->addEvent(name);
     }
 }
 
 
-void ObjectTab::on_newSlot_clicked(){
+void ObjectTab::on_newOrder_clicked(){
     if(currentObject != nullptr){
-        QString name(tr("new_slot"));
-        if(currentObject->hasSlot(name)){
+        QString name(tr("new_order"));
+        if(currentObject->hasOrder(name)){
             int k(1);
-            while(currentObject->hasSlot(name+" ("+QString::number(++k)+")"));
+            while(currentObject->hasOrder(name+" ("+QString::number(++k)+")"));
             name+=" ("+QString::number(k)+")";
         }
-        slotsModel->addSlot(name);
+        ordersModel->addOrder(name);
     }
 }

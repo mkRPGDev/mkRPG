@@ -39,15 +39,15 @@ private slots:
     void currentElementChanged(const QModelIndex &ind);
     void on_newParam_clicked();
     void on_newFlag_clicked();
-    void on_newSignal_clicked();
-    void on_newSlot_clicked();
+    void on_newEvent_clicked();
+    void on_newOrder_clicked();
 
 
 
 private:
-    SignalTreeItemModel *signalsModel;
+    EventTreeItemModel *eventsModel;
     ParamTreeItemModel *paramsModel;
-    SlotTreeItemModel *slotsModel;
+    OrderTreeItemModel *ordersModel;
     FlagTreeItemModel *flagsModel;
     ObjectsTreeModel *objectsModel;
     TypeItemModel *typesModel;

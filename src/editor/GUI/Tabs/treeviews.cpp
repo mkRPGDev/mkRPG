@@ -93,7 +93,7 @@ void FlagTreeView::expandView(const QModelIndex &index){
 
 
 
-SignalTreeView::SignalTreeView(QWidget *parent) :
+EventTreeView::EventTreeView(QWidget *parent) :
     QTreeView(parent)
 {
     header()->setStretchLastSection(true);
@@ -109,12 +109,12 @@ SignalTreeView::SignalTreeView(QWidget *parent) :
 }
 
 
-void SignalTreeView::contextMenuEvent(QContextMenuEvent *me){
+void EventTreeView::contextMenuEvent(QContextMenuEvent *me){
     me->accept();
     qDebug() << me->pos() << indexAt(me->pos());
 }
 
-void SignalTreeView::drawRow(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+void EventTreeView::drawRow(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     QStyleOptionViewItem newOption(option);
     if(index.data(Qt::BackgroundRole).isValid()){
@@ -127,7 +127,7 @@ void SignalTreeView::drawRow(QPainter* painter, const QStyleOptionViewItem& opti
     QTreeView::drawRow(painter, newOption, index);
 }
 
-void SignalTreeView::expandView(const QModelIndex &index){
+void EventTreeView::expandView(const QModelIndex &index){
     int l = model()->rowCount(index);
     for(int i(0); i<l; ++i){
         QModelIndex c(model()->index(i,0,index));
@@ -138,7 +138,7 @@ void SignalTreeView::expandView(const QModelIndex &index){
 
 
 
-SlotTreeView::SlotTreeView(QWidget *parent) :
+OrderTreeView::OrderTreeView(QWidget *parent) :
     QTreeView(parent)
 {
     header()->setStretchLastSection(true);
@@ -154,12 +154,12 @@ SlotTreeView::SlotTreeView(QWidget *parent) :
 }
 
 
-void SlotTreeView::contextMenuEvent(QContextMenuEvent *me){
+void OrderTreeView::contextMenuEvent(QContextMenuEvent *me){
     me->accept();
     qDebug() << me->pos() << indexAt(me->pos());
 }
 
-void SlotTreeView::drawRow(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+void OrderTreeView::drawRow(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     QStyleOptionViewItem newOption(option);
     if(index.data(Qt::BackgroundRole).isValid()){
@@ -172,7 +172,7 @@ void SlotTreeView::drawRow(QPainter* painter, const QStyleOptionViewItem& option
     QTreeView::drawRow(painter, newOption, index);
 }
 
-void SlotTreeView::expandView(const QModelIndex &index){
+void OrderTreeView::expandView(const QModelIndex &index){
     int l = model()->rowCount(index);
     for(int i(0); i<l; ++i){
         QModelIndex c(model()->index(i,0,index));

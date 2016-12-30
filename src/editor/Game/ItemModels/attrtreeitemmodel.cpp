@@ -33,11 +33,11 @@ GameTreeItem<type>::GameTreeItem(int rowNb, GameObject *obj, InheritableObject *
         case FlagItem:
             attrs = anc == nullptr ? obj->flags() : anc->properFlags();
             break;
-        case SignalItem:
-            attrs = anc == nullptr ? obj->getSignals() : anc->properSignals();
+        case EventItem:
+            attrs = anc == nullptr ? obj->getEvents() : anc->properEvents();
             break;
-        case SlotItem:
-            attrs = anc == nullptr ? obj->getSlots() : anc->properSlots();
+        case OrderItem:
+            attrs = anc == nullptr ? obj->getOrders() : anc->properOrders();
             break;
         default:
             assert(false);
@@ -53,10 +53,10 @@ GameTreeItem<type>::GameTreeItem(int rowNb, GameObject *obj, InheritableObject *
             children.append(new GameTreeItem<type>(0, obj, typ, Value, this));
             children.append(new GameTreeItem<type>(1, obj, typ, Value, this));
             break;
-        case SignalItem:
+        case EventItem:
             // TODO
             break;
-        case SlotItem:
+        case OrderItem:
             // TODO
             break;
         default:
@@ -210,8 +210,8 @@ QVariant GameTreeItem<type>::attrData(int col, int role) const{
             switch (type) {
             case ParamItem: return QVariant(typ ? typ->getParam(attr) : obj->getParam(attr));
             case FlagItem: return QVariant(typ ? typ->getFlag(attr) : obj->getFlag(attr));
-            case SignalItem: return QVariant(typ ? typ->getSignal(attr).typeName() : obj->getSignal(attr).typeName());
-            case SlotItem: return QVariant(typ ? typ->getSlot(attr).typeName() : obj->getSlot(attr).typeName());
+            case EventItem: return QVariant(typ ? typ->getEvent(attr).typeName() : obj->getEvent(attr).typeName());
+            case OrderItem: return QVariant(typ ? typ->getOrder(attr).typeName() : obj->getOrder(attr).typeName());
             default:assert(false);
             }
         case Qt::UserRole:
@@ -244,9 +244,9 @@ QVariant GameTreeItem<type>::valueData(int col, int role) const{
             case Qt::DisplayRole: return QVariant(rowNb ? obj->getParamMax(attr) : obj->getParamMin(attr));
             default: return QVariant();
             }
-    case SignalItem:
+    case EventItem:
         // TODO
-    case SlotItem:
+    case OrderItem:
         // TODO
     default:
         return QVariant();
@@ -311,9 +311,9 @@ bool GameTreeItem<type>::setAttrData(int col, QVariant value, int role){
             case FlagItem:
                 obj->renameFlag(attr, value.toString());
                 break;
-            case SignalItem:
+            case EventItem:
                 // TODO
-            case SlotItem:
+            case OrderItem:
                 // TODO
             default:
                 break;
@@ -346,11 +346,11 @@ void GameTreeItem<type>::addAttr(const QString &attr){
     case FlagItem:
         typ == nullptr ? obj->addFlag(attr) : typ->addFlag(attr);
         break;
-    case SignalItem:
-        typ == nullptr ? obj->addSignal(attr) : typ->addSignal(attr);
+    case EventItem:
+        typ == nullptr ? obj->addEvent(attr) : typ->addEvent(attr);
         break;
-    case SlotItem:
-        typ == nullptr ? obj->addSlot(attr) : typ->addSlot(attr);
+    case OrderItem:
+        typ == nullptr ? obj->addOrder(attr) : typ->addOrder(attr);
         break;
     default:
         break;
@@ -406,7 +406,7 @@ Qt::ItemFlags ParamTreeItemModel::flags(const QModelIndex &index) const{
 
 QVariant ParamTreeItemModel::headerData(int section, Qt::Orientation orientation, int role) const{
     if(orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return QVariant(section == 0 ? tr("Signal") : tr("Type"));
+        return QVariant(section == 0 ? tr("Event") : tr("Type"));
     return QVariant();
 }
 
@@ -505,7 +505,7 @@ Qt::ItemFlags FlagTreeItemModel::flags(const QModelIndex &index) const{
 
 QVariant FlagTreeItemModel::headerData(int section, Qt::Orientation orientation, int role) const{
     if(orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return QVariant(section == 0 ? tr("Slot") : tr("Type"));
+        return QVariant(section == 0 ? tr("Flag") : tr("Type"));
     return QVariant();
 }
 
@@ -581,68 +581,68 @@ void FlagTreeItemModel::sortAttr(const QModelIndex &par){
 
 
 
-SignalTreeItemModel::SignalTreeItemModel(QObject *parent) :
+EventTreeItemModel::EventTreeItemModel(QObject *parent) :
     QAbstractItemModel(parent),
     obj(nullptr), item(nullptr)
 {}
 
 
-int SignalTreeItemModel::rowCount(const QModelIndex &parent) const{
+int EventTreeItemModel::rowCount(const QModelIndex &parent) const{
     if(parent.isValid())
-        return static_cast<GameTreeItem<SignalItem>*>(parent.internalPointer())->rowCount();
+        return static_cast<GameTreeItem<EventItem>*>(parent.internalPointer())->rowCount();
     return item == nullptr ? 0 : item->rowCount();
 }
 
-int SignalTreeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
+int EventTreeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
     return 2;
 }
 
-Qt::ItemFlags SignalTreeItemModel::flags(const QModelIndex &index) const{
-    return static_cast<GameTreeItem<SignalItem>*>(index.internalPointer())->flags(index.column());
+Qt::ItemFlags EventTreeItemModel::flags(const QModelIndex &index) const{
+    return static_cast<GameTreeItem<EventItem>*>(index.internalPointer())->flags(index.column());
 }
 
 
-QVariant SignalTreeItemModel::headerData(int section, Qt::Orientation orientation, int role) const{
+QVariant EventTreeItemModel::headerData(int section, Qt::Orientation orientation, int role) const{
     if(orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return QVariant(section == 0 ? tr("Slot") : tr("Type"));
+        return QVariant(section == 0 ? tr("Event") : tr("Type"));
     return QVariant();
 }
 
-QVariant SignalTreeItemModel::data(const QModelIndex &index, int role) const{
-    return static_cast<GameTreeItem<SignalItem>*>(index.internalPointer())->data(index.column(), role);
+QVariant EventTreeItemModel::data(const QModelIndex &index, int role) const{
+    return static_cast<GameTreeItem<EventItem>*>(index.internalPointer())->data(index.column(), role);
 }
 
-QModelIndex SignalTreeItemModel::index(int row, int column, const QModelIndex &parent) const{
+QModelIndex EventTreeItemModel::index(int row, int column, const QModelIndex &parent) const{
     if(parent.isValid())
-        return createIndex(row, column, static_cast<void*>(static_cast<GameTreeItem<SignalItem>*>(parent.internalPointer())->child(row)));
+        return createIndex(row, column, static_cast<void*>(static_cast<GameTreeItem<EventItem>*>(parent.internalPointer())->child(row)));
     return createIndex(row, column, static_cast<void*>(item->child(row)));
 }
 
-QModelIndex SignalTreeItemModel::parent(const QModelIndex &child) const{
+QModelIndex EventTreeItemModel::parent(const QModelIndex &child) const{
     if(!child.isValid()) return QModelIndex();
-    GameTreeItem<SignalItem> *c = static_cast<GameTreeItem<SignalItem>*>(child.internalPointer());
-    GameTreeItem<SignalItem> *p = c->parent();
+    GameTreeItem<EventItem> *c = static_cast<GameTreeItem<EventItem>*>(child.internalPointer());
+    GameTreeItem<EventItem> *p = c->parent();
     assert(p != nullptr);
     if(p->parent() != nullptr) return createIndex(p->row(), 0, p);
     return QModelIndex();
 }
 
 
-void SignalTreeItemModel::setObject(GameObject *o){
+void EventTreeItemModel::setObject(GameObject *o){
     beginResetModel();
     obj = o;
     type =  dynamic_cast<InheritableObject*>(o);
     if(item != nullptr)
         delete item;
     if(o != nullptr)
-        item = type == nullptr ? new GameTreeItem<SignalItem>(*obj) : new GameTreeItem<SignalItem>(*type);
+        item = type == nullptr ? new GameTreeItem<EventItem>(*obj) : new GameTreeItem<EventItem>(*type);
     else item = nullptr;
     endResetModel();
 }
 
 
-bool SignalTreeItemModel::setData(const QModelIndex &index, const QVariant &value, int role){
-    if(!static_cast<GameTreeItem<SignalItem>*>(index.internalPointer())->setData(index.column(), value, role))
+bool EventTreeItemModel::setData(const QModelIndex &index, const QVariant &value, int role){
+    if(!static_cast<GameTreeItem<EventItem>*>(index.internalPointer())->setData(index.column(), value, role))
         return false;
     emit dataChanged(index.parent(),index);
     if(index.column() == 0)
@@ -650,12 +650,12 @@ bool SignalTreeItemModel::setData(const QModelIndex &index, const QVariant &valu
     return true;
 }
 
-void SignalTreeItemModel::addSignal(const QString &name){
+void EventTreeItemModel::addEvent(const QString &name){
     if(obj != nullptr){
         QModelIndex ins = type == nullptr ? QModelIndex() : index(rowCount(QModelIndex())-1, 0, QModelIndex());
         int l = rowCount(ins);
         emit beginInsertRows(ins, l, l);
-        GameTreeItem<SignalItem> *it = ins.isValid() ? static_cast<GameTreeItem<SignalItem>*>(ins.internalPointer())
+        GameTreeItem<EventItem> *it = ins.isValid() ? static_cast<GameTreeItem<EventItem>*>(ins.internalPointer())
                                                 : item;
         it->addAttr(name);
         emit endInsertRows();
@@ -663,10 +663,10 @@ void SignalTreeItemModel::addSignal(const QString &name){
     }
 }
 
-void SignalTreeItemModel::sortAttr(const QModelIndex &par){
+void EventTreeItemModel::sortAttr(const QModelIndex &par){
     emit layoutAboutToBeChanged();
     if(par.isValid())
-        static_cast<GameTreeItem<SignalItem>*>(par.internalPointer())->sort();
+        static_cast<GameTreeItem<EventItem>*>(par.internalPointer())->sort();
     else
         item->sort();
     emit layoutChanged();
@@ -677,68 +677,68 @@ void SignalTreeItemModel::sortAttr(const QModelIndex &par){
 
 
 
-SlotTreeItemModel::SlotTreeItemModel(QObject *parent) :
+OrderTreeItemModel::OrderTreeItemModel(QObject *parent) :
     QAbstractItemModel(parent),
     obj(nullptr), item(nullptr)
 {}
 
 
-int SlotTreeItemModel::rowCount(const QModelIndex &parent) const{
+int OrderTreeItemModel::rowCount(const QModelIndex &parent) const{
     if(parent.isValid())
-        return static_cast<GameTreeItem<SlotItem>*>(parent.internalPointer())->rowCount();
+        return static_cast<GameTreeItem<OrderItem>*>(parent.internalPointer())->rowCount();
     return item == nullptr ? 0 : item->rowCount();
 }
 
-int SlotTreeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
+int OrderTreeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
     return 2;
 }
 
-Qt::ItemFlags SlotTreeItemModel::flags(const QModelIndex &index) const{
-    return static_cast<GameTreeItem<SlotItem>*>(index.internalPointer())->flags(index.column());
+Qt::ItemFlags OrderTreeItemModel::flags(const QModelIndex &index) const{
+    return static_cast<GameTreeItem<OrderItem>*>(index.internalPointer())->flags(index.column());
 }
 
 
-QVariant SlotTreeItemModel::headerData(int section, Qt::Orientation orientation, int role) const{
+QVariant OrderTreeItemModel::headerData(int section, Qt::Orientation orientation, int role) const{
     if(orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return QVariant(section == 0 ? tr("Slot") : tr("Type"));
+        return QVariant(section == 0 ? tr("Order") : tr("Type"));
     return QVariant();
 }
 
-QVariant SlotTreeItemModel::data(const QModelIndex &index, int role) const{
-    return static_cast<GameTreeItem<SlotItem>*>(index.internalPointer())->data(index.column(), role);
+QVariant OrderTreeItemModel::data(const QModelIndex &index, int role) const{
+    return static_cast<GameTreeItem<OrderItem>*>(index.internalPointer())->data(index.column(), role);
 }
 
-QModelIndex SlotTreeItemModel::index(int row, int column, const QModelIndex &parent) const{
+QModelIndex OrderTreeItemModel::index(int row, int column, const QModelIndex &parent) const{
     if(parent.isValid())
-        return createIndex(row, column, static_cast<void*>(static_cast<GameTreeItem<SlotItem>*>(parent.internalPointer())->child(row)));
+        return createIndex(row, column, static_cast<void*>(static_cast<GameTreeItem<OrderItem>*>(parent.internalPointer())->child(row)));
     return createIndex(row, column, static_cast<void*>(item->child(row)));
 }
 
-QModelIndex SlotTreeItemModel::parent(const QModelIndex &child) const{
+QModelIndex OrderTreeItemModel::parent(const QModelIndex &child) const{
     if(!child.isValid()) return QModelIndex();
-    GameTreeItem<SlotItem> *c = static_cast<GameTreeItem<SlotItem>*>(child.internalPointer());
-    GameTreeItem<SlotItem> *p = c->parent();
+    GameTreeItem<OrderItem> *c = static_cast<GameTreeItem<OrderItem>*>(child.internalPointer());
+    GameTreeItem<OrderItem> *p = c->parent();
     assert(p != nullptr);
     if(p->parent() != nullptr) return createIndex(p->row(), 0, p);
     return QModelIndex();
 }
 
 
-void SlotTreeItemModel::setObject(GameObject *o){
+void OrderTreeItemModel::setObject(GameObject *o){
     beginResetModel();
     obj = o;
     type =  dynamic_cast<InheritableObject*>(o);
     if(item != nullptr)
         delete item;
     if(o != nullptr)
-        item = type == nullptr ? new GameTreeItem<SlotItem>(*obj) : new GameTreeItem<SlotItem>(*type);
+        item = type == nullptr ? new GameTreeItem<OrderItem>(*obj) : new GameTreeItem<OrderItem>(*type);
     else item = nullptr;
     endResetModel();
 }
 
 
-bool SlotTreeItemModel::setData(const QModelIndex &index, const QVariant &value, int role){
-    if(!static_cast<GameTreeItem<SlotItem>*>(index.internalPointer())->setData(index.column(), value, role))
+bool OrderTreeItemModel::setData(const QModelIndex &index, const QVariant &value, int role){
+    if(!static_cast<GameTreeItem<OrderItem>*>(index.internalPointer())->setData(index.column(), value, role))
         return false;
     emit dataChanged(index.parent(),index);
     if(index.column() == 0)
@@ -746,12 +746,12 @@ bool SlotTreeItemModel::setData(const QModelIndex &index, const QVariant &value,
     return true;
 }
 
-void SlotTreeItemModel::addSlot(const QString &name){
+void OrderTreeItemModel::addOrder(const QString &name){
     if(obj != nullptr){
         QModelIndex ins = type == nullptr ? QModelIndex() : index(rowCount(QModelIndex())-1, 0, QModelIndex());
         int l = rowCount(ins);
         emit beginInsertRows(ins, l, l);
-        GameTreeItem<SlotItem> *it = ins.isValid() ? static_cast<GameTreeItem<SlotItem>*>(ins.internalPointer())
+        GameTreeItem<OrderItem> *it = ins.isValid() ? static_cast<GameTreeItem<OrderItem>*>(ins.internalPointer())
                                                 : item;
         it->addAttr(name);
         emit endInsertRows();
@@ -759,10 +759,10 @@ void SlotTreeItemModel::addSlot(const QString &name){
     }
 }
 
-void SlotTreeItemModel::sortAttr(const QModelIndex &par){
+void OrderTreeItemModel::sortAttr(const QModelIndex &par){
     emit layoutAboutToBeChanged();
     if(par.isValid())
-        static_cast<GameTreeItem<SlotItem>*>(par.internalPointer())->sort();
+        static_cast<GameTreeItem<OrderItem>*>(par.internalPointer())->sort();
     else
         item->sort();
     emit layoutChanged();

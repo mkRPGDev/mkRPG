@@ -39,11 +39,11 @@ private:
 };
 
 
-class SignalTreeView : public QTreeView
+class EventTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit SignalTreeView(QWidget *parent = nullptr);
+    explicit EventTreeView(QWidget *parent = nullptr);
     void expandView(const QModelIndex &index = QModelIndex());
 
 private:
@@ -52,11 +52,11 @@ private:
 };
 
 
-class SlotTreeView : public QTreeView
+class OrderTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit SlotTreeView(QWidget *parent = nullptr);
+    explicit OrderTreeView(QWidget *parent = nullptr);
     void expandView(const QModelIndex &index = QModelIndex());
 
 private:

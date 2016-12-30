@@ -348,47 +348,47 @@ private:
 
 
 /*!
- * \brief The Signal class describes the
+ * \brief The Event class describes the
  */
-class Signal
+class Event
 {
 public:
     /*!
-     * \brief The SignalType enum
+     * \brief The EventType enum
      */
-    enum SignalType{
+    enum EventType{
         ParamChanged,
         FlagChanged,
         ObjectRemoved,
         ObjectAdded
     };
 
-    Signal(){}
+    Event(){}
 
-    QString typeName(){return "signal";}
+    QString typeName(){return "event";}
 private:
-    SignalType aType;
+    EventType aType;
 };
 
 /*!
- * \brief The Slot class
+ * \brief The Order class
  */
-class Slot
+class Order
 {
 public:
     /*!
-     * \brief The SlotType enum
+     * \brief The OrderType enum
      */
-    enum SlotType{
+    enum OrderType{
         ChangeParam,
         ChangeFlag
     };
 
-    Slot(){}
+    Order(){}
 
-    QString typeName(){return "slot";}
+    QString typeName(){return "order";}
 private:
-    SlotType aType;
+    OrderType aType;
 };
 
 
@@ -666,70 +666,70 @@ public:
      */
 
 
-    virtual bool hasSignal(const QString &signal) const;                                        /**<
-     * Return \c true if the GameObject has a signal named \c signal.
+    virtual bool hasEvent(const QString &event) const;                                        /**<
+     * Return \c true if the GameObject has a event named \c event.
      *
-     * \see getSignal, getSignals, hasSlot
+     * \see getEvent, getEvents, hasOrder
      */
-    virtual Signal& getSignal(const QString &signal);                                           /**<
-     * Returns the signal named \c signal.
+    virtual Event& getEvent(const QString &event);                                           /**<
+     * Returns the event named \c event.
      *
      * \note
-     * If the requested signal does not exist, an empty
-     * Signal is inserted.
+     * If the requested event does not exist, an empty
+     * Event is inserted.
      *
-     * \see getSignals, getSlot
+     * \see getEvents, getOrder
      */
-    virtual Signal& addSignal(const QString &signal);                                           /**<
-     * Create a new signal named \c signal.
+    virtual Event& addEvent(const QString &event);                                           /**<
+     * Create a new event named \c event.
      *
      * \note
-     * If the a signal name \c signal already exists, it will be discarded.
+     * If the a event name \c event already exists, it will be discarded.
      *
-     * \see removeSignal, addSlot
+     * \see removeEvent, addOrder
      */
-    virtual void removeSignal(const QString &signal);                                           /**<
-     * Delete the signal named \c signal, if exists.
+    virtual void removeEvent(const QString &event);                                           /**<
+     * Delete the event named \c event, if exists.
      *
-     * \see addSignal, removeSlot
+     * \see addEvent, removeOrder
      */
-    virtual QList<QString> getSignals() const;                                                  /**<
-     * Returns the list of signal's names of the object.
+    virtual QList<QString> getEvents() const;                                                  /**<
+     * Returns the list of event's names of the object.
      *
-     * \see getSignal, getSlots
+     * \see getEvent, getOrders
      */
 
-    virtual bool hasSlot(const QString &slot) const;                                            /**<
-     * Return \c true if the GameObject has a slot named \c slot.
+    virtual bool hasOrder(const QString &order) const;                                            /**<
+     * Return \c true if the GameObject has a order named \c order.
      *
-     * \see getSlot, getSlots, hasSignal
+     * \see getOrder, getOrders, hasEvent
      */
-    virtual Slot& getSlot(const QString &slot);                                                 /**<
-     * Returns the slot named \c slot.
+    virtual Order& getOrder(const QString &order);                                                 /**<
+     * Returns the order named \c order.
      *
      * \note
-     * If the requested slot does not exist, an empty
-     * Slot object is inserted.
+     * If the requested order does not exist, an empty
+     * Order object is inserted.
      *
-     * \see getSlots, getSignal
+     * \see getOrders, getEvent
      */
-    virtual Slot& addSlot(const QString &slot);                                                 /**<
-     * Create a new slot named \c slot.
+    virtual Order& addOrder(const QString &order);                                                 /**<
+     * Create a new order named \c order.
      *
      * \note
-     * If the a slot name \c slot already exists, it will be discarded.
+     * If the a order name \c order already exists, it will be discarded.
      *
-     * \see removeSlot, addSignal
+     * \see removeOrder, addEvent
      */
-    virtual void removeSlot(const QString &slot);                                               /**<
-     * Delete the slot named \c slot, if exists.
+    virtual void removeOrder(const QString &order);                                               /**<
+     * Delete the order named \c order, if exists.
      *
-     * \see addSlot, removeSignal
+     * \see addOrder, removeEvent
      */
-    virtual QList<QString> getSlots() const;                                                    /**<
-     * Returns the list of slot's names of the object.
+    virtual QList<QString> getOrders() const;                                                    /**<
+     * Returns the list of order's names of the object.
      *
-     * \see getSlot, getSignals
+     * \see getOrder, getEvents
      */
 
 protected:
@@ -768,8 +768,8 @@ protected:
     int nbRef;
     QMap<QString, Parameter> aParams;
     QMap<QString, bool> aFlags;
-    QMap<QString, Signal> aSignals;
-    QMap<QString, Slot> aSlots;
+    QMap<QString, Event> aEvents;
+    QMap<QString, Order> aOrders;
     QString aName;
     QString fileName;
     QDateTime lastEdit, lastChildEdit;
@@ -930,19 +930,19 @@ public:
      * \see properFlags, paramTree
      */
 
-    virtual bool isInheritedSignal(const QString &signal) const;
-    virtual bool hasSignal(const QString &signal) const;
-    virtual Signal& getSignal(const QString &signal);
-    virtual QList<QString> getSignals() const;
-    virtual QList<QString> properSignals() const;
-    HierarchicalAttr signalTree() const;
+    virtual bool isInheritedEvent(const QString &event) const;
+    virtual bool hasEvent(const QString &event) const;
+    virtual Event& getEvent(const QString &event);
+    virtual QList<QString> getEvents() const;
+    virtual QList<QString> properEvents() const;
+    HierarchicalAttr eventTree() const;
 
-    virtual bool isInheritedSlot(const QString &slot) const;
-    virtual bool hasSlot(const QString &slot) const;
-    virtual Slot& getSlot(const QString &slot);
-    virtual QList<QString> getSlots() const;
-    virtual QList<QString> properSlots() const;
-    HierarchicalAttr slotTree() const;
+    virtual bool isInheritedOrder(const QString &order) const;
+    virtual bool hasOrder(const QString &order) const;
+    virtual Order& getOrder(const QString &order);
+    virtual QList<QString> getOrders() const;
+    virtual QList<QString> properOrders() const;
+    HierarchicalAttr orderTree() const;
 
 protected:
 

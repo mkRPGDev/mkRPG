@@ -287,7 +287,7 @@
            <item>
             <widget class="QLabel" name="label_5">
              <property name="text">
-              <string>Signals</string>
+              <string>Events</string>
              </property>
             </widget>
            </item>
@@ -305,7 +305,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="newSignal">
+            <widget class="QPushButton" name="newEvent">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -317,7 +317,7 @@
           </layout>
          </item>
          <item>
-          <widget class="SignalTreeView" name="signalsV">
+          <widget class="EventTreeView" name="events">
            <property name="editTriggers">
             <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
            </property>
@@ -347,7 +347,7 @@
            <item>
             <widget class="QLabel" name="label_6">
              <property name="text">
-              <string>Slots</string>
+              <string>Orders</string>
              </property>
             </widget>
            </item>
@@ -365,7 +365,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="newSlot">
+            <widget class="QPushButton" name="newOrder">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -377,7 +377,7 @@
           </layout>
          </item>
          <item>
-          <widget class="SlotTreeView" name="slotsV">
+          <widget class="OrderTreeView" name="orders">
            <property name="editTriggers">
             <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
            </property>
@@ -415,12 +415,12 @@
    <header location="global">GUI/Tabs/treeviews.h</header>
   </customwidget>
   <customwidget>
-   <class>SignalTreeView</class>
+   <class>EventTreeView</class>
    <extends>QTreeView</extends>
    <header location="global">GUI/Tabs/treeviews.h</header>
   </customwidget>
   <customwidget>
-   <class>SlotTreeView</class>
+   <class>OrderTreeView</class>
    <extends>QTreeView</extends>
    <header location="global">GUI/Tabs/treeviews.h</header>
   </customwidget>

@@ -196,47 +196,47 @@ void GameObject::removeFlag(const QString &flag){
     aFlags.remove(flag);
 }
 
-bool GameObject::hasSignal(const QString &signal) const{
-    return aSignals.contains(signal);
+bool GameObject::hasEvent(const QString &event) const{
+    return aEvents.contains(event);
 }
 
-Signal& GameObject::getSignal(const QString &signal){
-    return aSignals[signal];
+Event& GameObject::getEvent(const QString &event){
+    return aEvents[event];
 }
 
-Signal& GameObject::addSignal(const QString &signal){
-    aSignals[signal] = Signal();
-    return aSignals[signal];
+Event& GameObject::addEvent(const QString &event){
+    aEvents[event] = Event();
+    return aEvents[event];
 }
 
-void GameObject::removeSignal(const QString &signal){
-    aSignals.remove(signal);
+void GameObject::removeEvent(const QString &event){
+    aEvents.remove(event);
 }
 
-QList<QString> GameObject::getSignals() const{
-    return aSignals.keys();
+QList<QString> GameObject::getEvents() const{
+    return aEvents.keys();
 }
 
 
-bool GameObject::hasSlot(const QString &slot) const{
-    return aSlots.contains(slot);
+bool GameObject::hasOrder(const QString &order) const{
+    return aOrders.contains(order);
 }
 
-Slot& GameObject::getSlot(const QString &slot){
-    return aSlots[slot];
+Order& GameObject::getOrder(const QString &order){
+    return aOrders[order];
 }
 
-Slot& GameObject::addSlot(const QString &slot){
-    aSlots[slot] = Slot();
-    return aSlots[slot];
+Order& GameObject::addOrder(const QString &order){
+    aOrders[order] = Order();
+    return aOrders[order];
 }
 
-void GameObject::removeSlot(const QString &slot){
-    aSlots.remove(slot);
+void GameObject::removeOrder(const QString &order){
+    aOrders.remove(order);
 }
 
-QList<QString> GameObject::getSlots() const{
-    return aSlots.keys();
+QList<QString> GameObject::getOrders() const{
+    return aOrders.keys();
 }
 
 
@@ -354,58 +354,58 @@ void InheritableObject::removeLastRedondances(HierarchicalAttr &attr){
 }
 
 
-bool InheritableObject::isInheritedSignal(const QString &signal) const{
-    return aAncestor ? aAncestor->hasSignal(signal) : false;
+bool InheritableObject::isInheritedEvent(const QString &event) const{
+    return aAncestor ? aAncestor->hasEvent(event) : false;
 }
 
-bool InheritableObject::hasSignal(const QString &signal) const{
-    return GameObject::hasSignal(signal) | (aAncestor && aAncestor->hasSignal(signal));
+bool InheritableObject::hasEvent(const QString &event) const{
+    return GameObject::hasEvent(event) | (aAncestor && aAncestor->hasEvent(event));
 }
 
-Signal& InheritableObject::getSignal(const QString &signal){
-    if(hasSignal(signal))
-        return aSignals.contains(signal) ? aSignals[signal] : aAncestor->getSignal(signal);
-    return aSignals[signal];
+Event& InheritableObject::getEvent(const QString &event){
+    if(hasEvent(event))
+        return aEvents.contains(event) ? aEvents[event] : aAncestor->getEvent(event);
+    return aEvents[event];
 }
 
-QList<QString> InheritableObject::getSignals() const {
-    return aAncestor ? aAncestor->getSignals() << aSignals.keys() : aSignals.keys();
+QList<QString> InheritableObject::getEvents() const {
+    return aAncestor ? aAncestor->getEvents() << aEvents.keys() : aEvents.keys();
 }
 
-QList<QString> InheritableObject::properSignals() const {
-    return signalTree().last().second;
+QList<QString> InheritableObject::properEvents() const {
+    return eventTree().last().second;
 }
 
-HierarchicalAttr InheritableObject::signalTree() const{
-    return (aAncestor ? aAncestor->signalTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::getSignals());
+HierarchicalAttr InheritableObject::eventTree() const{
+    return (aAncestor ? aAncestor->eventTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::getEvents());
 }
 
 
 
-bool InheritableObject::isInheritedSlot(const QString &slot) const{
-    return aAncestor ? aAncestor->hasSlot(slot) : false;
+bool InheritableObject::isInheritedOrder(const QString &order) const{
+    return aAncestor ? aAncestor->hasOrder(order) : false;
 }
 
-bool InheritableObject::hasSlot(const QString &slot) const{
-    return GameObject::hasSlot(slot) | (aAncestor && aAncestor->hasSlot(slot));
+bool InheritableObject::hasOrder(const QString &order) const{
+    return GameObject::hasOrder(order) | (aAncestor && aAncestor->hasOrder(order));
 }
 
-Slot &InheritableObject::getSlot(const QString &slot){
-    if(hasSlot(slot))
-        return aSlots.contains(slot) ? aSlots[slot] : aAncestor->getSlot(slot);
-    return aSlots[slot];
+Order &InheritableObject::getOrder(const QString &order){
+    if(hasOrder(order))
+        return aOrders.contains(order) ? aOrders[order] : aAncestor->getOrder(order);
+    return aOrders[order];
 }
 
-QList<QString> InheritableObject::getSlots() const {
-    return aAncestor ? aAncestor->getSlots() << aSlots.keys() : aSlots.keys();
+QList<QString> InheritableObject::getOrders() const {
+    return aAncestor ? aAncestor->getOrders() << aOrders.keys() : aOrders.keys();
 }
 
-QList<QString> InheritableObject::properSlots() const {
-    return slotTree().last().second;
+QList<QString> InheritableObject::properOrders() const {
+    return orderTree().last().second;
 }
 
-HierarchicalAttr InheritableObject::slotTree() const{
-    return (aAncestor ? aAncestor->slotTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::getSlots());
+HierarchicalAttr InheritableObject::orderTree() const{
+    return (aAncestor ? aAncestor->orderTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::getOrders());
 }
 
 

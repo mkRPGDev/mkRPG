@@ -160,3 +160,58 @@ void ActionsListModel::sortActions(){
     std::sort(actions.begin(), actions.end(), cleverComp);
     emit layoutChanged();
 }
+
+
+
+
+
+ReceiverListModel::ReceiverListModel(QObject *parent) :
+    QAbstractListModel(parent), aAction(nullptr)
+{}
+
+void ReceiverListModel::setAction(Action *action){
+    beginResetModel();
+    aAction = action;
+    aReceivers = aAction ? aAction->receivers() : QList<QPair<GameObject*, QString>>();
+    sortActions();
+    endResetModel();
+}
+
+
+int ReceiverListModel::rowCount(const QModelIndex &parent) const{
+    return aReceivers.length();
+}
+
+QVariant ReceiverListModel::data(const QModelIndex &index, int role) const{
+    if(!index.isValid()) return QVariant();
+    const QPair<GameObject*, QString> &rcv(aReceivers[index.row()]);
+    switch (role) {
+    case Qt::DisplayRole: return QVariant(rcv.first->name()+"::"+rcv.second);
+    case Qt::SizeHintRole: return QSize(200,24);
+    default: return QVariant();
+    }
+}
+
+Qt::ItemFlags ReceiverListModel::flags(const QModelIndex &index) const{
+    return QAbstractListModel::flags(index) | Qt::ItemIsEditable;
+}
+
+void ReceiverListModel::addReceiver(GameObject *rcv, const QString &order){
+    if(aAction){
+        beginResetModel();
+        aAction->addReceiver(rcv, order);
+        aReceivers = aAction->receivers();
+        sortActions();
+        endResetModel();
+    }
+}
+
+void ReceiverListModel::sortActions(){
+    std::sort(aReceivers.begin(), aReceivers.end(),
+              [](const QPair<GameObject*, QString> &a,const QPair<GameObject*, QString> &b){
+        return a.first->name() == b.first->name() ? cleverComp(a.second, b.second)
+                                                  : cleverComp(a.first->name(), b.first->name());
+    });
+}
+
+

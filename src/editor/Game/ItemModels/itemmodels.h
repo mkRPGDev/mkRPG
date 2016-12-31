@@ -62,4 +62,24 @@ private:
 };
 
 
+class ReceiverListModel : public QAbstractListModel
+{
+    Q_OBJECT
+
+public:
+    explicit ReceiverListModel(QObject *parent = nullptr);
+
+    void setAction(Action *action);
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
+    void addReceiver(GameObject *rcv, const QString &order);
+private:
+    void sortActions();
+
+    Action* aAction;
+    QList<QPair<GameObject*, QString>> aReceivers;
+};
+
+
 #endif // ITEMMODELS_H

@@ -114,7 +114,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
-    //g->addAction("moveLeft", new Action());
+    g->addAction("moveLeft", new Action());
 
     im = new Image(*g, ":/Icons/herbe.png");
     g->addImage(im);
@@ -153,7 +153,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     //g->world().addCellType(ct);
     Map *m = new Map(g->world().types().mapType(), g->world());
     g->world().objects().addMap(*m);
-    m->setName("Paysage bucolique");
+    m->setName("Paysage_bucolique");
     int l = m->width();
     int h = m->height();
     for(int i(0); i<l; ++i)
@@ -164,7 +164,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     tabBar->setTabsEnabled(true);
 
     m = new Map(g->world().types().mapType(), g->world());
-    m->setName("Le grand large");
+    m->setName("Le_grand_large");
     g->world().objects().addMap(*m);
     l = m->width();
     h = m->height();

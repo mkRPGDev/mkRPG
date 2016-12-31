@@ -45,6 +45,9 @@ Action::~Action(){
         removeReceiver(rcv.first, rcv.second);
 }
 
+GameObject *Action::emitter() const{
+    return aEmitter;
+}
 
 void Action::setEmitter(GameObject *emitter){
     if(aEmitter)
@@ -54,8 +57,16 @@ void Action::setEmitter(GameObject *emitter){
         aEmitter->addEmittedAction(this);
 }
 
+const QString &Action::event() const{
+    return aEvent;
+}
+
 void Action::setEvent(const QString &event){
     aEvent = event;
+}
+
+const QList<QPair<GameObject*, QString>> &Action::receivers() const{
+    return aReceivers;
 }
 
 void Action::addReceiver(GameObject *receiver, const QString &order){

@@ -13,12 +13,10 @@
  * \brief Definition of the base class of the game internal model.
  */
 
-bool cleverComp(const QString &na, const QString &nb);
-/**<
+bool cleverComp(const QString &na, const QString &nb);  /**<
  * Compares to string classing \c name_10 after \c name_2.
  */
-bool isValidName(const QString &n);
-/**<
+bool isValidName(const QString &n);                     /**<
  * Returns true if the string \c n contains only letters, digits or "_".
  */
 
@@ -404,8 +402,11 @@ class Action
 public:
     Action();
     ~Action();
+    GameObject *emitter() const;
     void setEmitter(GameObject *emitter);
+    const QString &event() const;
     void setEvent(const QString &event);
+    const QList<QPair<GameObject*, QString>> &receivers() const;
     void addReceiver(GameObject *receiver, const QString &order);
     void removeReceiver(GameObject *receiver);
     void removeReceiver(GameObject *receiver, const QString &order);

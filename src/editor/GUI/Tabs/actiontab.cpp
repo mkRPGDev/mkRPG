@@ -1,5 +1,6 @@
 #include "actiontab.h"
 
+
 ActionTab::ActionTab(QWidget *parent) :
     TabWidget(parent), game(nullptr), act(nullptr)
 {
@@ -11,14 +12,24 @@ ActionTab::ActionTab(QWidget *parent) :
     receiversModel = new ObjectsTreeModel();
     receiversModel->setEditable(false);
     receiversV->setModel(receiversModel);
-    eventsModel = new EventTreeItemModel(this);
+    eventsModel = new EventTreeItemModel(this, true);
     events->setModel(eventsModel);
-    ordersModel = new OrderTreeItemModel(this);
+    ordersModel = new OrderTreeItemModel(this, true);
     orders->setModel(ordersModel);
-    orders->setSelectionBehavior(QAbstractItemView::SelectRows);
     splitter_3->setEnabled(false);
+    rcvModel = new ReceiverListModel(this);
+    rcv->setModel(rcvModel);
     actionsModel = new ActionsListModel(this);
     actionsV->setModel(actionsModel);
+
+    rcv->setItemDelegate(new ActionReceiverItemDelegate(this));
+
+    QPalette p(newEmitter->palette());
+    p.setColor(QPalette::Window, p.color(QPalette::AlternateBase));
+    newEmitter->setPalette(p);
+    p = newReceiver->palette();
+    p.setColor(QPalette::Window, p.color(QPalette::AlternateBase));
+    newReceiver->setPalette(p);
 
     connect(actionsV->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
             this, SLOT(actionChanged(QModelIndex)));
@@ -26,6 +37,10 @@ ActionTab::ActionTab(QWidget *parent) :
             this, SLOT(emitterChanged(QModelIndex)));
     connect(receiversV->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
             this, SLOT(receiverChanged(QModelIndex)));
+    connect(events->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+            this, SLOT(eventChanged(QModelIndex)));
+    connect(orders->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+            this, SLOT(orderChanged(QModelIndex)));
 }
 
 void ActionTab::setGame(Game *g){
@@ -41,11 +56,15 @@ void ActionTab::setGame(Game *g){
 void ActionTab::actionChanged(const QModelIndex &ac){
     act = ac.isValid() ? game->action(ac.data().toString()) : nullptr;
     splitter_3->setEnabled(act != nullptr);
-    qDebug() << act;
+    rcvModel->setAction(act);
+    if(act != nullptr){
+        lineEdit->setText(act->emitter() ? act->emitter()->name() + "::" + act->event() : "");
+    }
 }
 
 void ActionTab::emitterChanged(const QModelIndex &ind){
     emitter = static_cast<GameObject*>(ind.internalPointer());
+    eventChanged(QModelIndex());
     events->setEnabled(emitter != nullptr);
     eventsModel->setObject(emitter);
     if(dynamic_cast<InheritableObject*>(emitter) != nullptr)
@@ -57,6 +76,7 @@ void ActionTab::emitterChanged(const QModelIndex &ind){
 
 void ActionTab::receiverChanged(const QModelIndex &ind){
     receiver = static_cast<GameObject*>(ind.internalPointer());
+    orderChanged(QModelIndex());
     orders->setEnabled(receiver != nullptr);
     ordersModel->setObject(receiver);
     if(dynamic_cast<InheritableObject*>(receiver) != nullptr)
@@ -66,6 +86,30 @@ void ActionTab::receiverChanged(const QModelIndex &ind){
         }
 }
 
+void ActionTab::eventChanged(const QModelIndex &ev){
+    event = ev.parent().child(ev.row(),0).data(Qt::DisplayRole).toString();
+    newEmitter->setText(emitter->name() + "::" + event);
+    selectEmitter->setEnabled(ev.isValid());
+}
+
+void ActionTab::orderChanged(const QModelIndex &ord){
+    order = ord.parent().child(ord.row(),0).data(Qt::DisplayRole).toString();
+    newReceiver->setText(receiver->name() + "::" + order);
+    addReceiver->setEnabled(ord.isValid());
+}
+
+
+
 void ActionTab::on_newAction_clicked(){
     actionsModel->addAction("new_action");
+}
+
+void ActionTab::on_selectEmitter_clicked(){
+    act->setEmitter(emitter);
+    act->setEvent(event);
+    lineEdit->setText(emitter->name() + "::" + event);
+}
+
+void ActionTab::on_addReceiver_clicked(){
+    rcvModel->addReceiver(receiver, order);
 }

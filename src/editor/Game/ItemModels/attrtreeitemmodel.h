@@ -46,7 +46,7 @@ public:
     explicit GameTreeItem(InheritableObject &typ);
     ~GameTreeItem();
 
-    Qt::ItemFlags flags(int col) const;
+    Qt::ItemFlags flags(int col, bool readOnly = false) const;
     QVariant data(int col, int role) const;
     GameTreeItem *parent() const ;
     GameTreeItem *child(int row) const ;
@@ -74,10 +74,10 @@ private:
     bool setAttrData(int col, QVariant value, int role);
     bool setValueData(int col, QVariant value, int role);
 
-    Qt::ItemFlags typeFlags(int) const;
-    Qt::ItemFlags objectFlags(int) const;
-    Qt::ItemFlags attrFlags(int col) const;
-    Qt::ItemFlags valueFlags(int col) const;
+    Qt::ItemFlags typeFlags(int, bool) const;
+    Qt::ItemFlags objectFlags(int, bool) const;
+    Qt::ItemFlags attrFlags(int col, bool readOnly) const;
+    Qt::ItemFlags valueFlags(int col, bool readOnly) const;
 
     GameObject *obj;
     InheritableObject *typ;
@@ -153,7 +153,6 @@ private:
     GameObject *obj;
     InheritableObject *type;
 
-
     GameTreeItem<FlagItem> *item;
 };
 
@@ -168,7 +167,7 @@ class EventTreeItemModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    explicit EventTreeItemModel(QObject *parent = 0);
+    explicit EventTreeItemModel(QObject *parent = 0, bool readOnly = false);
     void setObject(GameObject *o);
     int columnCount(const QModelIndex &parent) const;
     int rowCount(const QModelIndex &parent) const;
@@ -186,8 +185,8 @@ private:
     GameObject *obj;
     InheritableObject *type;
 
-
     GameTreeItem<EventItem> *item;
+    bool readOnly;
 };
 
 
@@ -202,7 +201,7 @@ class OrderTreeItemModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    explicit OrderTreeItemModel(QObject *parent = 0);
+    explicit OrderTreeItemModel(QObject *parent = 0, bool readOnly = false);
     void setObject(GameObject *o);
     int columnCount(const QModelIndex &parent) const;
     int rowCount(const QModelIndex &parent) const;
@@ -220,7 +219,7 @@ private:
     GameObject *obj;
     InheritableObject *type;
 
-
     GameTreeItem<OrderItem> *item;
+    bool readOnly;
 };
 #endif // ATTRTREEITEMMODEL_H

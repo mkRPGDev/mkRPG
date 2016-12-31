@@ -17,5 +17,6 @@
         <file>selPen.png</file>
         <file>selReg.png</file>
         <file>editer.png</file>
+        <file>supprimer.png</file>
     </qresource>
 </RCC>

@@ -239,3 +239,60 @@ void ObjectNameItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *m
 
 
 
+
+ActionReceiverEditor::ActionReceiverEditor(QWidget *parent) :
+    QWidget(parent)
+{
+    QHBoxLayout *lay = new QHBoxLayout();
+    setLayout(lay);
+    lay->setContentsMargins(0,0,0,0);
+    lay->setSpacing(1);
+    lay->addItem(new QSpacerItem(2000,0));
+    edit = new QToolButton();
+    edit->setIcon(QIcon(":/Icons/editer.png"));
+    edit->setFixedSize(23,23);
+    lay->addWidget(edit);
+    remove = new QToolButton();
+    remove->setIcon(QIcon(":/Icons/supprimer.png"));
+    remove->setFixedSize(23,23);
+    lay->addWidget(remove);
+}
+
+
+
+
+ActionReceiverItemDelegate::ActionReceiverItemDelegate(QObject *parent):
+    QStyledItemDelegate(parent)
+{}
+
+QWidget* ActionReceiverItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    return new ActionReceiverEditor(parent);
+}
+
+void ActionReceiverItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const{
+
+}
+
+void ActionReceiverItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    editor->setGeometry(option.rect);
+}
+
+void ActionReceiverItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const{
+
+}
+
+void ActionReceiverItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    QStyledItemDelegate::paint(painter, option, index);
+
+    QStyleOptionButton button;
+    button.palette = option.palette;
+    button.rect = QRect(option.rect.right()-22, option.rect.top(), 23, 23);
+    button.icon = QIcon(":/Icons/supprimer.png");
+    button.iconSize = QSize(16,16);
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+    button.rect = QRect(option.rect.right()-46, option.rect.top(), 23, 23);
+    button.icon = QIcon(":/Icons/editer.png");
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+}

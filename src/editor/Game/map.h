@@ -60,7 +60,7 @@ public:
 
     C0(Flag, a,A,ccessible)
 
-    ObjectListD(o,O,bject,,s,Object)
+    //ObjectListD(o,O,bject,,s,Object)
 
 //    ObjectsMap(c,o,O,bject,,s)
 

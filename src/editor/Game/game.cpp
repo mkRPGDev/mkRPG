@@ -7,15 +7,45 @@ DefaultTypes::DefaultTypes(World &parent) :
 }
 
 
-World::World(Game *g, GameObject *parent) :
-    GameObject(g, parent), aTypes(new DefaultTypes(*this))
+
+
+
+
+
+
+
+
+
+
+GameObjectInventory::GameObjectInventory(World &parent) :
+    GameObject(parent)
 {
+    setName(QObject::tr("Inventory"));
+    ListInitD(Map,,s);
+    ListInitD(Object,,s);
 }
+
+
+
+
+
+
+
+
+
+World::World(Game *g, GameObject *parent) :
+    GameObject(g, parent),
+    aTypes(new DefaultTypes(*this)),
+    aObjects(new GameObjectInventory(*this))
+{}
 
 const DefaultTypes & World::types() const{
     return *aTypes;
 }
 
+const GameObjectInventory &World::objects() const{
+    return *aObjects;
+}
 
 
 

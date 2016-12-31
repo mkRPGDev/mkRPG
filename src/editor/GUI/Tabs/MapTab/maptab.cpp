@@ -30,7 +30,7 @@ MapsTab::MapsTab(QWidget *parent) :
 
 
 void MapsTab::mapChanged(const QModelIndex &to, const QModelIndex &UNUSED(from)){
-    game->setCurrentMap(game->world().maps().at(to.row()));
+    game->setCurrentMap(game->world().objects().maps().at(to.row()));
     // TODO mieux
     updateGame();
 }

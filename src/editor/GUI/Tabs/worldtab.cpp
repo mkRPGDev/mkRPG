@@ -17,6 +17,6 @@ WorldTab::~WorldTab(){
 }
 
 void WorldTab::on_mapsView_doubleClicked(const QModelIndex &index){
-    game->setCurrentMap(game->world().maps().at(index.row()));
+    game->setCurrentMap(game->world().objects().maps().at(index.row()));
     emit editMap();
 }

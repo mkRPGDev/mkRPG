@@ -114,20 +114,20 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
-    g->addAction("moveLeft", new Action());
+    //g->addAction("moveLeft", new Action());
 
     im = new Image(*g, ":/Icons/herbe.png");
     g->addImage(im);
     ct1 = new CellType(g->world().types().cellType());
     ct1->setName("Herbe");
     ct1->setImage(im);
-    g->world().addCellType(ct1);
+    //g->world().addCellType(ct1);
     im = new Image(*g, ":/Icons/glace.png");
     g->addImage(im);
     ct2 = new CellType(g->world().types().cellType());
     ct2->setName("Glace");
     ct2->setImage(im);
-    g->world().addCellType(ct2);
+    //g->world().addCellType(ct2);
     im = new Image(*g, ":/Icons/mer.png");
     g->addImage(im);
     CellType *ct = new CellType(g->world().types().cellType());
@@ -150,9 +150,9 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     ctt->addEvent("Titanic");
     ctt->addOrder("Traverser");
     ctt->setParam("Requins", 20);
-    g->world().addCellType(ct);
+    //g->world().addCellType(ct);
     Map *m = new Map(g->world().types().mapType(), g->world());
-    g->world().addMap(m);
+    g->world().objects().addMap(*m);
     m->setName("Paysage bucolique");
     int l = m->width();
     int h = m->height();
@@ -165,7 +165,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
 
     m = new Map(g->world().types().mapType(), g->world());
     m->setName("Le grand large");
-    g->world().addMap(m);
+    g->world().objects().addMap(*m);
     l = m->width();
     h = m->height();
     for(int i(0); i<l; ++i)

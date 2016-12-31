@@ -96,8 +96,8 @@ void ObjectTab::on_newParam_clicked(){
         QString name(tr("new_param"));
         if(currentObject->hasParam(name)){
             int k(1);
-            while(currentObject->hasParam(name+" ("+QString::number(++k)+")"));
-            name+=" ("+QString::number(k)+")";
+            while(currentObject->hasParam(name+"_"+QString::number(++k)));
+            name+="_"+QString::number(k);
         }
         paramsModel->addParam(name);
     }
@@ -109,8 +109,8 @@ void ObjectTab::on_newFlag_clicked(){
         QString name(tr("new_flag"));
         if(currentObject->hasFlag(name)){
             int k(1);
-            while(currentObject->hasFlag(name+" ("+QString::number(++k)+")"));
-            name+=" ("+QString::number(k)+")";
+            while(currentObject->hasFlag(name+"_"+QString::number(++k)));
+            name+="_"+QString::number(k);
         }
         flagsModel->addFlag(name);
     }
@@ -122,8 +122,8 @@ void ObjectTab::on_newEvent_clicked(){
         QString name(tr("new_event"));
         if(currentObject->hasEvent(name)){
             int k(1);
-            while(currentObject->hasEvent(name+" ("+QString::number(++k)+")"));
-            name+=" ("+QString::number(k)+")";
+            while(currentObject->hasEvent(name+"_"+QString::number(++k)));
+            name+="_"+QString::number(k);
         }
         eventsModel->addEvent(name);
     }
@@ -135,8 +135,8 @@ void ObjectTab::on_newOrder_clicked(){
         QString name(tr("new_order"));
         if(currentObject->hasOrder(name)){
             int k(1);
-            while(currentObject->hasOrder(name+" ("+QString::number(++k)+")"));
-            name+=" ("+QString::number(k)+")";
+            while(currentObject->hasOrder(name+"_"+QString::number(++k)));
+            name+="_"+QString::number(k);
         }
         ordersModel->addOrder(name);
     }

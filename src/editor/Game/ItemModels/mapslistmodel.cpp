@@ -1,9 +1,8 @@
 #include "mapslistmodel.h"
 
 MapsListModel::MapsListModel(World* w, QObject* parent) :
-    QAbstractListModel(parent), maps(w->maps()), mps(QMap<int, MapPainter*>())
+    QAbstractListModel(parent), maps(w->objects().maps()), mps(QMap<int, MapPainter*>())
 {
-
     update();
 }
 

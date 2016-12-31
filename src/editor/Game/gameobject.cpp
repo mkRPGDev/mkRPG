@@ -8,15 +8,28 @@ bool cleverComp(const QString &na, const QString &nb){
     int k(0);
     for(;na[k]==nb[k];++k);
     for(;k+1 && na[k].isDigit(); --k);
+    //*
+    if(!++k || na[k-1] != '_' || nb[k-1] != '_') return na < nb;
+    /*/
     if(!++k || na[k-1] != '(' || nb[k-1] != '(') return na < nb;
+    //*/
     int ka(k);
     for(;ka<na.length() && na[ka].isDigit();ka++);
     int kb(k);
     for(;kb<nb.length() && nb[kb].isDigit();kb++);
+    //*
+    if(k!=ka && k!=kb && ka==na.length() && kb==nb.length())
+        return na.midRef(k, ka-k).toInt() < nb.midRef(k, kb-k).toInt();
+    return na < nb;
+    /*/
     if(k==ka || k==kb || ka==na.length() || kb==nb.length() || na[ka] != ')' || nb[kb] != ')') return na < nb;
     return na.midRef(k, ka-k).toInt() < nb.midRef(k, kb-k).toInt();
+    //*/
 }
 
+bool isValidName(const QString &n){
+    return std::count_if(n.begin(), n.end(), [](const QChar &a){return a.isLetterOrNumber() || a == '_';})==n.length();
+}
 
 
 /*****************************************************************/

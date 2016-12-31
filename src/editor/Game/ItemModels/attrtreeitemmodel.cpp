@@ -302,7 +302,7 @@ bool GameTreeItem<type>::setAttrData(int col, QVariant value, int role){
         }
     }
     else if(col == 0){
-        if(role == Qt::EditRole && value.toString() != attr){
+        if(role == Qt::EditRole && value.toString() != attr && isValidName(value.toString())){
             switch (type) {
             case ParamItem:
                 obj->renameParam(attr, value.toString());

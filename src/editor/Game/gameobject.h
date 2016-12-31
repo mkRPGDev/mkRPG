@@ -14,24 +14,25 @@
  */
 
 bool cleverComp(const QString &na, const QString &nb);
+/**<
+ * Compares to string classing \c name_10 after \c name_2.
+ */
+bool isValidName(const QString &n);
+/**<
+ * Returns true if the string \c n contains only letters, digits or "_".
+ */
 
+#define UNUSED(p)                                                                                                                           /*!<
+ * Usefull macro to avoid "Unused parameter" warning.
+ */
 
-#define UNUSED(p)
+#define TypeName(Type) virtual QString typeName() const{return QObject::tr(#Type);}                                                         /*!<
+ * This macro declares the type name that will be visible to the user.
+ *
+ * It must be use in a GameObject inherited class public scope.
+ */
 
-#define TypeName(Type) virtual QString typeName() const{return QObject::tr(#Type);}
-
-#define ObjectListDef(Objects,Type) private: QMap<int, Type*> a##Objects; public:
-#define ObjectListAdd(Object,Objects, Type) void add##Object(Type* new##Object){a##Objects[new##Object->ident()] = new##Object; touch();}
-#define ObjectListTake(Object, Objects, Type) Type* take##Object(int id){touch(); return a##Objects.take(id);}
-#define ObjectListGetter(object,Objects, Type) inline Type* object(int id) const{return a##Objects.value(id, nullptr);}
-#define ObjectListValues(objects,Objects, Type) inline QList<Type*> objects() const{return a##Objects.values();}
-#define ObjectListGetters(object,Object,objects,Objects,Type) ObjectListGetter(object,Objects, Type) ObjectListValues(objects,Objects, Type)
-#define ObjectListModifiers(Object, Objects, Type) ObjectListAdd(Object,Objects, Type) ObjectListTake(Object, Objects, Type)
-#define ObjectList(object,Object,objects,Objects,Type) \
-    ObjectListDef(Objects,Type) ObjectListGetters(object,Object,objects,Objects,Type) ObjectListModifiers(Object, Objects, Type)
-#define ObjectListD(init,Init,body,sg,pl,Type) ObjectList(init##body##sg,Init##body##sg,init##body##pl,Init##body##pl,Type)
-
-#define C(Macro, init,Init,body, ...) Macro(init##body, Init##body, ##__VA_ARGS__) /*!<
+#define C(Macro, init,Init,body, ...) Macro(init##body, Init##body, ##__VA_ARGS__)                                                          /*!<
  * The C macro calls the Macro argument with argument tokens formed by the concatenation
  * of init and body, and Init and body.
  *
@@ -59,7 +60,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see \ref object.h
  */
-#define C0(Macro, init,Init,body) Macro(init##body, Init##body) /*!<
+#define C0(Macro, init,Init,body) Macro(init##body, Init##body)                                                                             /*!<
  * The C0 macro is equivalent to the #C macro, with no additional argument.
  *
  * This macro is provided to avoid the use of variadic arguments that are currently
@@ -72,7 +73,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see C1
  */
-#define C1(Macro, init,Init,body, arg) Macro(init##body, Init##body, arg) /*!<
+#define C1(Macro, init,Init,body, arg) Macro(init##body, Init##body, arg)                                                                   /*!<
  * The C1 macro is equivalent to the #C macro, with one additional argument.
  *
  * This macro is provided to avoid the use of variadic arguments that are currently
@@ -85,13 +86,13 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see C0
  */
-#define ProtectFlag(flag) reserved.insert(QString(#flag));/*!<
+#define ProtectFlag(flag) reserved.insert(QString(#flag));                                                                                  /*!<
  * The ProtectFlag macro registers the flag named \c flag as protected
  * \i ie it cannot be modified directly in a flag editor (it will not appear).
  *
  * \see flag, ProtectParam
  */
-#define SetFlag(flag, value) setFlag(#flag,value) /*!<
+#define SetFlag(flag, value) setFlag(#flag,value)                                                                                           /*!<
  * Conveniant macro to set a flag directly.
  *
  * This is usefull in custom setters, to avoid call loops.
@@ -107,7 +108,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Flag, FlagSetter, \ref object.h
  */
-#define FlagGetter(flag, Flag) inline bool is##Flag() const{return getFlag(#flag);} /*!<
+#define FlagGetter(flag, Flag) inline bool is##Flag() const{return getFlag(#flag);}                                                         /*!<
  * The FlagGetter macro defines a generic getter method for the flag named \c flag.
  *
  * With respect to the \ref object.h "name convention", this macro needs the flag's name with lower and upper
@@ -125,7 +126,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Flag, FlagSetter, C
  */
-#define FlagSetter(flag, Flag) inline void set##Flag(bool flag){SetFlag(flag,flag); touch();} /*!<
+#define FlagSetter(flag, Flag) inline void set##Flag(bool flag){SetFlag(flag,flag); touch();}                                               /*!<
  * The FlagSetter macro defines a generic setter method for the flag named \c flag.
  *
  * With respect to the \ref object.h "name convention", this macro needs the flag's name with lower and upper
@@ -138,7 +139,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Flag, FlagGetter, C
  */
-#define Flag(flag, Flag) FlagGetter(flag, Flag) FlagSetter(flag, Flag) /*!<
+#define Flag(flag, Flag) FlagGetter(flag, Flag) FlagSetter(flag, Flag)                                                                      /*!<
  * The Flag macro defines generic getter and setter methods for the flag named \c flag.
  *
  * With respect to the \ref object.h "name convention", this macro needs the flag's name with lower and upper
@@ -152,13 +153,13 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see FlagGetter, FlagSetter, C
  */
-#define ProtectParam(param) reserved.insert(QString(#param));/*!<
+#define ProtectParam(param) reserved.insert(QString(#param));                                                                               /*!<
  * The ProtectParam macro registers the flag named \c param as protected
  * \i ie it cannot be modified directly in a param editor (it will not appear).
  *
  * \see param, ProtectFlag
  */
-#define SetParam(param, value) setParam(#param,value) /*!<
+#define SetParam(param, value) setParam(#param,value)                                                                                       /*!<
  * Conveniant macro to set a param directly.
  *
  * This is usefull in custom setters, to avoid call loops.
@@ -175,7 +176,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see Param, ParamSetter, \ref object.h
  */
-#define ParamGetter(param) inline int param() const{return getParam(#param);} /*!<
+#define ParamGetter(param) inline int param() const{return getParam(#param);}                                                               /*!<
  * The ParamGetter macro defines a generic getter method for the parameter named \c param.
  *
  *
@@ -191,7 +192,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Param, ParamSetter
  */
-#define ParamSetter(param, Param) inline void set##Param(int param##Value){SetParam(param,param##Value); touch();} /*!<
+#define ParamSetter(param, Param) inline void set##Param(int param##Value){SetParam(param,param##Value); touch();}                          /*!<
  * The ParamSetter macro defines a generic setter method for the parameter named \c param.
  *
  * With respect to the \ref object.h "name convention", this macro needs the parameter's name with lower and upper
@@ -211,7 +212,7 @@ bool cleverComp(const QString &na, const QString &nb);
 #define ParamDom(param, Param) ParamMin(param,Param) ParamMax(param,Param)
 // faire les Setter/Getter (min, max);
 
-#define Param(param, Param) ParamGetter(param) ParamSetter(param, Param) ParamDom(param,Param) /*!<
+#define Param(param, Param) ParamGetter(param) ParamSetter(param, Param) ParamDom(param,Param)                                              /*!<
  * The Param macro defines generic getter and setter methods for the parameter named \c param.
  *
  * With respect to the \ref object.h "name convention", this macro needs the parameter's name with lower and upper
@@ -225,7 +226,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see ParamGetter, ParamSetter, C
  */
-#define AttrGetter(attr, Attr, Type) inline Type* attr() const{return a##Attr;} /*!<
+#define AttrGetter(attr, Attr, Type) inline Type* attr() const{return a##Attr;}                                                             /*!<
  * The AttrGetter macro defines a generic getter method for the attribute named \c attr of type \c Type.
  *
  * With respect to the \ref object.h "name convention", this macro needs the attribute's name with lower and upper
@@ -238,19 +239,19 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Attr, AttrSetter, C
  */
-#define AttrFree(Attr) if(a##Attr) a##Attr->removeReference();/*!<
+#define AttrFree(Attr) if(a##Attr) a##Attr->removeReference();                                                                              /*!<
  * The AttrFree macro decrease the number of references of the GameObject attribut attr.
  * It should be used before the deletion/modifcation of the pointer.
  *
  * \see AttrLink
  */
-#define AttrLink(Attr) if(a##Attr) a##Attr->addReference();/*!<
+#define AttrLink(Attr) if(a##Attr) a##Attr->addReference();                                                                                 /*!<
  * The AttrLink macro increase the number of references of the GameObject attribut attr.
  * It should be used before the saving of a pointer as an attribute.
  *
  * \see AttrFree
  */
-#define AttrSetter(attr, Attr, Type) inline void set##Attr(Type* new##Attr){AttrFree(Attr); a##Attr = new##Attr; AttrLink(Attr); touch();} /*!<
+#define AttrSetter(attr, Attr, Type) inline void set##Attr(Type* new##Attr){AttrFree(Attr); a##Attr = new##Attr; AttrLink(Attr); touch();}  /*!<
  * The AttrSetter macro defines a generic setter method for the attribute named \c attr of type \c Type.
  *
  * With respect to the \ref object.h "name convention", this macro needs the attribute's name with lower and upper
@@ -263,7 +264,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Attr, AttrGetter, C
  */
-#define AttrDef(Attr, Type) private: Type* a##Attr = nullptr; public: /*!<
+#define AttrDef(Attr, Type) private: Type* a##Attr = nullptr; public:                                                                       /*!<
  * The AttrDef macro defines a private attribute name <a\c Attr>.
  *
  * \note
@@ -285,7 +286,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see Attr
  */
-#define Attr(attr, Attr, Type) AttrDef(Attr, Type) AttrGetter(attr,Attr,Type) AttrSetter(attr, Attr, Type) /*!<
+#define Attr(attr, Attr, Type) AttrDef(Attr, Type) AttrGetter(attr,Attr,Type) AttrSetter(attr, Attr, Type)                                  /*!<
  * The Attr macro defines a new <a\c Attr> named attribute of type \c Type, with its generic getter and setter methods.
  *
  * With respect to the \ref object.h "name convention", this macro needs the parameter's name with lower and upper
@@ -304,7 +305,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see AttrT, AttrDef, AttrSetter, AttrGetter, C
  */
-#define AttrT(type,Type) Attr(type, Type, Type) /*!<
+#define AttrT(type,Type) Attr(type, Type, Type)                                                                                             /*!<
  * The AttrT macro defines a new attribute of type \c Type, named after the type name, with its generic getter and setter methods.
  *
  * With respect to the \ref object.h "name convention", this macro needs the parameter's type with lower and upper

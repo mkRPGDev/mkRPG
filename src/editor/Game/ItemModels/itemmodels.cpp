@@ -75,8 +75,10 @@ bool ObjectsTreeModel::setData(const QModelIndex &index, const QVariant &value, 
     GameObject *obj = static_cast<GameObject*>(index.internalPointer());
     switch (role) {
     case Qt::EditRole:
-        obj->setName(value.toString());
-        return true;
+        if(isValidName(value.toString())){
+            obj->setName(value.toString());
+            return true;
+        }
     default:
         break;
     }
@@ -121,6 +123,7 @@ int ActionsListModel::rowCount(const QModelIndex &parent) const{
 QVariant ActionsListModel::data(const QModelIndex &index, int role) const{
     if(!index.isValid()) return QVariant();
     switch (role) {
+    case Qt::EditRole:
     case Qt::DisplayRole: return actions.at(index.row());
     default: return QVariant();
     }
@@ -132,7 +135,9 @@ Qt::ItemFlags ActionsListModel::flags(const QModelIndex &UNUSED(index)) const{
 
 bool ActionsListModel::setData(const QModelIndex &index, const QVariant &value, int role){
     if(!index.isValid() || role == Qt::DisplayRole) return false;
-    actions[index.row()] = game->renameAction(actions.at(index.row()), value.toString());
+    QString act = value.toString();
+    if(!isValidName(act)) return false;
+    actions[index.row()] = game->renameAction(actions.at(index.row()), act);
     emit dataChanged(index,index);
     sortActions();
     return true;

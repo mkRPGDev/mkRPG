@@ -13,11 +13,13 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     worldEditor = new WorldTab;
     mapsEditor = new MapsTab;
     objectEditor = new ObjectTab;
+    actionEditor = new ActionTab;
 
     addTab(tr("Welcome"), QPixmap(":Icons/main.png"), new Welcome);
     addTab(tr("Game"), QPixmap(":Icons/main.png"), worldEditor);
     addTab(tr("Maps"), QPixmap(":Icons/main.png"), mapsEditor);
     addTab(tr("Objects"), QPixmap(":Icons/main.png"), objectEditor);
+    addTab(tr("Actions"), QPixmap(":Icons/main.png"), actionEditor);
 
     loadDefault();
 
@@ -32,6 +34,7 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     mapsEditor->setGame(g);
     worldEditor->setGame(g);
     objectEditor->setGame(g);
+    actionEditor->setGame(g);
 
     connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
 }
@@ -111,6 +114,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
+    g->addAction("moveLeft", new Action());
 
     im = new Image(*g, ":/Icons/herbe.png");
     g->addImage(im);
@@ -128,6 +132,8 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     g->addImage(im);
     CellType *ct = new CellType(g->world().types().cellType());
     ct->setName("Eau");
+    ct->addEvent("Naufrage");
+    ct->addOrder("Saler");
     ct->setImage(im);
     ct->setParam("Profondeur", 75);
 
@@ -141,7 +147,9 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     CellType *ctt = new CellType(*ct3);
     ctt->setName("Atlantique");
     ctt->setParam("Salinité", 8);
-    ctt->setParam("Concentration de requins", 20);
+    ctt->addEvent("Titanic");
+    ctt->addOrder("Traverser");
+    ctt->setParam("Requins", 20);
     g->world().addCellType(ct);
     Map *m = new Map(g->world().types().mapType(), g->world());
     g->world().addMap(m);

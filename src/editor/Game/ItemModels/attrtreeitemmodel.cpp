@@ -34,16 +34,16 @@ GameTreeItem<type>::GameTreeItem(int rowNb, GameObject *obj, InheritableObject *
             attrs = anc == nullptr ? obj->flags() : anc->properFlags();
             break;
         case EventItem:
-            attrs = anc == nullptr ? obj->getEvents() : anc->properEvents();
+            attrs = anc == nullptr ? obj->events() : anc->properEvents();
             break;
         case OrderItem:
-            attrs = anc == nullptr ? obj->getOrders() : anc->properOrders();
+            attrs = anc == nullptr ? obj->orders() : anc->properOrders();
             break;
         default:
             assert(false);
         }
         for(int i(0); i<attrs.length(); ++i)
-            children.append(new GameTreeItem<type>(i, obj, typ, Attribute, this));
+            children.append(new GameTreeItem<type>(i, obj == nullptr ? anc : obj, typ, Attribute, this));
         break;
     case Attribute:
         attr = parent->attrs[rowNb];
@@ -126,8 +126,6 @@ Qt::ItemFlags GameTreeItem<type>::flags(int col) const{
     default: return Qt::NoItemFlags;
     }
 }
-
-
 template<ItemType type>
 Qt::ItemFlags GameTreeItem<type>::typeFlags(int) const{
     return Qt::NoItemFlags;
@@ -236,12 +234,13 @@ QVariant GameTreeItem<type>::valueData(int col, int role) const{
         if(col == 0)
             switch (role) {
             case Qt::DisplayRole: return QVariant(rowNb ? "Maximum" : "Minimum");
-            case Qt::SizeHintRole: return QVariant(QPoint(-10000,10000));
             default: return QVariant();
             }
         else
             switch (role) {
+            case Qt::EditRole:
             case Qt::DisplayRole: return QVariant(rowNb ? obj->getParamMax(attr) : obj->getParamMin(attr));
+            case Qt::SizeHintRole: return QVariant(QPoint(-10000,10000));
             default: return QVariant();
             }
     case EventItem:

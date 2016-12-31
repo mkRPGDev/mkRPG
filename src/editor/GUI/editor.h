@@ -10,6 +10,7 @@
 #include "Tabs/worldtab.h"
 #include "Tabs/MapTab/maptab.h"
 #include "Tabs/objecttab.h"
+#include "Tabs/actiontab.h"
 
 /*!
  * \file editor.h
@@ -78,6 +79,7 @@ private:
     WorldTab *worldEditor;
     MapsTab *mapsEditor;
     ObjectTab *objectEditor;
+    ActionTab *actionEditor;
 
 };
 

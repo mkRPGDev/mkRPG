@@ -19,6 +19,62 @@ bool cleverComp(const QString &na, const QString &nb){
 
 
 
+/*****************************************************************/
+
+
+Action::Action() :
+    aEmitter(nullptr)
+{}
+
+Action::~Action(){
+    setEmitter(nullptr);
+    for(QPair<GameObject*,QString> &rcv : aReceivers)
+        removeReceiver(rcv.first, rcv.second);
+}
+
+
+void Action::setEmitter(GameObject *emitter){
+    if(aEmitter)
+        aEmitter->removeEmittedAction(this);
+    aEmitter = emitter;
+    if(aEmitter)
+        aEmitter->addEmittedAction(this);
+}
+
+void Action::setEvent(const QString &event){
+    aEvent = event;
+}
+
+void Action::addReceiver(GameObject *receiver, const QString &order){
+    assert(receiver != nullptr);
+    aReceivers.append(QPair<GameObject*, QString>(receiver, order));
+    receiver->addReceivedAction(this);
+}
+
+void Action::removeReceiver(GameObject *receiver){
+    assert(receiver != nullptr);
+    aReceivers.erase(std::remove_if(aReceivers.begin(), aReceivers.end(), [this, receiver](const QPair<GameObject*, QString> &a){
+        if(a.first == receiver){
+            receiver->removeReceivedAction(this);
+            return true;
+        }
+        return false;
+    }));
+}
+
+void Action::removeReceiver(GameObject *receiver, const QString &order){
+    aReceivers.removeAll(QPair<GameObject*, QString>(receiver, order));
+}
+
+bool Action::isValid() const{
+    return aEmitter != nullptr && aEmitter->hasEvent(aEvent);
+}
+
+
+
+
+
+/*****************************************************************/
 
 
 GameObject::GameObject(Game* g, GameObject *parent) :
@@ -45,6 +101,8 @@ GameObject::~GameObject(){
         qDebug() << "Salut..." << id << "Références" << nbRef;
     for(GameObject* c : aChildren.values()) delete c;
     if(aParent) aParent->removeChild(this);
+    for(Action* a : aEmittedActions) a->setEmitter(nullptr);
+    for(Action* a : aReceivedActions) a->removeReceiver(this);
 }
 
 void GameObject::init(Game *g, GameObject* parent){
@@ -213,7 +271,7 @@ void GameObject::removeEvent(const QString &event){
     aEvents.remove(event);
 }
 
-QList<QString> GameObject::getEvents() const{
+QList<QString> GameObject::events() const{
     return aEvents.keys();
 }
 
@@ -235,17 +293,31 @@ void GameObject::removeOrder(const QString &order){
     aOrders.remove(order);
 }
 
-QList<QString> GameObject::getOrders() const{
+QList<QString> GameObject::orders() const{
     return aOrders.keys();
+}
+
+
+void GameObject::addEmittedAction(Action *action){
+    aEmittedActions.append(action);
+}
+
+void GameObject::removeEmittedAction(Action *action){
+    aEmittedActions.removeAll(action);
+}
+
+void GameObject::addReceivedAction(Action *action){
+    aReceivedActions.append(action);
+}
+
+void GameObject::removeReceivedAction(Action *action){
+    aReceivedActions.removeOne(action);
 }
 
 
 
 
-
-
-
-
+/*****************************************************************/
 
 
 InheritableObject::InheritableObject(GameObject &parent, InheritableObject *ancestor) :
@@ -370,8 +442,8 @@ Event& InheritableObject::getEvent(const QString &event){
     return aEvents[event];
 }
 
-QList<QString> InheritableObject::getEvents() const {
-    return aAncestor ? aAncestor->getEvents() << aEvents.keys() : aEvents.keys();
+QList<QString> InheritableObject::events() const {
+    return aAncestor ? aAncestor->events() << aEvents.keys() : aEvents.keys();
 }
 
 QList<QString> InheritableObject::properEvents() const {
@@ -379,7 +451,7 @@ QList<QString> InheritableObject::properEvents() const {
 }
 
 HierarchicalAttr InheritableObject::eventTree() const{
-    return (aAncestor ? aAncestor->eventTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::getEvents());
+    return (aAncestor ? aAncestor->eventTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::events());
 }
 
 
@@ -398,8 +470,8 @@ Order &InheritableObject::getOrder(const QString &order){
     return aOrders[order];
 }
 
-QList<QString> InheritableObject::getOrders() const {
-    return aAncestor ? aAncestor->getOrders() << aOrders.keys() : aOrders.keys();
+QList<QString> InheritableObject::orders() const {
+    return aAncestor ? aAncestor->orders() << aOrders.keys() : aOrders.keys();
 }
 
 QList<QString> InheritableObject::properOrders() const {
@@ -407,11 +479,12 @@ QList<QString> InheritableObject::properOrders() const {
 }
 
 HierarchicalAttr InheritableObject::orderTree() const{
-    return (aAncestor ? aAncestor->orderTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::getOrders());
+    return (aAncestor ? aAncestor->orderTree() : HierarchicalAttr()) << QPair<QString,QList<QString>>(typeName(), GameObject::orders());
 }
 
 
 
+/*****************************************************************/
 
 #include "game.h"
 GameObjectType::GameObjectType(DefaultTypes &parent) :

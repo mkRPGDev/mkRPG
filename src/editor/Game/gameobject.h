@@ -335,11 +335,11 @@ public:
     Parameter(int min, int max, int v = 0): min(min), max(max){setValue(v);}
     void setValue(int v){pValue = std::min(std::max(min,v),max);}
     inline int value() const {return pValue;}
-    void setMinimum(int m) {min = m; setValue(pValue);}
+    void setMinimum(int m) {min = m; max = std::max(max,min); setValue(pValue);}
     inline int minimum() const {return min;}
-    void setMaximum(int m) {max = m; setValue(pValue);}
+    void setMaximum(int m) {max = m; min = std::min(max,min); setValue(pValue);}
     inline int maximum() const {return max;}
-    void setDomain(int minVal, int maxVal) {min = minVal; max = maxVal; setValue(pValue);}
+    void setDomain(int minVal, int maxVal) {min = minVal; max = std::max(maxVal,min); setValue(pValue);}
 
 private:
     int min, max;
@@ -381,7 +381,12 @@ public:
      */
     enum OrderType{
         ChangeParam,
-        ChangeFlag
+        ChangeFlag,
+        EmitEvent,
+        ConditionalEvent,
+        WatchDogEvent,
+        SetTimer,
+        SetObject
     };
 
     Order(){}
@@ -392,8 +397,30 @@ private:
 };
 
 
-class Game;
+class GameObject;
+class Action
+{
+public:
+    Action();
+    ~Action();
+    void setEmitter(GameObject *emitter);
+    void setEvent(const QString &event);
+    void addReceiver(GameObject *receiver, const QString &order);
+    void removeReceiver(GameObject *receiver);
+    void removeReceiver(GameObject *receiver, const QString &order);
 
+    bool isValid() const;
+private:
+    GameObject *aEmitter;
+    QString aEvent;
+    QList<QPair<GameObject*, QString>> aReceivers;
+};
+
+
+
+
+
+class Game;
 /*!
  * \brief The GameObject class is the base class for every part
  * of games.
@@ -437,17 +464,21 @@ protected:
      * If these objects cannot be given to the constructor (case of an array of objects), the
      * \ref init method must be called after the creation to make the GameObject valid.
      */
+
+public:
     virtual ~GameObject();                                                                      /**<
      * The default destructor destroy every children of the instance
      */
 
-public:
     TypeName(GameObject)
 
     inline int ident() const{return id;}                                                        /**<
      * Returns the name wide unique identifier of the object.
      *
      * \see init, \ref GameObject::GameObject "GameObject"
+     */
+    virtual bool isEditable() const{return true;}                                               /**<
+     * Returns \c true if the GameObject is editable by the user.
      */
 
     inline const QDateTime& lastInternalEdition() const{return lastEdit;}                       /**<
@@ -666,12 +697,12 @@ public:
      */
 
 
-    virtual bool hasEvent(const QString &event) const;                                        /**<
+    virtual bool hasEvent(const QString &event) const;                                          /**<
      * Return \c true if the GameObject has a event named \c event.
      *
      * \see getEvent, getEvents, hasOrder
      */
-    virtual Event& getEvent(const QString &event);                                           /**<
+    virtual Event& getEvent(const QString &event);                                              /**<
      * Returns the event named \c event.
      *
      * \note
@@ -680,7 +711,7 @@ public:
      *
      * \see getEvents, getOrder
      */
-    virtual Event& addEvent(const QString &event);                                           /**<
+    virtual Event& addEvent(const QString &event);                                              /**<
      * Create a new event named \c event.
      *
      * \note
@@ -688,23 +719,23 @@ public:
      *
      * \see removeEvent, addOrder
      */
-    virtual void removeEvent(const QString &event);                                           /**<
+    virtual void removeEvent(const QString &event);                                             /**<
      * Delete the event named \c event, if exists.
      *
      * \see addEvent, removeOrder
      */
-    virtual QList<QString> getEvents() const;                                                  /**<
+    virtual QList<QString> events() const;                                                      /**<
      * Returns the list of event's names of the object.
      *
      * \see getEvent, getOrders
      */
 
-    virtual bool hasOrder(const QString &order) const;                                            /**<
+    virtual bool hasOrder(const QString &order) const;                                          /**<
      * Return \c true if the GameObject has a order named \c order.
      *
      * \see getOrder, getOrders, hasEvent
      */
-    virtual Order& getOrder(const QString &order);                                                 /**<
+    virtual Order& getOrder(const QString &order);                                              /**<
      * Returns the order named \c order.
      *
      * \note
@@ -713,7 +744,7 @@ public:
      *
      * \see getOrders, getEvent
      */
-    virtual Order& addOrder(const QString &order);                                                 /**<
+    virtual Order& addOrder(const QString &order);                                              /**<
      * Create a new order named \c order.
      *
      * \note
@@ -721,15 +752,45 @@ public:
      *
      * \see removeOrder, addEvent
      */
-    virtual void removeOrder(const QString &order);                                               /**<
+    virtual void removeOrder(const QString &order);                                             /**<
      * Delete the order named \c order, if exists.
      *
      * \see addOrder, removeEvent
      */
-    virtual QList<QString> getOrders() const;                                                    /**<
+    virtual QList<QString> orders() const;                                                      /**<
      * Returns the list of order's names of the object.
      *
      * \see getOrder, getEvents
+     */
+
+
+    void addEmittedAction(Action *action);                                                      /**<
+     * Register the GameObject as the emitter of the action \c action.
+     *
+     * This is usefull to avoid dangling references.
+     *
+     * \see removeEmittedAction, addReceivedAction
+     */
+    void removeEmittedAction(Action *action);                                                   /**<
+     * Free the GameObject from the action \c action as its emitter.
+     *
+     * This is usefull to avoid dangling references.
+     *
+     * \see addEmittedAction, removeReceivedAction
+     */
+    void addReceivedAction(Action *action);                                                     /**<
+     * Register the GameObject as one of the receivers of the action \c action.
+     *
+     * This is usefull to avoid dangling references.
+     *
+     * \see removeReceivedAction, addEmittedAction
+     */
+    void removeReceivedAction(Action *action);                                                  /**<
+     * Free the GameObject from the action \c action as one of its receivers.
+     *
+     * This is usefull to avoid dangling references.
+     *
+     * \see addReceivedAction, removeEmittedAction
      */
 
 protected:
@@ -774,7 +835,8 @@ protected:
     QString fileName;
     QDateTime lastEdit, lastChildEdit;
     QSet<QString> reserved;
-
+    QList<Action*> aEmittedActions;
+    QList<Action*> aReceivedActions;
 private:
     int id;
 
@@ -823,7 +885,7 @@ public:
      * Returns true if the \c param parameter is define in one of
      * the ancestors of the object.
      *
-     * \see isRedefiniedParam, isInheritedFlag
+     * \see isRedefiniedParam, isInheritedFlag isInheritedEvent, isInheritedOrder
      */
     virtual bool isRedefiniedParam(const QString &param) const;     /**<
      * Returns true if the \c param parameter is an inherited parameter
@@ -860,38 +922,38 @@ public:
      * Returns the value of the \c param parameter, loocking
      * for it in the different ancestors if not found.
      *
-     * \see hasParam, getFlag, GameObject::getParam
+     * \see hasEvent, GameObject::getEvent, getFlag, getEvent, getOrder
      */
     virtual bool hasParam(const QString &param) const;              /**<
      * Returns true if the \c param parameter is defined in the
      * object or one of its ancestors.
      *
-     * \see getParam, hasFlag, GameObject::hasParam
+     * \see getParam, GameObject::hasParam, hasFlag, hasEvent, hasOrder
      */
     virtual QList<QString> params() const;                          /**<
      * Returns the list of the parameters of the object,
      * both proper and inherited.
      *
-     * \see properParams, paramTree, flags
+     * \see properParams, paramTree, flags, events, orders
      */
     virtual QList<QString> properParams() const;                    /**<
      * Returns the list of the parameters that are only defined
      * in the object (the uninherited parameters)
      *
-     * \see params, paramTree, properFlags
+     * \see params, paramTree, properFlags, properEvents, properOrders
      */
     HierarchicalAttr paramTree() const;                             /**<
      * Returns the hierarchy of parameters, that is the list of
-     * ancestors and wich parameters they define.
+     * ancestors and which parameters they define.
      *
-     * \see properParams, flagTree
+     * \see params, properParams, flagTree, eventTree, orderTree
      */
 
     virtual bool isInheritedFlag(const QString &flag) const;        /**<
      * Returns true if the \c flag flag is define in one of
      * the ancestors of the object.
      *
-     * \see isRedefiniedFlag, isInheritedParam
+     * \see isRedefiniedFlag, isInheritedParam isInheritedEvent, isInheritedOrder
      */
     virtual bool isRedefiniedFlag(const QString &flag) const;       /**<
      * Returns true if the \c flag flag is an inherited flag
@@ -903,46 +965,106 @@ public:
      * Returns the value of the \c flag flag, loocking
      * for it in the different ancestors if not found.
      *
-     * \see hasFlag, getParam, GameObject::getFlag
+     * \see hasEvent, GameObject::getEvent, getParam, getEvent, getOrder
      */
     virtual bool hasFlag(const QString &flag) const;                /**<
      * Returns true if the \c flag flag is defined in the
      * object or one of its ancestors.
      *
-     * \see getFlag, hasParam, GameObject::hasFlag
+     * \see getFlag, GameObject::hasFlag, hasParam, hasEvent, hasOrder
      */
     virtual QList<QString> flags() const;                           /**<
      * Returns the list of the flags of the object,
      * both proper and inherited.
      *
-     * \see properFlags, flagTree, params
+     * \see properFlags, flagTree, params, events, orders
      */
     virtual QList<QString> properFlags() const;                     /**<
      * Returns the list of the flags that are only defined
      * in the object (the uninherited flags)
      *
-     * \see paramTree, properFlags
+     * \see flags, flagTree, properParams, properEvents, properOrders
      */
     HierarchicalAttr flagTree() const;                              /**<
      * Returns the hierarchy of flags, that is the list of
-     * ancestors and wich flags they define.
+     * ancestors and which flags they define.
      *
-     * \see properFlags, paramTree
+     * \see flags, properFlags, paramTree, eventTree, orderTree
      */
 
-    virtual bool isInheritedEvent(const QString &event) const;
-    virtual bool hasEvent(const QString &event) const;
-    virtual Event& getEvent(const QString &event);
-    virtual QList<QString> getEvents() const;
-    virtual QList<QString> properEvents() const;
-    HierarchicalAttr eventTree() const;
+    virtual bool isInheritedEvent(const QString &event) const;      /**<
+     * Returns true if the \c event event is define in one of
+     * the ancestors of the object.
+     *
+     * \see isInheritedParam, isInheritedFlag, isInheritedOrder
+     */
+    virtual bool hasEvent(const QString &event) const;              /**<
+     * Returns true if the \c event event is defined in the
+     * object or one of its ancestors.
+     *
+     * \see getEvent, GameObject::hasEvent, hasParam, hasFlag, hasOrder
+     */
+    virtual Event& getEvent(const QString &event);                  /**<
+     * Returns the \c event event, loocking
+     * for it in the different ancestors if not found.
+     *
+     * \see hasEvent, GameObject::getEvent, getParam, getFlag, getOrder
+     */
+    virtual QList<QString> events() const;                          /**<
+     * Returns the list of the events of the object,
+     * both proper and inherited.
+     *
+     * \see properEvents, eventTree, params, flags, orders
+     */
+    virtual QList<QString> properEvents() const;                    /**<
+     * Returns the list of the events that are only defined
+     * in the object (the uninherited events)
+     *
+     * \see events, eventTree, properParams, properFlags, properOrders
+     */
+    HierarchicalAttr eventTree() const;                             /**<
+     * Returns the hierarchy of event, that is the list of
+     * ancestors and which event they define.
+     *
+     * \see events, properEvents, paramTree, flagTree, orderTree
+     */
 
-    virtual bool isInheritedOrder(const QString &order) const;
-    virtual bool hasOrder(const QString &order) const;
-    virtual Order& getOrder(const QString &order);
-    virtual QList<QString> getOrders() const;
-    virtual QList<QString> properOrders() const;
-    HierarchicalAttr orderTree() const;
+    virtual bool isInheritedOrder(const QString &order) const;      /**<
+     * Returns true if the \c order order is define in one of
+     * the ancestors of the object.
+     *
+     * \see isInheritedParam, isInheritedFlag isInheritedEvent
+     */
+    virtual bool hasOrder(const QString &order) const;              /**<
+     * Returns true if the \c order order is defined in the
+     * object or one of its ancestors.
+     *
+     * \see getOrder, GameObject::hasOrder, hasParam, hasFlag, hasEvent
+     */
+    virtual Order& getOrder(const QString &order);                  /**<
+     * Returns the \c order order, loocking
+     * for it in the different ancestors if not found.
+     *
+     * \see hasOrder, GameObject::getEvent, getParam, getFlag, getEvent
+     */
+    virtual QList<QString> orders() const;                          /**<
+     * Returns the list of the orders of the object,
+     * both proper and inherited.
+     *
+     * \see properOrders, orderTree, params, flags, events
+     */
+    virtual QList<QString> properOrders() const;                    /**<
+     * Returns the list of the orders that are only defined
+     * in the object (the uninherited orders)
+     *
+     * \see orders, orderTree, properParams, properFlags, properEvents
+     */
+    HierarchicalAttr orderTree() const;                             /**<
+     * Returns the hierarchy of orders, that is the list of
+     * ancestors and which orders they define.
+     *
+     * \see orders, properOrders, paramTree, flagTree, eventTree
+     */
 
 protected:
 

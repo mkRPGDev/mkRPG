@@ -27,8 +27,8 @@ class DefaultTypes : public GameObject
 {
 public:
     TypeName(Types)
-
     DefaultTypes(World &parent);
+    bool isEditable() const{return false;}
     C0(DefaultType,c,C,ellType)
     C0(DefaultType,m,M,apType)
     C0(DefaultType,o,O,bjectType)
@@ -83,6 +83,12 @@ public:
 
     void addImage(Image *im);
 
+    QList<QString> actions() const;
+    Action *action(const QString &a);
+    QString addAction(QString a, Action *act);
+    void removeAction(const QString &a);
+    QString renameAction(const QString &a, const QString &nv);
+
 private:
     int idDisp;
     QMap<int, GameObject*> objects;
@@ -91,7 +97,7 @@ private:
     Map *map;
     QMap<int, Image*> picts;
     QMap<int, QString> strings;
-
+    QMap<QString, Action*> aActions;
 };
 
 

@@ -4,7 +4,7 @@
 
 
 ObjectsTreeModel::ObjectsTreeModel(QObject *parent) :
-    QAbstractItemModel(parent)
+    QAbstractItemModel(parent), aEditable(true)
 {
     obj = nullptr;
 }
@@ -66,7 +66,9 @@ QVariant ObjectsTreeModel::headerData(int section, Qt::Orientation orientation, 
 
 
 Qt::ItemFlags ObjectsTreeModel::flags(const QModelIndex &index) const{
-    return QAbstractItemModel::flags(index) | ((index.column() == 0) ? Qt::ItemIsEditable : Qt::NoItemFlags);
+    if(static_cast<GameObject*>(index.internalPointer())->isEditable())
+        return QAbstractItemModel::flags(index) | ((index.column() == 0 && aEditable) ? Qt::ItemIsEditable : Qt::NoItemFlags);
+    return Qt::ItemIsEnabled;
 }
 
 bool ObjectsTreeModel::setData(const QModelIndex &index, const QVariant &value, int role){
@@ -79,4 +81,77 @@ bool ObjectsTreeModel::setData(const QModelIndex &index, const QVariant &value, 
         break;
     }
     return false;
+}
+
+void ObjectsTreeModel::setEditable(bool e){
+    aEditable = e;
+}
+
+
+
+
+
+
+
+
+
+
+
+ActionsListModel::ActionsListModel(QObject *parent) :
+    QAbstractListModel(parent), game(nullptr)
+{}
+
+ActionsListModel::ActionsListModel(Game *g, QObject *parent) :
+    ActionsListModel(parent)
+{
+    setGame(g);
+}
+
+void ActionsListModel::setGame(Game *g){
+    beginResetModel();
+    game = g;
+    actions = game ? game->actions() : QList<QString>();
+    endResetModel();
+}
+
+int ActionsListModel::rowCount(const QModelIndex &parent) const{
+    return parent.isValid() ? 0 : actions.length();
+}
+
+QVariant ActionsListModel::data(const QModelIndex &index, int role) const{
+    if(!index.isValid()) return QVariant();
+    switch (role) {
+    case Qt::DisplayRole: return actions.at(index.row());
+    default: return QVariant();
+    }
+}
+
+Qt::ItemFlags ActionsListModel::flags(const QModelIndex &UNUSED(index)) const{
+    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
+}
+
+bool ActionsListModel::setData(const QModelIndex &index, const QVariant &value, int role){
+    if(!index.isValid() || role == Qt::DisplayRole) return false;
+    actions[index.row()] = game->renameAction(actions.at(index.row()), value.toString());
+    emit dataChanged(index,index);
+    sortActions();
+    return true;
+}
+
+
+
+void ActionsListModel::addAction(const QString &name){
+    if(game != nullptr){
+        QModelIndex ins = index(rowCount(QModelIndex())-1, 0, QModelIndex());
+        emit beginInsertRows(ins, 0, 0);
+        actions.append(game->addAction(name, new Action()));
+        emit endInsertRows();
+        sortActions();
+    }
+}
+
+void ActionsListModel::sortActions(){
+    emit layoutAboutToBeChanged();
+    std::sort(actions.begin(), actions.end(), cleverComp);
+    emit layoutChanged();
 }

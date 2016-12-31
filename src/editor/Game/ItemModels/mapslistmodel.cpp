@@ -112,7 +112,7 @@ QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
 }
 
 
-Qt::ItemFlags CellTypeListModel::flags(const QModelIndex &index) const{
+Qt::ItemFlags CellTypeListModel::flags(const QModelIndex &UNUSED(index)) const{
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 

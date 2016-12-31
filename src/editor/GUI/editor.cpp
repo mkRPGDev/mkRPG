@@ -152,7 +152,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     ctt->setParam("Requins", 20);
     //g->world().addCellType(ct);
     Map *m = new Map(g->world().types().mapType(), g->world());
-    g->world().objects().addMap(*m);
+    g->world().objects().addMap(m);
     m->setName("Paysage_bucolique");
     int l = m->width();
     int h = m->height();
@@ -165,7 +165,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
 
     m = new Map(g->world().types().mapType(), g->world());
     m->setName("Le_grand_large");
-    g->world().objects().addMap(*m);
+    g->world().objects().addMap(m);
     l = m->width();
     h = m->height();
     for(int i(0); i<l; ++i)

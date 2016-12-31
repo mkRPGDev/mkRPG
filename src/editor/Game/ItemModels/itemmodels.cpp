@@ -16,7 +16,9 @@ ObjectsTreeModel::ObjectsTreeModel(GameObject *o, QObject *parent) :
 }
 
 void ObjectsTreeModel::setGameObject(GameObject *o){
+    beginResetModel();
     obj = o;
+    endResetModel();
 }
 
 int ObjectsTreeModel::columnCount(const QModelIndex &) const{
@@ -33,6 +35,8 @@ QVariant ObjectsTreeModel::data(const QModelIndex &index, int role) const{
     switch (role) {
     case Qt::DisplayRole:
         return  QVariant(obj->name() + " ("  +QString::number(obj->ident()) + ")");
+    case Qt::UserRole:
+        return QVariant(obj->ident());
     case Qt::EditRole:
         return QVariant(obj->name());
     }
@@ -90,6 +94,47 @@ void ObjectsTreeModel::setEditable(bool e){
 }
 
 
+
+
+
+FilteredObjectsTreeModel::FilteredObjectsTreeModel(QObject *parent):
+    QSortFilterProxyModel(parent), aDisplayedItem(0), eqTest(true)
+{}
+
+//int FilteredObjectsTreeModel::rowCount(const QModelIndex &parent) const{
+//    if(parent.isValid()) return sourceModel()->rowCount(parent);
+//    return std::min(1,sourceModel()->rowCount(parent));
+//}
+
+//QModelIndex FilteredObjectsTreeModel::mapFromSource(const QModelIndex &sourceIndex) const{
+//    if(sourceIndex.parent().isValid()) return sourceIndex;
+//    return createIndex(0,sourceIndex.column(), sourceIndex.internalPointer());
+//}
+
+//QModelIndex FilteredObjectsTreeModel::mapToSource(const QModelIndex &proxyIndex) const{
+//    if(proxyIndex.parent().isValid()) return proxyIndex;
+//    return createIndex(aDisplayedItem, proxyIndex.column(), proxyIndex.internalPointer());
+//}
+
+void FilteredObjectsTreeModel::setMode(bool eq){
+    beginResetModel();
+    eqTest = eq;
+    endResetModel();
+}
+
+bool FilteredObjectsTreeModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const{
+    return source_parent.isValid() || (eqTest ? source_row == aDisplayedItem : source_row != aDisplayedItem);
+}
+
+void FilteredObjectsTreeModel::setDisplayedItem(int nb){
+    beginResetModel();
+    aDisplayedItem = nb;
+    endResetModel();
+}
+
+int FilteredObjectsTreeModel::displayedItem() const{
+    return aDisplayedItem;
+}
 
 
 

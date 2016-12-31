@@ -2,7 +2,7 @@
 
 
 
-
+// TODO : recharger les nom quand modif dans objects.
 
 
 ObjectTab::ObjectTab(QWidget *parent) :
@@ -24,7 +24,6 @@ ObjectTab::ObjectTab(QWidget *parent) :
     orders->setModel(ordersModel);
     objects->setModel(objectsModel);
     objects->setColumnWidth(0, objects->width()/2);
-    types->setModel(typesModel);
     edit = new QWidget();
     editor->layout()->addWidget(edit);
 
@@ -48,12 +47,14 @@ void ObjectTab::setGame(Game *g){
     objects->expandAll();
     objects->resizeColumnToContents(0);
 
-    types->expandAll();
+    game = g;
 }
 
 
 void ObjectTab::currentElementChanged(const QModelIndex &ind){
-    currentObject = static_cast<GameObject*>(ind.internalPointer());
+    currentObject = ind.flags() & Qt::ItemIsSelectable ?
+                static_cast<GameObject*>(ind.internalPointer()) :
+                nullptr;
     newParam->setEnabled(currentObject != nullptr);
     newFlag->setEnabled(currentObject != nullptr);
     newEvent->setEnabled(currentObject != nullptr);
@@ -139,5 +140,29 @@ void ObjectTab::on_newOrder_clicked(){
             name+="_"+QString::number(k);
         }
         ordersModel->addOrder(name);
+    }
+}
+
+void ObjectTab::on_newObject_clicked(){
+    NewGameObject g(*game, this);
+    if(g.exec()){
+        GameObject *type = game->object(g.selectedType());
+        QString typeName(type->typeName());
+        if(g.createObject()){
+            if(typeName == "MapType")
+                game->world().objects().addMap(new Map(*static_cast<MapType*>(type),game->world()));
+            else if(typeName == "ObjectType")
+                game->world().objects().addObject(new Object(*static_cast<ObjectType*>(type),game->world()));
+        }
+        else{
+            if(typeName == "CellType")
+                new CellType(*static_cast<CellType*>(type));
+            else if(typeName == "MapType")
+                new MapType(*static_cast<MapType*>(type));
+            else if(typeName == "ObjectType")
+                new ObjectType(*static_cast<ObjectType*>(type));
+        }
+        objectsModel->setGameObject(game);
+        objects->expandAll();
     }
 }

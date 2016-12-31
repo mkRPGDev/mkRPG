@@ -90,7 +90,7 @@ QList<Type*> GameObjectList<Type>::gameObjects(){
 
 
 #define ListDef(Type, Types) private: GameObjectList<Type> *a##Types; public:
-#define ListAdd(type, Type, Types) void add##Type(Type &type) const{a##Types->addGameObject(type);}
+#define ListAdd(type, Type, Types) void add##Type(Type *type) const{a##Types->addGameObject(*type);}
 #define ListRemove(Type, Types) void remove##Type(int id) const{a##Types->removeGameObject(id);}
 #define ListSetter(type, Type, Types) ListAdd(type, Type, Types) ListRemove(Type,Types)
 #define ListGetAll(types, Type, Types) QList<Type*> types() const{return a##Types->gameObjects();}
@@ -125,12 +125,9 @@ class World : public GameObject
 public:
     TypeName(World)
     World(Game *g, GameObject *aParent);
-    //ObjectListD(m,M,ap,,s, Map) /**< Set of maps*/
-    //ObjectListD(o,O,bject,,s, Object)
-    //ObjectListD(c,C,ellType,,s, CellType)
 
-    const DefaultTypes &types() const;
-    const GameObjectInventory &objects() const;
+    /*const*/ DefaultTypes &types() /*const*/;
+    /*const*/ GameObjectInventory &objects() /*const*/;
 private:
     DefaultTypes *aTypes;
     GameObjectInventory *aObjects;

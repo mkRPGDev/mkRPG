@@ -39,11 +39,11 @@ World::World(Game *g, GameObject *parent) :
     aObjects(new GameObjectInventory(*this))
 {}
 
-const DefaultTypes & World::types() const{
+DefaultTypes &World::types(){
     return *aTypes;
 }
 
-const GameObjectInventory &World::objects() const{
+GameObjectInventory &World::objects(){
     return *aObjects;
 }
 

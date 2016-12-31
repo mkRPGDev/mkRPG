@@ -9,7 +9,7 @@
 #include "Game/ItemModels/attrtreeitemmodel.h"
 #include "itemdelegates.h"
 #include "ObjectEditors/gameobjecteditor.h"
-
+#include "newgameobject.h"
 
 #include <QSplitter>
 
@@ -41,6 +41,7 @@ private slots:
     void on_newFlag_clicked();
     void on_newEvent_clicked();
     void on_newOrder_clicked();
+    void on_newObject_clicked();
 
 
 
@@ -54,7 +55,7 @@ private:
     GameObject *currentObject;
 
     QWidget *edit;
-
+    Game *game;
 };
 
 #endif // OBJECTEDITOR_H

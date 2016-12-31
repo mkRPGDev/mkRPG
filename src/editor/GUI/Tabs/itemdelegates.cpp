@@ -221,7 +221,7 @@ ObjectNameItemDelegate::ObjectNameItemDelegate(QObject *parent) :
 
 
 QWidget* ObjectNameItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &UNUSED(option), const QModelIndex &UNUSED(index)) const{
-    QLineEdit *le = new QLineEdit(parent);
+    QLabel *le = new QLabel(parent);
     return le;
 }
 
@@ -233,8 +233,20 @@ void ObjectNameItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleO
     editor->setGeometry(option.rect);
 }
 
-void ObjectNameItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const{
-    model->setData(index, editor->property("text"));
+//void ObjectNameItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const{
+//    model->setData(index, editor->property("text"));
+//}
+
+void ObjectNameItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    QStyledItemDelegate::paint(painter, option, index);
+    QStyleOptionButton button;
+    button.palette = option.palette;
+    button.rect = QRect(option.rect.right()-16, option.rect.top(), 17, 17);
+    button.icon = QIcon(":/Icons/supprimer.png");
+    button.iconSize = QSize(12,12);
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+
 }
 
 
@@ -296,3 +308,5 @@ void ActionReceiverItemDelegate::paint(QPainter *painter, const QStyleOptionView
     button.state = QStyle::State_Enabled;
     QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
 }
+
+

@@ -38,6 +38,24 @@ private:
 };
 
 
+
+class FilteredObjectsTreeModel : public QSortFilterProxyModel
+{
+public:
+    explicit FilteredObjectsTreeModel(QObject *parent = nullptr);
+    void setMode(bool eq);
+    void setDisplayedItem(int nb);
+    int displayedItem() const;
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+//    virtual int rowCount(const QModelIndex &parent) const;
+
+private:
+    int aDisplayedItem;
+    bool eqTest;
+};
+
+
+
 class ActionsListModel : public QAbstractListModel
 {
 public:

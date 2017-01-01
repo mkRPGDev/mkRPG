@@ -8,7 +8,7 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     p.setColor(QPalette::Window, p.color(QPalette::Mid));
     tabBar->setPalette(p);
     hidden->setHidden(true);
-    connect(tabBar, SIGNAL(currentTabChanged(int)), stackedWidget, SLOT(setCurrentIndex(int)));
+    connect(tabBar, SIGNAL(currentTabChanged(int)), this, SLOT(setCurrentTab(int)));
 
     worldEditor = new WorldTab;
     mapsEditor = new MapsTab;
@@ -24,6 +24,8 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     loadDefault();
 
     tabBar->setTabsEnabled(false);
+
+
 
     //qDebug() << args.length();
 
@@ -226,4 +228,10 @@ void Editor::closeEvent(QCloseEvent *ce){
 void Editor::editMap(){
     tabBar->setCurrentTab(mapsEditor->index());
     mapsEditor->updateGame();
+}
+
+
+void Editor::setCurrentTab(int i){
+    stackedWidget->setCurrentIndex(i);
+    dynamic_cast<TabWidget*>(stackedWidget->widget(i))->updateGame();
 }

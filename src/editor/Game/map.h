@@ -55,8 +55,10 @@ public:
     void confirmPreSelection(bool add = true);
     void clearPreSelection();
 
-    const CellType &cellType() const;
+    CellType &cellType();
     void setCellType(CellType &type);
+
+    void operator=(Cell &c);
 
     C0(Flag, a,A,ccessible)
 
@@ -120,7 +122,8 @@ public:
     QSize size() const{return QSize(width(),height());}
     void setWidth(int w);
     void setHeight(int h);
-    void resize(int w, int h);
+    void resize(int w, int h, int xOffset = 0, int yOffset = 0);
+    void resize(const QRect &newSize);
     C0(Param,a,A,ngleX)
     C0(Param,a,A,ngleY)
     Cell& cell(int i, int j) const;                     /**<

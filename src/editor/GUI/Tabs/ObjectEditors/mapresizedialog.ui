@@ -163,6 +163,14 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>oHeight</tabstop>
+  <tabstop>oWidth</tabstop>
+  <tabstop>nWidth</tabstop>
+  <tabstop>nHeight</tabstop>
+  <tabstop>xOffset</tabstop>
+  <tabstop>yOffset</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../Icons/ressources.qrc"/>
  </resources>

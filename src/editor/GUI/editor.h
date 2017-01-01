@@ -62,6 +62,8 @@ private slots:
     void saveGeom();
     void editMap();
 
+    void setCurrentTab(int i);
+
 private:
     void addTab(const QString& n, const QPixmap& p, TabWidget *w);
 

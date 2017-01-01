@@ -20,7 +20,9 @@ class MapsListModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit MapsListModel(World *w, QObject *parent = 0);
+    explicit MapsListModel(QObject *parent = 0);
+    explicit MapsListModel(World &w, QObject *parent = 0);
+    void setWorld(World &w);
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
     //Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;

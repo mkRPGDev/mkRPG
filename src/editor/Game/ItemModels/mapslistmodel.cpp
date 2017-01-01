@@ -1,9 +1,13 @@
 #include "mapslistmodel.h"
 
-MapsListModel::MapsListModel(World* w, QObject* parent) :
-    QAbstractListModel(parent), maps(w->objects().maps()), mps(QMap<int, MapPainter*>())
+MapsListModel::MapsListModel(QObject* parent) :
+    QAbstractListModel(parent), mps(QMap<int, MapPainter*>())
+{}
+
+MapsListModel::MapsListModel(World &w, QObject* parent) :
+    MapsListModel(parent)
 {
-    update();
+    setWorld(w);
 }
 
 int MapsListModel::rowCount(const QModelIndex &parent) const{
@@ -32,6 +36,14 @@ QVariant MapsListModel::data(const QModelIndex &index, int role) const{
 QImage MapsListModel::viewOf(Map *m) const{
     int id = m->ident();
     return mps.contains(id) ? QImage(mps[id]->render()) : QImage();
+}
+
+
+void MapsListModel::setWorld(World &w){
+    beginResetModel();
+    maps = w.objects().maps();
+    update();
+    endResetModel();
 }
 
 void MapsListModel::update(){

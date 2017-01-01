@@ -26,6 +26,7 @@ public:
     ~WorldTab();
 
     void setGame(Game* g);
+    void updateGame();
 
 signals:
     void editMap();
@@ -35,6 +36,8 @@ private slots:
 
 private:
     Game* game;
+    MapsListModel *maps;
 };
+
 
 #endif // WORLDTAB_H

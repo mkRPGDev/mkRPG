@@ -282,13 +282,13 @@ bool GameObject::hasEvent(const QString &event) const{
     return aEvents.contains(event);
 }
 
-Event& GameObject::getEvent(const QString &event){
-    return aEvents[event];
+Event& GameObject::getEvent(const QString &event) const{
+    return *aEvents[event];
 }
 
 Event& GameObject::addEvent(const QString &event){
-    aEvents[event] = Event();
-    return aEvents[event];
+    aEvents[event] = new Event();
+    return *aEvents[event];
 }
 
 void GameObject::removeEvent(const QString &event){
@@ -304,13 +304,13 @@ bool GameObject::hasOrder(const QString &order) const{
     return aOrders.contains(order);
 }
 
-Order& GameObject::getOrder(const QString &order){
-    return aOrders[order];
+Order& GameObject::getOrder(const QString &order) const{
+    return *aOrders[order];
 }
 
 Order& GameObject::addOrder(const QString &order){
-    aOrders[order] = Order();
-    return aOrders[order];
+    aOrders[order] = new Order();
+    return *aOrders[order];
 }
 
 void GameObject::removeOrder(const QString &order){
@@ -338,6 +338,22 @@ void GameObject::removeReceivedAction(Action *action){
     aReceivedActions.removeOne(action);
 }
 
+void GameObject::copy(GameObject &obj){
+    aParams.clear();
+    for(const QString &p : obj.aParams.keys())
+        aParams[p] = Parameter(obj.aParams[p]);
+    aFlags = obj.aFlags;
+    for(Event * e: aEvents.values())
+        delete e;
+    aEvents.clear();
+    for(const QString &e : obj.aEvents.keys())
+        aEvents[e] = new Event(obj.aEvents[e]);
+    for(Order * o: aOrders.values())
+        delete o;
+    aOrders.clear();
+    for(const QString &o : obj.aOrders.keys())
+        aOrders[o] = new Order(obj.aOrders[o]);
+}
 
 
 
@@ -433,7 +449,7 @@ HierarchicalAttr InheritableObject::flagTree() const{
     return f;
 }
 
-InheritableObject *InheritableObject::ancestor() const{
+InheritableObject *InheritableObject::ancestor(){
     return aAncestor;
 }
 
@@ -460,10 +476,10 @@ bool InheritableObject::hasEvent(const QString &event) const{
     return GameObject::hasEvent(event) | (aAncestor && aAncestor->hasEvent(event));
 }
 
-Event& InheritableObject::getEvent(const QString &event){
+Event& InheritableObject::getEvent(const QString &event) const{
     if(hasEvent(event))
-        return aEvents.contains(event) ? aEvents[event] : aAncestor->getEvent(event);
-    return aEvents[event];
+        return aEvents.contains(event) ? *aEvents[event] : aAncestor->getEvent(event);
+    return *aEvents[event];
 }
 
 QList<QString> InheritableObject::events() const {
@@ -488,10 +504,10 @@ bool InheritableObject::hasOrder(const QString &order) const{
     return GameObject::hasOrder(order) | (aAncestor && aAncestor->hasOrder(order));
 }
 
-Order &InheritableObject::getOrder(const QString &order){
+Order &InheritableObject::getOrder(const QString &order) const{
     if(hasOrder(order))
-        return aOrders.contains(order) ? aOrders[order] : aAncestor->getOrder(order);
-    return aOrders[order];
+        return aOrders.contains(order) ? *aOrders[order] : aAncestor->getOrder(order);
+    return *aOrders[order];
 }
 
 QList<QString> InheritableObject::orders() const {

@@ -54,6 +54,7 @@ private:
     TypeItemModel *typesModel;
     GameObject *currentObject;
 
+
     QWidget *edit;
     Game *game;
 };

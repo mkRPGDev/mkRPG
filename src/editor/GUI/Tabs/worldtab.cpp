@@ -4,13 +4,21 @@ WorldTab::WorldTab(QWidget *parent) :
     TabWidget(parent)
 {
     setupUi(this);
+    maps = new MapsListModel(this);
+    mapsView->setModel(maps);
 }
 
 
 void WorldTab::setGame(Game *g){
     game = g;
-    mapsView->setModel(new MapsListModel(&g->world(), this));
+    updateGame();
 }
+
+void WorldTab::updateGame(){
+    maps->setWorld(game->world());
+}
+
+
 
 WorldTab::~WorldTab(){
     delete game;

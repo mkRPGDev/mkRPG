@@ -332,6 +332,7 @@ class Parameter
 public:
     Parameter(int v = 0) : min(0), max(100){setValue(v);}
     Parameter(int min, int max, int v = 0): min(min), max(max){setValue(v);}
+    Parameter(const Parameter &p) : Parameter(p.min, p.max, p.pValue){}
     void setValue(int v){pValue = std::min(std::max(min,v),max);}
     inline int value() const {return pValue;}
     void setMinimum(int m) {min = m; max = std::max(max,min); setValue(pValue);}
@@ -363,6 +364,7 @@ public:
     };
 
     Event(){}
+    Event(const Event *e){}
 
     QString typeName(){return "event";}
 private:
@@ -389,6 +391,7 @@ public:
     };
 
     Order(){}
+    Order(const Order *o){}
 
     QString typeName(){return "order";}
 private:
@@ -704,7 +707,7 @@ public:
      *
      * \see getEvent, getEvents, hasOrder
      */
-    virtual Event& getEvent(const QString &event);                                              /**<
+    virtual Event& getEvent(const QString &event) const;                                              /**<
      * Returns the event named \c event.
      *
      * \note
@@ -737,7 +740,7 @@ public:
      *
      * \see getOrder, getOrders, hasEvent
      */
-    virtual Order& getOrder(const QString &order);                                              /**<
+    virtual Order& getOrder(const QString &order) const;                                              /**<
      * Returns the order named \c order.
      *
      * \note
@@ -808,6 +811,7 @@ protected:
      * \see init, \ref GameObject::GameObject "GameObject"
      */
 
+    void copy(GameObject &obj);
 
     virtual void addChild(GameObject *c);                                                       /**<
      * Registers a new child.
@@ -831,8 +835,8 @@ protected:
     int nbRef;
     QMap<QString, Parameter> aParams;
     QMap<QString, bool> aFlags;
-    QMap<QString, Event> aEvents;
-    QMap<QString, Order> aOrders;
+    QMap<QString, Event*> aEvents;
+    QMap<QString, Order*> aOrders;
     QString aName;
     QString fileName;
     QDateTime lastEdit, lastChildEdit;
@@ -877,7 +881,7 @@ public:
      *
      * \see ancestor
      */
-    InheritableObject *ancestor() const;                            /**<
+    InheritableObject *ancestor();                                  /**<
      * Returns the object from with the current instance inherits
      *
      * \see hasAncestor
@@ -1006,7 +1010,7 @@ public:
      *
      * \see getEvent, GameObject::hasEvent, hasParam, hasFlag, hasOrder
      */
-    virtual Event& getEvent(const QString &event);                  /**<
+    virtual Event& getEvent(const QString &event) const;            /**<
      * Returns the \c event event, loocking
      * for it in the different ancestors if not found.
      *
@@ -1043,7 +1047,7 @@ public:
      *
      * \see getOrder, GameObject::hasOrder, hasParam, hasFlag, hasEvent
      */
-    virtual Order& getOrder(const QString &order);                  /**<
+    virtual Order& getOrder(const QString &order) const;            /**<
      * Returns the \c order order, loocking
      * for it in the different ancestors if not found.
      *

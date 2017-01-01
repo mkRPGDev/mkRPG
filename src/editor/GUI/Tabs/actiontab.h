@@ -29,6 +29,9 @@ private slots:
     void eventChanged(const QModelIndex &ev);
     void orderChanged(const QModelIndex &ord);
 
+    void removeRow(const QPersistentModelIndex &r);
+    void editRow(const QPersistentModelIndex &r);
+
     void on_newAction_clicked();
     void on_selectEmitter_clicked();
     void on_addReceiver_clicked();

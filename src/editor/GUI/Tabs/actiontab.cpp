@@ -22,7 +22,10 @@ ActionTab::ActionTab(QWidget *parent) :
     actionsModel = new ActionsListModel(this);
     actionsV->setModel(actionsModel);
 
-    rcv->setItemDelegate(new ActionReceiverItemDelegate(this));
+    ActionReceiverItemDelegate *arid = new ActionReceiverItemDelegate(this);
+    rcv->setItemDelegate(arid);
+    connect(arid, SIGNAL(removeRow(QPersistentModelIndex)), this, SLOT(removeRow(QPersistentModelIndex)));
+    connect(arid, SIGNAL(editRow(QPersistentModelIndex)), this, SLOT(editRow(QPersistentModelIndex)));
 
     QPalette p(newEmitter->palette());
     p.setColor(QPalette::Window, p.color(QPalette::AlternateBase));
@@ -112,4 +115,26 @@ void ActionTab::on_selectEmitter_clicked(){
 
 void ActionTab::on_addReceiver_clicked(){
     rcvModel->addReceiver(receiver, order);
+}
+
+
+void ActionTab::removeRow(const QPersistentModelIndex &r){
+    rcvModel->removeRow(r.row());
+}
+
+void ActionTab::editRow(const QPersistentModelIndex &r){
+    QModelIndex sel(receiversModel->find(rcvModel->receiver(r.row()).first->ident()));
+    if(sel.isValid()){
+        receiversV->selectionModel()->clearSelection();
+        receiversV->selectionModel()->setCurrentIndex(sel,QItemSelectionModel::Select | QItemSelectionModel::Current);
+        receiversV->selectionModel()->setCurrentIndex(sel.parent().child(sel.row(),1),QItemSelectionModel::Select);
+    }
+
+    QModelIndex sem(ordersModel->findOrder(rcvModel->receiver(r.row()).second));
+    if(sem.isValid()){
+        orders->selectionModel()->clearSelection();
+        orders->selectionModel()->setCurrentIndex(sem,QItemSelectionModel::Select | QItemSelectionModel::Current);
+        orders->selectionModel()->setCurrentIndex(sem.parent().child(sel.row(),1),QItemSelectionModel::Select);
+    }
+    removeRow(r);
 }

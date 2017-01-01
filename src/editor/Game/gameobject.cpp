@@ -121,12 +121,12 @@ GameObject::GameObject(GameObject &parent) :
 
 GameObject::~GameObject(){
     if(id) game->aboutToDestroy(this);
+    for(Action* a : aEmittedActions) a->setEmitter(nullptr);
+    for(Action* a : aReceivedActions) a->removeReceiver(this);
     if(nbRef)
         qDebug() << "Salut..." << id << "Références" << nbRef;
     for(GameObject* c : aChildren.values()) delete c;
     if(aParent) aParent->removeChild(this);
-    for(Action* a : aEmittedActions) a->setEmitter(nullptr);
-    for(Action* a : aReceivedActions) a->removeReceiver(this);
 }
 
 void GameObject::init(Game *g, GameObject* parent){

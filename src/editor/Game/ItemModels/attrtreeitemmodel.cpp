@@ -376,6 +376,10 @@ void GameTreeItem<type>::sort(){
 }
 
 
+template<ItemType type>
+bool GameTreeItem<type>::isAttr(const QString &a) const{
+    return state == Attribute && attr == a;
+}
 
 
 
@@ -766,4 +770,15 @@ void OrderTreeItemModel::sortAttr(const QModelIndex &par){
     else
         item->sort();
     emit layoutChanged();
+}
+
+
+QModelIndex OrderTreeItemModel::findOrder(const QString &order, const QModelIndex &root){
+    if(root.isValid() && static_cast<GameTreeItem<OrderItem>*>(root.internalPointer())->isAttr(order))
+        return root;
+    for(int i(0); i<rowCount(root); ++i){
+        QModelIndex mi(findOrder(order, index(i,0,root)));
+        if(mi.isValid()) return mi;
+    }
+    return QModelIndex();
 }

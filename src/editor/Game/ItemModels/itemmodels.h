@@ -31,6 +31,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     void setEditable(bool e);
+    QModelIndex find(int id, const QModelIndex &root = QModelIndex());
 
 private:
     GameObject *obj;
@@ -91,7 +92,9 @@ public:
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
     Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
+    bool removeRows(int row, int count, const QModelIndex &parent) Q_DECL_OVERRIDE;
     void addReceiver(GameObject *rcv, const QString &order);
+    QPair<GameObject*, QString> receiver(int row);
 private:
     void sortActions();
 

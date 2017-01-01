@@ -56,6 +56,7 @@ public:
     void addAttr(const QString &attr);
     void sort();
     void setAttributeRowNb(int r);
+    bool isAttr(const QString &a) const;
 
 private:
     explicit GameTreeItem(int rowNb, GameObject *obj, InheritableObject* typ, State state, GameTreeItem *parent);
@@ -213,6 +214,8 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     void addOrder(const QString &name);
     void sortAttr(const QModelIndex &par);
+
+    QModelIndex findOrder(const QString &order, const QModelIndex &root = QModelIndex());
 
 private:
     Game *game;

@@ -252,8 +252,8 @@ void ObjectNameItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem
 
 
 
-ActionReceiverEditor::ActionReceiverEditor(QWidget *parent) :
-    QWidget(parent)
+ActionReceiverEditor::ActionReceiverEditor(const QModelIndex &index, QWidget *parent) :
+    QWidget(parent), index(index)
 {
     QHBoxLayout *lay = new QHBoxLayout();
     setLayout(lay);
@@ -264,12 +264,24 @@ ActionReceiverEditor::ActionReceiverEditor(QWidget *parent) :
     edit->setIcon(QIcon(":/Icons/editer.png"));
     edit->setFixedSize(23,23);
     lay->addWidget(edit);
+//    connect(edit, SIGNAL(clicked(bool)), );
     remove = new QToolButton();
     remove->setIcon(QIcon(":/Icons/supprimer.png"));
     remove->setFixedSize(23,23);
     lay->addWidget(remove);
+    connect(remove, SIGNAL(clicked(bool)), this, SLOT(removeReceiverRequest()));
+    connect(edit, SIGNAL(clicked(bool)), this, SLOT(editReceiverRequest()));
 }
 
+
+void ActionReceiverEditor::removeReceiverRequest(){
+    emit removeReceiver(this, index);
+}
+
+
+void ActionReceiverEditor::editReceiverRequest(){
+    emit editReceiver(this, index);
+}
 
 
 
@@ -278,8 +290,14 @@ ActionReceiverItemDelegate::ActionReceiverItemDelegate(QObject *parent):
 {}
 
 QWidget* ActionReceiverItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const{
-    return new ActionReceiverEditor(parent);
+    ActionReceiverEditor * ed = new ActionReceiverEditor(index, parent);
+    ed->setFocusPolicy(Qt::StrongFocus);
+    connect(ed, SIGNAL(removeReceiver(QWidget*,QPersistentModelIndex)), this, SLOT(removeReceiver(QWidget*,QPersistentModelIndex)));
+    connect(ed, SIGNAL(editReceiver(QWidget*,QPersistentModelIndex)), this, SLOT(editReceiver(QWidget*,QPersistentModelIndex)));
+    return ed;
 }
+
+
 
 void ActionReceiverItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const{
 
@@ -310,3 +328,12 @@ void ActionReceiverItemDelegate::paint(QPainter *painter, const QStyleOptionView
 }
 
 
+void ActionReceiverItemDelegate::removeReceiver(QWidget *editor, const QPersistentModelIndex &index){
+    destroyEditor(editor, index);
+    emit removeRow(index);
+}
+
+void ActionReceiverItemDelegate::editReceiver(QWidget *editor, const QPersistentModelIndex &index){
+    destroyEditor(editor, index);
+    emit editRow(index);
+}

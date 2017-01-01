@@ -93,6 +93,17 @@ void ObjectsTreeModel::setEditable(bool e){
     aEditable = e;
 }
 
+QModelIndex ObjectsTreeModel::find(int id, const QModelIndex &root){
+    if(root.isValid() && static_cast<GameObject*>(root.internalPointer())->ident() == id)
+        return root;
+    for(int i(0); i<rowCount(root); ++i){
+        QModelIndex mi(find(id, index(i,0,root)));
+        if(mi.isValid()) return mi;
+    }
+    return QModelIndex();
+}
+
+
 
 
 
@@ -241,6 +252,16 @@ Qt::ItemFlags ReceiverListModel::flags(const QModelIndex &index) const{
     return QAbstractListModel::flags(index) | Qt::ItemIsEditable;
 }
 
+bool ReceiverListModel::removeRows(int row, int count, const QModelIndex &parent){
+    beginRemoveRows(parent, row, row+count);
+    for(int i(row); i<row+count; ++i){
+        QPair<GameObject*, QString> r(aReceivers.takeAt(i));
+        aAction->removeReceiver(r.first, r.second);
+    }
+    endRemoveRows();
+}
+
+
 void ReceiverListModel::addReceiver(GameObject *rcv, const QString &order){
     if(aAction){
         beginResetModel();
@@ -260,3 +281,6 @@ void ReceiverListModel::sortActions(){
 }
 
 
+QPair<GameObject*, QString> ReceiverListModel::receiver(int row){
+    return aReceivers.at(row);
+}

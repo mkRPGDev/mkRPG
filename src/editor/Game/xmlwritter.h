@@ -25,11 +25,13 @@ private:
     XmlWritter &operator<<(const QString &s);
     XmlWritter &operator<<(const int &i);
     XmlWritter &operator<<(const Element &e);
+    XmlWritter &operator<<(const Action *a);
 
     void writeCell(Cell &c);
     void writeCellType(CellType &c);
 
     void writeObjectAttributes(const GameObject &obj);
+
 
     void writeCreatedFiles(XmlWritter &wr);
 

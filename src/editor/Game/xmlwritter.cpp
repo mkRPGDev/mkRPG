@@ -33,11 +33,22 @@ XmlWritter::XmlWritter(const QDir &path, Game &game) :
     *this << OpenMarkUp << "World" << path.relativeFilePath(world.fileName()) << CloseMarkUp;
     writeCreatedFiles(world);
     *this << CloseMarkUp;
+
+
+    XmlWritter actions(path, "actions");
+    actions << OpenMarkUp << "Actions";
+    createdFiles.insertMulti("Action", actions.fileName());
+    for(QString &a : game.actions())
+        actions << game.action(a);
+    *this << OpenMarkUp << "Actions";
+    writeCreatedFiles(*this);
+    *this << CloseMarkUp;
 }
 
 XmlWritter::XmlWritter(const QDir &path, World &world) :
     XmlWritter(path, &world)
 {
+    writeObjectAttributes(world);
     *this << OpenMarkUp << "Maps" << EndL;
     XmlWritter::path.mkdir("Maps");
     XmlWritter::path.cd("Maps");
@@ -57,7 +68,7 @@ XmlWritter::XmlWritter(const QDir &path, World &world) :
 XmlWritter::XmlWritter(const QDir &path, Map &map) :
     XmlWritter(path, &map)
 {
-
+    writeObjectAttributes(map);
     int w = map.width();
     int h = map.height();
     for(int i(0); i<w; ++i)
@@ -95,12 +106,20 @@ void XmlWritter::writeCellType(CellType &c){
 }
 
 void XmlWritter::writeObjectAttributes(const GameObject &obj){
-    for(QString f : obj.flags())
+    /*for(QString f : obj.flags())
         *this << OpenMarkUp << "Flag" << MarkUpParam << f << obj.getFlag(f) << CloseMarkUp;
     for(QString f : obj.params())
         *this << OpenMarkUp << "Flag" << MarkUpParam << f << obj.getParam(f)
                             << MarkUpParam << "min" << obj.getParamMin(f)
-                            << MarkUpParam << "max" << obj.getParamMax(f) << CloseMarkUp;
+                            << MarkUpParam << "max" << obj.getParamMax(f) << CloseMarkUp;*/
+    *this << OpenMarkUp << "Params" << EndL;
+    for(QString f : obj.flags())
+        *this << OpenMarkUp << f << (obj.getFlag(f) ? "True" : "False") << CloseMarkUp;
+    for(QString p : obj.params())
+        *this << OpenMarkUp << p << MarkUpParam << "min" << obj.getParamMin(p)
+                            << MarkUpParam << "max" << obj.getParamMax(p)
+                            << obj.getParam(p) << CloseMarkUp;
+    *this << CloseMarkUp;
 }
 
 
@@ -108,6 +127,7 @@ void XmlWritter::writeCreatedFiles(XmlWritter &wr){
     for(QString type : wr.createdFiles.uniqueKeys())
         for(QString file : wr.createdFiles.values(type))
             *this << OpenMarkUp << type << path.relativeFilePath(file) << CloseMarkUp;
+    wr.createdFiles.clear();
 }
 
 const QString XmlWritter::fileName() const{
@@ -117,12 +137,14 @@ const QString XmlWritter::fileName() const{
 XmlWritter &XmlWritter::operator << (const Element &elem){
     switch (elem) {
     case EndL:
-        *this << "\n";
+        if(!newLine)
+            *this << "\n";
         newLine = true;
         break;
     case Eg:
         return *this << "=";
     case OpenMarkUp:
+        *this << EndL;
         mode = newMarkUp;
         return *this;
     case CloseMarkUp:{
@@ -190,3 +212,14 @@ XmlWritter &XmlWritter::operator << (const GameObject &obj){
     return *this << OpenMarkUp << obj.typeName() << MarkUpParam << "name" << obj.ident() << EndL;
 }
 
+
+XmlWritter &XmlWritter::operator <<(const Action *a){
+    *this << OpenMarkUp << "Action";
+    *this << OpenMarkUp << "Event" << MarkUpParam << "val" << a->event() << CloseMarkUp;
+    for(const QPair<GameObject*, QString> &rcv : a->receivers()){
+        *this << OpenMarkUp << "Order" << MarkUpParam << "type";
+        Order o = rcv.first->getOrder(rcv.second);
+        *this << o.typeName() << CloseMarkUp;
+    }
+    return *this << CloseMarkUp;
+}

@@ -57,6 +57,7 @@ private slots:
     void on_actionRolePlayGame_triggered();
     void on_actionOpen_triggered();
     void on_actionQuit_triggered();
+    void on_actionExport_triggered();
 
 
 private slots:
@@ -84,6 +85,8 @@ private:
     ObjectTab *objectEditor;
     ActionTab *actionEditor;
 
+
+    Game *currentGame;
 };
 
 /* Template de jeu

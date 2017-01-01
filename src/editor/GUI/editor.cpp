@@ -29,14 +29,14 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
 
     //qDebug() << args.length();
 
-    Game * g = open("f");
+    currentGame = open("f");
 
 
 
-    mapsEditor->setGame(g);
-    worldEditor->setGame(g);
-    objectEditor->setGame(g);
-    actionEditor->setGame(g);
+    mapsEditor->setGame(currentGame);
+    worldEditor->setGame(currentGame);
+    objectEditor->setGame(currentGame);
+    actionEditor->setGame(currentGame);
 
     connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
 }
@@ -65,6 +65,29 @@ void Editor::on_actionOpen_triggered(){
     QString f(QFileDialog::getOpenFileName(this, "Open a game project", QDir::homePath(), "Game file *game"));
     if(f != "")
         mapsEditor->setGame(open(f));
+}
+
+void Editor::on_actionExport_triggered(){
+    QString di(QFileDialog::getExistingDirectory(this, "Export as XML", QDir::homePath()));
+    if(di != ""){
+        QDir d(di);
+        if(d.mkdir(currentGame->name()))
+            d.cd(currentGame->name());
+        else{
+            //*
+            d.cd(currentGame->name());
+            d.removeRecursively();
+            d.cdUp();
+            d.mkdir(currentGame->name());
+            d.cd(currentGame->name());
+            /*/
+            int k(1);
+            while(!d.mkdir(g->name()+QString::number(++k)));
+            d.cd(g->name()+QString::number(k));
+            //*/
+        }
+        XmlWritter xml(d,*currentGame);
+    }
 }
 
 void Editor::on_actionRolePlayGame_triggered(){

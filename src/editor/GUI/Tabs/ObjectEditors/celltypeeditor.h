@@ -1,6 +1,13 @@
 #ifndef CELLTYPEEDITOR_H
 #define CELLTYPEEDITOR_H
 
+/*!
+ * \file celltypeeditor.h
+ * \brief Definition of the CellTypeEditor class.
+ *
+ */
+
+
 #include "gameobjecteditor.h"
 #include "ui_celltypeeditor.h"
 

@@ -39,7 +39,13 @@ Cell::Cell() :
     Cell(*defaultCellType, *defaultParent)
 {}
 
-const CellType &Cell::cellType() const{
+
+void Cell::operator=(Cell &c){
+    setCellType(c.cellType());
+    copy(c);
+}
+
+CellType &Cell::cellType(){
     return objectType();
 }
 
@@ -114,9 +120,11 @@ MapType::MapType(DefaultTypes &parent) :
 
 
 
+
+
 Map::Map(MapType &type, GameObject &parent) :
     TypedObject(type, parent),
-    cells(nullptr)
+    cells(nullptr), wi(0), he(0)
 {
     resize(100,75);
     ProtectParam(height);
@@ -132,17 +140,25 @@ Map::~Map(){
 
 // TODO temporaire
 #include "game.h"
-void Map::resize(int w, int h){
-    if(cells) delete[] cells;
+void Map::resize(int w, int h, int xOffset, int yOffset){
+    Cell* oCells = cells;
     cells = Cell::cellArray(game->world().types().cellType(),*this, w*h);
+    for(int i(0); i<w; ++i)
+        for(int j(0); j<h; ++j)
+            cells[i+w*j].setName(QObject::tr("Cell_<")+QString::number(i)+","+QString::number(j)+">");
+    for(int i(std::max(0, xOffset)); i<std::min(wi, xOffset+w); ++i)
+        for(int j(std::max(0, yOffset)); j<std::min(he, yOffset+h); ++j)
+            cells[i-xOffset + (j-yOffset)*w] = oCells[i+j*wi];
     SetParam(width, w);
     SetParam(height, h);
     wi = w;
     he = h;
-    for(int i(0); i<w; ++i)
-        for(int j(0); j<h; ++j)
-            cells[i+w*j].setName(QObject::tr("Cell_<")+QString::number(i)+","+QString::number(j)+">");
+    if(oCells) delete[] oCells;
     touch();
+}
+
+void Map::resize(const QRect &newSize){
+    resize(newSize.width(), newSize.height(), newSize.left(), newSize.top());
 }
 
 void Map::setWidth(int w){

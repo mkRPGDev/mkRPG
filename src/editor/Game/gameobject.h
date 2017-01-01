@@ -13,25 +13,24 @@
  * \brief Definition of the base class of the game internal model.
  */
 
-bool cleverComp(const QString &na, const QString &nb);
+bool cleverComp(const QString &na, const QString &nb);  /**<
+ * Compares to string classing \c name_10 after \c name_2.
+ */
+bool isValidName(const QString &n);                     /**<
+ * Returns true if the string \c n contains only letters, digits or "_".
+ */
 
+#define UNUSED(p)                                                                                                                           /*!<
+ * Usefull macro to avoid "Unused parameter" warning.
+ */
 
-#define UNUSED(p)
+#define TypeName(Type) virtual QString typeName() const{return QObject::tr(#Type);}                                                         /*!<
+ * This macro declares the type name that will be visible to the user.
+ *
+ * It must be use in a GameObject inherited class public scope.
+ */
 
-#define TypeName(Type) virtual QString typeName() const{return QObject::tr(#Type);}
-
-#define ObjectListDef(Objects,Type) private: QMap<int, Type*> a##Objects; public:
-#define ObjectListAdd(Object,Objects, Type) void add##Object(Type* new##Object){a##Objects[new##Object->ident()] = new##Object; touch();}
-#define ObjectListTake(Object, Objects, Type) Type* take##Object(int id){touch(); return a##Objects.take(id);}
-#define ObjectListGetter(object,Objects, Type) inline Type* object(int id) const{return a##Objects.value(id, nullptr);}
-#define ObjectListValues(objects,Objects, Type) inline QList<Type*> objects() const{return a##Objects.values();}
-#define ObjectListGetters(object,Object,objects,Objects,Type) ObjectListGetter(object,Objects, Type) ObjectListValues(objects,Objects, Type)
-#define ObjectListModifiers(Object, Objects, Type) ObjectListAdd(Object,Objects, Type) ObjectListTake(Object, Objects, Type)
-#define ObjectList(object,Object,objects,Objects,Type) \
-    ObjectListDef(Objects,Type) ObjectListGetters(object,Object,objects,Objects,Type) ObjectListModifiers(Object, Objects, Type)
-#define ObjectListD(init,Init,body,sg,pl,Type) ObjectList(init##body##sg,Init##body##sg,init##body##pl,Init##body##pl,Type)
-
-#define C(Macro, init,Init,body, ...) Macro(init##body, Init##body, ##__VA_ARGS__) /*!<
+#define C(Macro, init,Init,body, ...) Macro(init##body, Init##body, ##__VA_ARGS__)                                                          /*!<
  * The C macro calls the Macro argument with argument tokens formed by the concatenation
  * of init and body, and Init and body.
  *
@@ -59,7 +58,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see \ref object.h
  */
-#define C0(Macro, init,Init,body) Macro(init##body, Init##body) /*!<
+#define C0(Macro, init,Init,body) Macro(init##body, Init##body)                                                                             /*!<
  * The C0 macro is equivalent to the #C macro, with no additional argument.
  *
  * This macro is provided to avoid the use of variadic arguments that are currently
@@ -72,7 +71,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see C1
  */
-#define C1(Macro, init,Init,body, arg) Macro(init##body, Init##body, arg) /*!<
+#define C1(Macro, init,Init,body, arg) Macro(init##body, Init##body, arg)                                                                   /*!<
  * The C1 macro is equivalent to the #C macro, with one additional argument.
  *
  * This macro is provided to avoid the use of variadic arguments that are currently
@@ -85,13 +84,13 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see C0
  */
-#define ProtectFlag(flag) reserved.insert(QString(#flag));/*!<
+#define ProtectFlag(flag) reserved.insert(QString(#flag));                                                                                  /*!<
  * The ProtectFlag macro registers the flag named \c flag as protected
  * \i ie it cannot be modified directly in a flag editor (it will not appear).
  *
  * \see flag, ProtectParam
  */
-#define SetFlag(flag, value) setFlag(#flag,value) /*!<
+#define SetFlag(flag, value) setFlag(#flag,value)                                                                                           /*!<
  * Conveniant macro to set a flag directly.
  *
  * This is usefull in custom setters, to avoid call loops.
@@ -107,7 +106,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Flag, FlagSetter, \ref object.h
  */
-#define FlagGetter(flag, Flag) inline bool is##Flag() const{return getFlag(#flag);} /*!<
+#define FlagGetter(flag, Flag) inline bool is##Flag() const{return getFlag(#flag);}                                                         /*!<
  * The FlagGetter macro defines a generic getter method for the flag named \c flag.
  *
  * With respect to the \ref object.h "name convention", this macro needs the flag's name with lower and upper
@@ -125,7 +124,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Flag, FlagSetter, C
  */
-#define FlagSetter(flag, Flag) inline void set##Flag(bool flag){SetFlag(flag,flag); touch();} /*!<
+#define FlagSetter(flag, Flag) inline void set##Flag(bool flag){SetFlag(flag,flag); touch();}                                               /*!<
  * The FlagSetter macro defines a generic setter method for the flag named \c flag.
  *
  * With respect to the \ref object.h "name convention", this macro needs the flag's name with lower and upper
@@ -138,7 +137,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Flag, FlagGetter, C
  */
-#define Flag(flag, Flag) FlagGetter(flag, Flag) FlagSetter(flag, Flag) /*!<
+#define Flag(flag, Flag) FlagGetter(flag, Flag) FlagSetter(flag, Flag)                                                                      /*!<
  * The Flag macro defines generic getter and setter methods for the flag named \c flag.
  *
  * With respect to the \ref object.h "name convention", this macro needs the flag's name with lower and upper
@@ -152,13 +151,13 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see FlagGetter, FlagSetter, C
  */
-#define ProtectParam(param) reserved.insert(QString(#param));/*!<
+#define ProtectParam(param) reserved.insert(QString(#param));                                                                               /*!<
  * The ProtectParam macro registers the flag named \c param as protected
  * \i ie it cannot be modified directly in a param editor (it will not appear).
  *
  * \see param, ProtectFlag
  */
-#define SetParam(param, value) setParam(#param,value) /*!<
+#define SetParam(param, value) setParam(#param,value)                                                                                       /*!<
  * Conveniant macro to set a param directly.
  *
  * This is usefull in custom setters, to avoid call loops.
@@ -175,7 +174,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see Param, ParamSetter, \ref object.h
  */
-#define ParamGetter(param) inline int param() const{return getParam(#param);} /*!<
+#define ParamGetter(param) inline int param() const{return getParam(#param);}                                                               /*!<
  * The ParamGetter macro defines a generic getter method for the parameter named \c param.
  *
  *
@@ -191,7 +190,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Param, ParamSetter
  */
-#define ParamSetter(param, Param) inline void set##Param(int param##Value){SetParam(param,param##Value); touch();} /*!<
+#define ParamSetter(param, Param) inline void set##Param(int param##Value){SetParam(param,param##Value); touch();}                          /*!<
  * The ParamSetter macro defines a generic setter method for the parameter named \c param.
  *
  * With respect to the \ref object.h "name convention", this macro needs the parameter's name with lower and upper
@@ -211,7 +210,7 @@ bool cleverComp(const QString &na, const QString &nb);
 #define ParamDom(param, Param) ParamMin(param,Param) ParamMax(param,Param)
 // faire les Setter/Getter (min, max);
 
-#define Param(param, Param) ParamGetter(param) ParamSetter(param, Param) ParamDom(param,Param) /*!<
+#define Param(param, Param) ParamGetter(param) ParamSetter(param, Param) ParamDom(param,Param)                                              /*!<
  * The Param macro defines generic getter and setter methods for the parameter named \c param.
  *
  * With respect to the \ref object.h "name convention", this macro needs the parameter's name with lower and upper
@@ -225,7 +224,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see ParamGetter, ParamSetter, C
  */
-#define AttrGetter(attr, Attr, Type) inline Type* attr() const{return a##Attr;} /*!<
+#define AttrGetter(attr, Attr, Type) inline Type* attr() const{return a##Attr;}                                                             /*!<
  * The AttrGetter macro defines a generic getter method for the attribute named \c attr of type \c Type.
  *
  * With respect to the \ref object.h "name convention", this macro needs the attribute's name with lower and upper
@@ -238,19 +237,19 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Attr, AttrSetter, C
  */
-#define AttrFree(Attr) if(a##Attr) a##Attr->removeReference();/*!<
+#define AttrFree(Attr) if(a##Attr) a##Attr->removeReference();                                                                              /*!<
  * The AttrFree macro decrease the number of references of the GameObject attribut attr.
  * It should be used before the deletion/modifcation of the pointer.
  *
  * \see AttrLink
  */
-#define AttrLink(Attr) if(a##Attr) a##Attr->addReference();/*!<
+#define AttrLink(Attr) if(a##Attr) a##Attr->addReference();                                                                                 /*!<
  * The AttrLink macro increase the number of references of the GameObject attribut attr.
  * It should be used before the saving of a pointer as an attribute.
  *
  * \see AttrFree
  */
-#define AttrSetter(attr, Attr, Type) inline void set##Attr(Type* new##Attr){AttrFree(Attr); a##Attr = new##Attr; AttrLink(Attr); touch();} /*!<
+#define AttrSetter(attr, Attr, Type) inline void set##Attr(Type* new##Attr){AttrFree(Attr); a##Attr = new##Attr; AttrLink(Attr); touch();}  /*!<
  * The AttrSetter macro defines a generic setter method for the attribute named \c attr of type \c Type.
  *
  * With respect to the \ref object.h "name convention", this macro needs the attribute's name with lower and upper
@@ -263,7 +262,7 @@ bool cleverComp(const QString &na, const QString &nb);
  * \endcode
  * \see Attr, AttrGetter, C
  */
-#define AttrDef(Attr, Type) private: Type* a##Attr = nullptr; public: /*!<
+#define AttrDef(Attr, Type) private: Type* a##Attr = nullptr; public:                                                                       /*!<
  * The AttrDef macro defines a private attribute name <a\c Attr>.
  *
  * \note
@@ -285,7 +284,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see Attr
  */
-#define Attr(attr, Attr, Type) AttrDef(Attr, Type) AttrGetter(attr,Attr,Type) AttrSetter(attr, Attr, Type) /*!<
+#define Attr(attr, Attr, Type) AttrDef(Attr, Type) AttrGetter(attr,Attr,Type) AttrSetter(attr, Attr, Type)                                  /*!<
  * The Attr macro defines a new <a\c Attr> named attribute of type \c Type, with its generic getter and setter methods.
  *
  * With respect to the \ref object.h "name convention", this macro needs the parameter's name with lower and upper
@@ -304,7 +303,7 @@ bool cleverComp(const QString &na, const QString &nb);
  *
  * \see AttrT, AttrDef, AttrSetter, AttrGetter, C
  */
-#define AttrT(type,Type) Attr(type, Type, Type) /*!<
+#define AttrT(type,Type) Attr(type, Type, Type)                                                                                             /*!<
  * The AttrT macro defines a new attribute of type \c Type, named after the type name, with its generic getter and setter methods.
  *
  * With respect to the \ref object.h "name convention", this macro needs the parameter's type with lower and upper
@@ -333,13 +332,14 @@ class Parameter
 public:
     Parameter(int v = 0) : min(0), max(100){setValue(v);}
     Parameter(int min, int max, int v = 0): min(min), max(max){setValue(v);}
+    Parameter(const Parameter &p) : Parameter(p.min, p.max, p.pValue){}
     void setValue(int v){pValue = std::min(std::max(min,v),max);}
     inline int value() const {return pValue;}
-    void setMinimum(int m) {min = m; setValue(pValue);}
+    void setMinimum(int m) {min = m; max = std::max(max,min); setValue(pValue);}
     inline int minimum() const {return min;}
-    void setMaximum(int m) {max = m; setValue(pValue);}
+    void setMaximum(int m) {max = m; min = std::min(max,min); setValue(pValue);}
     inline int maximum() const {return max;}
-    void setDomain(int minVal, int maxVal) {min = minVal; max = maxVal; setValue(pValue);}
+    void setDomain(int minVal, int maxVal) {min = minVal; max = std::max(maxVal,min); setValue(pValue);}
 
 private:
     int min, max;
@@ -364,6 +364,7 @@ public:
     };
 
     Event(){}
+    Event(const Event *e){}
 
     QString typeName(){return "event";}
 private:
@@ -381,10 +382,16 @@ public:
      */
     enum OrderType{
         ChangeParam,
-        ChangeFlag
+        ChangeFlag,
+        EmitEvent,
+        ConditionalEvent,
+        WatchDogEvent,
+        SetTimer,
+        SetObject
     };
 
     Order(){}
+    Order(const Order *o){}
 
     QString typeName(){return "order";}
 private:
@@ -392,8 +399,33 @@ private:
 };
 
 
-class Game;
+class GameObject;
+class Action
+{
+public:
+    Action();
+    ~Action();
+    GameObject *emitter() const;
+    void setEmitter(GameObject *emitter);
+    const QString &event() const;
+    void setEvent(const QString &event);
+    const QList<QPair<GameObject*, QString>> &receivers() const;
+    void addReceiver(GameObject *receiver, const QString &order);
+    void removeReceiver(GameObject *receiver);
+    void removeReceiver(GameObject *receiver, const QString &order);
 
+    bool isValid() const;
+private:
+    GameObject *aEmitter;
+    QString aEvent;
+    QList<QPair<GameObject*, QString>> aReceivers;
+};
+
+
+
+
+
+class Game;
 /*!
  * \brief The GameObject class is the base class for every part
  * of games.
@@ -437,17 +469,21 @@ protected:
      * If these objects cannot be given to the constructor (case of an array of objects), the
      * \ref init method must be called after the creation to make the GameObject valid.
      */
+
+public:
     virtual ~GameObject();                                                                      /**<
      * The default destructor destroy every children of the instance
      */
 
-public:
     TypeName(GameObject)
 
     inline int ident() const{return id;}                                                        /**<
      * Returns the name wide unique identifier of the object.
      *
      * \see init, \ref GameObject::GameObject "GameObject"
+     */
+    virtual bool isEditable() const{return true;}                                               /**<
+     * Returns \c true if the GameObject is editable by the user.
      */
 
     inline const QDateTime& lastInternalEdition() const{return lastEdit;}                       /**<
@@ -666,12 +702,12 @@ public:
      */
 
 
-    virtual bool hasEvent(const QString &event) const;                                        /**<
+    virtual bool hasEvent(const QString &event) const;                                          /**<
      * Return \c true if the GameObject has a event named \c event.
      *
      * \see getEvent, getEvents, hasOrder
      */
-    virtual Event& getEvent(const QString &event);                                           /**<
+    virtual Event& getEvent(const QString &event) const;                                              /**<
      * Returns the event named \c event.
      *
      * \note
@@ -680,7 +716,7 @@ public:
      *
      * \see getEvents, getOrder
      */
-    virtual Event& addEvent(const QString &event);                                           /**<
+    virtual Event& addEvent(const QString &event);                                              /**<
      * Create a new event named \c event.
      *
      * \note
@@ -688,23 +724,23 @@ public:
      *
      * \see removeEvent, addOrder
      */
-    virtual void removeEvent(const QString &event);                                           /**<
+    virtual void removeEvent(const QString &event);                                             /**<
      * Delete the event named \c event, if exists.
      *
      * \see addEvent, removeOrder
      */
-    virtual QList<QString> getEvents() const;                                                  /**<
+    virtual QList<QString> events() const;                                                      /**<
      * Returns the list of event's names of the object.
      *
      * \see getEvent, getOrders
      */
 
-    virtual bool hasOrder(const QString &order) const;                                            /**<
+    virtual bool hasOrder(const QString &order) const;                                          /**<
      * Return \c true if the GameObject has a order named \c order.
      *
      * \see getOrder, getOrders, hasEvent
      */
-    virtual Order& getOrder(const QString &order);                                                 /**<
+    virtual Order& getOrder(const QString &order) const;                                              /**<
      * Returns the order named \c order.
      *
      * \note
@@ -713,7 +749,7 @@ public:
      *
      * \see getOrders, getEvent
      */
-    virtual Order& addOrder(const QString &order);                                                 /**<
+    virtual Order& addOrder(const QString &order);                                              /**<
      * Create a new order named \c order.
      *
      * \note
@@ -721,15 +757,45 @@ public:
      *
      * \see removeOrder, addEvent
      */
-    virtual void removeOrder(const QString &order);                                               /**<
+    virtual void removeOrder(const QString &order);                                             /**<
      * Delete the order named \c order, if exists.
      *
      * \see addOrder, removeEvent
      */
-    virtual QList<QString> getOrders() const;                                                    /**<
+    virtual QList<QString> orders() const;                                                      /**<
      * Returns the list of order's names of the object.
      *
      * \see getOrder, getEvents
+     */
+
+
+    void addEmittedAction(Action *action);                                                      /**<
+     * Register the GameObject as the emitter of the action \c action.
+     *
+     * This is usefull to avoid dangling references.
+     *
+     * \see removeEmittedAction, addReceivedAction
+     */
+    void removeEmittedAction(Action *action);                                                   /**<
+     * Free the GameObject from the action \c action as its emitter.
+     *
+     * This is usefull to avoid dangling references.
+     *
+     * \see addEmittedAction, removeReceivedAction
+     */
+    void addReceivedAction(Action *action);                                                     /**<
+     * Register the GameObject as one of the receivers of the action \c action.
+     *
+     * This is usefull to avoid dangling references.
+     *
+     * \see removeReceivedAction, addEmittedAction
+     */
+    void removeReceivedAction(Action *action);                                                  /**<
+     * Free the GameObject from the action \c action as one of its receivers.
+     *
+     * This is usefull to avoid dangling references.
+     *
+     * \see addReceivedAction, removeEmittedAction
      */
 
 protected:
@@ -745,6 +811,7 @@ protected:
      * \see init, \ref GameObject::GameObject "GameObject"
      */
 
+    void copy(GameObject &obj);
 
     virtual void addChild(GameObject *c);                                                       /**<
      * Registers a new child.
@@ -768,13 +835,14 @@ protected:
     int nbRef;
     QMap<QString, Parameter> aParams;
     QMap<QString, bool> aFlags;
-    QMap<QString, Event> aEvents;
-    QMap<QString, Order> aOrders;
+    QMap<QString, Event*> aEvents;
+    QMap<QString, Order*> aOrders;
     QString aName;
     QString fileName;
     QDateTime lastEdit, lastChildEdit;
     QSet<QString> reserved;
-
+    QList<Action*> aEmittedActions;
+    QList<Action*> aReceivedActions;
 private:
     int id;
 
@@ -813,7 +881,7 @@ public:
      *
      * \see ancestor
      */
-    InheritableObject *ancestor() const;                            /**<
+    InheritableObject *ancestor();                                  /**<
      * Returns the object from with the current instance inherits
      *
      * \see hasAncestor
@@ -823,7 +891,7 @@ public:
      * Returns true if the \c param parameter is define in one of
      * the ancestors of the object.
      *
-     * \see isRedefiniedParam, isInheritedFlag
+     * \see isRedefiniedParam, isInheritedFlag isInheritedEvent, isInheritedOrder
      */
     virtual bool isRedefiniedParam(const QString &param) const;     /**<
      * Returns true if the \c param parameter is an inherited parameter
@@ -860,38 +928,38 @@ public:
      * Returns the value of the \c param parameter, loocking
      * for it in the different ancestors if not found.
      *
-     * \see hasParam, getFlag, GameObject::getParam
+     * \see hasEvent, GameObject::getEvent, getFlag, getEvent, getOrder
      */
     virtual bool hasParam(const QString &param) const;              /**<
      * Returns true if the \c param parameter is defined in the
      * object or one of its ancestors.
      *
-     * \see getParam, hasFlag, GameObject::hasParam
+     * \see getParam, GameObject::hasParam, hasFlag, hasEvent, hasOrder
      */
     virtual QList<QString> params() const;                          /**<
      * Returns the list of the parameters of the object,
      * both proper and inherited.
      *
-     * \see properParams, paramTree, flags
+     * \see properParams, paramTree, flags, events, orders
      */
     virtual QList<QString> properParams() const;                    /**<
      * Returns the list of the parameters that are only defined
      * in the object (the uninherited parameters)
      *
-     * \see params, paramTree, properFlags
+     * \see params, paramTree, properFlags, properEvents, properOrders
      */
     HierarchicalAttr paramTree() const;                             /**<
      * Returns the hierarchy of parameters, that is the list of
-     * ancestors and wich parameters they define.
+     * ancestors and which parameters they define.
      *
-     * \see properParams, flagTree
+     * \see params, properParams, flagTree, eventTree, orderTree
      */
 
     virtual bool isInheritedFlag(const QString &flag) const;        /**<
      * Returns true if the \c flag flag is define in one of
      * the ancestors of the object.
      *
-     * \see isRedefiniedFlag, isInheritedParam
+     * \see isRedefiniedFlag, isInheritedParam isInheritedEvent, isInheritedOrder
      */
     virtual bool isRedefiniedFlag(const QString &flag) const;       /**<
      * Returns true if the \c flag flag is an inherited flag
@@ -903,46 +971,106 @@ public:
      * Returns the value of the \c flag flag, loocking
      * for it in the different ancestors if not found.
      *
-     * \see hasFlag, getParam, GameObject::getFlag
+     * \see hasEvent, GameObject::getEvent, getParam, getEvent, getOrder
      */
     virtual bool hasFlag(const QString &flag) const;                /**<
      * Returns true if the \c flag flag is defined in the
      * object or one of its ancestors.
      *
-     * \see getFlag, hasParam, GameObject::hasFlag
+     * \see getFlag, GameObject::hasFlag, hasParam, hasEvent, hasOrder
      */
     virtual QList<QString> flags() const;                           /**<
      * Returns the list of the flags of the object,
      * both proper and inherited.
      *
-     * \see properFlags, flagTree, params
+     * \see properFlags, flagTree, params, events, orders
      */
     virtual QList<QString> properFlags() const;                     /**<
      * Returns the list of the flags that are only defined
      * in the object (the uninherited flags)
      *
-     * \see paramTree, properFlags
+     * \see flags, flagTree, properParams, properEvents, properOrders
      */
     HierarchicalAttr flagTree() const;                              /**<
      * Returns the hierarchy of flags, that is the list of
-     * ancestors and wich flags they define.
+     * ancestors and which flags they define.
      *
-     * \see properFlags, paramTree
+     * \see flags, properFlags, paramTree, eventTree, orderTree
      */
 
-    virtual bool isInheritedEvent(const QString &event) const;
-    virtual bool hasEvent(const QString &event) const;
-    virtual Event& getEvent(const QString &event);
-    virtual QList<QString> getEvents() const;
-    virtual QList<QString> properEvents() const;
-    HierarchicalAttr eventTree() const;
+    virtual bool isInheritedEvent(const QString &event) const;      /**<
+     * Returns true if the \c event event is define in one of
+     * the ancestors of the object.
+     *
+     * \see isInheritedParam, isInheritedFlag, isInheritedOrder
+     */
+    virtual bool hasEvent(const QString &event) const;              /**<
+     * Returns true if the \c event event is defined in the
+     * object or one of its ancestors.
+     *
+     * \see getEvent, GameObject::hasEvent, hasParam, hasFlag, hasOrder
+     */
+    virtual Event& getEvent(const QString &event) const;            /**<
+     * Returns the \c event event, loocking
+     * for it in the different ancestors if not found.
+     *
+     * \see hasEvent, GameObject::getEvent, getParam, getFlag, getOrder
+     */
+    virtual QList<QString> events() const;                          /**<
+     * Returns the list of the events of the object,
+     * both proper and inherited.
+     *
+     * \see properEvents, eventTree, params, flags, orders
+     */
+    virtual QList<QString> properEvents() const;                    /**<
+     * Returns the list of the events that are only defined
+     * in the object (the uninherited events)
+     *
+     * \see events, eventTree, properParams, properFlags, properOrders
+     */
+    HierarchicalAttr eventTree() const;                             /**<
+     * Returns the hierarchy of event, that is the list of
+     * ancestors and which event they define.
+     *
+     * \see events, properEvents, paramTree, flagTree, orderTree
+     */
 
-    virtual bool isInheritedOrder(const QString &order) const;
-    virtual bool hasOrder(const QString &order) const;
-    virtual Order& getOrder(const QString &order);
-    virtual QList<QString> getOrders() const;
-    virtual QList<QString> properOrders() const;
-    HierarchicalAttr orderTree() const;
+    virtual bool isInheritedOrder(const QString &order) const;      /**<
+     * Returns true if the \c order order is define in one of
+     * the ancestors of the object.
+     *
+     * \see isInheritedParam, isInheritedFlag isInheritedEvent
+     */
+    virtual bool hasOrder(const QString &order) const;              /**<
+     * Returns true if the \c order order is defined in the
+     * object or one of its ancestors.
+     *
+     * \see getOrder, GameObject::hasOrder, hasParam, hasFlag, hasEvent
+     */
+    virtual Order& getOrder(const QString &order) const;            /**<
+     * Returns the \c order order, loocking
+     * for it in the different ancestors if not found.
+     *
+     * \see hasOrder, GameObject::getEvent, getParam, getFlag, getEvent
+     */
+    virtual QList<QString> orders() const;                          /**<
+     * Returns the list of the orders of the object,
+     * both proper and inherited.
+     *
+     * \see properOrders, orderTree, params, flags, events
+     */
+    virtual QList<QString> properOrders() const;                    /**<
+     * Returns the list of the orders that are only defined
+     * in the object (the uninherited orders)
+     *
+     * \see orders, orderTree, properParams, properFlags, properEvents
+     */
+    HierarchicalAttr orderTree() const;                             /**<
+     * Returns the hierarchy of orders, that is the list of
+     * ancestors and which orders they define.
+     *
+     * \see orders, properOrders, paramTree, flagTree, eventTree
+     */
 
 protected:
 

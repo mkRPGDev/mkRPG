@@ -21,23 +21,23 @@ MapsTab::MapsTab(QWidget *parent) :
     docksW.append(cd);
     docks->addDock(tr("Cell (0 selected)"), cd);
     connect(cd, SIGNAL(gameModified()), this, SLOT(updateGame()));
-    CellTypesDock *ctd = new CellTypesDock;
+    /*CellTypesDock *ctd = new CellTypesDock;
     docksW.append(ctd);
     docks->addDock(tr("Cell types"), ctd);
-    connect(ctd, SIGNAL(gameModified()), this, SLOT(updateGame()));
+    connect(ctd, SIGNAL(gameModified()), this, SLOT(updateGame()));*/
 
 }
 
 
 void MapsTab::mapChanged(const QModelIndex &to, const QModelIndex &UNUSED(from)){
-    game->setCurrentMap(game->world().maps().at(to.row()));
+    game->setCurrentMap(game->world().objects().maps().at(to.row()));
     // TODO mieux
     updateGame();
 }
 
 void MapsTab::setGame(Game *g){
-
-    mapsView->setModel(new MapsListModel(&g->world(), this));
+    maps = new MapsListModel(g->world(), this);
+    mapsView->setModel(maps);
 
 
     connect(mapsView->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
@@ -50,6 +50,7 @@ void MapsTab::setGame(Game *g){
 
 
 void MapsTab::updateGame(){
+    maps->setWorld(game->world());
     mapViewer->setMap(game->currentMap());
     mapViewer->updateRequest();
     for(BDockWidget *d : docksW)

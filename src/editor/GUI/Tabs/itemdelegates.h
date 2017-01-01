@@ -105,9 +105,54 @@ public:
     QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
     void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
+    //void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;*/
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
 };
 
+
+
+class ActionReceiverEditor : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit ActionReceiverEditor(const QModelIndex &index, QWidget *parent = nullptr);
+
+signals:
+    void removeReceiver(QWidget *, const QPersistentModelIndex &);
+    void editReceiver(QWidget *, const QPersistentModelIndex &);
+private slots:
+    void removeReceiverRequest();
+    void editReceiverRequest();
+
+private:
+    QToolButton *edit;
+    QToolButton *remove;
+    QPersistentModelIndex index;
+};
+
+class ActionReceiverItemDelegate : public QStyledItemDelegate
+{
+    Q_OBJECT
+
+public:
+    explicit ActionReceiverItemDelegate(QObject *parent = nullptr);
+    QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const;
+    void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+signals:
+    void removeRow(const QPersistentModelIndex &);
+    void editRow(const QPersistentModelIndex &);
+
+private slots:
+    void removeReceiver(QWidget *editor, const QPersistentModelIndex &index);
+    void editReceiver(QWidget *editor, const QPersistentModelIndex &index);
+
+};
 
 
 

@@ -6,7 +6,7 @@ TypeTreeItem::TypeTreeItem(Game *game) :
 {
     TypeTreeItem *cellTypes = new TypeTreeItem("CellType", this);
     children.append(cellTypes);
-    for(CellType *c : game->world().cellTypes())
+    for(CellType *c : game->world().types().cellType().descendants())
         cellTypes->children.append(new TypeTreeItem(c, cellTypes));
 }
 

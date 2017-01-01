@@ -41,7 +41,7 @@ XmlWritter::XmlWritter(const QDir &path, World &world) :
     *this << OpenMarkUp << "Maps" << EndL;
     XmlWritter::path.mkdir("Maps");
     XmlWritter::path.cd("Maps");
-    for(Map *m : world.maps()){
+    for(Map *m : world.objects().maps()){
         *this << OpenMarkUp << "Map" << MarkUpParam << "id" << m->ident() << CloseMarkUp;
         XmlWritter map(XmlWritter::path, *m);
         createdFiles.insertMulti("Map", map.fileName());
@@ -78,13 +78,13 @@ XmlWritter::~XmlWritter(){
     file.close();
 }
 
-void XmlWritter::writeCell(const Cell &c){
+void XmlWritter::writeCell(Cell &c){
     *this << c;
     *this << OpenMarkUp << "CellType" << MarkUpParam << "id" << c.cellType().ident() << CloseMarkUp;
     *this << CloseMarkUp;
 }
 
-void XmlWritter::writeCellType(const CellType &c){
+void XmlWritter::writeCellType(CellType &c){
     *this << c;
     if(c.hasAncestor())
         *this << OpenMarkUp << "Inherits" << MarkUpParam << "id" << c.ancestor()->ident() << CloseMarkUp;

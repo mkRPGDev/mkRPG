@@ -1,5 +1,5 @@
-#ifndef MAPEDITOR_H
-#define MAPEDITOR_H
+#ifndef MAPTAB_H
+#define MAPTAB_H
 
 #include "ui_maptab.h"
 #include "../tabwidget.h"
@@ -7,11 +7,12 @@
 #include "selectiondock.h"
 #include "celldock.h"
 #include "mapdock.h"
+#include "../ObjectEditors/mapeditor.h"
 
 
 /*!
  * \file maptab.h
- * \brief Definition of the MapsEditor class
+ * \brief Definition of the MapsTab class
  *
  */
 
@@ -42,11 +43,13 @@ private slots:
 
 
 private:
+
     void checkScrollBarUtility();
     void updateViewCenterPosition();
     Game *game;
     Map *currentMap;
     QList<BDockWidget*> docksW;
+    MapsListModel *maps;
 };
 
-#endif // MAPEDITOR_H
+#endif // MAPTAB_H

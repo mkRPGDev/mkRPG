@@ -103,7 +103,6 @@ EventTreeView::EventTreeView(QWidget *parent) :
 
     setIndentation(10);
     setAlternatingRowColors(true);
-    setSelectionMode(QAbstractItemView::NoSelection);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setEditTriggers(editTriggers() | QAbstractItemView::CurrentChanged);
 }
@@ -148,7 +147,6 @@ OrderTreeView::OrderTreeView(QWidget *parent) :
 
     setIndentation(10);
     setAlternatingRowColors(true);
-    setSelectionMode(QAbstractItemView::NoSelection);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setEditTriggers(editTriggers() | QAbstractItemView::CurrentChanged);
 }

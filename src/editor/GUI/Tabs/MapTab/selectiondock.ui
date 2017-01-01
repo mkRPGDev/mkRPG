@@ -38,7 +38,7 @@
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../../Icons/ressources.qrc">
+      <iconset resource="../../../Icons/ressources.qrc">
        <normaloff>:/Icons/selRec.png</normaloff>:/Icons/selRec.png</iconset>
      </property>
      <property name="checkable">
@@ -58,7 +58,7 @@
       <string>...</string>
      </property>
      <property name="icon">
-      <iconset resource="../../Icons/ressources.qrc">
+      <iconset resource="../../../Icons/ressources.qrc">
        <normaloff>:/Icons/selReg.png</normaloff>:/Icons/selReg.png</iconset>
      </property>
      <property name="checkable">
@@ -82,7 +82,7 @@
       <string>Pencil Selection</string>
      </property>
      <property name="icon">
-      <iconset resource="../../Icons/ressources.qrc">
+      <iconset resource="../../../Icons/ressources.qrc">
        <normaloff>:/Icons/selPen.png</normaloff>:/Icons/selPen.png</iconset>
      </property>
      <property name="checkable">
@@ -197,7 +197,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../Icons/ressources.qrc"/>
+  <include location="../../../Icons/ressources.qrc"/>
  </resources>
  <connections/>
 </ui>

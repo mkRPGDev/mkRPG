@@ -2,7 +2,7 @@
 
 
 
-
+// TODO : recharger les nom quand modif dans objects.
 
 
 ObjectTab::ObjectTab(QWidget *parent) :
@@ -24,7 +24,6 @@ ObjectTab::ObjectTab(QWidget *parent) :
     orders->setModel(ordersModel);
     objects->setModel(objectsModel);
     objects->setColumnWidth(0, objects->width()/2);
-    types->setModel(typesModel);
     edit = new QWidget();
     editor->layout()->addWidget(edit);
 
@@ -48,12 +47,14 @@ void ObjectTab::setGame(Game *g){
     objects->expandAll();
     objects->resizeColumnToContents(0);
 
-    types->expandAll();
+    game = g;
 }
 
 
 void ObjectTab::currentElementChanged(const QModelIndex &ind){
-    currentObject = static_cast<GameObject*>(ind.internalPointer());
+    currentObject = ind.flags() & Qt::ItemIsSelectable ?
+                static_cast<GameObject*>(ind.internalPointer()) :
+                nullptr;
     newParam->setEnabled(currentObject != nullptr);
     newFlag->setEnabled(currentObject != nullptr);
     newEvent->setEnabled(currentObject != nullptr);
@@ -96,8 +97,8 @@ void ObjectTab::on_newParam_clicked(){
         QString name(tr("new_param"));
         if(currentObject->hasParam(name)){
             int k(1);
-            while(currentObject->hasParam(name+" ("+QString::number(++k)+")"));
-            name+=" ("+QString::number(k)+")";
+            while(currentObject->hasParam(name+"_"+QString::number(++k)));
+            name+="_"+QString::number(k);
         }
         paramsModel->addParam(name);
     }
@@ -109,8 +110,8 @@ void ObjectTab::on_newFlag_clicked(){
         QString name(tr("new_flag"));
         if(currentObject->hasFlag(name)){
             int k(1);
-            while(currentObject->hasFlag(name+" ("+QString::number(++k)+")"));
-            name+=" ("+QString::number(k)+")";
+            while(currentObject->hasFlag(name+"_"+QString::number(++k)));
+            name+="_"+QString::number(k);
         }
         flagsModel->addFlag(name);
     }
@@ -122,8 +123,8 @@ void ObjectTab::on_newEvent_clicked(){
         QString name(tr("new_event"));
         if(currentObject->hasEvent(name)){
             int k(1);
-            while(currentObject->hasEvent(name+" ("+QString::number(++k)+")"));
-            name+=" ("+QString::number(k)+")";
+            while(currentObject->hasEvent(name+"_"+QString::number(++k)));
+            name+="_"+QString::number(k);
         }
         eventsModel->addEvent(name);
     }
@@ -135,9 +136,33 @@ void ObjectTab::on_newOrder_clicked(){
         QString name(tr("new_order"));
         if(currentObject->hasOrder(name)){
             int k(1);
-            while(currentObject->hasOrder(name+" ("+QString::number(++k)+")"));
-            name+=" ("+QString::number(k)+")";
+            while(currentObject->hasOrder(name+"_"+QString::number(++k)));
+            name+="_"+QString::number(k);
         }
         ordersModel->addOrder(name);
+    }
+}
+
+void ObjectTab::on_newObject_clicked(){
+    NewGameObject g(*game, this);
+    if(g.exec()){
+        GameObject *type = game->object(g.selectedType());
+        QString typeName(type->typeName());
+        if(g.createObject()){
+            if(typeName == "MapType")
+                game->world().objects().addMap(new Map(*static_cast<MapType*>(type),game->world()));
+            else if(typeName == "ObjectType")
+                game->world().objects().addObject(new Object(*static_cast<ObjectType*>(type),game->world()));
+        }
+        else{
+            if(typeName == "CellType")
+                new CellType(*static_cast<CellType*>(type));
+            else if(typeName == "MapType")
+                new MapType(*static_cast<MapType*>(type));
+            else if(typeName == "ObjectType")
+                new ObjectType(*static_cast<ObjectType*>(type));
+        }
+        objectsModel->setGameObject(game);
+        objects->expandAll();
     }
 }

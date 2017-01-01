@@ -34,16 +34,16 @@ GameTreeItem<type>::GameTreeItem(int rowNb, GameObject *obj, InheritableObject *
             attrs = anc == nullptr ? obj->flags() : anc->properFlags();
             break;
         case EventItem:
-            attrs = anc == nullptr ? obj->getEvents() : anc->properEvents();
+            attrs = anc == nullptr ? obj->events() : anc->properEvents();
             break;
         case OrderItem:
-            attrs = anc == nullptr ? obj->getOrders() : anc->properOrders();
+            attrs = anc == nullptr ? obj->orders() : anc->properOrders();
             break;
         default:
             assert(false);
         }
         for(int i(0); i<attrs.length(); ++i)
-            children.append(new GameTreeItem<type>(i, obj, typ, Attribute, this));
+            children.append(new GameTreeItem<type>(i, obj == nullptr ? anc : obj, typ, Attribute, this));
         break;
     case Attribute:
         attr = parent->attrs[rowNb];
@@ -117,38 +117,37 @@ GameTreeItem<type>* GameTreeItem<type>::child(int row) const{
 
 
 template<ItemType type>
-Qt::ItemFlags GameTreeItem<type>::flags(int col) const{
+Qt::ItemFlags GameTreeItem<type>::flags(int col, bool readOnly) const{
     switch (state) {
-    case Type: return typeFlags(col);
-    case Object: return objectFlags(col);
-    case Attribute: return attrFlags(col);
-    case Value: return valueFlags(col);
+    case Type: return typeFlags(col, readOnly);
+    case Object: return objectFlags(col, readOnly);
+    case Attribute: return attrFlags(col, readOnly);
+    case Value: return valueFlags(col, readOnly);
     default: return Qt::NoItemFlags;
     }
 }
-
-
 template<ItemType type>
-Qt::ItemFlags GameTreeItem<type>::typeFlags(int) const{
+Qt::ItemFlags GameTreeItem<type>::typeFlags(int, bool) const{
     return Qt::NoItemFlags;
 }
 template<ItemType type>
-Qt::ItemFlags GameTreeItem<type>::objectFlags(int) const{
+Qt::ItemFlags GameTreeItem<type>::objectFlags(int, bool) const{
     return Qt::NoItemFlags;
 }
 template<ItemType type>
-Qt::ItemFlags GameTreeItem<type>::attrFlags(int col) const{
+Qt::ItemFlags GameTreeItem<type>::attrFlags(int col, bool readOnly) const{
     Qt::ItemFlags fl(Qt::ItemIsEnabled);
-    if(col == 0 && (typ == nullptr || typ == obj)) fl |= Qt::ItemIsEditable;
-    if(col == 1) fl |= Qt::ItemIsEditable;
+    if(col == 0 && !readOnly && (typ == nullptr || typ == obj)) fl |=  Qt::ItemIsEditable;
+    if(col == 1 && !readOnly) fl |= Qt::ItemIsEditable;
+    if(readOnly) fl |= Qt::ItemIsSelectable;
     return fl;
 }
 template<ItemType type>
-Qt::ItemFlags GameTreeItem<type>::valueFlags(int col) const{
+Qt::ItemFlags GameTreeItem<type>::valueFlags(int col, bool readOnly) const{
     Qt::ItemFlags fl(Qt::NoItemFlags);
     if(typ == nullptr || typ == obj){
         fl |= Qt::ItemIsEnabled;
-        if(col == 1)
+        if(col == 1 || !readOnly)
             fl |= Qt::ItemIsEditable;
     }
     return fl;
@@ -236,12 +235,13 @@ QVariant GameTreeItem<type>::valueData(int col, int role) const{
         if(col == 0)
             switch (role) {
             case Qt::DisplayRole: return QVariant(rowNb ? "Maximum" : "Minimum");
-            case Qt::SizeHintRole: return QVariant(QPoint(-10000,10000));
             default: return QVariant();
             }
         else
             switch (role) {
+            case Qt::EditRole:
             case Qt::DisplayRole: return QVariant(rowNb ? obj->getParamMax(attr) : obj->getParamMin(attr));
+            case Qt::SizeHintRole: return QVariant(QPoint(-10000,10000));
             default: return QVariant();
             }
     case EventItem:
@@ -303,7 +303,7 @@ bool GameTreeItem<type>::setAttrData(int col, QVariant value, int role){
         }
     }
     else if(col == 0){
-        if(role == Qt::EditRole && value.toString() != attr){
+        if(role == Qt::EditRole && value.toString() != attr && isValidName(value.toString())){
             switch (type) {
             case ParamItem:
                 obj->renameParam(attr, value.toString());
@@ -376,6 +376,10 @@ void GameTreeItem<type>::sort(){
 }
 
 
+template<ItemType type>
+bool GameTreeItem<type>::isAttr(const QString &a) const{
+    return state == Attribute && attr == a;
+}
 
 
 
@@ -581,9 +585,9 @@ void FlagTreeItemModel::sortAttr(const QModelIndex &par){
 
 
 
-EventTreeItemModel::EventTreeItemModel(QObject *parent) :
+EventTreeItemModel::EventTreeItemModel(QObject *parent, bool readOnly) :
     QAbstractItemModel(parent),
-    obj(nullptr), item(nullptr)
+    obj(nullptr), item(nullptr), readOnly(readOnly)
 {}
 
 
@@ -598,7 +602,7 @@ int EventTreeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
 }
 
 Qt::ItemFlags EventTreeItemModel::flags(const QModelIndex &index) const{
-    return static_cast<GameTreeItem<EventItem>*>(index.internalPointer())->flags(index.column());
+    return static_cast<GameTreeItem<EventItem>*>(index.internalPointer())->flags(index.column(), readOnly);
 }
 
 
@@ -677,9 +681,9 @@ void EventTreeItemModel::sortAttr(const QModelIndex &par){
 
 
 
-OrderTreeItemModel::OrderTreeItemModel(QObject *parent) :
+OrderTreeItemModel::OrderTreeItemModel(QObject *parent, bool readOnly) :
     QAbstractItemModel(parent),
-    obj(nullptr), item(nullptr)
+    obj(nullptr), item(nullptr), readOnly(readOnly)
 {}
 
 
@@ -694,7 +698,7 @@ int OrderTreeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
 }
 
 Qt::ItemFlags OrderTreeItemModel::flags(const QModelIndex &index) const{
-    return static_cast<GameTreeItem<OrderItem>*>(index.internalPointer())->flags(index.column());
+    return static_cast<GameTreeItem<OrderItem>*>(index.internalPointer())->flags(index.column(), readOnly);
 }
 
 
@@ -766,4 +770,15 @@ void OrderTreeItemModel::sortAttr(const QModelIndex &par){
     else
         item->sort();
     emit layoutChanged();
+}
+
+
+QModelIndex OrderTreeItemModel::findOrder(const QString &order, const QModelIndex &root){
+    if(root.isValid() && static_cast<GameTreeItem<OrderItem>*>(root.internalPointer())->isAttr(order))
+        return root;
+    for(int i(0); i<rowCount(root); ++i){
+        QModelIndex mi(findOrder(order, index(i,0,root)));
+        if(mi.isValid()) return mi;
+    }
+    return QModelIndex();
 }

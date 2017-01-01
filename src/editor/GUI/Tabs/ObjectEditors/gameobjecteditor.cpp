@@ -2,10 +2,12 @@
 #include "mapeditor.h"
 #include "celltypeeditor.h"
 
+
 GameObjectEditor::GameObjectEditor(QWidget *parent) : QWidget(parent)
 {
 
 }
+
 
 
 

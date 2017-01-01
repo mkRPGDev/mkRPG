@@ -26,8 +26,8 @@ private:
     XmlWritter &operator<<(const int &i);
     XmlWritter &operator<<(const Element &e);
 
-    void writeCell(const Cell &c);
-    void writeCellType(const CellType &c);
+    void writeCell(Cell &c);
+    void writeCellType(CellType &c);
 
     void writeObjectAttributes(const GameObject &obj);
 

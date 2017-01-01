@@ -221,7 +221,7 @@ ObjectNameItemDelegate::ObjectNameItemDelegate(QObject *parent) :
 
 
 QWidget* ObjectNameItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &UNUSED(option), const QModelIndex &UNUSED(index)) const{
-    QLineEdit *le = new QLineEdit(parent);
+    QLabel *le = new QLabel(parent);
     return le;
 }
 
@@ -233,9 +233,107 @@ void ObjectNameItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleO
     editor->setGeometry(option.rect);
 }
 
-void ObjectNameItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const{
-    model->setData(index, editor->property("text"));
+//void ObjectNameItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const{
+//    model->setData(index, editor->property("text"));
+//}
+
+void ObjectNameItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    QStyledItemDelegate::paint(painter, option, index);
+    QStyleOptionButton button;
+    button.palette = option.palette;
+    button.rect = QRect(option.rect.right()-16, option.rect.top(), 17, 17);
+    button.icon = QIcon(":/Icons/supprimer.png");
+    button.iconSize = QSize(12,12);
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+
 }
 
 
 
+
+ActionReceiverEditor::ActionReceiverEditor(const QModelIndex &index, QWidget *parent) :
+    QWidget(parent), index(index)
+{
+    QHBoxLayout *lay = new QHBoxLayout();
+    setLayout(lay);
+    lay->setContentsMargins(0,0,0,0);
+    lay->setSpacing(1);
+    lay->addItem(new QSpacerItem(2000,0));
+    edit = new QToolButton();
+    edit->setIcon(QIcon(":/Icons/editer.png"));
+    edit->setFixedSize(23,23);
+    lay->addWidget(edit);
+//    connect(edit, SIGNAL(clicked(bool)), );
+    remove = new QToolButton();
+    remove->setIcon(QIcon(":/Icons/supprimer.png"));
+    remove->setFixedSize(23,23);
+    lay->addWidget(remove);
+    connect(remove, SIGNAL(clicked(bool)), this, SLOT(removeReceiverRequest()));
+    connect(edit, SIGNAL(clicked(bool)), this, SLOT(editReceiverRequest()));
+}
+
+
+void ActionReceiverEditor::removeReceiverRequest(){
+    emit removeReceiver(this, index);
+}
+
+
+void ActionReceiverEditor::editReceiverRequest(){
+    emit editReceiver(this, index);
+}
+
+
+
+ActionReceiverItemDelegate::ActionReceiverItemDelegate(QObject *parent):
+    QStyledItemDelegate(parent)
+{}
+
+QWidget* ActionReceiverItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    ActionReceiverEditor * ed = new ActionReceiverEditor(index, parent);
+    ed->setFocusPolicy(Qt::StrongFocus);
+    connect(ed, SIGNAL(removeReceiver(QWidget*,QPersistentModelIndex)), this, SLOT(removeReceiver(QWidget*,QPersistentModelIndex)));
+    connect(ed, SIGNAL(editReceiver(QWidget*,QPersistentModelIndex)), this, SLOT(editReceiver(QWidget*,QPersistentModelIndex)));
+    return ed;
+}
+
+
+
+void ActionReceiverItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const{
+
+}
+
+void ActionReceiverItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    editor->setGeometry(option.rect);
+}
+
+void ActionReceiverItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const{
+
+}
+
+void ActionReceiverItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    QStyledItemDelegate::paint(painter, option, index);
+
+    QStyleOptionButton button;
+    button.palette = option.palette;
+    button.rect = QRect(option.rect.right()-22, option.rect.top(), 23, 23);
+    button.icon = QIcon(":/Icons/supprimer.png");
+    button.iconSize = QSize(16,16);
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+    button.rect = QRect(option.rect.right()-46, option.rect.top(), 23, 23);
+    button.icon = QIcon(":/Icons/editer.png");
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+}
+
+
+void ActionReceiverItemDelegate::removeReceiver(QWidget *editor, const QPersistentModelIndex &index){
+    destroyEditor(editor, index);
+    emit removeRow(index);
+}
+
+void ActionReceiverItemDelegate::editReceiver(QWidget *editor, const QPersistentModelIndex &index){
+    destroyEditor(editor, index);
+    emit editRow(index);
+}

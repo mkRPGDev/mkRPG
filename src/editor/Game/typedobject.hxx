@@ -69,7 +69,7 @@ public:
     {}
 
 
-    const T& objectType() const{
+    T& objectType(){
         return *aObjectType;
     }
     void setObjectType(T &type){
@@ -78,7 +78,7 @@ public:
     }
 
 protected:
-    const T *aObjectType;
+    T *aObjectType;
 
 };
 

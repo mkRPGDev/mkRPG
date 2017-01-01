@@ -1,10 +1,13 @@
 #include "mapslistmodel.h"
 
-MapsListModel::MapsListModel(World* w, QObject* parent) :
-    QAbstractListModel(parent), maps(w->maps()), mps(QMap<int, MapPainter*>())
-{
+MapsListModel::MapsListModel(QObject* parent) :
+    QAbstractListModel(parent), mps(QMap<int, MapPainter*>())
+{}
 
-    update();
+MapsListModel::MapsListModel(World &w, QObject* parent) :
+    MapsListModel(parent)
+{
+    setWorld(w);
 }
 
 int MapsListModel::rowCount(const QModelIndex &parent) const{
@@ -33,6 +36,14 @@ QVariant MapsListModel::data(const QModelIndex &index, int role) const{
 QImage MapsListModel::viewOf(Map *m) const{
     int id = m->ident();
     return mps.contains(id) ? QImage(mps[id]->render()) : QImage();
+}
+
+
+void MapsListModel::setWorld(World &w){
+    beginResetModel();
+    maps = w.objects().maps();
+    update();
+    endResetModel();
 }
 
 void MapsListModel::update(){
@@ -112,7 +123,7 @@ QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
 }
 
 
-Qt::ItemFlags CellTypeListModel::flags(const QModelIndex &index) const{
+Qt::ItemFlags CellTypeListModel::flags(const QModelIndex &UNUSED(index)) const{
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 

@@ -11,6 +11,7 @@
 #include "Tabs/worldtab.h"
 #include "Tabs/MapTab/maptab.h"
 #include "Tabs/objecttab.h"
+#include "Tabs/actiontab.h"
 
 /*!
  * \file editor.h
@@ -62,6 +63,8 @@ private slots:
     void saveGeom();
     void editMap();
 
+    void setCurrentTab(int i);
+
 private:
     void addTab(const QString& n, const QPixmap& p, TabWidget *w);
 
@@ -79,6 +82,7 @@ private:
     WorldTab *worldEditor;
     MapsTab *mapsEditor;
     ObjectTab *objectEditor;
+    ActionTab *actionEditor;
 
 };
 

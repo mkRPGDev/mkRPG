@@ -10,7 +10,7 @@ ObjectTab::ObjectTab(QWidget *parent) :
 {
     setupUi(this);
 
-    objects->setItemDelegateForColumn(1, new ObjectNameItemDelegate(this));
+    //objects->setItemDelegateForColumn(1, new ObjectNameItemDelegate(this));
     paramsModel = new ParamTreeItemModel(this);
     flagsModel = new FlagTreeItemModel(this);
     objectsModel = new ObjectsTreeModel(this);

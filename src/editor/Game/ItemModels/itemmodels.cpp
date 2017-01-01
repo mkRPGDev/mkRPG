@@ -26,7 +26,7 @@ int ObjectsTreeModel::columnCount(const QModelIndex &) const{
 }
 
 int ObjectsTreeModel::rowCount(const QModelIndex &parent) const{
-    return parent.isValid() ? static_cast<GameObject*>(parent.internalPointer())->children().length() : obj->children().length();
+    return parent.isValid() ? static_cast<GameObject*>(parent.internalPointer())->children().length() : obj ? obj->children().length() : 0;
 }
 
 QVariant ObjectsTreeModel::data(const QModelIndex &index, int role) const{

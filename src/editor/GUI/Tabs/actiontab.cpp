@@ -7,11 +7,19 @@ ActionTab::ActionTab(QWidget *parent) :
     setupUi(this);
 
     emittersModel = new ObjectsTreeModel();
+    tem = new FilteredObjectsTreeModel(this);
+    tem->setSourceModel(emittersModel);
+    tem->setMode(true);
+    tem->setDisplayedItem(0);
     emittersModel->setEditable(false);
-    emitters->setModel(emittersModel);
+    emitters->setModel(tem);
     receiversModel = new ObjectsTreeModel();
+    trc = new FilteredObjectsTreeModel(this);
+    trc->setSourceModel(receiversModel);
+    trc->setMode(true);
+    trc->setDisplayedItem(0);
     receiversModel->setEditable(false);
-    receiversV->setModel(receiversModel);
+    receiversV->setModel(trc);
     eventsModel = new EventTreeItemModel(this, true);
     events->setModel(eventsModel);
     ordersModel = new OrderTreeItemModel(this, true);
@@ -47,10 +55,10 @@ ActionTab::ActionTab(QWidget *parent) :
 }
 
 void ActionTab::setGame(Game *g){
-    emittersModel->setGameObject(&g->world());
+    emittersModel->setGameObject(g);
     game = g;
     emitters->expandAll();
-    receiversModel->setGameObject(&g->world());
+    receiversModel->setGameObject(g);
     receiversV->expandAll();
     actionsModel->setGame(g);
 }
@@ -66,7 +74,7 @@ void ActionTab::actionChanged(const QModelIndex &ac){
 }
 
 void ActionTab::emitterChanged(const QModelIndex &ind){
-    emitter = static_cast<GameObject*>(ind.internalPointer());
+    emitter = static_cast<GameObject*>(tem->mapToSource(ind).internalPointer());
     eventChanged(QModelIndex());
     events->setEnabled(emitter != nullptr);
     eventsModel->setObject(emitter);
@@ -78,7 +86,7 @@ void ActionTab::emitterChanged(const QModelIndex &ind){
 }
 
 void ActionTab::receiverChanged(const QModelIndex &ind){
-    receiver = static_cast<GameObject*>(ind.internalPointer());
+    receiver = static_cast<GameObject*>(trc->mapToSource(ind).internalPointer());
     orderChanged(QModelIndex());
     orders->setEnabled(receiver != nullptr);
     ordersModel->setObject(receiver);
@@ -90,13 +98,19 @@ void ActionTab::receiverChanged(const QModelIndex &ind){
 }
 
 void ActionTab::eventChanged(const QModelIndex &ev){
-    event = ev.parent().child(ev.row(),0).data(Qt::DisplayRole).toString();
+    if(ev.isValid())
+        event = eventsModel->index(ev.row(),0,ev.parent()).data(Qt::DisplayRole).toString();
+    else
+        event = "";
     newEmitter->setText(emitter->name() + "::" + event);
     selectEmitter->setEnabled(ev.isValid());
 }
 
 void ActionTab::orderChanged(const QModelIndex &ord){
-    order = ord.parent().child(ord.row(),0).data(Qt::DisplayRole).toString();
+    if(ord.isValid())
+        order = ordersModel->index(ord.row(),0,ord.parent()).data(Qt::DisplayRole).toString();
+    else
+        order = "";
     newReceiver->setText(receiver->name() + "::" + order);
     addReceiver->setEnabled(ord.isValid());
 }
@@ -126,8 +140,8 @@ void ActionTab::editRow(const QPersistentModelIndex &r){
     QModelIndex sel(receiversModel->find(rcvModel->receiver(r.row()).first->ident()));
     if(sel.isValid()){
         receiversV->selectionModel()->clearSelection();
-        receiversV->selectionModel()->setCurrentIndex(sel,QItemSelectionModel::Select | QItemSelectionModel::Current);
-        receiversV->selectionModel()->setCurrentIndex(sel.parent().child(sel.row(),1),QItemSelectionModel::Select);
+        receiversV->selectionModel()->setCurrentIndex(trc->mapFromSource(sel),QItemSelectionModel::Select | QItemSelectionModel::Current);
+        receiversV->selectionModel()->setCurrentIndex(trc->mapFromSource(sel.parent().child(sel.row(),1)),QItemSelectionModel::Select);
     }
 
     QModelIndex sem(ordersModel->findOrder(rcvModel->receiver(r.row()).second));

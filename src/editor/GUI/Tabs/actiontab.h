@@ -37,6 +37,8 @@ private slots:
     void on_addReceiver_clicked();
 
 private:
+    FilteredObjectsTreeModel *tem;
+    FilteredObjectsTreeModel *trc;
     ObjectsTreeModel *emittersModel;
     ObjectsTreeModel *receiversModel;
     EventTreeItemModel *eventsModel;

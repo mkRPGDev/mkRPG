@@ -114,6 +114,9 @@ MapType::MapType(DefaultTypes &parent) :
     setAngleXMax(900);
     setAngleYMax(900);
     SetFlag(inutile, false);
+
+    addEvent("MapEntered");
+    addEvent("MapRemoved");
 }
 
 
@@ -129,6 +132,7 @@ Map::Map(MapType &type, GameObject &parent) :
     resize(100,75);
     ProtectParam(height);
     ProtectParam(width);
+
     //SetParam(znull,42);
 }
 

@@ -16,7 +16,7 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     actionEditor = new ActionTab;
 
     addTab(tr("Welcome"), QPixmap(":Icons/main.png"), new Welcome);
-    addTab(tr("Game"), QPixmap(":Icons/main.png"), worldEditor);
+    //addTab(tr("Game"), QPixmap(":Icons/main.png"), worldEditor);
     addTab(tr("Maps"), QPixmap(":Icons/main.png"), mapsEditor);
     addTab(tr("Objects"), QPixmap(":Icons/main.png"), objectEditor);
     addTab(tr("Actions"), QPixmap(":Icons/main.png"), actionEditor);

@@ -11,6 +11,24 @@
  */
 
 
+
+class XmlTree
+{
+public:
+    XmlTree(QXmlStreamReader &reader);
+
+//private:
+    QString name;
+    QList<XmlTree*> subTrees;
+    QString content;
+    QMap<QString, QString> attributes;
+};
+
+
+void readElement(const QDir &dir, const XmlTree &tree, Game *game);
+Game* importGame(const QString &fileName);
+
+
 enum FileContent{FCUnknown, FCGame, FCRessources, FCWorld, FCMap, FCEntity, FCObject};
 
 typedef std::pair<QString,FileContent> Asso;
@@ -25,21 +43,6 @@ overHead({
          });
 
 
-class XmlHandler : public QXmlDefaultHandler
-{
-public:
-    XmlHandler(Game *g);
-    bool startElement(const QString &, const QString &localName, const QString &, const QXmlAttributes &atts);
-    bool endElement(const QString &, const QString &localName, const QString &);
 
-
-private:
-    bool recogniseFileContent(const QString &name, const QMap<QString, QString>& atts);
-
-    QString err;
-    Game *g;
-    FileContent fc;
-
-};
 
 #endif // XMLHANDLER_H

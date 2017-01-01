@@ -4,6 +4,11 @@
 #include "game.h"
 #include <QFileDevice>
 #include <QDir>
+#include <QXmlStreamReader>
+#include <QList>
+
+
+
 
 class XmlWritter{
     enum Element{EndL, Eg, OpenMarkUp, CloseMarkUp, MarkUpParam};

@@ -39,6 +39,9 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     actionEditor->setGame(currentGame);
 
     connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
+
+
+    importGame("/home/baptiste/ENS/test/snake/game.xml");
 }
 
 

@@ -1,6 +1,8 @@
 #include "xmlwritter.h"
 
 
+
+
 XmlWritter::XmlWritter(const QDir &path, const GameObject * obj) :
     path(path), stream(&file), newLine(true), mode(Default)
 {

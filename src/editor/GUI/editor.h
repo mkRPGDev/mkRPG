@@ -13,6 +13,10 @@
 #include "Tabs/objecttab.h"
 #include "Tabs/actiontab.h"
 
+
+
+
+
 /*!
  * \file editor.h
  * \brief Definition of the Editor class.

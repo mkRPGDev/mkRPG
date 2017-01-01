@@ -1,6 +1,12 @@
 #ifndef GAMEOBJECTEDITOR_H
 #define GAMEOBJECTEDITOR_H
 
+/*!
+ * \file gameobjecteditor.h
+ * \brief Definition of the GameObjectEditor class.
+ *
+ */
+
 #include <QWidget>
 #include "Game/game.h"
 

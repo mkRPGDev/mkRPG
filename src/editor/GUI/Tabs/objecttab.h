@@ -18,7 +18,7 @@
 
 /*!
  * \file objecttab.h
- * \brief Definition of the ObjectEditor class
+ * \brief Definition of the ObjectTab class
  *
  */
 

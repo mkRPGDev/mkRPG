@@ -1,6 +1,12 @@
 #ifndef MAPEDITOR_H
 #define MAPEDITOR_H
 
+/*!
+ * \file mapeditor.h
+ * \brief Definition of the MapEditor class.
+ *
+ */
+
 #include "gameobjecteditor.h"
 #include "ui_mapeditor.h"
 #include "mapresizedialog.h"

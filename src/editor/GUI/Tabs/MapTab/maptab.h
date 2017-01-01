@@ -12,7 +12,7 @@
 
 /*!
  * \file maptab.h
- * \brief Definition of the MapsEditor class
+ * \brief Definition of the MapsTab class
  *
  */
 

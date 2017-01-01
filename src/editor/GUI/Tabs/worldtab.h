@@ -8,7 +8,7 @@
 
 /*!
  * \file worldtab.h
- * \brief Definition of the WorldEditor class.
+ * \brief Definition of the WorldTab class.
  *
  */
 

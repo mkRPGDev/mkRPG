@@ -1,6 +1,13 @@
 #ifndef NEWGAMEOBJECT_H
 #define NEWGAMEOBJECT_H
 
+/*!
+ * \file newgameobject.h
+ * \brief Definition of the NewGameObject class.
+ *
+ */
+
+
 #include "ui_newgameobject.h"
 #include "Game/game.h"
 #include "Game/ItemModels/itemmodels.h"

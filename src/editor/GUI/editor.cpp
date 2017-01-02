@@ -28,20 +28,21 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
 
 
     //qDebug() << args.length();
+    connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
 
-    currentGame = open("f");
+    setGame(open("f"));
+    //setGame(new Game());
+    //importGame("/home/baptiste/ENS/test/snake/game.xml");
+}
 
-
-
+void Editor::setGame(Game *game){
+    currentGame = game;
     mapsEditor->setGame(currentGame);
     worldEditor->setGame(currentGame);
     objectEditor->setGame(currentGame);
     actionEditor->setGame(currentGame);
+    tabBar->setTabsEnabled(currentGame);
 
-    connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
-
-
-    importGame("/home/baptiste/ENS/test/snake/game.xml");
 }
 
 
@@ -65,9 +66,11 @@ void Editor::saveDefault(){
 
 
 void Editor::on_actionOpen_triggered(){
-    QString f(QFileDialog::getOpenFileName(this, "Open a game project", QDir::homePath(), "Game file *game"));
-    if(f != "")
-        mapsEditor->setGame(open(f));
+    QString f(QFileDialog::getOpenFileName(this, "Open a game project", QDir::homePath(), "Game file *xml"));
+    if(f != ""){
+        Game *g = importGame(f);
+        if(g) setGame(g);
+    }
 }
 
 void Editor::on_actionExport_triggered(){
@@ -89,7 +92,7 @@ void Editor::on_actionExport_triggered(){
             d.cd(g->name()+QString::number(k));
             //*/
         }
-        XmlWritter xml(d,*currentGame);
+        XmlWritter(d,*currentGame, false);
     }
 }
 
@@ -212,28 +215,27 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
             double o = 3.*j/h+(1.8-8.*(l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
             m->cell(i,j).setCellType(o<1 ? *ct1 : o<2 ? *ct2 : *ct3);
         }
-    tabBar->setTabsEnabled(true);
 
-    // TODO Mettre le dossier ailleurs
-    QDir d(QDir::homePath()+"/XML");
-    if(!d.exists()) assert(QDir::home().mkdir("XML"));
-    if(d.mkdir(g->name()))
-        d.cd(g->name());
-    else{
-        //*
-        d.cd(g->name());
-        d.removeRecursively();
-        d.cdUp();
-        d.mkdir(g->name());
-        d.cd(g->name());
-        /*/
-        int k(1);
-        while(!d.mkdir(g->name()+QString::number(++k)));
-        d.cd(g->name()+QString::number(k));
-        //*/
-    }
+//    // TODO Mettre le dossier ailleurs
+//    QDir d(QDir::homePath()+"/XML");
+//    if(!d.exists()) assert(QDir::home().mkdir("XML"));
+//    if(d.mkdir(g->name()))
+//        d.cd(g->name());
+//    else{
+//        //*
+//        d.cd(g->name());
+//        d.removeRecursively();
+//        d.cdUp();
+//        d.mkdir(g->name());
+//        d.cd(g->name());
+//        /*/
+//        int k(1);
+//        while(!d.mkdir(g->name()+QString::number(++k)));
+//        d.cd(g->name()+QString::number(k));
+//        //*/
+//    }
 
-    XmlWritter xml(d,*g);
+    //XmlWritter xml(d,*g);
 
     return g;
     /* AVANT XML */

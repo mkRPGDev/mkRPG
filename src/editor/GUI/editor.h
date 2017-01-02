@@ -57,6 +57,8 @@ class Editor : public QMainWindow, private Ui::Editor
 public:
     explicit Editor(QStringList args, QWidget *parent = 0);
 
+    void setGame(Game *game);
+
 private slots:
     void on_actionRolePlayGame_triggered();
     void on_actionOpen_triggered();

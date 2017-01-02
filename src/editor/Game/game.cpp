@@ -53,7 +53,9 @@ Game::Game() :
     GameObject(),
     idDisp(0), w(new World(this, this)), map(nullptr)
 {
-    init(this,nullptr);
+    game = this;
+    setName("Game");
+    ListInitD(Image,,s);
 }
 
 Game::~Game(){
@@ -62,9 +64,9 @@ Game::~Game(){
     delete w;
 }
 
-void Game::addImage(Image *im){
+/*void Game::addImage(Image *im){
     picts[im->ident()] = im;
-}
+}*/
 
 void Game::setCurrentMap(Map *m){
     map = m;

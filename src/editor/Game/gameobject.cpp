@@ -414,8 +414,6 @@ HierarchicalAttr InheritableObject::paramTree() const{
 }
 
 
-
-
 bool InheritableObject::isInheritedFlag(const QString &flag) const {
     return aAncestor ? aAncestor->hasFlag(flag) : false;
 }

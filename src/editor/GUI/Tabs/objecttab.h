@@ -51,7 +51,7 @@ private:
     OrderTreeItemModel *ordersModel;
     FlagTreeItemModel *flagsModel;
     ObjectsTreeModel *objectsModel;
-    TypeItemModel *typesModel;
+    TypeItemModel2 *typesModel;
     GameObject *currentObject;
 
 

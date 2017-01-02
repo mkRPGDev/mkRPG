@@ -7,10 +7,15 @@
 #include "newgame.h"
 #include "Game/xmlhandler.h"
 #include "Tabs/welcome.h"
+#include "Game/xmlwritter.h"
 #include "Tabs/worldtab.h"
 #include "Tabs/MapTab/maptab.h"
 #include "Tabs/objecttab.h"
 #include "Tabs/actiontab.h"
+
+
+
+
 
 /*!
  * \file editor.h
@@ -52,10 +57,13 @@ class Editor : public QMainWindow, private Ui::Editor
 public:
     explicit Editor(QStringList args, QWidget *parent = 0);
 
+    void setGame(Game *game);
+
 private slots:
     void on_actionRolePlayGame_triggered();
     void on_actionOpen_triggered();
     void on_actionQuit_triggered();
+    void on_actionExport_triggered();
 
 
 private slots:
@@ -83,6 +91,8 @@ private:
     ObjectTab *objectEditor;
     ActionTab *actionEditor;
 
+
+    Game *currentGame;
 };
 
 /* Template de jeu

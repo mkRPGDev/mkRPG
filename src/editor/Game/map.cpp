@@ -149,7 +149,7 @@ void Map::resize(int w, int h, int xOffset, int yOffset){
     cells = Cell::cellArray(game->world().types().cellType(),*this, w*h);
     for(int i(0); i<w; ++i)
         for(int j(0); j<h; ++j)
-            cells[i+w*j].setName(QObject::tr("Cell_<")+QString::number(i)+","+QString::number(j)+">");
+            cells[i+w*j].setName(QObject::tr("Cell_")+QString::number(i)+"_"+QString::number(j));
     for(int i(std::max(0, xOffset)); i<std::min(wi, xOffset+w); ++i)
         for(int j(std::max(0, yOffset)); j<std::min(he, yOffset+h); ++j)
             cells[i-xOffset + (j-yOffset)*w] = oCells[i+j*wi];

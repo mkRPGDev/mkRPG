@@ -14,7 +14,7 @@ ObjectTab::ObjectTab(QWidget *parent) :
     paramsModel = new ParamTreeItemModel(this);
     flagsModel = new FlagTreeItemModel(this);
     objectsModel = new ObjectsTreeModel(this);
-    typesModel = new TypeItemModel(this);
+    typesModel = new TypeItemModel2(this);
     eventsModel = new EventTreeItemModel(this);
     ordersModel = new OrderTreeItemModel(this);
 

@@ -28,17 +28,21 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
 
 
     //qDebug() << args.length();
-
-    Game * g = open("f");
-
-
-
-    mapsEditor->setGame(g);
-    worldEditor->setGame(g);
-    objectEditor->setGame(g);
-    actionEditor->setGame(g);
-
     connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
+
+    setGame(open("f"));
+    //setGame(new Game());
+    //importGame("/home/baptiste/ENS/test/snake/game.xml");
+}
+
+void Editor::setGame(Game *game){
+    currentGame = game;
+    mapsEditor->setGame(currentGame);
+    worldEditor->setGame(currentGame);
+    objectEditor->setGame(currentGame);
+    actionEditor->setGame(currentGame);
+    tabBar->setTabsEnabled(currentGame);
+
 }
 
 
@@ -62,9 +66,34 @@ void Editor::saveDefault(){
 
 
 void Editor::on_actionOpen_triggered(){
-    QString f(QFileDialog::getOpenFileName(this, "Open a game project", QDir::homePath(), "Game file *game"));
-    if(f != "")
-        mapsEditor->setGame(open(f));
+    QString f(QFileDialog::getOpenFileName(this, "Open a game project", QDir::homePath(), "Game file *xml"));
+    if(f != ""){
+        Game *g = importGame(f);
+        if(g) setGame(g);
+    }
+}
+
+void Editor::on_actionExport_triggered(){
+    QString di(QFileDialog::getExistingDirectory(this, "Export as XML", QDir::homePath()));
+    if(di != ""){
+        QDir d(di);
+        if(d.mkdir(currentGame->name()))
+            d.cd(currentGame->name());
+        else{
+            //*
+            d.cd(currentGame->name());
+            d.removeRecursively();
+            d.cdUp();
+            d.mkdir(currentGame->name());
+            d.cd(currentGame->name());
+            /*/
+            int k(1);
+            while(!d.mkdir(g->name()+QString::number(++k)));
+            d.cd(g->name()+QString::number(k));
+            //*/
+        }
+        XmlWritter(d,*currentGame, false);
+    }
 }
 
 void Editor::on_actionRolePlayGame_triggered(){
@@ -113,24 +142,30 @@ void Editor::newGame(QString name, QString dir, bool createFolder){
 
 Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     Game* g = new Game();
+
+    g->setName("Trop_cool_mon_jeu");
+
     Image *im;
     CellType *ct1, *ct2, *ct3;
 
     g->addAction("moveLeft", new Action());
 
     im = new Image(*g, ":/Icons/herbe.png");
+    im->setName("Herbe");
     g->addImage(im);
     ct1 = new CellType(g->world().types().cellType());
     ct1->setName("Herbe");
     ct1->setImage(im);
     //g->world().addCellType(ct1);
     im = new Image(*g, ":/Icons/glace.png");
+    im->setName("Glace");
     g->addImage(im);
     ct2 = new CellType(g->world().types().cellType());
     ct2->setName("Glace");
     ct2->setImage(im);
     //g->world().addCellType(ct2);
     im = new Image(*g, ":/Icons/mer.png");
+    im->setName("Mer");
     g->addImage(im);
     CellType *ct = new CellType(g->world().types().cellType());
     ct->setName("Eau");
@@ -152,7 +187,6 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     ctt->addEvent("Titanic");
     ctt->addOrder("Traverser");
     ctt->setParam("Requins", 20);
-    //g->world().addCellType(ct);
     Map *m = new Map(g->world().types().mapType(), g->world());
     g->world().objects().addMap(m);
     m->setName("Paysage_bucolique");
@@ -165,6 +199,12 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
         }
     tabBar->setTabsEnabled(true);
 
+
+    ObjectType *ot = new ObjectType(g->world().types().objectType());
+    ot->setName("Potion");
+    ot->setParam("Amertume", 50);
+    ot->setFlag("Fatal", false);
+
     m = new Map(g->world().types().mapType(), g->world());
     m->setName("Le_grand_large");
     g->world().objects().addMap(m);
@@ -175,7 +215,28 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
             double o = 3.*j/h+(1.8-8.*(l/2.)*(i-l/2.)/l/l)*((qrand()%65536)/65536.-.5);
             m->cell(i,j).setCellType(o<1 ? *ct1 : o<2 ? *ct2 : *ct3);
         }
-    tabBar->setTabsEnabled(true);
+
+//    // TODO Mettre le dossier ailleurs
+//    QDir d(QDir::homePath()+"/XML");
+//    if(!d.exists()) assert(QDir::home().mkdir("XML"));
+//    if(d.mkdir(g->name()))
+//        d.cd(g->name());
+//    else{
+//        //*
+//        d.cd(g->name());
+//        d.removeRecursively();
+//        d.cdUp();
+//        d.mkdir(g->name());
+//        d.cd(g->name());
+//        /*/
+//        int k(1);
+//        while(!d.mkdir(g->name()+QString::number(++k)));
+//        d.cd(g->name()+QString::number(k));
+//        //*/
+//    }
+
+    //XmlWritter xml(d,*g);
+
     return g;
     /* AVANT XML */
 

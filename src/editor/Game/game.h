@@ -37,13 +37,12 @@ public:
 
 
 
-class GameObjectInventory;
 template<class Type>
 class GameObjectList : public GameObject
 {
 public:
     TypeName()
-    GameObjectList(const QString &name, GameObjectInventory &parent);
+    GameObjectList(const QString &name, GameObject &parent);
     bool isEditable() const{return false;}
 
     void addGameObject(Type &go);
@@ -56,8 +55,8 @@ private:
 
 
 template<class Type>
-GameObjectList<Type>::GameObjectList(const QString &name, GameObjectInventory &parent) :
-    GameObject(parent)
+GameObjectList<Type>::GameObjectList(const QString &name, GameObject &parent) :
+    GameObject(parent), aGameObjects(QMap<int,Type*>())
 {
     setName(name);
 }
@@ -152,8 +151,7 @@ public:
     ~Game();
     int newIdent(GameObject *obj);
     void aboutToDestroy(GameObject *obj);
-    GameObject *object(int id);
-    /**<
+    GameObject *object(int id);                 /**<
      * Returns a new unused identifiers
      *
      * \note
@@ -163,13 +161,15 @@ public:
     inline Map* currentMap(){return map;}
     void setCurrentMap(Map *m);
 
-    void addImage(Image *im);
+    //void addImage(Image *im);
 
     QList<QString> actions() const;
     Action *action(const QString &a);
     QString addAction(QString a, Action *act);
     void removeAction(const QString &a);
     QString renameAction(const QString &a, const QString &nv);
+
+    ListD(i,I,mage,,s)
 
 private:
     int idDisp;

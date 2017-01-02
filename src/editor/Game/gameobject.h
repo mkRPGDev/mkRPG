@@ -364,7 +364,7 @@ public:
     };
 
     Event(){}
-    Event(const Event *e){}
+    Event(const Event *e) : aType(e->aType){}
 
     QString typeName(){return "event";}
 private:
@@ -391,7 +391,7 @@ public:
     };
 
     Order(){}
-    Order(const Order *o){}
+    Order(const Order *o) : aType(o->aType){}
 
     QString typeName(){return "order";}
 private:

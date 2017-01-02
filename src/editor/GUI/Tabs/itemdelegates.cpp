@@ -289,7 +289,7 @@ ActionReceiverItemDelegate::ActionReceiverItemDelegate(QObject *parent):
     QStyledItemDelegate(parent)
 {}
 
-QWidget* ActionReceiverItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+QWidget* ActionReceiverItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &UNUSED(option), const QModelIndex &index) const{
     ActionReceiverEditor * ed = new ActionReceiverEditor(index, parent);
     ed->setFocusPolicy(Qt::StrongFocus);
     connect(ed, SIGNAL(removeReceiver(QWidget*,QPersistentModelIndex)), this, SLOT(removeReceiver(QWidget*,QPersistentModelIndex)));
@@ -299,15 +299,15 @@ QWidget* ActionReceiverItemDelegate::createEditor(QWidget *parent, const QStyleO
 
 
 
-void ActionReceiverItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const{
+void ActionReceiverItemDelegate::setEditorData(QWidget *UNUSED(editor), const QModelIndex &UNUSED(index)) const{
 
 }
 
-void ActionReceiverItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+void ActionReceiverItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &UNUSED(index)) const{
     editor->setGeometry(option.rect);
 }
 
-void ActionReceiverItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const{
+void ActionReceiverItemDelegate::setModelData(QWidget *UNUSED(editor), QAbstractItemModel *UNUSED(model), const QModelIndex &UNUSED(index)) const{
 
 }
 

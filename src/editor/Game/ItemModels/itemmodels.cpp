@@ -234,7 +234,7 @@ void ReceiverListModel::setAction(Action *action){
 }
 
 
-int ReceiverListModel::rowCount(const QModelIndex &parent) const{
+int ReceiverListModel::rowCount(const QModelIndex &UNUSED(parent)) const{
     return aReceivers.length();
 }
 
@@ -259,6 +259,7 @@ bool ReceiverListModel::removeRows(int row, int count, const QModelIndex &parent
         aAction->removeReceiver(r.first, r.second);
     }
     endRemoveRows();
+    return true;
 }
 
 

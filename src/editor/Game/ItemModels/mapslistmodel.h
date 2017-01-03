@@ -47,11 +47,13 @@ class CellTypeListModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit CellTypeListModel(CellType &ct, QObject *parent = 0);
+    explicit CellTypeListModel(QObject *parent = 0);
+    void setGame(Game *game);
     int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
     QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
     Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
     CellType &cellTypeAt(int i) const;
+    int indexOf(CellType* ct);
 
 private:
     void readCellTypes(CellType *ct);
@@ -59,6 +61,22 @@ private:
 };
 
 
+class MapTypeListModel : public QAbstractListModel
+{
+    Q_OBJECT
+public:
+    explicit MapTypeListModel(QObject *parent = 0);
+    void setGame(Game *game);
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    Qt::ItemFlags flags(const QModelIndex &index) const Q_DECL_OVERRIDE;
+    MapType &mapTypeAt(int i) const;
+    int indexOf(MapType* mt);
+
+private:
+    void readMapTypes(MapType *mt);
+    QList<MapType*> mapTypes;
+};
 
 
 #endif // MAPSLISTMODEL_H

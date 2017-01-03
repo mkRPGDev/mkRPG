@@ -52,7 +52,9 @@ SOURCES += main.cpp\
     GUI/Tabs/MapTab/mapdock.cpp \
     GUI/Tabs/ObjectEditors/mapeditor.cpp \
     GUI/Tabs/actiontab.cpp \
-    GUI/Tabs/newgameobject.cpp
+    GUI/Tabs/newgameobject.cpp \
+    GUI/Tabs/ObjectEditors/objecttypeeditor.cpp \
+    Game/entity.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -95,7 +97,9 @@ HEADERS  += \
     GUI/Tabs/MapTab/selectiondock.h \
     GUI/Tabs/ObjectEditors/mapeditor.h \
     GUI/Tabs/actiontab.h \
-    GUI/Tabs/newgameobject.h
+    GUI/Tabs/newgameobject.h \
+    GUI/Tabs/ObjectEditors/objecttypeeditor.h \
+    Game/entity.h
 
 FORMS    += \
     GUI/editor.ui \
@@ -113,7 +117,8 @@ FORMS    += \
     GUI/Tabs/MapTab/celldock.ui \
     GUI/Tabs/ObjectEditors/mapeditor.ui \
     GUI/Tabs/actiontab.ui \
-    GUI/Tabs/newgameobject.ui
+    GUI/Tabs/newgameobject.ui \
+    GUI/Tabs/ObjectEditors/objecttypeeditor.ui
 
 RESOURCES += \
     Icons/ressources.qrc

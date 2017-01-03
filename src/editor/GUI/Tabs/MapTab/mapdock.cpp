@@ -12,6 +12,6 @@ MapDock::MapDock(QWidget *parent) :
 void MapDock::updateGame(){
     currentMap = game->currentMap();
     setEnabled(currentMap != nullptr);
-    editor->setMap(*currentMap);
+    editor->setMap(currentMap);
 }
 

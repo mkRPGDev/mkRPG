@@ -156,7 +156,7 @@
     </widget>
    </item>
    <item row="0" column="1" colspan="2">
-    <widget class="QComboBox" name="comboBox"/>
+    <widget class="QComboBox" name="mt"/>
    </item>
   </layout>
   <zorder>label_3</zorder>
@@ -168,10 +168,10 @@
   <zorder>vAngleX</zorder>
   <zorder>label_2</zorder>
   <zorder>label_4</zorder>
-  <zorder>comboBox</zorder>
+  <zorder>mt</zorder>
  </widget>
  <tabstops>
-  <tabstop>comboBox</tabstop>
+  <tabstop>mt</tabstop>
   <tabstop>vAngleX</tabstop>
   <tabstop>angleX</tabstop>
   <tabstop>vAngleY</tabstop>

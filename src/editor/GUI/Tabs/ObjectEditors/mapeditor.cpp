@@ -4,18 +4,22 @@ MapEditor::MapEditor(QWidget *parent) :
     GameObjectEditor(parent)
 {
     setupUi(this);
+    mtModel = new MapTypeListModel(this);
+    mt->setModel(mtModel);
 }
 
 MapEditor::MapEditor(Map &map, QWidget *parent) :
     MapEditor(parent)
 {
-    setMap(map);
+    setMap(&map);
 }
 
-void MapEditor::setMap(Map &m){
-    map = &m;
-    setEnabled(map != nullptr);
+void MapEditor::setMap(Map *m){
+    setEnabled(m != nullptr);
+    map = m;
     if(map == nullptr) return;
+    mtModel->setGame(map->getGame());
+    mt->setCurrentIndex(mtModel->indexOf(&map->mapType()));
     angleX->setValue(map->angleX());
     angleY->setValue(map->angleY());
     mapWidth->setValue(map->width());

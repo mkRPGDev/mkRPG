@@ -199,7 +199,12 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
         }
     tabBar->setTabsEnabled(true);
 
-
+    EntityType *bucheron = new EntityType(g->world().types().entityType());
+    bucheron->setName("Bucheron");
+    bucheron->setFlag("barbu", true);
+    Entity *Pierre = new Entity(*bucheron, g->world());
+    Pierre->setName("Raoul");
+    g->world().objects().addEntity(Pierre);
     ObjectType *ot = new ObjectType(g->world().types().objectType());
     ot->setName("Potion");
     ot->setParam("Amertume", 50);

@@ -25,7 +25,8 @@ void CellDock::updateGame(){
     if(newMap != map){ // TODO vérifier si il y a eu des modifications
         //cellTypes->setModel(new ObjectsTreeModel(&game->world().types().cellType(), this));
         if(typesModel) delete typesModel;
-        typesModel = new CellTypeListModel(game->world().types().cellType(), this);
+        typesModel = new CellTypeListModel(this);
+        typesModel->setGame(game);
         cellTypes->setModel(typesModel);
         map = newMap;
         selectionChanged();

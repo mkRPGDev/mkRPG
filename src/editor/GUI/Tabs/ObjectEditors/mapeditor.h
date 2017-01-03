@@ -10,9 +10,13 @@
 #include "gameobjecteditor.h"
 #include "ui_mapeditor.h"
 #include "mapresizedialog.h"
+#include "Game/ItemModels/mapslistmodel.h"
 
 
-
+/*!
+ * \brief The MapEditor class provides a widget to edit
+ * \ref "maps" Map.
+ */
 class MapEditor : public GameObjectEditor, private Ui::MapEditor
 {
     Q_OBJECT
@@ -20,7 +24,7 @@ class MapEditor : public GameObjectEditor, private Ui::MapEditor
 public:
     explicit MapEditor(QWidget *parent = 0);
     explicit MapEditor(Map &map, QWidget *parent = 0);
-    void setMap(Map &m);
+    void setMap(Map *m);
 
 private slots:
     void on_resizing_clicked();
@@ -32,6 +36,7 @@ signals:
 
 private:
     Map *map;
+    MapTypeListModel *mtModel;
 };
 
 

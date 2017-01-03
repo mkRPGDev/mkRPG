@@ -17,7 +17,6 @@
  * \brief The MapResizeDialog class provides a dialog window
  * used to define how the map should be resized.
  */
-
 class MapResizeDialog : public QDialog, private Ui::MapResizeDialog
 {
     Q_OBJECT

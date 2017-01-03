@@ -10,6 +10,13 @@
 #include <QWidget>
 #include "Game/game.h"
 
+/*!
+ * \brief The GameObjectEditor class defines the base class for
+ * GameObject specific editors.
+ *
+ * Using the Factory design-pattern, the \ref editor static method
+ * provide a universal constructor for registed editors.
+ */
 class GameObjectEditor : public QWidget
 {
     Q_OBJECT

@@ -209,3 +209,12 @@ QList<GameObject*> Map::children() const{
     l.erase(std::remove_if(l.begin(), l.end(), [this](GameObject* o){return o>=cells && o<cells+sizeof(Cell)*width()*height();}),l.end());
     return l;
 }
+
+
+MapType &Map::mapType(){
+    return objectType();
+}
+
+void Map::setMapType(MapType &type){
+    setObjectType(type);
+}

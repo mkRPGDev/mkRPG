@@ -3,6 +3,7 @@
 
 #include "object.h"
 #include "map.h"
+#include "entity.h"
 
 
 /*!
@@ -32,6 +33,7 @@ public:
     C0(DefaultType,c,C,ellType)
     C0(DefaultType,m,M,apType)
     C0(DefaultType,o,O,bjectType)
+    C0(DefaultType,e,E,ntityType)
 };
 
 
@@ -110,6 +112,7 @@ public:
 
     ListD(m,M,ap,,s)
     ListD(o,O,bject,,s)
+    ListD(e,E,ntit,y,ies)
 };
 
 

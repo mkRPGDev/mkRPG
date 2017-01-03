@@ -18,9 +18,15 @@ CellTypeEditor::CellTypeEditor(CellType &t, QWidget *parent) :
 
 void CellTypeEditor::setCellType(CellType &t){
     ct = &t;
-    lineEdit->setText(t.name());
     imModel->setGame(t.getGame());
     bg->setCurrentIndex(imModel->getIndex(t.image()));
+    if(t.image())
+        bgView->setPixmap(QPixmap::fromImage(t.image()->image().scaled(128,128)));
+    else{
+        QPixmap p(128,128);
+        p.fill(QColor(0,0,0,0));
+        bgView->setPixmap(p);
+    }
 }
 
 

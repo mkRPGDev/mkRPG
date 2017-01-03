@@ -23,6 +23,7 @@ GameObjectInventory::GameObjectInventory(World &parent) :
     setName(QObject::tr("Inventory"));
     ListInitD(Map,,s);
     ListInitD(Object,,s);
+    ListInitD(Entit,y,ies);
 }
 
 

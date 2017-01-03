@@ -12,6 +12,11 @@
 #include "ui_celltypeeditor.h"
 #include "Game/ItemModels/itemmodels.h"
 
+
+/*!
+ * \brief The CellTypeEditor class provides a widget to edit
+ * CellType objects.
+ */
 class CellTypeEditor : public GameObjectEditor, private Ui::CellTypeEditor
 {
     Q_OBJECT

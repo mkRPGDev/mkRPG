@@ -24,7 +24,6 @@ public:
     CellType(CellType &ancestor);
     CellType(DefaultTypes &parent);
 
-public:
     inline Image* image() const{return aImage ? aImage : aTypedAncestor ? aTypedAncestor->image() : nullptr;}
     inline void setImage(Image* im){aImage = im; touch();}
 
@@ -167,6 +166,9 @@ public:
      *
      */
 
+
+    MapType &mapType();
+    void setMapType(MapType &type);
 private:
     Cell* cells;
     int wi,he;

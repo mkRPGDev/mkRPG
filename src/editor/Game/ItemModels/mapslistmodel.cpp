@@ -82,16 +82,20 @@ bool MapsListModel::removeRows(int row, int count, const QModelIndex &parent){
 
 
 
-CellTypeListModel::CellTypeListModel(CellType &ct, QObject* parent) :
+CellTypeListModel::CellTypeListModel(QObject* parent) :
     QAbstractListModel(parent)
-{
-    readCellTypes(&ct);
-}
+{}
 
 void CellTypeListModel::readCellTypes(CellType *ct){
     cellTypes.append(ct);
     for(CellType *c : ct->descendants())
         readCellTypes(c);
+}
+
+void CellTypeListModel::setGame(Game *game){
+    cellTypes.clear();
+    if(game)
+        readCellTypes(&game->world().types().cellType());
 }
 
 int CellTypeListModel::rowCount(const QModelIndex &parent) const{
@@ -132,4 +136,63 @@ CellType &CellTypeListModel::cellTypeAt(int i) const{
     return *cellTypes[i];
 }
 
+int CellTypeListModel::indexOf(CellType *ct){
+    return cellTypes.indexOf(ct);
+}
 
+
+
+
+
+
+
+
+MapTypeListModel::MapTypeListModel(QObject* parent) :
+    QAbstractListModel(parent)
+{}
+
+void MapTypeListModel::readMapTypes(MapType *ct){
+    mapTypes.append(ct);
+    for(MapType *c : ct->descendants())
+        readMapTypes(c);
+}
+
+void MapTypeListModel::setGame(Game *game){
+    mapTypes.clear();
+    if(game)
+        readMapTypes(&game->world().types().mapType());
+}
+
+int MapTypeListModel::rowCount(const QModelIndex &parent) const{
+    return parent.isValid() ? 0 : mapTypes.length();
+}
+
+QVariant MapTypeListModel::data(const QModelIndex &index, int role) const{
+    if(index.isValid()){
+        MapType *ct = mapTypes.at(index.row());
+        switch (role) {
+        case Qt::DisplayRole:
+            return QVariant(ct->name());
+        case Qt::UserRole:
+            return QVariant(ct->ident());
+        default:
+            break;
+        }
+
+    }
+    return QVariant();
+}
+
+
+Qt::ItemFlags MapTypeListModel::flags(const QModelIndex &UNUSED(index)) const{
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+}
+
+MapType &MapTypeListModel::mapTypeAt(int i) const{
+    assert(i<mapTypes.length());
+    return *mapTypes[i];
+}
+
+int MapTypeListModel::indexOf(MapType *mt){
+    return mapTypes.indexOf(mt);
+}

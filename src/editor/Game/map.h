@@ -24,10 +24,14 @@ public:
     CellType(CellType &ancestor);
     CellType(DefaultTypes &parent);
 
+public:
+    inline Image* image() const{return aImage ? aImage : aTypedAncestor ? aTypedAncestor->image() : nullptr;}
+    inline void setImage(Image* im){aImage = im; touch();}
 
-    C0(AttrT, i,I,mage)
+
     C0(Flag,w,W,alkable)
 private:
+    Image * aImage;
 
 };
 

@@ -29,10 +29,10 @@ class Type : public GameObjectType
 {
 public:
     Type(DefaultTypes &parent) :
-        GameObjectType(parent)
+        GameObjectType(parent), aTypedAncestor(nullptr)
     {}
     Type(T &ancestor) :
-        GameObjectType(ancestor)
+        GameObjectType(ancestor), aTypedAncestor(&ancestor)
     {
         ancestor.typedDescendants.append(static_cast<T*>(this));
     }
@@ -40,6 +40,9 @@ public:
     const QList<T*> &descendants() const{
         return typedDescendants;
     }
+
+protected:
+    T *aTypedAncestor;
 
 private:
     QList<T*> typedDescendants;

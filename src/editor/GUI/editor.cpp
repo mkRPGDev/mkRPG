@@ -177,7 +177,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
 
     ct3 = new CellType(*ct);
     ct3->setName("Mer");
-    ct3->setImage(im);
+    //ct3->setImage(im);
     ct3->setParam("Salinité", 12);
     ct3->setParam("Pollution", 70);
     ct3->setParam("boue", 0);

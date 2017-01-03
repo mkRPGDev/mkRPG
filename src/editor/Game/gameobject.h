@@ -740,7 +740,7 @@ public:
      *
      * \see getOrder, getOrders, hasEvent
      */
-    virtual Order& getOrder(const QString &order) const;                                              /**<
+    virtual Order& getOrder(const QString &order) const;                                        /**<
      * Returns the order named \c order.
      *
      * \note
@@ -798,6 +798,7 @@ public:
      * \see addReceivedAction, removeEmittedAction
      */
 
+    Game *getGame(){return game;}
 protected:
 
     void init(Game *g, GameObject *parent);                                                     /**<
@@ -831,7 +832,7 @@ protected:
 
     GameObject *aParent;
     QMap<int, GameObject*> aChildren;
-    Game *game;
+    Game* game;
     int nbRef;
     QMap<QString, Parameter> aParams;
     QMap<QString, bool> aFlags;

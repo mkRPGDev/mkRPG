@@ -103,4 +103,24 @@ private:
 };
 
 
+
+class ImageListModel : public QAbstractListModel
+{
+    Q_OBJECT
+
+public:
+    explicit ImageListModel(QObject *parent = nullptr);
+
+    void setGame(Game *game);
+    int rowCount(const QModelIndex &parent) const Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+
+    int getIndex(Image *im) const;
+    Image *getImage(int i);
+
+private:
+    QList<Image*> images;
+};
+
+
 #endif // ITEMMODELS_H

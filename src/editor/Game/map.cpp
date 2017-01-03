@@ -3,16 +3,12 @@
 
 
 CellType::CellType(CellType &ancestor) :
-    Type(ancestor)
-{
-    aImage = ancestor.image();
-    if(aImage)
-        aImage->addReference();
-}
+    Type(ancestor), aImage(nullptr)
+{}
 
 
 CellType::CellType(DefaultTypes &parent) :
-    Type(parent)
+    Type(parent), aImage(nullptr)
 {
     setName(QObject::tr("CellType"));
     setName(typeName());

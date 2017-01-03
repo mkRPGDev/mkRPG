@@ -10,6 +10,7 @@
 
 #include "gameobjecteditor.h"
 #include "ui_celltypeeditor.h"
+#include "Game/ItemModels/itemmodels.h"
 
 class CellTypeEditor : public GameObjectEditor, private Ui::CellTypeEditor
 {
@@ -20,6 +21,13 @@ public:
     explicit CellTypeEditor(CellType &t, QWidget *parent = 0);
 
     void setCellType(CellType &t);
+
+private slots:
+    void on_bg_currentIndexChanged(int i);
+
+private:
+    CellType *ct;
+    ImageListModel *imModel;
 };
 
 #endif // CELLTYPEEDITOR_H

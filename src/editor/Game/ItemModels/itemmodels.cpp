@@ -285,3 +285,40 @@ void ReceiverListModel::sortActions(){
 QPair<GameObject*, QString> ReceiverListModel::receiver(int row){
     return aReceivers.at(row);
 }
+
+
+
+
+
+
+ImageListModel::ImageListModel(QObject *parent) :
+    QAbstractListModel(parent)
+{}
+
+void ImageListModel::setGame(Game *game){
+    images = game->images();
+}
+
+int ImageListModel::rowCount(const QModelIndex &parent) const{
+    return parent.isValid() ? 0 : images.length();
+}
+
+QVariant ImageListModel::data(const QModelIndex &index, int role) const{
+    Image *i = images.at(index.row());
+    switch (role) {
+    case Qt::DisplayRole:  return QVariant(i->name());
+    case Qt::DecorationRole: return QVariant(QPixmap::fromImage(i->image()));
+    default:
+        break;
+    }
+    return QVariant();
+}
+
+int ImageListModel::getIndex(Image *im) const{
+    return images.indexOf(im);
+}
+
+Image *ImageListModel::getImage(int i){
+    assert(i<images.length());
+    return images.at(i);
+}

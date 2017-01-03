@@ -23,26 +23,36 @@ def loadGame(parsed_data):
                 ident = data.pop('ident')
                 eval(data_list)(ident).load(data, typ=data_list)
     world = named['world']
+    for obj in Object.ids.values():
+        obj.initParams = dict(obj.params) # copie pour calculer la différence
     for m in world.maps:
         m.fill()
     return world
 
+def retrieveWorld():
+    orders = []
+    for key, obj in Object.ids.items():
+        # l'OrderedDict assure que les créations vont être faites dans le même ordre
+        orders.extend(obj.getDifference())
+    return orders
+
 class Object:
     """ Any world object """
     ids = OrderedDict() # liste si sans deletion
-
-    numid = (1<<8*IDLEN)
+    
+    numid = [(1<<8*IDLEN)] 
+    # XXX liste pour avoir une référence modifiable depuis tous les objets
 
     def __init__(self, identifier=None):
         if identifier is None:
-            Object.numid -= 1
-            identifier = Object.numid
+            Object.numid[0] -= 1
+            identifier = Object.numid[0]
         assert identifier != 0 # l'id 0 est réservé pour les plugins
         assert identifier not in Object.ids # un id est en double
         Object.ids[identifier] = self
         self.params = {} # Ne pas déplacer =)
         self.ident = identifier
-
+        self.creator = None # indique si l'objet a été créé avec un type
         self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
 
     def __getattr__(self, attr):
@@ -65,7 +75,8 @@ class Object:
         if typ and typ.endswith("Type") and type(eval(typ[:-4])) == type:
             data.pop('type', None)
             if verbose: print(data)
-            ObjectType(typ=eval(typ[:-4])).load(data)
+            del self.ids[self.ident]
+            ObjectType(self.ident, eval(typ[:-4])).load(data)
         else:
             for key in data.keys():
                 if key == 'params':
@@ -106,13 +117,30 @@ class Object:
         """ Eval an expression in the context of the object for orders """
         return eval(value)
 
-    # TODO traitement d'ordres ?
-
-#class ServerObject(BaseObject): pass
-#class ClientObject(BaseObject): pass
-
-#ServerObject if SERVER else ClientObject
-# pour éviter la confusion avec object
+    def getDifference(self):
+        """ Generates a list of order that permits the object retrieval """
+        orders = []
+        if self.creator:
+            order = Order()
+            order.setType(OrderType.Create)
+            order.event = ""
+            order.base = str(self.creator.ident)
+            order.init = ""
+            orders.append((self.ident, order))
+        for key in self.params:
+            if self.params[key] != self.initParams[key]:
+                order = Order()
+                if isinstance(self.params[key], int):
+                    order.setType(OrderType.Set)
+                    order.value = str(self.params[key])
+                else:
+                    order.setType(OrderType.Setobj)
+                    order.value = "world.ids["+str(self.params[key].ident)+"]"
+                order.target = "world.ids["+str(self.ident)+"]"
+                order.param = key
+                orders.append((self.ident, order))
+        return orders
+                                
 
 class ObjectType(Object):
     """ Les types d'objets (au sens informatique) """
@@ -123,12 +151,14 @@ class ObjectType(Object):
     def __str__(self):
         return (str(self.params) + "\ntype = %s" % self.type)
 
-    def create(self):
+    def create(self, ident=None):
         """ Instanticiation d'un objet à partir du type """
-        instance = self.type()
+        instance = self.type(ident)
+        instance.creator = self
         instance.type = self
         for p,v in self.params.items():
             instance.params[p] = v
+        instance.initParams = dict(instance.params)
         return instance
 
 
@@ -156,6 +186,8 @@ class Map(Object):
             for j,e in enumerate(l):
                 if not e:
                     cell = self.defaultCell.create()
+                    cell.creator = None
+                    # bien que créés à la volée, la création a lieu des deux cotés
                     l[j] = cell
                     self.cells.append(cell)
                     cell.x = i; cell.y = j

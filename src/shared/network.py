@@ -2,7 +2,7 @@ from time import sleep
 import asyncio
 
 from const import HOST, PORT, BUFF, IDLEN, CODING
-from shared.world import Object
+from shared.world import Object, retrieveWorld
 from shared.orders import Order # XXX à sa place ?
 
 PRINTDEBUG = False
@@ -114,6 +114,11 @@ class ServerConnection:
                             self.entity = emitter
                             await self.handle(emitter, "init")
                             await self.send(b"accepted")
+                            for ident, order in retrieveWorld():
+                                asyncio.run_coroutine_threadsafe(
+                                    self.send(ident.to_bytes(IDLEN, 'big') + 
+                                    order.toBytes()), asyncio.get_event_loop())
+                                # on effectue tout le transfert avant de continuer
                         else:
                             await self.send(b"rejected")
                 msg = msg[IDLEN+1+length:]

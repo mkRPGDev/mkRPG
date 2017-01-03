@@ -95,7 +95,10 @@ class Client:
 
     async def handleOrder(self, ident, order):
         """ Call dispatcher and update display """
-        emitter = world.Object.ids[ident]
+        if ident in world.Object.ids:
+            emitter = world.Object.ids[ident]
+        else: # si on ne peut convertir c'est que l'objet va être 'Create'd
+            emitter = ident 
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 

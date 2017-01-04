@@ -12,5 +12,5 @@ class Chat(Plugin):
 
     def clientMessage(self, msg):
         self.msgs.append(msg)
-        if self.ui: self.ui.repaint()
-
+        if self.ui:
+            self.ui.repaint()

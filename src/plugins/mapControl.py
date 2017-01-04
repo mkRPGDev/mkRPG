@@ -5,7 +5,9 @@ class Mapcontrol(Plugin):
         super().__init__(e)
 
     def rotate(self, step):
-        self.engine.interface.mapView.rotate(step)
+        print("ROTATE !!")
+        #self.engine.interface.mapView.rotate(step)
 
     def flatten(self, step):
-        self.engine.interface.mapView.flatten(step)
+        print("FLATTEN !!")
+        #self.engine.interface.mapView.flatten(step)

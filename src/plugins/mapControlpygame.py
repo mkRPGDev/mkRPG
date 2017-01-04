@@ -89,10 +89,11 @@ class MapcontrolSprite(PygamePlugin):
         button_right.set_position(2*but_w, but_h)
 
         self.sprite.add(button_up, button_down, button_left, button_right)
+        self.sprite.move(30, 30)
 
     def draw(self):
         self.image = self.sprite.render()
-        self.rect = Rect((30,30), self.image.get_size())
+        self.rect = Rect(self.sprite.pos, self.image.get_size())
 
     def handleEvent(self, event):
         self.sprite.handle_event(event)

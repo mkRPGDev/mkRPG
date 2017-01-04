@@ -13,6 +13,7 @@ from interface.const import *
 from interface.interface import Interface, skeys
 from interface.utils import loadPng
 from interface.applymatrix import applyMatrix
+from plugins.pluginpygame import PygamePlugin
 
 from time import time
 
@@ -102,6 +103,9 @@ class Pygame(Interface):
                     evs[i] = key
                 else:
                     evs[i] = None
+                    for p in self.plugins:
+                        if isinstance(p, PygamePlugin):
+                            p.handleEvent(ev)
             elif ev.type == VIDEORESIZE:
                 self.resize(ev.w, ev.h)
                 self.repaint()

@@ -3,7 +3,7 @@ import const
 
 if __name__ == "__main__":
 
-    ui = gui.MainUI()
+    ui = gui.ClientUI()
 
     while True:
         if not ui.running:

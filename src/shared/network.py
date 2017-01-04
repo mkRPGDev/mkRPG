@@ -1,8 +1,8 @@
 from time import sleep
 import asyncio
 
-from const import *
-from shared.world import BaseObject
+from shared.const import HOST, PORT, BUFF, IDLEN, CODING
+from shared.world import Object, retrieveWorld
 from shared.orders import Order # XXX à sa place ?
 
 PRINTDEBUG = False
@@ -36,18 +36,20 @@ class NetworkClient:
 
         while True:
             msg = await self.reader.read(BUFF)
+            if len(msg)==BUFF:
+                raise RuntimeError("Network flooded, consider increasing BUFF")
             size = 0
             if not msg: return # TODO remonter l'info et l'afficher
             while size < len(msg):
-                ident = msg[size]*256 + msg[size+1]
+                ident = int.from_bytes(msg[size:size+IDLEN], 'big')
                 if ident == 0:
-                    length = msg[size+2]*256 + msg[size+3]
-                    await self.pluginHandle(msg[size+4:size+4+length])
+                    length = int.from_bytes(msg[size+IDLEN:size+IDLEN+2], 'big')
+                    await self.pluginHandle(msg[size+IDLEN+2:size+IDLEN+2+length])
                     length += 2
                 else:
-                    order, length = Order().fromBytes(msg[size+2:])
+                    order, length = Order().fromBytes(msg[size+IDLEN:])
                     await self.handle(ident, order) # TODO casser l'asymétrie
-                size += length + 2
+                size += length + IDLEN
 
     async def send(self, m):
         self.writer.write(m)
@@ -60,7 +62,7 @@ class NetworkClient:
         of the object to affect.
         """
         assert(len(event)<256)
-        m = bytes([obj.ident//256, obj.ident%256, len(event)]) + \
+        m = obj.ident.to_bytes(IDLEN, 'big') + bytes([len(event)]) + \
             bytes(event, CODING)
         await self.send(m)
 
@@ -92,18 +94,17 @@ class ServerConnection:
                 self.end()
                 return
             if not msg: return
-#            print(msg)
             while msg:
-                ident = msg[0]*256 + msg[1]
+                ident = int.from_bytes(msg[:IDLEN], 'big')
                 if ident == 0:
-                    length = msg[2]*256 + msg[3]
-                    await self.pluginHandle(msg[4:4+length])
+                    length = int.from_bytes(msg[IDLEN:IDLEN+2], 'big')
+                    await self.pluginHandle(msg[IDLEN+2:IDLEN+2+length])
                     length += 2
                 else:
-                    length = msg[2]
-                    event = msg[3:3+length].decode(CODING)
-                    assert ident in BaseObject.ids
-                    emitter = BaseObject.ids[ident]
+                    length = msg[IDLEN]
+                    event = msg[IDLEN+1:IDLEN+1+length].decode(CODING)
+                    assert ident in Object.ids
+                    emitter = Object.ids[ident]
                     if self.entity: # TODO and self.entity.ident == ident:
                         await self.handle(emitter, event)
                     else:
@@ -113,9 +114,14 @@ class ServerConnection:
                             self.entity = emitter
                             await self.handle(emitter, "init")
                             await self.send(b"accepted")
+                            for ident, order in retrieveWorld():
+                                asyncio.run_coroutine_threadsafe(
+                                    self.send(ident.to_bytes(IDLEN, 'big') + 
+                                    order.toBytes()), asyncio.get_event_loop())
+                                # on effectue tout le transfert avant de continuer
                         else:
                             await self.send(b"rejected")
-                msg = msg[3+length:]
+                msg = msg[IDLEN+1+length:]
 
     async def send(self, m):
         try:
@@ -170,7 +176,7 @@ class NetworkServer:
         Send an order to all connected clients by broadcasting messages to
         all threads in the list.
         """
-        await self.broadcast(bytes((ident//256, ident%256)) + order.toBytes())
+        await self.broadcast(ident.to_bytes(IDLEN, 'big') + order.toBytes())
 
     #def send(self, m, dest): self.soc.sendto(m, (HOST, PORT))
 

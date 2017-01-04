@@ -7,6 +7,7 @@
 #include "newgame.h"
 #include "Game/xmlhandler.h"
 #include "Tabs/welcome.h"
+#include "Game/xmlwritter.h"
 #include "Tabs/worldtab.h"
 #include "Tabs/MapTab/maptab.h"
 #include "Tabs/objecttab.h"

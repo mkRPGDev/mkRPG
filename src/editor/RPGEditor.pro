@@ -37,6 +37,7 @@ SOURCES += main.cpp\
     Game/ItemModels/mapslistmodel.cpp \
     Game/ItemModels/typeitemmodel.cpp \
     Game/ItemModels/attrtreeitemmodel.cpp \
+    Game/xmlwritter.cpp \
     GUI/Tabs/treeviews.cpp \
     GUI/Tabs/ObjectEditors/gameobjecteditor.cpp \
     GUI/Tabs/ObjectEditors/celltypeeditor.cpp \
@@ -77,6 +78,7 @@ HEADERS  += \
     Game/ItemModels/mapslistmodel.h \
     Game/ItemModels/typeitemmodel.h \
     Game/ItemModels/attrtreeitemmodel.h \
+    Game/xmlwritter.h \
     GUI/Tabs/treeviews.h \
     GUI/Tabs/ObjectEditors/gameobjecteditor.h \
     GUI/Tabs/ObjectEditors/celltypeeditor.h \

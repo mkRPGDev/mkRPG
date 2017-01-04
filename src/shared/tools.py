@@ -1,44 +1,12 @@
-from collections import namedtuple
+"""
+    This module contains tools for timing functions
+"""
+
 from time import process_time, time
-from xml.parsers.expat import ParserCreate
-from threading import Thread
 from heapq import heappush, heappop
-#from queue import Queue
 import asyncio
 
 verbose = False
-
-Node = namedtuple("Node", "name args list")
-Node.__doc__ = """ Xml node with the name of the markup,
-               its embedded parameters and a list of sub-nodes """
-
-#TODO mettre une grammaire sur le Xml
-def readXml(path):
-    """ Read a Xml file and returns imbricated Nodes """
-    dirStack = [] #TODO stackiser
-    curDir = Node(None,None,[])
-    def start(name, attrs):
-        nonlocal curDir
-        #perff.tic()
-        if verbose: print('Start element:', name, attrs)
-        curDir.list.append(Node(name, dict(attrs), []))
-        dirStack.append(curDir)
-        curDir = curDir.list[-1]
-        #perff.toc()
-
-    def end(name):
-        nonlocal curDir
-        if verbose: print('End element:', name)
-        assert(curDir.name == name)
-        curDir = dirStack.pop()
-
-    pars = ParserCreate()
-    pars.StartElementHandler = start
-    pars.EndElementHandler = end
-
-    with open(path, 'rb') as file:
-        pars.ParseFile(file)
-    return curDir.list[0]
 
 class Perf:
     """ Times a piece of code """
@@ -68,7 +36,7 @@ class Perf:
 
 class Timer:
     """ Trigger differed couroutine calls """
-    def __init__(self, timeFunc = time):
+    def __init__(self, timeFunc=time):
         self.dt = 0.001
         self.step = 0
         self.heap = []
@@ -84,7 +52,8 @@ class Timer:
     async def run(self):
         """ Working task """
         while True:
-            while self.pause: await asyncio.sleep(self.dt)
+            while self.pause:
+                await asyncio.sleep(self.dt)
             begin = self.time()
             self.step += 1
             while self.heap and self.heap[0][0] == self.step:
@@ -93,7 +62,7 @@ class Timer:
             await asyncio.sleep(max(0, self.dt - self.time() + begin))
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     # tests
     #verbose = True
     #perff = Perf()

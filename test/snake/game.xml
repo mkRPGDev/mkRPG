@@ -20,5 +20,6 @@
     <Plugins>
         <Plugin>menu</Plugin>
         <Plugin>chat</Plugin>
+        <Plugin>mapControl</Plugin>
     </Plugins>
 </Game>

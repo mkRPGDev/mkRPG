@@ -1,5 +1,5 @@
 """
-    Pygame based interface 
+    Pygame based interface
 """
 from math import sin, cos, pi
 from itertools import chain
@@ -55,8 +55,9 @@ class Pygame(Interface):
         """ draw everything on screen """
         deltat = self.clock.tick()
         self.mapView.draw(deltat)
-#       for p in self.plugins:
-#           p.draw()
+        for p in self.plugins:
+            p.draw()
+            self.screen.blit(p.image, (p.rect.x, p.rect.y))
         text = self.font.render("FPS : %d" % self.clock.get_fps(), 1, (255, 0, 0))
         self.screen.blit(text, (10, 10))
         pygame.display.flip()

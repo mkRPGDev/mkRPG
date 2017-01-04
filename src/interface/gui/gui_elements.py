@@ -5,9 +5,6 @@ from enum import IntEnum
 import pygame
 from pygame.locals import Rect, MOUSEBUTTONUP, MOUSEBUTTONDOWN, MOUSEMOTION
 
-from interface.cache import ImageCache
-from interface.utils import debug
-
 guiEvent = IntEnum('guiEvent', 'CLICK MOVE OVER NONE SCROLL_UP SCROLL_DOWN')
 
 class GUIElement(pygame.sprite.Sprite):
@@ -38,7 +35,7 @@ class GUIElement(pygame.sprite.Sprite):
         pass
 
     def set_position(self, x, y):
-        self.rect = Rect(self.rect.size, (x,y))
+        self.rect = Rect((x,y), self.rect.size)
 
     def move(self, dx, dy):
         self.rect.move_ip(dx, dy)
@@ -54,7 +51,7 @@ class Container(pygame.sprite.Group):
             Style should have the following attributes:
                 size : int * int (if 0,0 the area will fit)
                 background_color : int * int * int * int (R,G,B and alpha)
-                background_image : str (path of the file to use, not necessary.
+                background_image : pygame.Surface (to use
                                         Note that unlike the Button class, the
                                         container class requires a
                                         background_color attribute even if
@@ -87,7 +84,7 @@ class Container(pygame.sprite.Group):
 
         if 'background_image' in self.style.keys() and\
             self.style['background_image'] != "":
-            image = ImageCache.get_image(self.style['background_image'])
+            image = self.style['background_image']
             if self.style['background_pattern'] == "unique":
                 self.background.blit(image, (0, 0))
             elif self.style['background_pattern'] == "repeat":
@@ -99,7 +96,7 @@ class Container(pygame.sprite.Group):
                         self.image.blit(image, (__x*size_image[0],
                                                 __y*size_image[1]))
             else:
-                debug("WARNING", "Container %i : Unrecognized value %s for "+\
+                print("[WARNING] Container %i : Unrecognized value %s for "+\
                       "background_pattern attribute, assuming it is unique" %\
                       (self.my_id, self.style['background_pattern']))
                 self.background.blit(image, (0, 0))
@@ -223,7 +220,7 @@ class TextField(GUIElement):
             elif self.style['text_align'] == "right":
                 linex = (text_width-line_width)
             else:
-                debug("WARNING", "Button %i : Unrecognized value %s for "+\
+                print("[WARNING] Button %i : Unrecognized value %s for "+\
                       "text_align attribute, assuming it is centered" %\
                       (self.my_id, self.style['text_align']))
                 self.style['text_align'] = "centered"
@@ -324,7 +321,7 @@ class Button(TextField):
         """ Style should have the following attributes:
                 size : int * int (if 0,0 size will fit the text)
                 background_color : int * int * int * int (R,G,B and alpha)
-                background_image : str (path of the file to use, if this
+                background_image : pygame.Surface (to use, if this
                                         attribute is specified and not empty,
                                         size and background_color will be
                                         ignored)
@@ -336,17 +333,17 @@ class Button(TextField):
 
                 mover_background_color : int * int * int * int (color when mouse
                                                                 is over)
-                mover_background_image : str (path of the file to use, if this
-                                              attribute is specified and not
-                                              empty, mover_background_color will
-                                              be ignored)
+                mover_background_image : pygame.Surface (to use, if this
+                                        attribute is specified and not empty,
+                                        size and background_color will be
+                                        ignored)
 
                 click_background_color : int * int * int * int (color when
                                                                 clicked)
-                click_background_image : str (path of the file to use, if this
-                                              attribute is specified and not
-                                              empty, mover_background_color will
-                                              be ignored)
+                click_background_image : pygame.Surface (to use, if this
+                                        attribute is specified and not empty,
+                                        size and background_color will be
+                                        ignored)
             Action should be a function to call on click
 
             Note : Rendered text won't fit automatically on the given size if
@@ -354,6 +351,7 @@ class Button(TextField):
         """
         self.state = "default"
         self.action = action
+        self.cache = {}
 
         super().__init__(text, style)
 
@@ -373,7 +371,7 @@ class Button(TextField):
                 back = "background"
 
             if back+"_image" in self.style.keys():
-                self.image = ImageCache.get_image(self.style[back+"_image"])
+                self.image = self.style[back+"_image"]
             else:
                 if self.style['size'] == (0, 0):
                     sizex, sizey = self.textRender.get_size()
@@ -400,7 +398,7 @@ class Button(TextField):
 
             self.image.blit(self.textRender, (textx, texty))
 
-            ImageCache.init_images([("gui_"+str(self.my_id)+"_"+state, self.image)])
+            self.cache["gui_"+str(self.my_id)+"_"+state] = self.image
 
     def update(self, state=None):
         """ switch between images depending on state """
@@ -408,7 +406,7 @@ class Button(TextField):
             state == self.state
 
         if state == "clicked" or state == "mover" or state == "default":
-            self.image = ImageCache.get_image("gui_"+str(self.my_id)+"_"+state)
+            self.image = self.cache["gui_"+str(self.my_id)+"_"+state]
 
     def handle_event(self, event):
         """ event should be guiEvent.CLICK, guiEvent.OVER or

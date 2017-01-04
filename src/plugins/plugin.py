@@ -61,12 +61,12 @@ def loadPluginsClient(names, engine, curses, pygame):
             except ImportError: pass
         elif pygame:
             try:
+                print("plugins."+name+"pygame")
                 module = import_module("plugins."+name+"pygame")
                 ui = eval('module.'+name.capitalize()+"Sprite")(logic)
-            except ImportError: pass
+            except ImportError as e: print(e)
         if logic: plugins.append(logic)
         if ui:
             uiplugins.append(ui)
             if logic: logic.ui = ui
     return namedtuple("PluginType", "logical graphical")(plugins, uiplugins)
-

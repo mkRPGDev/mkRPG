@@ -43,6 +43,7 @@ class Client:
         parse_data = game_parser(path)
         self.world = world.loadGame(parse_data)
         plugins = loadPluginsClient(parse_data["Plugins"], self, args.curses, args.pygame)
+        print(plugins)
         self.interface = Interface(self.world, parse_data["Images"], plugins.graphical)
         if args.debug:
             exit(0)

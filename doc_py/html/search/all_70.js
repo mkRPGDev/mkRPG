@@ -27,6 +27,7 @@ var searchData=
   ['plugin',['Plugin',['../classplugins_1_1plugin_1_1_plugin.html',1,'plugins::plugin']]],
   ['plugincurses',['plugincurses',['../namespaceplugins_1_1plugincurses.html',1,'plugins']]],
   ['pluginhandle',['pluginHandle',['../classclient_1_1_client.html#ab33a0618c1e787648f00d5f36cb4fec8',1,'client::Client.pluginHandle()'],['../classserver_1_1_server.html#a96a93fb7b3ede34e861cba3952cd85e2',1,'server::Server.pluginHandle()']]],
+  ['pluginpygame',['pluginpygame',['../namespaceplugins_1_1pluginpygame.html',1,'plugins']]],
   ['pointtocell',['pointToCell',['../classpgcli_1_1_map_view.html#a14a74a83706f4acfb7a18355ad72edce',1,'pgcli::MapView']]],
   ['pygame',['Pygame',['../classpgcli_1_1_pygame.html',1,'pgcli']]],
   ['pygameplugin',['PygamePlugin',['../classplugins_1_1pluginpygame_1_1_pygame_plugin.html',1,'plugins::pluginpygame']]],

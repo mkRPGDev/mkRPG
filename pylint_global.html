@@ -2,7 +2,7 @@
 <body>
 <div>
 <h1>Report</h1>
-<p>816 statements analysed.</p><div>
+<p>547 statements analysed.</p><div>
 <h2>Statistics by type</h2>
 <table>
 <tr class="header">
@@ -15,53 +15,46 @@
 </tr>
 <tr class="even">
 <td>module</td>
-<td>19</td>
+<td>16</td>
 <td>NC</td>
 <td>NC</td>
-<td>78.95</td>
+<td>87.50</td>
 <td>0.00</td>
 </tr>
 <tr class="odd">
 <td>class</td>
-<td>8</td>
+<td>6</td>
 <td>NC</td>
 <td>NC</td>
-<td>75.00</td>
+<td>66.67</td>
 <td>0.00</td>
 </tr>
 <tr class="even">
 <td>method</td>
-<td>35</td>
+<td>22</td>
 <td>NC</td>
 <td>NC</td>
-<td>97.14</td>
-<td>25.71</td>
+<td>95.45</td>
+<td>18.18</td>
 </tr>
 <tr class="odd">
 <td>function</td>
-<td>42</td>
+<td>39</td>
 <td>NC</td>
 <td>NC</td>
 <td>100.00</td>
-<td>4.76</td>
+<td>5.13</td>
 </tr>
 </table>
 </div>
 <div>
 <h2>External dependencies</h2>
 <pre>parsing 
-  \-actions_parser (parsing.global_parsing,parsing.interactions_parser)
-  \-entity_parser (parsing.global_parsing)
-  \-global_parsing (client,server)
-  \-images_parser (parsing.global_parsing)
-  \-interactions_parser (parsing.global_parsing)
-  \-map_parser (parsing.global_parsing)
-  \-objects_parser (parsing.global_parsing)
-  \-parsing_utils (parsing.actions_parser,parsing.interactions_parser,parsing.map_parser,parsing.objects_parser,parsing.world_parser,parsing.entity_parser,parsing.global_parsing,parsing.images_parser)
-  \-world_parser (parsing.global_parsing)
+  \-actions_parser (parsing.interactions_parser)
+  \-parsing_utils (parsing.actions_parser,parsing.objects_parser,parsing.images_parser,parsing.world_parser,parsing.interactions_parser,parsing.map_parser,parsing.entity_parser)
 plugins 
-  \-plugin (client,server,plugins.chat)
-  \-plugincurses (plugins.chatcurses,plugins.menucurses)
+  \-plugin (plugins.chat)
+  \-plugincurses (plugins.menucurses,plugins.chatcurses)
 pygame (plugins.pluginpygame)</pre></div>
 <div>
 <h2>Raw metrics</h2>
@@ -75,29 +68,29 @@ pygame (plugins.pluginpygame)</pre></div>
 </tr>
 <tr class="even">
 <td>code</td>
-<td>892</td>
-<td>65.68</td>
+<td>592</td>
+<td>62.85</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="odd">
 <td>docstring</td>
-<td>228</td>
-<td>16.79</td>
+<td>198</td>
+<td>21.02</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="even">
 <td>comment</td>
-<td>50</td>
-<td>3.68</td>
+<td>25</td>
+<td>2.65</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="odd">
 <td>empty</td>
-<td>188</td>
-<td>13.84</td>
+<td>127</td>
+<td>13.48</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
@@ -137,25 +130,25 @@ pygame (plugins.pluginpygame)</pre></div>
 </tr>
 <tr class="even">
 <td>convention</td>
-<td>62</td>
+<td>35</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="odd">
 <td>refactor</td>
-<td>4</td>
+<td>2</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="even">
 <td>warning</td>
-<td>22</td>
+<td>14</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="odd">
 <td>error</td>
-<td>26</td>
+<td>7</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
@@ -172,81 +165,81 @@ pygame (plugins.pluginpygame)</pre></div>
 <th>convention</th>
 </tr>
 <tr class="even">
-<td>client</td>
-<td>57.69</td>
-<td>18.18</td>
-<td>0.00</td>
-<td>14.52</td>
-</tr>
-<tr class="odd">
-<td>server</td>
-<td>26.92</td>
-<td>18.18</td>
-<td>0.00</td>
-<td>25.81</td>
-</tr>
-<tr class="even">
 <td>plugins.chatcurses</td>
-<td>7.69</td>
-<td>4.55</td>
+<td>28.57</td>
+<td>7.14</td>
 <td>0.00</td>
-<td>8.06</td>
+<td>14.29</td>
 </tr>
 <tr class="odd">
 <td>plugins.plugin</td>
-<td>3.85</td>
-<td>36.36</td>
+<td>14.29</td>
+<td>57.14</td>
 <td>0.00</td>
-<td>20.97</td>
+<td>37.14</td>
 </tr>
 <tr class="even">
-<td>pylintrc</td>
-<td>3.85</td>
+<td>server</td>
+<td>14.29</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
 </tr>
 <tr class="odd">
+<td>pylintrc</td>
+<td>14.29</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>parsing.global_parsing</td>
+<td>14.29</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td>client</td>
+<td>14.29</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
 <td>plugins.plugincurses</td>
 <td>0.00</td>
-<td>18.18</td>
-<td>25.00</td>
-<td>3.23</td>
-</tr>
-<tr class="even">
-<td>plugins.pluginpygame</td>
-<td>0.00</td>
-<td>4.55</td>
-<td>25.00</td>
-<td>8.06</td>
+<td>28.57</td>
+<td>50.00</td>
+<td>5.71</td>
 </tr>
 <tr class="odd">
-<td>parsing.global_parsing</td>
+<td>plugins.pluginpygame</td>
 <td>0.00</td>
-<td>0.00</td>
+<td>7.14</td>
 <td>50.00</td>
-<td>0.00</td>
+<td>8.57</td>
 </tr>
 <tr class="even">
 <td>plugins.menucurses</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>14.52</td>
+<td>25.71</td>
 </tr>
 <tr class="odd">
 <td>plugins.chat</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>3.23</td>
+<td>5.71</td>
 </tr>
 <tr class="even">
 <td>parsing.world_parser</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>1.61</td>
+<td>2.86</td>
 </tr>
 </table>
 </div>
@@ -259,39 +252,23 @@ pygame (plugins.pluginpygame)</pre></div>
 </tr>
 <tr class="even">
 <td>invalid-name</td>
-<td>41</td>
+<td>25</td>
 </tr>
 <tr class="odd">
-<td>import-error</td>
-<td>18</td>
-</tr>
-<tr class="even">
-<td>missing-docstring</td>
-<td>7</td>
-</tr>
-<tr class="odd">
-<td>fixme</td>
-<td>7</td>
-</tr>
-<tr class="even">
 <td>parse-error</td>
 <td>5</td>
 </tr>
-<tr class="odd">
-<td>no-name-in-module</td>
-<td>5</td>
-</tr>
 <tr class="even">
-<td>multiple-statements</td>
+<td>missing-docstring</td>
 <td>5</td>
 </tr>
 <tr class="odd">
-<td>eval-used</td>
+<td>syntax-error</td>
 <td>4</td>
 </tr>
 <tr class="even">
-<td>attribute-defined-outside-init</td>
-<td>3</td>
+<td>eval-used</td>
+<td>4</td>
 </tr>
 <tr class="odd">
 <td>unused-variable</td>
@@ -299,14 +276,6 @@ pygame (plugins.pluginpygame)</pre></div>
 </tr>
 <tr class="even">
 <td>unused-argument</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<td>ungrouped-imports</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td>trailing-newlines</td>
 <td>2</td>
 </tr>
 <tr class="odd">
@@ -318,35 +287,27 @@ pygame (plugins.pluginpygame)</pre></div>
 <td>2</td>
 </tr>
 <tr class="odd">
+<td>multiple-statements</td>
+<td>2</td>
+</tr>
+<tr class="even">
 <td>line-too-long</td>
 <td>2</td>
 </tr>
+<tr class="odd">
+<td>fixme</td>
+<td>2</td>
+</tr>
 <tr class="even">
-<td>bad-continuation</td>
+<td>attribute-defined-outside-init</td>
 <td>2</td>
 </tr>
 <tr class="odd">
-<td>unused-import</td>
+<td>trailing-newlines</td>
 <td>1</td>
 </tr>
 <tr class="even">
-<td>trailing-whitespace</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td>too-many-statements</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td>too-many-branches</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td>syntax-error</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td>redefined-outer-name</td>
+<td>import-error</td>
 <td>1</td>
 </tr>
 <tr class="odd">
@@ -361,7 +322,7 @@ pygame (plugins.pluginpygame)</pre></div>
 </div>
 <div>
 <h2>Global evaluation</h2>
-Your code has been rated at 7.33/10</div>
+Your code has been rated at 8.43/10</div>
 </div>
 </body>
 </html>

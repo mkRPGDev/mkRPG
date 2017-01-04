@@ -12,5 +12,6 @@ var searchData=
   ['pgcli',['pgcli',['../namespacepgcli.html',1,'']]],
   ['plugin',['plugin',['../namespaceplugins_1_1plugin.html',1,'plugins']]],
   ['plugincurses',['plugincurses',['../namespaceplugins_1_1plugincurses.html',1,'plugins']]],
+  ['pluginpygame',['pluginpygame',['../namespaceplugins_1_1pluginpygame.html',1,'plugins']]],
   ['world_5fparser',['world_parser',['../namespaceparsing_1_1world__parser.html',1,'parsing']]]
 ];

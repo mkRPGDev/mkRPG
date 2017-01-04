@@ -10,11 +10,9 @@ class Mapcontrol(Plugin):
         super().__init__(e)
 
     def rotate(self, step):
-        """ rotate the map (move camera horizontally) """
-        print("ROTATE !!")
-        #self.engine.interface.mapView.rotate(step)
+        """ Rotates the map (move camera horizontally) """
+        self.engine.interface.mapView.rotate(step)
 
     def flatten(self, step):
-        """ flatten or de-flatten the map (move camera vertically) """
-        print("FLATTEN !!")
-        #self.engine.interface.mapView.flatten(step)
+        """ Flattens or de-flattens the map (move camera vertically) """
+        self.engine.interface.mapView.flatten(step)

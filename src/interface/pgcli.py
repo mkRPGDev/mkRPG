@@ -121,8 +121,11 @@ class MapView:
         self.world = world
         self.offX, self.offY = 0, 0
         self.movSpeedX, self.movSpeedY = 0, 0
-        self.angleX = ANGLE_X
-        self.angleY = ANGLE_Y
+        self.angle = ANGLE
+        self.flattening = FLATTENING
+        self.angleX = None
+        self.angleY = None
+        self.update_angles()
         self.cellWidth = CELL_WIDTH
         self.map = None
         self.perso = None
@@ -131,6 +134,7 @@ class MapView:
         self.active = False
         self.pics = {}
         self.imgs = imgs
+
 
     def setSurf(self, surf):
         """ Called when scene is initialised or reshaped """
@@ -255,14 +259,6 @@ class MapView:
             self.cellWidth /= 1.5
         elif key == 5:
             self.cellWidth *= 1.5
-        elif key == ord('u'):
-            self.angleX -= pi/16
-        elif key == ord('i'):
-            self.angleX += pi/16
-        elif key == ord('j'):
-            self.angleY -= pi/16
-        elif key == ord('k'):
-            self.angleY += pi/16
 #        elif key==ord('l'): self.showLov ^= 1
         elif key == ord('f'):
             self.follow ^= 1
@@ -316,3 +312,30 @@ class MapView:
         y += -(self.nbCellsX*sin(self.angleX)+self.nbCellsY*sin(self.angleY))*self.cellWidth
         return (round((-sin(self.angleY)*x -cos(self.angleY)*y)/d/self.cellWidth),
                 round((+sin(self.angleX)*x +cos(self.angleX)*y)/d/self.cellWidth))
+
+    def rotate(self, step):
+        """
+            Rotates the map
+
+            @param step the angle step to be applied, may be negative
+        """
+        if self.angle + step > 0 and self.angle + step < 90:
+            self.angle += step
+            self.update_angles()
+
+    def flatten(self, step):
+        """
+            Flattens the map
+
+            @param step the flattening step to be applied, may be negative
+        """
+        if self.flattening + step > -1 and self.flattening + step < 1:
+            self.flattening += step
+            self.update_angles()
+
+    def update_angles(self):
+        """ Updates the anglesX/Y according to angle and flattening parameters """
+        self.angleX = self.angle * (1 - abs(self.flattening)) + \
+            90 * max(0, self.flattening)
+        self.angleY = self.angle * (1 - abs(self.flattening)) + \
+            90 * max(0, 1 - self.flattening)

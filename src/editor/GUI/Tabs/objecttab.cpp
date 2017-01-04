@@ -157,6 +157,8 @@ void ObjectTab::on_newObject_clicked(){
                 game->world().objects().addMap(new Map(*static_cast<MapType*>(type),game->world()));
             else if(typeName == "ObjectType")
                 game->world().objects().addObject(new Object(*static_cast<ObjectType*>(type),game->world()));
+            else if(typeName == "EntityType")
+                game->world().objects().addEntity(new Entity(*static_cast<EntityType*>(type),game->world()));
         }
         else{
             if(typeName == "CellType")
@@ -165,6 +167,8 @@ void ObjectTab::on_newObject_clicked(){
                 new MapType(*static_cast<MapType*>(type));
             else if(typeName == "ObjectType")
                 new ObjectType(*static_cast<ObjectType*>(type));
+            else if(typeName == "EntityType")
+                new EntityType(*static_cast<EntityType*>(type));
         }
         objectsModel->setGameObject(game);
         objects->expandAll();

@@ -64,6 +64,7 @@ private slots:
     void on_actionOpen_triggered();
     void on_actionQuit_triggered();
     void on_actionExport_triggered();
+    void on_actionSave_as_triggered();
 
 
 private slots:
@@ -73,6 +74,7 @@ private slots:
     void setCurrentTab(int i);
 
 private:
+    bool getSaveDirectory(QDir &d, const QString &m);
     void addTab(const QString& n, const QPixmap& p, TabWidget *w);
 
 

@@ -40,6 +40,7 @@ World::World(Game *g, GameObject *parent) :
     aObjects(new GameObjectInventory(*this))
 {
     addEvent("Clock");
+    setName("world");
 }
 
 DefaultTypes &World::types(){

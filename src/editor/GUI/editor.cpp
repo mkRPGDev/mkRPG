@@ -73,10 +73,10 @@ void Editor::on_actionOpen_triggered(){
     }
 }
 
-void Editor::on_actionExport_triggered(){
-    QString di(QFileDialog::getExistingDirectory(this, "Export as XML", QDir::homePath()));
+bool Editor::getSaveDirectory(QDir &d, const QString &m){
+    QString di(QFileDialog::getExistingDirectory(this, m, QDir::homePath()));
     if(di != ""){
-        QDir d(di);
+        d = QDir(di);
         if(d.mkdir(currentGame->name()))
             d.cd(currentGame->name());
         else{
@@ -92,14 +92,33 @@ void Editor::on_actionExport_triggered(){
             d.cd(g->name()+QString::number(k));
             //*/
         }
-        XmlWritter(d,*currentGame, true);
+        return true;
     }
+    return false;
 }
+
+void Editor::on_actionExport_triggered(){
+    QDir d;
+    if(getSaveDirectory(d, "Export as XML (serveur)"))
+        XmlWritter(d,*currentGame, true);
+}
+
+void Editor::on_actionSave_as_triggered(){
+    QDir d;
+    if(getSaveDirectory(d,"Save as XML (editor)"))
+        XmlWritter(d,*currentGame, false);
+}
+
 
 void Editor::on_actionRolePlayGame_triggered(){
     NewGame g(this);
-    if(g.exec())
-        newGame(g.name(), g.folder(), g.createFolder());
+    if(g.exec()){
+        Game *ga = new Game();
+        ga->setName(g.name());
+        XmlWritter(g.folder(), *ga, true);
+        setGame(ga);
+    }
+//        newGame(g.name(), g.folder(), g.createFolder());
 }
 
 void Editor::newGame(QString name, QString dir, bool createFolder){

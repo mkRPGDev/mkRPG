@@ -58,8 +58,10 @@ void ActionTab::setGame(Game *g){
     emittersModel->setGameObject(g);
     game = g;
     emitters->expandAll();
+    emitters->resizeColumnToContents(0);
     receiversModel->setGameObject(g);
     receiversV->expandAll();
+    receiversV->resizeColumnToContents(0);
     actionsModel->setGame(g);
 }
 
@@ -148,7 +150,7 @@ void ActionTab::editRow(const QPersistentModelIndex &r){
     if(sem.isValid()){
         orders->selectionModel()->clearSelection();
         orders->selectionModel()->setCurrentIndex(sem,QItemSelectionModel::Select | QItemSelectionModel::Current);
-        orders->selectionModel()->setCurrentIndex(sem.parent().child(sel.row(),1),QItemSelectionModel::Select);
+        orders->selectionModel()->setCurrentIndex(sem.parent().child(sem.row(),1),QItemSelectionModel::Select);
     }
     removeRow(r);
 }

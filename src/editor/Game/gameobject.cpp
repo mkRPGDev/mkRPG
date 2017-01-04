@@ -299,6 +299,12 @@ QList<QString> GameObject::events() const{
     return aEvents.keys();
 }
 
+void GameObject::renameEvent(const QString &event, const QString &newEvent){
+    if(event == newEvent) return;
+    addEvent(newEvent) = getEvent(event);
+    removeEvent(event);
+}
+
 
 bool GameObject::hasOrder(const QString &order) const{
     return aOrders.contains(order);
@@ -321,6 +327,12 @@ QList<QString> GameObject::orders() const{
     return aOrders.keys();
 }
 
+void GameObject::renameOrder(const QString &order, const QString &newOrder){
+    if(order == newOrder) return;
+    addOrder(newOrder) = getOrder(order);
+    removeOrder(order);
+}
+
 
 void GameObject::addEmittedAction(Action *action){
     aEmittedActions.append(action);
@@ -337,6 +349,8 @@ void GameObject::addReceivedAction(Action *action){
 void GameObject::removeReceivedAction(Action *action){
     aReceivedActions.removeOne(action);
 }
+
+
 
 void GameObject::copy(GameObject &obj){
     aParams.clear();

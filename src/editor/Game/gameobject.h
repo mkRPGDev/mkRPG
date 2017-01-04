@@ -775,7 +775,7 @@ public:
      *
      * \see getEvent, getEvents, hasOrder
      */
-    virtual Event& getEvent(const QString &event) const;                                              /**<
+    virtual Event& getEvent(const QString &event) const;                                        /**<
      * Returns the event named \c event.
      *
      * \note
@@ -802,6 +802,7 @@ public:
      *
      * \see getEvent, getOrders
      */
+    virtual void renameEvent(const QString &order, const QString &newOrder);
 
     virtual bool hasOrder(const QString &order) const;                                          /**<
      * Return \c true if the GameObject has a order named \c order.
@@ -835,7 +836,7 @@ public:
      *
      * \see getOrder, getEvents
      */
-
+    virtual void renameOrder(const QString &order, const QString &newOrder);
 
     void addEmittedAction(Action *action);                                                      /**<
      * Register the GameObject as the emitter of the action \c action.

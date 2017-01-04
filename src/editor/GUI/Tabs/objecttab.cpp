@@ -17,12 +17,16 @@ ObjectTab::ObjectTab(QWidget *parent) :
     typesModel = new TypeItemModel2(this);
     eventsModel = new EventTreeItemModel(this);
     ordersModel = new OrderTreeItemModel(this);
+    fob = new FilteredObjectsTreeModel(this);
+    fob->setSourceModel(objectsModel);
+    fob->setMode(true);
+    fob->setDisplayedItem(0);
 
     params->setModel(paramsModel);
     flags->setModel(flagsModel);
     events->setModel(eventsModel);
     orders->setModel(ordersModel);
-    objects->setModel(objectsModel);
+    objects->setModel(fob);
     objects->setColumnWidth(0, objects->width()/2);
     edit = new QWidget();
     editor->layout()->addWidget(edit);
@@ -53,7 +57,7 @@ void ObjectTab::setGame(Game *g){
 
 void ObjectTab::currentElementChanged(const QModelIndex &ind){
     currentObject = ind.flags() & Qt::ItemIsSelectable ?
-                static_cast<GameObject*>(ind.internalPointer()) :
+                static_cast<GameObject*>(fob->mapToSource(ind).internalPointer()) :
                 nullptr;
     newParam->setEnabled(currentObject != nullptr);
     newFlag->setEnabled(currentObject != nullptr);

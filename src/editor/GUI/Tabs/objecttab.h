@@ -46,6 +46,7 @@ private slots:
 
 
 private:
+    FilteredObjectsTreeModel *fob;
     EventTreeItemModel *eventsModel;
     ParamTreeItemModel *paramsModel;
     OrderTreeItemModel *ordersModel;

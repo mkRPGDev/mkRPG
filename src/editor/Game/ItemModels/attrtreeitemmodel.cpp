@@ -312,9 +312,11 @@ bool GameTreeItem<type>::setAttrData(int col, QVariant value, int role){
                 obj->renameFlag(attr, value.toString());
                 break;
             case EventItem:
-                // TODO
+                obj->renameEvent(attr, value.toString());
+                break;
             case OrderItem:
-                // TODO
+                obj->renameOrder(attr, value.toString());
+                break;
             default:
                 break;
             }

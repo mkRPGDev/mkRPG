@@ -1,3 +1,7 @@
+"""
+    This module only define the class PygamePlugin,
+    which is a class to write a pygame plugin
+"""
 import pygame
 
 class PygamePlugin(pygame.sprite.Sprite):
@@ -20,4 +24,3 @@ class PygamePlugin(pygame.sprite.Sprite):
     def update(self):
         """ do updates """
         pass
-

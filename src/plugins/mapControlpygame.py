@@ -1,3 +1,7 @@
+"""
+    This plugin adds buttons to change the viewpoint of the camera. Pygame part
+"""
+
 import pygame
 from pygame.locals import Rect
 
@@ -7,18 +11,21 @@ from interface.utils import loadPng
 from interface.const import FLAT_STEP, ROT_STEP
 
 class MapcontrolSprite(PygamePlugin):
+    """ MapControl plugin """
     def __init__(self, logic):
         super().__init__(logic)
 
         pygame.init()
         pygame.display.set_mode((200,200))
 
+        # Load arrows images for the onscreen pad
         arrows = {}
         arrows['up'] = loadPng('../content/imgs/arrow_up.png')
         arrows['down'] = loadPng('../content/imgs/arrow_down.png')
         arrows['left'] = loadPng('../content/imgs/arrow_left.png')
         arrows['right'] = loadPng('../content/imgs/arrow_right.png')
 
+        # Create the pad to put on screen
         self.sprite = Container([],
                                 {
                                     'size':(0,0),
@@ -92,8 +99,10 @@ class MapcontrolSprite(PygamePlugin):
         self.sprite.move(30, 30)
 
     def draw(self):
+        """ actually draw the pad and update sprite attributes """
         self.image = self.sprite.render()
         self.rect = Rect(self.sprite.pos, self.image.get_size())
 
     def handleEvent(self, event):
+        """ handle event by propagating it to the container """
         self.sprite.handle_event(event)

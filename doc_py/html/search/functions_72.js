@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['registeractions',['registerActions',['../namespaceactions.html#a9226d73b68a0e8a3998ab9f0fbceb3da',1,'actions']]],
+  ['registerinteractions',['registerInteractions',['../namespaceinteractions.html#a72d2fcba4dd19f5ae0fb6ae50b585209',1,'interactions']]],
   ['repaint',['repaint',['../classpgcli_1_1_pygame.html#a282d3adefecb0b65fc1eac9c17358426',1,'pgcli::Pygame.repaint()'],['../classplugins_1_1plugincurses_1_1_curses_plugin.html#a8dcc0fef85a3f25ed661dcdae06e3c40',1,'plugins::plugincurses::CursesPlugin.repaint()']]],
   ['resize',['resize',['../classcursescli_1_1_curses.html#ad9de85312537c422b5e6912b132841a1',1,'cursescli::Curses.resize()'],['../classpgcli_1_1_pygame.html#a72659e4939325f9c60bc21adcdab0a7b',1,'pgcli::Pygame.resize()']]],
   ['retrieveworld',['retrieveWorld',['../namespaceworld.html#afb11223978aebb27bd012454a1b624e0',1,'world']]],

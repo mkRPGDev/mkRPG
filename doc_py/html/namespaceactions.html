@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>mkRPG: Packages</title>
+<title>mkRPG: actions Namespace Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -69,39 +69,91 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li class="current"><a href="namespaces.html"><span>Packages</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li><a href="namespacemembers.html"><span>Package&#160;Functions</span></a></li>
     </ul>
   </div>
 </div>
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">Packages</div>  </div>
+<div class="title">actions Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here are the packages with brief descriptions (if available):</div><table>
-  <tr><td class="indexkey"><a class="el" href="namespaceactions.html">actions</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceconsole.html">console</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceconst.html">const</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceinteractions.html">interactions</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceinterface.html">interface</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1actions__parser.html">parsing::actions_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1entity__parser.html">parsing::entity_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1global__parsing.html">parsing::global_parsing</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1images__parser.html">parsing::images_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1interactions__parser.html">parsing::interactions_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1map__parser.html">parsing::map_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1objects__parser.html">parsing::objects_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1parsing__utils.html">parsing::parsing_utils</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1world__parser.html">parsing::world_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespacepgcli.html">pgcli</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceplugins_1_1menucurses.html">plugins::menucurses</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceplugins_1_1plugin.html">plugins::plugin</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceplugins_1_1plugincurses.html">plugins::plugincurses</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceplugins_1_1pluginpygame.html">plugins::pluginpygame</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespacetools.html">tools</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceworld.html">world</a></td><td class="indexvalue"></td></tr>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceactions.html#a2b7c4bfbef07daa3236dcd17e587c29e">loadAction</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceactions.html#a9226d73b68a0e8a3998ab9f0fbceb3da">registerActions</a></td></tr>
+<tr><td colspan="2"><h2><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76ea39ba78dd4f848c45d3e5d52eb456"></a><!-- doxytag: member="actions::Action" ref="a76ea39ba78dd4f848c45d3e5d52eb456" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>Action</b> = namedtuple(&quot;Action&quot;, &quot;event orders conditions&quot;)</td></tr>
 </table>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><div class="fragment"><pre class="fragment">Hosts the actions and a function to create them </pre></div> </div><hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a2b7c4bfbef07daa3236dcd17e587c29e"></a><!-- doxytag: member="actions::loadAction" ref="a2b7c4bfbef07daa3236dcd17e587c29e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceactions.html#a2b7c4bfbef07daa3236dcd17e587c29e">actions.loadAction</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>named</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Returns an action instance from a Xml structure and name mapping </pre></div> 
+</div>
+</div>
+<a class="anchor" id="a9226d73b68a0e8a3998ab9f0fbceb3da"></a><!-- doxytag: member="actions::registerActions" ref="a9226d73b68a0e8a3998ab9f0fbceb3da" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceactions.html#a9226d73b68a0e8a3998ab9f0fbceb3da">actions.registerActions</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>action_dict</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>named</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Create a list of action from a Xml describing them </pre></div> 
+</div>
+</div>
 </div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

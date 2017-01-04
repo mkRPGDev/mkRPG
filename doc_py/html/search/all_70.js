@@ -21,15 +21,14 @@ var searchData=
   ['parse_5forder',['parse_order',['../namespaceparsing_1_1actions__parser.html#a32ae0cad2fc0c95abf9b8203c535f0ff',1,'parsing::actions_parser']]],
   ['parse_5fworld',['parse_world',['../namespaceparsing_1_1world__parser.html#a2a058b7adfe85660fa134da41a8b102a',1,'parsing::world_parser']]],
   ['parsing_5futils',['parsing_utils',['../namespaceparsing_1_1parsing__utils.html',1,'parsing']]],
-  ['perf',['Perf',['../classtools_1_1_perf.html',1,'tools']]],
-  ['pgcli',['pgcli',['../namespacepgcli.html',1,'']]],
+  ['perf',['Perf',['../classshared_1_1tools_1_1_perf.html',1,'shared::tools']]],
   ['plugin',['plugin',['../namespaceplugins_1_1plugin.html',1,'plugins']]],
   ['plugin',['Plugin',['../classplugins_1_1plugin_1_1_plugin.html',1,'plugins::plugin']]],
   ['plugincurses',['plugincurses',['../namespaceplugins_1_1plugincurses.html',1,'plugins']]],
   ['pluginhandle',['pluginHandle',['../classclient_1_1_client.html#ab33a0618c1e787648f00d5f36cb4fec8',1,'client::Client.pluginHandle()'],['../classserver_1_1_server.html#a96a93fb7b3ede34e861cba3952cd85e2',1,'server::Server.pluginHandle()']]],
   ['pluginpygame',['pluginpygame',['../namespaceplugins_1_1pluginpygame.html',1,'plugins']]],
-  ['pointtocell',['pointToCell',['../classpgcli_1_1_map_view.html#a14a74a83706f4acfb7a18355ad72edce',1,'pgcli::MapView']]],
-  ['pygame',['Pygame',['../classpgcli_1_1_pygame.html',1,'pgcli']]],
+  ['pointtocell',['pointToCell',['../classinterface_1_1pgcli_1_1_map_view.html#ae9dab6dfcd8690f77b8b4a7c8da9d73d',1,'interface::pgcli::MapView']]],
+  ['pygame',['Pygame',['../classinterface_1_1pgcli_1_1_pygame.html',1,'interface::pgcli']]],
   ['pygameplugin',['PygamePlugin',['../classplugins_1_1pluginpygame_1_1_pygame_plugin.html',1,'plugins::pluginpygame']]],
   ['world_5fparser',['world_parser',['../namespaceparsing_1_1world__parser.html',1,'parsing']]]
 ];

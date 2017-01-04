@@ -13,5 +13,5 @@ var searchData=
   ['parse_5forder',['parse_order',['../namespaceparsing_1_1actions__parser.html#a32ae0cad2fc0c95abf9b8203c535f0ff',1,'parsing::actions_parser']]],
   ['parse_5fworld',['parse_world',['../namespaceparsing_1_1world__parser.html#a2a058b7adfe85660fa134da41a8b102a',1,'parsing::world_parser']]],
   ['pluginhandle',['pluginHandle',['../classclient_1_1_client.html#ab33a0618c1e787648f00d5f36cb4fec8',1,'client::Client.pluginHandle()'],['../classserver_1_1_server.html#a96a93fb7b3ede34e861cba3952cd85e2',1,'server::Server.pluginHandle()']]],
-  ['pointtocell',['pointToCell',['../classpgcli_1_1_map_view.html#a14a74a83706f4acfb7a18355ad72edce',1,'pgcli::MapView']]]
+  ['pointtocell',['pointToCell',['../classinterface_1_1pgcli_1_1_map_view.html#ae9dab6dfcd8690f77b8b4a7c8da9d73d',1,'interface::pgcli::MapView']]]
 ];

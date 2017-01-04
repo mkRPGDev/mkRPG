@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['update',['update',['../classinterface_1_1_interface.html#aef9ff34e533ed2aae3f56ddc22030e86',1,'interface::Interface.update()'],['../classplugins_1_1pluginpygame_1_1_pygame_plugin.html#a3edcae2ee1ee50d1088f728f744dafe1',1,'plugins::pluginpygame::PygamePlugin.update()']]],
-  ['updatemap',['updateMap',['../classcursescli_1_1_map_view.html#a164da5d021ea0cc4ce801b317a0ad81a',1,'cursescli::MapView.updateMap()'],['../classpgcli_1_1_map_view.html#a61ef75055f398cacac1252ec7d5c31b7',1,'pgcli::MapView.updateMap()']]],
-  ['updatepics',['updatePics',['../classpgcli_1_1_map_view.html#a9d186f2b4e7dd519dc5ec6f5d8682754',1,'pgcli::MapView']]],
-  ['updatevisiblescene',['updateVisibleScene',['../classpgcli_1_1_map_view.html#a666208c7ef026585b782ca3c3afe1b08',1,'pgcli::MapView']]]
+  ['update',['update',['../classinterface_1_1interface_1_1_interface.html#ae88eadf76465fc08de5b43ceb851b33c',1,'interface::interface::Interface.update()'],['../classplugins_1_1pluginpygame_1_1_pygame_plugin.html#a3edcae2ee1ee50d1088f728f744dafe1',1,'plugins::pluginpygame::PygamePlugin.update()']]],
+  ['updatemap',['updateMap',['../classinterface_1_1cursescli_1_1_map_view.html#ad761d937ddcdad5ed32cdcbccc70cbb1',1,'interface::cursescli::MapView.updateMap()'],['../classinterface_1_1pgcli_1_1_map_view.html#a2706f8880ed0935629fce4f413155801',1,'interface::pgcli::MapView.updateMap()']]],
+  ['updatepics',['updatePics',['../classinterface_1_1pgcli_1_1_map_view.html#a620783b72087e3d5950ce0411470390a',1,'interface::pgcli::MapView']]],
+  ['updatevisiblescene',['updateVisibleScene',['../classinterface_1_1pgcli_1_1_map_view.html#a1de1882629b6b86818849b27e8ff243c',1,'interface::pgcli::MapView']]]
 ];

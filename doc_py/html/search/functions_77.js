@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['waitforclients',['waitForClients',['../classnetwork_1_1_network_server.html#adf074e54d57e4ecb954cb023b04284df',1,'network::NetworkServer']]],
-  ['welcomemessage',['welcomeMessage',['../namespaceconsole.html#aaa837fb8a5b6609b499d2635c3188775',1,'console']]]
+  ['waitforclients',['waitForClients',['../classshared_1_1network_1_1_network_server.html#ab0fb24417f7ef51323b39cf7c08c21da',1,'shared::network::NetworkServer']]],
+  ['welcomemessage',['welcomeMessage',['../namespacemanagement_1_1console.html#a4acef27fe2d664476446e89e52c7a0da',1,'management::console']]]
 ];

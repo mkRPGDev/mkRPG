@@ -9,7 +9,6 @@ var searchData=
   ['menucurses',['menucurses',['../namespaceplugins_1_1menucurses.html',1,'plugins']]],
   ['objects_5fparser',['objects_parser',['../namespaceparsing_1_1objects__parser.html',1,'parsing']]],
   ['parsing_5futils',['parsing_utils',['../namespaceparsing_1_1parsing__utils.html',1,'parsing']]],
-  ['pgcli',['pgcli',['../namespacepgcli.html',1,'']]],
   ['plugin',['plugin',['../namespaceplugins_1_1plugin.html',1,'plugins']]],
   ['plugincurses',['plugincurses',['../namespaceplugins_1_1plugincurses.html',1,'plugins']]],
   ['pluginpygame',['pluginpygame',['../namespaceplugins_1_1pluginpygame.html',1,'plugins']]],

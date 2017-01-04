@@ -1,0 +1,85 @@
+\hypertarget{classshared_1_1network_1_1_network_client}{\section{shared.\-network.\-Network\-Client \-Class \-Reference}
+\label{classshared_1_1network_1_1_network_client}\index{shared.\-network.\-Network\-Client@{shared.\-network.\-Network\-Client}}
+}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classshared_1_1network_1_1_network_client_a71a07dfbb608f1a23b8017984ed1235b}{def {\bfseries \-\_\-\-\_\-init\-\_\-\-\_\-}}\label{classshared_1_1network_1_1_network_client_a71a07dfbb608f1a23b8017984ed1235b}
+
+\item 
+def \hyperlink{classshared_1_1network_1_1_network_client_afd84d7b91550797542814eaa9542d60b}{ask\-Entity}
+\item 
+\hypertarget{classshared_1_1network_1_1_network_client_aa1c6b4c39c6702a2b118b81e5c77f6f7}{def {\bfseries connect}}\label{classshared_1_1network_1_1_network_client_aa1c6b4c39c6702a2b118b81e5c77f6f7}
+
+\item 
+def \hyperlink{classshared_1_1network_1_1_network_client_a68bbd618dc7ad8697b47142d99816570}{run}
+\item 
+\hypertarget{classshared_1_1network_1_1_network_client_aeded475479adfd60447be4a6de72389f}{def {\bfseries send}}\label{classshared_1_1network_1_1_network_client_aeded475479adfd60447be4a6de72389f}
+
+\item 
+def \hyperlink{classshared_1_1network_1_1_network_client_a78d194c7e97afbf18ac808173acbac1b}{send\-Event}
+\item 
+\hypertarget{classshared_1_1network_1_1_network_client_a6f310c653800b5e6d58c67352fb3823e}{def {\bfseries kill}}\label{classshared_1_1network_1_1_network_client_a6f310c653800b5e6d58c67352fb3823e}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classshared_1_1network_1_1_network_client_abee0843da70bc52597f451b0844f70c8}{{\bfseries handle}}\label{classshared_1_1network_1_1_network_client_abee0843da70bc52597f451b0844f70c8}
+
+\item 
+\hypertarget{classshared_1_1network_1_1_network_client_ab4bb84d37914ba60c1886cedca712655}{{\bfseries plugin\-Handle}}\label{classshared_1_1network_1_1_network_client_ab4bb84d37914ba60c1886cedca712655}
+
+\item 
+\hypertarget{classshared_1_1network_1_1_network_client_a642889e1ca4bdd470e4535f7870202e4}{{\bfseries writer}}\label{classshared_1_1network_1_1_network_client_a642889e1ca4bdd470e4535f7870202e4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This class manages the network activities of the client.
+It allows the client to send messages (describing events) to the server.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classshared_1_1network_1_1_network_client_afd84d7b91550797542814eaa9542d60b}{\index{shared\-::network\-::\-Network\-Client@{shared\-::network\-::\-Network\-Client}!ask\-Entity@{ask\-Entity}}
+\index{ask\-Entity@{ask\-Entity}!shared::network::NetworkClient@{shared\-::network\-::\-Network\-Client}}
+\subsubsection[{ask\-Entity}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-network.\-Network\-Client.\-ask\-Entity} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{ent}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1network_1_1_network_client_afd84d7b91550797542814eaa9542d60b}
+\begin{DoxyVerb}Ask for an entity \end{DoxyVerb}
+ \hypertarget{classshared_1_1network_1_1_network_client_a68bbd618dc7ad8697b47142d99816570}{\index{shared\-::network\-::\-Network\-Client@{shared\-::network\-::\-Network\-Client}!run@{run}}
+\index{run@{run}!shared::network::NetworkClient@{shared\-::network\-::\-Network\-Client}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-network.\-Network\-Client.\-run} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1network_1_1_network_client_a68bbd618dc7ad8697b47142d99816570}
+\begin{DoxyVerb}
+Main loop of the client's network task.  After connecting the socket
+to the server, wait for orders and handle them immediately until
+connection ends.
+\end{DoxyVerb}
+ \hypertarget{classshared_1_1network_1_1_network_client_a78d194c7e97afbf18ac808173acbac1b}{\index{shared\-::network\-::\-Network\-Client@{shared\-::network\-::\-Network\-Client}!send\-Event@{send\-Event}}
+\index{send\-Event@{send\-Event}!shared::network::NetworkClient@{shared\-::network\-::\-Network\-Client}}
+\subsubsection[{send\-Event}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-network.\-Network\-Client.\-send\-Event} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{obj, }
+\item[{}]{event}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1network_1_1_network_client_a78d194c7e97afbf18ac808173acbac1b}
+\begin{DoxyVerb}
+Send an event to the server in a formatted way, specifying the id
+of the object to affect.
+\end{DoxyVerb}
+ 
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/shared/network.\-py\end{DoxyCompactItemize}

@@ -1,0 +1,101 @@
+\hypertarget{classshared_1_1network_1_1_network_server}{\section{shared.\-network.\-Network\-Server \-Class \-Reference}
+\label{classshared_1_1network_1_1_network_server}\index{shared.\-network.\-Network\-Server@{shared.\-network.\-Network\-Server}}
+}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classshared_1_1network_1_1_network_server_a6aeeeeaf8a6ffd779976937de4d8ba1a}{\-\_\-\-\_\-init\-\_\-\-\_\-}
+\item 
+def \hyperlink{classshared_1_1network_1_1_network_server_ab0fb24417f7ef51323b39cf7c08c21da}{wait\-For\-Clients}
+\item 
+\hypertarget{classshared_1_1network_1_1_network_server_a418cd00474345643afb54f5dd42948b4}{def {\bfseries connect}}\label{classshared_1_1network_1_1_network_server_a418cd00474345643afb54f5dd42948b4}
+
+\item 
+def \hyperlink{classshared_1_1network_1_1_network_server_a17fa54ca058fb9fecdd90e0a5107f651}{run}
+\item 
+def \hyperlink{classshared_1_1network_1_1_network_server_a61fe06df661e8306b215f3d106d6f78c}{send\-Order}
+\item 
+\hypertarget{classshared_1_1network_1_1_network_server_ad45cf035ab91146a0d3fd68d019c5815}{def {\bfseries broadcast}}\label{classshared_1_1network_1_1_network_server_ad45cf035ab91146a0d3fd68d019c5815}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classshared_1_1network_1_1_network_server_a070aa96debd9445e630e667f612728fe}{{\bfseries handle}}\label{classshared_1_1network_1_1_network_server_a070aa96debd9445e630e667f612728fe}
+
+\item 
+\hypertarget{classshared_1_1network_1_1_network_server_aff63d97c930378baf920826eafdf278d}{{\bfseries plugin\-Handle}}\label{classshared_1_1network_1_1_network_server_aff63d97c930378baf920826eafdf278d}
+
+\item 
+\hypertarget{classshared_1_1network_1_1_network_server_a63d3cf54c15f4c6a3741133dd221c9cf}{{\bfseries loop}}\label{classshared_1_1network_1_1_network_server_a63d3cf54c15f4c6a3741133dd221c9cf}
+
+\item 
+\hypertarget{classshared_1_1network_1_1_network_server_a17f73968f757db6e3e44fdbe08a04fbd}{{\bfseries connections}}\label{classshared_1_1network_1_1_network_server_a17f73968f757db6e3e44fdbe08a04fbd}
+
+\item 
+\hypertarget{classshared_1_1network_1_1_network_server_afea8047766c8674b880a678f812be765}{{\bfseries server}}\label{classshared_1_1network_1_1_network_server_afea8047766c8674b880a678f812be765}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This class is the task of the server that manages clients connections on
+his port.  It keeps the list of connected clients and provides method to
+broadcast messages to all the clients.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classshared_1_1network_1_1_network_server_a6aeeeeaf8a6ffd779976937de4d8ba1a}{\index{shared\-::network\-::\-Network\-Server@{shared\-::network\-::\-Network\-Server}!\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}!shared::network::NetworkServer@{shared\-::network\-::\-Network\-Server}}
+\subsubsection[{\-\_\-\-\_\-init\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-network.\-Network\-Server.\-\_\-\-\_\-init\-\_\-\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{handle, }
+\item[{}]{plugin\-Handle, }
+\item[{}]{loop}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1network_1_1_network_server_a6aeeeeaf8a6ffd779976937de4d8ba1a}
+\begin{DoxyVerb}The server listen on the port specified in const.py. \end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classshared_1_1network_1_1_network_server_a17fa54ca058fb9fecdd90e0a5107f651}{\index{shared\-::network\-::\-Network\-Server@{shared\-::network\-::\-Network\-Server}!run@{run}}
+\index{run@{run}!shared::network::NetworkServer@{shared\-::network\-::\-Network\-Server}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-network.\-Network\-Server.\-run} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1network_1_1_network_server_a17fa54ca058fb9fecdd90e0a5107f651}
+\begin{DoxyVerb}
+When a client tries to connect, the server adds him to the list and
+creates a new task managing communications with this client.
+\end{DoxyVerb}
+ \hypertarget{classshared_1_1network_1_1_network_server_a61fe06df661e8306b215f3d106d6f78c}{\index{shared\-::network\-::\-Network\-Server@{shared\-::network\-::\-Network\-Server}!send\-Order@{send\-Order}}
+\index{send\-Order@{send\-Order}!shared::network::NetworkServer@{shared\-::network\-::\-Network\-Server}}
+\subsubsection[{send\-Order}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-network.\-Network\-Server.\-send\-Order} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{ident, }
+\item[{}]{order}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1network_1_1_network_server_a61fe06df661e8306b215f3d106d6f78c}
+\begin{DoxyVerb}
+Send an order to all connected clients by broadcasting messages to
+all threads in the list.
+\end{DoxyVerb}
+ \hypertarget{classshared_1_1network_1_1_network_server_ab0fb24417f7ef51323b39cf7c08c21da}{\index{shared\-::network\-::\-Network\-Server@{shared\-::network\-::\-Network\-Server}!wait\-For\-Clients@{wait\-For\-Clients}}
+\index{wait\-For\-Clients@{wait\-For\-Clients}!shared::network::NetworkServer@{shared\-::network\-::\-Network\-Server}}
+\subsubsection[{wait\-For\-Clients}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-network.\-Network\-Server.\-wait\-For\-Clients} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{n}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1network_1_1_network_server_ab0fb24417f7ef51323b39cf7c08c21da}
+\begin{DoxyVerb}Block until n clients are connected \end{DoxyVerb}
+ 
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/shared/network.\-py\end{DoxyCompactItemize}

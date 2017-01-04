@@ -1,0 +1,101 @@
+\hypertarget{classshared_1_1world_1_1_map}{\section{shared.\-world.\-Map \-Class \-Reference}
+\label{classshared_1_1world_1_1_map}\index{shared.\-world.\-Map@{shared.\-world.\-Map}}
+}
+\-Inheritance diagram for shared.\-world.\-Map\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classshared_1_1world_1_1_map}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classshared_1_1world_1_1_map_a6ecf1a8cfa34de77286042236bab52bb}{def {\bfseries \-\_\-\-\_\-init\-\_\-\-\_\-}}\label{classshared_1_1world_1_1_map_a6ecf1a8cfa34de77286042236bab52bb}
+
+\item 
+def \hyperlink{classshared_1_1world_1_1_map_ab7d203c2be9b13fdbd13c73eedebdbb8}{fill}
+\item 
+def \hyperlink{classshared_1_1world_1_1_map_aca622d03ed857f3f96bb58a4ae832a78}{dist}
+\item 
+def \hyperlink{classshared_1_1world_1_1_map_a28559574f2dd9654f9a6b6fad260ff4e}{lov}
+\item 
+def \hyperlink{classshared_1_1world_1_1_map_a4e919a8097cf188722d29dd44c8af76f}{get\-\_\-path}
+\item 
+def \hyperlink{classshared_1_1world_1_1_map_a3034d973a018bbb50638e07a74f6bb86}{from\-Pos}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classshared_1_1world_1_1_map_a2c42644f29c38355e8960eae50dc15c5}{{\bfseries cells}}\label{classshared_1_1world_1_1_map_a2c42644f29c38355e8960eae50dc15c5}
+
+\item 
+\hypertarget{classshared_1_1world_1_1_map_a586adeb6f3a044ff46975d9e34a3fe57}{{\bfseries cells\-Grid}}\label{classshared_1_1world_1_1_map_a586adeb6f3a044ff46975d9e34a3fe57}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}Orthonormed map with associated alogrithms \end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classshared_1_1world_1_1_map_aca622d03ed857f3f96bb58a4ae832a78}{\index{shared\-::world\-::\-Map@{shared\-::world\-::\-Map}!dist@{dist}}
+\index{dist@{dist}!shared::world::Map@{shared\-::world\-::\-Map}}
+\subsubsection[{dist}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-world.\-Map.\-dist} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{source, }
+\item[{}]{dest}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1world_1_1_map_aca622d03ed857f3f96bb58a4ae832a78}
+\begin{DoxyVerb}Manhattan distance \end{DoxyVerb}
+ \hypertarget{classshared_1_1world_1_1_map_ab7d203c2be9b13fdbd13c73eedebdbb8}{\index{shared\-::world\-::\-Map@{shared\-::world\-::\-Map}!fill@{fill}}
+\index{fill@{fill}!shared::world::Map@{shared\-::world\-::\-Map}}
+\subsubsection[{fill}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-world.\-Map.\-fill} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1world_1_1_map_ab7d203c2be9b13fdbd13c73eedebdbb8}
+\begin{DoxyVerb}Fill the cellsGrid attribute with cells and default cell
+To be called after the Xml reading only \end{DoxyVerb}
+ \hypertarget{classshared_1_1world_1_1_map_a3034d973a018bbb50638e07a74f6bb86}{\index{shared\-::world\-::\-Map@{shared\-::world\-::\-Map}!from\-Pos@{from\-Pos}}
+\index{from\-Pos@{from\-Pos}!shared::world::Map@{shared\-::world\-::\-Map}}
+\subsubsection[{from\-Pos}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-world.\-Map.\-from\-Pos} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{pos, }
+\item[{}]{maxi = {\ttfamily \-None}}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1world_1_1_map_a3034d973a018bbb50638e07a74f6bb86}
+\begin{DoxyVerb}Yield cells further and further from pos, stopping at maxi
+Assuming x goes right and y down it turns as the trigo circle,
+it is therefore not a "serpentin" (sadly ?) \end{DoxyVerb}
+ \hypertarget{classshared_1_1world_1_1_map_a4e919a8097cf188722d29dd44c8af76f}{\index{shared\-::world\-::\-Map@{shared\-::world\-::\-Map}!get\-\_\-path@{get\-\_\-path}}
+\index{get\-\_\-path@{get\-\_\-path}!shared::world::Map@{shared\-::world\-::\-Map}}
+\subsubsection[{get\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-world.\-Map.\-get\-\_\-path} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{source, }
+\item[{}]{dest}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1world_1_1_map_a4e919a8097cf188722d29dd44c8af76f}
+\begin{DoxyVerb}A* algorithm on current map from source to dest \end{DoxyVerb}
+ \hypertarget{classshared_1_1world_1_1_map_a28559574f2dd9654f9a6b6fad260ff4e}{\index{shared\-::world\-::\-Map@{shared\-::world\-::\-Map}!lov@{lov}}
+\index{lov@{lov}!shared::world::Map@{shared\-::world\-::\-Map}}
+\subsubsection[{lov}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf shared.\-world.\-Map.\-lov} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{source, }
+\item[{}]{dest}
+\end{DoxyParamCaption}
+)}}\label{classshared_1_1world_1_1_map_a28559574f2dd9654f9a6b6fad260ff4e}
+\begin{DoxyVerb}Computes if the view is degaged between source and dest
+those laters must have x and y parameters and the map
+cells a parameter "visible"
+About O(dist(source, dest))
+\end{DoxyVerb}
+ 
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/shared/world.\-py\end{DoxyCompactItemize}

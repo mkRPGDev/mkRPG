@@ -1,3 +1,6 @@
+"""
+    This module defines the Interaction class
+"""
 from enum import IntEnum
 
 InteractionType = IntEnum("InteractionType", "Key Mouse Scroll Multi")
@@ -25,5 +28,5 @@ def registerInteractions(interactions_list):
         l.append(Interaction().load(d))
     return l
 
-if __name__=="__main__":
+if __name__ == "__main__":
     registerInteractions("../Test/Snake/")

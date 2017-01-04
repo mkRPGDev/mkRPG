@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     Game/game.cpp \
-    Game/xmlhandler.cpp \
     Game/object.cpp \
     Game/map.cpp \
     GUI/editor.cpp \
@@ -54,11 +53,11 @@ SOURCES += main.cpp\
     GUI/Tabs/actiontab.cpp \
     GUI/Tabs/newgameobject.cpp \
     GUI/Tabs/ObjectEditors/objecttypeeditor.cpp \
-    Game/entity.cpp
+    Game/entity.cpp \
+    Game/xmlreader.cpp
 
 HEADERS  += \
     Game/game.h \
-    Game/xmlhandler.h \
     Game/object.h \
     Game/map.h \
     GUI/editor.h \
@@ -99,7 +98,8 @@ HEADERS  += \
     GUI/Tabs/actiontab.h \
     GUI/Tabs/newgameobject.h \
     GUI/Tabs/ObjectEditors/objecttypeeditor.h \
-    Game/entity.h
+    Game/entity.h \
+    Game/xmlreader.h
 
 FORMS    += \
     GUI/editor.ui \

@@ -8,8 +8,20 @@
 #include <QList>
 
 
+/*!
+ * \file xmlwritter.h
+ * \brief Definition of the XmlWritter class.
+ */
 
-
+/*!
+ * \brief The XmlWritter class provide a XML writter.
+ *
+ * Two types of XML can be outputed :
+ * - Server XML : server-readable XML (Some modifications of the Game architecture
+ * are made to fit server capacities)
+ * - Editor XML : editor-readable XML (The elements are stored in a different way,
+ * and additionnal information is written)
+ */
 class XmlWritter{
     enum Element{EndL, Eg, OpenMarkUp, CloseMarkUp, MarkUpParam};
     enum Mode{Default, newMarkUp, MarkUpNamed, ParamName,ParamValue};

@@ -39,7 +39,10 @@ private:
 };
 
 
-
+/*!
+ * \brief The FilteredObjectsTreeModel class enable to hide some items
+ * of ObjectsTreeModel.
+ */
 class FilteredObjectsTreeModel : public QSortFilterProxyModel
 {
 public:
@@ -57,6 +60,11 @@ private:
 
 
 
+
+/*!
+ * \brief The CellTypeListModel class presents the \ref "actions" Action
+ * as a Qt Model-View framework's list model.
+ */
 class ActionsListModel : public QAbstractListModel
 {
 public:
@@ -81,6 +89,11 @@ private:
 };
 
 
+
+/*!
+ * \brief The CellTypeListModel class presents the action's receivers
+ * as a Qt Model-View framework's list model.
+ */
 class ReceiverListModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -104,6 +117,11 @@ private:
 
 
 
+
+/*!
+ * \brief The CellTypeListModel class presents the \ref "images" Images
+ * as a Qt Model-View framework's list model.
+ */
 class ImageListModel : public QAbstractListModel
 {
     Q_OBJECT

@@ -468,6 +468,10 @@ private:
 
 
 class GameObject;
+/*!
+ * \brief The Action class describes a game Action, which if the
+ * basal part to enable animated games.
+ */
 class Action
 {
 public:
@@ -529,7 +533,9 @@ class Game;
 class GameObject
 {
 protected:
-    GameObject(GameObject &parent);
+    GameObject(GameObject &parent);                                                             /**<
+     * Constructs a new GameObject with parent \c parent.
+     */
     GameObject(Game *g = nullptr, GameObject *parent = nullptr);                                /**<
      * Constructs a new GameObject with parent \c parent and the reference to the game \c g.
      *
@@ -802,7 +808,14 @@ public:
      *
      * \see getEvent, getOrders
      */
-    virtual void renameEvent(const QString &order, const QString &newOrder);
+    virtual void renameEvent(const QString &order, const QString &newOrder);                    /**<
+     * Changes the name of the \c event event to \c newEvent.
+     *
+     * \note
+     * If the requested event does not exist, a new event is created.
+     *
+     * \see addEvent, removeEvent
+     */
 
     virtual bool hasOrder(const QString &order) const;                                          /**<
      * Return \c true if the GameObject has a order named \c order.
@@ -836,7 +849,14 @@ public:
      *
      * \see getOrder, getEvents
      */
-    virtual void renameOrder(const QString &order, const QString &newOrder);
+    virtual void renameOrder(const QString &order, const QString &newOrder);                    /**<
+     * Changes the name of the \c order order to \c newOrder.
+     *
+     * \note
+     * If the requested order does not exist, a new order is created.
+     *
+     * \see addOrder, removeOrder
+     */
 
     void addEmittedAction(Action *action);                                                      /**<
      * Register the GameObject as the emitter of the action \c action.
@@ -867,7 +887,9 @@ public:
      * \see addReceivedAction, removeEmittedAction
      */
 
-    Game *getGame(){return game;}
+    Game *getGame(){return game;}                                                               /**<
+     * Returns the Game from which the GameObject is part.
+     */
 protected:
 
     void init(Game *g, GameObject *parent);                                                     /**<
@@ -881,7 +903,9 @@ protected:
      * \see init, \ref GameObject::GameObject "GameObject"
      */
 
-    void copy(GameObject &obj);
+    void copy(GameObject &obj);                                                                 /**<
+     * Loads the content of \c obj in the current instance.
+     */
 
     virtual void addChild(GameObject *c);                                                       /**<
      * Registers a new child.
@@ -896,8 +920,12 @@ protected:
      *
      * \see addChild, child, children
      */
-    void childrenTouched(const QDateTime &d);
-    QList<QString> filter(QList<QString> l) const;
+    void childrenTouched(const QDateTime &d);                                                   /**<
+     * Registers a change in one of the child of the object.
+     */
+    QList<QString> filter(QList<QString> l) const;                                              /**<
+     * Removes the protected parameters/flags for the user visible lists.
+     */
 
     GameObject *aParent;
     QMap<int, GameObject*> aChildren;
@@ -1165,6 +1193,10 @@ private:
  * \see Type
  */
 class DefaultTypes;
+/*!
+ * \brief The GameObjectType class represents types of gameobjects that can
+ * be inherited and will be used in TypedObject.
+ */
 class GameObjectType : public InheritableObject
 {
 protected:

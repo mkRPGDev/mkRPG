@@ -13,6 +13,10 @@
 #include "Game/ItemModels/itemmodels.h"
 #include <QPushButton>
 
+/*!
+ * \brief The NewGameObject class provides a small dialog window
+ * to choose the type of the object/type to create.
+ */
 class NewGameObject : public QDialog, private Ui::NewGameObject
 {
     Q_OBJECT

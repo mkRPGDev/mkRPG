@@ -13,6 +13,11 @@
 #include <QTreeView>
 #include "itemdelegates.h"
 
+
+/*!
+ * \brief The ParamTreeView class customize Qt QTreeView class
+ * to render ParamTreeItemModel.
+ */
 class ParamTreeView : public QTreeView
 {
     Q_OBJECT
@@ -26,6 +31,10 @@ private:
 };
 
 
+/*!
+ * \brief The FlagTreeView class customize Qt QTreeView class
+ * to render FlagTreeItemModel.
+ */
 class FlagTreeView : public QTreeView
 {
     Q_OBJECT
@@ -39,6 +48,10 @@ private:
 };
 
 
+/*!
+ * \brief The EventTreeView class customize Qt QTreeView class
+ * to render EventTreeItemModel.
+ */
 class EventTreeView : public QTreeView
 {
     Q_OBJECT
@@ -52,6 +65,10 @@ private:
 };
 
 
+/*!
+ * \brief The OrderTreeView class customize Qt QTreeView class
+ * to render OrderTreeItemModel.
+ */
 class OrderTreeView : public QTreeView
 {
     Q_OBJECT

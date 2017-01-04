@@ -14,6 +14,10 @@
 #include "itemdelegates.h"
 
 
+/*!
+ * \brief The ActionTab class is the TabWidget that
+ * provides Action edition features
+ */
 class ActionTab : public TabWidget, private Ui::ActionTab
 {
     Q_OBJECT

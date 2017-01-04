@@ -41,7 +41,8 @@ private:
 
 
 /*!
- * \brief The CellTypeListModel class
+ * \brief The CellTypeListModel class presents the \ref "cell types" CellType
+ * as a Qt Model-View framework's list model.
  */
 class CellTypeListModel : public QAbstractListModel
 {
@@ -61,6 +62,11 @@ private:
 };
 
 
+
+/*!
+ * \brief The CellTypeListModel class presents the \ref "map types" MapType
+ * as a Qt Model-View framework's list model.
+ */
 class MapTypeListModel : public QAbstractListModel
 {
     Q_OBJECT

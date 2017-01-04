@@ -85,26 +85,29 @@ int main(int argc, char *argv[])
 
 
 /*!
-\mainpage
-
-# RPGEditor
-
-The RPGEditor is the graphical editor part of the RPGMaker project.
-
-It is intended to create the XML files that describes games which are then
-play with the server and clients.
-
-# Requierement
-
-This software use Qt 5.6.1, with the standard C++14.
-
-# Development
-
-The most important elements to understand to get involved in this project is
-the internal representation of game (see Game and GameObject).
-
-\author The RPGMaker team
-\date 2016-2017
-*/
+ * \mainpage
+ *
+ * # RPGEditor
+ *
+ * The RPGEditor is the graphical editor part of the RPGMaker project.
+ *
+ * It is intended to create the XML files that describes games which are then
+ * play with the server and clients.
+ *
+ * # Requierement
+ *
+ * This software use Qt 5.6.1, with the standard C++14.
+ *
+ * # Development
+ *
+ * The most important elements to understand to get involved in this project is
+ * the internal representation of game (see GameObject and Game).
+ *
+ * To have an insigth in the general organisation of the Game internal representation,
+ * see GameObject's inheritance diagram (is generated).
+ *
+ * \author The RPGMaker team
+ * \date 2016-2017
+ */
 
 

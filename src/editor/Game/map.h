@@ -91,7 +91,10 @@ class MapType : public Type<MapType>
 
 
 
-class MapType;
+class MapType;/*!
+ * \brief The MapType class defines the properties that are
+ * mandatory in any MapType object.
+ */
 class MapType : public Type<MapType>
 {
 public:

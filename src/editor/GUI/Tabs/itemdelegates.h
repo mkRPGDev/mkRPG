@@ -17,6 +17,10 @@
  */
 
 
+/*!
+ * \brief The ItemEditor class gives an editor with a "destroy modification"
+ * button.
+ */
 class ItemEditor : public QWidget
 {
     Q_OBJECT
@@ -111,7 +115,10 @@ public:
 };
 
 
-
+/*!
+ * \brief The ActionReceiverEditor class gives an editor
+ * for registed action receivers, with edit and delete facilities.
+ */
 class ActionReceiverEditor : public QWidget
 {
     Q_OBJECT
@@ -132,6 +139,10 @@ private:
     QPersistentModelIndex index;
 };
 
+
+/*!
+ * \brief The ActionReceiverItemDelegate class customs the display of action receivers.
+ */
 class ActionReceiverItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT

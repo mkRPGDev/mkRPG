@@ -20,5 +20,5 @@ def registerActions(action_dict, named):
         actions[action['event']].append(act)
     return actions
 
-if __name__ == "__main__":
+if __name__=="__main__":
     print(registerActions("../Test/Snake/")[0])

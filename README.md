@@ -2,10 +2,6 @@ README for mkRPG
 ==========================================
 <a href='https://travis-ci.org/mkRPGDev/mkRPG'><img
  src='https://travis-ci.org/mkRPGDev/mkRPG.svg?branch=master'></a>
- 
-### Objectif
-Afin de faire parvenir le client pygame à des performances suffisantes pour le projet, il est ici reconstruit progressivement en profilant à chaque étape.
-La version actuelle ne contient pas de chuncks, de layers, d'updates partiels de l'écran, ni de cache. Elle atteint cependant des performances raisonnables sur une carte de dizaines de miliers de cellules, en affichant des images déformées selon des angles variables. Les animations demeurent envisageables.
 
 ### Minimal Working Example
 Cette branche, au moyen de quelques bricolages, permet d'utiliser tous les éléments du projet.

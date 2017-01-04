@@ -7,8 +7,8 @@ from shared.const import PATH
 from shared.orders import OrderDispatcher
 from shared.tools import Perf, Timer
 from shared.network import NetworkServer
-from serverside.actions import registerActions
-from serverside.console import welcomeMessage, inputReady
+from management.actions import registerActions
+from management.console import welcomeMessage, inputReady
 from parsing.global_parsing import game_parser
 from plugins.plugin import loadPluginsServer
 
@@ -44,7 +44,7 @@ class Server():
     async def main(self):
         """ Init stuff, read events and ask for treatment """
         welcomeMessage(server)
-        await self.net.waitForClients(len(self.world.entities))
+        await self.net.waitForClients(1)#len(self.world.entities))
         await self.handleEvent(self.world, "start")
         while True:
             emitter, event = await self.events.get()

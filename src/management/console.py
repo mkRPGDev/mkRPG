@@ -7,7 +7,7 @@ def invite():
 
 def welcomeMessage(server):
     """ Print server hello """
-    print("Server started; waiting for", len(server.world.entities), "clients")
+    #print("Server started; waiting for", len(server.world.entities), "clients")
     invite()
 
 def inputReady(server):
@@ -36,21 +36,14 @@ def inputReady(server):
 #            self.loop.stop()
 #            self.__init__(args.path)
 #            self.run()
-    elif st.startswith("e:"):
-        exec(st[2:])
-    elif st.startswith("exec:"):
-        exec(st[5:])
-    elif st in ("exit", "q", "quit", "w"):
-        exit(0)
+    elif st.startswith("e:"): exec(st[2:])    
+    elif st.startswith("exec:"): exec(st[5:])
+    elif st in ("exit", "q", "quit", "w"): exit(0)
     elif st in ("p", "plugins"):
-        for p in server.plugins:
-            print(p)
-    elif st.startswith("s:"):
-        server.events.put_nowait((server.world, st[2:]))
-    elif st.startswith("send:"):
-        server.events.put_nowait((server.world, st[2:]))
-    elif not st or st.isspace():
-        pass
+        for p in server.plugins: print(p)
+    elif st.startswith("s:"): server.events.put_nowait((server.world, st[2:]))    
+    elif st.startswith("send:"): server.events.put_nowait((server.world, st[2:]))    
+    elif not st or st.isspace(): pass
     else:
         print("Commande inconnue : '"+st+"'. Tapez help pour afficher la liste des commandes.")
     invite()

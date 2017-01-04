@@ -36,7 +36,6 @@ class Curses(Interface):
             self.toSmall = False
         except:
             self.toSmall = True
-#        self.draw()
         
     def init(self): # eurk !
         self.getEvent()
@@ -67,7 +66,6 @@ class Curses(Interface):
                 p.win.noutrefresh()                
         curses.doupdate()
         # TODO insérer ici le xml d'interface
-        #self.win.addstr(26,0,"Score "+str(self.world.entities[0].score)+'\n')
 
     def end(self):
         curses.endwin()
@@ -98,10 +96,9 @@ class MapView:
         self.world = world
         self.offX = 0
         self.offY = 0
-        #self.mapWin = self.win.derwin(0,0)
         self.map = None
         self.showLov = False
-        self.perso = None#self.world.entities[0]
+        self.perso = None
         self.follow = False
         self.pics = pics
         
@@ -154,7 +151,7 @@ class MapView:
 
     def clipOffset(self):
         """ Ensure the offX, offY lead to a valid display """
-        self.offX = max(0, min(self.offX,self.map.width-self.width))
+        self.offX = max(0, min(self.offX,self.map.width - self.width))
         self.offY = max(0, min(self.offY,self.map.height-self.height))
 
     def handleKey(self, key):

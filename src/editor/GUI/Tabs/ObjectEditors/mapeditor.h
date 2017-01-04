@@ -30,11 +30,15 @@ private slots:
     void on_resizing_clicked();
     void on_angleX_valueChanged(int i);
     void on_angleY_valueChanged(int i);
+    void on_ang_valueChanged(int i);
+    void on_etir_valueChanged(int i);
 
 signals:
     void mapModified();
 
 private:
+    void updateAngles();
+    void updateParam();
     Map *map;
     MapTypeListModel *mtModel;
 };

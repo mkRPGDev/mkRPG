@@ -5,7 +5,7 @@
 #include "ui_editor.h"
 #include "options.h"
 #include "newgame.h"
-#include "Game/xmlhandler.h"
+#include "Game/xmlreader.h"
 #include "Tabs/welcome.h"
 #include "Game/xmlwritter.h"
 #include "Tabs/worldtab.h"

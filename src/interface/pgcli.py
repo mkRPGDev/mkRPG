@@ -1,3 +1,4 @@
+""" Pygame based interface """
 from math import sin,cos,pi
 from itertools import chain
 from pygame.locals import FULLSCREEN, RESIZABLE, ACTIVEEVENT,\
@@ -22,27 +23,33 @@ class Pygame(Interface):
         pygame.display.init()
         pygame.key.set_repeat(50,20)
         self.fullscreen = None # ancienne dim si fullscreen
-        
+
         self.resize(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.clock = pygame.time.Clock()
         pygame.font.init()
         self.font = pygame.font.Font(None, 18)
+
     def resize(self, w, h):
+        """ change screen size """
         # FIXME lors d'un agrandissement brutal, l'event ne suit pas toujours
+        # Fix possible : interdire le changement de résolution en cours de jeu
         self.screen = pygame.display.set_mode((w,h), (FULLSCREEN if self.fullscreen else RESIZABLE))
         # TODO laisser de la place aux plugins
         if (w,h)==(0,0): #plein écran
             w,h = self.screen.get_size()
         self.mapView.setSurf(self.screen.subsurface((0, 0, w-1, h-1)))
-        
+
     def init(self): # eurk !
+        """ empty events queue and draw screen """
         self.getEvent()
         self.repaint()
-    
+
     def setPerso(self, perso):
+        """ sets current character """
         self.mapView.perso = perso
-    
+
     def repaint(self):
+        """ draw everything on screen """
         deltat = self.clock.tick()
         self.mapView.draw(deltat)
 #       for p in self.plugins:
@@ -52,9 +59,11 @@ class Pygame(Interface):
         pygame.display.flip()
 
     def end(self):
+        """ quit the game """
         pygame.display.quit()
 
     def getEvent(self):
+        """ get all the events in pygame events queue """
         evs = pygame.event.get()
         for i, ev in enumerate(evs):
             if ev.type==QUIT: evs[i]=skeys.QUIT
@@ -82,7 +91,7 @@ class Pygame(Interface):
                     self.repaint()
                     evs[i]=None
                 elif ev.type==KEYDOWN:
-                    evs[i]=key 
+                    evs[i]=key
                 else:
                     evs[i]=None
             elif ev.type==VIDEORESIZE:
@@ -112,7 +121,7 @@ class MapView:
         self.active = False
         self.pics = {}
         self.imgs = imgs
-        
+
     def setSurf(self, surf):
         """ Called when scene is initialised or reshaped """
         self.surf = surf
@@ -120,7 +129,7 @@ class MapView:
         self.updateMap()
         self.updatePics()
         self.clipOffset()
-    
+
     def updatePics(self):
         """ Fill the picture dictionnary using current angles and zoom """
         lar = cos(self.angleY)*(self.nbCellsY+1)+cos(self.angleX)*(self.nbCellsX+1)
@@ -130,12 +139,13 @@ class MapView:
             p = pygame.transform.scale(p, (int(self.cellWidth+3), int(self.cellWidth+3)))
             p = applyMatrix(p, [-cos(self.angleX),sin(self.angleX),-cos(self.angleY),sin(self.angleY)])
             self.pics[i] = p
-    
+
     def updateMap(self):
+        """ sets current map to what it should be """
         self.map = self.world.currentMap
         self.nbCellsX = self.map.width
         self.nbCellsY = self.map.height
-            
+
     def clipOffset(self):
         """ Ensure the offX, offY lead to a valid display """
         x1,y1 = self.cellToPoint(-.5, -.5) # position of transformed angles
@@ -157,7 +167,7 @@ class MapView:
         start=0
         t=time()
         # position of transformed angles
-        x1,y1 = self.pointToCell(self.offX,               self.offY) 
+        x1,y1 = self.pointToCell(self.offX,               self.offY)
         x2,y2 = self.pointToCell(self.maxWidth+self.offX, self.offY)
         x3,y3 = self.pointToCell(self.offX,               self.maxHeight+self.offY)
         x4,y4 = self.pointToCell(self.maxWidth+self.offX, self.maxHeight+self.offY)
@@ -170,7 +180,7 @@ class MapView:
         ym = max(ym-1, 0)
         xn = min(xn+1, self.nbCellsX)
         yn = min(yn+1, self.nbCellsY)
-        
+
         i,j=0,0
         self.shown = []
         for x in range(xm,xn):
@@ -186,7 +196,7 @@ class MapView:
                     seen = True
                 elif seen: break
         #print(i,j,time()-t)
-        
+
     def draw(self, deltat=0):
         """ Blit visible items of the map on Surface self.surf """
         if self.map != self.world.currentMap: self.updateMap()
@@ -194,9 +204,9 @@ class MapView:
         self.surf.fill((0,0,0))
         if self.follow:
             x,y = self.cellToPoint(self.perso.x, self.perso.y)
-            self.offX = x - self.maxWidth//2 
+            self.offX = x - self.maxWidth//2
             self.offY = y - self.maxHeight//2
-            self.clipOffset() 
+            self.clipOffset()
         t=time()
         # Cells
         for u,v,cell in self.shown:
@@ -221,6 +231,7 @@ class MapView:
             self.surf.blit(mask, (0, 0 if self.movSpeedY<0 else self.maxHeight-MOV_OFFSET))
 
     def handleKey(self, key):
+        """ return true if key has been handled else false """
         if key==K_LEFT: self.offX -= 100
         elif key==K_RIGHT: self.offX += 100
         elif key==K_UP: self.offY -= 100
@@ -244,7 +255,7 @@ class MapView:
             self.movSpeedX, self.movSpeedY = 0, 0
             return
         posX,posY = pygame.mouse.get_pos()
-        
+
         maxSpeed = 600 # XXX fonction du zoom ?
         movAccel = int(0.1*deltat)
 
@@ -267,13 +278,13 @@ class MapView:
             self.offX += self.movSpeedX
             self.offY += self.movSpeedY
             self.clipOffset()
-    
+
     def cellToPoint(self, x, y):
         """ Convert cell related coordinates to map coordinates """
         # XXX precompute sin and cos ?
         return (( x               *cos(self.angleX) - (self.nbCellsY-y)*cos(self.angleY))*self.cellWidth,
                 ((self.nbCellsX-x)*sin(self.angleX) + (self.nbCellsY-y)*sin(self.angleY))*self.cellWidth)
-    
+
     def pointToCell(self, x, y):
         """ Convert map coordinates to cell related coordinates """
         d = -cos(self.angleX)*sin(self.angleY)+sin(self.angleX)*cos(self.angleY)

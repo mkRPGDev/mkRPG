@@ -1,6 +1,11 @@
+"""
+    An abstraction of the world
+"""
 from enum import IntEnum
 from collections import defaultdict, OrderedDict
 from random import randint # utilisé par eval
+from math import sqrt
+from heapq import heappush, heappop
 
 from shared.const import IDLEN
 from shared.orders import Order, OrderType
@@ -29,6 +34,7 @@ def loadGame(parsed_data):
     return world
 
 def retrieveWorld():
+    """ Return orders """
     orders = []
     for key, obj in Object.ids.items():
         # l'OrderedDict assure que les créations vont être faites dans le même ordre
@@ -73,15 +79,19 @@ class Object:
             typ = _type
         if typ and typ.endswith("Type") and type(eval(typ[:-4])) == type:
             data.pop('type', None)
-            if verbose: print(data)
+            if verbose:
+                print(data)
             del self.ids[self.ident]
             ObjectType(self.ident, eval(typ[:-4])).load(data)
         else:
             for key in data.keys():
                 if key == 'params':
                     for sub_data in data[key].keys():
-                        if type(data[key][sub_data]) == dict and data[key][sub_data].get("id"):
-                            toResolve.append((data[key][sub_data].get("id"), self.params, sub_data))
+                        if type(data[key][sub_data]) == dict and\
+                           data[key][sub_data].get("id"):
+                            toResolve.append((data[key][sub_data].get("id"),
+                                              self.params,
+                                              sub_data))
                         else:
                             self.params[sub_data] = int(data[key][sub_data])
                 elif key == self.__class__.__name__+"Type":
@@ -94,11 +104,14 @@ class Object:
                     class_type = plurals[lowered]
                     for sub_data in data[key]:
                         if sub_data.get('id'):
-                            toResolve.append((sub_data['id'], data_collected, len(data_collected)))
+                            toResolve.append((sub_data['id'], data_collected,
+                                              len(data_collected)))
                             data_collected.append(None)
                         else:
                             ident = sub_data.pop("ident")
-                            data_collected.append(class_type(ident).load(sub_data))
+                            data_collected.append(
+                                class_type(ident).load(sub_data)
+                                )
                 elif typ and type(eval(typ)) == type and 'name' in data[key]:
                     ident = data[key]['ident']
                     eval(typ)(ident).load(data[key], typ)
@@ -106,8 +119,10 @@ class Object:
             if 'name' in list(data):
                 named[data['name']] = self
         for nm, li, ln in toResolve: #TODO a optimiser
-            if nm not in named: continue
-            if verbose: print(nm, "->", named[nm])
+            if nm not in named:
+                continue
+            if verbose:
+                print(nm, "->", named[nm])
             li[ln] = named[nm]
             #assert nm in named, nm+" non résolu" FIXME
         return self
@@ -155,13 +170,14 @@ class ObjectType(Object):
         instance = self.type(ident)
         instance.creator = self
         instance.type = self
-        for p,v in self.params.items():
+        for p, v in self.params.items():
             instance.params[p] = v
         instance.initParams = dict(instance.params)
         return instance
 
 
 class World(Object):
+    """ World class """
     def __init__(self, ident=None):
         Object.__init__(self, ident)
         self.maps = [] # une liste c'est mieux non ?
@@ -181,15 +197,16 @@ class Map(Object):
                           for _ in range(self.width)]
         for c in self.cells:
             self.cellsGrid[c.x][c.y] = c
-        for i,l in enumerate(self.cellsGrid):
-            for j,e in enumerate(l):
+        for i, l in enumerate(self.cellsGrid):
+            for j, e in enumerate(l):
                 if not e:
                     cell = self.defaultCell.create()
                     cell.creator = None
                     # bien que créés à la volée, la création a lieu des deux cotés
                     l[j] = cell
                     self.cells.append(cell)
-                    cell.x = i; cell.y = j
+                    cell.x = i
+                    cell.y = j
 
     def dist(self, source, dest):
         """ Manhattan distance """
@@ -203,8 +220,10 @@ class Map(Object):
         """
         x1, y1 = source.x, source.y
         x2, y2 = dest.x, dest.y
-        if x1 > x2: x1, x2 = -x1, -x2
-        if y1 > y2: y1, y2 = -y1, -y2
+        if x1 > x2:
+            x1, x2 = -x1, -x2
+        if y1 > y2:
+            y1, y2 = -y1, -y2
         start = y1
         for x in range(x1, x2+1):
             seen = False
@@ -215,8 +234,10 @@ class Map(Object):
                     if self.cellsGrid[abs(x)][abs(y)].visible:
                         return False
                     seen = True
-                elif seen: break
-                else: start = y
+                elif seen:
+                    break
+                else:
+                    start = y
         return True
 
     def get_path(self, source, dest):
@@ -226,31 +247,31 @@ class Map(Object):
             Return accessible cells around index, with a cost value depending
             on the direction of the movement.
             """
-            u,v = index
+            u, v = index
             # neighbors is a tuple array which gives all the potential neighbors
             # of cell (u,v) and the cost of the movement. A straight movement
             # has cost 1 and a diagonal one has cost 1.5
             neighbors = [
-                         (u-1, v+1, 1.5),
-                         (u-1, v, 1),
-                         (u-1, v-1, 1.5),
-                         (u, v-1, 1),
-                         (u, v+1, 1),
-                         (u+1, v, 1),
-                         (u+1, v-1, 1.5),
-                         (u+1, v, 1.5),
-                        ]
+                (u-1, v+1, 1.5),
+                (u-1, v, 1),
+                (u-1, v-1, 1.5),
+                (u, v-1, 1),
+                (u, v+1, 1),
+                (u+1, v, 1),
+                (u+1, v-1, 1.5),
+                (u+1, v, 1.5),
+                ]
             res = []
-            for i,j,c in neighbors:
-                if i>=0 and j>=0 and i<len(self.cells) and\
-                   j<len(self.cells[0]) and self.cells[i][j].walkable:
-                    res.append((i,j,c))
+            for i, j, c in neighbors:
+                if i >= 0 and j >= 0 and i < len(self.cells) and\
+                   j < len(self.cells[0]) and self.cells[i][j].walkable:
+                    res.append((i, j, c))
             return res
 
-        def dist(u,v):
+        def dist(u, v):
             """ Return the euclidian distance between two cells on the grid """
-            x1,y1 = u
-            x2,y2 = v
+            x1, y1 = u
+            x2, y2 = v
             return sqrt((x2-x1)**2+(y2-y1)**2)
 
         d_x, d_y = dest
@@ -269,30 +290,33 @@ class Map(Object):
                     res = [current] + res
                     current = parents[current]
                 return res
-            for i,j,c in get_neighbors(u):
-                v = i,j
+            for i, j, c in get_neighbors(u):
+                v = i, j
                 new_cost = costs[u]+c
                 if v not in costs.keys() or new_cost < costs[v]:
-                   costs[v] = new_cost
-                   v_heur = costs[v] + dist(v, dest)
-                   heappush(openCell, (v_heur, v))
-                   parents[v] = u
+                    costs[v] = new_cost
+                    v_heur = costs[v] + dist(v, dest)
+                    heappush(openCell, (v_heur, v))
+                    parents[v] = u
 
     def fromPos(self, pos, maxi=None):
         """ Yield cells further and further from pos, stopping at maxi
         Assuming x goes right and y down it turns as the trigo circle,
         it is therefore not a "serpentin" (sadly ?) """
         x, y = pos.x, pos.y
-        if maxi is None: maxi = max(x, self.width-x) + max(y, self.height-y)
+        if maxi is None:
+            maxi = max(x, self.width-x) + max(y, self.height-y)
         for d in range(maxi+1):
             for dx, dy in ((-1, -1), (-1, 1), (1, 1), (1, -1)):
                 for i in range(d):
                     if x in range(self.width) and y in range(self.height):
                         yield self.cellsGrid[x][y]
-                    x += dx; y += dy
+                    x += dx
+                    y += dy
             x += 1
 
 class Cell(Object):
+    """ Cell class """
     def __init__(self, ident=None):
         Object.__init__(self, ident)
         self.entities = []
@@ -303,6 +327,7 @@ class Cell(Object):
 
 
 class Entity(Object):
+    """ Entity class """
     def __init__(self, ident=None):
         Object.__init__(self, ident)
         self.quests = []

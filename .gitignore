@@ -40,3 +40,6 @@ src/editor/doc.doxy
 
 # Fichiers PyCharm
 .idea
+
+# Fichiers de doc et Pylint
+*.html

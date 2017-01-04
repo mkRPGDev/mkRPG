@@ -1,7 +1,7 @@
 from time import sleep
 import asyncio
 
-from const import HOST, PORT, BUFF, IDLEN, CODING
+from shared.const import HOST, PORT, BUFF, IDLEN, CODING
 from shared.world import Object, retrieveWorld
 from shared.orders import Order # XXX à sa place ?
 

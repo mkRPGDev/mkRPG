@@ -1,7 +1,7 @@
 from collections import namedtuple
 from enum import IntEnum
 
-from const import *
+from shared.const import CODING
 
 OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition '
                                  'Move Setobj Watchdog')

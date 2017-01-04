@@ -1,13 +1,8 @@
 from collections import namedtuple
+from shared.orders import Order
 
 Action = namedtuple("Action", "event orders conditions")
 
-from shared.tools import readXml
-from shared.orders import Order
-
-# XXX pas tout à fait partagé mais temporaire
-
-# TODO enlever named
 def loadAction(event, dat, named):
     """ Returns an action instance from a Xml structure and name mapping """
     orders = []

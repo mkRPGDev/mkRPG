@@ -2,7 +2,7 @@ from asyncio import ensure_future
 from collections import namedtuple
 from importlib import import_module
 
-from const import IDLEN
+from shared.const import IDLEN
 
 class Plugin:
     """ To write a network plugin, subclass this and reimplement attributes
@@ -29,9 +29,6 @@ class Plugin:
     def broadcast(self, msg):
         msg = self.MSGID + msg
         ensure_future(self.engine.net.broadcast(b"\x00"*IDLEN+len(msg).to_bytes(2,'big')+msg))
-
-    def serverCallback(self):
-        pass
 
 def loadPluginsServer(names, engine):
     """ Load serverside plugins """
@@ -65,7 +62,7 @@ def loadPluginsClient(names, engine, curses, pygame):
         elif pygame:
             try:
                 module = import_module("plugins."+name+"pygame")
-                ui = eval('module.'+name.capitalize()+"Surface")(logic)
+                ui = eval('module.'+name.capitalize()+"Sprite")(logic)
             except ImportError: pass
         if logic: plugins.append(logic)
         if ui:

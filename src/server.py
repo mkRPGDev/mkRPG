@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 from functools import partial
 import asyncio
 
-from const import PATH
+from shared.const import PATH
 from shared.orders import OrderDispatcher
 from shared.tools import Perf, Timer
 from shared.network import NetworkServer

@@ -3,7 +3,7 @@ import asyncio
 
 from interface.interactions import registerInteractions, InteractionType
 from interface.interface import skeys
-from const import UPDTIME, PATH
+from shared.const import UPDTIME, PATH
 from shared.orders import OrderDispatcher
 from shared.network import NetworkClient
 from parsing.global_parsing import game_parser

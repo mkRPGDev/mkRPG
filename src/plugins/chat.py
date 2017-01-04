@@ -1,12 +1,11 @@
 from plugins.plugin import Plugin
-from const import IDLEN
 
 class Chat(Plugin):
     MSGID = b"chat"
 
     def __init__(self, e):
         super().__init__(e)
-        self.msgs = ["Connecté"]
+        self.msgs = ["Connected"]
 
     def serverMessage(self, msg):
         self.broadcast(msg)

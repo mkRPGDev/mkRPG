@@ -2,8 +2,7 @@ from enum import IntEnum
 from collections import defaultdict, OrderedDict
 from random import randint # utilisé par eval
 
-from const import IDLEN
-from shared.tools import readXml
+from shared.const import IDLEN
 from shared.orders import Order, OrderType
 from parsing import global_parsing
 

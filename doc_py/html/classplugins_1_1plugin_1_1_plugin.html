@@ -92,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><b>plugins</b>      </li>
-      <li class="navelem"><b>plugin</b>      </li>
+      <li class="navelem"><a class="el" href="namespaceplugins_1_1plugin.html">plugin</a>      </li>
       <li class="navelem"><a class="el" href="classplugins_1_1plugin_1_1_plugin.html">Plugin</a>      </li>
     </ul>
   </div>
@@ -124,10 +124,8 @@ Public Member Functions</h2></td></tr>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplugins_1_1plugin_1_1_plugin.html#aac06ba69452a3dac4e5950116a34d3ac">serverMessage</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplugins_1_1plugin_1_1_plugin.html#a9647791e5ba3150f5fd82bb359a43d11">clientMessage</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a977c6c1cb7ea7cbb54667f8264da135c"></a><!-- doxytag: member="plugins::plugin::Plugin::send" ref="a977c6c1cb7ea7cbb54667f8264da135c" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>send</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a030ec3807307c32b09dc91b8f4d3ede9"></a><!-- doxytag: member="plugins::plugin::Plugin::broadcast" ref="a030ec3807307c32b09dc91b8f4d3ede9" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>broadcast</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplugins_1_1plugin_1_1_plugin.html#a977c6c1cb7ea7cbb54667f8264da135c">send</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplugins_1_1plugin_1_1_plugin.html#a030ec3807307c32b09dc91b8f4d3ede9">broadcast</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a27cac3b42754566db40b9cb0109648b4"></a><!-- doxytag: member="plugins::plugin::Plugin::engine" ref="a27cac3b42754566db40b9cb0109648b4" args="" -->
@@ -144,6 +142,33 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>MSGID</b> = &quot;&
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">To write a network plugin, subclass this and reimplement attributes
 and virtual methods</pre></div> </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a030ec3807307c32b09dc91b8f4d3ede9"></a><!-- doxytag: member="plugins::plugin::Plugin::broadcast" ref="a030ec3807307c32b09dc91b8f4d3ede9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classplugins_1_1plugin_1_1_plugin.html#a030ec3807307c32b09dc91b8f4d3ede9">plugins.plugin.Plugin.broadcast</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">broadcast a message </pre></div> 
+</div>
+</div>
 <a class="anchor" id="a9647791e5ba3150f5fd82bb359a43d11"></a><!-- doxytag: member="plugins::plugin::Plugin::clientMessage" ref="a9647791e5ba3150f5fd82bb359a43d11" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -171,6 +196,33 @@ and virtual methods</pre></div> </div><hr/><h2>Member Function Documentation</h2
 <div class="fragment"><pre class="fragment">called then bytes msg are sent to the client </pre></div> 
 <p>Reimplemented in <a class="el" href="classplugins_1_1chat_1_1_chat.html#ad241689aeb8b03c689248ffb18584d40">plugins.chat.Chat</a>.</p>
 
+</div>
+</div>
+<a class="anchor" id="a977c6c1cb7ea7cbb54667f8264da135c"></a><!-- doxytag: member="plugins::plugin::Plugin::send" ref="a977c6c1cb7ea7cbb54667f8264da135c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classplugins_1_1plugin_1_1_plugin.html#a977c6c1cb7ea7cbb54667f8264da135c">plugins.plugin.Plugin.send</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">send a message </pre></div> 
 </div>
 </div>
 <a class="anchor" id="aac06ba69452a3dac4e5950116a34d3ac"></a><!-- doxytag: member="plugins::plugin::Plugin::serverMessage" ref="aac06ba69452a3dac4e5950116a34d3ac" args="" -->

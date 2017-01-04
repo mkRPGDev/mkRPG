@@ -46,6 +46,11 @@ XmlWritter::XmlWritter(const QDir &path, Game &game, bool serverXml) :
         *this << OpenMarkUp << "Actions";
         writeCreatedFiles(*this);
         *this << CloseMarkUp;
+
+        *this << OpenMarkUp << "Images" << EndL;
+        XmlWritter images(path, game.images(), serverXml);
+        *this << OpenMarkUp << "Image" << path.relativeFilePath(images.fileName()) << CloseMarkUp;
+        *this << CloseMarkUp;
     }
     else{
 
@@ -60,7 +65,7 @@ XmlWritter::XmlWritter(const QDir &path, Game &game, bool serverXml) :
 
         XmlWritter actions(path, "actions", serverXml);
         actions << OpenMarkUp << "Actions";
-        createdFiles.append(QPair<QString,QString>("Actions", actions.fileName()));
+        createdFiles.append(QPair<QString,QString>("Action", actions.fileName()));
         for(QString &a : game.actions())
             actions << game.action(a);
         writeCreatedFiles(*this);
@@ -77,7 +82,7 @@ XmlWritter::XmlWritter(const QDir &path, const QList<Image *> &images, bool serv
     for(Image *i : images){
         QFileInfo save(path.path() + "/Ressources/" + i->name()+".png");
         for(int k(2); save.exists(); save.setFile(path.path() + "/Ressources/" + i->name()+"_"+QString::number(k++)+".png"));
-        *this << *i << OpenMarkUp << "Pict" << path.relativeFilePath(save.filePath()) << CloseMarkUp << CloseMarkUp;
+        *this << *i << OpenMarkUp << (serverXml ? "Path" : "Pict") << path.relativeFilePath(save.filePath()) << CloseMarkUp << CloseMarkUp;
         i->image().save(save.filePath());
     }
 
@@ -127,14 +132,30 @@ XmlWritter::XmlWritter(const QDir &path, World &world, bool serverXml) :
 XmlWritter::XmlWritter(const QDir &path, Map &map, bool serverXml) :
     XmlWritter(path, &map, serverXml)
 {
-    *this << OpenMarkUp << "Width" << MarkUpParam << "value" << map.width() << CloseMarkUp;
-    *this << OpenMarkUp << "Height" << MarkUpParam << "value" << map.height() << CloseMarkUp;
-    writeInheritableObject(map);
-    int w = map.width();
-    int h = map.height();
-    for(int i(0); i<w; ++i)
-        for(int j(0); j<h; ++j)
-            writeCell(map.cell(i,j),i,j);
+    if(serverXml){
+        int w = map.width();
+        int h = map.height();
+        *this << OpenMarkUp << "Params"
+              << OpenMarkUp << "width" << w << CloseMarkUp
+              << OpenMarkUp << "height" << h << CloseMarkUp
+              << CloseMarkUp;
+        writeInheritableObject(map);
+        *this << OpenMarkUp << "Cells";
+        for(int i(0); i<w; ++i)
+            for(int j(0); j<h; ++j)
+                writeCell(map.cell(i,j),i,j);
+        *this << CloseMarkUp;
+    }
+    else{
+        *this << OpenMarkUp << "Width" << MarkUpParam << "value" << map.width() << CloseMarkUp;
+        *this << OpenMarkUp << "Height" << MarkUpParam << "value" << map.height() << CloseMarkUp;
+        writeInheritableObject(map);
+        int w = map.width();
+        int h = map.height();
+        for(int i(0); i<w; ++i)
+            for(int j(0); j<h; ++j)
+                writeCell(map.cell(i,j),i,j);
+    }
 }
 
 
@@ -227,9 +248,19 @@ XmlWritter::~XmlWritter(){
 
 void XmlWritter::writeCell(Cell &c, int x, int y){
     *this << c;
-    *this << OpenMarkUp << "Pos" << MarkUpParam << "x" << x << MarkUpParam << "y" << y << CloseMarkUp;
-    writeInheritableObject(c);
-    *this << CloseMarkUp;
+    if(serverXml){
+        *this << OpenMarkUp << "Params"
+              << OpenMarkUp << "x" << x << CloseMarkUp
+              << OpenMarkUp << "y" << y << CloseMarkUp
+              << CloseMarkUp;
+        writeInheritableObject(c);
+        *this << CloseMarkUp;
+    }
+    else{
+        *this << OpenMarkUp << "Pos" << MarkUpParam << "x" << x << MarkUpParam << "y" << y << CloseMarkUp;
+        writeInheritableObject(c);
+        *this << CloseMarkUp;
+    }
 }
 
 
@@ -355,7 +386,7 @@ XmlWritter &XmlWritter::operator << (const int &i){
 
 XmlWritter &XmlWritter::operator << (const GameObject &obj){
     if(serverXml)
-        return *this << OpenMarkUp << obj.typeName() << MarkUpParam << "name" << obj.ident() << EndL;
+        return *this << OpenMarkUp << obj.typeName() << MarkUpParam << "name" << "m"+QString::number(obj.ident()) << EndL << OpenMarkUp << "Ident" << obj.ident() << CloseMarkUp;
     return *this << OpenMarkUp << obj.typeName() << MarkUpParam << "name" << obj.ident() << MarkUpParam << "userName" << obj.name() << EndL;
 }
 

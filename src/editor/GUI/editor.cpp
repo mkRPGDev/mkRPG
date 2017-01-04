@@ -92,7 +92,7 @@ void Editor::on_actionExport_triggered(){
             d.cd(g->name()+QString::number(k));
             //*/
         }
-        XmlWritter(d,*currentGame, false);
+        XmlWritter(d,*currentGame, true);
     }
 }
 

@@ -67,10 +67,10 @@ void readAttributes(GameObject &obj, const XmlTree &tree, QMap<int,int> &identCV
             obj.setFlag(t->attributes["name"], t->attributes["value"].toInt());
             break;
         case MU_Event:
-
+            obj.addEvent(t->attributes["name"]);
             break;
         case MU_Order:
-
+            obj.addOrder(t->attributes["name"]);
             break;
         default:
             break;
@@ -148,6 +148,48 @@ FuncCase(MU_Map){
 }
 
 
+FuncCase(MU_ObjectType){
+    XmlTree *parent = tree.subTrees.first();
+    if(parent->markUp == MU_Parent){
+        ObjectType *p = static_cast<ObjectType*>(game->object(identCV[parent->attributes["id"].toInt()]));
+        ObjectType *ot = new ObjectType(*p);
+        readAttributes(*ot, tree, identCV);
+    }
+    else
+        readAttributes(game->world().types().objectType(), tree, identCV);
+
+}
+
+FuncCase(MU_Object){
+    XmlTree *parent = tree.subTrees.at(0);
+    Object *o = new Object(*static_cast<ObjectType*>(game->object(identCV[parent->attributes["id"].toInt()])), game->world());
+    game->world().objects().addObject(o);
+    readAttributes(*o, tree, identCV);
+    for(XmlTree *t : tree.subTrees)
+        Treat(*t);
+}
+
+
+FuncCase(MU_EntityType){
+    XmlTree *parent = tree.subTrees.first();
+    if(parent->markUp == MU_Parent){
+        EntityType *p = static_cast<EntityType*>(game->object(identCV[parent->attributes["id"].toInt()]));
+        EntityType *et = new EntityType(*p);
+        readAttributes(*et, tree, identCV);
+    }
+    else
+        readAttributes(game->world().types().entityType(), tree, identCV);
+
+}
+
+FuncCase(MU_Entity){
+    XmlTree *parent = tree.subTrees.at(0);
+    Entity *e = new Entity(*static_cast<EntityType*>(game->object(identCV[parent->attributes["id"].toInt()])), game->world());
+    game->world().objects().addEntity(e);
+    readAttributes(*e, tree, identCV);
+    for(XmlTree *t : tree.subTrees)
+        Treat(*t);
+}
 
 void readElement(const QDir &dir, const XmlTree &tree, Game *game, QMap<int, int> &identCV){
     qDebug() << "Lecture" << tree.markUp << tree.attributes;
@@ -158,6 +200,10 @@ void readElement(const QDir &dir, const XmlTree &tree, Game *game, QMap<int, int
     ReadCase(MU_Cell);
     ReadCase(MU_MapType);
     ReadCase(MU_Map);
+    ReadCase(MU_ObjectType);
+    ReadCase(MU_Object);
+    ReadCase(MU_EntityType);
+    ReadCase(MU_Entity);
     ReadCase(MU_Image);
     default:
         for(const XmlTree *t : tree.subTrees)

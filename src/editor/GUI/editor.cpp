@@ -208,7 +208,14 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     ObjectType *ot = new ObjectType(g->world().types().objectType());
     ot->setName("Potion");
     ot->setParam("Amertume", 50);
-    ot->setFlag("Fatal", false);
+    ot->setFlag("Fatal", true);
+
+    Object *Cafe = new Object(*ot, g->world());
+    Cafe->setName("Café");
+    Cafe->setParam("Energie", 89);
+    Cafe->setParam("Amertume", 10);
+    Cafe->setFlag("Fatal", false);
+    g->world().objects().addObject(Cafe);
 
     m = new Map(g->world().types().mapType(), g->world());
     m->setName("Le_grand_large");

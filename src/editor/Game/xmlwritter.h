@@ -24,8 +24,13 @@ private:
     XmlWritter(const QDir &path, const QString &fileName, bool serverXml = true);
     XmlWritter(const QDir &path, const GameObject *obj, bool serverXml = true);
     XmlWritter(const QDir &path, World &world, bool serverXml = true);
-    XmlWritter(const QDir &path, Map &map, bool serverXml = true);
     XmlWritter(const QDir &path, CellType &cellType, bool serverXml = true);
+    XmlWritter(const QDir &path, MapType &mapType, bool serverXml = true);
+    XmlWritter(const QDir &path, Map &map, bool serverXml = true);
+    XmlWritter(const QDir &path, ObjectType &objectType, bool serverXml = true);
+    XmlWritter(const QDir &path, Object &object, bool serverXml = true);
+    XmlWritter(const QDir &path, EntityType &entityType, bool serverXml = true);
+    XmlWritter(const QDir &path, Entity &entity, bool serverXml = true);
     XmlWritter(const QDir &path, const QList<Image *> &images, bool serverXml = true);
     XmlWritter &operator<<(const GameObject &obj);
     XmlWritter &operator<<(const QString &s);
@@ -35,6 +40,9 @@ private:
 
     void writeCell(Cell &c, int x, int y);
     void writeCellType(CellType &c);
+    void writeMapType(MapType &m);
+    void writeObjectType(ObjectType &o);
+    void writeEntityType(EntityType &e);
     void writeInheritableObject(InheritableObject &o);
 
 
@@ -50,7 +58,7 @@ private:
     QStack<QString> markUps;
 
 
-    QMap<QString, QString> createdFiles;
+    QList<QPair<QString, QString>> createdFiles;
     bool newLine;
     Mode mode;
 

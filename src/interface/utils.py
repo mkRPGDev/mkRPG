@@ -8,7 +8,7 @@ from math import sqrt
 
 import pygame
 
-def load_png(filename, scale=1):
+def loadPng(filename, scale=1):
     """
         Loads an image into a pygame.image object
 

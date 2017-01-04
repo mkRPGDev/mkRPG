@@ -52,7 +52,7 @@ class Order:
         self.setType(OrderType.__members__[dat["type"].capitalize()])
         for key in dat.keys():
             if key != 'type':
-                if type(dat[key]) == dict and dat[key].get("id") is not None:
+                if isinstance(dat[key], dict) and dat[key].get("id") is not None:
                     self.args[self.params[self.type].index(key)] = str(named[dat[key]['id']].ident)
                 else:
                     self.args[self.params[self.type].index(key)] = dat[key]
@@ -62,12 +62,12 @@ class Order:
         """ Bytes to send the order on the network """
         def addStr(s):
             assert len(s) < 1<<16
-            b.extend(len(s).to_bytes(2, 'big'))
-            b.extend(s.encode(CODING))
-        b = bytearray()
-        b.append(self.type)
+            byt.extend(len(s).to_bytes(2, 'big'))
+            byt.extend(s.encode(CODING))
+        byt = bytearray()
+        byt.append(self.type)
         for arg in self.args: addStr(arg)
-        return bytes(b)
+        return bytes(byt)
 
     def fromBytes(self, byt):
         """ Retrieve order from network bytes """

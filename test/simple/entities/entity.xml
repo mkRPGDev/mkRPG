@@ -6,7 +6,18 @@
             <x>15</x>
             <y>15</y>
 <!--            <case id="cell0"/>-->
-            <map id="m7516"/>
+            <map id="maiin"/>
+        </Params>
+    </Entity>
+
+    <Entity name="lui">
+        <Ident>11</Ident>
+        <Params>
+            <picture>88</picture>
+            <x>5</x>
+            <y>15</y>
+<!--            <case id="cell0"/>-->
+            <map id="maiin"/>
         </Params>
     </Entity>
 </Entities>

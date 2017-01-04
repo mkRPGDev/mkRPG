@@ -20,10 +20,11 @@ def parse_cell(cell_object):
     if _ident is None:
         parsing_utils.fail_not_found("Ident")
     answer.update({"ident": parsing_utils.format_type(_ident.text)})
-    cell_params = cell_object.find('Params')
+    _cell_params = cell_object.findall('Params')
     answer.update({'params' : OrderedDict()})
-    for param in list(cell_params):
-        answer['params'].update({param.tag: parsing_utils.format_type(param.text)})
+    for cell_params in _cell_params:
+        for param in list(cell_params):
+            answer['params'].update({param.tag: parsing_utils.format_type(param.text)})
     _entities = cell_object.find("Entities")
     if _entities is not None:
         entities = _entities.findall("Entity")
@@ -56,14 +57,15 @@ def map_parser(map_xml):
         parsing_utils.fail_not_found("Ident")
     answer.update({"ident": parsing_utils.format_type(_ident.text)})
 
-    params = root.find("Params")
+    _params = root.findall("Params")
     answer.update({'params' : OrderedDict()})
-    for _param in params.getchildren():
-        if _param.attrib.get("id"):
-            value = {"id" : parsing_utils.format_type(_param.attrib.get("id"))}
-        else:
-            value = parsing_utils.format_type(_param.text)
-        answer['params'].update({_param.tag : value})
+    for params in _params:
+        for _param in params.getchildren():
+            if _param.attrib.get("id"):
+                value = {"id" : parsing_utils.format_type(_param.attrib.get("id"))}
+            else:
+                value = parsing_utils.format_type(_param.text)
+            answer['params'].update({_param.tag : value})
 
     available_cells = []
     cells = root.find('Cells')

@@ -27,13 +27,14 @@ def get_characteristics(_characteristics):
     Each characteristic should be an integer.
     """
     characteristics = OrderedDict()
-    for _characteristic in _characteristics.getchildren():
-        if _characteristic.attrib.get("id"):
-            value = parsing_utils.format_type(_characteristic.attrib.get("id"))
-            characteristics.update({_characteristic.tag: {'id':value}})
-        else:
-            value = parsing_utils.format_type(_characteristic.text)
-            characteristics.update({_characteristic.tag: value})
+    for param in _characteristics:
+        for _characteristic in param.getchildren():
+            if _characteristic.attrib.get("id"):
+                value = parsing_utils.format_type(_characteristic.attrib.get("id"))
+                characteristics.update({_characteristic.tag: {'id':value}})
+            else:
+                value = parsing_utils.format_type(_characteristic.text)
+                characteristics.update({_characteristic.tag: value})
     return characteristics
 
 def parse_entity(entity_element):
@@ -54,12 +55,9 @@ def parse_entity(entity_element):
         'type' : "Entity",
         "ident": parsing_utils.format_type(_ident.text)
     })
-    _params = entity_element.find('Params')
-    if _params is None:
+    _params = entity_element.findall('Params')
+    if _params is []:
         parsing_utils.fail_not_found("Params")
-    picture = _params.find("picture")
-    if picture is None:
-        parsing_utils.fail_not_found("picture")
     answer.update({'params': get_characteristics(_params)})
     return answer
 

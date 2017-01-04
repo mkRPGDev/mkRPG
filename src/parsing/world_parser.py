@@ -15,7 +15,7 @@ def parse_world(world_file):
 
     root = parsing_utils.try_open_and_parse(world_file)
     # Getting the params and the entities on the map.
-    params = root.find('Params')
+    params = root.findall('Params')
     entities = root.find('Entities')
     objects = root.find('Objects')
     maps = root.find('Maps')
@@ -24,12 +24,13 @@ def parse_world(world_file):
     entities_list = []
     objects_list = []
     maps_list = []
-    if params is not None:
-        for param in params.getchildren():
-            if param.attrib.get('id'):
-                params_dict.update({param.tag: {"id": param.attrib["id"]}})
-            else:
-                params_dict.update({param.tag: param.text})
+    if params is not []:
+        for _params in params:
+            for param in _params.getchildren():
+                if param.attrib.get('id'):
+                    params_dict.update({param.tag: {"id": param.attrib["id"]}})
+                else:
+                    params_dict.update({param.tag: param.text})
     if entities is not None:
         for entity in entities.getchildren():
             entities_list += [entity.attrib]

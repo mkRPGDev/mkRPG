@@ -1,0 +1,90 @@
+\hypertarget{namespaceparsing_1_1actions__parser}{\section{parsing\-:\-:actions\-\_\-parser \-Namespace \-Reference}
+\label{namespaceparsing_1_1actions__parser}\index{parsing\-::actions\-\_\-parser@{parsing\-::actions\-\_\-parser}}
+}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceparsing_1_1actions__parser_ae4a261323d279bcdd1e7c797a56fd37a}{get\-\_\-tag}
+\item 
+def \hyperlink{namespaceparsing_1_1actions__parser_a32ae0cad2fc0c95abf9b8203c535f0ff}{parse\-\_\-order}
+\item 
+def \hyperlink{namespaceparsing_1_1actions__parser_afbc5f28ba3d650c4636cbdf9a7351fcb}{parse\-\_\-action}
+\item 
+def \hyperlink{namespaceparsing_1_1actions__parser_a8456330c2da34d2c7ad6617f6c8fd138}{parse\-\_\-actions}
+\item 
+def \hyperlink{namespaceparsing_1_1actions__parser_a44aace359bb7f061909be51273e13b17}{parse\-\_\-multiple\-\_\-files}
+\item 
+def \hyperlink{namespaceparsing_1_1actions__parser_a2718f249a2d5072647710a0f357ac577}{get\-\_\-all\-\_\-names}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This is the parser for the actions files.
+Recall that the actions should all be defined in such a file.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{namespaceparsing_1_1actions__parser_a2718f249a2d5072647710a0f357ac577}{\index{parsing\-::actions\-\_\-parser@{parsing\-::actions\-\_\-parser}!get\-\_\-all\-\_\-names@{get\-\_\-all\-\_\-names}}
+\index{get\-\_\-all\-\_\-names@{get\-\_\-all\-\_\-names}!parsing::actions_parser@{parsing\-::actions\-\_\-parser}}
+\subsubsection[{get\-\_\-all\-\_\-names}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-actions\-\_\-parser.\-get\-\_\-all\-\_\-names} (
+\begin{DoxyParamCaption}
+\item[{}]{actions}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1actions__parser_a2718f249a2d5072647710a0f357ac577}
+\begin{DoxyVerb}Returns all action names present in the given actions dictionnary.\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1actions__parser_ae4a261323d279bcdd1e7c797a56fd37a}{\index{parsing\-::actions\-\_\-parser@{parsing\-::actions\-\_\-parser}!get\-\_\-tag@{get\-\_\-tag}}
+\index{get\-\_\-tag@{get\-\_\-tag}!parsing::actions_parser@{parsing\-::actions\-\_\-parser}}
+\subsubsection[{get\-\_\-tag}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-actions\-\_\-parser.\-get\-\_\-tag} (
+\begin{DoxyParamCaption}
+\item[{}]{order\-\_\-tag, }
+\item[{}]{tag, }
+\item[{}]{optionnal = {\ttfamily \-False}}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1actions__parser_ae4a261323d279bcdd1e7c797a56fd37a}
+\begin{DoxyVerb}Gets the value of an argument. If optionnal is set to True, it returns
+None if nothing is found, it will stop the game else.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1actions__parser_afbc5f28ba3d650c4636cbdf9a7351fcb}{\index{parsing\-::actions\-\_\-parser@{parsing\-::actions\-\_\-parser}!parse\-\_\-action@{parse\-\_\-action}}
+\index{parse\-\_\-action@{parse\-\_\-action}!parsing::actions_parser@{parsing\-::actions\-\_\-parser}}
+\subsubsection[{parse\-\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-actions\-\_\-parser.\-parse\-\_\-action} (
+\begin{DoxyParamCaption}
+\item[{}]{action\-\_\-tag}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1actions__parser_afbc5f28ba3d650c4636cbdf9a7351fcb}
+\begin{DoxyVerb}Parses an action tag. It return the dictionnary with the interesting
+values.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1actions__parser_a8456330c2da34d2c7ad6617f6c8fd138}{\index{parsing\-::actions\-\_\-parser@{parsing\-::actions\-\_\-parser}!parse\-\_\-actions@{parse\-\_\-actions}}
+\index{parse\-\_\-actions@{parse\-\_\-actions}!parsing::actions_parser@{parsing\-::actions\-\_\-parser}}
+\subsubsection[{parse\-\_\-actions}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-actions\-\_\-parser.\-parse\-\_\-actions} (
+\begin{DoxyParamCaption}
+\item[{}]{action\-\_\-xml}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1actions__parser_a8456330c2da34d2c7ad6617f6c8fd138}
+\begin{DoxyVerb}Parses a whole action file.
+It should return a dictionnay {event: orders} of all described actions.
+Please note that only actions are being looked for, other tag will simply
+be ignored by this function. This shouldn't bother anybody however, since
+other tags would break the semantics of this file.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1actions__parser_a44aace359bb7f061909be51273e13b17}{\index{parsing\-::actions\-\_\-parser@{parsing\-::actions\-\_\-parser}!parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}}
+\index{parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}!parsing::actions_parser@{parsing\-::actions\-\_\-parser}}
+\subsubsection[{parse\-\_\-multiple\-\_\-files}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-actions\-\_\-parser.\-parse\-\_\-multiple\-\_\-files} (
+\begin{DoxyParamCaption}
+\item[{}]{actions\-\_\-files}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1actions__parser_a44aace359bb7f061909be51273e13b17}
+\begin{DoxyVerb}Parses multiple files. Broadly speaking, it parses sequentially all
+files, and concatenates all answers.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1actions__parser_a32ae0cad2fc0c95abf9b8203c535f0ff}{\index{parsing\-::actions\-\_\-parser@{parsing\-::actions\-\_\-parser}!parse\-\_\-order@{parse\-\_\-order}}
+\index{parse\-\_\-order@{parse\-\_\-order}!parsing::actions_parser@{parsing\-::actions\-\_\-parser}}
+\subsubsection[{parse\-\_\-order}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-actions\-\_\-parser.\-parse\-\_\-order} (
+\begin{DoxyParamCaption}
+\item[{}]{order\-\_\-tag}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1actions__parser_a32ae0cad2fc0c95abf9b8203c535f0ff}
+\begin{DoxyVerb}Parses an order tag. Returns the type of order, and the code to run.\end{DoxyVerb}
+ 

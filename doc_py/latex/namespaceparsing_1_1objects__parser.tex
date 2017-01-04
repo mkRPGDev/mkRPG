@@ -1,0 +1,92 @@
+\hypertarget{namespaceparsing_1_1objects__parser}{\section{parsing\-:\-:objects\-\_\-parser \-Namespace \-Reference}
+\label{namespaceparsing_1_1objects__parser}\index{parsing\-::objects\-\_\-parser@{parsing\-::objects\-\_\-parser}}
+}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceparsing_1_1objects__parser_a61c009517edb095eee1a5f0871d7e004}{object\-\_\-parser}
+\item 
+def \hyperlink{namespaceparsing_1_1objects__parser_acf6fa2bd576f3f360f59222a6b81481f}{object\-\_\-type\-\_\-parser}
+\item 
+def \hyperlink{namespaceparsing_1_1objects__parser_aca044797e2c65609c59f7727bcdc315e}{objects\-\_\-parser}
+\item 
+def \hyperlink{namespaceparsing_1_1objects__parser_aefd640bf2ec69fb4d3eb9625ff09823e}{objects\-\_\-type\-\_\-parser}
+\item 
+def \hyperlink{namespaceparsing_1_1objects__parser_a1c80ac845e5f4c845649015e1ae72fd7}{multiple\-\_\-files\-\_\-object\-\_\-parser}
+\item 
+def \hyperlink{namespaceparsing_1_1objects__parser_ae5df291702ae7d4143fd788a9515d1cb}{multiple\-\_\-files\-\_\-otypes\-\_\-parser}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This file handles the parsing of the objects defined in the game.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{namespaceparsing_1_1objects__parser_a1c80ac845e5f4c845649015e1ae72fd7}{\index{parsing\-::objects\-\_\-parser@{parsing\-::objects\-\_\-parser}!multiple\-\_\-files\-\_\-object\-\_\-parser@{multiple\-\_\-files\-\_\-object\-\_\-parser}}
+\index{multiple\-\_\-files\-\_\-object\-\_\-parser@{multiple\-\_\-files\-\_\-object\-\_\-parser}!parsing::objects_parser@{parsing\-::objects\-\_\-parser}}
+\subsubsection[{multiple\-\_\-files\-\_\-object\-\_\-parser}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-objects\-\_\-parser.\-multiple\-\_\-files\-\_\-object\-\_\-parser} (
+\begin{DoxyParamCaption}
+\item[{}]{files\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1objects__parser_a1c80ac845e5f4c845649015e1ae72fd7}
+\begin{DoxyVerb}Parses a list of files, and returns the dictionary containing all data
+defined in these files. Note that if an object is described multiple times,
+the last definition will be kept. Maybe in the future, it will just stop
+the game, in order to fix the issue.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1objects__parser_ae5df291702ae7d4143fd788a9515d1cb}{\index{parsing\-::objects\-\_\-parser@{parsing\-::objects\-\_\-parser}!multiple\-\_\-files\-\_\-otypes\-\_\-parser@{multiple\-\_\-files\-\_\-otypes\-\_\-parser}}
+\index{multiple\-\_\-files\-\_\-otypes\-\_\-parser@{multiple\-\_\-files\-\_\-otypes\-\_\-parser}!parsing::objects_parser@{parsing\-::objects\-\_\-parser}}
+\subsubsection[{multiple\-\_\-files\-\_\-otypes\-\_\-parser}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-objects\-\_\-parser.\-multiple\-\_\-files\-\_\-otypes\-\_\-parser} (
+\begin{DoxyParamCaption}
+\item[{}]{files\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1objects__parser_ae5df291702ae7d4143fd788a9515d1cb}
+\begin{DoxyVerb}Parses a list of files, and returns the dictionary containing all data
+defined in these files.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1objects__parser_a61c009517edb095eee1a5f0871d7e004}{\index{parsing\-::objects\-\_\-parser@{parsing\-::objects\-\_\-parser}!object\-\_\-parser@{object\-\_\-parser}}
+\index{object\-\_\-parser@{object\-\_\-parser}!parsing::objects_parser@{parsing\-::objects\-\_\-parser}}
+\subsubsection[{object\-\_\-parser}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-objects\-\_\-parser.\-object\-\_\-parser} (
+\begin{DoxyParamCaption}
+\item[{}]{object\-\_\-tag}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1objects__parser_a61c009517edb095eee1a5f0871d7e004}
+\begin{DoxyVerb}Parses an object tag, and returns the dictionnary
+containing all the important data.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1objects__parser_acf6fa2bd576f3f360f59222a6b81481f}{\index{parsing\-::objects\-\_\-parser@{parsing\-::objects\-\_\-parser}!object\-\_\-type\-\_\-parser@{object\-\_\-type\-\_\-parser}}
+\index{object\-\_\-type\-\_\-parser@{object\-\_\-type\-\_\-parser}!parsing::objects_parser@{parsing\-::objects\-\_\-parser}}
+\subsubsection[{object\-\_\-type\-\_\-parser}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-objects\-\_\-parser.\-object\-\_\-type\-\_\-parser} (
+\begin{DoxyParamCaption}
+\item[{}]{object\-\_\-type\-\_\-tag}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1objects__parser_acf6fa2bd576f3f360f59222a6b81481f}
+\begin{DoxyVerb}Parses an object type. An object type can be used as a factory to create
+new objects that are instanciated at runtime.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1objects__parser_aca044797e2c65609c59f7727bcdc315e}{\index{parsing\-::objects\-\_\-parser@{parsing\-::objects\-\_\-parser}!objects\-\_\-parser@{objects\-\_\-parser}}
+\index{objects\-\_\-parser@{objects\-\_\-parser}!parsing::objects_parser@{parsing\-::objects\-\_\-parser}}
+\subsubsection[{objects\-\_\-parser}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-objects\-\_\-parser.\-objects\-\_\-parser} (
+\begin{DoxyParamCaption}
+\item[{}]{object\-\_\-file}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1objects__parser_aca044797e2c65609c59f7727bcdc315e}
+\begin{DoxyVerb}
+Parses a file defining some objects (In game, not Python objects...).
+It returns the dictionary with all objects defined in the file.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1objects__parser_aefd640bf2ec69fb4d3eb9625ff09823e}{\index{parsing\-::objects\-\_\-parser@{parsing\-::objects\-\_\-parser}!objects\-\_\-type\-\_\-parser@{objects\-\_\-type\-\_\-parser}}
+\index{objects\-\_\-type\-\_\-parser@{objects\-\_\-type\-\_\-parser}!parsing::objects_parser@{parsing\-::objects\-\_\-parser}}
+\subsubsection[{objects\-\_\-type\-\_\-parser}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-objects\-\_\-parser.\-objects\-\_\-type\-\_\-parser} (
+\begin{DoxyParamCaption}
+\item[{}]{object\-\_\-file}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1objects__parser_aefd640bf2ec69fb4d3eb9625ff09823e}
+\begin{DoxyVerb}
+Parses a file defining some objects (In game, not Python objects...).
+It returns the dictionary with all objects defined in the file.
+\end{DoxyVerb}
+ 

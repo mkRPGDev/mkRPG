@@ -1,0 +1,60 @@
+\hypertarget{namespaceparsing_1_1images__parser}{\section{parsing\-:\-:images\-\_\-parser \-Namespace \-Reference}
+\label{namespaceparsing_1_1images__parser}\index{parsing\-::images\-\_\-parser@{parsing\-::images\-\_\-parser}}
+}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceparsing_1_1images__parser_abc63de1fb7de024b823a5fcbce5f1c85}{parse\-\_\-image}
+\item 
+def \hyperlink{namespaceparsing_1_1images__parser_a0dfb3e65eece3fa74f5d270edeefdcc1}{parse\-\_\-file\-\_\-image}
+\item 
+def \hyperlink{namespaceparsing_1_1images__parser_a996ac3d69704aa18aaa5bf511150ffd3}{parse\-\_\-multiple\-\_\-files}
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceparsing_1_1images__parser_ae8789296676e45d90ba1fea61c4b06aa}{tuple {\bfseries \-Image} = namedtuple(\char`\"{}\-Image\char`\"{}, \char`\"{}ascii image\char`\"{})}\label{namespaceparsing_1_1images__parser_ae8789296676e45d90ba1fea61c4b06aa}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This file handles the parsing of xml files in order to find all paths.
+In other xml files, images are identified by a number, which is bound
+in xml files.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{namespaceparsing_1_1images__parser_a0dfb3e65eece3fa74f5d270edeefdcc1}{\index{parsing\-::images\-\_\-parser@{parsing\-::images\-\_\-parser}!parse\-\_\-file\-\_\-image@{parse\-\_\-file\-\_\-image}}
+\index{parse\-\_\-file\-\_\-image@{parse\-\_\-file\-\_\-image}!parsing::images_parser@{parsing\-::images\-\_\-parser}}
+\subsubsection[{parse\-\_\-file\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-images\-\_\-parser.\-parse\-\_\-file\-\_\-image} (
+\begin{DoxyParamCaption}
+\item[{}]{image\-\_\-file, }
+\item[{}]{dir\-\_\-path}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1images__parser_a0dfb3e65eece3fa74f5d270edeefdcc1}
+\begin{DoxyVerb}Parses an images file.\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1images__parser_abc63de1fb7de024b823a5fcbce5f1c85}{\index{parsing\-::images\-\_\-parser@{parsing\-::images\-\_\-parser}!parse\-\_\-image@{parse\-\_\-image}}
+\index{parse\-\_\-image@{parse\-\_\-image}!parsing::images_parser@{parsing\-::images\-\_\-parser}}
+\subsubsection[{parse\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-images\-\_\-parser.\-parse\-\_\-image} (
+\begin{DoxyParamCaption}
+\item[{}]{image\-\_\-tag, }
+\item[{}]{dir\-\_\-path}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1images__parser_abc63de1fb7de024b823a5fcbce5f1c85}
+\begin{DoxyVerb}Parses an image tag.\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1images__parser_a996ac3d69704aa18aaa5bf511150ffd3}{\index{parsing\-::images\-\_\-parser@{parsing\-::images\-\_\-parser}!parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}}
+\index{parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}!parsing::images_parser@{parsing\-::images\-\_\-parser}}
+\subsubsection[{parse\-\_\-multiple\-\_\-files}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-images\-\_\-parser.\-parse\-\_\-multiple\-\_\-files} (
+\begin{DoxyParamCaption}
+\item[{}]{dir\-\_\-path, }
+\item[{}]{images\-\_\-files}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1images__parser_a996ac3d69704aa18aaa5bf511150ffd3}
+\begin{DoxyVerb}Parses multiple files. Broadly speaking, it parses sequentially all
+files, and concatenates all answers.
+The dir path is used to allow acces to the images back in the client context.
+\end{DoxyVerb}
+ 

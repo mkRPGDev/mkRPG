@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['ident',['ident',['../class_game_object.html#a21515212e3deb4123268f220e142b077',1,'GameObject']]],
   ['indtopt',['indToPt',['../class_map_painter.html#a1902b1ee672739e47d52a82c4fe3c657',1,'MapPainter']]],
   ['init',['init',['../class_game_object.html#abb6a1fa1a89307820874179b20010f6d',1,'GameObject']]],
   ['isadjustable',['isAdjustable',['../struct_options.html#a1188a188db82d70c96af44679d2cbbf9',1,'Options']]],

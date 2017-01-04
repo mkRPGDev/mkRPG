@@ -18,6 +18,5 @@ var searchData=
   ['typedobject_3c_20objecttype_20_3e',['TypedObject< ObjectType >',['../class_typed_object.html',1,'']]],
   ['typeitemmodel',['TypeItemModel',['../class_type_item_model.html',1,'']]],
   ['typeitemmodel_2eh',['typeitemmodel.h',['../typeitemmodel_8h.html',1,'']]],
-  ['typename',['TypeName',['../class_game_object.html#a315198e0ee3ad32231cc2b785805b9d3',1,'GameObject']]],
   ['typetreeitem',['TypeTreeItem',['../class_type_tree_item.html',1,'']]]
 ];

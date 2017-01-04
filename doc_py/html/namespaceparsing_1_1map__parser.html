@@ -105,32 +105,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing_1_1map__parser.html#ac95058862719a1ab0d4f1edcab61c34a">parse_cell</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing_1_1map__parser.html#a88cb1d88728f93b0593e53fa33f7280b">parse_all_cells</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing_1_1map__parser.html#a71ed6a54be8574564b90333f6810e84d">collect_cells_data</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing_1_1map__parser.html#a51e06bfd8a212d3ff282d77f9d9e642c">map_parser</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing_1_1map__parser.html#abb78539632307bd1f6f2542ac3cb2534">get_size</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a03a4b3330d705fec56dc1176a2db6839"></a><!-- doxytag: member="parsing::map_parser::gen_map" ref="a03a4b3330d705fec56dc1176a2db6839" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>gen_map</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceparsing_1_1map__parser.html#ad07f69762561635b9f7b45ece6c51e69">collect_map_data</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
 This module handles xml parsing for maps description files.
 </pre></div> </div><hr/><h2>Function Documentation</h2>
-<a class="anchor" id="abb78539632307bd1f6f2542ac3cb2534"></a><!-- doxytag: member="parsing::map_parser::get_size" ref="abb78539632307bd1f6f2542ac3cb2534" args="" -->
+<a class="anchor" id="a71ed6a54be8574564b90333f6810e84d"></a><!-- doxytag: member="parsing::map_parser::collect_cells_data" ref="a71ed6a54be8574564b90333f6810e84d" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def <a class="el" href="namespaceparsing_1_1map__parser.html#abb78539632307bd1f6f2542ac3cb2534">parsing.map_parser.get_size</a> </td>
+          <td class="memname">def <a class="el" href="namespaceparsing_1_1map__parser.html#a71ed6a54be8574564b90333f6810e84d">parsing.map_parser.collect_cells_data</a> </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td class="paramname"><em>cell_files</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<div class="fragment"><pre class="fragment">
-Gets the size of the map.
-</pre></div> 
+<div class="fragment"><pre class="fragment">Collects all cells descriptions in the given files.</pre></div> 
+</div>
+</div>
+<a class="anchor" id="ad07f69762561635b9f7b45ece6c51e69"></a><!-- doxytag: member="parsing::map_parser::collect_map_data" ref="ad07f69762561635b9f7b45ece6c51e69" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceparsing_1_1map__parser.html#ad07f69762561635b9f7b45ece6c51e69">parsing.map_parser.collect_map_data</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>map_files</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Collects all map descriptions in the given files.</pre></div> 
 </div>
 </div>
 <a class="anchor" id="a51e06bfd8a212d3ff282d77f9d9e642c"></a><!-- doxytag: member="parsing::map_parser::map_parser" ref="a51e06bfd8a212d3ff282d77f9d9e642c" args="" -->
@@ -150,6 +165,23 @@ Gets the size of the map.
 <div class="fragment"><pre class="fragment">
 The main parser for the map xml file.
 </pre></div> 
+</div>
+</div>
+<a class="anchor" id="a88cb1d88728f93b0593e53fa33f7280b"></a><!-- doxytag: member="parsing::map_parser::parse_all_cells" ref="a88cb1d88728f93b0593e53fa33f7280b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="namespaceparsing_1_1map__parser.html#a88cb1d88728f93b0593e53fa33f7280b">parsing.map_parser.parse_all_cells</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cell_xml</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Parses all cells defined in the given file.</pre></div> 
 </div>
 </div>
 <a class="anchor" id="ac95058862719a1ab0d4f1edcab61c34a"></a><!-- doxytag: member="parsing::map_parser::parse_cell" ref="ac95058862719a1ab0d4f1edcab61c34a" args="" -->

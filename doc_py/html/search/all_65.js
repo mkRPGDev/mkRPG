@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['end',['end',['../classinterface_1_1print_world_1_1_world_viewer.html#a060018a5214380bf5e539a8742a34201',1,'interface::printWorld::WorldViewer']]],
-  ['entity',['Entity',['../classworld_1_1_entity.html',1,'world']]],
-  ['entity',['Entity',['../classinterface_1_1entity_1_1_entity.html',1,'interface::entity']]]
+  ['end',['end',['../classpgcli_1_1_pygame.html#ad683d9fada51a6d1c932f90ecb479f2b',1,'pgcli::Pygame']]],
+  ['entity',['Entity',['../classworld_1_1_entity.html',1,'world']]]
 ];

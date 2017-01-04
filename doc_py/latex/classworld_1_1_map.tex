@@ -1,6 +1,12 @@
 \hypertarget{classworld_1_1_map}{\section{world.\-Map \-Class \-Reference}
 \label{classworld_1_1_map}\index{world.\-Map@{world.\-Map}}
 }
+\-Inheritance diagram for world.\-Map\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classworld_1_1_map}
+\end{center}
+\end{figure}
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -12,6 +18,8 @@ def \hyperlink{classworld_1_1_map_ac8e650b696f537d9df20ee5d2243e978}{fill}
 def \hyperlink{classworld_1_1_map_ac5f255ae58db6b391d0a3d5807365370}{dist}
 \item 
 def \hyperlink{classworld_1_1_map_a7b1d3e4419fd5bd48d5f759e63ae55f5}{lov}
+\item 
+def \hyperlink{classworld_1_1_map_aabdd46688167e96753c73df0f0486588}{get\-\_\-path}
 \item 
 def \hyperlink{classworld_1_1_map_a12e89884cc3e9da4d024575a85b1d324}{from\-Pos}
 \end{DoxyCompactItemize}
@@ -62,6 +70,16 @@ To be called after the Xml reading only \end{DoxyVerb}
 \begin{DoxyVerb}Yield cells further and further from pos, stopping at maxi
 Assuming x goes right and y down it turns as the trigo circle,
 it is therefore not a "serpentin" (sadly ?) \end{DoxyVerb}
+ \hypertarget{classworld_1_1_map_aabdd46688167e96753c73df0f0486588}{\index{world\-::\-Map@{world\-::\-Map}!get\-\_\-path@{get\-\_\-path}}
+\index{get\-\_\-path@{get\-\_\-path}!world::Map@{world\-::\-Map}}
+\subsubsection[{get\-\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf world.\-Map.\-get\-\_\-path} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{source, }
+\item[{}]{dest}
+\end{DoxyParamCaption}
+)}}\label{classworld_1_1_map_aabdd46688167e96753c73df0f0486588}
+\begin{DoxyVerb}A* algorithm on current map from source to dest \end{DoxyVerb}
  \hypertarget{classworld_1_1_map_a7b1d3e4419fd5bd48d5f759e63ae55f5}{\index{world\-::\-Map@{world\-::\-Map}!lov@{lov}}
 \index{lov@{lov}!world::Map@{world\-::\-Map}}
 \subsubsection[{lov}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf world.\-Map.\-lov} (

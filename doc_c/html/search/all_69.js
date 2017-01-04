@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['ident',['ident',['../class_game_object.html#a21515212e3deb4123268f220e142b077',1,'GameObject']]],
   ['image',['Image',['../class_image.html',1,'']]],
   ['indtopt',['indToPt',['../class_map_painter.html#a1902b1ee672739e47d52a82c4fe3c657',1,'MapPainter']]],
   ['inheritableobject',['InheritableObject',['../class_inheritable_object.html',1,'']]],

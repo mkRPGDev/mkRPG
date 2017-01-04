@@ -125,18 +125,20 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>net</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a514fa5a25b192d7c319dac3e81589139"></a><!-- doxytag: member="client::Client::world" ref="a514fa5a25b192d7c319dac3e81589139" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>world</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a155c1a6cd1cd389f752946ae1be7df4e"></a><!-- doxytag: member="client::Client::plugins" ref="a155c1a6cd1cd389f752946ae1be7df4e" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>plugins</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac94a649fda29e1ef94a92729ce7c345c"></a><!-- doxytag: member="client::Client::interface" ref="ac94a649fda29e1ef94a92729ce7c345c" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>interface</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a155c1a6cd1cd389f752946ae1be7df4e"></a><!-- doxytag: member="client::Client::plugins" ref="a155c1a6cd1cd389f752946ae1be7df4e" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>plugins</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2c24cff4ee58fef1de7de126cef3840e"></a><!-- doxytag: member="client::Client::interactions" ref="a2c24cff4ee58fef1de7de126cef3840e" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>interactions</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f9927aadf41668bb2398b6404296076"></a><!-- doxytag: member="client::Client::perso" ref="a3f9927aadf41668bb2398b6404296076" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>perso</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a55b0a0b65f2cbc5bbeab157000db0ff4"></a><!-- doxytag: member="client::Client::orderDispatcher" ref="a55b0a0b65f2cbc5bbeab157000db0ff4" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>orderDispatcher</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80840f1460afc8548a654b36e7ca69f0"></a><!-- doxytag: member="client::Client::netTask" ref="a80840f1460afc8548a654b36e7ca69f0" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>netTask</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6866df06cbe28dd54c7e69b55ee4e573"></a><!-- doxytag: member="client::Client::order_dispatcher" ref="a6866df06cbe28dd54c7e69b55ee4e573" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>order_dispatcher</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2087d1c5d4d02abc551713d4c525f026"></a><!-- doxytag: member="client::Client::task" ref="a2087d1c5d4d02abc551713d4c525f026" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>task</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc0e14032938f11bcf8e579f1bbba637"></a><!-- doxytag: member="client::Client::net_task" ref="abc0e14032938f11bcf8e579f1bbba637" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>net_task</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">Main class of the client process, gathering interface, world and networking </pre></div> </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
@@ -172,8 +174,13 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<div class="fragment"><pre class="fragment">Ask for a free entity to the server.
-May disappear with a proper initialisation process </pre></div> 
+<div class="fragment"><pre class="fragment">
+    Asks for a free entity to the server and sets the client and
+    interface attributes.
+    If either args.entity or args.entityid is set, will ask for this
+    entity to the server and set it as the client entity, else it will
+    ask for the first available entity.
+</pre></div> 
 </div>
 </div>
 <a class="anchor" id="a411fe3cb0e6bd641925c600482025075"></a><!-- doxytag: member="client::Client::handleOrder" ref="a411fe3cb0e6bd641925c600482025075" args="" -->

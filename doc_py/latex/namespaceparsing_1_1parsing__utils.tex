@@ -1,0 +1,86 @@
+\hypertarget{namespaceparsing_1_1parsing__utils}{\section{parsing\-:\-:parsing\-\_\-utils \-Namespace \-Reference}
+\label{namespaceparsing_1_1parsing__utils}\index{parsing\-::parsing\-\_\-utils@{parsing\-::parsing\-\_\-utils}}
+}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceparsing_1_1parsing__utils_a7766f495ec63ea3ec43b446542f0c265}{try\-\_\-open\-\_\-and\-\_\-parse}
+\item 
+def \hyperlink{namespaceparsing_1_1parsing__utils_aa37d7f4d02758ee50cf19143898a6e7b}{fail\-\_\-not\-\_\-found}
+\item 
+def \hyperlink{namespaceparsing_1_1parsing__utils_a362c249cf422cf0688c6affd6182b28a}{format\-\_\-type}
+\item 
+def \hyperlink{namespaceparsing_1_1parsing__utils_a731c5b9c31a252e6835d2d3d5cfab1ff}{collect\-\_\-data}
+\item 
+def \hyperlink{namespaceparsing_1_1parsing__utils_a96ec9674eafc29d3fd8c80d745b95a65}{parse\-\_\-multiple\-\_\-files}
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceparsing_1_1parsing__utils_a22eab78f27e686839ea7acd860543dab}{tuple {\bfseries \-I\-N\-T} = re.\-compile('\mbox{[}0-\/9\mbox{]}+\$')}\label{namespaceparsing_1_1parsing__utils_a22eab78f27e686839ea7acd860543dab}
+
+\item 
+\hypertarget{namespaceparsing_1_1parsing__utils_ae1f4c0d3c84cef253ebac3fa9471a33f}{tuple {\bfseries \-F\-L\-O\-A\-T} = re.\-compile(r'\mbox{[}0-\/9\mbox{]}+\mbox{[}$\backslash$.,\mbox{]}\mbox{[}0-\/9\mbox{]}\$')}\label{namespaceparsing_1_1parsing__utils_ae1f4c0d3c84cef253ebac3fa9471a33f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This module contains many utilities that are called almost everywhere
+during the parsing.
+It is more a toolbox than anything.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{namespaceparsing_1_1parsing__utils_a731c5b9c31a252e6835d2d3d5cfab1ff}{\index{parsing\-::parsing\-\_\-utils@{parsing\-::parsing\-\_\-utils}!collect\-\_\-data@{collect\-\_\-data}}
+\index{collect\-\_\-data@{collect\-\_\-data}!parsing::parsing_utils@{parsing\-::parsing\-\_\-utils}}
+\subsubsection[{collect\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-parsing\-\_\-utils.\-collect\-\_\-data} (
+\begin{DoxyParamCaption}
+\item[{}]{key, }
+\item[{}]{args}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1parsing__utils_a731c5b9c31a252e6835d2d3d5cfab1ff}
+\begin{DoxyVerb}Collects all items corresponding to key argument in *args.  It realizes
+a depth-first travel of the dictionary, calling itself recursively on the
+structures.\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1parsing__utils_aa37d7f4d02758ee50cf19143898a6e7b}{\index{parsing\-::parsing\-\_\-utils@{parsing\-::parsing\-\_\-utils}!fail\-\_\-not\-\_\-found@{fail\-\_\-not\-\_\-found}}
+\index{fail\-\_\-not\-\_\-found@{fail\-\_\-not\-\_\-found}!parsing::parsing_utils@{parsing\-::parsing\-\_\-utils}}
+\subsubsection[{fail\-\_\-not\-\_\-found}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-parsing\-\_\-utils.\-fail\-\_\-not\-\_\-found} (
+\begin{DoxyParamCaption}
+\item[{}]{tag}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1parsing__utils_aa37d7f4d02758ee50cf19143898a6e7b}
+\begin{DoxyVerb}Error when a tag is not found in a file, and should be in.\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1parsing__utils_a362c249cf422cf0688c6affd6182b28a}{\index{parsing\-::parsing\-\_\-utils@{parsing\-::parsing\-\_\-utils}!format\-\_\-type@{format\-\_\-type}}
+\index{format\-\_\-type@{format\-\_\-type}!parsing::parsing_utils@{parsing\-::parsing\-\_\-utils}}
+\subsubsection[{format\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-parsing\-\_\-utils.\-format\-\_\-type} (
+\begin{DoxyParamCaption}
+\item[{}]{string}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1parsing__utils_a362c249cf422cf0688c6affd6182b28a}
+\begin{DoxyVerb}If the string can be converted to an int or a float, converts it.\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1parsing__utils_a96ec9674eafc29d3fd8c80d745b95a65}{\index{parsing\-::parsing\-\_\-utils@{parsing\-::parsing\-\_\-utils}!parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}}
+\index{parse\-\_\-multiple\-\_\-files@{parse\-\_\-multiple\-\_\-files}!parsing::parsing_utils@{parsing\-::parsing\-\_\-utils}}
+\subsubsection[{parse\-\_\-multiple\-\_\-files}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-parsing\-\_\-utils.\-parse\-\_\-multiple\-\_\-files} (
+\begin{DoxyParamCaption}
+\item[{}]{parsing\-\_\-method, }
+\item[{}]{args}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1parsing__utils_a96ec9674eafc29d3fd8c80d745b95a65}
+\begin{DoxyVerb}Parses the given file lists, and returns the dictionary containing the
+whole data parsed by the parsing_method function.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1parsing__utils_a7766f495ec63ea3ec43b446542f0c265}{\index{parsing\-::parsing\-\_\-utils@{parsing\-::parsing\-\_\-utils}!try\-\_\-open\-\_\-and\-\_\-parse@{try\-\_\-open\-\_\-and\-\_\-parse}}
+\index{try\-\_\-open\-\_\-and\-\_\-parse@{try\-\_\-open\-\_\-and\-\_\-parse}!parsing::parsing_utils@{parsing\-::parsing\-\_\-utils}}
+\subsubsection[{try\-\_\-open\-\_\-and\-\_\-parse}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-parsing\-\_\-utils.\-try\-\_\-open\-\_\-and\-\_\-parse} (
+\begin{DoxyParamCaption}
+\item[{}]{xml\-\_\-file}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1parsing__utils_a7766f495ec63ea3ec43b446542f0c265}
+\begin{DoxyVerb}
+This function tries to open the file ```xml_file```, and to parse it.
+The program exits if one of both action fails.
+\end{DoxyVerb}
+ 

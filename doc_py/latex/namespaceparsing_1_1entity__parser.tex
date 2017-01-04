@@ -1,0 +1,100 @@
+\hypertarget{namespaceparsing_1_1entity__parser}{\section{parsing\-:\-:entity\-\_\-parser \-Namespace \-Reference}
+\label{namespaceparsing_1_1entity__parser}\index{parsing\-::entity\-\_\-parser@{parsing\-::entity\-\_\-parser}}
+}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceparsing_1_1entity__parser_a0337ea3f75c52944f6533f83e766b112}{get\-\_\-characteristics}
+\item 
+def \hyperlink{namespaceparsing_1_1entity__parser_ac26e49f3eb32b698c1413382d0409431}{parse\-\_\-entity}
+\item 
+def \hyperlink{namespaceparsing_1_1entity__parser_af7d554c17e8d278d08731974af2b11d3}{get\-\_\-names}
+\item 
+def \hyperlink{namespaceparsing_1_1entity__parser_a877bd13b04dcd2ca5d9bee189127a72d}{parse\-\_\-entities}
+\item 
+def \hyperlink{namespaceparsing_1_1entity__parser_a5cfe2d081752826980ab8ebcaa85c702}{parse\-\_\-multiple\-\_\-entities}
+\item 
+def \hyperlink{namespaceparsing_1_1entity__parser_a5e09a935f78484fe6b2f6cefee327f51}{check\-\_\-entity}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This module handles the parsing of entities.
+The entities, if present, are present in the files tagged by Entity in the
+world.xml file.
+It is possible to present several Entity files, for example for a clearer
+separation for the Dungeon Master.
+
+An entity may have a default position, an one or more characteristics.
+These characteristics are independent of the game generator, and though are
+handled by a dictionary. However, it always have a name. Moreover,
+it always have a picture, its grpahical representation in the GUI client
+\end{DoxyVerb}
+ 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{namespaceparsing_1_1entity__parser_a5e09a935f78484fe6b2f6cefee327f51}{\index{parsing\-::entity\-\_\-parser@{parsing\-::entity\-\_\-parser}!check\-\_\-entity@{check\-\_\-entity}}
+\index{check\-\_\-entity@{check\-\_\-entity}!parsing::entity_parser@{parsing\-::entity\-\_\-parser}}
+\subsubsection[{check\-\_\-entity}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-entity\-\_\-parser.\-check\-\_\-entity} (
+\begin{DoxyParamCaption}
+\item[{}]{entities\-\_\-found, }
+\item[{}]{entities\-\_\-listed}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1entity__parser_a5e09a935f78484fe6b2f6cefee327f51}
+\begin{DoxyVerb}Checks if all entities found in files world.xml, and cell.xml and others
+are present in entites tagged files.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1entity__parser_a0337ea3f75c52944f6533f83e766b112}{\index{parsing\-::entity\-\_\-parser@{parsing\-::entity\-\_\-parser}!get\-\_\-characteristics@{get\-\_\-characteristics}}
+\index{get\-\_\-characteristics@{get\-\_\-characteristics}!parsing::entity_parser@{parsing\-::entity\-\_\-parser}}
+\subsubsection[{get\-\_\-characteristics}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-entity\-\_\-parser.\-get\-\_\-characteristics} (
+\begin{DoxyParamCaption}
+\item[{}]{\-\_\-characteristics}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1entity__parser_a0337ea3f75c52944f6533f83e766b112}
+\begin{DoxyVerb}
+Iterate over all characteristics.
+Be careful ! This assume that each characteristic is a leaf of the
+tree. Is it legit?
+It returns a dictionnary which keys are characteristic names, and values
+are the characteristics.
+Each characteristic should be an integer.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1entity__parser_af7d554c17e8d278d08731974af2b11d3}{\index{parsing\-::entity\-\_\-parser@{parsing\-::entity\-\_\-parser}!get\-\_\-names@{get\-\_\-names}}
+\index{get\-\_\-names@{get\-\_\-names}!parsing::entity_parser@{parsing\-::entity\-\_\-parser}}
+\subsubsection[{get\-\_\-names}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-entity\-\_\-parser.\-get\-\_\-names} (
+\begin{DoxyParamCaption}
+\item[{}]{entities}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1entity__parser_af7d554c17e8d278d08731974af2b11d3}
+\begin{DoxyVerb}Get the names of the entities.\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1entity__parser_a877bd13b04dcd2ca5d9bee189127a72d}{\index{parsing\-::entity\-\_\-parser@{parsing\-::entity\-\_\-parser}!parse\-\_\-entities@{parse\-\_\-entities}}
+\index{parse\-\_\-entities@{parse\-\_\-entities}!parsing::entity_parser@{parsing\-::entity\-\_\-parser}}
+\subsubsection[{parse\-\_\-entities}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-entity\-\_\-parser.\-parse\-\_\-entities} (
+\begin{DoxyParamCaption}
+\item[{}]{entity\-\_\-xml}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1entity__parser_a877bd13b04dcd2ca5d9bee189127a72d}
+\begin{DoxyVerb}Parses an entity file, and returns the entities described in the file.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1entity__parser_ac26e49f3eb32b698c1413382d0409431}{\index{parsing\-::entity\-\_\-parser@{parsing\-::entity\-\_\-parser}!parse\-\_\-entity@{parse\-\_\-entity}}
+\index{parse\-\_\-entity@{parse\-\_\-entity}!parsing::entity_parser@{parsing\-::entity\-\_\-parser}}
+\subsubsection[{parse\-\_\-entity}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-entity\-\_\-parser.\-parse\-\_\-entity} (
+\begin{DoxyParamCaption}
+\item[{}]{entity\-\_\-element}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1entity__parser_ac26e49f3eb32b698c1413382d0409431}
+\begin{DoxyVerb}
+Parses an entity element from the xml tree.
+\end{DoxyVerb}
+ \hypertarget{namespaceparsing_1_1entity__parser_a5cfe2d081752826980ab8ebcaa85c702}{\index{parsing\-::entity\-\_\-parser@{parsing\-::entity\-\_\-parser}!parse\-\_\-multiple\-\_\-entities@{parse\-\_\-multiple\-\_\-entities}}
+\index{parse\-\_\-multiple\-\_\-entities@{parse\-\_\-multiple\-\_\-entities}!parsing::entity_parser@{parsing\-::entity\-\_\-parser}}
+\subsubsection[{parse\-\_\-multiple\-\_\-entities}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf parsing.\-entity\-\_\-parser.\-parse\-\_\-multiple\-\_\-entities} (
+\begin{DoxyParamCaption}
+\item[{}]{entities\-\_\-list}
+\end{DoxyParamCaption}
+)}}\label{namespaceparsing_1_1entity__parser_a5cfe2d081752826980ab8ebcaa85c702}
+\begin{DoxyVerb}Parses a list of entities, and return the dictionary of all data,
+without redundancy.
+\end{DoxyVerb}
+ 

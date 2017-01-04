@@ -1,3 +1,7 @@
+"""
+    This module contains tools for timing functions
+"""
+
 from time import process_time, time
 from heapq import heappush, heappop
 import asyncio
@@ -32,7 +36,7 @@ class Perf:
 
 class Timer:
     """ Trigger differed couroutine calls """
-    def __init__(self, timeFunc = time):
+    def __init__(self, timeFunc=time):
         self.dt = 0.001
         self.step = 0
         self.heap = []
@@ -48,7 +52,8 @@ class Timer:
     async def run(self):
         """ Working task """
         while True:
-            while self.pause: await asyncio.sleep(self.dt)
+            while self.pause:
+                await asyncio.sleep(self.dt)
             begin = self.time()
             self.step += 1
             while self.heap and self.heap[0][0] == self.step:
@@ -57,7 +62,7 @@ class Timer:
             await asyncio.sleep(max(0, self.dt - self.time() + begin))
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     # tests
     #verbose = True
     #perff = Perf()

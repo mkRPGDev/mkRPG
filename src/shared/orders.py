@@ -35,12 +35,13 @@ class Order:
             self.args[self.params[self.type].index(attr)] = val
 
     def copy(self):
+        """ Copy the object from class Order """
         # une copy.deepcopy aurait copié params
         obj = Order()
         obj.type = self.type
         obj.args = self.args[:]
         return obj
-        
+
     def setType(self, typ):
         """ Initialise args according to the given type """
         self.type = typ
@@ -72,14 +73,14 @@ class Order:
         """ Retrieve order from network bytes """
         def getStr():
             nonlocal i
-            l = int.from_bytes(byt[i:i+2], 'big') 
+            l = int.from_bytes(byt[i:i+2], 'big')
             s = byt[i+2 : i+2+l].decode(CODING)
             i += l+2
             return s
         self.type = byt[0]
         i = 1
         self.args = [getStr() for _ in range(len(self.params[self.type]))]
-        assert self.toBytes()==byt[:i]
+        assert self.toBytes() == byt[:i]
         return self, i
 
 class OrderDispatcher:
@@ -93,15 +94,15 @@ class OrderDispatcher:
         """ Treat an order and return an order to retransmit if any """
         world = self.world
         try:
-            if order.type==OrderType.Set:
-                target = emitter if order.target=="emitter" else eval(order.target)
+            if order.type == OrderType.Set:
+                target = emitter if order.target == "emitter" else eval(order.target)
                 try:
                     val = target.contextEval(order.value)
                 except:
                     print(emitter.case)
                     raise
                 preval = target.params[order.param]
-                if val!=preval:
+                if val != preval:
                     target.params[order.param] = val
                     returnOrder = order.copy()
                     returnOrder.value = str(val)
@@ -109,27 +110,27 @@ class OrderDispatcher:
                         await self.handle(condition.target, condition.event)
                     # XXX pas fameux
                     target.conditions[order.param][val] = \
-                        list(filter(lambda x:not x.once, target.conditions[order.param][val]))
+                        list(filter(lambda x: not x.once, target.conditions[order.param][val]))
                     if not target.conditions[order.param][val]:
                         del target.conditions[order.param][val]
                     return returnOrder
                 return None
-            if order.type==OrderType.Timer:
+            if order.type == OrderType.Timer:
                 # les Timer transmettent leur contexte
                 if emitter:
                     self.timer.add(emitter.contextEval(order.value), self.handle,
                                    args=[emitter, order.event])
                 else:
                     self.timer.add(int(order.value), self.handle,
-                                         args=[emitter, order.event])
+                                   args=[emitter, order.event])
                 return None
-            if order.type==OrderType.Event:
+            if order.type == OrderType.Event:
                 if order.target:
                     await self.handle(eval('emitter.'+order.target), order.event)
                 else:
                     await self.handle(emitter, order.event)
                 return None
-            if order.type==OrderType.Create:
+            if order.type == OrderType.Create:
                 new = world.ids[int(order.base)]
                 if isinstance(emitter, int):
                     obj = new.create(emitter)
@@ -141,29 +142,29 @@ class OrderDispatcher:
                 if self.handle:
                     await self.handle(obj, order.event)
                 return order
-            if order.type==OrderType.Destroy:
+            if order.type == OrderType.Destroy:
                 # TODO nécessite de trouver tous les pointeurs ??
                 self.world.objects.remove(emitter)
                 self.world.ids.pop(emitter.ident)
                 return order
-            if order.type==OrderType.Condition:
+            if order.type == OrderType.Condition:
                 if emitter.contextEval(order.value):
                     await self.handle(emitter, order.event)
                 return None
-            if order.type==OrderType.Move:
+            if order.type == OrderType.Move:
                 eval(order.source+"."+order.param).remove(emitter)
                 eval(order.dest+"."+order.param).append(emitter)
                 return order
-            if order.type==OrderType.Setobj: # TODO à améliorer ressemble à Set
+            if order.type == OrderType.Setobj: # TODO à améliorer ressemble à Set
                 # FIXME plante avec un aléa
-                target = emitter if order.target=="emitter" else eval(order.target)
+                target = emitter if order.target == "emitter" else eval(order.target)
                 val = target.contextEval(order.value)
                 preval = eval("target."+order.param)
-                if val!=preval:
+                if val != preval:
                     exec("target."+order.param+"=val")
                     return order
                 return None
-            if order.type==OrderType.Watchdog:
+            if order.type == OrderType.Watchdog:
                 val = emitter.contextEval(order.value)
                 conds = eval(order.target).conditions[order.param][val]
                 conds.append(Condition(emitter, order.event, order.once))
@@ -174,4 +175,3 @@ class OrderDispatcher:
             print(order.type)
             print(order.args)
             raise
-

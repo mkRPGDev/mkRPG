@@ -1,3 +1,7 @@
+"""
+    This module only define the class CursesPlugin,
+    which is a class to write a curse plugin
+"""
 import curses
 
 class CursesPlugin:
@@ -24,5 +28,6 @@ class CursesPlugin:
         self.height, self.width = self.win.getmaxyx() # XXX bof bof
 
     def repaint(self):
+        """ update display """
         self.draw()
         curses.doupdate()

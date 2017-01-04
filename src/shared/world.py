@@ -219,6 +219,65 @@ class Map(Object):
                 else: start = y
         return True
 
+    def get_path(self, source, dest):
+        """ A* algorithm on current map from source to dest """
+        def get_neighbors(index):
+            """
+            Return accessible cells around index, with a cost value depending
+            on the direction of the movement.
+            """
+            u,v = index
+            # neighbors is a tuple array which gives all the potential neighbors
+            # of cell (u,v) and the cost of the movement. A straight movement
+            # has cost 1 and a diagonal one has cost 1.5
+            neighbors = [
+                         (u-1, v+1, 1.5),
+                         (u-1, v, 1),
+                         (u-1, v-1, 1.5),
+                         (u, v-1, 1),
+                         (u, v+1, 1),
+                         (u+1, v, 1),
+                         (u+1, v-1, 1.5),
+                         (u+1, v, 1.5),
+                        ]
+            res = []
+            for i,j,c in neighbors:
+                if i>=0 and j>=0 and i<len(self.cells) and\
+                   j<len(self.cells[0]) and self.cells[i][j].walkable:
+                    res.append((i,j,c))
+            return res
+
+        def dist(u,v):
+            """ Return the euclidian distance between two cells on the grid """
+            x1,y1 = u
+            x2,y2 = v
+            return sqrt((x2-x1)**2+(y2-y1)**2)
+
+        d_x, d_y = dest
+
+        openCell = []
+        costs = {source:0}
+        parents = {source:None}
+        heappush(openCell, (0, source))
+
+        while openCell != []:
+            u_heur, u = heappop(openCell)
+            if u[0] == d_x and u[1] == d_y:
+                res = []
+                current = u
+                while current is not None:
+                    res = [current] + res
+                    current = parents[current]
+                return res
+            for i,j,c in get_neighbors(u):
+                v = i,j
+                new_cost = costs[u]+c
+                if v not in costs.keys() or new_cost < costs[v]:
+                   costs[v] = new_cost
+                   v_heur = costs[v] + dist(v, dest)
+                   heappush(openCell, (v_heur, v))
+                   parents[v] = u
+
     def fromPos(self, pos, maxi=None):
         """ Yield cells further and further from pos, stopping at maxi
         Assuming x goes right and y down it turns as the trigo circle,

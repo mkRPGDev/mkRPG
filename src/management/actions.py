@@ -1,3 +1,5 @@
+""" Hosts the actions and a function to create them """
+
 from collections import namedtuple
 from shared.orders import Order
 
@@ -20,5 +22,3 @@ def registerActions(action_dict, named):
         actions[action['event']].append(act)
     return actions
 
-if __name__=="__main__":
-    print(registerActions("../Test/Snake/")[0])

@@ -1,3 +1,5 @@
+""" Hosts the Interaction class and a function to create them """
+
 from enum import IntEnum
 
 InteractionType = IntEnum("InteractionType", "Key Mouse Scroll Multi")
@@ -8,6 +10,7 @@ class Interaction():
         self.target = None
 
     def load(self, dat):
+        """ Load the object with dat, a dictionnary describing the xml file """
         if dat.get("key"):
             self.type = InteractionType.Key
             self.key = dat["key"]
@@ -25,5 +28,3 @@ def registerInteractions(interactions_list):
         l.append(Interaction().load(d))
     return l
 
-if __name__=="__main__":
-    registerInteractions("../Test/Snake/")

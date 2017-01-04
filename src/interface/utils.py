@@ -1,48 +1,100 @@
-from heapq import heappush, heappop
-from math import sqrt, cos, sin, pi
+# -*- coding: utf-8 -*-
+
+"""
+    This module contains auxiliary functions used in the project.
+"""
+
+from math import sqrt
 
 import pygame
 
+def load_png(filename, scale=1):
+    """
+        Loads an image into a pygame.image object
 
-def loadPng(name, scale=1):
-    """ Load image and return image object"""
-    image = pygame.image.load(name)
-    if image.get_alpha is None:
-        image = image.convert()
-    else:
-        image = image.convert_alpha()
-    width, height = image.get_size()
+        @fileparam filename the filename of the image to load
+        @param scale the multiplicative factor to be applied to the image size
+        @returns the pygame.image object containing the image at the right scale
+
+        @todo Add an exception in case the loading fails (bad name for instance)
+    """
+    image = pygame.image.load(filename)
+    image = image.convert() if image.get_alpha is None else image.convert_alpha()
     if scale != 1:
+        width, height = image.get_size()
         image = pygame.transform.scale(image, (int(width*scale),
                                                int(height*scale)))
     return image
 
-def add_to_rect_list(list, rect):
+def add_to_rect_list(rect_list, rect):
     """
-    Rect is a Pygame type representing a rectangle (x,y,l,w).
-    This function update a list, ignoring overlapping objects.
+        Adds a new pygame.Rect object to a list, ignoring included objects and filtering None.
+        The input data is not modified.
+
+        @param rect_list a Rect objects list where the new object should be added
+        @param rect the Rect object to be added to the list
+        @returns a new list containing the new rect, with no None and no included objects
     """
-    rect_arr = list
-    if rect is not None:
-        addrect = True
-        for rect2 in rect_arr:
-            if rect.contains(rect2):
-                rect_arr.remove(rect2)
-            if rect2.contains(rect):
-                addrect = False
-        if addrect : rect_arr.append(rect)
-    return rect_arr
+    if rect_list is None:
+        return [rect] if rect is not None else []
+    ans = [x for x in rect_list if x is not None]
+    if rect is None:
+        return ans
 
-def merge_rect_lists(list1, list2):
-    """ Merge two lists of rect as described above. """
-    res = list1
-    if list2 is not None:
-        for rect in list2:
-            res = add_to_rect_list(res, rect)
-    return res
+    add_rect = True
+    for rect_in_ans in ans:
+        if rect_in_ans.contains(rect):
+            add_rect = False
+        elif rect.contains(rect_in_ans):
+            ans.remove(rect_in_ans)
+    if add_rect:
+        ans.append(rect)
+    return ans
 
-def sublist(l, i1, i2, j1, j2):
-return [[l[i][j] for j in range(j1,j2)] for i in range(i1,i2)]
+def merge_rect_lists(rect_list1, rect_list2):
+    """
+        Merges two lists of Pygame.Rect objects, ignoring included objects and filtering None.
+        The input data is not modified.
+
+        @param list1 the first Rect objects list to be merged
+        @param list2 the second Rect objects list to be merged
+        @returns a new list containing the elements of the two lists, with no\
+            None and no included objects
+    """
+    if rect_list1 is None:
+        return [x for x in rect_list2 if x is not None] \
+            if rect_list2 is not None else []
+    ans = [x for x in rect_list1 if x is not None]
+    if rect_list2 is None:
+        return ans
+
+    for rect_in_list2 in rect_list2:
+        add_rect = True
+        for rect_in_ans in ans:
+            if rect_in_ans.contains(rect_in_list2):
+                add_rect = False
+            elif rect_in_list2.contains(rect_in_ans):
+                ans.remove(rect_in_ans)
+        if add_rect:
+            ans.append(rect_in_list2)
+
+    return ans
+
+def submatrix(matrix, row_start, row_end, column_start, column_end):
+    """
+        Returns the sub matrix defined by
+        matrix[row_start:row_end][column_start:column_end]
+
+        @param matrix the input matrix
+        @param row_start the starting row index
+        @param row_end the ending row index
+        @param column_start the starting column index
+        @param column_end the starting column index
+        @returns the submatrix defined by the input indexes
+
+        @warning The row_end-th row and the column_end-th column are excluded
+    """
+    return [row[column_start:column_end] for row in matrix[row_start:row_end]]
 
 class WalkableGraph():
     def __init__(self, walkables):
@@ -106,14 +158,3 @@ class WalkableGraph():
                     v_heur = costs[v] + self.dist(v, dest)
                     heappush(openCell, (v_heur, v))
                     parents[v] = u
-
-def testCoord(x, y, angx, angy):
-    # fonction de test des changement de coordonnées.
-    angy += 900
-    deg_to_rad = lambda a: a*pi/1800
-    (a, b) = point_to_cell(x, y, 42, 42, 64, deg_to_rad(angx), deg_to_rad(angy))
-    (c, d) = cell_to_point(x, y, 42, 42, 64, deg_to_rad(angx), deg_to_rad(angy))
-    print("pt -> cl -> pt", (x, y),
-          cell_to_point(a, b, 42, 42, 64, deg_to_rad(angx), deg_to_rad(angy)))
-    print("cl -> pt -> cl", (x, y),
-          point_to_cell(c, d, 42, 42, 64, deg_to_rad(angx), deg_to_rad(angy)))

@@ -38,8 +38,8 @@ def retrieveWorld():
 class Object:
     """ Any world object """
     ids = OrderedDict() # liste si sans deletion
-    
-    numid = [(1<<8*IDLEN)] 
+
+    numid = [(1<<8*IDLEN)]
     # XXX liste pour avoir une référence modifiable depuis tous les objets
 
     def __init__(self, identifier=None):
@@ -52,7 +52,7 @@ class Object:
         self.params = {} # Ne pas déplacer =)
         self.ident = identifier
         self.creator = None # indique si l'objet a été créé avec un type
-        self.conditions = defaultdict(lambda:defaultdict(list)) #TODO à déplacer
+        self.conditions = defaultdict(lambda: defaultdict(list)) #TODO à déplacer
 
     def __getattr__(self, attr):
         if attr in self.params:
@@ -80,7 +80,7 @@ class Object:
             for key in data.keys():
                 if key == 'params':
                     for sub_data in data[key].keys():
-                        if type(data[key][sub_data])== dict and data[key][sub_data].get("id"):
+                        if type(data[key][sub_data]) == dict and data[key][sub_data].get("id"):
                             toResolve.append((data[key][sub_data].get("id"), self.params, sub_data))
                         else:
                             self.params[sub_data] = int(data[key][sub_data])
@@ -99,7 +99,7 @@ class Object:
                         else:
                             ident = sub_data.pop("ident")
                             data_collected.append(class_type(ident).load(sub_data))
-                elif typ and type(eval(typ))==type and 'name' in data[key]:
+                elif typ and type(eval(typ)) == type and 'name' in data[key]:
                     ident = data[key]['ident']
                     eval(typ)(ident).load(data[key], typ)
 
@@ -139,16 +139,16 @@ class Object:
                 order.param = key
                 orders.append((self.ident, order))
         return orders
-                                
+
 
 class ObjectType(Object):
     """ Les types d'objets (au sens informatique) """
-    def __init__(self, ident=None, typ = Object):
+    def __init__(self, ident=None, typ=Object):
         super().__init__(ident)
         self.type = typ
 
     def __str__(self):
-        return (str(self.params) + "\ntype = %s" % self.type)
+        return str(self.params) + "\ntype = %s" % self.type
 
     def create(self, ident=None):
         """ Instanticiation d'un objet à partir du type """
@@ -178,7 +178,7 @@ class Map(Object):
         """ Fill the cellsGrid attribute with cells and default cell
         To be called after the Xml reading only """
         self.cellsGrid = [[None] * self.height
-                            for _ in range(self.width)]
+                          for _ in range(self.width)]
         for c in self.cells:
             self.cellsGrid[c.x][c.y] = c
         for i,l in enumerate(self.cellsGrid):
@@ -201,14 +201,14 @@ class Map(Object):
         cells a parameter "visible"
         About O(dist(source, dest))
         """
-        x1,y1 = source.x, source.y
-        x2,y2 = dest.x, dest.y
-        if x1>x2: x1,x2 = -x1,-x2
-        if y1>y2: y1,y2 = -y1,-y2
+        x1, y1 = source.x, source.y
+        x2, y2 = dest.x, dest.y
+        if x1 > x2: x1, x2 = -x1, -x2
+        if y1 > y2: y1, y2 = -y1, -y2
         start = y1
-        for x in range(x1,x2+1):
+        for x in range(x1, x2+1):
             seen = False
-            for y in range(start,y2+1):
+            for y in range(start, y2+1):
                 # facteurs 2 pour rester sur des ints
                 if (2*x-1-2*x1)*(y2-y1) < (2*y+1-2*y1)*(x2-x1) and \
                    (2*x+1-2*x1)*(y2-y1) > (2*y-1-2*y1)*(x2-x1):
@@ -223,15 +223,15 @@ class Map(Object):
         """ Yield cells further and further from pos, stopping at maxi
         Assuming x goes right and y down it turns as the trigo circle,
         it is therefore not a "serpentin" (sadly ?) """
-        x,y = pos.x, pos.y
+        x, y = pos.x, pos.y
         if maxi is None: maxi = max(x, self.width-x) + max(y, self.height-y)
         for d in range(maxi+1):
-            for dx,dy in ((-1,-1), (-1, 1), (1,1), (1, -1)):
+            for dx, dy in ((-1, -1), (-1, 1), (1, 1), (1, -1)):
                 for i in range(d):
                     if x in range(self.width) and y in range(self.height):
                         yield self.cellsGrid[x][y]
-                    x+=dx; y+=dy
-            x+=1
+                    x += dx; y += dy
+            x += 1
 
 class Cell(Object):
     def __init__(self, ident=None):
@@ -240,7 +240,7 @@ class Cell(Object):
         self.objects = []
 
     def __str__(self):
-        return(str(self.params))
+        return str(self.params)
 
 
 class Entity(Object):
@@ -255,4 +255,4 @@ class Entity(Object):
 
 
 plurals = {"maps":Map, "entities":Entity, "cells":Cell, "objects":Object,
-       "types":ObjectType, "inventory":Object, "quests":Object}
+           "types":ObjectType, "inventory":Object, "quests":Object}

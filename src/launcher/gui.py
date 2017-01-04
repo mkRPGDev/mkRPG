@@ -19,6 +19,17 @@ class MainUI:
         self.root.update_idletasks()
         self.root.update()
 
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        window_height = self.root.winfo_height()
+        window_width = self.root.winfo_width()
+
+        self.root.geometry('%dx%d+%d+%d' % (window_width, window_height,
+                                            screen_width/2 - window_width/2,
+                                            screen_height/2 - window_height/2))
+
+        self.root.update()
+
     def on_closing(self):
         self.running = False
         self.root.destroy()
@@ -73,6 +84,17 @@ class ClientUI:
 
 
         self.root.update_idletasks()
+        self.root.update()
+
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        window_height = self.root.winfo_height()
+        window_width = self.root.winfo_width()
+
+        self.root.geometry('%dx%d+%d+%d' % (window_width, window_height,
+                                            screen_width/2 - window_width/2,
+                                            screen_height/2 - window_height/2))
+
         self.root.update()
 
     def on_closing(self):
@@ -135,6 +157,17 @@ class ServerUI:
 
 
         self.root.update_idletasks()
+        self.root.update()
+
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        window_height = self.root.winfo_height()
+        window_width = self.root.winfo_width()
+
+        self.root.geometry('%dx%d+%d+%d' % (window_width, window_height,
+                                            screen_width/2 - window_width/2,
+                                            screen_height/2 - window_height/2))
+
         self.root.update()
 
     def on_closing(self):

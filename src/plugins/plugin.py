@@ -1,3 +1,6 @@
+"""
+    This module define what a plugin is and how to use it
+"""
 from asyncio import ensure_future
 from collections import namedtuple
 from importlib import import_module
@@ -23,12 +26,14 @@ class Plugin:
         pass
 
     def send(self, msg):
+        """ send a message """
         l = len(self.MSGID)+len(msg)
-        ensure_future(self.engine.net.send(b"\x00"*IDLEN+l.to_bytes(2,'big')+self.MSGID+msg))
+        ensure_future(self.engine.net.send(b"\x00"*IDLEN+l.to_bytes(2, 'big')+self.MSGID+msg))
 
     def broadcast(self, msg):
+        """ broadcast a message """
         msg = self.MSGID + msg
-        ensure_future(self.engine.net.broadcast(b"\x00"*IDLEN+len(msg).to_bytes(2,'big')+msg))
+        ensure_future(self.engine.net.broadcast(b"\x00"*IDLEN+len(msg).to_bytes(2, 'big')+msg))
 
 def loadPluginsServer(names, engine):
     """ Load serverside plugins """
@@ -36,12 +41,13 @@ def loadPluginsServer(names, engine):
     for name in names:
         try:
             module = import_module("plugins."+name)
-        except ImportError: continue
+        except ImportError:
+            continue
         # TODO si vous avez mieux que eval...
         try:
             plugins.append(eval('module.'+name.capitalize())(engine))
         except:
-            print("Error loading plugin",name)
+            print("Error loading plugin", name)
     return plugins
 
 def loadPluginsClient(names, engine, curses, pygame):
@@ -64,9 +70,10 @@ def loadPluginsClient(names, engine, curses, pygame):
                 module = import_module("plugins."+name+"pygame")
                 ui = eval('module.'+name.capitalize()+"Sprite")(logic)
             except ImportError: pass
-        if logic: plugins.append(logic)
+        if logic:
+            plugins.append(logic)
         if ui:
             uiplugins.append(ui)
-            if logic: logic.ui = ui
+            if logic:
+                logic.ui = ui
     return namedtuple("PluginType", "logical graphical")(plugins, uiplugins)
-

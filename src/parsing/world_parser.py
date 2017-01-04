@@ -48,4 +48,3 @@ def parse_world(world_file):
         'Maps': maps_list,
         'ident' : parsing_utils.format_type(ident.text)
     })
-

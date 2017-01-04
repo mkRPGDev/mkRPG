@@ -4,7 +4,7 @@
 #include <QtXml>
 #include "game.h"
 
-/**
+/*!
  * \file xmlhandler.h
  * \brief Definition og the XmlHandler class and other related classes
  * to read XML game's files.

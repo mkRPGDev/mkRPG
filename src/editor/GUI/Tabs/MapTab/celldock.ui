@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CellDock</class>
+ <widget class="QWidget" name="CellDock">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>225</width>
+    <height>235</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Cell type :</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QuietComboBox" name="cellTypes"/>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="ParamTreeView" name="params"/>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="FlagTreeView" name="flags"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ParamTreeView</class>
+   <extends>QTreeView</extends>
+   <header location="global">GUI/Tabs/treeviews.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FlagTreeView</class>
+   <extends>QTreeView</extends>
+   <header location="global">GUI/Tabs/treeviews.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QuietComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">GUI/quietwidgets.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

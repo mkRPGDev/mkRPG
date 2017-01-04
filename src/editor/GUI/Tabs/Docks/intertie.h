@@ -12,6 +12,14 @@
 
 
 /*!
+ * \file intertie.h
+ * \brief Definition of some usefull classes to manage
+ * docks.
+ *
+ */
+
+
+/*!
  * \brief The Intertie class provide int that move
  * smoothly from their value to an objective.
  */
@@ -60,8 +68,8 @@ class BinaryStateMachine : public QStateMachine
 
 public:
     explicit BinaryStateMachine(QObject *parent = 0);
-    void defineProperty(QObject* obj, const char* prop);
     void defineProperty(QObject* obj, const char* prop, QVariant yesValue, QVariant noValue);
+    void defineProperty(QObject* obj, const char* prop);
     bool isPositive() const;
     bool isNegative() const;
 
@@ -70,8 +78,8 @@ signals:
     void __swap();
 
 public slots:
-    void swap(); // Pas de SIGNAL(echange(bool))
-    void setPositive(bool p); // SIGNAL(echange(bool))
+    void swap();                // Pas de SIGNAL(echange(bool))
+    void setPositive(bool p);   // SIGNAL(echange(bool))
     void setNegative(bool n);
 
 private:

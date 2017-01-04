@@ -1,13 +1,16 @@
 <World name="world">
+    <Ident>10</Ident>
     <Params>
-        <currentMap id="main"/>
+        <currentMap id="maiin"/>
     </Params>
-    
+
     <Maps>
-        <Map id="main"/>
+        <Map id="maiin"/>
+<!--        <Map id="m7516"/>-->
     </Maps>
 
     <Entities>
         <Entity id="moi"/>
+        <Entity id="lui"/>
     </Entities>
 </World>

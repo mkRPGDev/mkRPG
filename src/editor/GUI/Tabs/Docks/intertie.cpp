@@ -99,15 +99,14 @@ void BinaryStateMachine::setNegative(bool n){
     setPositive(!n);
 }
 
-void BinaryStateMachine::defineProperty(QObject* obj, const char* prop){
-    yes->assignProperty(obj, prop, true);
-    no->assignProperty(obj, prop, false);
-    obj->setProperty(prop, isPositive());
-}
 void BinaryStateMachine::defineProperty(QObject* obj, const char* prop, QVariant yesValue, QVariant noValue){
     yes->assignProperty(obj, prop, yesValue);
     no->assignProperty(obj, prop, noValue);
     obj->setProperty(prop, isPositive() ? yesValue : noValue);
+}
+
+void BinaryStateMachine::defineProperty(QObject* obj, const char* prop){
+    defineProperty(obj, prop, true, false);
 }
 
 bool BinaryStateMachine::isPositive() const{

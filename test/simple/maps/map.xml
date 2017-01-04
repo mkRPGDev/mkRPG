@@ -1,48 +1,64 @@
-<Map name="main">
+<Map name="maiin">
+    <Ident>2</Ident>
     <Params>
-        <width val="200"/>
-        <height val="100"/>
+        <width>20</width>
+        <height>20</height>
         <defaultCell id="defc"/>
     </Params>
 
     <Cells>
-        <Cell> <Params>
-            <x val="12"/>
-            <y val="15"/>
-            <picture val="79"/>
-            <visible val="1"/>
-        </Params> </Cell>
-        <Cell> <Params>
-            <x val="13"/>
-            <y val="15"/>
-            <picture val="79"/>
-            <visible val="1"/>
-        </Params> </Cell>
-        <Cell> <Params>
-            <x val="14"/>
-            <y val="14"/>
-            <picture val="79"/>
-            <visible val="1"/>
-        </Params> </Cell>
-        <Cell> <Params>
-            <x val="16"/>
-            <y val="17"/>
-            <picture val="79"/>
-            <visible val="1"/>
-        </Params> </Cell>
-        <Cell> <Params>
-            <x val="6"/>
-            <y val="4"/>
-            <picture val="79"/>
-            <visible val="1"/>
-        </Params> </Cell>
-        </Cells>
+        <Cell>
+            <Ident>3</Ident>
+            <Params>
+                <x>12</x>
+                <y>15</y>
+                <picture>10</picture>
+                <visible>1</visible>
+            </Params>
+        </Cell>
+        <Cell>
+            <Ident>4</Ident>
+            <Params>
+                <x>13</x>
+                <y>15</y>
+                <picture>10</picture>
+                <visible>1</visible>
+            </Params>
+        </Cell>
+        <Cell>
+            <Ident>5</Ident>
+            <Params>
+                <x>14</x>
+                <y>14</y>
+                <picture>10</picture>
+                <visible>1</visible>
+            </Params>
+        </Cell>
+        <Cell>
+            <Ident>6</Ident>
+            <Params>
+                <x>16</x>
+                <y>17</y>
+                <picture>10</picture>
+                <visible>1</visible>
+            </Params>
+        </Cell>
+        <Cell>
+            <Ident>7</Ident>
+            <Params>
+                <x>6</x>
+                <y>4</y>
+                <picture>10</picture>
+                <visible>1</visible>
+            </Params>
+        </Cell>
+    </Cells>
 
     <CellType name="defc">
+        <Ident>8</Ident>
         <Params>
-            <visible val="0"/>
-            <picture val="32"/>
+            <visible>0</visible>
+            <picture>13</picture>
         </Params>
     </CellType>
-    
 </Map>

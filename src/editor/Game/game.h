@@ -5,12 +5,34 @@
 #include "map.h"
 
 
-/**
+/*!
  * \file game.h
  * \brief Definition of the Game and World classes.
  */
 
+#define DefaultType(type,Type) private: Type *default##Type = new Type(*this); public: Type &type() const{return *default##Type;}
+/**<
+ * Todoc
+ */
 
+
+class World; /*!
+ * \brief The DefaultTypes class represents the object that
+ * will contains all types.
+ *
+ * This DefaultTypes object has to be given for the construction
+ * of the empty type of each type.
+ */
+class DefaultTypes : public GameObject
+{
+public:
+    TypeName(Types)
+
+    DefaultTypes(World &parent);
+    C0(DefaultType,c,C,ellType)
+    C0(DefaultType,m,M,apType)
+    C0(DefaultType,o,O,bjectType)
+};
 
 /*!
  * \brief The World class
@@ -24,7 +46,9 @@ public:
     ObjectListD(o,O,bject,,s, Object)
     ObjectListD(c,C,ellType,,s, CellType)
 
+    const DefaultTypes &types() const;
 private:
+    DefaultTypes *aTypes;
 };
 
 
@@ -43,28 +67,31 @@ class Game : public GameObject
 public:
     TypeName(Game)
     Game();
-    inline int newIdent(){return ++idDisp;}
+    ~Game();
+    int newIdent(GameObject *obj);
+    void aboutToDestroy(GameObject *obj);
+    GameObject *object(int id);
     /**<
      * Returns a new unused identifiers
      *
      * \note
      * It should only be used by GameObject methods \ref GameObject::init and GameObject::GameObject.
      */
-    inline World* world(){return &w;}
+    inline World &world(){return *w;}
     inline Map* currentMap(){return map;}
     void setCurrentMap(Map *m);
 
     void addImage(Image *im);
 
 private:
-
-
     int idDisp;
+    QMap<int, GameObject*> objects;
 
-    World w;
+    World *w;
     Map *map;
     QMap<int, Image*> picts;
     QMap<int, QString> strings;
+
 };
 
 

@@ -1,15 +1,15 @@
 from sys import stdin
-from queue import Queue
 from argparse import ArgumentParser
 from functools import partial
 import asyncio
 
-from const import PATH
+from shared.const import PATH
 from shared.orders import OrderDispatcher
 from shared.tools import Perf, Timer
 from shared.network import NetworkServer
 from serverside.actions import registerActions
 from serverside.console import welcomeMessage, inputReady
+from parsing.global_parsing import game_parser
 from plugins.plugin import loadPluginsServer
 
 import shared.world as world
@@ -20,9 +20,10 @@ class Server():
     def __init__(self, path):
         self.loop = asyncio.get_event_loop()
         self.net = NetworkServer(self.handleEvent, self.pluginHandle, self.loop)
-        self.world = world.loadGame(path)
-        self.actions = registerActions(path, world.named) # FIXME -> game
-        self.plugins = loadPluginsServer(path, self)
+        parseData = game_parser(path)
+        self.world = world.loadGame(parseData)
+        self.actions = registerActions(parseData['Actions'], world.named) # FIXME -> game
+        self.plugins = loadPluginsServer(parseData['Plugins'], self)
 
         self.timer = Timer()
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent, self.timer)
@@ -47,7 +48,6 @@ class Server():
         await self.handleEvent(self.world, "start")
         while True:
             emitter, event = await self.events.get()
-            #print("ev", event)
             if event == "end": break # TODO gérer la fin
             if event == "pause":
                 self.orderDispatcher.timer.pause = True
@@ -73,14 +73,14 @@ class Server():
         """ Search for plugins that want to handle the message """
         for plug in self.plugins:
             if msg.startswith(plug.MSGID):
-                await plug.serverMessage(msg)
+                plug.serverMessage(msg[len(plug.MSGID):])
 
 parser = ArgumentParser(description="Generic game server.")
 parser.add_argument("-p", "--path", default=PATH,
     help="Path of the game directory, should contain game.xml."
     "If this argument is not present, const.py will be used.")
 args = parser.parse_args()
-server = Server(args.path)
+server = Server(args.path+"/")
 
 try:
     server.run()

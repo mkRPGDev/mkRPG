@@ -1,9 +1,12 @@
-<ObjectType name="corps">
-    <Params>
-        <dir val="1"/>
-        <picture val="111"/>
-        <x val="2"/>
-        <y val="12"/>
-        <case id="cell0"/>
-    </Params>
-</ObjectType>
+<ObjectTypes>
+    <ObjectType name="corps">
+        <Ident>1</Ident>
+        <Params>
+            <dir>1</dir>
+            <picture>111</picture>
+            <x>2</x>
+            <y>12</y>
+            <case id="cell0"/>
+        </Params>
+    </ObjectType>
+</ObjectTypes>

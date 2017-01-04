@@ -13,12 +13,12 @@ bool XmlHandler::startElement(const QString &, const QString &localName, const Q
     return true;
 }
 
-bool XmlHandler::endElement(const QString &, const QString &localName, const QString &){
+bool XmlHandler::endElement(const QString &, const QString &, const QString &){
     return true;
 }
 
 
-bool XmlHandler::recogniseFileContent(const QString &name, const QMap<QString, QString> &atts){
+bool XmlHandler::recogniseFileContent(const QString &name, const QMap<QString, QString> &UNUSED(atts)){
 
     if(overHead.contains(name)){
         fc = overHead[name];

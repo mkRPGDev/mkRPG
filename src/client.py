@@ -57,16 +57,30 @@ class Client:
         self.loop.run_until_complete(self.main())
 
     async def getEntity(self):
-        """ Ask for a free entity to the server.
-        May disappear with a proper initialisation process """
-        for ent in self.world.entities:
-            if await self.net.askEntity(ent):
+        """
+            Asks for a free entity to the server and sets the client and interface attributes.
+            If either args.entity or args.entityid is set, will ask for this
+            entity to the server and set it as the client entity, else it will
+            ask for the first available entity.
+        """
+        if (args.entityid, args.entity) != (None, None):
+            ent = args.entityid if args.entityid is not None \
+                else self.world.named[args.entity]
+            if ent in self.world.entities and await self.net.askEntity(ent):
                 self.perso = ent
                 self.interface.setPerso(self.perso)
-                break
+            else:
+                print("Specified entity is not available.")
+                return
         else:
-            print("No available entity.")
-            return
+            for ent in self.world.entities:
+                if await self.net.askEntity(ent):
+                    self.perso = ent
+                    self.interface.setPerso(self.perso)
+                    break
+            else:
+                print("No available entity.")
+                return
 
     async def main(self):
         """ Init stuff, listen for inputs and send corresponding events """
@@ -98,7 +112,7 @@ class Client:
         if ident in world.Object.ids:
             emitter = world.Object.ids[ident]
         else: # si on ne peut convertir c'est que l'objet va être 'Create'd
-            emitter = ident 
+            emitter = ident
         await self.orderDispatcher.treat(emitter, order)
         self.interface.update()
 
@@ -113,6 +127,14 @@ parser = ArgumentParser(description="Generic game client.")
 parser.add_argument("-p", "--path", default=PATH,
                     help="Path of the game directory, should contain game.xml."
                     "If this argument is not present, const.py will be used.")
+
+# Fusionner les deux et tester si la chaine contient un int ?
+# -> Impossible de donner des noms d'entity de type "1234"
+entgroup = parser.add_mutually_exclusive_group()
+entgroup.add_argument("-e", "--entity", action="store",
+                    help="Entity name to be used by the client.")
+entgroup.add_argument("-eid", "--entityid", type=int, action="store",
+                    help="Entity id to be used by the client.")
 
 uimode = parser.add_mutually_exclusive_group()
 uimode.add_argument("-c", "--curses", action="store_true",
@@ -139,4 +161,3 @@ except:
     raise
 finally:
     perf.show()
-

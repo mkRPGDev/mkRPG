@@ -1,4 +1,6 @@
-""" Pygame based interface """
+"""
+    Pygame based interface 
+"""
 from math import sin, cos, pi
 from itertools import chain
 from pygame.locals import FULLSCREEN, RESIZABLE, ACTIVEEVENT,\
@@ -238,19 +240,31 @@ class MapView:
 
     def handleKey(self, key):
         """ return true if key has been handled else false """
-        if key == K_LEFT: self.offX -= 100
-        elif key == K_RIGHT: self.offX += 100
-        elif key == K_UP: self.offY -= 100
-        elif key == K_DOWN: self.offY += 100
-        elif key == 4: self.cellWidth /= 1.5
-        elif key == 5: self.cellWidth *= 1.5
-        elif key == ord('u'): self.angleX -= pi/16
-        elif key == ord('i'): self.angleX += pi/16
-        elif key == ord('j'): self.angleY -= pi/16
-        elif key == ord('k'): self.angleY += pi/16
+        if key == K_LEFT:
+            self.offX -= 100
+        elif key == K_RIGHT:
+            self.offX += 100
+        elif key == K_UP:
+            self.offY -= 100
+        elif key == K_DOWN:
+            self.offY += 100
+        elif key == 4:
+            self.cellWidth /= 1.5
+        elif key == 5:
+            self.cellWidth *= 1.5
+        elif key == ord('u'):
+            self.angleX -= pi/16
+        elif key == ord('i'):
+            self.angleX += pi/16
+        elif key == ord('j'):
+            self.angleY -= pi/16
+        elif key == ord('k'):
+            self.angleY += pi/16
 #        elif key==ord('l'): self.showLov ^= 1
-        elif key == ord('f'): self.follow ^= 1
-        else: return False
+        elif key == ord('f'):
+            self.follow ^= 1
+        else:
+            return False
         self.updatePics()
         self.clipOffset()
         return True

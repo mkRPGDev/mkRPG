@@ -1,3 +1,7 @@
+"""
+    This module contains constants usefull for the GUI
+"""
+
 from math import pi
 
 SCREEN_WIDTH = 1366

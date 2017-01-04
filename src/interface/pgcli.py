@@ -1,5 +1,5 @@
 """ Pygame based interface """
-from math import sin,cos,pi
+from math import sin, cos, pi
 from itertools import chain
 from pygame.locals import FULLSCREEN, RESIZABLE, ACTIVEEVENT,\
                           QUIT, KEYDOWN, VIDEORESIZE, MOUSEBUTTONDOWN,\
@@ -18,10 +18,10 @@ class Pygame(Interface):
     """ pygame-based UI """
     def __init__(self, *args):
         super().__init__(*args)
-        self.mapView = MapView(self.world, {i:v.image for i,v in self.images.items()})
+        self.mapView = MapView(self.world, {i:v.image for i, v in self.images.items()})
 
         pygame.display.init()
-        pygame.key.set_repeat(50,20)
+        pygame.key.set_repeat(50, 20)
         self.fullscreen = None # ancienne dim si fullscreen
 
         self.resize(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -33,10 +33,11 @@ class Pygame(Interface):
         """ change screen size """
         # FIXME lors d'un agrandissement brutal, l'event ne suit pas toujours
         # Fix possible : interdire le changement de résolution en cours de jeu
-        self.screen = pygame.display.set_mode((w,h), (FULLSCREEN if self.fullscreen else RESIZABLE))
+        self.screen = pygame.display.set_mode((w, h),
+                                              (FULLSCREEN if self.fullscreen else RESIZABLE))
         # TODO laisser de la place aux plugins
-        if (w,h)==(0,0): #plein écran
-            w,h = self.screen.get_size()
+        if (w, h) == (0, 0): #plein écran
+            w, h = self.screen.get_size()
         self.mapView.setSurf(self.screen.subsurface((0, 0, w-1, h-1)))
 
     def init(self): # eurk !
@@ -54,8 +55,8 @@ class Pygame(Interface):
         self.mapView.draw(deltat)
 #       for p in self.plugins:
 #           p.draw()
-        text = self.font.render("FPS : %d" % self.clock.get_fps(), 1, (255,0,0))
-        self.screen.blit(text, (10,10))
+        text = self.font.render("FPS : %d" % self.clock.get_fps(), 1, (255, 0, 0))
+        self.screen.blit(text, (10, 10))
         pygame.display.flip()
 
     def end(self):
@@ -66,19 +67,23 @@ class Pygame(Interface):
         """ get all the events in pygame events queue """
         evs = pygame.event.get()
         for i, ev in enumerate(evs):
-            if ev.type==QUIT: evs[i]=skeys.QUIT
+            if ev.type == QUIT:
+                evs[i] = skeys.QUIT
             elif ev.type in (KEYDOWN, MOUSEBUTTONDOWN):
                 # les numéros de touche/boutton n'ont pas de collisions
-                key = ev.key if ev.type==KEYDOWN else ev.button
+                key = ev.key if ev.type == KEYDOWN else ev.button
 #                for p in self.plugins:
 #                    if p.handleKey(key):
 #                        self.repaint()
 #                        evs[i]=None
 #                        continue
-                if key==K_ESCAPE: evs[i]=skeys.QUIT
-                elif key==ord('p'): evs[i]=skeys.PAUSE
-                elif key==ord('r'): evs[i]=skeys.RESUME
-                elif key==K_F11:
+                if key == K_ESCAPE:
+                    evs[i] = skeys.QUIT
+                elif key == ord('p'):
+                    evs[i] = skeys.PAUSE
+                elif key == ord('r'):
+                    evs[i] = skeys.RESUME
+                elif key == K_F11:
                     if self.fullscreen:
                         dim = self.fullscreen
                         self.fullscreen = None
@@ -89,19 +94,19 @@ class Pygame(Interface):
                         # FIXME mais utiliser pygame (0,0) ne marche pas
                 elif self.mapView.handleKey(key):
                     self.repaint()
-                    evs[i]=None
-                elif ev.type==KEYDOWN:
-                    evs[i]=key
+                    evs[i] = None
+                elif ev.type == KEYDOWN:
+                    evs[i] = key
                 else:
-                    evs[i]=None
-            elif ev.type==VIDEORESIZE:
+                    evs[i] = None
+            elif ev.type == VIDEORESIZE:
                 self.resize(ev.w, ev.h)
                 self.repaint()
-                evs[i]=None
-            elif ev.type==ACTIVEEVENT:
+                evs[i] = None
+            elif ev.type == ACTIVEEVENT:
                 self.mapView.active = ev.gain
-                evs[i]=None
-            else: evs[i]=None
+                evs[i] = None
+            else: evs[i] = None
         return list(filter(None, evs))
 
 
@@ -137,7 +142,8 @@ class MapView:
         for i in self.imgs:
             p = loadPng(self.imgs[i])
             p = pygame.transform.scale(p, (int(self.cellWidth+3), int(self.cellWidth+3)))
-            p = applyMatrix(p, [-cos(self.angleX),sin(self.angleX),-cos(self.angleY),sin(self.angleY)])
+            p = applyMatrix(p, [-cos(self.angleX), sin(self.angleX),
+                                -cos(self.angleY), sin(self.angleY)])
             self.pics[i] = p
 
     def updateMap(self):
@@ -148,10 +154,10 @@ class MapView:
 
     def clipOffset(self):
         """ Ensure the offX, offY lead to a valid display """
-        x1,y1 = self.cellToPoint(-.5, -.5) # position of transformed angles
-        x2,y2 = self.cellToPoint(self.map.width+.5, -.5)
-        x3,y3 = self.cellToPoint(-.5, self.map.height+.5)
-        x4,y4 = self.cellToPoint(self.map.width+.5, self.map.height+.5)
+        x1, y1 = self.cellToPoint(-.5, -.5) # position of transformed angles
+        x2, y2 = self.cellToPoint(self.map.width+.5, -.5)
+        x3, y3 = self.cellToPoint(-.5, self.map.height+.5)
+        x4, y4 = self.cellToPoint(self.map.width+.5, self.map.height+.5)
         xm = min(x1, x2, x3, x4) # computation of the required size
         ym = min(y1, y2, y3, y4)
         xn = max(x1, x2, x3, x4)
@@ -164,13 +170,13 @@ class MapView:
         """ Updates self.shown, a list of visible cells """
         sceneRect = self.surf.get_rect()
         sceneRect.inflate_ip(self.cellWidth*3, self.cellWidth*3) #3>2*sqrt(2)
-        start=0
-        t=time()
+        start = 0
+        t = time()
         # position of transformed angles
-        x1,y1 = self.pointToCell(self.offX,               self.offY)
-        x2,y2 = self.pointToCell(self.maxWidth+self.offX, self.offY)
-        x3,y3 = self.pointToCell(self.offX,               self.maxHeight+self.offY)
-        x4,y4 = self.pointToCell(self.maxWidth+self.offX, self.maxHeight+self.offY)
+        x1, y1 = self.pointToCell(self.offX, self.offY)
+        x2, y2 = self.pointToCell(self.maxWidth+self.offX, self.offY)
+        x3, y3 = self.pointToCell(self.offX, self.maxHeight+self.offY)
+        x4, y4 = self.pointToCell(self.maxWidth+self.offX, self.maxHeight+self.offY)
         # computation of the needed size
         xm = min(x1, x2, x3, x4)
         ym = min(y1, y2, y3, y4)
@@ -181,18 +187,18 @@ class MapView:
         xn = min(xn+1, self.nbCellsX)
         yn = min(yn+1, self.nbCellsY)
 
-        i,j=0,0
+        i, j = 0, 0
         self.shown = []
-        for x in range(xm,xn):
-            seen=False
+        for x in range(xm, xn):
+            seen = False
             for y in range(ym, yn):
-                i+=1
-                u,v = self.cellToPoint(x,y)
+                i += 1
+                u, v = self.cellToPoint(x, y)
                 u -= self.offX
                 v -= self.offY
-                if sceneRect.collidepoint(u,v):
-                    self.shown.append((u,v,self.map.cellsGrid[x][y]))
-                    j+=1
+                if sceneRect.collidepoint(u, v):
+                    self.shown.append((u, v, self.map.cellsGrid[x][y]))
+                    j += 1
                     seen = True
                 elif seen: break
         #print(i,j,time()-t)
@@ -201,49 +207,49 @@ class MapView:
         """ Blit visible items of the map on Surface self.surf """
         if self.map != self.world.currentMap: self.updateMap()
         self.moveView(deltat)
-        self.surf.fill((0,0,0))
+        self.surf.fill((0, 0, 0))
         if self.follow:
-            x,y = self.cellToPoint(self.perso.x, self.perso.y)
+            x, y = self.cellToPoint(self.perso.x, self.perso.y)
             self.offX = x - self.maxWidth//2
             self.offY = y - self.maxHeight//2
             self.clipOffset()
-        t=time()
+        t = time()
         # Cells
-        for u,v,cell in self.shown:
-            self.surf.blit(self.pics[cell.picture], (u,v))
+        for u, v, cell in self.shown:
+            self.surf.blit(self.pics[cell.picture], (u, v))
         # Entities and objects
         sceneRect = self.surf.get_rect()
         for ent in chain(self.world.entities, self.world.objects):
-            u,v = self.cellToPoint(ent.x, ent.y)
+            u, v = self.cellToPoint(ent.x, ent.y)
             u -= self.offX
             v -= self.offY
-            if sceneRect.collidepoint(u,v):
-                self.surf.blit(self.pics[ent.picture], (u,v))
-        if self.movSpeedX!=0:
+            if sceneRect.collidepoint(u, v):
+                self.surf.blit(self.pics[ent.picture], (u, v))
+        if self.movSpeedX != 0:
             mask = pygame.Surface((MOV_OFFSET, self.maxHeight))
-            mask.fill((255,255,255))
+            mask.fill((255, 255, 255))
             mask.set_alpha(50)
-            self.surf.blit(mask, (0 if self.movSpeedX<0 else self.maxWidth-MOV_OFFSET, 0))
-        if self.movSpeedY!=0:
+            self.surf.blit(mask, (0 if self.movSpeedX < 0 else self.maxWidth-MOV_OFFSET, 0))
+        if self.movSpeedY != 0:
             mask = pygame.Surface((self.maxWidth, MOV_OFFSET))
-            mask.fill((255,255,255))
+            mask.fill((255, 255, 255))
             mask.set_alpha(50)
-            self.surf.blit(mask, (0, 0 if self.movSpeedY<0 else self.maxHeight-MOV_OFFSET))
+            self.surf.blit(mask, (0, 0 if self.movSpeedY < 0 else self.maxHeight-MOV_OFFSET))
 
     def handleKey(self, key):
         """ return true if key has been handled else false """
-        if key==K_LEFT: self.offX -= 100
-        elif key==K_RIGHT: self.offX += 100
-        elif key==K_UP: self.offY -= 100
-        elif key==K_DOWN: self.offY += 100
-        elif key==4: self.cellWidth /= 1.5
-        elif key==5: self.cellWidth *= 1.5
-        elif key==ord('u'): self.angleX -= pi/16
-        elif key==ord('i'): self.angleX += pi/16
-        elif key==ord('j'): self.angleY -= pi/16
-        elif key==ord('k'): self.angleY += pi/16
+        if key == K_LEFT: self.offX -= 100
+        elif key == K_RIGHT: self.offX += 100
+        elif key == K_UP: self.offY -= 100
+        elif key == K_DOWN: self.offY += 100
+        elif key == 4: self.cellWidth /= 1.5
+        elif key == 5: self.cellWidth *= 1.5
+        elif key == ord('u'): self.angleX -= pi/16
+        elif key == ord('i'): self.angleX += pi/16
+        elif key == ord('j'): self.angleY -= pi/16
+        elif key == ord('k'): self.angleY += pi/16
 #        elif key==ord('l'): self.showLov ^= 1
-        elif key==ord('f'): self.follow ^= 1
+        elif key == ord('f'): self.follow ^= 1
         else: return False
         self.updatePics()
         self.clipOffset()
@@ -254,7 +260,7 @@ class MapView:
         if not self.active or not pygame.key.get_focused():
             self.movSpeedX, self.movSpeedY = 0, 0
             return
-        posX,posY = pygame.mouse.get_pos()
+        posX, posY = pygame.mouse.get_pos()
 
         maxSpeed = 600 # XXX fonction du zoom ?
         movAccel = int(0.1*deltat)
@@ -282,8 +288,9 @@ class MapView:
     def cellToPoint(self, x, y):
         """ Convert cell related coordinates to map coordinates """
         # XXX precompute sin and cos ?
-        return (( x               *cos(self.angleX) - (self.nbCellsY-y)*cos(self.angleY))*self.cellWidth,
-                ((self.nbCellsX-x)*sin(self.angleX) + (self.nbCellsY-y)*sin(self.angleY))*self.cellWidth)
+        return ((x*cos(self.angleX) - (self.nbCellsY-y)*cos(self.angleY))*self.cellWidth,
+                ((self.nbCellsX-x)*sin(self.angleX) +
+                 (self.nbCellsY-y)*sin(self.angleY))*self.cellWidth)
 
     def pointToCell(self, x, y):
         """ Convert map coordinates to cell related coordinates """

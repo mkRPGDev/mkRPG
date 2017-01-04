@@ -29,7 +29,7 @@ class Server():
         self.orderDispatcher = OrderDispatcher(self.world, self.handleEvent, self.timer)
         self.events = asyncio.Queue()
         self.pause = False
-        
+
     def __del__(self):
         self.loop.stop()
 #        print("Killing server")
@@ -48,7 +48,8 @@ class Server():
         await self.handleEvent(self.world, "start")
         while True:
             emitter, event = await self.events.get()
-            if event == "end": break # TODO gérer la fin
+            if event == "end":
+                break # TODO gérer la fin
             if event == "pause":
                 self.orderDispatcher.timer.pause = True
                 self.pause = True
@@ -56,8 +57,10 @@ class Server():
                 self.orderDispatcher.timer.pause = False
                 self.pause = False
                 continue
-            if self.pause: continue
-            if event not in self.actions: continue
+            if self.pause:
+                continue
+            if event not in self.actions:
+                continue
             for act in self.actions[event]:
                 for order in act.orders:
                     returnOrder = await self.orderDispatcher.treat(emitter, order)
@@ -77,7 +80,7 @@ class Server():
 
 parser = ArgumentParser(description="Generic game server.")
 parser.add_argument("-p", "--path", default=PATH,
-    help="Path of the game directory, should contain game.xml."
+                    help="Path of the game directory, should contain game.xml."
     "If this argument is not present, const.py will be used.")
 args = parser.parse_args()
 server = Server(args.path+"/")

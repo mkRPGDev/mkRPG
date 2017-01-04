@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+"""
+    This module contains the main Client class.
+"""
+
 from argparse import ArgumentParser
 import asyncio
 
@@ -12,7 +18,7 @@ from plugins.plugin import loadPluginsClient
 import shared.world as world
 from shared.tools import Perf
 
-perf=Perf()
+PERF = Perf()
 
 def interface(args):
     """ Import the correct interface according to user choice """
@@ -30,18 +36,22 @@ def interface(args):
 
 class Client:
     """ Main class of the client process, gathering interface, world and networking """
+
     def __init__(self, path, Interface):
         self.loop = asyncio.get_event_loop()
         self.net = NetworkClient(self.handleOrder, self.pluginHandle)
-        parseData = game_parser(path)
-        self.world = world.loadGame(parseData)
-        plugins = loadPluginsClient(parseData["Plugins"], self, args.curses, args.pygame)
-        self.interface = Interface(self.world, parseData["Images"], plugins.graphical)
-        if args.debug: exit(0)
+        parse_data = game_parser(path)
+        self.world = world.loadGame(parse_data)
+        plugins = loadPluginsClient(parse_data["Plugins"], self, args.curses, args.pygame)
+        self.interface = Interface(self.world, parse_data["Images"], plugins.graphical)
+        if args.debug:
+            exit(0)
         self.plugins = plugins.logical
-        self.interactions = registerInteractions(parseData["Interactions"])
+        self.interactions = registerInteractions(parse_data["Interactions"])
         self.perso = None
-        self.orderDispatcher = OrderDispatcher(self.world, None, None)
+        self.order_dispatcher = OrderDispatcher(self.world, None, None)
+        self.task = None
+
     def __del__(self):
         """ Kill network and interface """
         self.net.kill()
@@ -53,12 +63,13 @@ class Client:
         """ Launch tasks """
         self.loop.run_until_complete(self.net.connect())
         self.loop.run_until_complete(self.getEntity())
-        self.netTask = self.loop.create_task(self.net.run())
+        self.net_task = self.loop.create_task(self.net.run())
         self.loop.run_until_complete(self.main())
 
     async def getEntity(self):
         """
-            Asks for a free entity to the server and sets the client and interface attributes.
+            Asks for a free entity to the server and sets the client and
+            interface attributes.
             If either args.entity or args.entityid is set, will ask for this
             entity to the server and set it as the client entity, else it will
             ask for the first available entity.
@@ -88,22 +99,23 @@ class Client:
         while True:
             self.interface.update()
             # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
-            perf.tic()
+            PERF.tic()
             keys = self.interface.getEvent()
-            perf.toc()
+            PERF.toc()
             if not keys:
                 await asyncio.sleep(UPDTIME)
             else:
                 await asyncio.sleep(0)
             for key in keys:
-                if key==skeys.QUIT:
+                if key == skeys.QUIT:
                     return
-                elif key==skeys.PAUSE: await self.net.sendEvent(self.world, "pause")
+                elif key == skeys.PAUSE:
+                    await self.net.sendEvent(self.world, "pause")
                 # TODO relayer la pause à l'affichage
-                elif key==skeys.RESUME: await self.net.sendEvent(self.world, "resume")
+                elif key == skeys.RESUME:
+                    await self.net.sendEvent(self.world, "resume")
                 for inte in self.interactions:
-                    if (inte.type == InteractionType.Key and
-                        inte.key == key):
+                    if inte.type == InteractionType.Key and inte.key == key:
                         await self.net.sendEvent(self.__getattribute__(inte.target),
                                                  inte.event)
 
@@ -113,7 +125,7 @@ class Client:
             emitter = world.Object.ids[ident]
         else: # si on ne peut convertir c'est que l'objet va être 'Create'd
             emitter = ident
-        await self.orderDispatcher.treat(emitter, order)
+        await self.order_dispatcher.treat(emitter, order)
         self.interface.update()
 
     async def pluginHandle(self, msg):
@@ -132,9 +144,9 @@ parser.add_argument("-p", "--path", default=PATH,
 # -> Impossible de donner des noms d'entity de type "1234"
 entgroup = parser.add_mutually_exclusive_group()
 entgroup.add_argument("-e", "--entity", action="store",
-                    help="Entity name to be used by the client.")
+                      help="Entity name to be used by the client.")
 entgroup.add_argument("-eid", "--entityid", type=int, action="store",
-                    help="Entity id to be used by the client.")
+                      help="Entity id to be used by the client.")
 
 uimode = parser.add_mutually_exclusive_group()
 uimode.add_argument("-c", "--curses", action="store_true",
@@ -149,7 +161,8 @@ parser.add_argument("-d", "--debug", action="store_true",
 
 args = parser.parse_args()
 
-if args.debug: asyncio.get_event_loop().set_debug(True)
+if args.debug:
+    asyncio.get_event_loop().set_debug(True)
 
 cli = Client(args.path+"/", interface(args))
 try:
@@ -160,4 +173,4 @@ except:
     cli.interface.end()
     raise
 finally:
-    perf.show()
+    PERF.show()

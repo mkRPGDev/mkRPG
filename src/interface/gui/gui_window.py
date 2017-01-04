@@ -85,8 +85,8 @@ class GUIWindowView(PygamePlugin):
     #        gui_elements.Container) that represents the window given
     #        the GUIWindow representation.
 
-    def __init__(self, guiWindow, netPlugin):
-        super().__init__(netPlugin)
+    def __init__(self, guiWindow, logic):
+        super().__init__(logic)
         self.guiWindow = guiWindow
         self.guiElements = make_elements(guiWindow)
 

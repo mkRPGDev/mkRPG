@@ -13,7 +13,6 @@ from interface.const import *
 from interface.interface import Interface, skeys
 from interface.utils import loadPng
 from interface.applymatrix import applyMatrix
-from plugins.pluginpygame import PygamePlugin
 
 from time import time
 
@@ -80,7 +79,7 @@ class Pygame(Interface):
 #                    if p.handleKey(key):
 #                        self.repaint()
 #                        evs[i]=None
-#                        continue
+#                        break
                 if key == K_ESCAPE:
                     evs[i] = skeys.QUIT
                 elif key == ord('p'):
@@ -104,8 +103,7 @@ class Pygame(Interface):
                 else:
                     evs[i] = None
                     for p in self.plugins:
-                        if isinstance(p, PygamePlugin):
-                            p.handleEvent(ev)
+                        p.handleEvent(ev)
             elif ev.type == VIDEORESIZE:
                 self.resize(ev.w, ev.h)
                 self.repaint()
@@ -176,7 +174,7 @@ class MapView:
     def updateVisibleScene(self):
         """ Updates self.shown, a list of visible cells """
         sceneRect = self.surf.get_rect()
-        sceneRect.inflate_ip(self.cellWidth*3, self.cellWidth*3) #3>2*sqrt(2)
+        sceneRect.inflate_ip(self.cellWidth*4, self.cellWidth*4)
         start = 0
         t = time()
         # position of transformed angles

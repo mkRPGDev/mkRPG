@@ -28,7 +28,7 @@ class ChatView(CursesPlugin):
         elif key==curses.KEY_BACKSPACE:
             self.text.pop() if len(self.text) else self.reset()
         elif key==ord('\n'):#curses.KEY_ENTER:
-            self.netPlugin.send(self.text)
+            self.logic.send(self.text)
             self.reset()
         elif key==curses.KEY_EXIT:
             self.reset()
@@ -44,8 +44,8 @@ class ChatView(CursesPlugin):
         self.win.border()
         # Anciens messages
         for k in range(1,self.height-2):
-            if len(self.netPlugin.msgs)<k: break
-            self.win.addstr(self.height-k-2,1,self.netPlugin.msgs[-k])
+            if len(self.logic.msgs)<k: break
+            self.win.addstr(self.height-k-2,1,self.logic.msgs[-k])
         self.win.addch(1,self.width-2,curses.ACS_UARROW)
         self.win.addch(self.height-3,self.width-2,curses.ACS_DARROW)
         # Zone d'entrée

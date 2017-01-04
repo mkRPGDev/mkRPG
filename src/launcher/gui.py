@@ -7,6 +7,8 @@ import socket
 class MainUI:
 
     def __init__(self):
+        self.server = None
+
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.running = True
@@ -22,10 +24,12 @@ class MainUI:
         self.root.destroy()
 
     def run_client(self):
-        pass
+        self.server = False
+        self.on_closing()
 
     def run_server(self):
-        pass
+        self.server = True
+        self.on_closing()
 
     def update(self):
         self.root.update_idletasks()

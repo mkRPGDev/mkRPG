@@ -1,3 +1,10 @@
+"""
+This module handles the server of the game.
+The server runs the main loop and receives the request of actions
+from the client. If the actions are allowed by the description of the game
+in the xml files, all clients are asked to execute the actions.
+"""
+
 from sys import stdin
 from argparse import ArgumentParser
 from functools import partial
@@ -5,14 +12,14 @@ import asyncio
 
 from shared.const import PATH
 from shared.orders import OrderDispatcher
-from shared.tools import Perf, Timer
+from shared.tools import Timer
 from shared.network import NetworkServer
+import shared.world as world
 from management.actions import registerActions
 from management.console import welcomeMessage, inputReady
 from parsing.global_parsing import game_parser
 from plugins.plugin import loadPluginsServer
 
-import shared.world as world
 
 class Server():
     """ Main class of the server process, gathering network, world, actions and timer """
@@ -43,7 +50,7 @@ class Server():
 
     async def main(self):
         """ Init stuff, read events and ask for treatment """
-        welcomeMessage(server)
+        welcomeMessage(SERVER)
         await self.net.waitForClients(1)#len(self.world.entities))
         await self.handleEvent(self.world, "start")
         while True:
@@ -78,14 +85,14 @@ class Server():
             if msg.startswith(plug.MSGID):
                 plug.serverMessage(msg[len(plug.MSGID):])
 
-parser = ArgumentParser(description="Generic game server.")
-parser.add_argument("-p", "--path", default=PATH,
-                    help="Path of the game directory, should contain game.xml."
-    "If this argument is not present, const.py will be used.")
-args = parser.parse_args()
-server = Server(args.path+"/")
+PARSER = ArgumentParser(description="Generic game server.")
+PARSER.add_argument("-p", "--path", default=PATH,
+                    help="Path of the game directory, should contain game.xml.\
+                         If this argument is not present, const.py will be used.")
+ARGS = PARSER.parse_args()
+SERVER = Server(ARGS.path+"/")
 
 try:
-    server.run()
+    SERVER.run()
 except KeyboardInterrupt:
     pass

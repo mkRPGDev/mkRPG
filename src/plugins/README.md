@@ -55,7 +55,7 @@ Choosing where your plugin will appear is complicated since clients are resizabl
 To do so, fill in the fields `X`, `Y` with the position of the top-left corner of your plugin. You may put negative values to place it according to the right or the bottom edge. Then fill `MINW` and `MINH` with the size you need or put a number greater than the display to get the maximum space available.
 
 ### Drawing
-Once placement is done, `̀self.win` is providing you a curses window where your interface will be drawn within a reimplementation of the `draw` method. The actual size of the window is provided as `self.width` and `self.height`. If you wrote a logical part to deal with network, it is available as `self.netPlugin`.
+Once placement is done, `̀self.win` is providing you a curses window where your interface will be drawn within a reimplementation of the `draw` method. The actual size of the window is provided as `self.width` and `self.height`. If you wrote a logical part to deal with network, it is available as `self.logic`.
 
 The drawing itself will be done using methods of `self.win`. Erasing the window is up to you. On the contrary, please do not refresh your window, the client will proceed at the right moment.
 

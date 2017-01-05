@@ -98,7 +98,6 @@ class Client:
         self.interface.init()
         while True:
             self.interface.update()
-            # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
             PERF.tic()
             keys = self.interface.getEvent()
             PERF.toc()
@@ -108,6 +107,7 @@ class Client:
                 await asyncio.sleep(0)
             for key in keys:
                 if key == skeys.QUIT:
+                    self.__del__()
                     return
                 elif key == skeys.PAUSE:
                     await self.net.sendEvent(self.world, "pause")

@@ -1,0 +1,18 @@
+<TextField>
+    <Params>
+        <size>
+            <height>20</height>
+            <width>50</width>
+        </size>
+        <text_size>10</text_size>
+        <text_color>
+            <R>50</R>
+            <G>75</G>
+            <B>50</B>
+            <alpha>10</alpha>
+        </text_color>
+        <text_font>Monospace</text_font>
+        <text_align>centered</text_align>
+    </Params>
+    <text>This is a text example</text>
+</TextField>

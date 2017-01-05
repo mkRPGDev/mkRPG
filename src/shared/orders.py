@@ -1,25 +1,54 @@
+"""
+This module handles the orders.
+Orders are described in the xml files, and are the actions to be executed
+for example when keyboard keys are hitted, or in reaction to other orders.
+Every order is thus initialized after the parsing fo the xml files
+and the created in this file.
+
+Each order is applied to a target called the emitter meaning that expressions
+will be evaluated within this target context ie self.x will be target.x.
+Without more precisions, when an event is raised by an order, its target is
+transmitted and order generated be this event will share that target.
+
+Set : target.param <- value
+Setobj : target.param <- value and value is interpreted as an object
+Timer : raise event in value ms
+Event : raise event on the target target
+Create : create an object of type base, execute the initcode (that allows
+    transmitting fields of the target to the created object) and raise event on
+    the created object - if an emitter is specified, it is used as a way to fix
+    the identifier of the created object since the emitter can't exist
+Destroy : destroy the emitter
+Condition : raise event if value is True
+Move : param being a list (quests for example) move the emitter from 
+    source.param to dest.param
+Watchdog : start looking after target.param, when it changes to value (that was
+    evaluated once by the time of the order), it raises the event
+    if once is True, the watchdog is destroy after the first event happened
+"""
+
 from collections import namedtuple
 from enum import IntEnum
 
 from shared.const import CODING
 
-OrderType = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition '
+ORDERTYPE = IntEnum('OrderType', 'Set Timer Event Create Destroy Condition '
                                  'Move Setobj Watchdog')
 Condition = namedtuple("Condition", "target event once")
 
 class Order:
     """ A change to be done on the world"""
     # Attention aux collisions avec args et type
-    params = [None] * (len(OrderType)+1) #XXX c'pas top
-    params[OrderType.Set] = ["target", "param", "value"]
-    params[OrderType.Timer] = ["event", "value"]
-    params[OrderType.Event] = ["event", "target"]
-    params[OrderType.Create] = ["event", "base", "init"]
-    params[OrderType.Destroy] = []
-    params[OrderType.Condition] = ["event", "value"]
-    params[OrderType.Move] = ["source", "dest", "param"]
-    params[OrderType.Setobj] = ["target", "param", "value"]
-    params[OrderType.Watchdog] = ["target", "param", "value", "event", "once"]
+    params = [None] * (len(ORDERTYPE)+1) #XXX c'pas top
+    params[ORDERTYPE.Set] = ["target", "param", "value"]
+    params[ORDERTYPE.Timer] = ["event", "value"]
+    params[ORDERTYPE.Event] = ["event", "target"]
+    params[ORDERTYPE.Create] = ["event", "base", "init"]
+    params[ORDERTYPE.Destroy] = []
+    params[ORDERTYPE.Condition] = ["event", "value"]
+    params[ORDERTYPE.Move] = ["source", "dest", "param"]
+    params[ORDERTYPE.Setobj] = ["target", "param", "value"]
+    params[ORDERTYPE.Watchdog] = ["target", "param", "value", "event", "once"]
 
     def __init__(self):
         self.type = None
@@ -49,11 +78,12 @@ class Order:
 
     def load(self, dat, named):
         """ Initialise the order with an Xml structure """
-        self.setType(OrderType.__members__[dat["type"].capitalize()])
+        self.setType(ORDERTYPE.__members__[dat["type"].capitalize()])
         for key in dat.keys():
             if key != 'type':
                 if isinstance(dat[key], dict) and dat[key].get("id") is not None:
-                    self.args[self.params[self.type].index(key)] = str(named[dat[key]['id']].ident)
+                    self.args[self.params[self.type].index(key)] =\
+                    str(named[dat[key]['id']].ident)
                 else:
                     self.args[self.params[self.type].index(key)] = dat[key]
         return self
@@ -94,7 +124,7 @@ class OrderDispatcher:
         """ Treat an order and return an order to retransmit if any """
         world = self.world
         try:
-            if order.type == OrderType.Set:
+            if order.type == ORDERTYPE.Set:
                 target = emitter if order.target == "emitter" else eval(order.target)
                 try:
                     val = target.contextEval(order.value)
@@ -110,12 +140,13 @@ class OrderDispatcher:
                         await self.handle(condition.target, condition.event)
                     # XXX pas fameux
                     target.conditions[order.param][val] = \
-                        list(filter(lambda x: not x.once, target.conditions[order.param][val]))
+                        list(filter(lambda x: not x.once,
+                                    target.conditions[order.param][val]))
                     if not target.conditions[order.param][val]:
                         del target.conditions[order.param][val]
                     return returnOrder
                 return None
-            if order.type == OrderType.Timer:
+            if order.type == ORDERTYPE.Timer:
                 # les Timer transmettent leur contexte
                 if emitter:
                     self.timer.add(emitter.contextEval(order.value), self.handle,
@@ -124,13 +155,13 @@ class OrderDispatcher:
                     self.timer.add(int(order.value), self.handle,
                                    args=[emitter, order.event])
                 return None
-            if order.type == OrderType.Event:
+            if order.type == ORDERTYPE.Event:
                 if order.target:
                     await self.handle(eval('emitter.'+order.target), order.event)
                 else:
                     await self.handle(emitter, order.event)
                 return None
-            if order.type == OrderType.Create:
+            if order.type == ORDERTYPE.Create:
                 new = world.ids[int(order.base)]
                 if isinstance(emitter, int):
                     obj = new.create(emitter)
@@ -142,20 +173,20 @@ class OrderDispatcher:
                 if self.handle:
                     await self.handle(obj, order.event)
                 return order
-            if order.type == OrderType.Destroy:
+            if order.type == ORDERTYPE.Destroy:
                 # TODO nécessite de trouver tous les pointeurs ??
                 self.world.objects.remove(emitter)
                 self.world.ids.pop(emitter.ident)
                 return order
-            if order.type == OrderType.Condition:
+            if order.type == ORDERTYPE.Condition:
                 if emitter.contextEval(order.value):
                     await self.handle(emitter, order.event)
                 return None
-            if order.type == OrderType.Move:
+            if order.type == ORDERTYPE.Move:
                 eval(order.source+"."+order.param).remove(emitter)
                 eval(order.dest+"."+order.param).append(emitter)
                 return order
-            if order.type == OrderType.Setobj: # TODO à améliorer ressemble à Set
+            if order.type == ORDERTYPE.Setobj: # TODO à améliorer ressemble à Set
                 # FIXME plante avec un aléa
                 target = emitter if order.target == "emitter" else eval(order.target)
                 val = target.contextEval(order.value)
@@ -164,7 +195,7 @@ class OrderDispatcher:
                     exec("target."+order.param+"=val")
                     return order
                 return None
-            if order.type == OrderType.Watchdog:
+            if order.type == ORDERTYPE.Watchdog:
                 val = emitter.contextEval(order.value)
                 conds = eval(order.target).conditions[order.param][val]
                 conds.append(Condition(emitter, order.event, order.once))

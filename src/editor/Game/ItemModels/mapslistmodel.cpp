@@ -1,10 +1,13 @@
 #include "mapslistmodel.h"
 
-MapsListModel::MapsListModel(World* w, QObject* parent) :
-    QAbstractListModel(parent), maps(w->maps()), mps(QMap<int, MapPainter*>())
-{
+MapsListModel::MapsListModel(QObject* parent) :
+    QAbstractListModel(parent), mps(QMap<int, MapPainter*>())
+{}
 
-    update();
+MapsListModel::MapsListModel(World &w, QObject* parent) :
+    MapsListModel(parent)
+{
+    setWorld(w);
 }
 
 int MapsListModel::rowCount(const QModelIndex &parent) const{
@@ -35,6 +38,14 @@ QImage MapsListModel::viewOf(Map *m) const{
     return mps.contains(id) ? QImage(mps[id]->render()) : QImage();
 }
 
+
+void MapsListModel::setWorld(World &w){
+    beginResetModel();
+    maps = w.objects().maps();
+    update();
+    endResetModel();
+}
+
 void MapsListModel::update(){
     // TODO ? Recharger maps
     for(Map* m : maps)
@@ -46,6 +57,10 @@ void MapsListModel::update(){
         }
     // TODO : enlever les déchets
 }
+/*
+Qt::ItemFlags MapsListModel::flags(const QModelIndex &UNUSED(index)) const{
+    return Qt::ItemIsEnabled;
+}*/
 
 bool MapsListModel::insertRows(int row, int count, const QModelIndex &parent){
     beginInsertRows(parent, row, row+count);
@@ -67,28 +82,40 @@ bool MapsListModel::removeRows(int row, int count, const QModelIndex &parent){
 
 
 
-CellTypeListModel::CellTypeListModel(World* w, QObject* parent) :
-    QAbstractListModel(parent), cellTypes(w->cellTypes())
-{
+CellTypeListModel::CellTypeListModel(QObject* parent) :
+    QAbstractListModel(parent)
+{}
+
+void CellTypeListModel::readCellTypes(CellType *ct){
+    cellTypes.append(ct);
+    for(CellType *c : ct->descendants())
+        readCellTypes(c);
+}
+
+void CellTypeListModel::setGame(Game *game){
+    cellTypes.clear();
+    if(game)
+        readCellTypes(&game->world().types().cellType());
 }
 
 int CellTypeListModel::rowCount(const QModelIndex &parent) const{
-    //qDebug() << maps.length() << parent.isValid() << parent.model() << parent;
     return parent.isValid() ? 0 : cellTypes.length();
 }
 
 QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
-    //qDebug() << "data" << role;
     if(index.isValid()){
         CellType *ct = cellTypes.at(index.row());
         switch (role) {
         case Qt::DisplayRole:
-            return QVariant(QString("Ident : ")+QString::number(ct->ident()));
+            return QVariant(ct->name());
         case Qt::DecorationRole:
             if(ct->image() != nullptr)
                 return QVariant(QPixmap::fromImage(ct->image()->image().scaled(32,32)));
-            else
-                return QVariant(QPixmap(32,32));
+            else{
+                QPixmap p(32,32);
+                p.fill(QColor(0,0,0,0));
+                return QVariant(p);
+            }
         case Qt::UserRole:
             return QVariant(ct->ident());
         default:
@@ -100,21 +127,72 @@ QVariant CellTypeListModel::data(const QModelIndex &index, int role) const{
 }
 
 
-bool CellTypeListModel::insertRows(int row, int count, const QModelIndex &parent){
-    beginInsertRows(parent, row, row+count);
-
-    endInsertRows();
-    return true;
+Qt::ItemFlags CellTypeListModel::flags(const QModelIndex &UNUSED(index)) const{
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-bool CellTypeListModel::removeRows(int row, int count, const QModelIndex &parent){
-    beginRemoveRows(parent, row, row+count);
+CellType &CellTypeListModel::cellTypeAt(int i) const{
+    assert(i<cellTypes.length());
+    return *cellTypes[i];
+}
 
-    endInsertRows();
-    return true;
+int CellTypeListModel::indexOf(CellType *ct){
+    return cellTypes.indexOf(ct);
 }
 
 
 
 
 
+
+
+
+MapTypeListModel::MapTypeListModel(QObject* parent) :
+    QAbstractListModel(parent)
+{}
+
+void MapTypeListModel::readMapTypes(MapType *ct){
+    mapTypes.append(ct);
+    for(MapType *c : ct->descendants())
+        readMapTypes(c);
+}
+
+void MapTypeListModel::setGame(Game *game){
+    mapTypes.clear();
+    if(game)
+        readMapTypes(&game->world().types().mapType());
+}
+
+int MapTypeListModel::rowCount(const QModelIndex &parent) const{
+    return parent.isValid() ? 0 : mapTypes.length();
+}
+
+QVariant MapTypeListModel::data(const QModelIndex &index, int role) const{
+    if(index.isValid()){
+        MapType *ct = mapTypes.at(index.row());
+        switch (role) {
+        case Qt::DisplayRole:
+            return QVariant(ct->name());
+        case Qt::UserRole:
+            return QVariant(ct->ident());
+        default:
+            break;
+        }
+
+    }
+    return QVariant();
+}
+
+
+Qt::ItemFlags MapTypeListModel::flags(const QModelIndex &UNUSED(index)) const{
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+}
+
+MapType &MapTypeListModel::mapTypeAt(int i) const{
+    assert(i<mapTypes.length());
+    return *mapTypes[i];
+}
+
+int MapTypeListModel::indexOf(MapType *mt){
+    return mapTypes.indexOf(mt);
+}

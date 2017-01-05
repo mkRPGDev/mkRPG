@@ -141,8 +141,15 @@ QImage& MapPainter::getBackground(const CellType *ct){
     int id = ct->ident();
     if(scaledCellBackgrounds.contains(id))
         return scaledCellBackgrounds[id];
-    if(!cellBackgrounds.contains(id))
-        cellBackgrounds[id] = ct->image()->image().transformed(isometricTransform,Qt::SmoothTransformation);
+    if(!cellBackgrounds.contains(id)){
+        if(ct->image() != nullptr)
+            cellBackgrounds[id] = ct->image()->image();
+        else{
+            cellBackgrounds[id] = QImage(256,256, QImage::Format_ARGB32_Premultiplied);
+            cellBackgrounds[id].fill(QColor(0,0,0,0));
+        }
+    }
+    cellBackgrounds[id] = ct->image()->image().transformed(isometricTransform,Qt::SmoothTransformation);
     scaledCellBackgrounds[id] = cellBackgrounds[id].scaled(cellSize,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     return scaledCellBackgrounds[id];
 }
@@ -165,7 +172,8 @@ void MapPainter::updateBackground(){
     for(int i(iMax); i-->iMin;)
         for(int j(jMax); j-->jMin;){
             const CellType &ct(map->cell(i,j).cellType());
-            p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(&ct));
+            if(ct.image())
+                p.drawImage(ptToPxl(indToPt(i,j+1)).x(), ptToPxl(indToPt(i+1,j+1)).y(), getBackground(&ct));
         }
     if(displayed & Grid){
         p.setPen(QColor(80,80,80));

@@ -4,13 +4,13 @@
 
 
 ObjectType::ObjectType(ObjectType &ancestor) :
-    Type(ancestor)
+    Type(ancestor), aImage(nullptr)
 {
 
 }
 
 ObjectType::ObjectType(DefaultTypes &parent) :
-    Type(parent)
+    Type(parent), aImage(nullptr)
 {
     setName(QObject::tr("ObjectTypes"));
     setName(typeName());

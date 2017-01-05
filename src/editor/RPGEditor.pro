@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     Game/game.cpp \
-    Game/xmlhandler.cpp \
     Game/object.cpp \
     Game/map.cpp \
     GUI/editor.cpp \
@@ -41,7 +40,6 @@ SOURCES += main.cpp\
     GUI/Tabs/treeviews.cpp \
     GUI/Tabs/ObjectEditors/gameobjecteditor.cpp \
     GUI/Tabs/ObjectEditors/celltypeeditor.cpp \
-    GUI/Tabs/ObjectEditors/mapeditors.cpp \
     GUI/Tabs/worldtab.cpp \
     GUI/Tabs/objecttab.cpp \
     GUI/Tabs/ObjectEditors/mapresizedialog.cpp \
@@ -50,11 +48,16 @@ SOURCES += main.cpp\
     GUI/Tabs/MapTab/celldock.cpp \
     GUI/Tabs/MapTab/selectiondock.cpp \
     GUI/Tabs/MapTab/celltypesdock.cpp \
-    GUI/Tabs/MapTab/mapdock.cpp
+    GUI/Tabs/MapTab/mapdock.cpp \
+    GUI/Tabs/ObjectEditors/mapeditor.cpp \
+    GUI/Tabs/actiontab.cpp \
+    GUI/Tabs/newgameobject.cpp \
+    GUI/Tabs/ObjectEditors/objecttypeeditor.cpp \
+    Game/entity.cpp \
+    Game/xmlreader.cpp
 
 HEADERS  += \
     Game/game.h \
-    Game/xmlhandler.h \
     Game/object.h \
     Game/map.h \
     GUI/editor.h \
@@ -82,7 +85,6 @@ HEADERS  += \
     GUI/Tabs/treeviews.h \
     GUI/Tabs/ObjectEditors/gameobjecteditor.h \
     GUI/Tabs/ObjectEditors/celltypeeditor.h \
-    GUI/Tabs/ObjectEditors/mapeditors.h \
     GUI/Tabs/worldtab.h \
     GUI/Tabs/objecttab.h \
     GUI/Tabs/ObjectEditors/mapresizedialog.h \
@@ -91,7 +93,13 @@ HEADERS  += \
     GUI/Tabs/MapTab/mapdock.h \
     GUI/Tabs/MapTab/maptab.h \
     GUI/Tabs/MapTab/mapviewer.h \
-    GUI/Tabs/MapTab/selectiondock.h
+    GUI/Tabs/MapTab/selectiondock.h \
+    GUI/Tabs/ObjectEditors/mapeditor.h \
+    GUI/Tabs/actiontab.h \
+    GUI/Tabs/newgameobject.h \
+    GUI/Tabs/ObjectEditors/objecttypeeditor.h \
+    Game/entity.h \
+    Game/xmlreader.h
 
 FORMS    += \
     GUI/editor.ui \
@@ -99,7 +107,6 @@ FORMS    += \
     GUI/tabacces.ui \
     GUI/Tabs/welcome.ui \
     GUI/Tabs/ObjectEditors/celltypeeditor.ui \
-    GUI/Tabs/ObjectEditors/mapeditors.ui \
     GUI/Tabs/worldtab.ui \
     GUI/Tabs/objecttab.ui \
     GUI/Tabs/ObjectEditors/mapresizedialog.ui \
@@ -107,7 +114,11 @@ FORMS    += \
     GUI/Tabs/MapTab/mapdock.ui \
     GUI/Tabs/MapTab/maptab.ui \
     GUI/Tabs/MapTab/selectiondock.ui \
-    GUI/Tabs/MapTab/celldock.ui
+    GUI/Tabs/MapTab/celldock.ui \
+    GUI/Tabs/ObjectEditors/mapeditor.ui \
+    GUI/Tabs/actiontab.ui \
+    GUI/Tabs/newgameobject.ui \
+    GUI/Tabs/ObjectEditors/objecttypeeditor.ui
 
 RESOURCES += \
     Icons/ressources.qrc

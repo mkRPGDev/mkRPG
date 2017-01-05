@@ -4,9 +4,11 @@ CellTypesDock::CellTypesDock(QWidget *parent) :
     BDockWidget(parent)
 {
     setupUi(this);
+    ctModel = new CellTypeListModel(this);
+    cellTypes->setModel(ctModel);
 }
 
 
 void CellTypesDock::updateGame(){
-    cellTypes->setModel(game ? new CellTypeListModel(&game->world(), this) : nullptr);
+    ctModel->setGame(game);
 }

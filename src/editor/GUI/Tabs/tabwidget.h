@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-
+#include <QDebug>
 
 /*!
  * \file tabwidget.h
@@ -33,6 +33,7 @@ signals:
 public slots:
 
 private:
+
     int ind;
 
 };

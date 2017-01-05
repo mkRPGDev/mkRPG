@@ -14,7 +14,7 @@
    <string>Map resizing</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../Icons/ressources.qrc">
+   <iconset resource="../../../Icons/ressources.qrc">
     <normaloff>:/Icons/main.png</normaloff>:/Icons/main.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0">
@@ -163,8 +163,16 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>oHeight</tabstop>
+  <tabstop>oWidth</tabstop>
+  <tabstop>nWidth</tabstop>
+  <tabstop>nHeight</tabstop>
+  <tabstop>xOffset</tabstop>
+  <tabstop>yOffset</tabstop>
+ </tabstops>
  <resources>
-  <include location="../../Icons/ressources.qrc"/>
+  <include location="../../../Icons/ressources.qrc"/>
  </resources>
  <connections>
   <connection>

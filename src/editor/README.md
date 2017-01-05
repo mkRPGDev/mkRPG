@@ -8,19 +8,8 @@ Pour compiler l'éditeur, il est nécessaire de disposer de Qt 5.6.1
 
 # Test
 
-Pas besoin d'ouvrir ou de créer de jeu pour pouvoir voir les quelques
-éléments implémentés : un "jeu" est (temporairement) prédéfini dans le code.
-Seules quelques fonctionnalités d'affichage existent, ainsi que la modification 
-des angles. Pour l'instant...
-
-# Contrôles
-
-Dans l'onglet Maps (le seul qui est vraiment intéressant pour le moment)
-les commandes sont :
-
-Zoom : Roulette de la souris
-
-Déplacement : Clic droit + et déplacement
-
-Séléction : Clic gauche ou Alt + déplacement
-
+Un exemple est inclu par défaut, mais un nouveau jeu vide peut être créé (Ctrl+N).
+Un jeu **enregistré par l'éditeur** peut être ouvert.
+Deux mode d'export de XML sont disponibles :
+- enregistrement, pour une réouverture par l'éditeur
+- export, pour pour une ouverture par le serveur

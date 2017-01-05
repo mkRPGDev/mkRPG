@@ -3,15 +3,15 @@ README for mkRPG
 <a href='https://travis-ci.org/mkRPGDev/mkRPG'><img
  src='https://travis-ci.org/mkRPGDev/mkRPG.svg?branch=master'></a>
 
-### Minimal Working Example
+### Exemple minimal
 Cette branche, au moyen de quelques bricolages, permet d'utiliser tous les éléments du projet.
 
 Voici comment en obtenir un aperçu:
 
 1. Compilez et exécutez l'éditeur (voir la branche dédiée pour les détails). Il n'est pas nécessaire de cliquer où que ce soit, un ensemble de dossier a normalement été créé dans `home/XML` dès le lancement
 2. Copiez la carte "Le grand large.xml" dans `mkrpg/test/simple/maps`(si vous désirez utiliser une autre carte il est nécessaire de lire sa balise _name_ et de changer en conséquent les fichiers `simple/game.xml`, `simple/world.xml` et `simple/entities/entity.xml`).
-3. Lancez un serveur en vous plaçant dans `/src` et en tapant `python3 server.py`.
-4. Lancez un client en vous plaçant dans `/src` et en tapant `python3 client.py`.
+3. Lancez un serveur en vous plaçant dans `/src` et en tapant `python3.5 server.py`.
+4. Lancez un client en vous plaçant dans `/src` et en tapant `python3.5 client.py`.
 
 ### Utilisation du client
 Z,Q,S et D permettent de déplacer le personnage,

@@ -51,12 +51,13 @@ class MainUI:
 
 class ClientUI:
 
-    def __init__(self):
+    def __init__(self, run_client):
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.running = True
 
         self.log = ""
+        self.client = run_client
 
         self.S = tk.Scrollbar(self.root)
         self.prompt = tk.Text(self.root, width=70)
@@ -82,7 +83,6 @@ class ClientUI:
         self.prompt.insert(tk.END, self.log)
         self.prompt.yview(tk.END)
 
-
         self.root.update_idletasks()
         self.root.update()
 
@@ -102,7 +102,9 @@ class ClientUI:
         self.root.destroy()
 
     def run_client(self):
-        pass
+        self.led.config(bg='green')
+        self.client()
+        self.led.config(background='red')
 
     def log_msg(self, msg, end="\n"):
         self.log += msg+end
@@ -119,12 +121,13 @@ class ClientUI:
 
 class ServerUI:
 
-    def __init__(self):
+    def __init__(self, run_server):
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.running = True
 
         self.log = ""
+        self.run_server = run_server
 
         self.S = tk.Scrollbar(self.root)
         self.prompt = tk.Text(self.root, width=70)
@@ -175,7 +178,10 @@ class ServerUI:
         self.root.destroy()
 
     def run_server(self):
-        pass
+        self.led.config(background='green')
+        self.run_server(world.get())
+        self.led.config(background='red')
+
 
     def log_msg(self, msg, end="\n"):
         self.log += msg+end

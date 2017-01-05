@@ -1,9 +1,9 @@
 import gui
 import socket
 import hashlib
-from const import *
 import os
 import glob
+from argparse import ArgumentParser
 
 HOST = "localhost"
 PATH = "./test/"
@@ -21,6 +21,8 @@ def log_msg(tag, msg):
         @param tag a tag for message classification, for instance 'DEBUG'
         @param msg the value of the message to be printed
     """
+    if not args.verbose and tag == 'DEBUG':
+        return
     global LINE_NUM
     global GUI
     msg = "{}\t[{}]\t{}".format(LINE_NUM,tag, msg)
@@ -95,6 +97,9 @@ def run_client():
 
 def run_server(folder):
 
+    if GUI is None:
+        folder = input('Enter world name : ')
+
     filesToSend = glob.iglob(PATH + folder + '/*', recursive=True)
     log_msg('FILES', 'Folder ' + PATH + folder + ' is selected for synchronization')
     log_msg('FILES', 'Files to be synchronized :')
@@ -122,13 +127,15 @@ def run_server(folder):
 
     while True:
         csock, addr = psock.accept()
-        log_msg('CONNECTION', 'Accepted connection from ' + str(addr))
+        log_msg('CONNECTION', 'Accepted connection from ' + str(addr[0]))
 
         pid = os.fork()
+
         if pid == 0:
             log_msg('TRANSFER', 'Starting transfer protocol')
 
             for filename in filesToSend:
+                print(filename)
                 csock.send(filename.encode('utf-8'))
                 log_msg('TRANSFER', 'Processing file ' + filename)
                 f = open(filename, 'rb')
@@ -154,25 +161,38 @@ def run_server(folder):
             csock.close()
             exit(0)
 
-
+parser = ArgumentParser(description="File synchronization program.")
+parser.add_argument("-ns", "--nouiserver", action="store_true",
+                    help="Launches terminal server without GUI.")
+parser.add_argument("-v", "--verbose", action="store_true",
+                    help="Activate verbose mode for file transfers.")
+parser.add_argument("-nc", "--nouiclient", action="store_true",
+                    help="Launches terminal client without GUI.")
 
 if __name__ == "__main__":
 
-    GUI = gui.MainUI()
+    args = parser.parse_args()
 
-    while True:
-        if not GUI.running:
-            break
-        GUI.update()
-
-    if GUI.server is None:
-        exit(0)
-    elif GUI.server:
-        GUI = gui.ServerUI(run_server)
+    if args.nouiserver:
+        run_server(None)
+    elif args.nouiclient:
+        run_client()
     else:
-        GUI = gui.ClientUI(run_client)
+        GUI = gui.MainUI()
 
-    while True:
-        if not GUI.running:
-            break
-        GUI.update()
+        while True:
+            if not GUI.running:
+                break
+            GUI.update()
+
+        if GUI.server is None:
+            exit(0)
+        elif GUI.server:
+            GUI = gui.ServerUI(run_server)
+        else:
+            GUI = gui.ClientUI(run_client)
+
+        while True:
+            if not GUI.running:
+                break
+            GUI.update()

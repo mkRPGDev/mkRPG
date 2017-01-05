@@ -29,8 +29,12 @@ F11 permet de passer en plein écran mais c'est expérimental avec parfois perte
 Des plugins affichant notamment l'aide seront ajoutés sous peu
 
 ### Salle 411
-Pygame n'est pas installé en salle C411, le script pygame411.sh permet de
-récupérer une version compilée pour ces machines. Exécuter `$. p411.sh`
+Certaines extensions de python 3 ne sont pas (ou pas correctement) installés en salle C411,
+le script p411.sh permet de récupérer une version compilée des paquets suivants pour les machines :
+* pygame 1.9.2b8
+* numpy 1.11.2
+
+Exécuter `$. p411.sh`
 
 ### Snake
 Plus d'informations dans le [README de Snake ](https://github.com/mkRPGDev/mkRPG/tree/master/test/snake/README.md)

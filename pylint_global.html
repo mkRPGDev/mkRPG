@@ -52,22 +52,22 @@
 <pre>interface (interface.pgcli)
   \-const (plugins.mapControlpygame,interface.gui.gui_window)
   \-gui 
-  | \-gui_elements (plugins.mapControlpygame,test_gui)
-  \-interface (interface.pgcli,interface.cursescli)
-  \-utils (interface.pgcli,plugins.mapControlpygame)
+  | \-gui_elements (test_gui,plugins.mapControlpygame)
+  \-interface (interface.cursescli,interface.pgcli)
+  \-utils (plugins.mapControlpygame,interface.pgcli)
 parsing 
   \-actions_parser (parsing.interactions_parser)
   \-global_parsing (shared.world)
   \-gui_parser (interface.gui.gui_window)
-  \-parsing_utils (parsing.objects_parser,parsing.gui_parser,parsing.entity_parser,parsing.world_parser,parsing.actions_parser,parsing.interactions_parser,parsing.images_parser,parsing.map_parser)
+  \-parsing_utils (parsing.map_parser,parsing.entity_parser,parsing.interactions_parser,parsing.gui_parser,parsing.world_parser,parsing.actions_parser,parsing.objects_parser,parsing.images_parser)
 plugins 
-  \-plugin (plugins.chat,interface.gui.gui_window,plugins.mapControl)
+  \-plugin (plugins.chat,plugins.mapControl,interface.gui.gui_window)
   \-plugincurses (plugins.menucurses,plugins.chatcurses)
   \-pluginpygame (plugins.mapControlpygame)
-pygame (interface.pgcli,test_gui,interface.applymatrix,plugins.mapControlpygame,interface.utils,plugins.pluginpygame,interface.gui.gui_elements)
-  \-locals (interface.pgcli,plugins.mapControlpygame,test_gui,interface.gui.gui_elements)
+pygame (interface.pgcli,plugins.pluginpygame,interface.gui.gui_elements,plugins.mapControlpygame,interface.utils,test_gui,interface.applymatrix)
+  \-locals (interface.gui.gui_elements,test_gui,plugins.mapControlpygame,interface.pgcli)
 shared 
-  \-const (interface.interface,plugins.plugin,shared.world)</pre></div>
+  \-const (interface.interface,shared.world,plugins.plugin)</pre></div>
 <div>
 <h2>Raw metrics</h2>
 <table>

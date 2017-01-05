@@ -117,9 +117,30 @@ tuple&#160;</td><td class="memItemRight" valign="bottom"><b>Condition</b> = name
 <div class="textblock"><div class="fragment"><pre class="fragment">
 This module handles the orders.
 Orders are described in the xml files, and are the actions to be executed
-for example when keybors keys are hitted, or in reaction to other orders.
+for example when keyboard keys are hitted, or in reaction to other orders.
 Every order is thus initialized after the parsing fo the xml files
 and the created in this file.
+
+Each order is applied to a target called the emitter meaning that expressions
+will be evaluated within this target context ie self.x will be target.x.
+Without more precisions, when an event is raised by an order, its target is
+transmitted and order generated be this event will share that target.
+
+Set : target.param &lt;- value
+Setobj : target.param &lt;- value and value is interpreted as an object
+Timer : raise event in value ms
+Event : raise event on the target target
+Create : create an object of type base, execute the initcode (that allows
+    transmitting fields of the target to the created object) and raise event on
+    the created object - if an emitter is specified, it is used as a way to fix
+    the identifier of the created object since the emitter can't exist
+Destroy : destroy the emitter
+Condition : raise event if value is True
+Move : param being a list (quests for example) move the emitter from 
+    source.param to dest.param
+Watchdog : start looking after target.param, when it changes to value (that was
+    evaluated once by the time of the order), it raises the event
+    if once is True, the watchdog is destroy after the first event happened
 </pre></div> </div><hr/><h2>Variable Documentation</h2>
 <a class="anchor" id="afa012efe6f412d7cecc34589ae28e1eb"></a><!-- doxytag: member="shared::orders::ORDERTYPE" ref="afa012efe6f412d7cecc34589ae28e1eb" args="" -->
 <div class="memitem">

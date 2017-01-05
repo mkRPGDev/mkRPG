@@ -1,9 +1,22 @@
 <Game>
     <World>
-        <xml file="world.xml"/>
-        <xml file="maps/map.xml"/>
-        <xml file="entities/entity.xml"/>
-   </World>
-    <Actions file="actions.xml"/>
-    <Interactions file="interactions.xml"/>
+        <World>world.xml</World>
+        <Map>maps/map.xml</Map>
+<!--        <Map>maps/Le grand large.xml</Map>-->
+        <Entities>entities/entity.xml</Entities>
+    </World>
+    <Actions>
+        <Action>actions.xml</Action>
+    </Actions>
+    <Interactions>
+        <Interaction>interactions.xml</Interaction>
+    </Interactions>
+    <Images>
+        <Image>images.xml</Image>
+    </Images>
+    <Plugins>
+        <Plugin>menu</Plugin>
+        <Plugin>connectes</Plugin>
+        <Plugin>mapControl</Plugin>
+    </Plugins>
 </Game>

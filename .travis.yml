@@ -1,7 +1,5 @@
 language: python
 python:
-  - "3.3"
-  - "3.4"
   - "3.5"
 
 sudo: true
@@ -30,7 +28,7 @@ before_install:
     - python -c "import pygame"
 
 install:
-    - pip install -r travis/test-requirements.txt
+    - pip3 install -r travis/test-requirements.txt
 
 # Install dependencies
 addons:
@@ -46,7 +44,9 @@ addons:
 # Build your code e.g. by calling make
 script:
   - cd $TRAVIS_BUILD_DIR
-  - python3 -m unittest discover -v -s pytest -p "*.py"
+  - cd src/
+  - python3 -m unittest discover -v
+
 
 # Generate and deploy documentation
 after_success:

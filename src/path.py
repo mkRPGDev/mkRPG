@@ -30,7 +30,7 @@ class Archi():
         else:
             self.main_directory = get_main_directory()
 
-    def _get_file(self, file_path, mode='r'):
+    def _get_file(self, file_path, mode='r', opened=False):
         """
         It receives a list of succeeding directories. If the file pointed by
         the argument ```file_path``` exists, it returns the opened file in mode
@@ -38,33 +38,36 @@ class Archi():
         """
         joined_path = ospath.join(self.main_directory, *file_path)
         if ospath.isfile(joined_path):
-            return open(joined_path, mode=mode)
+            if openend:
+                return open(joined_path, mode=mode)
+            else:
+                return joined_path
         else:
             raise FileNotFoundError("File does not exist")
 
-    def get_src_file(self, file_path, mode='r'):
+    def get_src_file(self, file_path, mode='r', opened=False):
         """
         Gets the path of the src directory.
         At least used by the src scripts.
         """
         file_path = complete_path(file_path, 'src')
-        return self._get_file(file_path, mode)
+        return self._get_file(file_path, mode=mode, opened=opened)
 
-    def get_static_file(self, file_path, mode='r'):
+    def get_content_file(self, file_path, mode='r', opened=False):
         """
-        Gets the path of the static files directory.  Static files are
+        Gets the path of the content files directory. content files are
         basically all graphical files, and a description of the common world
         """
-        file_path = complete_path(file_path, 'static')
-        return _get_file(file_path, mode)
+        file_path = complete_path(file_path, 'content')
+        return _get_file(file_path, mode=mode, opened=opened)
 
-    def get_xml_file(self, file_path, mode='r'):
+    def get_xml_file(self, file_path, mode='r', opened=False):
         """
         Gets the path of a xml file describing a world, a scenario, or a
         campaign.
         """
         file_path = complete_path(file_path, 'xml')
-        return _get_file(file_path, mode)
+        return _get_file(file_path, mode=mode, opened=opened)
 
     def list_files(self, dir_path):
         """
@@ -96,11 +99,12 @@ class Archi():
         dir_path = complete_path(dir_path, 'src')
         return self._get_dir(dir_path)
 
-    def get_static_dir(self, dir_path):
+
+    def get_content_dir(self, dir_path):
         """
-        Gets the given dir_path with respect to the static folder.
+        Gets the given dir_path with respect to the content folder.
         """
-        dir_path = complete_path(dir_path, 'static')
+        dir_path = complete_path(dir_path, 'content')
         return self._get_dir(dir_path)
 
     def get_xml_dir(self, dir_path):

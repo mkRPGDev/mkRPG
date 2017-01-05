@@ -23,9 +23,6 @@ src/__make_cells.py
 src/build-RPGEditor-*
 src/editor/RPGEditor.pro.user
 
-# Fichier de lancement du serveur
-src/isserver.py
-
 # Fichiers de cache Python
 src/__pycache__
 
@@ -40,3 +37,10 @@ src/editor/doc.doxy
 
 # Fichiers PyCharm
 .idea
+
+# Fichiers de doc et Pylint
+*.html
+
+# Fichiers pour la salle 411
+python-modules.tar.gz
+python-modules/

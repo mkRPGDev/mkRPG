@@ -13,7 +13,7 @@ class Curses(Interface):
         curses.curs_set(0)
         self.win.keypad(True)
         self.win.nodelay(True)
-        self.mapView = MapView(self.world)
+        self.mapView = MapView(self.world, {i:v.ascii for i,v in self.images.items()})
         self.toSmall = True
         self.resize()
 
@@ -36,7 +36,6 @@ class Curses(Interface):
             self.toSmall = False
         except:
             self.toSmall = True
-#        self.draw()
         
     def init(self): # eurk !
         self.getEvent()
@@ -67,7 +66,6 @@ class Curses(Interface):
                 p.win.noutrefresh()                
         curses.doupdate()
         # TODO insérer ici le xml d'interface
-        #self.win.addstr(26,0,"Score "+str(self.world.entities[0].score)+'\n')
 
     def end(self):
         curses.endwin()
@@ -94,16 +92,16 @@ class Curses(Interface):
 
 class MapView:
     """ Manages the map display """
-    def __init__(self, world):
+    def __init__(self, world, pics):
         self.world = world
         self.offX = 0
         self.offY = 0
-        #self.mapWin = self.win.derwin(0,0)
         self.map = None
         self.showLov = False
-        self.perso = None#self.world.entities[0]
+        self.perso = None
         self.follow = False
-    
+        self.pics = pics
+        
     def setWin(self, win):
         self.win = win
         self.maxHeight, self.maxWidth = self.win.getmaxyx()
@@ -141,19 +139,19 @@ class MapView:
         for ent in chain(self.world.entities, self.world.objects):
             x, y = ent.x-self.offX, ent.y-self.offY
             if x in range(self.width) and y in range(self.height):
-                win.addch(y+1, x+1, ent.picture)
+                win.addch(y+1, x+1, self.pics[ent.picture])
         #self.win.noutrefresh()
 
     def cellChar(self, cell):
         """ Return the char associated to a cell and some overlays """
-        if self.showLov and cell.picture==32 and self.lovs[cell.x-self.offX][cell.y-self.offY]:
+        if self.showLov and self.pics[cell.picture]==32 and self.lovs[cell.x-self.offX][cell.y-self.offY]:
             return '.'
         else:
-            return chr(cell.picture)
+            return chr(self.pics[cell.picture])
 
     def clipOffset(self):
         """ Ensure the offX, offY lead to a valid display """
-        self.offX = max(0, min(self.offX,self.map.width-self.width))
+        self.offX = max(0, min(self.offX,self.map.width - self.width))
         self.offY = max(0, min(self.offY,self.map.height-self.height))
 
     def handleKey(self, key):

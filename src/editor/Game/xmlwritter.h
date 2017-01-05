@@ -61,6 +61,7 @@ private:
     void writeObjectAttributes(const GameObject &obj);
 
 
+
     void writeCreatedFiles(XmlWritter &wr);
 
 

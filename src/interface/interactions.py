@@ -1,6 +1,6 @@
-from enum import IntEnum
+""" Hosts the Interaction class and a function to create them """
 
-from shared.tools import readXml
+from enum import IntEnum
 
 InteractionType = IntEnum("InteractionType", "Key Mouse Scroll Multi")
 
@@ -10,27 +10,21 @@ class Interaction():
         self.target = None
 
     def load(self, dat):
-        for d in dat.list:
-            if d.name == "key":
-                self.type = InteractionType.Key
-                self.key = int(d.args["val"])
-            elif d.name == "target":
-                self.target = d.args["val"]
-            elif d.name == "event":
-                self.event = d.args["val"]
-            elif d.name == "button":
-                self.type = InteractionType.Mouse
-                self.key = int(d.args["val"])
+        """ Load the object with dat, a dictionnary describing the xml file """
+        if dat.get("key"):
+            self.type = InteractionType.Key
+            self.key = dat["key"]
+        elif dat.get("mouse"):
+            self.type = InteractionType.Mouse
+            self.key = dat["mouse"]
+        self.target = dat["target"]
+        self.event = dat["event"]
         return self
 
-def registerInteractions(path):
+def registerInteractions(interactions_list):
     """ Create a list of interaction from a Xml describing them """
-    dat = readXml(path + "interactions.xml")
-    assert dat.name == "Interactions"
     l = []
-    for d in dat.list:
+    for d in interactions_list:
         l.append(Interaction().load(d))
     return l
 
-if __name__=="__main__":
-    registerInteractions("../Test/Snake/")

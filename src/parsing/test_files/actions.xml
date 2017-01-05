@@ -1,0 +1,10 @@
+<Actions>
+    <Action> <!-- x+=1 -->
+        <Event val="moveright"/>
+        <Order type="set">
+            <target val="emitter"/>
+            <param val="x"/>
+            <value val="(self.x+1)%self.map.width"/>
+        </Order>    
+    </Action>
+</Actions>

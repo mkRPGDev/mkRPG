@@ -14,9 +14,9 @@ class CursesPlugin:
     NAME = ""
     HELP = ()
 
-    def __init__(self, netPlugin):#, interface):
+    def __init__(self, logic):#, interface):
         self.win = None # sera chargée quand on aura tous les plugins
-        self.netPlugin = netPlugin
+        self.logic = logic
         self.interface = None
 
     def handleKey(self, key):

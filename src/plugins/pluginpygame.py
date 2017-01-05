@@ -8,8 +8,9 @@ class PygamePlugin(pygame.sprite.Sprite):
     """ Subclass this to write a pygame plugin, which is a layer that should
     be drawn on screen over the map"""
 
-    def __init__(self, netPlugin):
-        self.netPlugin = netPlugin
+    def __init__(self, logic):
+        super().__init__()
+        self.logic = logic
         self.image = None # the sprite image
         self.rect = None # the sprite size and position
 

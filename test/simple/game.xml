@@ -17,5 +17,6 @@
     <Plugins>
         <Plugin>menu</Plugin>
         <Plugin>connectes</Plugin>
+        <Plugin>mapControl</Plugin>
     </Plugins>
 </Game>

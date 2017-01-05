@@ -98,7 +98,6 @@ class Client:
         self.interface.init()
         while True:
             self.interface.update()
-            # XXX désolé je ne supporte pas d'entendre mon ordi souffler pour rien
             PERF.tic()
             keys = self.interface.getEvent()
             PERF.toc()

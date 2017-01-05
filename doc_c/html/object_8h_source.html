@@ -85,49 +85,60 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="typedobject_8hxx.html" title="Definition of some template type-related base classes.">typedobject.hxx</a>&quot;</span>
 <a name="l00005"></a>00005 
-<a name="l00090"></a><a class="code" href="class_image.html">00090</a> <span class="keyword">class </span><a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
-<a name="l00091"></a>00091 {
-<a name="l00092"></a>00092 <span class="keyword">public</span>:
-<a name="l00093"></a>00093     TypeName(<a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a>)
-<a name="l00094"></a>00094     <a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>, <span class="keyword">const</span> QString &amp;fileName);
-<a name="l00095"></a><a class="code" href="class_image.html#a0bc052fef9ea98e416e11af385cd93b4">00095</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="class_image.html#a0bc052fef9ea98e416e11af385cd93b4">isValid</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> <a class="code" href="class_image.html#a0bc052fef9ea98e416e11af385cd93b4">GameObject::isValid</a>() &amp;&amp; !im.isNull();} 
-<a name="l00098"></a>00098     <span class="keyword">inline</span> <span class="keyword">const</span> QImage&amp; image()<span class="keyword"> const</span>{<span class="keywordflow">return</span> im;}
-<a name="l00099"></a>00099     <span class="keyword">inline</span> <span class="keyword">const</span> QSize size()<span class="keyword"> const</span>{<span class="keywordflow">return</span> im.size();}
-<a name="l00100"></a>00100     <span class="keywordtype">void</span> update(){} <span class="comment">// TODO</span>
-<a name="l00101"></a>00101 <span class="keyword">private</span>:
-<a name="l00102"></a>00102     QImage im;
-<a name="l00103"></a>00103 };
-<a name="l00104"></a>00104 
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108 <span class="keyword">class </span><a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a>; 
-<a name="l00112"></a><a class="code" href="class_object_type.html">00112</a> <span class="keyword">class </span><a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> : <span class="keyword">public</span> <a class="code" href="class_type.html" title="The Type class represent a type of object.">Type</a>&lt;ObjectType&gt;
-<a name="l00113"></a>00113 {
-<a name="l00114"></a>00114 <span class="keyword">public</span>:
-<a name="l00115"></a>00115     TypeName(<a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a>)
-<a name="l00116"></a>00116     <a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a>(<a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> &amp;<a class="code" href="class_inheritable_object.html#ac87a3c55ca4be252c527a29fe162bb15">ancestor</a>);
-<a name="l00117"></a>00117     <a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a>(<a class="code" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a> &amp;parent);
-<a name="l00118"></a>00118 <span class="keyword">private</span>:
-<a name="l00119"></a>00119 };
-<a name="l00120"></a>00120 
-<a name="l00124"></a><a class="code" href="class_object.html">00124</a> <span class="keyword">class </span><a class="code" href="class_object.html" title="The Object class.">Object</a> : <span class="keyword">public</span> <a class="code" href="class_typed_object.html" title="The TypedObject class is the base class for GameObject with a mutable Type.">TypedObject</a>&lt;ObjectType&gt;
-<a name="l00125"></a>00125 {
-<a name="l00126"></a>00126 <span class="keyword">public</span>:
-<a name="l00127"></a>00127     TypeName(<a class="code" href="class_object.html" title="The Object class.">Object</a>)
-<a name="l00128"></a>00128     <a class="code" href="class_object.html" title="The Object class.">Object</a>(<a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> &amp;type, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;parent);
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, v,V,isible)
-<a name="l00131"></a>00131     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, m,M,ovable)
-<a name="l00132"></a>00132     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, i,I,nteractive)
-<a name="l00133"></a>00133     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a>,i,I,mage)
-<a name="l00134"></a>00134 
-<a name="l00135"></a>00135 };
-<a name="l00136"></a>00136 
-<a name="l00137"></a>00137 
-<a name="l00138"></a>00138 
-<a name="l00139"></a>00139 
-<a name="l00140"></a>00140 <span class="preprocessor">#endif // OBJECT_H</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 
+<a name="l00022"></a><a class="code" href="class_image.html">00022</a> <span class="keyword">class </span><a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
+<a name="l00023"></a>00023 {
+<a name="l00024"></a>00024 <span class="keyword">public</span>:
+<a name="l00025"></a>00025     <a class="code" href="gameobject_8h.html#a9c09ffbe0bea5710ddb0f2bba0c605ae">TypeName</a>(<a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a>)
+<a name="l00026"></a>00026     <a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>, <span class="keyword">const</span> QString &amp;fileName);
+<a name="l00027"></a><a class="code" href="class_image.html#a0bc052fef9ea98e416e11af385cd93b4">00027</a>     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="class_image.html#a0bc052fef9ea98e416e11af385cd93b4">isValid</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> <a class="code" href="class_image.html#a0bc052fef9ea98e416e11af385cd93b4">GameObject::isValid</a>() &amp;&amp; !im.isNull();} 
+<a name="l00030"></a>00030     <span class="keyword">inline</span> <span class="keyword">const</span> QImage&amp; image()<span class="keyword"> const</span>{<span class="keywordflow">return</span> im;}
+<a name="l00031"></a>00031     <span class="keyword">inline</span> <span class="keyword">const</span> QSize size()<span class="keyword"> const</span>{<span class="keywordflow">return</span> im.size();}
+<a name="l00032"></a>00032     <span class="keywordtype">void</span> update(){} <span class="comment">// TODO</span>
+<a name="l00033"></a>00033 <span class="keyword">private</span>:
+<a name="l00034"></a>00034     QImage im;
+<a name="l00035"></a>00035 };
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 <span class="keyword">class </span><a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a>; 
+<a name="l00044"></a><a class="code" href="class_object_type.html">00044</a> <span class="keyword">class </span><a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> : <span class="keyword">public</span> <a class="code" href="class_type.html" title="The Type class represent a type of object.">Type</a>&lt;ObjectType&gt;
+<a name="l00045"></a>00045 {
+<a name="l00046"></a>00046 <span class="keyword">public</span>:
+<a name="l00047"></a>00047     <a class="code" href="gameobject_8h.html#a9c09ffbe0bea5710ddb0f2bba0c605ae">TypeName</a>(<a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a>)
+<a name="l00048"></a>00048     <a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a>(<a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> &amp;<a class="code" href="class_inheritable_object.html#a10eead70368227b7f15f44f91d234fa5">ancestor</a>);
+<a name="l00049"></a>00049     <a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a>(<a class="code" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a> &amp;parent);
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052     <span class="keyword">inline</span> <a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a>* image()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aImage ? aImage : aTypedAncestor ? aTypedAncestor-&gt;image() : <span class="keyword">nullptr</span>;}
+<a name="l00053"></a>00053     <span class="keyword">inline</span> <span class="keywordtype">void</span> setImage(<a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a>* im){aImage = im; <a class="code" href="class_game_object.html#a2130d5674df041b5a7eaf987f9b1e642">touch</a>();}
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 <span class="keyword">private</span>:
+<a name="l00057"></a>00057     <a class="code" href="class_image.html" title="The Image class stores an external file in a QImage, and gives each image ressources a unique identif...">Image</a> * aImage;
+<a name="l00058"></a>00058 };
+<a name="l00059"></a>00059 
+<a name="l00063"></a><a class="code" href="class_object.html">00063</a> <span class="keyword">class </span><a class="code" href="class_object.html" title="The Object class.">Object</a> : <span class="keyword">public</span> <a class="code" href="class_typed_object.html" title="The TypedObject class is the base class for GameObject with a mutable Type.">TypedObject</a>&lt;ObjectType&gt;
+<a name="l00064"></a>00064 {
+<a name="l00065"></a>00065 <span class="keyword">public</span>:
+<a name="l00066"></a>00066     <a class="code" href="gameobject_8h.html#a9c09ffbe0bea5710ddb0f2bba0c605ae">TypeName</a>(<a class="code" href="class_object.html" title="The Object class.">Object</a>)
+<a name="l00067"></a>00067     <a class="code" href="class_object.html" title="The Object class.">Object</a>(<a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> &amp;type, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;parent);
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069     <a class="code" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> &amp;objectType(){<span class="keywordflow">return</span> *aObjectType;}
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, v,V,isible)
+<a name="l00072"></a>00072     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, m,M,ovable)
+<a name="l00073"></a>00073     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a>, i,I,nteractive)
+<a name="l00074"></a>00074     <a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(<a class="code" href="gameobject_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a>,i,I,mage)
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076 };
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081 <span class="preprocessor">#endif // OBJECT_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

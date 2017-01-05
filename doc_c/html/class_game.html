@@ -79,7 +79,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">Game Class Reference</div>  </div>
 </div><!--header-->
@@ -112,8 +113,31 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>aboutToDestroy</b> (<
 <a class="el" href="class_map.html">Map</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>currentMap</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7394ea8ff98b0b819125a6bac47db2b"></a><!-- doxytag: member="Game::setCurrentMap" ref="af7394ea8ff98b0b819125a6bac47db2b" args="(Map *m)" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setCurrentMap</b> (<a class="el" href="class_map.html">Map</a> *m)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c246c639e16c351b7f261dc44a0897d"></a><!-- doxytag: member="Game::addImage" ref="a8c246c639e16c351b7f261dc44a0897d" args="(Image *im)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addImage</b> (<a class="el" href="class_image.html">Image</a> *im)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a252b81c5e089484bf5c343719b160971"></a><!-- doxytag: member="Game::actions" ref="a252b81c5e089484bf5c343719b160971" args="() const " -->
+QList&lt; QString &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>actions</b> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a4e44e088a7154c437ff9115bda2cc4"></a><!-- doxytag: member="Game::action" ref="a3a4e44e088a7154c437ff9115bda2cc4" args="(const QString &amp;a)" -->
+<a class="el" href="class_action.html">Action</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>action</b> (const QString &amp;a)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a924d4ba3db494d62ed6947e315e37f99"></a><!-- doxytag: member="Game::addAction" ref="a924d4ba3db494d62ed6947e315e37f99" args="(QString a, Action *act)" -->
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>addAction</b> (QString a, <a class="el" href="class_action.html">Action</a> *act)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a096706d1ead39c7b8358b86e04b8eedc"></a><!-- doxytag: member="Game::removeAction" ref="a096706d1ead39c7b8358b86e04b8eedc" args="(const QString &amp;a)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>removeAction</b> (const QString &amp;a)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70cf70c792eddfd82ddfc97a9d26ff9e"></a><!-- doxytag: member="Game::renameAction" ref="a70cf70c792eddfd82ddfc97a9d26ff9e" args="(const QString &amp;a, const QString &amp;nv)" -->
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>renameAction</b> (const QString &amp;a, const QString &amp;nv)</td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7faacf8b374ca68c6e7e396375c5b73d"></a><!-- doxytag: member="Game::objects" ref="a7faacf8b374ca68c6e7e396375c5b73d" args="" -->
+<a class="el" href="game_8h.html#a079c21f330a7cc873d15326d90f1b007">ListD</a>(i, I, mage,, s) private <br class="typebreak"/>
+QMap&lt; int, <a class="el" href="class_game_object.html">GameObject</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>objects</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40c1b70c4d67fc2f3ca00ef90ba719fd"></a><!-- doxytag: member="Game::w" ref="a40c1b70c4d67fc2f3ca00ef90ba719fd" args="" -->
+<a class="el" href="class_world.html">World</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>w</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acef3a39fdf14be2c980b0dc11e7be402"></a><!-- doxytag: member="Game::map" ref="acef3a39fdf14be2c980b0dc11e7be402" args="" -->
+<a class="el" href="class_map.html">Map</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>map</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abefc6abe4876fd5f2d407dd7ea21b1da"></a><!-- doxytag: member="Game::picts" ref="abefc6abe4876fd5f2d407dd7ea21b1da" args="" -->
+QMap&lt; int, <a class="el" href="class_image.html">Image</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>picts</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa349faec2222e7ffb942edd039ff7cfe"></a><!-- doxytag: member="Game::strings" ref="aa349faec2222e7ffb942edd039ff7cfe" args="" -->
+QMap&lt; int, QString &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>strings</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a554a490b669b95eb62ae88ce86abfd24"></a><!-- doxytag: member="Game::aActions" ref="a554a490b669b95eb62ae88ce86abfd24" args="" -->
+QMap&lt; QString, <a class="el" href="class_action.html">Action</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>aActions</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> class gather the differents parts needed to describe a game. </p>
@@ -135,7 +159,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addImage</b> (<a clas
 </div>
 <div class="memdoc">
 <p>Returns a new unused identifiers</p>
-<dl class="note"><dt><b>Note:</b></dt><dd>It should only be used by <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> methods <a class="el" href="class_game_object.html#abb6a1fa1a89307820874179b20010f6d">GameObject::init</a> and GameObject::GameObject. </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>It should only be used by <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> methods <a class="el" href="class_game_object.html#abb6a1fa1a89307820874179b20010f6d">GameObject::init</a> and <a class="el" href="class_game_object.html#a7f99ba7231f83306f28a23923329f153">GameObject::GameObject</a>. </dd></dl>
 
 </div>
 </div>

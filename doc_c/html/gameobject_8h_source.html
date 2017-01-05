@@ -88,202 +88,286 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00006"></a>00006 <span class="preprocessor">#include &lt;assert.h&gt;</span>
 <a name="l00007"></a>00007 <span class="preprocessor">#include &lt;algorithm&gt;</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 
-<a name="l00016"></a>00016 <span class="keywordtype">bool</span> cleverComp(<span class="keyword">const</span> QString &amp;na, <span class="keyword">const</span> QString &amp;nb);
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="preprocessor">#define UNUSED(p)</span>
-<a name="l00020"></a>00020 <span class="preprocessor"></span>
-<a name="l00021"></a>00021 <span class="preprocessor">#define TypeName(Type) virtual QString typeName() const{return QObject::tr(#Type);}</span>
-<a name="l00022"></a>00022 <span class="preprocessor"></span>
-<a name="l00023"></a>00023 <span class="preprocessor">#define ObjectListDef(Objects,Type) private: QMap&lt;int, Type*&gt; a##Objects; public:</span>
-<a name="l00024"></a>00024 <span class="preprocessor"></span><span class="preprocessor">#define ObjectListAdd(Object,Objects, Type) void add##Object(Type* new##Object){a##Objects[new##Object-&gt;ident()] = new##Object; touch();}</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define ObjectListTake(Object, Objects, Type) Type* take##Object(int id){touch(); return a##Objects.take(id);}</span>
-<a name="l00026"></a>00026 <span class="preprocessor"></span><span class="preprocessor">#define ObjectListGetter(object,Objects, Type) inline Type* object(int id) const{return a##Objects.value(id, nullptr);}</span>
-<a name="l00027"></a>00027 <span class="preprocessor"></span><span class="preprocessor">#define ObjectListValues(objects,Objects, Type) inline QList&lt;Type*&gt; objects() const{return a##Objects.values();}</span>
-<a name="l00028"></a>00028 <span class="preprocessor"></span><span class="preprocessor">#define ObjectListGetters(object,Object,objects,Objects,Type) ObjectListGetter(object,Objects, Type) ObjectListValues(objects,Objects, Type)</span>
-<a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#define ObjectListModifiers(Object, Objects, Type) ObjectListAdd(Object,Objects, Type) ObjectListTake(Object, Objects, Type)</span>
-<a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">#define ObjectList(object,Object,objects,Objects,Type) \</span>
-<a name="l00031"></a>00031 <span class="preprocessor">    ObjectListDef(Objects,Type) ObjectListGetters(object,Object,objects,Objects,Type) ObjectListModifiers(Object, Objects, Type)</span>
-<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define ObjectListD(init,Init,body,sg,pl,Type) ObjectList(init##body##sg,Init##body##sg,init##body##pl,Init##body##pl,Type)</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span>
-<a name="l00034"></a><a class="code" href="gameobject_8h.html#af50e2bbaaebe8da60a8d514fca706273">00034</a> <span class="preprocessor">#define C(Macro, init,Init,body, ...) Macro(init##body, Init##body, ##__VA_ARGS__) </span>
-<a name="l00062"></a><a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">00062</a> <span class="preprocessor">#define C0(Macro, init,Init,body) Macro(init##body, Init##body) </span>
-<a name="l00075"></a><a class="code" href="gameobject_8h.html#a4f05201336d20b10dad322cfbd30c0af">00075</a> <span class="preprocessor">#define C1(Macro, init,Init,body, arg) Macro(init##body, Init##body, arg) </span>
-<a name="l00088"></a><a class="code" href="gameobject_8h.html#a65a30247a861dc15363de8b7264e09a6">00088</a> <span class="preprocessor">#define ProtectFlag(flag) reserved.insert(QString(#flag));</span>
-<a name="l00094"></a><a class="code" href="gameobject_8h.html#ad1f082144869225c63b2194de68e2cd5">00094</a> <span class="preprocessor">#define SetFlag(flag, value) setFlag(#flag,value) </span>
-<a name="l00110"></a><a class="code" href="gameobject_8h.html#afde5dda87eae392282bcbae5db29ca2a">00110</a> <span class="preprocessor">#define FlagGetter(flag, Flag) inline bool is##Flag() const{return getFlag(#flag);} </span>
-<a name="l00128"></a><a class="code" href="gameobject_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">00128</a> <span class="preprocessor">#define FlagSetter(flag, Flag) inline void set##Flag(bool flag){SetFlag(flag,flag); touch();} </span>
-<a name="l00141"></a><a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">00141</a> <span class="preprocessor">#define Flag(flag, Flag) FlagGetter(flag, Flag) FlagSetter(flag, Flag) </span>
-<a name="l00155"></a><a class="code" href="gameobject_8h.html#a444f505d8782523427517f998fdb9e12">00155</a> <span class="preprocessor">#define ProtectParam(param) reserved.insert(QString(#param));</span>
-<a name="l00161"></a><a class="code" href="gameobject_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">00161</a> <span class="preprocessor">#define SetParam(param, value) setParam(#param,value) </span>
-<a name="l00178"></a><a class="code" href="gameobject_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">00178</a> <span class="preprocessor">#define ParamGetter(param) inline int param() const{return getParam(#param);} </span>
-<a name="l00194"></a><a class="code" href="gameobject_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">00194</a> <span class="preprocessor">#define ParamSetter(param, Param) inline void set##Param(int param##Value){SetParam(param,param##Value); touch();} </span>
-<a name="l00207"></a>00207 <span class="preprocessor">#define ParamMGetter(param, Param, M) inline int param##M() const {return getParam##M(#param);}</span>
-<a name="l00208"></a>00208 <span class="preprocessor"></span><span class="preprocessor">#define ParamMSetter(param, Param, M) void set##Param##M(int param##M) {setParam##M(#param, param##M);}</span>
-<a name="l00209"></a>00209 <span class="preprocessor"></span><span class="preprocessor">#define ParamMin(param, Param) ParamMGetter(param, Param, Min) ParamMSetter(param, Param, Min)</span>
-<a name="l00210"></a>00210 <span class="preprocessor"></span><span class="preprocessor">#define ParamMax(param, Param) ParamMGetter(param, Param, Max) ParamMSetter(param, Param, Max)</span>
-<a name="l00211"></a>00211 <span class="preprocessor"></span><span class="preprocessor">#define ParamDom(param, Param) ParamMin(param,Param) ParamMax(param,Param)</span>
-<a name="l00212"></a>00212 <span class="preprocessor"></span><span class="comment">// faire les Setter/Getter (min, max);</span>
-<a name="l00213"></a>00213 
-<a name="l00214"></a><a class="code" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">00214</a> <span class="preprocessor">#define Param(param, Param) ParamGetter(param) ParamSetter(param, Param) ParamDom(param,Param) </span>
-<a name="l00228"></a><a class="code" href="gameobject_8h.html#abb51a31972a5cd870c4d8f4f3eada448">00228</a> <span class="preprocessor">#define AttrGetter(attr, Attr, Type) inline Type* attr() const{return a##Attr;} </span>
-<a name="l00241"></a><a class="code" href="gameobject_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">00241</a> <span class="preprocessor">#define AttrFree(Attr) if(a##Attr) a##Attr-&gt;removeReference();</span>
-<a name="l00247"></a><a class="code" href="gameobject_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">00247</a> <span class="preprocessor">#define AttrLink(Attr) if(a##Attr) a##Attr-&gt;addReference();</span>
-<a name="l00253"></a><a class="code" href="gameobject_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">00253</a> <span class="preprocessor">#define AttrSetter(attr, Attr, Type) inline void set##Attr(Type* new##Attr){AttrFree(Attr); a##Attr = new##Attr; AttrLink(Attr); touch();} </span>
-<a name="l00266"></a><a class="code" href="gameobject_8h.html#a9af19ccbd1471e4daaa056e495734fe5">00266</a> <span class="preprocessor">#define AttrDef(Attr, Type) private: Type* a##Attr = nullptr; public: </span>
-<a name="l00288"></a><a class="code" href="gameobject_8h.html#a64aa6604561401f0e8e846061093a38f">00288</a> <span class="preprocessor">#define Attr(attr, Attr, Type) AttrDef(Attr, Type) AttrGetter(attr,Attr,Type) AttrSetter(attr, Attr, Type) </span>
-<a name="l00307"></a><a class="code" href="gameobject_8h.html#ab34851071e0bcd61ba26ebc3893a683a">00307</a> <span class="preprocessor">#define AttrT(type,Type) Attr(type, Type, Type) </span>
-<a name="l00331"></a><a class="code" href="class_parameter.html">00331</a> <span class="preprocessor">class Parameter</span>
-<a name="l00332"></a>00332 <span class="preprocessor"></span>{
-<a name="l00333"></a>00333 <span class="keyword">public</span>:
-<a name="l00334"></a>00334     <a class="code" href="class_parameter.html" title="The Parameter class represents a parameter with a valid domain of value.">Parameter</a>(<span class="keywordtype">int</span> v = 0) : min(0), max(100){setValue(v);}
-<a name="l00335"></a>00335     <a class="code" href="class_parameter.html" title="The Parameter class represents a parameter with a valid domain of value.">Parameter</a>(<span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> v = 0): min(min), max(max){setValue(v);}
-<a name="l00336"></a>00336     <span class="keywordtype">void</span> setValue(<span class="keywordtype">int</span> v){pValue = std::min(std::max(min,v),max);}
-<a name="l00337"></a>00337     <span class="keyword">inline</span> <span class="keywordtype">int</span> value()<span class="keyword"> const </span>{<span class="keywordflow">return</span> pValue;}
-<a name="l00338"></a>00338     <span class="keywordtype">void</span> setMinimum(<span class="keywordtype">int</span> m) {min = m; setValue(pValue);}
-<a name="l00339"></a>00339     <span class="keyword">inline</span> <span class="keywordtype">int</span> minimum()<span class="keyword"> const </span>{<span class="keywordflow">return</span> min;}
-<a name="l00340"></a>00340     <span class="keywordtype">void</span> setMaximum(<span class="keywordtype">int</span> m) {max = m; setValue(pValue);}
-<a name="l00341"></a>00341     <span class="keyword">inline</span> <span class="keywordtype">int</span> maximum()<span class="keyword"> const </span>{<span class="keywordflow">return</span> max;}
-<a name="l00342"></a>00342     <span class="keywordtype">void</span> setDomain(<span class="keywordtype">int</span> minVal, <span class="keywordtype">int</span> maxVal) {min = minVal; max = maxVal; setValue(pValue);}
-<a name="l00343"></a>00343 
-<a name="l00344"></a>00344 <span class="keyword">private</span>:
-<a name="l00345"></a>00345     <span class="keywordtype">int</span> min, max;
-<a name="l00346"></a>00346     <span class="keywordtype">int</span> pValue;
-<a name="l00347"></a>00347 };
-<a name="l00348"></a>00348 
-<a name="l00349"></a>00349 
-<a name="l00350"></a>00350 <span class="keyword">class </span><a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>;
-<a name="l00351"></a>00351 
-<a name="l00384"></a><a class="code" href="class_game_object.html">00384</a> <span class="keyword">class </span><a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
-<a name="l00385"></a>00385 {
-<a name="l00386"></a>00386 <span class="keyword">protected</span>:
-<a name="l00387"></a>00387     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);
-<a name="l00388"></a>00388     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *g = <span class="keyword">nullptr</span>, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *parent = <span class="keyword">nullptr</span>);                                
-<a name="l00395"></a>00395     <span class="keyword">virtual</span> <a class="code" href="class_game_object.html#ab82dfdb656f9051c0587e6593b2dda97">~GameObject</a>();                                                                      
-<a name="l00399"></a>00399 <span class="keyword">public</span>:
-<a name="l00400"></a>00400     TypeName(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
-<a name="l00401"></a>00401 
-<a name="l00402"></a><a class="code" href="class_game_object.html#a21515212e3deb4123268f220e142b077">00402</a>     inline <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a21515212e3deb4123268f220e142b077">ident</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> id;}                                                        
-<a name="l00408"></a><a class="code" href="class_game_object.html#a0c4cc65819b30ec36a1c20a1c24997fe">00408</a>     <span class="keyword">inline</span> <span class="keyword">const</span> QDateTime&amp; <a class="code" href="class_game_object.html#a0c4cc65819b30ec36a1c20a1c24997fe">lastInternalEdition</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> lastEdit;}                       
-<a name="l00413"></a><a class="code" href="class_game_object.html#acc65ad08191fcaf558bd1840a45d23cf">00413</a>     <span class="keyword">inline</span> <span class="keyword">const</span> QDateTime&amp; <a class="code" href="class_game_object.html#acc65ad08191fcaf558bd1840a45d23cf">lastChildrenEdition</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> lastChildEdit;}                  
-<a name="l00418"></a><a class="code" href="class_game_object.html#a73b351287147712a937e87028bf8c876">00418</a>     <span class="keyword">inline</span> <span class="keyword">const</span> QDateTime&amp; <a class="code" href="class_game_object.html#a73b351287147712a937e87028bf8c876">lastEdition</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> lastEdit &gt; lastChildEdit ? lastEdit : lastChildEdit;} 
-<a name="l00424"></a>00424     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a2130d5674df041b5a7eaf987f9b1e642">touch</a>();                                                                               
-<a name="l00429"></a>00429     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a815c7f587c0ae528614add95655d9a0a">addReference</a>();                                                                        
-<a name="l00434"></a>00434     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a68725fd75f55bc73bb44216406ce34e5">removeReference</a>();                                                                     
-<a name="l00440"></a>00440     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ae34944b23d5d7d472d5c8da3f42fb2e3">setParent</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *p);                                                              
-<a name="l00445"></a><a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">00445</a>     <span class="keyword">inline</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>* <a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aParent;}                                          
-<a name="l00451"></a>00451     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ae928d2f18b5a26656ad41b7c27b463a7">setName</a>(<span class="keyword">const</span> QString &amp;n);                                                     
-<a name="l00456"></a><a class="code" href="class_game_object.html#aede5e0829a5fe107b1419bd62f03c132">00456</a>     <span class="keyword">const</span> QString&amp; <a class="code" href="class_game_object.html#aede5e0829a5fe107b1419bd62f03c132">name</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aName;}                                                  
-<a name="l00461"></a><a class="code" href="class_game_object.html#a97fbf0507cf140b9f3abb568c6a97145">00461</a>     <span class="keyword">virtual</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>* <a class="code" href="class_game_object.html#a97fbf0507cf140b9f3abb568c6a97145">child</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>{<span class="keywordflow">return</span> aChildren.value(<span class="keywordtype">id</span>, <span class="keyword">nullptr</span>);}        
-<a name="l00466"></a><a class="code" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">00466</a>     <span class="keyword">virtual</span> QList&lt;GameObject*&gt; <a class="code" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">children</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aChildren.values();}                     
-<a name="l00472"></a>00472     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a3a308cc3f1d11d66dd5583fb531035c3">getParamMin</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;                                        
-<a name="l00481"></a>00481     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a714857ae1ea08935b8beb76675db33e8">getParamMax</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;                                        
-<a name="l00490"></a>00490     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a369445e39ff040b9051e6e003a45fbbb">setParamMin</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> min);                                    
-<a name="l00499"></a>00499     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a6c8131b466e418f796450cdbb0e81cce">setParamMax</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> max);                                    
-<a name="l00508"></a>00508     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#afaa71b1cb878ba95f10a13ad4e67af2b">setParamDomain</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max);                        
-<a name="l00517"></a>00517     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a4c9a0568afb851340b513207c9745734">getParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;                                           
-<a name="l00526"></a>00526     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a2cd8c2defab5b5327a65253b2a6773b9">setParam</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> value);                                     
-<a name="l00534"></a>00534     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#ae5272e52ab14e5d87616a5dcaeb62919">hasParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;                                          
-<a name="l00539"></a>00539     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_game_object.html#a1ef02d136f04abe43628035486dfc254">params</a>() <span class="keyword">const</span>;                                                      
-<a name="l00544"></a>00544     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#aec5d03f0a7f5d3807b10f3629c1fd146">renameParam</a>(<span class="keyword">const</span> QString &amp;param, <span class="keyword">const</span> QString &amp;newParam);                    
-<a name="l00552"></a>00552     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a5cbbbaebcc0204b466f79c1e6734c864">addParam</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> value = 0, <span class="keywordtype">int</span> min = 0, <span class="keywordtype">int</span> max = 100);     
-<a name="l00560"></a>00560     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a2f406df8dd674455ccc9505dc1746f61">removeParam</a>(<span class="keyword">const</span> QString &amp;param);                                             
-<a name="l00570"></a>00570     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#ac1df89c8a28a491e1cfd102dcbd044d7">getFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;                                            
-<a name="l00579"></a>00579     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#aeefd55b81985ac441c9778de200111d0">setFlag</a>(<span class="keyword">const</span> QString &amp;flag, <span class="keywordtype">bool</span> enable);                                     
-<a name="l00587"></a>00587     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#af741fb2fb5e879041c2bd95de4156eb6">hasFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;                                            
-<a name="l00592"></a>00592     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_game_object.html#aa4e80649831f355c14f35f0f9374c691">flags</a>() <span class="keyword">const</span>;                                                       
-<a name="l00597"></a>00597     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a949ff1c62139b7f41142cc13482357e6">renameFlag</a>(<span class="keyword">const</span> QString &amp;flag, <span class="keyword">const</span> QString &amp;newFlag);                       
-<a name="l00605"></a>00605     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ad466ce6d9d70cf2d9127e43113f1de0a">addFlag</a>(<span class="keyword">const</span> QString &amp;flag, <span class="keywordtype">bool</span> enable = <span class="keyword">true</span>);                              
-<a name="l00613"></a>00613     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a56d6296edaf45ff99cb03be0598a7c69">removeFlag</a>(<span class="keyword">const</span> QString &amp;flag);                                               
-<a name="l00624"></a>00624 <span class="keyword">protected</span>:
-<a name="l00625"></a>00625 
-<a name="l00626"></a>00626     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#abb6a1fa1a89307820874179b20010f6d">init</a>(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *g, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);                                                     
-<a name="l00631"></a><a class="code" href="class_game_object.html#a88676a10f8e905747f1d64c2da490524">00631</a>     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#a88676a10f8e905747f1d64c2da490524">isValid</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> id;}                                                    
-<a name="l00638"></a>00638     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a4733a1081db3c2d0a9be225265283ad8">addChild</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *c); 
-<a name="l00643"></a>00643     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a21dc679cb474b147b7d7d336117ffe58">removeChild</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *c); 
-<a name="l00651"></a>00651     <span class="keywordtype">void</span> childrenTouched(<span class="keyword">const</span> QDateTime &amp;d);
-<a name="l00652"></a>00652     QList&lt;QString&gt; filter(QList&lt;QString&gt; l) <span class="keyword">const</span>;
-<a name="l00653"></a>00653 
-<a name="l00654"></a>00654     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *aParent;
-<a name="l00655"></a>00655     QMap&lt;int, GameObject*&gt; aChildren;
-<a name="l00656"></a>00656     <a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *game;
-<a name="l00657"></a>00657     <span class="keywordtype">int</span> nbRef;
-<a name="l00658"></a>00658     QMap&lt;QString, Parameter&gt; aParams;
-<a name="l00659"></a>00659     QMap&lt;QString, bool&gt; aFlags;
-<a name="l00660"></a>00660     QString aName;
-<a name="l00661"></a>00661     QString fileName;
-<a name="l00662"></a>00662     QDateTime lastEdit, lastChildEdit;
-<a name="l00663"></a>00663     QSet&lt;QString&gt; reserved;
-<a name="l00664"></a>00664 
-<a name="l00665"></a>00665 <span class="keyword">private</span>:
-<a name="l00666"></a>00666     <span class="keywordtype">int</span> id;
-<a name="l00667"></a>00667 
-<a name="l00668"></a>00668 };
-<a name="l00669"></a>00669 
-<a name="l00670"></a>00670 
-<a name="l00671"></a>00671 
-<a name="l00672"></a>00672 
-<a name="l00673"></a>00673 
-<a name="l00678"></a><a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">00678</a> <span class="keyword">typedef</span> QList&lt;QPair&lt;QString,QList&lt;QString&gt;&gt;&gt; <a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a>;
-<a name="l00679"></a>00679 
-<a name="l00680"></a>00680 
-<a name="l00692"></a><a class="code" href="class_inheritable_object.html">00692</a> <span class="keyword">class </span><a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
-<a name="l00693"></a>00693 {
-<a name="l00694"></a>00694 <span class="keyword">protected</span>:
-<a name="l00695"></a>00695     <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>, <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> *<a class="code" href="class_inheritable_object.html#ac87a3c55ca4be252c527a29fe162bb15">ancestor</a> = <span class="keyword">nullptr</span>);
-<a name="l00696"></a>00696 
-<a name="l00697"></a>00697 <span class="keyword">public</span>:
-<a name="l00698"></a>00698     <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#adcbc6cc43d5f999e9c7758f2c15d06da">hasAncestor</a>() <span class="keyword">const</span>;                                       
-<a name="l00703"></a>00703     <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> *<a class="code" href="class_inheritable_object.html#ac87a3c55ca4be252c527a29fe162bb15">ancestor</a>() <span class="keyword">const</span>;                            
-<a name="l00709"></a>00709     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#abc198984005821502425085aeb16c754">isInheritedParam</a>(<span class="keyword">const</span> QString &amp;p) <span class="keyword">const</span>;          
-<a name="l00715"></a>00715     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#abe7d327b43331cd5532c1c8228d63a4e">isRedefiniedParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;     
-<a name="l00721"></a>00721     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_inheritable_object.html#aa2f45895bcf254ef252428980c06da83">getParamMin</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;            
-<a name="l00731"></a>00731     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_inheritable_object.html#a1edd964a7d01692414ef90f3e88c6a5e">getParamMax</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;            
-<a name="l00741"></a>00741     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_inheritable_object.html#af3ebe709ead7a86ed2eaee602f1ffb67">setParam</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> value);         
-<a name="l00746"></a>00746     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_inheritable_object.html#a85fdb93d54f9e561acf5effa8012abb8">getParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;               
-<a name="l00752"></a>00752     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a1f6ee8bcd7cb2e92e260d535518778fc">hasParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;              
-<a name="l00758"></a>00758     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a48233a132cc55bce9f73ca6d2dc7d657">params</a>() <span class="keyword">const</span>;                          
-<a name="l00764"></a>00764     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a6b7782357091c81101b20fb6ca669eb0">properParams</a>() <span class="keyword">const</span>;                    
-<a name="l00770"></a>00770     <a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a> <a class="code" href="class_inheritable_object.html#a6bbe68c492529414211ddc8704640d13">paramTree</a>() <span class="keyword">const</span>;                             
-<a name="l00777"></a>00777     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#abaae23f6ff5781212a88a5faa4f9ed44">isInheritedFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;        
-<a name="l00783"></a>00783     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#ab691081c80168648c19b60061c1fa148">isRedefiniedFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;       
-<a name="l00789"></a>00789     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a2982062433ef52c22a669e29dbc42e65">getFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;                
-<a name="l00795"></a>00795     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a3c441caeca4fdc82fb1978595561f101">hasFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;                
-<a name="l00801"></a>00801     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a2014359fb2260eec0804a0e7be0a6c6d">flags</a>() <span class="keyword">const</span>;                           
-<a name="l00807"></a>00807     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a2b0d98c6f8f69698629a4e4c94c85ba4">properFlags</a>() <span class="keyword">const</span>;                     
-<a name="l00813"></a>00813     <a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a> <a class="code" href="class_inheritable_object.html#a1f5e307cffd3b9d3fc4c4d00079361f7">flagTree</a>() <span class="keyword">const</span>;                              
-<a name="l00821"></a>00821 <span class="keyword">protected</span>:
-<a name="l00822"></a>00822 
-<a name="l00823"></a>00823     <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> *aAncestor;
-<a name="l00824"></a>00824 
-<a name="l00825"></a>00825 <span class="keyword">private</span>:
-<a name="l00826"></a>00826     <span class="keyword">static</span> <span class="keywordtype">void</span> removeLastRedondances(<a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a> &amp;attr);
-<a name="l00827"></a>00827 };
-<a name="l00828"></a>00828 
-<a name="l00829"></a>00829 
-<a name="l00830"></a>00830 
-<a name="l00843"></a>00843 <span class="keyword">class </span><a class="code" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a>;
-<a name="l00844"></a><a class="code" href="class_game_object_type.html">00844</a> <span class="keyword">class </span><a class="code" href="class_game_object_type.html">GameObjectType</a> : <span class="keyword">public</span> <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a>
-<a name="l00845"></a>00845 {
-<a name="l00846"></a>00846 <span class="keyword">protected</span>:
-<a name="l00847"></a>00847     <a class="code" href="class_game_object_type.html">GameObjectType</a>(<a class="code" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);
-<a name="l00848"></a>00848     <a class="code" href="class_game_object_type.html">GameObjectType</a>(<a class="code" href="class_game_object_type.html">GameObjectType</a> &amp;<a class="code" href="class_inheritable_object.html#ac87a3c55ca4be252c527a29fe162bb15">ancestor</a>);
-<a name="l00849"></a>00849     <span class="keyword">virtual</span> ~<a class="code" href="class_game_object_type.html">GameObjectType</a>();
-<a name="l00850"></a>00850 <span class="keyword">public</span>:
-<a name="l00851"></a>00851     <span class="keyword">const</span> QList&lt;GameObjectType*&gt; <a class="code" href="class_game_object_type.html#a68c3d9aeec4b7b259b03b98aca307397">descendants</a>() <span class="keyword">const</span>; 
-<a name="l00854"></a>00854 <span class="keyword">private</span>:
-<a name="l00855"></a>00855     <span class="keywordtype">void</span> addDescendant(<a class="code" href="class_game_object_type.html">GameObjectType</a> &amp;type);
-<a name="l00856"></a>00856     <span class="keywordtype">void</span> removeDescendant(<a class="code" href="class_game_object_type.html">GameObjectType</a> &amp;type);
-<a name="l00857"></a>00857     QList&lt;GameObjectType*&gt; descendantTypes;
-<a name="l00858"></a>00858     <a class="code" href="class_game_object_type.html">GameObjectType</a>* ancestorType;
-<a name="l00859"></a>00859 };
-<a name="l00860"></a>00860 
-<a name="l00861"></a>00861 
-<a name="l00862"></a>00862 
-<a name="l00863"></a>00863 
-<a name="l00864"></a>00864 
-<a name="l00865"></a>00865 <span class="preprocessor">#endif // GAMEOBJECT_H</span>
+<a name="l00084"></a>00084 <span class="keywordtype">bool</span> cleverComp(<span class="keyword">const</span> QString &amp;na, <span class="keyword">const</span> QString &amp;nb);  
+<a name="l00087"></a>00087 <span class="keywordtype">bool</span> isValidName(<span class="keyword">const</span> QString &amp;n);                     
+<a name="l00091"></a><a class="code" href="gameobject_8h.html#ab330159c4bbdc7d8e10cd05da86565aa">00091</a> <span class="preprocessor">#define UNUSED(p)                                                                                                                           </span>
+<a name="l00095"></a><a class="code" href="gameobject_8h.html#a9c09ffbe0bea5710ddb0f2bba0c605ae">00095</a> <span class="preprocessor">#define TypeName(Type) virtual QString typeName() const{return QObject::tr(#Type);}                                                         </span>
+<a name="l00101"></a><a class="code" href="gameobject_8h.html#af50e2bbaaebe8da60a8d514fca706273">00101</a> <span class="preprocessor">#define C(Macro, init,Init,body, ...) Macro(init##body, Init##body, ##__VA_ARGS__)                                                          </span>
+<a name="l00129"></a><a class="code" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">00129</a> <span class="preprocessor">#define C0(Macro, init,Init,body) Macro(init##body, Init##body)                                                                             </span>
+<a name="l00142"></a><a class="code" href="gameobject_8h.html#a4f05201336d20b10dad322cfbd30c0af">00142</a> <span class="preprocessor">#define C1(Macro, init,Init,body, arg) Macro(init##body, Init##body, arg)                                                                   </span>
+<a name="l00155"></a><a class="code" href="gameobject_8h.html#a65a30247a861dc15363de8b7264e09a6">00155</a> <span class="preprocessor">#define ProtectFlag(flag) reserved.insert(QString(#flag));                                                                                  </span>
+<a name="l00161"></a><a class="code" href="gameobject_8h.html#ad1f082144869225c63b2194de68e2cd5">00161</a> <span class="preprocessor">#define SetFlag(flag, value) setFlag(#flag,value)                                                                                           </span>
+<a name="l00177"></a><a class="code" href="gameobject_8h.html#afde5dda87eae392282bcbae5db29ca2a">00177</a> <span class="preprocessor">#define FlagGetter(flag, Flag) inline bool is##Flag() const{return getFlag(#flag);}                                                         </span>
+<a name="l00195"></a><a class="code" href="gameobject_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">00195</a> <span class="preprocessor">#define FlagSetter(flag, Flag) inline void set##Flag(bool flag){SetFlag(flag,flag); touch();}                                               </span>
+<a name="l00208"></a><a class="code" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">00208</a> <span class="preprocessor">#define Flag(flag, Flag) FlagGetter(flag, Flag) FlagSetter(flag, Flag)                                                                      </span>
+<a name="l00222"></a><a class="code" href="gameobject_8h.html#a444f505d8782523427517f998fdb9e12">00222</a> <span class="preprocessor">#define ProtectParam(param) reserved.insert(QString(#param));                                                                               </span>
+<a name="l00228"></a><a class="code" href="gameobject_8h.html#a7ea6e146fa4b193d62fdb8c53bd27c09">00228</a> <span class="preprocessor">#define SetParam(param, value) setParam(#param,value)                                                                                       </span>
+<a name="l00245"></a><a class="code" href="gameobject_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">00245</a> <span class="preprocessor">#define ParamGetter(param) inline int param() const{return getParam(#param);}                                                               </span>
+<a name="l00261"></a><a class="code" href="gameobject_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">00261</a> <span class="preprocessor">#define ParamSetter(param, Param) inline void set##Param(int param##Value){SetParam(param,param##Value); touch();}                          </span>
+<a name="l00274"></a>00274 <span class="preprocessor">#define ParamMGetter(param, Param, M) inline int param##M() const {return getParam##M(#param);}</span>
+<a name="l00275"></a>00275 <span class="preprocessor"></span><span class="preprocessor">#define ParamMSetter(param, Param, M) void set##Param##M(int param##M) {setParam##M(#param, param##M);}</span>
+<a name="l00276"></a>00276 <span class="preprocessor"></span><span class="preprocessor">#define ParamMin(param, Param) ParamMGetter(param, Param, Min) ParamMSetter(param, Param, Min)</span>
+<a name="l00277"></a>00277 <span class="preprocessor"></span><span class="preprocessor">#define ParamMax(param, Param) ParamMGetter(param, Param, Max) ParamMSetter(param, Param, Max)</span>
+<a name="l00278"></a>00278 <span class="preprocessor"></span><span class="preprocessor">#define ParamDom(param, Param) ParamMin(param,Param) ParamMax(param,Param)</span>
+<a name="l00279"></a>00279 <span class="preprocessor"></span><span class="comment">// faire les Setter/Getter (min, max);</span>
+<a name="l00280"></a>00280 
+<a name="l00281"></a><a class="code" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">00281</a> <span class="preprocessor">#define Param(param, Param) ParamGetter(param) ParamSetter(param, Param) ParamDom(param,Param)                                              </span>
+<a name="l00295"></a><a class="code" href="gameobject_8h.html#abb51a31972a5cd870c4d8f4f3eada448">00295</a> <span class="preprocessor">#define AttrGetter(attr, Attr, Type) inline Type* attr() const{return a##Attr;}                                                             </span>
+<a name="l00308"></a><a class="code" href="gameobject_8h.html#af7f0444b589b5ad4d64229ffbfb5437b">00308</a> <span class="preprocessor">#define AttrFree(Attr) if(a##Attr) a##Attr-&gt;removeReference();                                                                              </span>
+<a name="l00314"></a><a class="code" href="gameobject_8h.html#a509cabc64fe810c7b9f860b56b5cf59b">00314</a> <span class="preprocessor">#define AttrLink(Attr) if(a##Attr) a##Attr-&gt;addReference();                                                                                 </span>
+<a name="l00320"></a><a class="code" href="gameobject_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">00320</a> <span class="preprocessor">#define AttrSetter(attr, Attr, Type) inline void set##Attr(Type* new##Attr){AttrFree(Attr); a##Attr = new##Attr; AttrLink(Attr); touch();}  </span>
+<a name="l00333"></a><a class="code" href="gameobject_8h.html#a9af19ccbd1471e4daaa056e495734fe5">00333</a> <span class="preprocessor">#define AttrDef(Attr, Type) private: Type* a##Attr = nullptr; public:                                                                       </span>
+<a name="l00355"></a><a class="code" href="gameobject_8h.html#a64aa6604561401f0e8e846061093a38f">00355</a> <span class="preprocessor">#define Attr(attr, Attr, Type) AttrDef(Attr, Type) AttrGetter(attr,Attr,Type) AttrSetter(attr, Attr, Type)                                  </span>
+<a name="l00374"></a><a class="code" href="gameobject_8h.html#ab34851071e0bcd61ba26ebc3893a683a">00374</a> <span class="preprocessor">#define AttrT(type,Type) Attr(type, Type, Type)                                                                                             </span>
+<a name="l00398"></a><a class="code" href="class_parameter.html">00398</a> <span class="preprocessor">class Parameter</span>
+<a name="l00399"></a>00399 <span class="preprocessor"></span>{
+<a name="l00400"></a>00400 <span class="keyword">public</span>:
+<a name="l00401"></a>00401     <a class="code" href="class_parameter.html" title="The Parameter class represents a parameter with a valid domain of value.">Parameter</a>(<span class="keywordtype">int</span> v = 0) : min(0), max(100){setValue(v);}
+<a name="l00402"></a>00402     <a class="code" href="class_parameter.html" title="The Parameter class represents a parameter with a valid domain of value.">Parameter</a>(<span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> v = 0): min(min), max(max){setValue(v);}
+<a name="l00403"></a>00403     <a class="code" href="class_parameter.html" title="The Parameter class represents a parameter with a valid domain of value.">Parameter</a>(<span class="keyword">const</span> <a class="code" href="class_parameter.html" title="The Parameter class represents a parameter with a valid domain of value.">Parameter</a> &amp;p) : <a class="code" href="class_parameter.html" title="The Parameter class represents a parameter with a valid domain of value.">Parameter</a>(p.min, p.max, p.pValue){}
+<a name="l00404"></a>00404     <span class="keywordtype">void</span> setValue(<span class="keywordtype">int</span> v){pValue = std::min(std::max(min,v),max);}
+<a name="l00405"></a>00405     <span class="keyword">inline</span> <span class="keywordtype">int</span> value()<span class="keyword"> const </span>{<span class="keywordflow">return</span> pValue;}
+<a name="l00406"></a>00406     <span class="keywordtype">void</span> setMinimum(<span class="keywordtype">int</span> m) {min = m; max = std::max(max,min); setValue(pValue);}
+<a name="l00407"></a>00407     <span class="keyword">inline</span> <span class="keywordtype">int</span> minimum()<span class="keyword"> const </span>{<span class="keywordflow">return</span> min;}
+<a name="l00408"></a>00408     <span class="keywordtype">void</span> setMaximum(<span class="keywordtype">int</span> m) {max = m; min = std::min(max,min); setValue(pValue);}
+<a name="l00409"></a>00409     <span class="keyword">inline</span> <span class="keywordtype">int</span> maximum()<span class="keyword"> const </span>{<span class="keywordflow">return</span> max;}
+<a name="l00410"></a>00410     <span class="keywordtype">void</span> setDomain(<span class="keywordtype">int</span> minVal, <span class="keywordtype">int</span> maxVal) {min = minVal; max = std::max(maxVal,min); setValue(pValue);}
+<a name="l00411"></a>00411 
+<a name="l00412"></a>00412 <span class="keyword">private</span>:
+<a name="l00413"></a>00413     <span class="keywordtype">int</span> min, max;
+<a name="l00414"></a>00414     <span class="keywordtype">int</span> pValue;
+<a name="l00415"></a>00415 };
+<a name="l00416"></a>00416 
+<a name="l00417"></a>00417 
+<a name="l00421"></a><a class="code" href="class_event.html">00421</a> <span class="keyword">class </span><a class="code" href="class_event.html" title="The Event class describes the.">Event</a>
+<a name="l00422"></a>00422 {
+<a name="l00423"></a>00423 <span class="keyword">public</span>:
+<a name="l00427"></a><a class="code" href="class_event.html#aa306292f6e9bf31a622e79dfc54321de">00427</a>     <span class="keyword">enum</span> <a class="code" href="class_event.html#aa306292f6e9bf31a622e79dfc54321de" title="The EventType enum.">EventType</a>{
+<a name="l00428"></a>00428         ParamChanged,
+<a name="l00429"></a>00429         FlagChanged,
+<a name="l00430"></a>00430         ObjectRemoved,
+<a name="l00431"></a>00431         ObjectAdded
+<a name="l00432"></a>00432     };
+<a name="l00433"></a>00433 
+<a name="l00434"></a>00434     <a class="code" href="class_event.html" title="The Event class describes the.">Event</a>(){}
+<a name="l00435"></a>00435     <a class="code" href="class_event.html" title="The Event class describes the.">Event</a>(<span class="keyword">const</span> <a class="code" href="class_event.html" title="The Event class describes the.">Event</a> *e) : aType(e-&gt;aType){}
+<a name="l00436"></a>00436 
+<a name="l00437"></a>00437     QString typeName(){<span class="keywordflow">return</span> <span class="stringliteral">&quot;event&quot;</span>;}
+<a name="l00438"></a>00438 <span class="keyword">private</span>:
+<a name="l00439"></a>00439     <a class="code" href="class_event.html#aa306292f6e9bf31a622e79dfc54321de" title="The EventType enum.">EventType</a> aType;
+<a name="l00440"></a>00440 };
+<a name="l00441"></a>00441 
+<a name="l00445"></a><a class="code" href="class_order.html">00445</a> <span class="keyword">class </span><a class="code" href="class_order.html" title="The Order class.">Order</a>
+<a name="l00446"></a>00446 {
+<a name="l00447"></a>00447 <span class="keyword">public</span>:
+<a name="l00451"></a><a class="code" href="class_order.html#aa88b067054a26dd04c2b25b41996b7b0">00451</a>     <span class="keyword">enum</span> <a class="code" href="class_order.html#aa88b067054a26dd04c2b25b41996b7b0" title="The OrderType enum.">OrderType</a>{
+<a name="l00452"></a>00452         ChangeParam,
+<a name="l00453"></a>00453         ChangeFlag,
+<a name="l00454"></a>00454         EmitEvent,
+<a name="l00455"></a>00455         ConditionalEvent,
+<a name="l00456"></a>00456         WatchDogEvent,
+<a name="l00457"></a>00457         SetTimer,
+<a name="l00458"></a>00458         SetObject
+<a name="l00459"></a>00459     };
+<a name="l00460"></a>00460 
+<a name="l00461"></a>00461     <a class="code" href="class_order.html" title="The Order class.">Order</a>(){}
+<a name="l00462"></a>00462     <a class="code" href="class_order.html" title="The Order class.">Order</a>(<span class="keyword">const</span> <a class="code" href="class_order.html" title="The Order class.">Order</a> *o) : aType(o-&gt;aType){}
+<a name="l00463"></a>00463 
+<a name="l00464"></a>00464     QString typeName(){<span class="keywordflow">return</span> <span class="stringliteral">&quot;order&quot;</span>;}
+<a name="l00465"></a>00465 <span class="keyword">private</span>:
+<a name="l00466"></a>00466     <a class="code" href="class_order.html#aa88b067054a26dd04c2b25b41996b7b0" title="The OrderType enum.">OrderType</a> aType;
+<a name="l00467"></a>00467 };
+<a name="l00468"></a>00468 
+<a name="l00469"></a>00469 
+<a name="l00470"></a>00470 <span class="keyword">class </span><a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>;
+<a name="l00475"></a><a class="code" href="class_action.html">00475</a> <span class="keyword">class </span><a class="code" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a>
+<a name="l00476"></a>00476 {
+<a name="l00477"></a>00477 <span class="keyword">public</span>:
+<a name="l00478"></a>00478     <a class="code" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a>();
+<a name="l00479"></a>00479     ~<a class="code" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a>();
+<a name="l00480"></a>00480     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *emitter() <span class="keyword">const</span>;
+<a name="l00481"></a>00481     <span class="keywordtype">void</span> setEmitter(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *emitter);
+<a name="l00482"></a>00482     <span class="keyword">const</span> QString &amp;event() <span class="keyword">const</span>;
+<a name="l00483"></a>00483     <span class="keywordtype">void</span> setEvent(<span class="keyword">const</span> QString &amp;event);
+<a name="l00484"></a>00484     <span class="keyword">const</span> QList&lt;QPair&lt;GameObject*, QString&gt;&gt; &amp;receivers() <span class="keyword">const</span>;
+<a name="l00485"></a>00485     <span class="keywordtype">void</span> addReceiver(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *receiver, <span class="keyword">const</span> QString &amp;order);
+<a name="l00486"></a>00486     <span class="keywordtype">void</span> removeReceiver(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *receiver);
+<a name="l00487"></a>00487     <span class="keywordtype">void</span> removeReceiver(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *receiver, <span class="keyword">const</span> QString &amp;order);
+<a name="l00488"></a>00488 
+<a name="l00489"></a>00489     <span class="keywordtype">bool</span> isValid() <span class="keyword">const</span>;
+<a name="l00490"></a>00490 <span class="keyword">private</span>:
+<a name="l00491"></a>00491     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *aEmitter;
+<a name="l00492"></a>00492     QString aEvent;
+<a name="l00493"></a>00493     QList&lt;QPair&lt;GameObject*, QString&gt;&gt; aReceivers;
+<a name="l00494"></a>00494 };
+<a name="l00495"></a>00495 
+<a name="l00496"></a>00496 
+<a name="l00497"></a>00497 
+<a name="l00498"></a>00498 
+<a name="l00499"></a>00499 
+<a name="l00500"></a>00500 <span class="keyword">class </span><a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>;
+<a name="l00533"></a><a class="code" href="class_game_object.html">00533</a> <span class="keyword">class </span><a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
+<a name="l00534"></a>00534 {
+<a name="l00535"></a>00535 <span class="keyword">protected</span>:
+<a name="l00536"></a>00536     <a class="code" href="class_game_object.html#a7f99ba7231f83306f28a23923329f153">GameObject</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);                                                             
+<a name="l00539"></a>00539     <a class="code" href="class_game_object.html#a7f99ba7231f83306f28a23923329f153">GameObject</a>(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *g = <span class="keyword">nullptr</span>, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *parent = <span class="keyword">nullptr</span>);                                
+<a name="l00547"></a>00547 <span class="keyword">public</span>:
+<a name="l00548"></a>00548     <span class="keyword">virtual</span> <a class="code" href="class_game_object.html#ab82dfdb656f9051c0587e6593b2dda97">~GameObject</a>();                                                                      
+<a name="l00552"></a>00552     <a class="code" href="gameobject_8h.html#a9c09ffbe0bea5710ddb0f2bba0c605ae">TypeName</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>)
+<a name="l00553"></a>00553 
+<a name="l00554"></a><a class="code" href="class_game_object.html#a21515212e3deb4123268f220e142b077">00554</a>     inline <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a21515212e3deb4123268f220e142b077">ident</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> id;}                                                        
+<a name="l00559"></a><a class="code" href="class_game_object.html#a2872920b7f531584e6a3cae7a84865b8">00559</a>     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#a2872920b7f531584e6a3cae7a84865b8">isEditable</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> <span class="keyword">true</span>;}                                               
+<a name="l00563"></a><a class="code" href="class_game_object.html#a0c4cc65819b30ec36a1c20a1c24997fe">00563</a>     <span class="keyword">inline</span> <span class="keyword">const</span> QDateTime&amp; <a class="code" href="class_game_object.html#a0c4cc65819b30ec36a1c20a1c24997fe">lastInternalEdition</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> lastEdit;}                       
+<a name="l00568"></a><a class="code" href="class_game_object.html#acc65ad08191fcaf558bd1840a45d23cf">00568</a>     <span class="keyword">inline</span> <span class="keyword">const</span> QDateTime&amp; <a class="code" href="class_game_object.html#acc65ad08191fcaf558bd1840a45d23cf">lastChildrenEdition</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> lastChildEdit;}                  
+<a name="l00573"></a><a class="code" href="class_game_object.html#a73b351287147712a937e87028bf8c876">00573</a>     <span class="keyword">inline</span> <span class="keyword">const</span> QDateTime&amp; <a class="code" href="class_game_object.html#a73b351287147712a937e87028bf8c876">lastEdition</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> std::max(lastEdit, lastChildEdit);}      
+<a name="l00579"></a>00579     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a2130d5674df041b5a7eaf987f9b1e642">touch</a>();                                                                               
+<a name="l00584"></a>00584     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a815c7f587c0ae528614add95655d9a0a">addReference</a>();                                                                        
+<a name="l00589"></a>00589     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a68725fd75f55bc73bb44216406ce34e5">removeReference</a>();                                                                     
+<a name="l00595"></a>00595     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ae34944b23d5d7d472d5c8da3f42fb2e3">setParent</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *p);                                                              
+<a name="l00600"></a><a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">00600</a>     <span class="keyword">inline</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>* <a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aParent;}                                          
+<a name="l00606"></a>00606     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ae928d2f18b5a26656ad41b7c27b463a7">setName</a>(<span class="keyword">const</span> QString &amp;n);                                                     
+<a name="l00611"></a><a class="code" href="class_game_object.html#aede5e0829a5fe107b1419bd62f03c132">00611</a>     <span class="keyword">const</span> QString&amp; <a class="code" href="class_game_object.html#aede5e0829a5fe107b1419bd62f03c132">name</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aName;}                                                  
+<a name="l00616"></a><a class="code" href="class_game_object.html#a97fbf0507cf140b9f3abb568c6a97145">00616</a>     <span class="keyword">virtual</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>* <a class="code" href="class_game_object.html#a97fbf0507cf140b9f3abb568c6a97145">child</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;<span class="keywordtype">id</span>)<span class="keyword"> const</span>{<span class="keywordflow">return</span> aChildren.value(<span class="keywordtype">id</span>, <span class="keyword">nullptr</span>);}        
+<a name="l00621"></a><a class="code" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">00621</a>     <span class="keyword">virtual</span> QList&lt;GameObject*&gt; <a class="code" href="class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0">children</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> aChildren.values();}                     
+<a name="l00627"></a>00627     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a3a308cc3f1d11d66dd5583fb531035c3">getParamMin</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;                                        
+<a name="l00636"></a>00636     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a714857ae1ea08935b8beb76675db33e8">getParamMax</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;                                        
+<a name="l00645"></a>00645     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a369445e39ff040b9051e6e003a45fbbb">setParamMin</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> min);                                    
+<a name="l00654"></a>00654     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a6c8131b466e418f796450cdbb0e81cce">setParamMax</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> max);                                    
+<a name="l00663"></a>00663     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#afaa71b1cb878ba95f10a13ad4e67af2b">setParamDomain</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max);                        
+<a name="l00672"></a>00672     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_game_object.html#a4c9a0568afb851340b513207c9745734">getParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;                                           
+<a name="l00681"></a>00681     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a2cd8c2defab5b5327a65253b2a6773b9">setParam</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> value);                                     
+<a name="l00689"></a>00689     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#ae5272e52ab14e5d87616a5dcaeb62919">hasParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;                                          
+<a name="l00694"></a>00694     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_game_object.html#a1ef02d136f04abe43628035486dfc254">params</a>() <span class="keyword">const</span>;                                                      
+<a name="l00699"></a>00699     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#aec5d03f0a7f5d3807b10f3629c1fd146">renameParam</a>(<span class="keyword">const</span> QString &amp;param, <span class="keyword">const</span> QString &amp;newParam);                    
+<a name="l00707"></a>00707     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a5cbbbaebcc0204b466f79c1e6734c864">addParam</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> value = 0, <span class="keywordtype">int</span> min = 0, <span class="keywordtype">int</span> max = 100);     
+<a name="l00715"></a>00715     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a2f406df8dd674455ccc9505dc1746f61">removeParam</a>(<span class="keyword">const</span> QString &amp;param);                                             
+<a name="l00725"></a>00725     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#ac1df89c8a28a491e1cfd102dcbd044d7">getFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;                                            
+<a name="l00734"></a>00734     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#aeefd55b81985ac441c9778de200111d0">setFlag</a>(<span class="keyword">const</span> QString &amp;flag, <span class="keywordtype">bool</span> enable);                                     
+<a name="l00742"></a>00742     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#af741fb2fb5e879041c2bd95de4156eb6">hasFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;                                            
+<a name="l00747"></a>00747     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_game_object.html#aa4e80649831f355c14f35f0f9374c691">flags</a>() <span class="keyword">const</span>;                                                       
+<a name="l00752"></a>00752     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a949ff1c62139b7f41142cc13482357e6">renameFlag</a>(<span class="keyword">const</span> QString &amp;flag, <span class="keyword">const</span> QString &amp;newFlag);                       
+<a name="l00760"></a>00760     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ad466ce6d9d70cf2d9127e43113f1de0a">addFlag</a>(<span class="keyword">const</span> QString &amp;flag, <span class="keywordtype">bool</span> enable = <span class="keyword">true</span>);                              
+<a name="l00768"></a>00768     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a56d6296edaf45ff99cb03be0598a7c69">removeFlag</a>(<span class="keyword">const</span> QString &amp;flag);                                               
+<a name="l00779"></a>00779     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#a1bb4b921fe5335ad4513e6edcac64deb">hasEvent</a>(<span class="keyword">const</span> QString &amp;event) <span class="keyword">const</span>;                                          
+<a name="l00784"></a>00784     <span class="keyword">virtual</span> <a class="code" href="class_event.html" title="The Event class describes the.">Event</a>&amp; <a class="code" href="class_game_object.html#a1c078d9c696beb125a3023434cf40053">getEvent</a>(<span class="keyword">const</span> QString &amp;event) <span class="keyword">const</span>;                                        
+<a name="l00793"></a>00793     <span class="keyword">virtual</span> <a class="code" href="class_event.html" title="The Event class describes the.">Event</a>&amp; <a class="code" href="class_game_object.html#aea67f0a40c7712bc166719dac24a74e3">addEvent</a>(<span class="keyword">const</span> QString &amp;event);                                              
+<a name="l00801"></a>00801     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a6bd488a645ef815e7dad4597d546ef3a">removeEvent</a>(<span class="keyword">const</span> QString &amp;event);                                             
+<a name="l00806"></a>00806     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_game_object.html#a699357a06b42be80e5f6520320d14745">events</a>() <span class="keyword">const</span>;                                                      
+<a name="l00811"></a>00811     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a2e42ac64287d04a860a5fc9048769384">renameEvent</a>(<span class="keyword">const</span> QString &amp;order, <span class="keyword">const</span> QString &amp;newOrder);                    
+<a name="l00820"></a>00820     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#a950961df9f6d207ffe3593617df9944e">hasOrder</a>(<span class="keyword">const</span> QString &amp;order) <span class="keyword">const</span>;                                          
+<a name="l00825"></a>00825     <span class="keyword">virtual</span> <a class="code" href="class_order.html" title="The Order class.">Order</a>&amp; <a class="code" href="class_game_object.html#a42b1228cdea6a0bbff4cdf8c8ee57db7">getOrder</a>(<span class="keyword">const</span> QString &amp;order) <span class="keyword">const</span>;                                        
+<a name="l00834"></a>00834     <span class="keyword">virtual</span> <a class="code" href="class_order.html" title="The Order class.">Order</a>&amp; <a class="code" href="class_game_object.html#afac90ed78171419483b423716f09a030">addOrder</a>(<span class="keyword">const</span> QString &amp;order);                                              
+<a name="l00842"></a>00842     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#af401f5dc6cabf3edd3f71e5c0766d681">removeOrder</a>(<span class="keyword">const</span> QString &amp;order);                                             
+<a name="l00847"></a>00847     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_game_object.html#aa11383114a5352c9215517553deb6878">orders</a>() <span class="keyword">const</span>;                                                      
+<a name="l00852"></a>00852     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ae79a0420e8f2593a507b6fc36afd8b22">renameOrder</a>(<span class="keyword">const</span> QString &amp;order, <span class="keyword">const</span> QString &amp;newOrder);                    
+<a name="l00861"></a>00861     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a011cc4f0da88d20b6db7f1d7863a8ca3">addEmittedAction</a>(<a class="code" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a> *action);                                                      
+<a name="l00868"></a>00868     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a13ddfb70507b63b9e04bc21d3a8f61e9">removeEmittedAction</a>(<a class="code" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a> *action);                                                   
+<a name="l00875"></a>00875     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a9083fcf5ac7234a11a65bab3ae7c8c49">addReceivedAction</a>(<a class="code" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a> *action);                                                     
+<a name="l00882"></a>00882     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#ab5bec8aa4f6c02c3d6f88815a021d1e6">removeReceivedAction</a>(<a class="code" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a> *action);                                                  
+<a name="l00890"></a><a class="code" href="class_game_object.html#acc435f47c458df5e3b85940cf78a7a17">00890</a>     <a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *<a class="code" href="class_game_object.html#acc435f47c458df5e3b85940cf78a7a17">getGame</a>(){<span class="keywordflow">return</span> game;}                                                               
+<a name="l00893"></a>00893 <span class="keyword">protected</span>:
+<a name="l00894"></a>00894 
+<a name="l00895"></a>00895     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#abb6a1fa1a89307820874179b20010f6d">init</a>(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *g, <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);                                                     
+<a name="l00900"></a><a class="code" href="class_game_object.html#a88676a10f8e905747f1d64c2da490524">00900</a>     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_game_object.html#a88676a10f8e905747f1d64c2da490524">isValid</a>()<span class="keyword"> const</span>{<span class="keywordflow">return</span> id;}                                                    
+<a name="l00906"></a>00906     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#acd88a097e5244d11225874958b0af3dd">copy</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;obj);                                                                 
+<a name="l00910"></a>00910     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a4733a1081db3c2d0a9be225265283ad8">addChild</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *c);                                                       
+<a name="l00915"></a>00915     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a21dc679cb474b147b7d7d336117ffe58">removeChild</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *c);                                                    
+<a name="l00923"></a>00923     <span class="keywordtype">void</span> <a class="code" href="class_game_object.html#a4e57d5a3f8be6882e5d7f2a2e5d45ccd">childrenTouched</a>(<span class="keyword">const</span> QDateTime &amp;d);                                                   
+<a name="l00926"></a>00926     QList&lt;QString&gt; <a class="code" href="class_game_object.html#a05c00e0f34a146c91275fb67ce62dfcf">filter</a>(QList&lt;QString&gt; l) <span class="keyword">const</span>;                                              
+<a name="l00930"></a>00930     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *aParent;
+<a name="l00931"></a>00931     QMap&lt;int, GameObject*&gt; aChildren;
+<a name="l00932"></a>00932     <a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a>* game;
+<a name="l00933"></a>00933     <span class="keywordtype">int</span> nbRef;
+<a name="l00934"></a>00934     QMap&lt;QString, Parameter&gt; aParams;
+<a name="l00935"></a>00935     QMap&lt;QString, bool&gt; aFlags;
+<a name="l00936"></a>00936     QMap&lt;QString, Event*&gt; aEvents;
+<a name="l00937"></a>00937     QMap&lt;QString, Order*&gt; aOrders;
+<a name="l00938"></a>00938     QString aName;
+<a name="l00939"></a>00939     QString fileName;
+<a name="l00940"></a>00940     QDateTime lastEdit, lastChildEdit;
+<a name="l00941"></a>00941     QSet&lt;QString&gt; reserved;
+<a name="l00942"></a>00942     QList&lt;Action*&gt; aEmittedActions;
+<a name="l00943"></a>00943     QList&lt;Action*&gt; aReceivedActions;
+<a name="l00944"></a>00944 <span class="keyword">private</span>:
+<a name="l00945"></a>00945     <span class="keywordtype">int</span> id;
+<a name="l00946"></a>00946 
+<a name="l00947"></a>00947 };
+<a name="l00948"></a>00948 
+<a name="l00949"></a>00949 
+<a name="l00950"></a>00950 
+<a name="l00951"></a>00951 
+<a name="l00952"></a>00952 
+<a name="l00957"></a><a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">00957</a> <span class="keyword">typedef</span> QList&lt;QPair&lt;QString,QList&lt;QString&gt;&gt;&gt; <a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a>;
+<a name="l00958"></a>00958 
+<a name="l00959"></a>00959 
+<a name="l00971"></a><a class="code" href="class_inheritable_object.html">00971</a> <span class="keyword">class </span><a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> : <span class="keyword">public</span> <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>
+<a name="l00972"></a>00972 {
+<a name="l00973"></a>00973 <span class="keyword">protected</span>:
+<a name="l00974"></a>00974     <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a>(<a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>, <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> *<a class="code" href="class_inheritable_object.html#a10eead70368227b7f15f44f91d234fa5">ancestor</a> = <span class="keyword">nullptr</span>);
+<a name="l00975"></a>00975 
+<a name="l00976"></a>00976 <span class="keyword">public</span>:
+<a name="l00977"></a>00977     <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#adcbc6cc43d5f999e9c7758f2c15d06da">hasAncestor</a>() <span class="keyword">const</span>;                                       
+<a name="l00982"></a>00982     <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> *<a class="code" href="class_inheritable_object.html#a10eead70368227b7f15f44f91d234fa5">ancestor</a>();                                  
+<a name="l00988"></a>00988     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a19c749cb2ced87af1b9c0f95920ad60e">isInheritedParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;      
+<a name="l00994"></a>00994     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#abe7d327b43331cd5532c1c8228d63a4e">isRedefiniedParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;     
+<a name="l01000"></a>01000     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_inheritable_object.html#aa2f45895bcf254ef252428980c06da83">getParamMin</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;            
+<a name="l01010"></a>01010     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_inheritable_object.html#a1edd964a7d01692414ef90f3e88c6a5e">getParamMax</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;            
+<a name="l01020"></a>01020     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_inheritable_object.html#af3ebe709ead7a86ed2eaee602f1ffb67">setParam</a>(<span class="keyword">const</span> QString &amp;param, <span class="keywordtype">int</span> value);         
+<a name="l01025"></a>01025     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_inheritable_object.html#a85fdb93d54f9e561acf5effa8012abb8">getParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;               
+<a name="l01031"></a>01031     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a1f6ee8bcd7cb2e92e260d535518778fc">hasParam</a>(<span class="keyword">const</span> QString &amp;param) <span class="keyword">const</span>;              
+<a name="l01037"></a>01037     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a48233a132cc55bce9f73ca6d2dc7d657">params</a>() <span class="keyword">const</span>;                          
+<a name="l01043"></a>01043     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a6b7782357091c81101b20fb6ca669eb0">properParams</a>() <span class="keyword">const</span>;                    
+<a name="l01049"></a>01049     <a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a> <a class="code" href="class_inheritable_object.html#a6bbe68c492529414211ddc8704640d13">paramTree</a>() <span class="keyword">const</span>;                             
+<a name="l01056"></a>01056     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#abaae23f6ff5781212a88a5faa4f9ed44">isInheritedFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;        
+<a name="l01062"></a>01062     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#ab691081c80168648c19b60061c1fa148">isRedefiniedFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;       
+<a name="l01068"></a>01068     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a2982062433ef52c22a669e29dbc42e65">getFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;                
+<a name="l01074"></a>01074     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a3c441caeca4fdc82fb1978595561f101">hasFlag</a>(<span class="keyword">const</span> QString &amp;flag) <span class="keyword">const</span>;                
+<a name="l01080"></a>01080     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a2014359fb2260eec0804a0e7be0a6c6d">flags</a>() <span class="keyword">const</span>;                           
+<a name="l01086"></a>01086     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a2b0d98c6f8f69698629a4e4c94c85ba4">properFlags</a>() <span class="keyword">const</span>;                     
+<a name="l01092"></a>01092     <a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a> <a class="code" href="class_inheritable_object.html#a1f5e307cffd3b9d3fc4c4d00079361f7">flagTree</a>() <span class="keyword">const</span>;                              
+<a name="l01099"></a>01099     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a8570cbda77efca0b3a8349617f13be3a">isInheritedEvent</a>(<span class="keyword">const</span> QString &amp;event) <span class="keyword">const</span>;      
+<a name="l01105"></a>01105     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a2afb2fbdfad6ecc893038fccbb2d922c">hasEvent</a>(<span class="keyword">const</span> QString &amp;event) <span class="keyword">const</span>;              
+<a name="l01111"></a>01111     <span class="keyword">virtual</span> <a class="code" href="class_event.html" title="The Event class describes the.">Event</a>&amp; <a class="code" href="class_inheritable_object.html#abb011de0e529d57bf88160ed6761e0fa">getEvent</a>(<span class="keyword">const</span> QString &amp;event) <span class="keyword">const</span>;            
+<a name="l01117"></a>01117     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#af8ff334cb226823e943565509f2f7ac5">events</a>() <span class="keyword">const</span>;                          
+<a name="l01123"></a>01123     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a67a4f5c4e0bf39ffdaf7611e387c1dec">properEvents</a>() <span class="keyword">const</span>;                    
+<a name="l01129"></a>01129     <a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a> <a class="code" href="class_inheritable_object.html#a5976b3fd18b8ebe7284a61642ab59f5a">eventTree</a>() <span class="keyword">const</span>;                             
+<a name="l01136"></a>01136     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a22092812ca2d4ea9f02baae132204a68">isInheritedOrder</a>(<span class="keyword">const</span> QString &amp;order) <span class="keyword">const</span>;      
+<a name="l01142"></a>01142     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_inheritable_object.html#a1c833c8c21936e923364e8f0933c2197">hasOrder</a>(<span class="keyword">const</span> QString &amp;order) <span class="keyword">const</span>;              
+<a name="l01148"></a>01148     <span class="keyword">virtual</span> <a class="code" href="class_order.html" title="The Order class.">Order</a>&amp; <a class="code" href="class_inheritable_object.html#a4baa8a0ca7260e9fcda0f9b4d5be4b85">getOrder</a>(<span class="keyword">const</span> QString &amp;order) <span class="keyword">const</span>;            
+<a name="l01154"></a>01154     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a665d17d695bdec5fe43527331bb060f4">orders</a>() <span class="keyword">const</span>;                          
+<a name="l01160"></a>01160     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="class_inheritable_object.html#a775abc07846dcbc608df18fa6ace04cb">properOrders</a>() <span class="keyword">const</span>;                    
+<a name="l01166"></a>01166     <a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a> <a class="code" href="class_inheritable_object.html#a63ed35ad744ac4f1e94eccbd82296101">orderTree</a>() <span class="keyword">const</span>;                             
+<a name="l01173"></a>01173 <span class="keyword">protected</span>:
+<a name="l01174"></a>01174 
+<a name="l01175"></a>01175     <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> *aAncestor;
+<a name="l01176"></a>01176 
+<a name="l01177"></a>01177 <span class="keyword">private</span>:
+<a name="l01178"></a>01178     <span class="keyword">static</span> <span class="keywordtype">void</span> removeLastRedondances(<a class="code" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a> &amp;attr);
+<a name="l01179"></a>01179 };
+<a name="l01180"></a>01180 
+<a name="l01181"></a>01181 
+<a name="l01182"></a>01182 
+<a name="l01195"></a>01195 <span class="keyword">class </span><a class="code" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a>;
+<a name="l01200"></a><a class="code" href="class_game_object_type.html">01200</a> <span class="keyword">class </span><a class="code" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a> : <span class="keyword">public</span> <a class="code" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a>
+<a name="l01201"></a>01201 {
+<a name="l01202"></a>01202 <span class="keyword">protected</span>:
+<a name="l01203"></a>01203     <a class="code" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a>(<a class="code" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a> &amp;<a class="code" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>);
+<a name="l01204"></a>01204     <a class="code" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a>(<a class="code" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a> &amp;<a class="code" href="class_inheritable_object.html#a10eead70368227b7f15f44f91d234fa5">ancestor</a>);
+<a name="l01205"></a>01205     <span class="keyword">virtual</span> ~<a class="code" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a>();
+<a name="l01206"></a>01206 <span class="keyword">public</span>:
+<a name="l01207"></a>01207     <span class="keyword">const</span> QList&lt;GameObjectType *&gt; &amp;<a class="code" href="class_game_object_type.html#a249afd48c30e0530a15c7bebf9f84d9b">descendants</a>() <span class="keyword">const</span>; 
+<a name="l01210"></a>01210 <span class="keyword">private</span>:
+<a name="l01211"></a>01211     <span class="keywordtype">void</span> addDescendant(<a class="code" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a> &amp;type);
+<a name="l01212"></a>01212     <span class="keywordtype">void</span> removeDescendant(<a class="code" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a> &amp;type);
+<a name="l01213"></a>01213     QList&lt;GameObjectType*&gt; descendantTypes;
+<a name="l01214"></a>01214     <a class="code" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a>* ancestorType;
+<a name="l01215"></a>01215 };
+<a name="l01216"></a>01216 
+<a name="l01217"></a>01217 
+<a name="l01218"></a>01218 
+<a name="l01219"></a>01219 
+<a name="l01220"></a>01220 
+<a name="l01221"></a>01221 <span class="preprocessor">#endif // GAMEOBJECT_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

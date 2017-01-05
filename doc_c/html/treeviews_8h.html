@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>mkRPG: src/editor/Game/xmlhandler.h File Reference</title>
+<title>mkRPG: src/editor/GUI/Tabs/treeviews.h File Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -77,50 +77,33 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Data Structures</a>  </div>
   <div class="headertitle">
-<div class="title">src/editor/Game/xmlhandler.h File Reference</div>  </div>
+<div class="title">src/editor/GUI/Tabs/treeviews.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definition og the <a class="el" href="class_xml_handler.html">XmlHandler</a> class and other related classes to read XML game's files.  
+<p>Definition of custom tree view classes.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;QtXml&gt;</code><br/>
-<code>#include &quot;<a class="el" href="game_8h_source.html">game.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &lt;QTreeView&gt;</code><br/>
+<code>#include &quot;<a class="el" href="itemdelegates_8h_source.html">itemdelegates.h</a>&quot;</code><br/>
 </div>
-<p><a href="xmlhandler_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="treeviews_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xml_handler.html">XmlHandler</a></td></tr>
-<tr><td colspan="2"><h2><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a437677f3f5e3df331f162232922d1737"></a><!-- doxytag: member="xmlhandler.h::Asso" ref="a437677f3f5e3df331f162232922d1737" args="" -->
-typedef std::pair&lt; QString, <br class="typebreak"/>
-FileContent &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Asso</b></td></tr>
-<tr><td colspan="2"><h2><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>FileContent</b> { <br/>
-&#160;&#160;<b>FCUnknown</b>, 
-<b>FCGame</b>, 
-<b>FCRessources</b>, 
-<b>FCWorld</b>, 
-<br/>
-&#160;&#160;<b>FCMap</b>, 
-<b>FCEntity</b>, 
-<b>FCObject</b>
-<br/>
- }</td></tr>
-<tr><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd74b25c0052c1dfe8c77b4a3d9936c4"></a><!-- doxytag: member="xmlhandler.h::overHead" ref="afd74b25c0052c1dfe8c77b4a3d9936c4" args="({Asso(&quot;Game&quot;, FCGame), Asso(&quot;Ressources&quot;, FCRessources), Asso(&quot;World&quot;, FCWorld), Asso(&quot;Map&quot;, FCMap), Asso(&quot;Entity&quot;, FCEntity), Asso(&quot;Object&quot;, FCObject)})" -->
-const QMap&lt; QString, FileContent &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>overHead</b> ({Asso(&quot;Game&quot;, FCGame), Asso(&quot;Ressources&quot;, FCRessources), Asso(&quot;World&quot;, FCWorld), Asso(&quot;Map&quot;, FCMap), Asso(&quot;Entity&quot;, FCEntity), Asso(&quot;Object&quot;, FCObject)})</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_param_tree_view.html">ParamTreeView</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_param_tree_view.html" title="The ParamTreeView class customize Qt QTreeView class to render ParamTreeItemModel.">ParamTreeView</a> class customize Qt QTreeView class to render <a class="el" href="class_param_tree_item_model.html" title="The ParamTreeItemModel class presents the parameters of an object using the QAbstractItemModel interf...">ParamTreeItemModel</a>.  <a href="class_param_tree_view.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_flag_tree_view.html">FlagTreeView</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_flag_tree_view.html" title="The FlagTreeView class customize Qt QTreeView class to render FlagTreeItemModel.">FlagTreeView</a> class customize Qt QTreeView class to render <a class="el" href="class_flag_tree_item_model.html" title="The ParamTreeItemModel class presents the flags of an object using the QAbstractItemModel interface...">FlagTreeItemModel</a>.  <a href="class_flag_tree_view.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_event_tree_view.html">EventTreeView</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_event_tree_view.html" title="The EventTreeView class customize Qt QTreeView class to render EventTreeItemModel.">EventTreeView</a> class customize Qt QTreeView class to render <a class="el" href="class_event_tree_item_model.html" title="The EventTreeItemModel class presents the events of an object using the QAbstractItemModel interface...">EventTreeItemModel</a>.  <a href="class_event_tree_view.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_order_tree_view.html">OrderTreeView</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_order_tree_view.html" title="The OrderTreeView class customize Qt QTreeView class to render OrderTreeItemModel.">OrderTreeView</a> class customize Qt QTreeView class to render <a class="el" href="class_order_tree_item_model.html" title="The OrderTreeItemModel class presents the orders of an object using the QAbstractItemModel interface...">OrderTreeItemModel</a>.  <a href="class_order_tree_view.html#details">More...</a><br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Definition og the <a class="el" href="class_xml_handler.html">XmlHandler</a> class and other related classes to read XML game's files. </p>
+<div class="textblock"><p>Definition of custom tree view classes. </p>
+<p>Due to Qt's unsupported template feature in its MOC, the class can't be templates so the code is duplicate for each case. </p>
 </div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

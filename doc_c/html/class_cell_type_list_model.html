@@ -85,26 +85,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <!-- doxytag: class="CellTypeListModel" -->
-<p>The <a class="el" href="class_cell_type_list_model.html" title="The CellTypeListModel class.">CellTypeListModel</a> class.  
+<p>The <a class="el" href="class_cell_type_list_model.html" title="The CellTypeListModel class presents the &quot;cell types&quot; CellType as a Qt Model-View framework&#39;s list ...">CellTypeListModel</a> class presents the "cell types" <a class="el" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> as a Qt Model-View framework's list model.  
  <a href="class_cell_type_list_model.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="mapslistmodel_8h_source.html">mapslistmodel.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e5614c6b52577d4d673ac28e5b19c59"></a><!-- doxytag: member="CellTypeListModel::CellTypeListModel" ref="a3e5614c6b52577d4d673ac28e5b19c59" args="(World *w, QObject *parent=0)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>CellTypeListModel</b> (<a class="el" href="class_world.html">World</a> *w, QObject *parent=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38ceba3b8dc17cbea2f1847068f44772"></a><!-- doxytag: member="CellTypeListModel::CellTypeListModel" ref="a38ceba3b8dc17cbea2f1847068f44772" args="(QObject *parent=0)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>CellTypeListModel</b> (QObject *parent=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a970065fe2cfd33eebf9c35261fa96206"></a><!-- doxytag: member="CellTypeListModel::setGame" ref="a970065fe2cfd33eebf9c35261fa96206" args="(Game *game)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setGame</b> (<a class="el" href="class_game.html">Game</a> *game)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d19e3ec13380dc4ecfea9ceafdc78b9"></a><!-- doxytag: member="CellTypeListModel::rowCount" ref="a4d19e3ec13380dc4ecfea9ceafdc78b9" args="(const QModelIndex &amp;parent) const Q_DECL_OVERRIDE" -->
 int&#160;</td><td class="memItemRight" valign="bottom"><b>rowCount</b> (const QModelIndex &amp;parent) const Q_DECL_OVERRIDE</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a949e9fd005335e0024fb66f63113078d"></a><!-- doxytag: member="CellTypeListModel::data" ref="a949e9fd005335e0024fb66f63113078d" args="(const QModelIndex &amp;index, int role) const Q_DECL_OVERRIDE" -->
 QVariant&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> (const QModelIndex &amp;index, int role) const Q_DECL_OVERRIDE</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeff00ffac0dd7bce76a505d2eabfed49"></a><!-- doxytag: member="CellTypeListModel::insertRows" ref="aeff00ffac0dd7bce76a505d2eabfed49" args="(int row, int count, const QModelIndex &amp;parent) Q_DECL_OVERRIDE" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>insertRows</b> (int row, int count, const QModelIndex &amp;parent) Q_DECL_OVERRIDE</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe5727a0615f06531cfa271a607785a4"></a><!-- doxytag: member="CellTypeListModel::removeRows" ref="abe5727a0615f06531cfa271a607785a4" args="(int row, int count, const QModelIndex &amp;parent) Q_DECL_OVERRIDE" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>removeRows</b> (int row, int count, const QModelIndex &amp;parent) Q_DECL_OVERRIDE</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac03ab37e09a24f2789ca6f9c249c7e42"></a><!-- doxytag: member="CellTypeListModel::flags" ref="ac03ab37e09a24f2789ca6f9c249c7e42" args="(const QModelIndex &amp;index) const Q_DECL_OVERRIDE" -->
+Qt::ItemFlags&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b> (const QModelIndex &amp;index) const Q_DECL_OVERRIDE</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a39698441cc01a5b0ed7b6b3b629eee19"></a><!-- doxytag: member="CellTypeListModel::cellTypeAt" ref="a39698441cc01a5b0ed7b6b3b629eee19" args="(int i) const " -->
+<a class="el" href="class_cell_type.html">CellType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>cellTypeAt</b> (int i) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8feab538fb4df6cfa69fcbbdf762f99"></a><!-- doxytag: member="CellTypeListModel::indexOf" ref="aa8feab538fb4df6cfa69fcbbdf762f99" args="(CellType *ct)" -->
+int&#160;</td><td class="memItemRight" valign="bottom"><b>indexOf</b> (<a class="el" href="class_cell_type.html">CellType</a> *ct)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="class_cell_type_list_model.html" title="The CellTypeListModel class.">CellTypeListModel</a> class. </p>
+<div class="textblock"><p>The <a class="el" href="class_cell_type_list_model.html" title="The CellTypeListModel class presents the &quot;cell types&quot; CellType as a Qt Model-View framework&#39;s list ...">CellTypeListModel</a> class presents the "cell types" <a class="el" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a> as a Qt Model-View framework's list model. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/editor/Game/ItemModels/<a class="el" href="mapslistmodel_8h_source.html">mapslistmodel.h</a></li>
 <li>src/editor/Game/ItemModels/mapslistmodel.cpp</li>

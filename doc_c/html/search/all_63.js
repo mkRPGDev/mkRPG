@@ -11,16 +11,20 @@ var searchData=
   ['cellselection',['CellSelection',['../class_map_painter.html#a771b3fa246b6c13cc2acbdcf1cb6eee3ac4845e6f97ed778c87dec34258ee0290',1,'MapPainter']]],
   ['celltype',['CellType',['../class_cell_type.html',1,'']]],
   ['celltypeeditor',['CellTypeEditor',['../class_cell_type_editor.html',1,'']]],
+  ['celltypeeditor_2eh',['celltypeeditor.h',['../celltypeeditor_8h.html',1,'']]],
   ['celltypelistmodel',['CellTypeListModel',['../class_cell_type_list_model.html',1,'']]],
   ['celltypesdock',['CellTypesDock',['../class_cell_types_dock.html',1,'']]],
   ['celltypesdock_2eh',['celltypesdock.h',['../celltypesdock_8h.html',1,'']]],
   ['child',['child',['../class_game_object.html#a97fbf0507cf140b9f3abb568c6a97145',1,'GameObject']]],
   ['children',['children',['../class_game_object.html#a3f68b64d3a0793048cfe5deab35397e0',1,'GameObject::children()'],['../class_map.html#a939817aa7f5c9e81d3d2b1a42d9403e7',1,'Map::children()']]],
+  ['childrentouched',['childrenTouched',['../class_game_object.html#a4e57d5a3f8be6882e5d7f2a2e5d45ccd',1,'GameObject']]],
   ['clcoords',['ClCoords',['../class_cl_coords.html',1,'']]],
   ['clearpreselection',['clearPreSelection',['../class_map.html#a0a637f44f0a59c3a67b6a507ae710c7f',1,'Map']]],
+  ['clevercomp',['cleverComp',['../gameobject_8h.html#a483c42fd1d240dcc4021cb8bacd4f09b',1,'gameobject.cpp']]],
   ['color',['color',['../class_b_color.html#af5d46ba62e3868ab618269dff46d5718',1,'BColor::color()'],['../class_b_color.html#af6331a2f6914f3004b5630ad5e2e36ba',1,'BColor::color() const ']]],
   ['colorchanged',['colorChanged',['../class_b_color.html#a75ac94fde91e10eb6c27242f608b8d62',1,'BColor']]],
   ['confirmpreselection',['confirmPreSelection',['../class_map.html#a89cab58d82e08dacfe0b97899bab5501',1,'Map']]],
   ['cootopt',['cooToPt',['../class_map_painter.html#a80a2a8fb072ef7e672369a07bb46b059',1,'MapPainter']]],
-  ['cootopxl',['cooToPxl',['../class_map_painter.html#a4162990e1c9ed17877c0f5a7ad33f606',1,'MapPainter']]]
+  ['cootopxl',['cooToPxl',['../class_map_painter.html#a4162990e1c9ed17877c0f5a7ad33f606',1,'MapPainter']]],
+  ['copy',['copy',['../class_game_object.html#acd88a097e5244d11225874958b0af3dd',1,'GameObject']]]
 ];

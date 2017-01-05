@@ -88,25 +88,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00006"></a>00006 
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 
-<a name="l00021"></a><a class="code" href="class_map_resize_dialog.html">00021</a> <span class="keyword">class </span><a class="code" href="class_map_resize_dialog.html" title="The MapResizeDialog class provides a dialog window used to define how the map should be resized...">MapResizeDialog</a> : <span class="keyword">public</span> QDialog, <span class="keyword">private</span> Ui::<a class="code" href="class_map_resize_dialog.html" title="The MapResizeDialog class provides a dialog window used to define how the map should be resized...">MapResizeDialog</a>
-<a name="l00022"></a>00022 {
-<a name="l00023"></a>00023     Q_OBJECT
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025 <span class="keyword">public</span>:
-<a name="l00026"></a>00026     <span class="keyword">explicit</span> <a class="code" href="class_map_resize_dialog.html" title="The MapResizeDialog class provides a dialog window used to define how the map should be resized...">MapResizeDialog</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h, QWidget *parent = 0);
+<a name="l00020"></a><a class="code" href="class_map_resize_dialog.html">00020</a> <span class="keyword">class </span><a class="code" href="class_map_resize_dialog.html" title="The MapResizeDialog class provides a dialog window used to define how the map should be resized...">MapResizeDialog</a> : <span class="keyword">public</span> QDialog, <span class="keyword">private</span> Ui::<a class="code" href="class_map_resize_dialog.html" title="The MapResizeDialog class provides a dialog window used to define how the map should be resized...">MapResizeDialog</a>
+<a name="l00021"></a>00021 {
+<a name="l00022"></a>00022     Q_OBJECT
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">public</span>:
+<a name="l00025"></a>00025     <span class="keyword">explicit</span> <a class="code" href="class_map_resize_dialog.html" title="The MapResizeDialog class provides a dialog window used to define how the map should be resized...">MapResizeDialog</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h, QWidget *parent = 0);
+<a name="l00026"></a>00026     QRect newRectangle() <span class="keyword">const</span>;
 <a name="l00027"></a>00027 
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029 <span class="keyword">private</span> slots:
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> on_nWidth_valueChanged(<span class="keywordtype">int</span> i);
-<a name="l00031"></a>00031     <span class="keywordtype">void</span> on_nHeight_valueChanged(<span class="keywordtype">int</span> i);
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="keyword">private</span>:
-<a name="l00034"></a>00034     <span class="keywordtype">void</span> updateSize();
-<a name="l00035"></a>00035     <span class="keywordtype">int</span> wi,he;
-<a name="l00036"></a>00036     <span class="keywordtype">int</span> nWi,nHe;
-<a name="l00037"></a>00037 };
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 <span class="preprocessor">#endif // MAPRESIZEDIALOG_H</span>
+<a name="l00028"></a>00028 <span class="keyword">private</span> slots:
+<a name="l00029"></a>00029     <span class="keywordtype">void</span> on_nWidth_valueChanged(<span class="keywordtype">int</span> i);
+<a name="l00030"></a>00030     <span class="keywordtype">void</span> on_nHeight_valueChanged(<span class="keywordtype">int</span> i);
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032 <span class="keyword">private</span>:
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> updateSize();
+<a name="l00034"></a>00034     <span class="keywordtype">int</span> wi,he;
+<a name="l00035"></a>00035     <span class="keywordtype">int</span> nWi,nHe;
+<a name="l00036"></a>00036 };
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 <span class="preprocessor">#endif // MAPRESIZEDIALOG_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

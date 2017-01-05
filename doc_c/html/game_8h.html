@@ -88,6 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="object_8h_source.html">object.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="map_8h_source.html">map.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="entity_8h_source.html">entity.h</a>&quot;</code><br/>
 </div>
 <p><a href="game_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -95,6 +96,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Data Structures</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_types.html">DefaultTypes</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_default_types.html" title="The DefaultTypes class represents the object that will contains all types.">DefaultTypes</a> class represents the object that will contains all types.  <a href="class_default_types.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object_list.html">GameObjectList&lt; Type &gt;</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_game_object_list.html" title="The GameObjectList class enables to gather objects by types.">GameObjectList</a> class enables to gather objects by types.  <a href="class_game_object_list.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object_inventory.html">GameObjectInventory</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_game_object_inventory.html" title="The GameObjectInventory class gathers the different &quot;GameObjectLists&quot; GameObjectList.">GameObjectInventory</a> class gathers the different "GameObjectLists" <a class="el" href="class_game_object_list.html" title="The GameObjectList class enables to gather objects by types.">GameObjectList</a>.  <a href="class_game_object_inventory.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_world.html">World</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_world.html" title="The World class.">World</a> class.  <a href="class_world.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game.html">Game</a></td></tr>
@@ -102,6 +107,17 @@ Data Structures</h2></td></tr>
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#afcb37e18a94d1de863c9051aa0ee8cf0">DefaultType</a>(type, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;private: <a class="el" href="class_type.html">Type</a> *default##<a class="el" href="class_type.html">Type</a> = new <a class="el" href="class_type.html">Type</a>(*this); public: <a class="el" href="class_type.html">Type</a> &amp;type() const{return *default##<a class="el" href="class_type.html">Type</a>;}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a96284348c8100b3ffe679a5bc60b6b4d">ListDef</a>(<a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;private: <a class="el" href="class_game_object_list.html">GameObjectList</a>&lt;<a class="el" href="class_type.html">Type</a>&gt; *a##Types; public:</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a6f25c8a0e27d8ae26031c7c707bd64fb">ListAdd</a>(type, <a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;void add##<a class="el" href="class_type.html">Type</a>(<a class="el" href="class_type.html">Type</a> *type) const{a##Types-&gt;addGameObject(*type);}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a9f568e0d89723aa67c512f61c4ac8875">ListRemove</a>(<a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;void remove##<a class="el" href="class_type.html">Type</a>(int id) const{a##Types-&gt;removeGameObject(id);}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a2bd53d818ec2b8c9050b8afe867f7c0e">ListSetter</a>(type, <a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;<a class="el" href="game_8h.html#a6f25c8a0e27d8ae26031c7c707bd64fb">ListAdd</a>(type, <a class="el" href="class_type.html">Type</a>, Types) <a class="el" href="game_8h.html#a9f568e0d89723aa67c512f61c4ac8875">ListRemove</a>(<a class="el" href="class_type.html">Type</a>,Types)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#aa1e555a765e9e752d17d372652db0867">ListGetAll</a>(types, <a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;QList&lt;<a class="el" href="class_type.html">Type</a>*&gt; types() const{return a##Types-&gt;gameObjects();}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#ab40f0254b5863f8f4e8c4c6f34831a97">ListGetOne</a>(type, <a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;<a class="el" href="class_type.html">Type</a> &amp;type(int id) const{return a##Types-&gt;gameObject(id);}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#ac16826c1278665cb6e7a9c36abe100af">ListGetter</a>(type, types, <a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;<a class="el" href="game_8h.html#aa1e555a765e9e752d17d372652db0867">ListGetAll</a>(types, <a class="el" href="class_type.html">Type</a>, Types) <a class="el" href="game_8h.html#ab40f0254b5863f8f4e8c4c6f34831a97">ListGetOne</a>(type, <a class="el" href="class_type.html">Type</a>, Types)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#ad8a529c83ebf68030414fce2ec08781a">List</a>(type, types, <a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;<a class="el" href="game_8h.html#a96284348c8100b3ffe679a5bc60b6b4d">ListDef</a>(<a class="el" href="class_type.html">Type</a>, Types) <a class="el" href="game_8h.html#a2bd53d818ec2b8c9050b8afe867f7c0e">ListSetter</a>(type, <a class="el" href="class_type.html">Type</a>, Types) <a class="el" href="game_8h.html#ac16826c1278665cb6e7a9c36abe100af">ListGetter</a>(type, types, <a class="el" href="class_type.html">Type</a>, Types)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a079c21f330a7cc873d15326d90f1b007">ListD</a>(init, Init, body, sg, pl)&#160;&#160;&#160;<a class="el" href="game_8h.html#ad8a529c83ebf68030414fce2ec08781a">List</a>(init##body##sg,init##body##pl,Init##body##sg,Init##body##pl)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#ab1877e6d43e52ec23d79e41a38cd0a22">ListInit</a>(<a class="el" href="class_type.html">Type</a>, Types)&#160;&#160;&#160;a##Types = new <a class="el" href="class_game_object_list.html">GameObjectList</a>&lt;<a class="el" href="class_type.html">Type</a>&gt;(QObject::tr(#Types),*this);</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8h.html#a9d07c0b70c0d0d837951a9042cc04fc9">ListInitD</a>(Body, sg, pl)&#160;&#160;&#160;<a class="el" href="game_8h.html#ab1877e6d43e52ec23d79e41a38cd0a22">ListInit</a>(Body##sg, Body##pl)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Definition of the <a class="el" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> and <a class="el" href="class_world.html" title="The World class.">World</a> classes. </p>
@@ -131,6 +147,386 @@ Defines</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Todoc </p>
+
+</div>
+</div>
+<a class="anchor" id="ad8a529c83ebf68030414fce2ec08781a"></a><!-- doxytag: member="game.h::List" ref="ad8a529c83ebf68030414fce2ec08781a" args="(type, types, Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#ad8a529c83ebf68030414fce2ec08781a">List</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">types, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="game_8h.html#a96284348c8100b3ffe679a5bc60b6b4d">ListDef</a>(<a class="el" href="class_type.html">Type</a>, Types) <a class="el" href="game_8h.html#a2bd53d818ec2b8c9050b8afe867f7c0e">ListSetter</a>(type, <a class="el" href="class_type.html">Type</a>, Types) <a class="el" href="game_8h.html#ac16826c1278665cb6e7a9c36abe100af">ListGetter</a>(type, types, <a class="el" href="class_type.html">Type</a>, Types)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro List </p>
+
+</div>
+</div>
+<a class="anchor" id="a6f25c8a0e27d8ae26031c7c707bd64fb"></a><!-- doxytag: member="game.h::ListAdd" ref="a6f25c8a0e27d8ae26031c7c707bd64fb" args="(type, Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#a6f25c8a0e27d8ae26031c7c707bd64fb">ListAdd</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;void add##<a class="el" href="class_type.html">Type</a>(<a class="el" href="class_type.html">Type</a> *type) const{a##Types-&gt;addGameObject(*type);}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListAdd </p>
+
+</div>
+</div>
+<a class="anchor" id="a079c21f330a7cc873d15326d90f1b007"></a><!-- doxytag: member="game.h::ListD" ref="a079c21f330a7cc873d15326d90f1b007" args="(init, Init, body, sg, pl)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#a079c21f330a7cc873d15326d90f1b007">ListD</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">init, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Init, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">body, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">sg, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pl&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="game_8h.html#ad8a529c83ebf68030414fce2ec08781a">List</a>(init##body##sg,init##body##pl,Init##body##sg,Init##body##pl)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListD </p>
+
+</div>
+</div>
+<a class="anchor" id="a96284348c8100b3ffe679a5bc60b6b4d"></a><!-- doxytag: member="game.h::ListDef" ref="a96284348c8100b3ffe679a5bc60b6b4d" args="(Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#a96284348c8100b3ffe679a5bc60b6b4d">ListDef</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;private: <a class="el" href="class_game_object_list.html">GameObjectList</a>&lt;<a class="el" href="class_type.html">Type</a>&gt; *a##Types; public:</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListDef </p>
+
+</div>
+</div>
+<a class="anchor" id="aa1e555a765e9e752d17d372652db0867"></a><!-- doxytag: member="game.h::ListGetAll" ref="aa1e555a765e9e752d17d372652db0867" args="(types, Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#aa1e555a765e9e752d17d372652db0867">ListGetAll</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">types, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;QList&lt;<a class="el" href="class_type.html">Type</a>*&gt; types() const{return a##Types-&gt;gameObjects();}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListGetAll </p>
+
+</div>
+</div>
+<a class="anchor" id="ab40f0254b5863f8f4e8c4c6f34831a97"></a><!-- doxytag: member="game.h::ListGetOne" ref="ab40f0254b5863f8f4e8c4c6f34831a97" args="(type, Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#ab40f0254b5863f8f4e8c4c6f34831a97">ListGetOne</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="class_type.html">Type</a> &amp;type(int id) const{return a##Types-&gt;gameObject(id);}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListGetOne </p>
+
+</div>
+</div>
+<a class="anchor" id="ac16826c1278665cb6e7a9c36abe100af"></a><!-- doxytag: member="game.h::ListGetter" ref="ac16826c1278665cb6e7a9c36abe100af" args="(type, types, Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#ac16826c1278665cb6e7a9c36abe100af">ListGetter</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">types, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="game_8h.html#aa1e555a765e9e752d17d372652db0867">ListGetAll</a>(types, <a class="el" href="class_type.html">Type</a>, Types) <a class="el" href="game_8h.html#ab40f0254b5863f8f4e8c4c6f34831a97">ListGetOne</a>(type, <a class="el" href="class_type.html">Type</a>, Types)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListGetter </p>
+
+</div>
+</div>
+<a class="anchor" id="ab1877e6d43e52ec23d79e41a38cd0a22"></a><!-- doxytag: member="game.h::ListInit" ref="ab1877e6d43e52ec23d79e41a38cd0a22" args="(Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#ab1877e6d43e52ec23d79e41a38cd0a22">ListInit</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;a##Types = new <a class="el" href="class_game_object_list.html">GameObjectList</a>&lt;<a class="el" href="class_type.html">Type</a>&gt;(QObject::tr(#Types),*this);</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListInit </p>
+
+</div>
+</div>
+<a class="anchor" id="a9d07c0b70c0d0d837951a9042cc04fc9"></a><!-- doxytag: member="game.h::ListInitD" ref="a9d07c0b70c0d0d837951a9042cc04fc9" args="(Body, sg, pl)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#a9d07c0b70c0d0d837951a9042cc04fc9">ListInitD</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Body, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">sg, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pl&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="game_8h.html#ab1877e6d43e52ec23d79e41a38cd0a22">ListInit</a>(Body##sg, Body##pl)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListInitD </p>
+
+</div>
+</div>
+<a class="anchor" id="a9f568e0d89723aa67c512f61c4ac8875"></a><!-- doxytag: member="game.h::ListRemove" ref="a9f568e0d89723aa67c512f61c4ac8875" args="(Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#a9f568e0d89723aa67c512f61c4ac8875">ListRemove</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;void remove##<a class="el" href="class_type.html">Type</a>(int id) const{a##Types-&gt;removeGameObject(id);}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListRemove </p>
+
+</div>
+</div>
+<a class="anchor" id="a2bd53d818ec2b8c9050b8afe867f7c0e"></a><!-- doxytag: member="game.h::ListSetter" ref="a2bd53d818ec2b8c9050b8afe867f7c0e" args="(type, Type, Types)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="game_8h.html#a2bd53d818ec2b8c9050b8afe867f7c0e">ListSetter</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Types&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="game_8h.html#a6f25c8a0e27d8ae26031c7c707bd64fb">ListAdd</a>(type, <a class="el" href="class_type.html">Type</a>, Types) <a class="el" href="game_8h.html#a9f568e0d89723aa67c512f61c4ac8875">ListRemove</a>(<a class="el" href="class_type.html">Type</a>,Types)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cool Macro ListSetter </p>
 
 </div>
 </div>

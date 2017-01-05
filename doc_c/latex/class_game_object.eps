@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 78.926598
+%%BoundingBox: 0 0 500 98.219767
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 6.335000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 5.090625 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 5 def
-/cols 7 def
+/rows 8 def
+/cols 9 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -176,24 +176,26 @@ boxfont setfont
 (GameObject) cw
 (DefaultTypes) cw
 (Game) cw
+(GameObjectInventory) cw
+(GameObjectList< Type >) cw
 (Image) cw
 (InheritableObject) cw
 (World) cw
 (GameObjectType) cw
 (TypedObject< T >) cw
 (TypedObject< CellType >) cw
+(TypedObject< EntityType >) cw
 (TypedObject< MapType >) cw
 (TypedObject< ObjectType >) cw
 (Type< T >) cw
 (Type< CellType >) cw
+(Type< EntityType >) cw
 (Type< MapType >) cw
 (Type< ObjectType >) cw
 (Cell) cw
+(Entity) cw
 (Map) cw
 (Object) cw
-(CellType) cw
-(MapType) cw
-(ObjectType) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -205,91 +207,97 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (GameObject) 2.000000 4.000000 box
- (DefaultTypes) 0.000000 3.000000 box
- (Game) 1.000000 3.000000 box
- (Image) 2.000000 3.000000 box
- (InheritableObject) 4.000000 3.000000 box
- (World) 5.000000 3.000000 box
- (GameObjectType) 1.500000 2.000000 box
- (TypedObject< T >) 2.500000 2.000000 box
- (TypedObject< CellType >) 4.000000 2.000000 box
- (TypedObject< MapType >) 5.000000 2.000000 box
- (TypedObject< ObjectType >) 6.000000 2.000000 box
- (Type< T >) 0.000000 1.000000 box
- (Type< CellType >) 1.000000 1.000000 box
- (Type< MapType >) 2.000000 1.000000 box
- (Type< ObjectType >) 3.000000 1.000000 box
- (Cell) 4.000000 1.000000 box
- (Map) 5.000000 1.000000 box
- (Object) 6.000000 1.000000 box
- (CellType) 1.000000 0.000000 box
- (MapType) 2.000000 0.000000 box
- (ObjectType) 3.000000 0.000000 box
+ (GameObject) 3.000000 7.000000 box
+ (DefaultTypes) 0.000000 6.000000 box
+ (Game) 1.000000 6.000000 box
+ (GameObjectInventory) 2.000000 6.000000 box
+ (GameObjectList< Type >) 3.000000 6.000000 box
+ (Image) 4.000000 6.000000 box
+ (InheritableObject) 5.000000 6.000000 box
+ (World) 6.000000 6.000000 box
+ (GameObjectType) 2.500000 5.000000 box
+ (TypedObject< T >) 3.500000 5.000000 box
+ (TypedObject< CellType >) 4.500000 5.000000 box
+ (TypedObject< EntityType >) 5.500000 5.000000 box
+ (TypedObject< MapType >) 6.500000 5.000000 box
+ (TypedObject< ObjectType >) 7.500000 5.000000 box
+ (Type< T >) 3.500000 4.000000 box
+ (Type< CellType >) 3.500000 3.000000 box
+3.500000 3.000000 mark
+ (Type< EntityType >) 3.500000 2.000000 box
+3.500000 2.000000 mark
+ (Type< MapType >) 3.500000 1.000000 box
+3.500000 1.000000 mark
+ (Type< ObjectType >) 3.500000 0.000000 box
+3.500000 0.000000 mark
+ (Cell) 4.500000 4.000000 box
+ (Entity) 5.500000 4.000000 box
+ (Map) 6.500000 4.000000 box
+ (Object) 7.500000 4.000000 box
 
 % ----- relations -----
 
 solid
-1 2.000000 3.250000 out
+1 3.000000 6.250000 out
 solid
-0.000000 5.000000 4.000000 conn
+0.000000 6.000000 7.000000 conn
 solid
-0 0.000000 3.750000 in
+0 0.000000 6.750000 in
 solid
-0 1.000000 3.750000 in
+0 1.000000 6.750000 in
 solid
-0 2.000000 3.750000 in
+0 2.000000 6.750000 in
 solid
-0 4.000000 3.750000 in
+0 3.000000 6.750000 in
 solid
-1 4.000000 2.250000 out
+0 4.000000 6.750000 in
 solid
-1.500000 6.000000 3.000000 conn
+0 5.000000 6.750000 in
 solid
-0 5.000000 3.750000 in
+1 5.000000 5.250000 out
 solid
-0 1.500000 2.750000 in
+2.500000 7.500000 6.000000 conn
 solid
-1 1.500000 1.250000 out
+0 6.000000 6.750000 in
 solid
-0.000000 3.000000 2.000000 conn
+0 2.500000 5.750000 in
 solid
-0 2.500000 2.750000 in
+1 2.500000 4.250000 out
 solid
-0 4.000000 2.750000 in
+0 3.500000 5.750000 in
 solid
-1 4.000000 1.250000 out
+0 4.500000 5.750000 in
 solid
-0 5.000000 2.750000 in
+1 4.500000 4.250000 out
 solid
-1 5.000000 1.250000 out
+0 5.500000 5.750000 in
 solid
-0 6.000000 2.750000 in
+1 5.500000 4.250000 out
 solid
-1 6.000000 1.250000 out
+0 6.500000 5.750000 in
 solid
-0 0.000000 1.750000 in
+1 6.500000 4.250000 out
 solid
-0 1.000000 1.750000 in
+0 7.500000 5.750000 in
 solid
-1 1.000000 0.250000 out
+1 7.500000 4.250000 out
 solid
-0 2.000000 1.750000 in
+0 2.500000 4.500000 hedge
 solid
-1 2.000000 0.250000 out
+0 2.500000 3.500000 hedge
 solid
-0 3.000000 1.750000 in
+0 2.500000 2.500000 hedge
 solid
-1 3.000000 0.250000 out
+0 2.500000 1.500000 hedge
 solid
-0 4.000000 1.750000 in
+0 2.500000 0.500000 hedge
 solid
-0 5.000000 1.750000 in
+2.500000 5.000000 0.500000 vedge
 solid
-0 6.000000 1.750000 in
+0 4.500000 4.750000 in
 solid
-0 1.000000 0.750000 in
+0 5.500000 4.750000 in
 solid
-0 2.000000 0.750000 in
+0 6.500000 4.750000 in
 solid
-0 3.000000 0.750000 in
+0 7.500000 4.750000 in

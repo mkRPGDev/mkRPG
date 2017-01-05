@@ -4,5 +4,7 @@ var searchData=
   ['namechanged',['nameChanged',['../class_b_color.html#a5895b999f69044b919e6d5526577ad87',1,'BColor']]],
   ['newgame',['NewGame',['../class_new_game.html',1,'']]],
   ['newgame_2eh',['newgame.h',['../newgame_8h.html',1,'']]],
+  ['newgameobject',['NewGameObject',['../class_new_game_object.html',1,'']]],
+  ['newgameobject_2eh',['newgameobject.h',['../newgameobject_8h.html',1,'']]],
   ['nothing',['Nothing',['../class_map_painter.html#a771b3fa246b6c13cc2acbdcf1cb6eee3a3a60732dd05f5a7cfbb3f823ed15a8af',1,'MapPainter']]]
 ];

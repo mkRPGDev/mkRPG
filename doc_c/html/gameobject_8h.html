@@ -86,7 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of the base class of the game internal model.  
+<p>Definition of the base class <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>, and some inherited classes.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QtGui&gt;</code><br/>
 <code>#include &lt;assert.h&gt;</code><br/>
@@ -98,35 +98,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Data Structures</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_parameter.html">Parameter</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_parameter.html" title="The Parameter class represents a parameter with a valid domain of value.">Parameter</a> class represents a parameter with a valid domain of value.  <a href="class_parameter.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_event.html">Event</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_event.html" title="The Event class describes the.">Event</a> class describes the.  <a href="class_event.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_order.html">Order</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_order.html" title="The Order class.">Order</a> class.  <a href="class_order.html#details">More...</a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_action.html">Action</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a> class describes a game <a class="el" href="class_action.html" title="The Action class describes a game Action, which if the basal part to enable animated games...">Action</a>, which if the basal part to enable animated games.  <a href="class_action.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object.html">GameObject</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> class is the base class for every part of games.  <a href="class_game_object.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_inheritable_object.html">InheritableObject</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a> class is the base class for every objects that can inherit attributes from an other <a class="el" href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o...">InheritableObject</a>.  <a href="class_inheritable_object.html#details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object_type.html">GameObjectType</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a> class represents types of gameobjects that can be inherited and will be used in <a class="el" href="class_typed_object.html" title="The TypedObject class is the base class for GameObject with a mutable Type.">TypedObject</a>.  <a href="class_game_object_type.html#details">More...</a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab330159c4bbdc7d8e10cd05da86565aa"></a><!-- doxytag: member="gameobject.h::UNUSED" ref="ab330159c4bbdc7d8e10cd05da86565aa" args="(p)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>UNUSED</b>(p)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c09ffbe0bea5710ddb0f2bba0c605ae"></a><!-- doxytag: member="gameobject.h::TypeName" ref="a9c09ffbe0bea5710ddb0f2bba0c605ae" args="(Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>TypeName</b>(<a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;virtual QString typeName() const{return QObject::tr(#<a class="el" href="class_type.html">Type</a>);}</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4e4db36d846a9d6dff95def8d7507c3"></a><!-- doxytag: member="gameobject.h::ObjectListDef" ref="aa4e4db36d846a9d6dff95def8d7507c3" args="(Objects, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListDef</b>(Objects, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;private: QMap&lt;int, <a class="el" href="class_type.html">Type</a>*&gt; a##Objects; public:</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e0c32abad0e9e137742babb45a9799e"></a><!-- doxytag: member="gameobject.h::ObjectListAdd" ref="a3e0c32abad0e9e137742babb45a9799e" args="(Object, Objects, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListAdd</b>(<a class="el" href="class_object.html">Object</a>, Objects, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;void add##<a class="el" href="class_object.html">Object</a>(<a class="el" href="class_type.html">Type</a>* new##<a class="el" href="class_object.html">Object</a>){a##Objects[new##<a class="el" href="class_object.html">Object</a>-&gt;ident()] = new##<a class="el" href="class_object.html">Object</a>; touch();}</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae19013938d6d09feb96ca117ee851289"></a><!-- doxytag: member="gameobject.h::ObjectListTake" ref="ae19013938d6d09feb96ca117ee851289" args="(Object, Objects, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListTake</b>(<a class="el" href="class_object.html">Object</a>, Objects, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;<a class="el" href="class_type.html">Type</a>* take##<a class="el" href="class_object.html">Object</a>(int id){touch(); return a##Objects.take(id);}</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cd159f72be6e7310f3b9e370541dc95"></a><!-- doxytag: member="gameobject.h::ObjectListGetter" ref="a5cd159f72be6e7310f3b9e370541dc95" args="(object, Objects, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListGetter</b>(object, Objects, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;inline <a class="el" href="class_type.html">Type</a>* object(int id) const{return a##Objects.value(id, nullptr);}</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac998674f36a474adb6d33e0d063fbb86"></a><!-- doxytag: member="gameobject.h::ObjectListValues" ref="ac998674f36a474adb6d33e0d063fbb86" args="(objects, Objects, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListValues</b>(objects, Objects, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;inline QList&lt;<a class="el" href="class_type.html">Type</a>*&gt; objects() const{return a##Objects.values();}</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe4d35582ec32f703d1258d7a115b7cc"></a><!-- doxytag: member="gameobject.h::ObjectListGetters" ref="afe4d35582ec32f703d1258d7a115b7cc" args="(object, Object, objects, Objects, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListGetters</b>(object, <a class="el" href="class_object.html">Object</a>, objects, Objects, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;ObjectListGetter(object,Objects, <a class="el" href="class_type.html">Type</a>) ObjectListValues(objects,Objects, <a class="el" href="class_type.html">Type</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae0b5fda5c58dfc337f2243b2dc2de562"></a><!-- doxytag: member="gameobject.h::ObjectListModifiers" ref="ae0b5fda5c58dfc337f2243b2dc2de562" args="(Object, Objects, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListModifiers</b>(<a class="el" href="class_object.html">Object</a>, Objects, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;ObjectListAdd(<a class="el" href="class_object.html">Object</a>,Objects, <a class="el" href="class_type.html">Type</a>) ObjectListTake(<a class="el" href="class_object.html">Object</a>, Objects, <a class="el" href="class_type.html">Type</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a798ee6ceb752ddc6cd1624bf28ef706e"></a><!-- doxytag: member="gameobject.h::ObjectList" ref="a798ee6ceb752ddc6cd1624bf28ef706e" args="(object, Object, objects, Objects, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectList</b>(object, <a class="el" href="class_object.html">Object</a>, objects, Objects, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;ObjectListDef(Objects,<a class="el" href="class_type.html">Type</a>) ObjectListGetters(object,<a class="el" href="class_object.html">Object</a>,objects,Objects,<a class="el" href="class_type.html">Type</a>) ObjectListModifiers(<a class="el" href="class_object.html">Object</a>, Objects, <a class="el" href="class_type.html">Type</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f0140d1b7fcc1df10ca30d191d5107c"></a><!-- doxytag: member="gameobject.h::ObjectListD" ref="a0f0140d1b7fcc1df10ca30d191d5107c" args="(init, Init, body, sg, pl, Type)" -->
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListD</b>(init, Init, body, sg, pl, <a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;ObjectList(init##body##sg,Init##body##sg,init##body##pl,Init##body##pl,<a class="el" href="class_type.html">Type</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gameobject_8h.html#ab330159c4bbdc7d8e10cd05da86565aa">UNUSED</a>(p)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gameobject_8h.html#a9c09ffbe0bea5710ddb0f2bba0c605ae">TypeName</a>(<a class="el" href="class_type.html">Type</a>)&#160;&#160;&#160;virtual QString typeName() const{return QObject::tr(#<a class="el" href="class_type.html">Type</a>);}</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gameobject_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a>(Macro, init, Init, body,...)&#160;&#160;&#160;Macro(init##body, Init##body, ##__VA_ARGS__)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gameobject_8h.html#a9c4adf8b1c7a56a81c6b66945d6ec4d2">C0</a>(Macro, init, Init, body)&#160;&#160;&#160;Macro(init##body, Init##body)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gameobject_8h.html#a4f05201336d20b10dad322cfbd30c0af">C1</a>(Macro, init, Init, body, arg)&#160;&#160;&#160;Macro(init##body, Init##body, arg)</td></tr>
@@ -163,11 +150,41 @@ Typedefs</h2></td></tr>
 QList&lt; QString &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gameobject_8h.html#a2679b210263ad72f002dee6909ea222b">HierarchicalAttr</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a483c42fd1d240dcc4021cb8bacd4f09b"></a><!-- doxytag: member="gameobject.h::cleverComp" ref="a483c42fd1d240dcc4021cb8bacd4f09b" args="(const QString &amp;na, const QString &amp;nb)" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>cleverComp</b> (const QString &amp;na, const QString &amp;nb)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gameobject_8h.html#a483c42fd1d240dcc4021cb8bacd4f09b">cleverComp</a> (const QString &amp;na, const QString &amp;nb)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gameobject_8h.html#ac37000223bbfe84b5a6d4403b9f17ec2">isValidName</a> (const QString &amp;n)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Definition of the base class of the game internal model. </p>
+<div class="textblock"><p>Definition of the base class <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>, and some inherited classes. </p>
+<p>## The objects structure</p>
+<p>### Inheritance and parent</p>
+<p>Each class which is part of game representation has to inherit from <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>. It gives the class standard params and flags mechanisms that are used for edition purposes.</p>
+<p>Each instance must have a parent (except the <a class="el" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> one) which will keep an eye on his children. If the parent cannot be given at the construction time (case or array)s, the init function must then be called as soon as possible.</p>
+<p>### Reference count</p>
+<p>### Objects destructors</p>
+<p>A default implementation of <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> destructor is provided. It destroy every children the instance has. This avoid fastidious destructor implementation.</p>
+<p>## The Macro System</p>
+<p>To add conveniently attributes and flags to <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> subclassed objects, a set of macro is provided.</p>
+<p>### Name conventions</p>
+<p>For a attribute named <code>attr</code>, the following conventions are observed :</p>
+<ul>
+<li><code>attr()</code> is the getter method</li>
+<li><code>setAttr()</code> is the setter method</li>
+<li><code>aAttr</code> is the name of the attribut (if any)</li>
+</ul>
+<p>A specific convention is applied for flags (boolean attributes) :</p>
+<ul>
+<li>isAttr() is the getter method</li>
+</ul>
+<p>### Macros</p>
+<p>To define a new attribute, a global macro can be used in the class declaration. The provided basic implementations keep the object edition synchronization.</p>
+<p>If a cleverer process is needed, custom getter or setter can be implemented, and the getter and setter macros can be used separately to define the obvious methods</p>
+<p>**Provided macros**</p>
+<p>Attribute type | Complete declaration | Getter | Setter -----------------------------|-----------------------|-------------|------------ Flags (bool) | <a class="el" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a> |<a class="el" href="gameobject_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a> |<a class="el" href="gameobject_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a> Parameters (int) | <a class="el" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a> |<a class="el" href="gameobject_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a> |<a class="el" href="gameobject_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a> <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> based Attributes | <a class="el" href="gameobject_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> |<a class="el" href="gameobject_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a> |<a class="el" href="gameobject_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a></p>
+<p>**The case of attributes**</p>
+<p>An additionnal <a class="el" href="gameobject_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a> macro is provided, that deduce a default name from the type.</p>
+<p>### Name tools</p>
+<p>To make the definition easier and avoid the name repetition that is introduced by the name convention, a <a class="el" href="gameobject_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> macro is provided to construct the names with lower and upper initial letter from theses letter and the end of the name.</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Baptiste Pauget </dd></dl>
 </div><hr/><h2>Define Documentation</h2>
 <a class="anchor" id="a64aa6604561401f0e8e846061093a38f"></a><!-- doxytag: member="gameobject.h::Attr" ref="a64aa6604561401f0e8e846061093a38f" args="(attr, Attr, Type)" -->
 <div class="memitem">
@@ -869,6 +886,43 @@ As some IDE does not fully support variadic macro expansion, the <a class="el" h
 
 </div>
 </div>
+<a class="anchor" id="a9c09ffbe0bea5710ddb0f2bba0c605ae"></a><!-- doxytag: member="gameobject.h::TypeName" ref="a9c09ffbe0bea5710ddb0f2bba0c605ae" args="(Type)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="gameobject_8h.html#a9c09ffbe0bea5710ddb0f2bba0c605ae">TypeName</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="class_type.html">Type</a></td><td>)</td>
+          <td>&#160;&#160;&#160;virtual QString typeName() const{return QObject::tr(#<a class="el" href="class_type.html">Type</a>);}</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This macro declares the type name that will be visible to the user.</p>
+<p>It must be use in a <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> inherited class public scope. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab330159c4bbdc7d8e10cd05da86565aa"></a><!-- doxytag: member="gameobject.h::UNUSED" ref="ab330159c4bbdc7d8e10cd05da86565aa" args="(p)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define <a class="el" href="gameobject_8h.html#ab330159c4bbdc7d8e10cd05da86565aa">UNUSED</a></td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">p</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Usefull macro to avoid "Unused parameter" warning. </p>
+
+</div>
+</div>
 <hr/><h2>Typedef Documentation</h2>
 <a class="anchor" id="a2679b210263ad72f002dee6909ea222b"></a><!-- doxytag: member="gameobject.h::HierarchicalAttr" ref="a2679b210263ad72f002dee6909ea222b" args="" -->
 <div class="memitem">
@@ -881,6 +935,53 @@ As some IDE does not fully support variadic macro expansion, the <a class="el" h
 </div>
 <div class="memdoc">
 <p>Convenient type that represent the attributes (flags/parameters) organized by the oldest object that defines them. </p>
+
+</div>
+</div>
+<hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a483c42fd1d240dcc4021cb8bacd4f09b"></a><!-- doxytag: member="gameobject.h::cleverComp" ref="a483c42fd1d240dcc4021cb8bacd4f09b" args="(const QString &amp;na, const QString &amp;nb)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="gameobject_8h.html#a483c42fd1d240dcc4021cb8bacd4f09b">cleverComp</a> </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>na</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>nb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Compares to string classing <code>name_10</code> after <code>name_2</code>. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac37000223bbfe84b5a6d4403b9f17ec2"></a><!-- doxytag: member="gameobject.h::isValidName" ref="ac37000223bbfe84b5a6d4403b9f17ec2" args="(const QString &amp;n)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="gameobject_8h.html#ac37000223bbfe84b5a6d4403b9f17ec2">isValidName</a> </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns true if the string <code>n</code> contains only letters, digits or "_". </p>
 
 </div>
 </div>

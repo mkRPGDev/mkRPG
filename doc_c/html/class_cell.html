@@ -80,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Data Fields</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Cell Class Reference</div>  </div>
 </div><!--header-->
@@ -105,7 +105,7 @@ Inheritance diagram for Cell:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d51e1181f3606c036965b5568fbb8ec"></a><!-- doxytag: member="Cell::Cell" ref="a2d51e1181f3606c036965b5568fbb8ec" args="(CellType &amp;type, GameObject &amp;parent)" -->
-<a class="el" href="class_cell.html">Cell</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Cell</b> (<a class="el" href="class_cell_type.html">CellType</a> &amp;type, <a class="el" href="class_game_object.html">GameObject</a> &amp;parent)</td></tr>
+<a class="el" href="class_cell.html">Cell</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Cell</b> (<a class="el" href="class_cell_type.html">CellType</a> &amp;type, <a class="el" href="class_game_object.html">GameObject</a> &amp;<a class="el" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a394830e18401f3b414c3dde4a2b4e2e8"></a><!-- doxytag: member="Cell::isSelected" ref="a394830e18401f3b414c3dde4a2b4e2e8" args="() const " -->
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isSelected</b> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40146bbb2b74cf56337462abc4d0327c"></a><!-- doxytag: member="Cell::setSelected" ref="a40146bbb2b74cf56337462abc4d0327c" args="(bool s=true)" -->
@@ -120,18 +120,16 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isPreSelected</b> () 
 void&#160;</td><td class="memItemRight" valign="bottom"><b>confirmPreSelection</b> (bool add=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0704872b8d4ae7f40022cfebfa48944"></a><!-- doxytag: member="Cell::clearPreSelection" ref="aa0704872b8d4ae7f40022cfebfa48944" args="()" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clearPreSelection</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a218280087c0d77011b0d93d3f56e1b8f"></a><!-- doxytag: member="Cell::cellType" ref="a218280087c0d77011b0d93d3f56e1b8f" args="() const " -->
-const <a class="el" href="class_cell_type.html">CellType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>cellType</b> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac934ce0c192eec56e41f0572b95e4c41"></a><!-- doxytag: member="Cell::cellType" ref="ac934ce0c192eec56e41f0572b95e4c41" args="()" -->
+<a class="el" href="class_cell_type.html">CellType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>cellType</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7247ed72579ece05d6937de36ad5d55"></a><!-- doxytag: member="Cell::setCellType" ref="aa7247ed72579ece05d6937de36ad5d55" args="(CellType &amp;type)" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setCellType</b> (<a class="el" href="class_cell_type.html">CellType</a> &amp;type)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0fd3d547365e2f04de777f171277f45"></a><!-- doxytag: member="Cell::ObjectListD" ref="ad0fd3d547365e2f04de777f171277f45" args="(o, O, bject,, s, Object) static Cell *cellArray(CellType &amp;type" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectListD</b> (o, O, bject,, s, <a class="el" href="class_object.html">Object</a>) static <a class="el" href="class_cell.html">Cell</a> *cellArray(<a class="el" href="class_cell_type.html">CellType</a> &amp;type</td></tr>
-<tr><td colspan="2"><h2><a name="pub-attribs"></a>
-Data Fields</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43eede8611f015425717b487363ac6ce"></a><!-- doxytag: member="Cell::parent" ref="a43eede8611f015425717b487363ac6ce" args="" -->
-<a class="el" href="class_game_object.html">GameObject</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad2e41db325c0c70d969c98a3f90776a2"></a><!-- doxytag: member="Cell::n" ref="ad2e41db325c0c70d969c98a3f90776a2" args="" -->
-<a class="el" href="class_game_object.html">GameObject</a> int&#160;</td><td class="memItemRight" valign="bottom"><b>n</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf848c9fd299845d425821ccfb48a718"></a><!-- doxytag: member="Cell::operator=" ref="acf848c9fd299845d425821ccfb48a718" args="(Cell &amp;c)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="class_cell.html">Cell</a> &amp;c)</td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a092f9ba84bb9c28aabf6cfb963b14e33"></a><!-- doxytag: member="Cell::cellArray" ref="a092f9ba84bb9c28aabf6cfb963b14e33" args="(CellType &amp;type, GameObject &amp;parent, int n)" -->
+static <a class="el" href="class_cell.html">Cell</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>cellArray</b> (<a class="el" href="class_cell_type.html">CellType</a> &amp;type, <a class="el" href="class_game_object.html">GameObject</a> &amp;<a class="el" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>, int n)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_cell.html" title="The Cell class.">Cell</a> class. </p>

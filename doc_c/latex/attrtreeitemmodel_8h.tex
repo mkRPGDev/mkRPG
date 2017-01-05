@@ -12,15 +12,52 @@
 \subsection*{\-Data \-Structures}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{class_game_tree_item}{\-Game\-Tree\-Item$<$ Param\-Item $>$}
+class \hyperlink{class_game_tree_item}{\-Game\-Tree\-Item$<$ type $>$}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_game_tree_item}{\-Game\-Tree\-Item} define a convienent tree item for the \hyperlink{class_param_tree_item_model}{\-Param\-Tree\-Item\-Model} and \hyperlink{class_flag_tree_item_model}{\-Flag\-Tree\-Item\-Model} classes. \end{DoxyCompactList}\item 
 class \hyperlink{class_param_tree_item_model}{\-Param\-Tree\-Item\-Model}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_param_tree_item_model}{\-Param\-Tree\-Item\-Model} class presents the parameters of an object using the \-Q\-Abstract\-Item\-Model interface. \end{DoxyCompactList}\item 
 class \hyperlink{class_flag_tree_item_model}{\-Flag\-Tree\-Item\-Model}
-\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_param_tree_item_model}{\-Param\-Tree\-Item\-Model} class presents the flags of an object using the \-Q\-Abstract\-Item\-Model interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_param_tree_item_model}{\-Param\-Tree\-Item\-Model} class presents the flags of an object using the \-Q\-Abstract\-Item\-Model interface. \end{DoxyCompactList}\item 
+class \hyperlink{class_event_tree_item_model}{\-Event\-Tree\-Item\-Model}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_event_tree_item_model}{\-Event\-Tree\-Item\-Model} class presents the events of an object using the \-Q\-Abstract\-Item\-Model interface. \end{DoxyCompactList}\item 
+class \hyperlink{class_order_tree_item_model}{\-Order\-Tree\-Item\-Model}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_order_tree_item_model}{\-Order\-Tree\-Item\-Model} class presents the orders of an object using the \-Q\-Abstract\-Item\-Model interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66b}{\-Item\-Type} \{ \hyperlink{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66ba14f574fd889190e65abba177ce8eb86b}{\-Param\-Item}, 
+\hyperlink{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66bac647d14c7e12708765b663a7f78cee3a}{\-Flag\-Item}, 
+\hyperlink{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66baf83dbdaa44c0c47cc2574a28964b2fa8}{\-Event\-Item}, 
+\hyperlink{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66ba1a19215e5c5095b658525b1a11da39a2}{\-Order\-Item}
+ \}
+\begin{DoxyCompactList}\small\item\em \-The \-Item\-Type enum describes the several types of items used in the template class \hyperlink{class_game_tree_item}{\-Game\-Tree\-Item}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{\-Detailed \-Description}
 \-Definition of the model presentation class for parameter and flags as a tree. \begin{DoxyWarning}{\-Warning}
 \-Do not try to factorized the \hyperlink{class_param_tree_item_model}{\-Param\-Tree\-Item\-Model} and \hyperlink{class_flag_tree_item_model}{\-Flag\-Tree\-Item\-Model} in a single template class, templates are not supported by \-Qt \-Meta-\/\-Object \-Compiler. 
 \end{DoxyWarning}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66b}{\index{attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}!\-Item\-Type@{\-Item\-Type}}
+\index{\-Item\-Type@{\-Item\-Type}!attrtreeitemmodel.h@{attrtreeitemmodel.\-h}}
+\subsubsection[{\-Item\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf \-Item\-Type}}}\label{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66b}
+
+
+\-The \-Item\-Type enum describes the several types of items used in the template class \hyperlink{class_game_tree_item}{\-Game\-Tree\-Item}. 
+
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-Param\-Item@{\-Param\-Item}!attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}}\index{attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}!\-Param\-Item@{\-Param\-Item}}\item[{\em 
+\hypertarget{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66ba14f574fd889190e65abba177ce8eb86b}{\-Param\-Item}\label{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66ba14f574fd889190e65abba177ce8eb86b}
+}]\-Integer parameter \index{\-Flag\-Item@{\-Flag\-Item}!attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}}\index{attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}!\-Flag\-Item@{\-Flag\-Item}}\item[{\em 
+\hypertarget{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66bac647d14c7e12708765b663a7f78cee3a}{\-Flag\-Item}\label{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66bac647d14c7e12708765b663a7f78cee3a}
+}]\-Flag \index{\-Event\-Item@{\-Event\-Item}!attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}}\index{attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}!\-Event\-Item@{\-Event\-Item}}\item[{\em 
+\hypertarget{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66baf83dbdaa44c0c47cc2574a28964b2fa8}{\-Event\-Item}\label{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66baf83dbdaa44c0c47cc2574a28964b2fa8}
+}]\-Event \index{\-Order\-Item@{\-Order\-Item}!attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}}\index{attrtreeitemmodel.\-h@{attrtreeitemmodel.\-h}!\-Order\-Item@{\-Order\-Item}}\item[{\em 
+\hypertarget{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66ba1a19215e5c5095b658525b1a11da39a2}{\-Order\-Item}\label{attrtreeitemmodel_8h_a443f647757dde85043b49343f5cbe66ba1a19215e5c5095b658525b1a11da39a2}
+}]\-Order \end{description}
+\end{Desc}
+

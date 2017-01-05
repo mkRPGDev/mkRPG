@@ -90,39 +90,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="mapslistmodel_8h.html" title="Definition of Model/View presentation classes.">Game/ItemModels/mapslistmodel.h</a>&quot;</span>
 <a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="attrtreeitemmodel_8h.html" title="Definition of the model presentation class for parameter and flags as a tree.">Game/ItemModels/attrtreeitemmodel.h</a>&quot;</span>
 <a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="itemdelegates_8h.html" title="Definition of the delegates to render different items in view.">itemdelegates.h</a>&quot;</span>
-<a name="l00011"></a>00011 
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;QSplitter&gt;</span>
-<a name="l00014"></a>00014 
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="gameobjecteditor_8h.html" title="Definition of the GameObjectEditor class.">ObjectEditors/gameobjecteditor.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="newgameobject_8h.html" title="Definition of the NewGameObject class.">newgameobject.h</a>&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;QSplitter&gt;</span>
 <a name="l00015"></a>00015 
 <a name="l00016"></a>00016 
 <a name="l00017"></a>00017 
-<a name="l00029"></a><a class="code" href="class_object_tab.html">00029</a> <span class="keyword">class </span><a class="code" href="class_object_tab.html" title="The ObjectTab class is the TabWidget that provides object edition features.">ObjectTab</a> : <span class="keyword">public</span> <a class="code" href="class_tab_widget.html" title="The TabWidget class is the base class for editing tabs.">TabWidget</a>, <span class="keyword">private</span> Ui::<a class="code" href="class_object_tab.html" title="The ObjectTab class is the TabWidget that provides object edition features.">ObjectTab</a>
-<a name="l00030"></a>00030 {
-<a name="l00031"></a>00031     Q_OBJECT
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="keyword">public</span>:
-<a name="l00034"></a>00034     <span class="keyword">explicit</span> <a class="code" href="class_object_tab.html" title="The ObjectTab class is the TabWidget that provides object edition features.">ObjectTab</a>(QWidget *parent = 0);
-<a name="l00035"></a>00035     <span class="keywordtype">void</span> setGame(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *g);
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="keyword">private</span> slots:
-<a name="l00038"></a>00038     <span class="keywordtype">void</span> currentElementChanged(<span class="keyword">const</span> QModelIndex &amp;ind);
-<a name="l00039"></a>00039     <span class="keywordtype">void</span> on_newParam_clicked();
-<a name="l00040"></a>00040     <span class="keywordtype">void</span> on_newFlag_clicked();
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044 <span class="keyword">private</span>:
+<a name="l00018"></a>00018 
+<a name="l00030"></a><a class="code" href="class_object_tab.html">00030</a> <span class="keyword">class </span><a class="code" href="class_object_tab.html" title="The ObjectTab class is the TabWidget that provides object edition features.">ObjectTab</a> : <span class="keyword">public</span> <a class="code" href="class_tab_widget.html" title="The TabWidget class is the base class for editing tabs.">TabWidget</a>, <span class="keyword">private</span> Ui::<a class="code" href="class_object_tab.html" title="The ObjectTab class is the TabWidget that provides object edition features.">ObjectTab</a>
+<a name="l00031"></a>00031 {
+<a name="l00032"></a>00032     Q_OBJECT
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="keyword">public</span>:
+<a name="l00035"></a>00035     <span class="keyword">explicit</span> <a class="code" href="class_object_tab.html" title="The ObjectTab class is the TabWidget that provides object edition features.">ObjectTab</a>(QWidget *parent = 0);
+<a name="l00036"></a>00036     <span class="keywordtype">void</span> setGame(<a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *g);
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 <span class="keyword">private</span> slots:
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> currentElementChanged(<span class="keyword">const</span> QModelIndex &amp;ind);
+<a name="l00040"></a>00040     <span class="keywordtype">void</span> on_newParam_clicked();
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> on_newFlag_clicked();
+<a name="l00042"></a>00042     <span class="keywordtype">void</span> on_newEvent_clicked();
+<a name="l00043"></a>00043     <span class="keywordtype">void</span> on_newOrder_clicked();
+<a name="l00044"></a>00044     <span class="keywordtype">void</span> on_newObject_clicked();
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046     <a class="code" href="class_param_tree_item_model.html" title="The ParamTreeItemModel class presents the parameters of an object using the QAbstractItemModel interf...">ParamTreeItemModel</a> *paramsModel;
-<a name="l00047"></a>00047     <a class="code" href="class_flag_tree_item_model.html" title="The ParamTreeItemModel class presents the flags of an object using the QAbstractItemModel interface...">FlagTreeItemModel</a> *flagsModel;
-<a name="l00048"></a>00048     <a class="code" href="class_objects_tree_model.html" title="The ObjectsTreeModel class presents an GameObject and its chidren as a tree model.">ObjectsTreeModel</a> *objectsModel;
-<a name="l00049"></a>00049     <a class="code" href="class_type_item_model.html" title="The TypeItemModel class presents the type hierarchy using the QAbstractItemModel interface.">TypeItemModel</a> *typesModel;
-<a name="l00050"></a>00050     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *currentObject;
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 };
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054 <span class="preprocessor">#endif // OBJECTEDITOR_H</span>
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 <span class="keyword">private</span>:
+<a name="l00049"></a>00049     <a class="code" href="class_filtered_objects_tree_model.html" title="The FilteredObjectsTreeModel class enable to hide some items of ObjectsTreeModel.">FilteredObjectsTreeModel</a> *fob;
+<a name="l00050"></a>00050     <a class="code" href="class_event_tree_item_model.html" title="The EventTreeItemModel class presents the events of an object using the QAbstractItemModel interface...">EventTreeItemModel</a> *eventsModel;
+<a name="l00051"></a>00051     <a class="code" href="class_param_tree_item_model.html" title="The ParamTreeItemModel class presents the parameters of an object using the QAbstractItemModel interf...">ParamTreeItemModel</a> *paramsModel;
+<a name="l00052"></a>00052     <a class="code" href="class_order_tree_item_model.html" title="The OrderTreeItemModel class presents the orders of an object using the QAbstractItemModel interface...">OrderTreeItemModel</a> *ordersModel;
+<a name="l00053"></a>00053     <a class="code" href="class_flag_tree_item_model.html" title="The ParamTreeItemModel class presents the flags of an object using the QAbstractItemModel interface...">FlagTreeItemModel</a> *flagsModel;
+<a name="l00054"></a>00054     <a class="code" href="class_objects_tree_model.html" title="The ObjectsTreeModel class presents an GameObject and its chidren as a tree model.">ObjectsTreeModel</a> *objectsModel;
+<a name="l00055"></a>00055     <a class="code" href="class_type_item_model2.html" title="The TypeItemModel class presents the type hierarchy using the QAbstractItemModel interface.">TypeItemModel2</a> *typesModel;
+<a name="l00056"></a>00056     <a class="code" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> *currentObject;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059     QWidget *edit;
+<a name="l00060"></a>00060     <a class="code" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> *game;
+<a name="l00061"></a>00061 };
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063 <span class="preprocessor">#endif // OBJECTEDITOR_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

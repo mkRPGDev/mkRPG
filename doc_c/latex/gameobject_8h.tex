@@ -3,7 +3,7 @@
 }
 
 
-\-Definition of the base class of the game internal model.  
+\-Definition of the base class \hyperlink{class_game_object}{\-Game\-Object}, and some inherited classes.  
 
 
 {\ttfamily \#include $<$\-Qt\-Gui$>$}\*
@@ -14,47 +14,24 @@
 \item 
 class \hyperlink{class_parameter}{\-Parameter}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_parameter}{\-Parameter} class represents a parameter with a valid domain of value. \end{DoxyCompactList}\item 
+class \hyperlink{class_event}{\-Event}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_event}{\-Event} class describes the. \end{DoxyCompactList}\item 
+class \hyperlink{class_order}{\-Order}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_order}{\-Order} class. \end{DoxyCompactList}\item 
+class \hyperlink{class_action}{\-Action}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_action}{\-Action} class describes a game \hyperlink{class_action}{\-Action}, which if the basal part to enable animated games. \end{DoxyCompactList}\item 
 class \hyperlink{class_game_object}{\-Game\-Object}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_game_object}{\-Game\-Object} class is the base class for every part of games. \end{DoxyCompactList}\item 
 class \hyperlink{class_inheritable_object}{\-Inheritable\-Object}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_inheritable_object}{\-Inheritable\-Object} class is the base class for every objects that can inherit attributes from an other \hyperlink{class_inheritable_object}{\-Inheritable\-Object}. \end{DoxyCompactList}\item 
 class \hyperlink{class_game_object_type}{\-Game\-Object\-Type}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_game_object_type}{\-Game\-Object\-Type} class represents types of gameobjects that can be inherited and will be used in \hyperlink{class_typed_object}{\-Typed\-Object}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{\-Defines}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{gameobject_8h_ab330159c4bbdc7d8e10cd05da86565aa}{\#define {\bfseries \-U\-N\-U\-S\-E\-D}(p)}\label{gameobject_8h_ab330159c4bbdc7d8e10cd05da86565aa}
-
+\#define \hyperlink{gameobject_8h_ab330159c4bbdc7d8e10cd05da86565aa}{\-U\-N\-U\-S\-E\-D}(p)
 \item 
-\hypertarget{gameobject_8h_a9c09ffbe0bea5710ddb0f2bba0c605ae}{\#define {\bfseries \-Type\-Name}(\hyperlink{class_type}{\-Type})~virtual \-Q\-String type\-Name() const\{return \-Q\-Object\-::tr(\#\hyperlink{class_type}{\-Type});\}}\label{gameobject_8h_a9c09ffbe0bea5710ddb0f2bba0c605ae}
-
-\item 
-\hypertarget{gameobject_8h_aa4e4db36d846a9d6dff95def8d7507c3}{\#define {\bfseries \-Object\-List\-Def}(\-Objects, \hyperlink{class_type}{\-Type})~private\-: \-Q\-Map$<$int, \hyperlink{class_type}{\-Type}$\ast$$>$ a\#\#\-Objects; public\-:}\label{gameobject_8h_aa4e4db36d846a9d6dff95def8d7507c3}
-
-\item 
-\hypertarget{gameobject_8h_a3e0c32abad0e9e137742babb45a9799e}{\#define {\bfseries \-Object\-List\-Add}(\hyperlink{class_object}{\-Object}, \-Objects, \hyperlink{class_type}{\-Type})~void add\#\#\hyperlink{class_object}{\-Object}(\hyperlink{class_type}{\-Type}$\ast$ new\#\#\hyperlink{class_object}{\-Object})\{a\#\#\-Objects\mbox{[}new\#\#\hyperlink{class_object}{\-Object}-\/$>$ident()\mbox{]} = new\#\#\hyperlink{class_object}{\-Object}; touch();\}}\label{gameobject_8h_a3e0c32abad0e9e137742babb45a9799e}
-
-\item 
-\hypertarget{gameobject_8h_ae19013938d6d09feb96ca117ee851289}{\#define {\bfseries \-Object\-List\-Take}(\hyperlink{class_object}{\-Object}, \-Objects, \hyperlink{class_type}{\-Type})~\hyperlink{class_type}{\-Type}$\ast$ take\#\#\hyperlink{class_object}{\-Object}(int id)\{touch(); return a\#\#\-Objects.\-take(id);\}}\label{gameobject_8h_ae19013938d6d09feb96ca117ee851289}
-
-\item 
-\hypertarget{gameobject_8h_a5cd159f72be6e7310f3b9e370541dc95}{\#define {\bfseries \-Object\-List\-Getter}(object, \-Objects, \hyperlink{class_type}{\-Type})~inline \hyperlink{class_type}{\-Type}$\ast$ object(int id) const\{return a\#\#\-Objects.\-value(id, nullptr);\}}\label{gameobject_8h_a5cd159f72be6e7310f3b9e370541dc95}
-
-\item 
-\hypertarget{gameobject_8h_ac998674f36a474adb6d33e0d063fbb86}{\#define {\bfseries \-Object\-List\-Values}(objects, \-Objects, \hyperlink{class_type}{\-Type})~inline \-Q\-List$<$\hyperlink{class_type}{\-Type}$\ast$$>$ objects() const\{return a\#\#\-Objects.\-values();\}}\label{gameobject_8h_ac998674f36a474adb6d33e0d063fbb86}
-
-\item 
-\hypertarget{gameobject_8h_afe4d35582ec32f703d1258d7a115b7cc}{\#define {\bfseries \-Object\-List\-Getters}(object, \hyperlink{class_object}{\-Object}, objects, \-Objects, \hyperlink{class_type}{\-Type})~\-Object\-List\-Getter(object,\-Objects, \hyperlink{class_type}{\-Type}) \-Object\-List\-Values(objects,\-Objects, \hyperlink{class_type}{\-Type})}\label{gameobject_8h_afe4d35582ec32f703d1258d7a115b7cc}
-
-\item 
-\hypertarget{gameobject_8h_ae0b5fda5c58dfc337f2243b2dc2de562}{\#define {\bfseries \-Object\-List\-Modifiers}(\hyperlink{class_object}{\-Object}, \-Objects, \hyperlink{class_type}{\-Type})~\-Object\-List\-Add(\hyperlink{class_object}{\-Object},\-Objects, \hyperlink{class_type}{\-Type}) \-Object\-List\-Take(\hyperlink{class_object}{\-Object}, \-Objects, \hyperlink{class_type}{\-Type})}\label{gameobject_8h_ae0b5fda5c58dfc337f2243b2dc2de562}
-
-\item 
-\hypertarget{gameobject_8h_a798ee6ceb752ddc6cd1624bf28ef706e}{\#define {\bfseries \-Object\-List}(object, \hyperlink{class_object}{\-Object}, objects, \-Objects, \hyperlink{class_type}{\-Type})~\-Object\-List\-Def(\-Objects,\hyperlink{class_type}{\-Type}) \-Object\-List\-Getters(object,\hyperlink{class_object}{\-Object},objects,\-Objects,\hyperlink{class_type}{\-Type}) \-Object\-List\-Modifiers(\hyperlink{class_object}{\-Object}, \-Objects, \hyperlink{class_type}{\-Type})}\label{gameobject_8h_a798ee6ceb752ddc6cd1624bf28ef706e}
-
-\item 
-\hypertarget{gameobject_8h_a0f0140d1b7fcc1df10ca30d191d5107c}{\#define {\bfseries \-Object\-List\-D}(init, \-Init, body, sg, pl, \hyperlink{class_type}{\-Type})~\-Object\-List(init\#\#body\#\#sg,\-Init\#\#body\#\#sg,init\#\#body\#\#pl,\-Init\#\#body\#\#pl,\hyperlink{class_type}{\-Type})}\label{gameobject_8h_a0f0140d1b7fcc1df10ca30d191d5107c}
-
+\#define \hyperlink{gameobject_8h_a9c09ffbe0bea5710ddb0f2bba0c605ae}{\-Type\-Name}(\hyperlink{class_type}{\-Type})~virtual \-Q\-String type\-Name() const\{return \-Q\-Object\-::tr(\#\hyperlink{class_type}{\-Type});\}
 \item 
 \#define \hyperlink{gameobject_8h_af50e2bbaaebe8da60a8d514fca706273}{\-C}(\-Macro, init, \-Init, body,...)~\-Macro(init\#\#body, \-Init\#\#body, \#\#\-\_\-\-\_\-\-V\-A\-\_\-\-A\-R\-G\-S\-\_\-\-\_\-)
 \item 
@@ -120,13 +97,67 @@ typedef \-Q\-List$<$ \-Q\-Pair$<$ \-Q\-String, \*
 \subsection*{\-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{gameobject_8h_a483c42fd1d240dcc4021cb8bacd4f09b}{bool {\bfseries clever\-Comp} (const \-Q\-String \&na, const \-Q\-String \&nb)}\label{gameobject_8h_a483c42fd1d240dcc4021cb8bacd4f09b}
-
+bool \hyperlink{gameobject_8h_a483c42fd1d240dcc4021cb8bacd4f09b}{clever\-Comp} (const \-Q\-String \&na, const \-Q\-String \&nb)
+\item 
+bool \hyperlink{gameobject_8h_ac37000223bbfe84b5a6d4403b9f17ec2}{is\-Valid\-Name} (const \-Q\-String \&n)
 \end{DoxyCompactItemize}
 
 
 \subsection{\-Detailed \-Description}
-\-Definition of the base class of the game internal model. 
+\-Definition of the base class \hyperlink{class_game_object}{\-Game\-Object}, and some inherited classes. \#\# \-The objects structure
+
+\#\#\# \-Inheritance and parent
+
+\-Each class which is part of game representation has to inherit from \hyperlink{class_game_object}{\-Game\-Object}. \-It gives the class standard params and flags mechanisms that are used for edition purposes.
+
+\-Each instance must have a parent (except the \hyperlink{class_game}{\-Game} one) which will keep an eye on his children. \-If the parent cannot be given at the construction time (case or array)s, the init function must then be called as soon as possible.
+
+\#\#\# \-Reference count
+
+\#\#\# \-Objects destructors
+
+\-A default implementation of \hyperlink{class_game_object}{\-Game\-Object} destructor is provided. \-It destroy every children the instance has. \-This avoid fastidious destructor implementation.
+
+\#\# \-The \-Macro \-System
+
+\-To add conveniently attributes and flags to \hyperlink{class_game_object}{\-Game\-Object} subclassed objects, a set of macro is provided.
+
+\#\#\# \-Name conventions
+
+\-For a attribute named {\ttfamily attr}, the following conventions are observed \-:
+\begin{DoxyItemize}
+\item {\ttfamily attr()} is the getter method
+\item {\ttfamily set\-Attr()} is the setter method
+\item {\ttfamily a\-Attr} is the name of the attribut (if any)
+\end{DoxyItemize}
+
+\-A specific convention is applied for flags (boolean attributes) \-:
+\begin{DoxyItemize}
+\item is\-Attr() is the getter method
+\end{DoxyItemize}
+
+\#\#\# \-Macros
+
+\-To define a new attribute, a global macro can be used in the class declaration. \-The provided basic implementations keep the object edition synchronization.
+
+\-If a cleverer process is needed, custom getter or setter can be implemented, and the getter and setter macros can be used separately to define the obvious methods
+
+$\ast$$\ast$\-Provided macros$\ast$$\ast$
+
+\-Attribute type $|$ \-Complete declaration $|$ \-Getter $|$ \-Setter -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/$|$-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/$|$-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/$|$-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ \-Flags (bool) $|$ \hyperlink{gameobject_8h_a9ba0b87f0be2ba389283351696aa9f59}{\-Flag} $|$\hyperlink{gameobject_8h_afde5dda87eae392282bcbae5db29ca2a}{\-Flag\-Getter} $|$\hyperlink{gameobject_8h_a1c9cbf9b06bc4624d68881c7cafa2374}{\-Flag\-Setter} \-Parameters (int) $|$ \hyperlink{gameobject_8h_ac2415051beaa606375358688bcb8ff37}{\-Param} $|$\hyperlink{gameobject_8h_af9a40c8fc717d608bcb25e9effa6e1f3}{\-Param\-Getter} $|$\hyperlink{gameobject_8h_a40afef3dd9a129b4d02f06bada05ebbb}{\-Param\-Setter} \hyperlink{class_game_object}{\-Game\-Object} based \-Attributes $|$ \hyperlink{gameobject_8h_a64aa6604561401f0e8e846061093a38f}{\-Attr} $|$\hyperlink{gameobject_8h_abb51a31972a5cd870c4d8f4f3eada448}{\-Attr\-Getter} $|$\hyperlink{gameobject_8h_a076a8c1470b0de69b7dfdf442d9ed949}{\-Attr\-Setter}
+
+$\ast$$\ast$\-The case of attributes$\ast$$\ast$
+
+\-An additionnal \hyperlink{gameobject_8h_ab34851071e0bcd61ba26ebc3893a683a}{\-Attr\-T} macro is provided, that deduce a default name from the type.
+
+\#\#\# \-Name tools
+
+\-To make the definition easier and avoid the name repetition that is introduced by the name convention, a \hyperlink{gameobject_8h_af50e2bbaaebe8da60a8d514fca706273}{\-C} macro is provided to construct the names with lower and upper initial letter from theses letter and the end of the name.
+
+\begin{DoxyAuthor}{\-Author}
+\-Baptiste \-Pauget 
+\end{DoxyAuthor}
+
 
 \subsection{\-Define \-Documentation}
 \hypertarget{gameobject_8h_a64aa6604561401f0e8e846061093a38f}{\index{gameobject.\-h@{gameobject.\-h}!\-Attr@{\-Attr}}
@@ -579,10 +610,44 @@ param, \hyperlink{gameobject_8h_a65a30247a861dc15363de8b7264e09a6}{\-Protect\-Fl
 \begin{DoxySeeAlso}{\-See also}
 \hyperlink{gameobject_8h_ac2415051beaa606375358688bcb8ff37}{\-Param}, \hyperlink{gameobject_8h_a40afef3dd9a129b4d02f06bada05ebbb}{\-Param\-Setter}, \hyperlink{object_8h}{object.\-h} 
 \end{DoxySeeAlso}
+\hypertarget{gameobject_8h_a9c09ffbe0bea5710ddb0f2bba0c605ae}{\index{gameobject.\-h@{gameobject.\-h}!\-Type\-Name@{\-Type\-Name}}
+\index{\-Type\-Name@{\-Type\-Name}!gameobject.h@{gameobject.\-h}}
+\subsubsection[{\-Type\-Name}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-Type\-Name}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf \-Type}}
+\end{DoxyParamCaption}
+)~virtual \-Q\-String type\-Name() const\{return \-Q\-Object\-::tr(\#{\bf \-Type});\}}}\label{gameobject_8h_a9c09ffbe0bea5710ddb0f2bba0c605ae}
+\-This macro declares the type name that will be visible to the user.
 
+\-It must be use in a \hyperlink{class_game_object}{\-Game\-Object} inherited class public scope. \hypertarget{gameobject_8h_ab330159c4bbdc7d8e10cd05da86565aa}{\index{gameobject.\-h@{gameobject.\-h}!\-U\-N\-U\-S\-E\-D@{\-U\-N\-U\-S\-E\-D}}
+\index{\-U\-N\-U\-S\-E\-D@{\-U\-N\-U\-S\-E\-D}!gameobject.h@{gameobject.\-h}}
+\subsubsection[{\-U\-N\-U\-S\-E\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-U\-N\-U\-S\-E\-D}(
+\begin{DoxyParamCaption}
+\item[{}]{p}
+\end{DoxyParamCaption}
+)}}\label{gameobject_8h_ab330159c4bbdc7d8e10cd05da86565aa}
+\-Usefull macro to avoid \char`\"{}\-Unused parameter\char`\"{} warning. 
 
 \subsection{\-Typedef \-Documentation}
 \hypertarget{gameobject_8h_a2679b210263ad72f002dee6909ea222b}{\index{gameobject.\-h@{gameobject.\-h}!\-Hierarchical\-Attr@{\-Hierarchical\-Attr}}
 \index{\-Hierarchical\-Attr@{\-Hierarchical\-Attr}!gameobject.h@{gameobject.\-h}}
 \subsubsection[{\-Hierarchical\-Attr}]{\setlength{\rightskip}{0pt plus 5cm}typedef \-Q\-List$<$\-Q\-Pair$<$\-Q\-String,\-Q\-List$<$\-Q\-String$>$ $>$ $>$ {\bf \-Hierarchical\-Attr}}}\label{gameobject_8h_a2679b210263ad72f002dee6909ea222b}
 \-Convenient type that represent the attributes (flags/parameters) organized by the oldest object that defines them. 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{gameobject_8h_a483c42fd1d240dcc4021cb8bacd4f09b}{\index{gameobject.\-h@{gameobject.\-h}!clever\-Comp@{clever\-Comp}}
+\index{clever\-Comp@{clever\-Comp}!gameobject.h@{gameobject.\-h}}
+\subsubsection[{clever\-Comp}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf clever\-Comp} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{na, }
+\item[{const \-Q\-String \&}]{nb}
+\end{DoxyParamCaption}
+)}}\label{gameobject_8h_a483c42fd1d240dcc4021cb8bacd4f09b}
+\-Compares to string classing {\ttfamily name\-\_\-10} after {\ttfamily name\-\_\-2}. \hypertarget{gameobject_8h_ac37000223bbfe84b5a6d4403b9f17ec2}{\index{gameobject.\-h@{gameobject.\-h}!is\-Valid\-Name@{is\-Valid\-Name}}
+\index{is\-Valid\-Name@{is\-Valid\-Name}!gameobject.h@{gameobject.\-h}}
+\subsubsection[{is\-Valid\-Name}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf is\-Valid\-Name} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{n}
+\end{DoxyParamCaption}
+)}}\label{gameobject_8h_ac37000223bbfe84b5a6d4403b9f17ec2}
+\-Returns true if the string {\ttfamily n} contains only letters, digits or \char`\"{}\-\_\-\char`\"{}. 

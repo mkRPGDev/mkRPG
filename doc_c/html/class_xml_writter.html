@@ -84,15 +84,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">XmlWritter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="XmlWritter" --><table class="memberdecls">
+<!-- doxytag: class="XmlWritter" -->
+<p>The <a class="el" href="class_xml_writter.html" title="The XmlWritter class provide a XML writter.">XmlWritter</a> class provide a XML writter.  
+ <a href="class_xml_writter.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="xmlwritter_8h_source.html">xmlwritter.h</a>&gt;</code></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40828bb2a1695987710c8c83afe303f6"></a><!-- doxytag: member="XmlWritter::XmlWritter" ref="a40828bb2a1695987710c8c83afe303f6" args="(const QDir &amp;path, Game &amp;game)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>XmlWritter</b> (const QDir &amp;path, <a class="el" href="class_game.html">Game</a> &amp;game)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a247375088eae579c8bb971391a592e1e"></a><!-- doxytag: member="XmlWritter::XmlWritter" ref="a247375088eae579c8bb971391a592e1e" args="(const QDir &amp;path, Game &amp;game, bool serverXml=true)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>XmlWritter</b> (const QDir &amp;path, <a class="el" href="class_game.html">Game</a> &amp;game, bool serverXml=true)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a109a7cf828b77e81bbfa18a53b2c5b25"></a><!-- doxytag: member="XmlWritter::fileName" ref="a109a7cf828b77e81bbfa18a53b2c5b25" args="() const " -->
 const QString&#160;</td><td class="memItemRight" valign="bottom"><b>fileName</b> () const </td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="class_xml_writter.html" title="The XmlWritter class provide a XML writter.">XmlWritter</a> class provide a XML writter. </p>
+<p>Two types of XML can be outputed :</p>
+<ul>
+<li>Server XML : server-readable XML (Some modifications of the <a class="el" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> architecture are made to fit server capacities)</li>
+<li><a class="el" href="class_editor.html" title="The Editor class is the main window of the Editor.">Editor</a> XML : editor-readable XML (The elements are stored in a different way, and additionnal information is written) </li>
+</ul>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/editor/Game/<a class="el" href="xmlwritter_8h_source.html">xmlwritter.h</a></li>
 <li>src/editor/Game/xmlwritter.cpp</li>
 </ul>

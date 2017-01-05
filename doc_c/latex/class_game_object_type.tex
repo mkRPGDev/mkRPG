@@ -1,16 +1,25 @@
 \hypertarget{class_game_object_type}{\section{\-Game\-Object\-Type \-Class \-Reference}
 \label{class_game_object_type}\index{\-Game\-Object\-Type@{\-Game\-Object\-Type}}
 }
+
+
+\-The \hyperlink{class_game_object_type}{\-Game\-Object\-Type} class represents types of gameobjects that can be inherited and will be used in \hyperlink{class_typed_object}{\-Typed\-Object}.  
+
+
+
+
+{\ttfamily \#include $<$gameobject.\-h$>$}
+
 \-Inheritance diagram for \-Game\-Object\-Type\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=5.000000cm]{class_game_object_type}
+\includegraphics[height=4.087591cm]{class_game_object_type}
 \end{center}
 \end{figure}
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-const \-Q\-List$<$ \hyperlink{class_game_object_type}{\-Game\-Object\-Type} $\ast$ $>$ \hyperlink{class_game_object_type_a68c3d9aeec4b7b259b03b98aca307397}{descendants} () const 
+const \-Q\-List$<$ \hyperlink{class_game_object_type}{\-Game\-Object\-Type} $\ast$ $>$ \& \hyperlink{class_game_object_type_a249afd48c30e0530a15c7bebf9f84d9b}{descendants} () const 
 \end{DoxyCompactItemize}
 \subsection*{\-Protected \-Member \-Functions}
 \begin{DoxyCompactItemize}
@@ -18,20 +27,27 @@ const \-Q\-List$<$ \hyperlink{class_game_object_type}{\-Game\-Object\-Type} $\as
 \hypertarget{class_game_object_type_a7c2ad7a00f9240d2bf29db0ac3b1314f}{{\bfseries \-Game\-Object\-Type} (\hyperlink{class_default_types}{\-Default\-Types} \&\hyperlink{class_game_object_af3deaf39cde23c189765634e32e95bb4}{parent})}\label{class_game_object_type_a7c2ad7a00f9240d2bf29db0ac3b1314f}
 
 \item 
-\hypertarget{class_game_object_type_a9388a78893199c74f16edb92ae087dd2}{{\bfseries \-Game\-Object\-Type} (\hyperlink{class_game_object_type}{\-Game\-Object\-Type} \&\hyperlink{class_inheritable_object_ac87a3c55ca4be252c527a29fe162bb15}{ancestor})}\label{class_game_object_type_a9388a78893199c74f16edb92ae087dd2}
+\hypertarget{class_game_object_type_a9388a78893199c74f16edb92ae087dd2}{{\bfseries \-Game\-Object\-Type} (\hyperlink{class_game_object_type}{\-Game\-Object\-Type} \&\hyperlink{class_inheritable_object_a10eead70368227b7f15f44f91d234fa5}{ancestor})}\label{class_game_object_type_a9388a78893199c74f16edb92ae087dd2}
 
 \end{DoxyCompactItemize}
 
 
+\subsection{\-Detailed \-Description}
+\-The \hyperlink{class_game_object_type}{\-Game\-Object\-Type} class represents types of gameobjects that can be inherited and will be used in \hyperlink{class_typed_object}{\-Typed\-Object}. 
+
 \subsection{\-Member \-Function \-Documentation}
-\hypertarget{class_game_object_type_a68c3d9aeec4b7b259b03b98aca307397}{\index{\-Game\-Object\-Type@{\-Game\-Object\-Type}!descendants@{descendants}}
+\hypertarget{class_game_object_type_a249afd48c30e0530a15c7bebf9f84d9b}{\index{\-Game\-Object\-Type@{\-Game\-Object\-Type}!descendants@{descendants}}
 \index{descendants@{descendants}!GameObjectType@{\-Game\-Object\-Type}}
-\subsubsection[{descendants}]{\setlength{\rightskip}{0pt plus 5cm}const \-Q\-List$<$ {\bf \-Game\-Object\-Type} $\ast$ $>$ {\bf \-Game\-Object\-Type\-::descendants} (
+\subsubsection[{descendants}]{\setlength{\rightskip}{0pt plus 5cm}const \-Q\-List$<$ {\bf \-Game\-Object\-Type} $\ast$ $>$ \& {\bf \-Game\-Object\-Type\-::descendants} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-) const}}\label{class_game_object_type_a68c3d9aeec4b7b259b03b98aca307397}
+) const}}\label{class_game_object_type_a249afd48c30e0530a15c7bebf9f84d9b}
 \-Returns the list of types that inherite from the current instance. 
+
+\-Reimplemented in \hyperlink{class_type_a9a0a8abd01f78839622bb5b017b05053}{\-Type$<$ T $>$}, \hyperlink{class_type_a9a0a8abd01f78839622bb5b017b05053}{\-Type$<$ Object\-Type $>$}, \hyperlink{class_type_a9a0a8abd01f78839622bb5b017b05053}{\-Type$<$ Entity\-Type $>$}, \hyperlink{class_type_a9a0a8abd01f78839622bb5b017b05053}{\-Type$<$ Cell\-Type $>$}, and \hyperlink{class_type_a9a0a8abd01f78839622bb5b017b05053}{\-Type$<$ Map\-Type $>$}.
+
+
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 

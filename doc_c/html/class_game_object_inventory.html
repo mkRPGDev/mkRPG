@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>mkRPG: XmlHandler Class Reference</title>
+<title>mkRPG: GameObjectInventory Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -79,24 +79,67 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XmlHandler Class Reference</div>  </div>
+<div class="title">GameObjectInventory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="XmlHandler" --><table class="memberdecls">
+<!-- doxytag: class="GameObjectInventory" --><!-- doxytag: inherits="GameObject" -->
+<p>The <a class="el" href="class_game_object_inventory.html" title="The GameObjectInventory class gathers the different &quot;GameObjectLists&quot; GameObjectList.">GameObjectInventory</a> class gathers the different "GameObjectLists" <a class="el" href="class_game_object_list.html" title="The GameObjectList class enables to gather objects by types.">GameObjectList</a>.  
+ <a href="class_game_object_inventory.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="game_8h_source.html">game.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for GameObjectInventory:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_game_object_inventory.png" usemap="#GameObjectInventory_map" alt=""/>
+  <map id="GameObjectInventory_map" name="GameObjectInventory_map">
+<area href="class_game_object.html" title="The GameObject class is the base class for every part of games." alt="GameObject" shape="rect" coords="0,0,134,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98cf939ef528aa336c7e4b2ae7f1a431"></a><!-- doxytag: member="XmlHandler::XmlHandler" ref="a98cf939ef528aa336c7e4b2ae7f1a431" args="(Game *g)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>XmlHandler</b> (<a class="el" href="class_game.html">Game</a> *g)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23b06b0d562fa3be82b42f46148a4175"></a><!-- doxytag: member="XmlHandler::startElement" ref="a23b06b0d562fa3be82b42f46148a4175" args="(const QString &amp;, const QString &amp;localName, const QString &amp;, const QXmlAttributes &amp;atts)" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>startElement</b> (const QString &amp;, const QString &amp;localName, const QString &amp;, const QXmlAttributes &amp;atts)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a647d0b062e0d8c8d4b65bfe040dee441"></a><!-- doxytag: member="XmlHandler::endElement" ref="a647d0b062e0d8c8d4b65bfe040dee441" args="(const QString &amp;, const QString &amp;localName, const QString &amp;)" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>endElement</b> (const QString &amp;, const QString &amp;localName, const QString &amp;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b77e1bfe5cdac93a4eadcacc904ad60"></a><!-- doxytag: member="GameObjectInventory::GameObjectInventory" ref="a3b77e1bfe5cdac93a4eadcacc904ad60" args="(World &amp;parent)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>GameObjectInventory</b> (<a class="el" href="class_world.html">World</a> &amp;<a class="el" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_object_inventory.html#a0c7527f8b3d6a64c4776e3aef924066a">isEditable</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76c89515ba324188e54c6289dbd12f8a"></a><!-- doxytag: member="GameObjectInventory::ListD" ref="a76c89515ba324188e54c6289dbd12f8a" args="(m, M, ap,, s) ListD(o" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>ListD</b> (m, M, ap,, s) ListD(o</td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af83bab23ab6edd8ed14f182abfae9d18"></a><!-- doxytag: member="GameObjectInventory::O" ref="af83bab23ab6edd8ed14f182abfae9d18" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>O</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a89fbd64e3f8d9086d5d87414845d1b33"></a><!-- doxytag: member="GameObjectInventory::bject" ref="a89fbd64e3f8d9086d5d87414845d1b33" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>bject</b></td></tr>
 </table>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="class_game_object_inventory.html" title="The GameObjectInventory class gathers the different &quot;GameObjectLists&quot; GameObjectList.">GameObjectInventory</a> class gathers the different "GameObjectLists" <a class="el" href="class_game_object_list.html" title="The GameObjectList class enables to gather objects by types.">GameObjectList</a>. </p>
+<p>It is only provided for edition purpose and does not appear in XML files. </p>
+</div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a0c7527f8b3d6a64c4776e3aef924066a"></a><!-- doxytag: member="GameObjectInventory::isEditable" ref="a0c7527f8b3d6a64c4776e3aef924066a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_game_object_inventory.html#a0c7527f8b3d6a64c4776e3aef924066a">GameObjectInventory::isEditable</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns <code>true</code> if the <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> is editable by the user. </p>
+
+<p>Reimplemented from <a class="el" href="class_game_object.html#a2872920b7f531584e6a3cae7a84865b8">GameObject</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/editor/Game/<a class="el" href="xmlhandler_8h_source.html">xmlhandler.h</a></li>
-<li>src/editor/Game/xmlhandler.cpp</li>
+<li>src/editor/Game/<a class="el" href="game_8h_source.html">game.h</a></li>
+<li>src/editor/Game/game.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->

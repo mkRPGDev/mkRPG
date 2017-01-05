@@ -1,0 +1,97 @@
+\hypertarget{xmlreader_8h}{\section{src/editor/\-Game/xmlreader.h \-File \-Reference}
+\label{xmlreader_8h}\index{src/editor/\-Game/xmlreader.\-h@{src/editor/\-Game/xmlreader.\-h}}
+}
+
+
+\-Definition of the \hyperlink{class_xml_tree}{\-Xml\-Tree} class and other related functions to read \-X\-M\-L game's files.  
+
+
+{\ttfamily \#include $<$\-Qt\-Xml$>$}\*
+{\ttfamily \#include \char`\"{}game.\-h\char`\"{}}\*
+\subsection*{\-Data \-Structures}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_xml_tree}{\-Xml\-Tree}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_xml_tree}{\-Xml\-Tree} class represents a \-X\-M\-L file as a tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{xmlreader_8h_ab643562eda69579f3d321f337e1e6078}{\#define {\bfseries \-Reg\-M\-U}(\-M\-U)~std\-::pair$<$\-Q\-String,\hyperlink{xmlreader_8h_a8ebc4822e749407b36d68d18ee0af242}{\-Mark\-Up}$>$(\#\-M\-U, \-M\-U\-\_\-\#\#\-M\-U)}\label{xmlreader_8h_ab643562eda69579f3d321f337e1e6078}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\-::pair$<$ \-Q\-String, \*
+\hyperlink{xmlreader_8h_a8ebc4822e749407b36d68d18ee0af242}{\-Mark\-Up} $>$ \hyperlink{xmlreader_8h_af556d869eef39ff59cd414da31af5ac9}{\-Asso}
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{xmlreader_8h_a8ebc4822e749407b36d68d18ee0af242}{\-Mark\-Up} \{ \*
+{\bfseries \-M\-U\-\_\-\-Invalid}, 
+{\bfseries \-M\-U\-\_\-\-Files}, 
+{\bfseries \-M\-U\-\_\-\-File}, 
+{\bfseries \-M\-U\-\_\-\-Game}, 
+\*
+{\bfseries \-M\-U\-\_\-\-World}, 
+{\bfseries \-M\-U\-\_\-\-Background}, 
+{\bfseries \-M\-U\-\_\-\-Parent}, 
+{\bfseries \-M\-U\-\_\-\-Map\-Type}, 
+\*
+{\bfseries \-M\-U\-\_\-\-Map}, 
+{\bfseries \-M\-U\-\_\-\-Cell\-Type}, 
+{\bfseries \-M\-U\-\_\-\-Cell}, 
+{\bfseries \-M\-U\-\_\-\-Object\-Type}, 
+\*
+{\bfseries \-M\-U\-\_\-\-Object}, 
+{\bfseries \-M\-U\-\_\-\-Entity\-Type}, 
+{\bfseries \-M\-U\-\_\-\-Entity}, 
+{\bfseries \-M\-U\-\_\-\-Image}, 
+\*
+{\bfseries \-M\-U\-\_\-\-Parameter}, 
+{\bfseries \-M\-U\-\_\-\-Flag}, 
+{\bfseries \-M\-U\-\_\-\-Event}, 
+{\bfseries \-M\-U\-\_\-\-Order}
+ \}
+\begin{DoxyCompactList}\small\item\em \-The \-Mark\-Up enum describes the \-Mark-\/ups that can be find in a \-X\-M\-L game description file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{xmlreader_8h_a5fe28664c4035e37d50bd835d6a67cb5}{const \-Q\-Map$<$ \-Q\-String, \hyperlink{xmlreader_8h_a8ebc4822e749407b36d68d18ee0af242}{\-Mark\-Up} $>$ {\bfseries mark\-Ups} (\{\-Reg\-M\-U(\-Files), \-Reg\-M\-U(\-File), \-Reg\-M\-U(\hyperlink{class_game}{\-Game}), \-Reg\-M\-U(\hyperlink{class_world}{\-World}), \-Reg\-M\-U(\hyperlink{class_cell_type}{\-Cell\-Type}), \-Reg\-M\-U(\hyperlink{class_map_type}{\-Map\-Type}), \-Reg\-M\-U(\hyperlink{class_map}{\-Map}), \-Reg\-M\-U(\hyperlink{class_object_type}{\-Object\-Type}), \-Reg\-M\-U(\hyperlink{class_object}{\-Object}), \-Reg\-M\-U(\hyperlink{class_entity_type}{\-Entity\-Type}), \-Reg\-M\-U(\hyperlink{class_entity}{\-Entity}), \-Reg\-M\-U(\-Parent), \-Reg\-M\-U(\hyperlink{class_cell}{\-Cell}), \-Reg\-M\-U(\hyperlink{class_image}{\-Image}), \-Reg\-M\-U(\hyperlink{class_order}{\-Order}), \-Reg\-M\-U(\hyperlink{class_event}{\-Event}), \-Reg\-M\-U(\-Background),\})}\label{xmlreader_8h_a5fe28664c4035e37d50bd835d6a67cb5}
+
+\item 
+void \hyperlink{xmlreader_8h_ab61c87606af0aba8f1522eb7b05e5d82}{read\-Element} (const \-Q\-Dir \&dir, const \hyperlink{class_xml_tree}{\-Xml\-Tree} \&tree, \hyperlink{class_game}{\-Game} $\ast$game, \-Q\-Map$<$ int, int $>$ \&ident\-C\-V)
+\item 
+\hyperlink{class_game}{\-Game} $\ast$ \hyperlink{xmlreader_8h_a0df28b9dd9e764468966b010305577cb}{import\-Game} (const \-Q\-String \&file\-Name)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Definition of the \hyperlink{class_xml_tree}{\-Xml\-Tree} class and other related functions to read \-X\-M\-L game's files. 
+
+\subsection{\-Typedef \-Documentation}
+\hypertarget{xmlreader_8h_af556d869eef39ff59cd414da31af5ac9}{\index{xmlreader.\-h@{xmlreader.\-h}!\-Asso@{\-Asso}}
+\index{\-Asso@{\-Asso}!xmlreader.h@{xmlreader.\-h}}
+\subsubsection[{\-Asso}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::pair$<$\-Q\-String,{\bf \-Mark\-Up}$>$ {\bf \-Asso}}}\label{xmlreader_8h_af556d869eef39ff59cd414da31af5ac9}
+\-Association dictionnary to convert mark-\/ups. 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{xmlreader_8h_a0df28b9dd9e764468966b010305577cb}{\index{xmlreader.\-h@{xmlreader.\-h}!import\-Game@{import\-Game}}
+\index{import\-Game@{import\-Game}!xmlreader.h@{xmlreader.\-h}}
+\subsubsection[{import\-Game}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Game}$\ast$ {\bf import\-Game} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-String \&}]{file\-Name}
+\end{DoxyParamCaption}
+)}}\label{xmlreader_8h_a0df28b9dd9e764468966b010305577cb}
+\-Reading of a \-X\-M\-L game file. \hypertarget{xmlreader_8h_ab61c87606af0aba8f1522eb7b05e5d82}{\index{xmlreader.\-h@{xmlreader.\-h}!read\-Element@{read\-Element}}
+\index{read\-Element@{read\-Element}!xmlreader.h@{xmlreader.\-h}}
+\subsubsection[{read\-Element}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf read\-Element} (
+\begin{DoxyParamCaption}
+\item[{const \-Q\-Dir \&}]{dir, }
+\item[{const {\bf \-Xml\-Tree} \&}]{tree, }
+\item[{{\bf \-Game} $\ast$}]{game, }
+\item[{\-Q\-Map$<$ int, int $>$ \&}]{ident\-C\-V}
+\end{DoxyParamCaption}
+)}}\label{xmlreader_8h_ab61c87606af0aba8f1522eb7b05e5d82}
+\-Internal use only. \-Generic function to read \-Marks-\/up. 

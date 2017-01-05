@@ -83,7 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of the base class <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>, and some inherited classes.  
+<p>Definition of the <a class="el" href="class_object.html" title="The Object class.">Object</a> related classes.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="typedobject_8hxx_source.html">typedobject.hxx</a>&quot;</code><br/>
 </div>
@@ -99,37 +99,7 @@ Data Structures</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_object.html" title="The Object class.">Object</a> class.  <a href="class_object.html#details">More...</a><br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Definition of the base class <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>, and some inherited classes. </p>
-<p>## The objects structure</p>
-<p>### Inheritance and parent</p>
-<p>Each class which is part of game representation has to inherit from <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a>. It gives the class standard params and flags mechanisms that are used for edition purposes.</p>
-<p>Each instance must have a parent (except the <a class="el" href="class_game.html" title="The Game class gather the differents parts needed to describe a game.">Game</a> one) which will keep an eye on his children. If the parent cannot be given at the construction time (case or array)s, the init function must then be called as soon as possible.</p>
-<p>### Reference count</p>
-<p>### Objects destructors</p>
-<p>A default implementation of <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> destructor is provided. It destroy every children the instance has. This avoid fastidious destructor implementation.</p>
-<p>## The Macro System</p>
-<p>To add conveniently attributes and flags to <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> subclassed objects, a set of macro is provided.</p>
-<p>### Name conventions</p>
-<p>For a attribute named <code>attr</code>, the following conventions are observed :</p>
-<ul>
-<li><code>attr()</code> is the getter method</li>
-<li><code>setAttr()</code> is the setter method</li>
-<li><code>aAttr</code> is the name of the attribut (if any)</li>
-</ul>
-<p>A specific convention is applied for flags (boolean attributes) :</p>
-<ul>
-<li>isAttr() is the getter method</li>
-</ul>
-<p>### Macros</p>
-<p>To define a new attribute, a global macro can be used in the class declaration. The provided basic implementations keep the object edition synchronization.</p>
-<p>If a cleverer process is needed, custom getter or setter can be implemented, and the getter and setter macros can be used separately to define the obvious methods</p>
-<p>**Provided macros**</p>
-<p>Attribute type | Complete declaration | Getter | Setter -----------------------------|-----------------------|-------------|------------ Flags (bool) | <a class="el" href="gameobject_8h.html#a9ba0b87f0be2ba389283351696aa9f59">Flag</a> |<a class="el" href="gameobject_8h.html#afde5dda87eae392282bcbae5db29ca2a">FlagGetter</a> |<a class="el" href="gameobject_8h.html#a1c9cbf9b06bc4624d68881c7cafa2374">FlagSetter</a> Parameters (int) | <a class="el" href="gameobject_8h.html#ac2415051beaa606375358688bcb8ff37">Param</a> |<a class="el" href="gameobject_8h.html#af9a40c8fc717d608bcb25e9effa6e1f3">ParamGetter</a> |<a class="el" href="gameobject_8h.html#a40afef3dd9a129b4d02f06bada05ebbb">ParamSetter</a> <a class="el" href="class_game_object.html" title="The GameObject class is the base class for every part of games.">GameObject</a> based Attributes | <a class="el" href="gameobject_8h.html#a64aa6604561401f0e8e846061093a38f">Attr</a> |<a class="el" href="gameobject_8h.html#abb51a31972a5cd870c4d8f4f3eada448">AttrGetter</a> |<a class="el" href="gameobject_8h.html#a076a8c1470b0de69b7dfdf442d9ed949">AttrSetter</a></p>
-<p>**The case of attributes**</p>
-<p>An additionnal <a class="el" href="gameobject_8h.html#ab34851071e0bcd61ba26ebc3893a683a">AttrT</a> macro is provided, that deduce a default name from the type.</p>
-<p>### Name tools</p>
-<p>To make the definition easier and avoid the name repetition that is introduced by the name convention, a <a class="el" href="gameobject_8h.html#af50e2bbaaebe8da60a8d514fca706273">C</a> macro is provided to construct the names with lower and upper initial letter from theses letter and the end of the name.</p>
-<dl class="author"><dt><b>Author:</b></dt><dd>Baptiste Pauget </dd></dl>
+<div class="textblock"><p>Definition of the <a class="el" href="class_object.html" title="The Object class.">Object</a> related classes. </p>
 </div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

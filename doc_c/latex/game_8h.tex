@@ -8,11 +8,16 @@
 
 {\ttfamily \#include \char`\"{}object.\-h\char`\"{}}\*
 {\ttfamily \#include \char`\"{}map.\-h\char`\"{}}\*
+{\ttfamily \#include \char`\"{}entity.\-h\char`\"{}}\*
 \subsection*{\-Data \-Structures}
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{class_default_types}{\-Default\-Types}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_default_types}{\-Default\-Types} class represents the object that will contains all types. \end{DoxyCompactList}\item 
+class \hyperlink{class_game_object_list}{\-Game\-Object\-List$<$ Type $>$}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_game_object_list}{\-Game\-Object\-List} class enables to gather objects by types. \end{DoxyCompactList}\item 
+class \hyperlink{class_game_object_inventory}{\-Game\-Object\-Inventory}
+\begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_game_object_inventory}{\-Game\-Object\-Inventory} class gathers the different \char`\"{}\-Game\-Object\-Lists\char`\"{} \hyperlink{class_game_object_list}{\-Game\-Object\-List}. \end{DoxyCompactList}\item 
 class \hyperlink{class_world}{\-World}
 \begin{DoxyCompactList}\small\item\em \-The \hyperlink{class_world}{\-World} class. \end{DoxyCompactList}\item 
 class \hyperlink{class_game}{\-Game}
@@ -21,6 +26,28 @@ class \hyperlink{class_game}{\-Game}
 \begin{DoxyCompactItemize}
 \item 
 \#define \hyperlink{game_8h_afcb37e18a94d1de863c9051aa0ee8cf0}{\-Default\-Type}(type, \hyperlink{class_type}{\-Type})~private\-: \hyperlink{class_type}{\-Type} $\ast$default\#\#\hyperlink{class_type}{\-Type} = new \hyperlink{class_type}{\-Type}($\ast$this); public\-: \hyperlink{class_type}{\-Type} \&type() const\{return $\ast$default\#\#\hyperlink{class_type}{\-Type};\}
+\item 
+\#define \hyperlink{game_8h_a96284348c8100b3ffe679a5bc60b6b4d}{\-List\-Def}(\hyperlink{class_type}{\-Type}, \-Types)~private\-: \hyperlink{class_game_object_list}{\-Game\-Object\-List}$<$\hyperlink{class_type}{\-Type}$>$ $\ast$a\#\#\-Types; public\-:
+\item 
+\#define \hyperlink{game_8h_a6f25c8a0e27d8ae26031c7c707bd64fb}{\-List\-Add}(type, \hyperlink{class_type}{\-Type}, \-Types)~void add\#\#\hyperlink{class_type}{\-Type}(\hyperlink{class_type}{\-Type} $\ast$type) const\{a\#\#\-Types-\/$>$add\-Game\-Object($\ast$type);\}
+\item 
+\#define \hyperlink{game_8h_a9f568e0d89723aa67c512f61c4ac8875}{\-List\-Remove}(\hyperlink{class_type}{\-Type}, \-Types)~void remove\#\#\hyperlink{class_type}{\-Type}(int id) const\{a\#\#\-Types-\/$>$remove\-Game\-Object(id);\}
+\item 
+\#define \hyperlink{game_8h_a2bd53d818ec2b8c9050b8afe867f7c0e}{\-List\-Setter}(type, \hyperlink{class_type}{\-Type}, \-Types)~\hyperlink{game_8h_a6f25c8a0e27d8ae26031c7c707bd64fb}{\-List\-Add}(type, \hyperlink{class_type}{\-Type}, \-Types) \hyperlink{game_8h_a9f568e0d89723aa67c512f61c4ac8875}{\-List\-Remove}(\hyperlink{class_type}{\-Type},\-Types)
+\item 
+\#define \hyperlink{game_8h_aa1e555a765e9e752d17d372652db0867}{\-List\-Get\-All}(types, \hyperlink{class_type}{\-Type}, \-Types)~\-Q\-List$<$\hyperlink{class_type}{\-Type}$\ast$$>$ types() const\{return a\#\#\-Types-\/$>$game\-Objects();\}
+\item 
+\#define \hyperlink{game_8h_ab40f0254b5863f8f4e8c4c6f34831a97}{\-List\-Get\-One}(type, \hyperlink{class_type}{\-Type}, \-Types)~\hyperlink{class_type}{\-Type} \&type(int id) const\{return a\#\#\-Types-\/$>$game\-Object(id);\}
+\item 
+\#define \hyperlink{game_8h_ac16826c1278665cb6e7a9c36abe100af}{\-List\-Getter}(type, types, \hyperlink{class_type}{\-Type}, \-Types)~\hyperlink{game_8h_aa1e555a765e9e752d17d372652db0867}{\-List\-Get\-All}(types, \hyperlink{class_type}{\-Type}, \-Types) \hyperlink{game_8h_ab40f0254b5863f8f4e8c4c6f34831a97}{\-List\-Get\-One}(type, \hyperlink{class_type}{\-Type}, \-Types)
+\item 
+\#define \hyperlink{game_8h_ad8a529c83ebf68030414fce2ec08781a}{\-List}(type, types, \hyperlink{class_type}{\-Type}, \-Types)~\hyperlink{game_8h_a96284348c8100b3ffe679a5bc60b6b4d}{\-List\-Def}(\hyperlink{class_type}{\-Type}, \-Types) \hyperlink{game_8h_a2bd53d818ec2b8c9050b8afe867f7c0e}{\-List\-Setter}(type, \hyperlink{class_type}{\-Type}, \-Types) \hyperlink{game_8h_ac16826c1278665cb6e7a9c36abe100af}{\-List\-Getter}(type, types, \hyperlink{class_type}{\-Type}, \-Types)
+\item 
+\#define \hyperlink{game_8h_a079c21f330a7cc873d15326d90f1b007}{\-List\-D}(init, \-Init, body, sg, pl)~\hyperlink{game_8h_ad8a529c83ebf68030414fce2ec08781a}{\-List}(init\#\#body\#\#sg,init\#\#body\#\#pl,\-Init\#\#body\#\#sg,\-Init\#\#body\#\#pl)
+\item 
+\#define \hyperlink{game_8h_ab1877e6d43e52ec23d79e41a38cd0a22}{\-List\-Init}(\hyperlink{class_type}{\-Type}, \-Types)~a\#\#\-Types = new \hyperlink{class_game_object_list}{\-Game\-Object\-List}$<$\hyperlink{class_type}{\-Type}$>$(\-Q\-Object\-::tr(\#\-Types),$\ast$this);
+\item 
+\#define \hyperlink{game_8h_a9d07c0b70c0d0d837951a9042cc04fc9}{\-List\-Init\-D}(\-Body, sg, pl)~\hyperlink{game_8h_ab1877e6d43e52ec23d79e41a38cd0a22}{\-List\-Init}(\-Body\#\#sg, \-Body\#\#pl)
 \end{DoxyCompactItemize}
 
 
@@ -36,4 +63,104 @@ class \hyperlink{class_game}{\-Game}
 \item[{}]{{\bf \-Type}}
 \end{DoxyParamCaption}
 )~private\-: {\bf \-Type} $\ast$default\#\#{\bf \-Type} = new {\bf \-Type}($\ast$this); public\-: {\bf \-Type} \&type() const\{return $\ast$default\#\#{\bf \-Type};\}}}\label{game_8h_afcb37e18a94d1de863c9051aa0ee8cf0}
-\-Todoc 
+\-Todoc \hypertarget{game_8h_ad8a529c83ebf68030414fce2ec08781a}{\index{game.\-h@{game.\-h}!\-List@{\-List}}
+\index{\-List@{\-List}!game.h@{game.\-h}}
+\subsubsection[{\-List}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List}(
+\begin{DoxyParamCaption}
+\item[{}]{type, }
+\item[{}]{types, }
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~{\bf \-List\-Def}({\bf \-Type}, \-Types) {\bf \-List\-Setter}(type, {\bf \-Type}, \-Types) {\bf \-List\-Getter}(type, types, {\bf \-Type}, \-Types)}}\label{game_8h_ad8a529c83ebf68030414fce2ec08781a}
+\-Cool \-Macro \-List \hypertarget{game_8h_a6f25c8a0e27d8ae26031c7c707bd64fb}{\index{game.\-h@{game.\-h}!\-List\-Add@{\-List\-Add}}
+\index{\-List\-Add@{\-List\-Add}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Add}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Add}(
+\begin{DoxyParamCaption}
+\item[{}]{type, }
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~void add\#\#{\bf \-Type}({\bf \-Type} $\ast$type) const\{a\#\#\-Types-\/$>$add\-Game\-Object($\ast$type);\}}}\label{game_8h_a6f25c8a0e27d8ae26031c7c707bd64fb}
+\-Cool \-Macro \-List\-Add \hypertarget{game_8h_a079c21f330a7cc873d15326d90f1b007}{\index{game.\-h@{game.\-h}!\-List\-D@{\-List\-D}}
+\index{\-List\-D@{\-List\-D}!game.h@{game.\-h}}
+\subsubsection[{\-List\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-D}(
+\begin{DoxyParamCaption}
+\item[{}]{init, }
+\item[{}]{\-Init, }
+\item[{}]{body, }
+\item[{}]{sg, }
+\item[{}]{pl}
+\end{DoxyParamCaption}
+)~{\bf \-List}(init\#\#body\#\#sg,init\#\#body\#\#pl,\-Init\#\#body\#\#sg,\-Init\#\#body\#\#pl)}}\label{game_8h_a079c21f330a7cc873d15326d90f1b007}
+\-Cool \-Macro \-List\-D \hypertarget{game_8h_a96284348c8100b3ffe679a5bc60b6b4d}{\index{game.\-h@{game.\-h}!\-List\-Def@{\-List\-Def}}
+\index{\-List\-Def@{\-List\-Def}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Def}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Def}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~private\-: {\bf \-Game\-Object\-List}$<${\bf \-Type}$>$ $\ast$a\#\#\-Types; public\-:}}\label{game_8h_a96284348c8100b3ffe679a5bc60b6b4d}
+\-Cool \-Macro \-List\-Def \hypertarget{game_8h_aa1e555a765e9e752d17d372652db0867}{\index{game.\-h@{game.\-h}!\-List\-Get\-All@{\-List\-Get\-All}}
+\index{\-List\-Get\-All@{\-List\-Get\-All}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Get\-All}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Get\-All}(
+\begin{DoxyParamCaption}
+\item[{}]{types, }
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~\-Q\-List$<${\bf \-Type}$\ast$$>$ types() const\{return a\#\#\-Types-\/$>$game\-Objects();\}}}\label{game_8h_aa1e555a765e9e752d17d372652db0867}
+\-Cool \-Macro \-List\-Get\-All \hypertarget{game_8h_ab40f0254b5863f8f4e8c4c6f34831a97}{\index{game.\-h@{game.\-h}!\-List\-Get\-One@{\-List\-Get\-One}}
+\index{\-List\-Get\-One@{\-List\-Get\-One}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Get\-One}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Get\-One}(
+\begin{DoxyParamCaption}
+\item[{}]{type, }
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~{\bf \-Type} \&type(int id) const\{return a\#\#\-Types-\/$>$game\-Object(id);\}}}\label{game_8h_ab40f0254b5863f8f4e8c4c6f34831a97}
+\-Cool \-Macro \-List\-Get\-One \hypertarget{game_8h_ac16826c1278665cb6e7a9c36abe100af}{\index{game.\-h@{game.\-h}!\-List\-Getter@{\-List\-Getter}}
+\index{\-List\-Getter@{\-List\-Getter}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Getter}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Getter}(
+\begin{DoxyParamCaption}
+\item[{}]{type, }
+\item[{}]{types, }
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~{\bf \-List\-Get\-All}(types, {\bf \-Type}, \-Types) {\bf \-List\-Get\-One}(type, {\bf \-Type}, \-Types)}}\label{game_8h_ac16826c1278665cb6e7a9c36abe100af}
+\-Cool \-Macro \-List\-Getter \hypertarget{game_8h_ab1877e6d43e52ec23d79e41a38cd0a22}{\index{game.\-h@{game.\-h}!\-List\-Init@{\-List\-Init}}
+\index{\-List\-Init@{\-List\-Init}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Init}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Init}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~a\#\#\-Types = new {\bf \-Game\-Object\-List}$<${\bf \-Type}$>$(\-Q\-Object\-::tr(\#\-Types),$\ast$this);}}\label{game_8h_ab1877e6d43e52ec23d79e41a38cd0a22}
+\-Cool \-Macro \-List\-Init \hypertarget{game_8h_a9d07c0b70c0d0d837951a9042cc04fc9}{\index{game.\-h@{game.\-h}!\-List\-Init\-D@{\-List\-Init\-D}}
+\index{\-List\-Init\-D@{\-List\-Init\-D}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Init\-D}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Init\-D}(
+\begin{DoxyParamCaption}
+\item[{}]{\-Body, }
+\item[{}]{sg, }
+\item[{}]{pl}
+\end{DoxyParamCaption}
+)~{\bf \-List\-Init}(\-Body\#\#sg, \-Body\#\#pl)}}\label{game_8h_a9d07c0b70c0d0d837951a9042cc04fc9}
+\-Cool \-Macro \-List\-Init\-D \hypertarget{game_8h_a9f568e0d89723aa67c512f61c4ac8875}{\index{game.\-h@{game.\-h}!\-List\-Remove@{\-List\-Remove}}
+\index{\-List\-Remove@{\-List\-Remove}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Remove}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Remove}(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~void remove\#\#{\bf \-Type}(int id) const\{a\#\#\-Types-\/$>$remove\-Game\-Object(id);\}}}\label{game_8h_a9f568e0d89723aa67c512f61c4ac8875}
+\-Cool \-Macro \-List\-Remove \hypertarget{game_8h_a2bd53d818ec2b8c9050b8afe867f7c0e}{\index{game.\-h@{game.\-h}!\-List\-Setter@{\-List\-Setter}}
+\index{\-List\-Setter@{\-List\-Setter}!game.h@{game.\-h}}
+\subsubsection[{\-List\-Setter}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-List\-Setter}(
+\begin{DoxyParamCaption}
+\item[{}]{type, }
+\item[{}]{{\bf \-Type}, }
+\item[{}]{\-Types}
+\end{DoxyParamCaption}
+)~{\bf \-List\-Add}(type, {\bf \-Type}, \-Types) {\bf \-List\-Remove}({\bf \-Type},\-Types)}}\label{game_8h_a2bd53d818ec2b8c9050b8afe867f7c0e}
+\-Cool \-Macro \-List\-Setter 

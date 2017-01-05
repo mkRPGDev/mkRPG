@@ -8,5 +8,6 @@ var searchData=
   ['mapslistmodel',['MapsListModel',['../class_maps_list_model.html',1,'']]],
   ['mapstab',['MapsTab',['../class_maps_tab.html',1,'']]],
   ['maptype',['MapType',['../class_map_type.html',1,'']]],
+  ['maptypelistmodel',['MapTypeListModel',['../class_map_type_list_model.html',1,'']]],
   ['mapviewer',['MapViewer',['../class_map_viewer.html',1,'']]]
 ];

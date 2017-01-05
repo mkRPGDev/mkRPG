@@ -79,7 +79,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Type&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
@@ -95,7 +96,7 @@ Inheritance diagram for Type&lt; T &gt;:</div>
  <div class="center">
   <img src="class_type.png" usemap="#Type&lt; T &gt;_map" alt=""/>
   <map id="Type&lt; T &gt;_map" name="Type&lt; T &gt;_map">
-<area href="class_game_object_type.html" alt="GameObjectType" shape="rect" coords="0,112,109,136"/>
+<area href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty..." alt="GameObjectType" shape="rect" coords="0,112,109,136"/>
 <area href="class_inheritable_object.html" title="The InheritableObject class is the base class for every objects that can inherit attributes from an o..." alt="InheritableObject" shape="rect" coords="0,56,109,80"/>
 <area href="class_game_object.html" title="The GameObject class is the base class for every part of games." alt="GameObject" shape="rect" coords="0,0,109,24"/>
 </map>
@@ -106,17 +107,44 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea9c6be9b52e1e356ffb0123f2815c21"></a><!-- doxytag: member="Type::Type" ref="aea9c6be9b52e1e356ffb0123f2815c21" args="(DefaultTypes &amp;parent)" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> (<a class="el" href="class_default_types.html">DefaultTypes</a> &amp;<a class="el" href="class_game_object.html#af3deaf39cde23c189765634e32e95bb4">parent</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d71537af478aaedd7aaab6b50e5bfb9"></a><!-- doxytag: member="Type::Type" ref="a8d71537af478aaedd7aaab6b50e5bfb9" args="(T &amp;ancestor)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> (T &amp;<a class="el" href="class_inheritable_object.html#ac87a3c55ca4be252c527a29fe162bb15">ancestor</a>)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> (T &amp;<a class="el" href="class_inheritable_object.html#a10eead70368227b7f15f44f91d234fa5">ancestor</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const QList&lt; T * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_type.html#a9a0a8abd01f78839622bb5b017b05053">descendants</a> () const </td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31500ab33536c9bc8be28ad1385a3493"></a><!-- doxytag: member="Type::aTypedAncestor" ref="a31500ab33536c9bc8be28ad1385a3493" args="" -->
+T *&#160;</td><td class="memItemRight" valign="bottom"><b>aTypedAncestor</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class T&gt;<br/>
 class Type&lt; T &gt;</h3>
 
 <p>The <a class="el" href="class_type.html" title="The Type class represent a type of object.">Type</a> class represent a type of object. </p>
-<p>It adds to <a class="el" href="class_game_object_type.html">GameObjectType</a> a constrain on the objects that can be used as type, defined by le <code>class</code> <code>T</code> template argument.</p>
+<p>It adds to <a class="el" href="class_game_object_type.html" title="The GameObjectType class represents types of gameobjects that can be inherited and will be used in Ty...">GameObjectType</a> a constrain on the objects that can be used as type, defined by le <code>class</code> <code>T</code> template argument.</p>
 <dl class="note"><dt><b>Note:</b></dt><dd>The <code>class</code> <code>T</code> template argument has to be inherited from <a class="el" href="class_type.html" title="The Type class represent a type of object.">Type</a>. (the application won't compile otherwise)</dd></dl>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_cell_type.html" title="The CellType class defines the properties that are mandatory in any CellType object.">CellType</a>, <a class="el" href="class_object_type.html" title="The ObjectType class defines the properties that are mandatory in any ObjectType object.">ObjectType</a> </dd></dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a9a0a8abd01f78839622bb5b017b05053"></a><!-- doxytag: member="Type::descendants" ref="a9a0a8abd01f78839622bb5b017b05053" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const QList&lt;T*&gt;&amp; <a class="el" href="class_type.html">Type</a>&lt; T &gt;::<a class="el" href="class_type.html#a9a0a8abd01f78839622bb5b017b05053">descendants</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the list of types that inherite from the current instance. </p>
+
+<p>Reimplemented from <a class="el" href="class_game_object_type.html#a249afd48c30e0530a15c7bebf9f84d9b">GameObjectType</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/editor/Game/<a class="el" href="typedobject_8hxx_source.html">typedobject.hxx</a></li>
 </ul>
 </div><!-- contents -->

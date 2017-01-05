@@ -92,27 +92,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 {
 <a name="l00026"></a>00026     Q_OBJECT
 <a name="l00027"></a><a class="code" href="class_b_color.html#af5d46ba62e3868ab618269dff46d5718">00027</a>     Q_PROPERTY(QColor <a class="code" href="class_b_color.html#af6331a2f6914f3004b5630ad5e2e36ba">color</a> READ <a class="code" href="class_b_color.html#af6331a2f6914f3004b5630ad5e2e36ba">color</a> WRITE <a class="code" href="class_b_color.html#a901e6704aef22f6db97d3578e14777c6">setColor</a> NOTIFY <a class="code" href="class_b_color.html#a75ac94fde91e10eb6c27242f608b8d62">colorChanged</a>) 
-<a name="l00032"></a><a class="code" href="class_b_color.html#a68e6b6c8c92fe004a98b44d48ba8a42a">00032</a>     Q_PROPERTY(QString <a class="code" href="class_b_color.html#aaf3fdfd487eaabb1f07268d87d355df3">name</a> READ <a class="code" href="class_b_color.html#aaf3fdfd487eaabb1f07268d87d355df3">name</a> WRITE <a class="code" href="class_b_color.html#abcf2d57696ada6466424663f15624cad">setName</a> NOTIFY <a class="code" href="class_b_color.html#a5895b999f69044b919e6d5526577ad87">nameChanged</a>) 
-<a name="l00038"></a>00038 public:
-<a name="l00039"></a>00039     explicit <a class="code" href="class_b_color.html" title="The BColor class is a simple frame that offers color selection.">BColor</a>(QWidget *parent = 0); 
-<a name="l00042"></a>00042     explicit <a class="code" href="class_b_color.html" title="The BColor class is a simple frame that offers color selection.">BColor</a>(QColor c, QWidget *parent = 0); 
-<a name="l00045"></a>00045     const QString &amp;<a class="code" href="class_b_color.html#aaf3fdfd487eaabb1f07268d87d355df3">name</a>() const; 
-<a name="l00050"></a>00050     const QColor &amp;<a class="code" href="class_b_color.html#af6331a2f6914f3004b5630ad5e2e36ba">color</a>() const; 
-<a name="l00056"></a>00056 signals:
-<a name="l00057"></a>00057     <span class="keywordtype">void</span> colorChanged(const QColor&amp;); 
-<a name="l00063"></a>00063     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#a5895b999f69044b919e6d5526577ad87">nameChanged</a>(const QString&amp;); 
-<a name="l00070"></a>00070 public slots:
-<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#a901e6704aef22f6db97d3578e14777c6">setColor</a>(const QColor &amp;c); 
-<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#a3781c2b986f19ceaac7c994767015b56">setColorQuiet</a>(const QColor &amp;c); 
-<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#abcf2d57696ada6466424663f15624cad">setName</a>(const QString &amp;s); 
-<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#ac159569b670ed175be068204a28a7be9">setNameQuiet</a>(const QString &amp;s); 
-<a name="l00100"></a>00100 private:
-<a name="l00101"></a>00101     <span class="keywordtype">void</span> mousePressEvent(QMouseEvent *me);
-<a name="l00102"></a>00102     QColor coul;
-<a name="l00103"></a>00103     QString n;
-<a name="l00104"></a>00104 };
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 <span class="preprocessor">#endif // BCOLOR_H</span>
+<a name="l00034"></a><a class="code" href="class_b_color.html#a68e6b6c8c92fe004a98b44d48ba8a42a">00034</a>     Q_PROPERTY(QString <a class="code" href="class_b_color.html#aaf3fdfd487eaabb1f07268d87d355df3">name</a> READ <a class="code" href="class_b_color.html#aaf3fdfd487eaabb1f07268d87d355df3">name</a> WRITE <a class="code" href="class_b_color.html#abcf2d57696ada6466424663f15624cad">setName</a> NOTIFY <a class="code" href="class_b_color.html#a5895b999f69044b919e6d5526577ad87">nameChanged</a>) 
+<a name="l00040"></a>00040 public:
+<a name="l00041"></a>00041     explicit <a class="code" href="class_b_color.html" title="The BColor class is a simple frame that offers color selection.">BColor</a>(QWidget *parent = 0); 
+<a name="l00044"></a>00044     explicit <a class="code" href="class_b_color.html" title="The BColor class is a simple frame that offers color selection.">BColor</a>(QColor c, QWidget *parent = 0); 
+<a name="l00047"></a>00047     const QString &amp;<a class="code" href="class_b_color.html#aaf3fdfd487eaabb1f07268d87d355df3">name</a>() const; 
+<a name="l00052"></a>00052     const QColor &amp;<a class="code" href="class_b_color.html#af6331a2f6914f3004b5630ad5e2e36ba">color</a>() const; 
+<a name="l00058"></a>00058 signals:
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> colorChanged(const QColor&amp;); 
+<a name="l00065"></a>00065     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#a5895b999f69044b919e6d5526577ad87">nameChanged</a>(const QString&amp;); 
+<a name="l00072"></a>00072 public slots:
+<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#a901e6704aef22f6db97d3578e14777c6">setColor</a>(const QColor &amp;c); 
+<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#a3781c2b986f19ceaac7c994767015b56">setColorQuiet</a>(const QColor &amp;c); 
+<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#abcf2d57696ada6466424663f15624cad">setName</a>(const QString &amp;s); 
+<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="class_b_color.html#ac159569b670ed175be068204a28a7be9">setNameQuiet</a>(const QString &amp;s); 
+<a name="l00102"></a>00102 private:
+<a name="l00103"></a>00103     <span class="keywordtype">void</span> mousePressEvent(QMouseEvent *me);
+<a name="l00104"></a>00104     QColor coul;
+<a name="l00105"></a>00105     QString n;
+<a name="l00106"></a>00106 };
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108 <span class="preprocessor">#endif // BCOLOR_H</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

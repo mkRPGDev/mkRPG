@@ -25,6 +25,9 @@ class MapcontrolSprite(PygamePlugin):
         arrows['left'] = loadPng('../content/imgs/arrow_left.png')
         arrows['right'] = loadPng('../content/imgs/arrow_right.png')
 
+        # Load img
+        img = loadPng('../content/imgs/compass.png')
+
         # Create the pad to put on screen
         self.sprite = Container([],
                                 {
@@ -61,7 +64,7 @@ class MapcontrolSprite(PygamePlugin):
                            })
 
         button_left = Button("",
-                           lambda: logic.rotate(-ROT_STEP),
+                           lambda: logic.rotate(ROT_STEP),
                            {
                                'size':(0,0),
                                'background_image': arrows['left'],
@@ -88,14 +91,30 @@ class MapcontrolSprite(PygamePlugin):
                                'text_align' : "centered"
                            })
 
+        img_cont = Button("",
+                          lambda: padd,
+                          {
+                              'size':(0,0),
+                              'background_image': img,
+                              'mover_background_image': img,
+                              'click_background_image': img,
+                              'text_font': None,
+                              'text_color': (0,0,0,0),
+                              'text_size': 0,
+                              'text_interline': 0,
+                              'text_align' : "centered"
+                          })
+
         but_w, but_h = arrows['up'].get_size()
 
         button_up.set_position(but_w, 0)
         button_left.set_position(0, but_h)
         button_down.set_position(but_w, 2*but_h)
         button_right.set_position(2*but_w, but_h)
+        img_cont.set_position(but_w, but_h)
 
-        self.sprite.add(button_up, button_down, button_left, button_right)
+        self.sprite.add(button_up, button_down, button_left, button_right,
+                        img_cont)
         self.sprite.move(30, 30)
 
     def draw(self):

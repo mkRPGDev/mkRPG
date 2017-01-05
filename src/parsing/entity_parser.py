@@ -50,11 +50,10 @@ def parse_entity(entity_element):
         # No identifier, exit and alert the user.
         parsing_utils.fail_not_found("Ident")
     #The minimum expected for an entitiy
-    answer = OrderedDict({
-        'name': name,
-        'type' : "Entity",
-        "ident": parsing_utils.format_type(_ident.text)
-    })
+    answer = OrderedDict()
+    answer.update({'name': name})
+    answer.update({'type' : "Entity"})
+    answer.update({"ident": parsing_utils.format_type(_ident.text)})
     _params = entity_element.findall('Params')
     if _params is []:
         parsing_utils.fail_not_found("Params")

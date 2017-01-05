@@ -40,3 +40,7 @@ src/editor/doc.doxy
 
 # Fichiers de doc et Pylint
 *.html
+
+# Fichiers pour la salle 411
+python-modules.tar.gz
+python-modules/

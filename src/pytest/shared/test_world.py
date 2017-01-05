@@ -1,6 +1,8 @@
 import unittest
 from sys import path
-path.append("src/")
+from os.path import abspath
+path.append(abspath("src/"))
+print(path)
 from shared.world import Cell, Map, ObjectType
 
 class MapTestCase(unittest.TestCase):
@@ -24,17 +26,17 @@ class MapTestCase(unittest.TestCase):
         c2.params['x'] = 3; c2.params['y'] = 3
         self.map.cells.append(c1)
         self.map.fill()
-    
+
     def test_fill(self):
         self.assertIsInstance(self.map.cellsGrid[0][0], Cell)
         self.assertEqual(self.map.cellsGrid[3][0].x, 3)
-    
+
     def test_dist(self):
         self.assertEqual(self.map.dist(self.map.cellsGrid[0][1],
                                        self.map.cellsGrid[2][3]), 4)
-    
+
     def test_fromPos(self):
-        """ Sur une zone de taille 2 on vérifie que le nombre y est 
+        """ Sur une zone de taille 2 on vérifie que le nombre y est
             et que les cases sont rangées par distance """
         # _____
         # __x__
@@ -45,7 +47,7 @@ class MapTestCase(unittest.TestCase):
         self.assertEqual(len(lis), 11) # comptez les x
         dlis = list(map(lambda c:self.map.dist(self.map.cellsGrid[2][3], c), lis))
         self.assertEqual(sorted(dlis), dlis)
-    
+
     def test_lov(self):
         self.assertTrue(self.map.lov(self.map.cellsGrid[0][1],
                                      self.map.cellsGrid[3][4]))
@@ -53,6 +55,6 @@ class MapTestCase(unittest.TestCase):
                                      self.map.cellsGrid[1][1]))
         self.assertFalse(self.map.lov(self.map.cellsGrid[0][2],
                                       self.map.cellsGrid[4][2]))
-        
+
 if __name__ == '__main__':
     unittest.main()

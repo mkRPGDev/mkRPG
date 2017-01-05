@@ -7,12 +7,15 @@ Fichier de test pour l'action_parser
 import unittest
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
+import os
+from sys import path
 from os.path import abspath
-import sys
-sys.path.append(abspath("../../src"))
-from parsing import actions_parser
+path.append(abspath("src/"))
+#from parsing import actions_parser
+from parsing import entity_parser
 
-ROOT = ET.parse("test_files/actions.xml").getroot().find("Action")
+print(os.getcwd())
+ROOT = ET.parse("parsing/test_files/actions.xml").getroot().find("Action")
 
 class GetTagTestCase(unittest.TestCase):
     def setUp(self):

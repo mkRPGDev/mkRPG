@@ -88,6 +88,7 @@ private:
     void moveEvent(QMoveEvent *me);
     void closeEvent(QCloseEvent *ce);
 
+    Welcome *welcome;
     WorldTab *worldEditor;
     MapsTab *mapsEditor;
     ObjectTab *objectEditor;

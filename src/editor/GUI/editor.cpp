@@ -10,22 +10,24 @@ Editor::Editor(QStringList UNUSED(args), QWidget *parent) :
     hidden->setHidden(true);
     connect(tabBar, SIGNAL(currentTabChanged(int)), this, SLOT(setCurrentTab(int)));
 
+    welcome = new Welcome;
     worldEditor = new WorldTab;
     mapsEditor = new MapsTab;
     objectEditor = new ObjectTab;
     actionEditor = new ActionTab;
 
-    addTab(tr("Welcome"), QPixmap(":Icons/main.png"), new Welcome);
+    addTab(tr("Welcome"), QPixmap(":Icons/main.png"), welcome);
     //addTab(tr("Game"), QPixmap(":Icons/main.png"), worldEditor);
-    addTab(tr("Maps"), QPixmap(":Icons/main.png"), mapsEditor);
     addTab(tr("Objects"), QPixmap(":Icons/main.png"), objectEditor);
+    addTab(tr("Maps"), QPixmap(":Icons/main.png"), mapsEditor);
     addTab(tr("Actions"), QPixmap(":Icons/main.png"), actionEditor);
 
     loadDefault();
 
     tabBar->setTabsEnabled(false);
 
-
+    connect(welcome, SIGNAL(newGameS()), this, SLOT(on_actionRolePlayGame_triggered()));
+    connect(welcome, SIGNAL(openGameS()), this, SLOT(on_actionOpen_triggered()));
 
     //qDebug() << args.length();
     connect(worldEditor, SIGNAL(editMap()), this, SLOT(editMap()));
@@ -42,7 +44,7 @@ void Editor::setGame(Game *game){
     objectEditor->setGame(currentGame);
     actionEditor->setGame(currentGame);
     tabBar->setTabsEnabled(currentGame);
-
+    tabBar->setCurrentTab(1);
 }
 
 

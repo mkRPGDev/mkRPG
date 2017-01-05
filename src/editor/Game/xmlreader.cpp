@@ -99,6 +99,7 @@ FuncCase2(MU_World){
 
 
 FuncCase2(MU_CellType){
+    if(tree.subTrees.length()<1) return;
     XmlTree *parent = tree.subTrees.first();
     CellType *ct;
     if(parent->markUp == MU_Parent){
@@ -114,6 +115,7 @@ FuncCase2(MU_CellType){
 }
 
 FuncCase2(MU_Cell){
+    if(tree.subTrees.length()<1) return;
     XmlTree *parent = tree.subTrees.at(1);
     Cell &c(game->currentMap()->cell(tree.subTrees.at(0)->attributes["x"].toInt(),
             tree.subTrees.at(0)->attributes["y"].toInt()));
@@ -123,6 +125,7 @@ FuncCase2(MU_Cell){
 }
 
 FuncCase2(MU_MapType){
+    if(tree.subTrees.length()<1) return;
     XmlTree *parent = tree.subTrees.first();
     if(parent->markUp == MU_Parent){
         MapType *p = static_cast<MapType*>(game->object(identCV[parent->attributes["id"].toInt()]));
@@ -135,6 +138,7 @@ FuncCase2(MU_MapType){
 }
 
 FuncCase(MU_Map){
+    if(tree.subTrees.length()<2) return;
     int w = tree.subTrees.at(0)->attributes["value"].toInt();
     int h = tree.subTrees.at(1)->attributes["value"].toInt();
     XmlTree *parent = tree.subTrees.at(2);
@@ -150,6 +154,7 @@ FuncCase(MU_Map){
 
 
 FuncCase2(MU_ObjectType){
+    if(tree.subTrees.length()<1) return;
     XmlTree *parent = tree.subTrees.first();
     if(parent->markUp == MU_Parent){
         ObjectType *p = static_cast<ObjectType*>(game->object(identCV[parent->attributes["id"].toInt()]));

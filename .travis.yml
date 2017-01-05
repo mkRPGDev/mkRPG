@@ -30,7 +30,7 @@ before_install:
     - python -c "import pygame"
 
 install:
-    - pip install -r travis/test-requirements.txt
+    - pip3 install -r travis/test-requirements.txt
 
 # Install dependencies
 addons:

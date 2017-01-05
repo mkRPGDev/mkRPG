@@ -5,6 +5,7 @@
 
     @todo Multithread server and GUI for smooth GUI
     @todo Add folder creation to protocol
+    @fixme Move line numbering to GUI to avoid concurrency problems
 """
 
 import socket
@@ -15,7 +16,7 @@ from argparse import ArgumentParser
 import gui
 
 HOST = "localhost"
-PATH = "./test/"
+PATH = "../../test/"
 SYNC_PORT = 12345
 BUF = 1024
 SYNC_MAX_SERVER_QUEUE = 5
@@ -53,7 +54,7 @@ def run_client():
         port = SYNC_PORT
     else:
         try:
-            host = GUI.ip.get()
+            host = GUI.ip_input.get()
             port = int(GUI.port.get())
         except:
             log_msg('ERROR', 'Wrong input')
@@ -115,13 +116,13 @@ def run_server(folder):
     if GUI is None:
         folder = input('Enter world name : ')
 
-    files_to_send = glob.iglob(PATH + folder + '/*', recursive=True)
+    files_to_send = glob.iglob(PATH + folder + '/**/*', recursive=True)
     log_msg('FILES', 'Folder ' + PATH + folder + ' is selected for synchronization')
     log_msg('FILES', 'Files to be synchronized :')
 
     for filename in files_to_send:
         log_msg('FILES', '\t '+ filename)
-    files_to_send = glob.iglob(PATH + folder + '/*', recursive=True)
+    files_to_send = glob.iglob(PATH + folder + '/**/*', recursive=True)
 
     try:
         port = SYNC_PORT if GUI is None else int(GUI.port.get())
@@ -149,27 +150,34 @@ def run_server(folder):
         if pid == 0:
             log_msg('TRANSFER', 'Starting transfer protocol')
             for filename in files_to_send:
-                csock.send(filename.encode('utf-8'))
-                log_msg('TRANSFER', 'Processing file ' + filename)
-                file_descr = open(filename, 'rb')
-                filemd5 = hashlib.md5(file_descr.read()).hexdigest().encode('utf-8')
-                log_msg('DEBUG', 'Expecting md5 : ' + filemd5.decode('utf-8'))
-                recvmd5 = csock.recv(BUF)
-                log_msg('DEBUG', 'Got md5 : ' + recvmd5.decode('utf-8'))
-                if recvmd5 != filemd5:
-                    log_msg('DEBUG', 'Missing file or wrong version')
-                    csock.send(b'ms')
-                    buf = file_descr.read(BUF)
-                    while buf:
-                        csock.send(buf)
+                if not os.path.isdir(os.path.join(PATH+folder, filename)) :
+                    csock.send(filename.encode('utf-8'))
+                    log_msg('TRANSFER', 'Processing file ' + filename)
+                    file_descr = open(filename, 'rb')
+                    filemd5 = hashlib.md5(file_descr.read()).hexdigest().encode('utf-8')
+                    log_msg('DEBUG', 'Expecting md5 : ' + filemd5.decode('utf-8'))
+                    recvmd5 = csock.recv(BUF)
+                    log_msg('DEBUG', 'Got md5 : ' + recvmd5.decode('utf-8'))
+                    if recvmd5 != filemd5:
+                        log_msg('DEBUG', 'Missing file or wrong version')
+                        csock.send(b'ms')
                         buf = file_descr.read(BUF)
+                        while buf:
+                            csock.send(buf)
+                            buf = file_descr.read(BUF)
+                    else:
+                        log_msg('DEBUG', 'Correct file version')
+                        csock.send(b'ok')
+                    file_descr.close()
+                    log_msg('TRANSFER', 'File ' + filename + ' complete')
+
                 else:
-                    log_msg('DEBUG', 'Correct file version')
-                    csock.send(b'ok')
-                file_descr.close()
-                log_msg('TRANSFER', 'File ' + filename + ' complete')
+                    # Code for new folder creation
+                    pass
 
             log_msg('TRANSFER', 'Transfer protocol ended. All files synchronized.')
+            log_msg('CONNECTION', 'Closing connection.')
+
             csock.send(b'done')
             csock.close()
             exit(0)

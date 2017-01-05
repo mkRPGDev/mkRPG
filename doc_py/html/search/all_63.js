@@ -11,6 +11,7 @@ var searchData=
   ['check_5ffiles',['check_files',['../namespaceparsing_1_1global__parsing.html#a94ef28b21f062230d79b4e2268f73f90',1,'parsing::global_parsing']]],
   ['client',['Client',['../classclient_1_1_client.html',1,'client']]],
   ['clientmessage',['clientMessage',['../classplugins_1_1chat_1_1_chat.html#ad241689aeb8b03c689248ffb18584d40',1,'plugins::chat::Chat.clientMessage()'],['../classplugins_1_1plugin_1_1_plugin.html#a9647791e5ba3150f5fd82bb359a43d11',1,'plugins::plugin::Plugin.clientMessage()']]],
+  ['clientui',['ClientUI',['../classgui_1_1_client_u_i.html',1,'gui']]],
   ['clipoffset',['clipOffset',['../classinterface_1_1cursescli_1_1_map_view.html#a7365f14995f5e7edb9fe110e65080672',1,'interface::cursescli::MapView.clipOffset()'],['../classinterface_1_1pgcli_1_1_map_view.html#a82f2c07b04c94a8b66f83deddf37cbdd',1,'interface::pgcli::MapView.clipOffset()']]],
   ['collect_5fcells_5fdata',['collect_cells_data',['../namespaceparsing_1_1map__parser.html#a71ed6a54be8574564b90333f6810e84d',1,'parsing::map_parser']]],
   ['collect_5fdata',['collect_data',['../namespaceparsing_1_1parsing__utils.html#a731c5b9c31a252e6835d2d3d5cfab1ff',1,'parsing::parsing_utils']]],

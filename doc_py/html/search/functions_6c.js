@@ -6,5 +6,6 @@ var searchData=
   ['loadgame',['loadGame',['../namespaceshared_1_1world.html#a97d6c53e6b341065f11a995913742f76',1,'shared::world']]],
   ['loadpluginsclient',['loadPluginsClient',['../namespaceplugins_1_1plugin.html#a81b6d893f905c2d746a7bf04d3fe5c1d',1,'plugins::plugin']]],
   ['loadpluginsserver',['loadPluginsServer',['../namespaceplugins_1_1plugin.html#a45e7c249e1f1dd0b6dc1cea7b8b7338c',1,'plugins::plugin']]],
+  ['log_5fmsg',['log_msg',['../classgui_1_1_client_u_i.html#a6440ea5d84ec763cfe9e0aba944a6c5c',1,'gui::ClientUI.log_msg()'],['../classgui_1_1_server_u_i.html#a05dd1aad3f45403cbbf2f68219f8ef24',1,'gui::ServerUI.log_msg()']]],
   ['lov',['lov',['../classshared_1_1world_1_1_map.html#a28559574f2dd9654f9a6b6fad260ff4e',1,'shared::world::Map']]]
 ];

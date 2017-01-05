@@ -2,22 +2,24 @@
     <Entity name="moi">
         <Ident>1</Ident>
         <Params>
+            <transform>0</transform>
             <picture>88</picture>
             <x>15</x>
             <y>15</y>
 <!--            <case id="cell0"/>-->
-            <map id="maiin"/>
+            <map id="m7516"/>
         </Params>
     </Entity>
 
     <Entity name="lui">
         <Ident>11</Ident>
         <Params>
+            <transform>0</transform>
             <picture>88</picture>
-            <x>5</x>
+            <x>15</x>
             <y>15</y>
 <!--            <case id="cell0"/>-->
-            <map id="maiin"/>
+            <map id="m7516"/>
         </Params>
     </Entity>
 </Entities>

@@ -151,9 +151,9 @@ class MapView:
         for i in self.imgs:
             p = loadPng(self.imgs[i])
             p = pygame.transform.scale(p, (int(self.cellWidth+3), int(self.cellWidth+3)))
-            p = applyMatrix(p, [-cos(self.angleX), sin(self.angleX),
+            p2 = applyMatrix(p, [-cos(self.angleX), sin(self.angleX),
                                 -cos(self.angleY), sin(self.angleY)])
-            self.pics[i] = p
+            self.pics[i] = (p, p2)
 
     def updateMap(self):
         """ sets current map to what it should be """
@@ -225,7 +225,7 @@ class MapView:
         t = time()
         # Cells
         for u, v, cell in self.shown:
-            self.surf.blit(self.pics[cell.picture], (u, v))
+            self.surf.blit(self.pics[cell.picture][1], (u, v))
         # Entities and objects
         sceneRect = self.surf.get_rect()
         for ent in chain(self.world.entities, self.world.objects):
@@ -233,7 +233,10 @@ class MapView:
             u -= self.offX
             v -= self.offY
             if sceneRect.collidepoint(u, v):
-                self.surf.blit(self.pics[ent.picture], (u, v))
+                if "transform" in ent.params:
+                    self.surf.blit(self.pics[ent.picture][ent.transform], (u, v))
+                else:
+                    self.surf.blit(self.pics[ent.picture][0], (u, v))
         if self.movSpeedX != 0:
             mask = pygame.Surface((MOV_OFFSET, self.maxHeight))
             mask.fill((255, 255, 255))

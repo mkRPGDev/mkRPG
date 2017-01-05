@@ -92,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><b>plugins</b>      </li>
-      <li class="navelem"><b>chat</b>      </li>
+      <li class="navelem"><a class="el" href="namespaceplugins_1_1chat.html">chat</a>      </li>
       <li class="navelem"><a class="el" href="classplugins_1_1chat_1_1_chat.html">Chat</a>      </li>
     </ul>
   </div>
@@ -133,7 +133,8 @@ Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae47990387dbc71e4f121122c2c822aa8"></a><!-- doxytag: member="plugins::chat::Chat::MSGID" ref="ae47990387dbc71e4f121122c2c822aa8" args="" -->
 string&#160;</td><td class="memItemRight" valign="bottom"><b>MSGID</b> = &quot;chat&quot;</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><div class="fragment"><pre class="fragment">Handles a minimalist chat plugin to be used in the game. </pre></div> </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="ad241689aeb8b03c689248ffb18584d40"></a><!-- doxytag: member="plugins::chat::Chat::clientMessage" ref="ad241689aeb8b03c689248ffb18584d40" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -158,7 +159,9 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>MSGID</b> = &quot;c
       </table>
 </div>
 <div class="memdoc">
-<div class="fragment"><pre class="fragment">called then bytes msg are sent to the client </pre></div> 
+<div class="fragment"><pre class="fragment">Receives a message and appends it to the messages to be displayed.
+Then, it repaints the screen in order to update the view of the chat.
+</pre></div> 
 <p>Reimplemented from <a class="el" href="classplugins_1_1plugin_1_1_plugin.html#a9647791e5ba3150f5fd82bb359a43d11">plugins.plugin.Plugin</a>.</p>
 
 </div>
@@ -187,7 +190,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>MSGID</b> = &quot;c
       </table>
 </div>
 <div class="memdoc">
-<div class="fragment"><pre class="fragment">called then bytes msg are sent to the server </pre></div> 
+<div class="fragment"><pre class="fragment">Broadcasts a message on whole clients. </pre></div> 
 <p>Reimplemented from <a class="el" href="classplugins_1_1plugin_1_1_plugin.html#aac06ba69452a3dac4e5950116a34d3ac">plugins.plugin.Plugin</a>.</p>
 
 </div>

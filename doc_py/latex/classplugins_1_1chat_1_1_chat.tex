@@ -31,6 +31,10 @@ def \hyperlink{classplugins_1_1chat_1_1_chat_ad241689aeb8b03c689248ffb18584d40}{
 \end{DoxyCompactItemize}
 
 
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}Handles a minimalist chat plugin to be used in the game. \end{DoxyVerb}
+ 
+
 \subsection{\-Member \-Function \-Documentation}
 \hypertarget{classplugins_1_1chat_1_1_chat_ad241689aeb8b03c689248ffb18584d40}{\index{plugins\-::chat\-::\-Chat@{plugins\-::chat\-::\-Chat}!client\-Message@{client\-Message}}
 \index{client\-Message@{client\-Message}!plugins::chat::Chat@{plugins\-::chat\-::\-Chat}}
@@ -40,7 +44,9 @@ def \hyperlink{classplugins_1_1chat_1_1_chat_ad241689aeb8b03c689248ffb18584d40}{
 \item[{}]{msg}
 \end{DoxyParamCaption}
 )}}\label{classplugins_1_1chat_1_1_chat_ad241689aeb8b03c689248ffb18584d40}
-\begin{DoxyVerb}called then bytes msg are sent to the client \end{DoxyVerb}
+\begin{DoxyVerb}Receives a message and appends it to the messages to be displayed.
+Then, it repaints the screen in order to update the view of the chat.
+\end{DoxyVerb}
  
 
 \-Reimplemented from \hyperlink{classplugins_1_1plugin_1_1_plugin_a9647791e5ba3150f5fd82bb359a43d11}{plugins.\-plugin.\-Plugin}.
@@ -53,7 +59,7 @@ def \hyperlink{classplugins_1_1chat_1_1_chat_ad241689aeb8b03c689248ffb18584d40}{
 \item[{}]{msg}
 \end{DoxyParamCaption}
 )}}\label{classplugins_1_1chat_1_1_chat_af8546a2537aee9bf99e09007649e2320}
-\begin{DoxyVerb}called then bytes msg are sent to the server \end{DoxyVerb}
+\begin{DoxyVerb}Broadcasts a message on whole clients. \end{DoxyVerb}
  
 
 \-Reimplemented from \hyperlink{classplugins_1_1plugin_1_1_plugin_aac06ba69452a3dac4e5950116a34d3ac}{plugins.\-plugin.\-Plugin}.

@@ -26,6 +26,12 @@ def \hyperlink{classinterface_1_1pgcli_1_1_map_view_a177709a045943de34d4b2363a63
 def \hyperlink{classinterface_1_1pgcli_1_1_map_view_a24e1c5ff32a5e041cda0349b4851615b}{cell\-To\-Point}
 \item 
 def \hyperlink{classinterface_1_1pgcli_1_1_map_view_ae9dab6dfcd8690f77b8b4a7c8da9d73d}{point\-To\-Cell}
+\item 
+def \hyperlink{classinterface_1_1pgcli_1_1_map_view_a992670efcedf95a8cc40ccfe189e9bb2}{rotate}
+\item 
+def \hyperlink{classinterface_1_1pgcli_1_1_map_view_ae95c7de77653ab67c8a4e9db5b7f994c}{flatten}
+\item 
+def \hyperlink{classinterface_1_1pgcli_1_1_map_view_a9d919d26df27c12a1dd0959aa856db6d}{update\-\_\-angles}
 \end{DoxyCompactItemize}
 \subsection*{\-Public \-Attributes}
 \begin{DoxyCompactItemize}
@@ -37,6 +43,12 @@ def \hyperlink{classinterface_1_1pgcli_1_1_map_view_ae9dab6dfcd8690f77b8b4a7c8da
 
 \item 
 \hypertarget{classinterface_1_1pgcli_1_1_map_view_a22f79eb7e2eee260c14f8a5850ef6f41}{{\bfseries mov\-Speed\-Y}}\label{classinterface_1_1pgcli_1_1_map_view_a22f79eb7e2eee260c14f8a5850ef6f41}
+
+\item 
+\hypertarget{classinterface_1_1pgcli_1_1_map_view_a460388914120ef2ac7afda2f37828505}{{\bfseries angle}}\label{classinterface_1_1pgcli_1_1_map_view_a460388914120ef2ac7afda2f37828505}
+
+\item 
+\hypertarget{classinterface_1_1pgcli_1_1_map_view_a6dbb92e36ebd4bf5d3080a6acee02cd9}{{\bfseries flattening}}\label{classinterface_1_1pgcli_1_1_map_view_a6dbb92e36ebd4bf5d3080a6acee02cd9}
 
 \item 
 \hypertarget{classinterface_1_1pgcli_1_1_map_view_a0e8662b067c6e0f1f9192c7e106fb7fb}{{\bfseries angle\-X}}\label{classinterface_1_1pgcli_1_1_map_view_a0e8662b067c6e0f1f9192c7e106fb7fb}
@@ -124,6 +136,19 @@ def \hyperlink{classinterface_1_1pgcli_1_1_map_view_ae9dab6dfcd8690f77b8b4a7c8da
 \end{DoxyParamCaption}
 )}}\label{classinterface_1_1pgcli_1_1_map_view_a9722a54c635d6194a598709a6d2c7b88}
 \begin{DoxyVerb}Blit visible items of the map on Surface self.surf \end{DoxyVerb}
+ \hypertarget{classinterface_1_1pgcli_1_1_map_view_ae95c7de77653ab67c8a4e9db5b7f994c}{\index{interface\-::pgcli\-::\-Map\-View@{interface\-::pgcli\-::\-Map\-View}!flatten@{flatten}}
+\index{flatten@{flatten}!interface::pgcli::MapView@{interface\-::pgcli\-::\-Map\-View}}
+\subsubsection[{flatten}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-pgcli.\-Map\-View.\-flatten} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{step}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1pgcli_1_1_map_view_ae95c7de77653ab67c8a4e9db5b7f994c}
+\begin{DoxyVerb}
+    Flattens the map
+
+    @param step the flattening step to be applied, may be negative
+\end{DoxyVerb}
  \hypertarget{classinterface_1_1pgcli_1_1_map_view_af707815529d4a3f04652224867496a3d}{\index{interface\-::pgcli\-::\-Map\-View@{interface\-::pgcli\-::\-Map\-View}!handle\-Key@{handle\-Key}}
 \index{handle\-Key@{handle\-Key}!interface::pgcli::MapView@{interface\-::pgcli\-::\-Map\-View}}
 \subsubsection[{handle\-Key}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-pgcli.\-Map\-View.\-handle\-Key} (
@@ -152,6 +177,19 @@ def \hyperlink{classinterface_1_1pgcli_1_1_map_view_ae9dab6dfcd8690f77b8b4a7c8da
 \end{DoxyParamCaption}
 )}}\label{classinterface_1_1pgcli_1_1_map_view_ae9dab6dfcd8690f77b8b4a7c8da9d73d}
 \begin{DoxyVerb}Convert map coordinates to cell related coordinates \end{DoxyVerb}
+ \hypertarget{classinterface_1_1pgcli_1_1_map_view_a992670efcedf95a8cc40ccfe189e9bb2}{\index{interface\-::pgcli\-::\-Map\-View@{interface\-::pgcli\-::\-Map\-View}!rotate@{rotate}}
+\index{rotate@{rotate}!interface::pgcli::MapView@{interface\-::pgcli\-::\-Map\-View}}
+\subsubsection[{rotate}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-pgcli.\-Map\-View.\-rotate} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{step}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1pgcli_1_1_map_view_a992670efcedf95a8cc40ccfe189e9bb2}
+\begin{DoxyVerb}
+    Rotates the map
+
+    @param step the angle step to be applied, may be negative
+\end{DoxyVerb}
  \hypertarget{classinterface_1_1pgcli_1_1_map_view_ae910bd3f2658fefda2adb3f7991fd35b}{\index{interface\-::pgcli\-::\-Map\-View@{interface\-::pgcli\-::\-Map\-View}!set\-Surf@{set\-Surf}}
 \index{set\-Surf@{set\-Surf}!interface::pgcli::MapView@{interface\-::pgcli\-::\-Map\-View}}
 \subsubsection[{set\-Surf}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-pgcli.\-Map\-View.\-set\-Surf} (
@@ -161,6 +199,14 @@ def \hyperlink{classinterface_1_1pgcli_1_1_map_view_ae9dab6dfcd8690f77b8b4a7c8da
 \end{DoxyParamCaption}
 )}}\label{classinterface_1_1pgcli_1_1_map_view_ae910bd3f2658fefda2adb3f7991fd35b}
 \begin{DoxyVerb}Called when scene is initialised or reshaped \end{DoxyVerb}
+ \hypertarget{classinterface_1_1pgcli_1_1_map_view_a9d919d26df27c12a1dd0959aa856db6d}{\index{interface\-::pgcli\-::\-Map\-View@{interface\-::pgcli\-::\-Map\-View}!update\-\_\-angles@{update\-\_\-angles}}
+\index{update\-\_\-angles@{update\-\_\-angles}!interface::pgcli::MapView@{interface\-::pgcli\-::\-Map\-View}}
+\subsubsection[{update\-\_\-angles}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-pgcli.\-Map\-View.\-update\-\_\-angles} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1pgcli_1_1_map_view_a9d919d26df27c12a1dd0959aa856db6d}
+\begin{DoxyVerb}Updates the anglesX/Y according to angle and flattening parameters \end{DoxyVerb}
  \hypertarget{classinterface_1_1pgcli_1_1_map_view_a2706f8880ed0935629fce4f413155801}{\index{interface\-::pgcli\-::\-Map\-View@{interface\-::pgcli\-::\-Map\-View}!update\-Map@{update\-Map}}
 \index{update\-Map@{update\-Map}!interface::pgcli::MapView@{interface\-::pgcli\-::\-Map\-View}}
 \subsubsection[{update\-Map}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-pgcli.\-Map\-View.\-update\-Map} (

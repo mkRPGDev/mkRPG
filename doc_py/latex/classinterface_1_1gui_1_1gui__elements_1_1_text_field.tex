@@ -1,0 +1,97 @@
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field}{\section{interface.\-gui.\-gui\-\_\-elements.\-Text\-Field \-Class \-Reference}
+\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field}\index{interface.\-gui.\-gui\-\_\-elements.\-Text\-Field@{interface.\-gui.\-gui\-\_\-elements.\-Text\-Field}}
+}
+\-Inheritance diagram for interface.\-gui.\-gui\-\_\-elements.\-Text\-Field\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classinterface_1_1gui_1_1gui__elements_1_1_text_field}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a376866601a13829059a8101262b37284}{\-\_\-\-\_\-init\-\_\-\-\_\-}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_text_field_ab21b54ae20b549beda3132413023fc7d}{build\-\_\-text}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_text_field_abcc8ace38587590d7d90997eb84f97d6}{build}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a1c28cf3754b1ababe45b7db1d664d43c}{{\bfseries text}}\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a1c28cf3754b1ababe45b7db1d664d43c}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field_ab94c4b41a968fbafa8c8c17ee424a88b}{{\bfseries font}}\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field_ab94c4b41a968fbafa8c8c17ee424a88b}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a28ccc6e05e7450fff2c1c1fcf743db90}{{\bfseries text\-Render}}\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a28ccc6e05e7450fff2c1c1fcf743db90}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field_af6faa5563fdbb8685da5d1fb10fb2b6c}{{\bfseries image}}\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field_af6faa5563fdbb8685da5d1fb10fb2b6c}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a708ed460ce01267eb3e8d75f63acc637}{{\bfseries rect}}\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a708ed460ce01267eb3e8d75f63acc637}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}Simple text field \end{DoxyVerb}
+ 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a376866601a13829059a8101262b37284}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field@{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field}!\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}!interface::gui::gui_elements::TextField@{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field}}
+\subsubsection[{\-\_\-\-\_\-init\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Text\-Field.\-\_\-\-\_\-init\-\_\-\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{text, }
+\item[{}]{style}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field_a376866601a13829059a8101262b37284}
+\begin{DoxyVerb}Style should have the following attributes:
+size : int * int (if 0,0 the area will fit the text)
+text_size : int
+text_color : int * int * int * int (R,G,B and alpha values)
+text_font : string (name of the font file or None)
+text_align : string (should be "centered", "right" or "left")
+
+    Note : Rendered text won't fit automatically on the given size if
+    it's too big, one should put endlines where needed and a correct
+    size
+\end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field_abcc8ace38587590d7d90997eb84f97d6}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field@{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field}!build@{build}}
+\index{build@{build}!interface::gui::gui_elements::TextField@{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field}}
+\subsubsection[{build}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Text\-Field.\-build} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field_abcc8ace38587590d7d90997eb84f97d6}
+\begin{DoxyVerb}build the text field and cache it \end{DoxyVerb}
+ 
+
+\-Reimplemented from \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_g_u_i_element_af8f2f95644018b351db2ddb72cd458d4}{interface.\-gui.\-gui\-\_\-elements.\-G\-U\-I\-Element}.
+
+
+
+\-Reimplemented in \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_button_aaee1404cd21fadc265aa57988eeaa0e7}{interface.\-gui.\-gui\-\_\-elements.\-Button}.
+
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_text_field_ab21b54ae20b549beda3132413023fc7d}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field@{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field}!build\-\_\-text@{build\-\_\-text}}
+\index{build\-\_\-text@{build\-\_\-text}!interface::gui::gui_elements::TextField@{interface\-::gui\-::gui\-\_\-elements\-::\-Text\-Field}}
+\subsubsection[{build\-\_\-text}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Text\-Field.\-build\-\_\-text} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{text}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_text_field_ab21b54ae20b549beda3132413023fc7d}
+\begin{DoxyVerb}build a new button with the new text and the new size if specified
+\end{DoxyVerb}
+ 
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/interface/gui/gui\-\_\-elements.\-py\end{DoxyCompactItemize}

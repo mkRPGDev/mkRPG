@@ -1,0 +1,133 @@
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button}{\section{interface.\-gui.\-gui\-\_\-elements.\-Button \-Class \-Reference}
+\label{classinterface_1_1gui_1_1gui__elements_1_1_button}\index{interface.\-gui.\-gui\-\_\-elements.\-Button@{interface.\-gui.\-gui\-\_\-elements.\-Button}}
+}
+\-Inheritance diagram for interface.\-gui.\-gui\-\_\-elements.\-Button\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classinterface_1_1gui_1_1gui__elements_1_1_button}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_button_ab0a26af6cc27814c29cf8910d28526dd}{\-\_\-\-\_\-init\-\_\-\-\_\-}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_button_aaee1404cd21fadc265aa57988eeaa0e7}{build}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_button_ac462f1526cac2a2fe59391358a5c2ccd}{update}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_button_aa448e714d2ce8e637f05f8031c5441fb}{handle\-\_\-event}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_a631c2721cb95ec3cfb21fc654bcca1c8}{{\bfseries state}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_a631c2721cb95ec3cfb21fc654bcca1c8}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_a05b1ebdc0626dffa34d3c0795533a7b3}{{\bfseries action}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_a05b1ebdc0626dffa34d3c0795533a7b3}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_adaedbd71bd5acba3433501eaeb0c4bf4}{{\bfseries cache}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_adaedbd71bd5acba3433501eaeb0c4bf4}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_a2323e31a00f138728fc5304c4029c001}{{\bfseries image}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_a2323e31a00f138728fc5304c4029c001}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_a6fda1517fcb7d81bd9a154c4c1da981e}{{\bfseries rect}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_a6fda1517fcb7d81bd9a154c4c1da981e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}Simple button \end{DoxyVerb}
+ 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_ab0a26af6cc27814c29cf8910d28526dd}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Button@{interface\-::gui\-::gui\-\_\-elements\-::\-Button}!\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}!interface::gui::gui_elements::Button@{interface\-::gui\-::gui\-\_\-elements\-::\-Button}}
+\subsubsection[{\-\_\-\-\_\-init\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Button.\-\_\-\-\_\-init\-\_\-\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{text, }
+\item[{}]{action, }
+\item[{}]{style}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_ab0a26af6cc27814c29cf8910d28526dd}
+\begin{DoxyVerb}Style should have the following attributes:
+size : int * int (if 0,0 size will fit the text)
+background_color : int * int * int * int (R,G,B and alpha)
+background_image : pygame.Surface (to use, if this
+                        attribute is specified and not empty,
+                        size and background_color will be
+                        ignored)
+text_size : int
+text_color : int * int * int * int (R,G,B and alpha values)
+text_font : string (name of the font file or None)
+text_align : string (should be "centered", "right" or "left")
+text_interline : int (pixels between two lines)
+
+mover_background_color : int * int * int * int (color when mouse
+                                                is over)
+mover_background_image : pygame.Surface (to use, if this
+                        attribute is specified and not empty,
+                        size and background_color will be
+                        ignored)
+
+click_background_color : int * int * int * int (color when
+                                                clicked)
+click_background_image : pygame.Surface (to use, if this
+                        attribute is specified and not empty,
+                        size and background_color will be
+                        ignored)
+    Action should be a function to call on click
+
+    Note : Rendered text won't fit automatically on the given size if
+    it's too big, one should put endlines where needed
+\end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_aaee1404cd21fadc265aa57988eeaa0e7}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Button@{interface\-::gui\-::gui\-\_\-elements\-::\-Button}!build@{build}}
+\index{build@{build}!interface::gui::gui_elements::Button@{interface\-::gui\-::gui\-\_\-elements\-::\-Button}}
+\subsubsection[{build}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Button.\-build} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_aaee1404cd21fadc265aa57988eeaa0e7}
+\begin{DoxyVerb}build all images for this element and cache them \end{DoxyVerb}
+ 
+
+\-Reimplemented from \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_text_field_abcc8ace38587590d7d90997eb84f97d6}{interface.\-gui.\-gui\-\_\-elements.\-Text\-Field}.
+
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_aa448e714d2ce8e637f05f8031c5441fb}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Button@{interface\-::gui\-::gui\-\_\-elements\-::\-Button}!handle\-\_\-event@{handle\-\_\-event}}
+\index{handle\-\_\-event@{handle\-\_\-event}!interface::gui::gui_elements::Button@{interface\-::gui\-::gui\-\_\-elements\-::\-Button}}
+\subsubsection[{handle\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Button.\-handle\-\_\-event} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{event}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_aa448e714d2ce8e637f05f8031c5441fb}
+\begin{DoxyVerb}event should be guiEvent.CLICK, guiEvent.OVER or
+    guiEvent.NONE \end{DoxyVerb}
+ 
+
+\-Reimplemented from \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_g_u_i_element_abd0d1220fd7cd0afdbfa415224a8a0af}{interface.\-gui.\-gui\-\_\-elements.\-G\-U\-I\-Element}.
+
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_button_ac462f1526cac2a2fe59391358a5c2ccd}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Button@{interface\-::gui\-::gui\-\_\-elements\-::\-Button}!update@{update}}
+\index{update@{update}!interface::gui::gui_elements::Button@{interface\-::gui\-::gui\-\_\-elements\-::\-Button}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Button.\-update} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{state = {\ttfamily \-None}}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_button_ac462f1526cac2a2fe59391358a5c2ccd}
+\begin{DoxyVerb}switch between images depending on state \end{DoxyVerb}
+ 
+
+\-Reimplemented from \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_g_u_i_element_a5c15d6dbe19319892174944767ec09d8}{interface.\-gui.\-gui\-\_\-elements.\-G\-U\-I\-Element}.
+
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/interface/gui/gui\-\_\-elements.\-py\end{DoxyCompactItemize}

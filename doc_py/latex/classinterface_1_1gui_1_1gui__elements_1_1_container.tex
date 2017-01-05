@@ -1,0 +1,135 @@
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container}{\section{interface.\-gui.\-gui\-\_\-elements.\-Container \-Class \-Reference}
+\label{classinterface_1_1gui_1_1gui__elements_1_1_container}\index{interface.\-gui.\-gui\-\_\-elements.\-Container@{interface.\-gui.\-gui\-\_\-elements.\-Container}}
+}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_container_a2f8773dacbb9b1ade652adb2c5ec3e51}{\-\_\-\-\_\-init\-\_\-\-\_\-}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_container_a63efaf716bdb739e8285ad8c6da14c09}{build}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_container_a8d7c627b24c729f7b9d608ffcd01972e}{add}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_container_a43d337a46ba5dfa57141f0219df4ef19}{remove}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_container_a495910cc933c39d7ea49c6a4a613a955}{empty}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_container_a41917ac555d50b7704ddec29b49e58eb}{draw}
+\item 
+def \hyperlink{classinterface_1_1gui_1_1gui__elements_1_1_container_a364895e69eea366fdbfd7504b08a7593}{render}
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a6fdf4ce891569100c90e350bf821ac66}{def {\bfseries handle\-\_\-event}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a6fdf4ce891569100c90e350bf821ac66}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a0089943fea0a17ff151866c5e133692c}{def {\bfseries move}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a0089943fea0a17ff151866c5e133692c}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_afff9293d3be80933910bee70430d0f5e}{def {\bfseries set\-\_\-position}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_afff9293d3be80933910bee70430d0f5e}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a4f92b7a3f7c58f0dcec9e439311ca459}{{\bfseries style}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a4f92b7a3f7c58f0dcec9e439311ca459}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_ac9be29771d68866f70a389160f86733e}{{\bfseries pos}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_ac9be29771d68866f70a389160f86733e}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a542303483ac34c34a82e1e48861a37db}{{\bfseries need\-\_\-build}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a542303483ac34c34a82e1e48861a37db}
+
+\item 
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a1371501cbf76e541b4edb95d5327c2e6}{{\bfseries background}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a1371501cbf76e541b4edb95d5327c2e6}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}Simple container for other elements \end{DoxyVerb}
+ 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a2f8773dacbb9b1ade652adb2c5ec3e51}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}!\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}!interface::gui::gui_elements::Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}}
+\subsubsection[{\-\_\-\-\_\-init\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Container.\-\_\-\-\_\-init\-\_\-\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{elements, }
+\item[{}]{style}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a2f8773dacbb9b1ade652adb2c5ec3e51}
+\begin{DoxyVerb}Elements is a list of GUIElement sub-classes instances and their
+    position relatively to the top left corner of the container. Each
+    element will be blit accordingly to its Rect attribute (position
+    is relative to the container top left corner)
+    Style should have the following attributes:
+size : int * int (if 0,0 the area will fit)
+background_color : int * int * int * int (R,G,B and alpha)
+background_image : pygame.Surface (to use
+                        Note that unlike the Button class, the
+                        container class requires a
+                        background_color attribute even if
+                        this attribute is specified)
+background_pattern : str (should be "unique" or "repeat", only
+                          necessary when background_image is
+                          used)
+\end{DoxyVerb}
+ 
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a8d7c627b24c729f7b9d608ffcd01972e}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}!add@{add}}
+\index{add@{add}!interface::gui::gui_elements::Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Container.\-add} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{sprites}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a8d7c627b24c729f7b9d608ffcd01972e}
+\begin{DoxyVerb}add GUIElement sub class instances to the container \end{DoxyVerb}
+ \hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a63efaf716bdb739e8285ad8c6da14c09}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}!build@{build}}
+\index{build@{build}!interface::gui::gui_elements::Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}}
+\subsubsection[{build}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Container.\-build} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a63efaf716bdb739e8285ad8c6da14c09}
+\begin{DoxyVerb}build the background of the container \end{DoxyVerb}
+ \hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a41917ac555d50b7704ddec29b49e58eb}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}!draw@{draw}}
+\index{draw@{draw}!interface::gui::gui_elements::Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Container.\-draw} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{surface}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a41917ac555d50b7704ddec29b49e58eb}
+\begin{DoxyVerb}draw all elements (except background) on surface \end{DoxyVerb}
+ \hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a495910cc933c39d7ea49c6a4a613a955}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}!empty@{empty}}
+\index{empty@{empty}!interface::gui::gui_elements::Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}}
+\subsubsection[{empty}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Container.\-empty} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a495910cc933c39d7ea49c6a4a613a955}
+\begin{DoxyVerb}remove everything from the container \end{DoxyVerb}
+ \hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a43d337a46ba5dfa57141f0219df4ef19}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}!remove@{remove}}
+\index{remove@{remove}!interface::gui::gui_elements::Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}}
+\subsubsection[{remove}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Container.\-remove} (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{sprites}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a43d337a46ba5dfa57141f0219df4ef19}
+\begin{DoxyVerb}remove GUIElement sub class instances to the container \end{DoxyVerb}
+ \hypertarget{classinterface_1_1gui_1_1gui__elements_1_1_container_a364895e69eea366fdbfd7504b08a7593}{\index{interface\-::gui\-::gui\-\_\-elements\-::\-Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}!render@{render}}
+\index{render@{render}!interface::gui::gui_elements::Container@{interface\-::gui\-::gui\-\_\-elements\-::\-Container}}
+\subsubsection[{render}]{\setlength{\rightskip}{0pt plus 5cm}def {\bf interface.\-gui.\-gui\-\_\-elements.\-Container.\-render} (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classinterface_1_1gui_1_1gui__elements_1_1_container_a364895e69eea366fdbfd7504b08a7593}
+\begin{DoxyVerb}draw all the elements over the background and return it \end{DoxyVerb}
+ 
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/interface/gui/gui\-\_\-elements.\-py\end{DoxyCompactItemize}

@@ -122,6 +122,9 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#a177709a045943de34d4b2363a63da627">moveView</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#a24e1c5ff32a5e041cda0349b4851615b">cellToPoint</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#ae9dab6dfcd8690f77b8b4a7c8da9d73d">pointToCell</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#a992670efcedf95a8cc40ccfe189e9bb2">rotate</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#ae95c7de77653ab67c8a4e9db5b7f994c">flatten</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#a9d919d26df27c12a1dd0959aa856db6d">update_angles</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2dd23b5dee4a22e9ba1028a556adb105"></a><!-- doxytag: member="interface::pgcli::MapView::world" ref="a2dd23b5dee4a22e9ba1028a556adb105" args="" -->
@@ -130,6 +133,10 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>offY</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22f79eb7e2eee260c14f8a5850ef6f41"></a><!-- doxytag: member="interface::pgcli::MapView::movSpeedY" ref="a22f79eb7e2eee260c14f8a5850ef6f41" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>movSpeedY</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a460388914120ef2ac7afda2f37828505"></a><!-- doxytag: member="interface::pgcli::MapView::angle" ref="a460388914120ef2ac7afda2f37828505" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>angle</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6dbb92e36ebd4bf5d3080a6acee02cd9"></a><!-- doxytag: member="interface::pgcli::MapView::flattening" ref="a6dbb92e36ebd4bf5d3080a6acee02cd9" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>flattening</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e8662b067c6e0f1f9192c7e106fb7fb"></a><!-- doxytag: member="interface::pgcli::MapView::angleX" ref="a0e8662b067c6e0f1f9192c7e106fb7fb" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>angleX</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c0faaba5cd3cabda5fd1c080f70f4eb"></a><!-- doxytag: member="interface::pgcli::MapView::angleY" ref="a1c0faaba5cd3cabda5fd1c080f70f4eb" args="" -->
@@ -244,6 +251,37 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><pre class="fragment">Blit visible items of the map on Surface self.surf </pre></div> 
 </div>
 </div>
+<a class="anchor" id="ae95c7de77653ab67c8a4e9db5b7f994c"></a><!-- doxytag: member="interface::pgcli::MapView::flatten" ref="ae95c7de77653ab67c8a4e9db5b7f994c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#ae95c7de77653ab67c8a4e9db5b7f994c">interface.pgcli.MapView.flatten</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>step</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+    Flattens the map
+
+    @param step the flattening step to be applied, may be negative
+</pre></div> 
+</div>
+</div>
 <a class="anchor" id="af707815529d4a3f04652224867496a3d"></a><!-- doxytag: member="interface::pgcli::MapView::handleKey" ref="af707815529d4a3f04652224867496a3d" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -331,6 +369,37 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><pre class="fragment">Convert map coordinates to cell related coordinates </pre></div> 
 </div>
 </div>
+<a class="anchor" id="a992670efcedf95a8cc40ccfe189e9bb2"></a><!-- doxytag: member="interface::pgcli::MapView::rotate" ref="a992670efcedf95a8cc40ccfe189e9bb2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#a992670efcedf95a8cc40ccfe189e9bb2">interface.pgcli.MapView.rotate</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>step</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+    Rotates the map
+
+    @param step the angle step to be applied, may be negative
+</pre></div> 
+</div>
+</div>
 <a class="anchor" id="ae910bd3f2658fefda2adb3f7991fd35b"></a><!-- doxytag: member="interface::pgcli::MapView::setSurf" ref="ae910bd3f2658fefda2adb3f7991fd35b" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -356,6 +425,23 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <div class="fragment"><pre class="fragment">Called when scene is initialised or reshaped </pre></div> 
+</div>
+</div>
+<a class="anchor" id="a9d919d26df27c12a1dd0959aa856db6d"></a><!-- doxytag: member="interface::pgcli::MapView::update_angles" ref="a9d919d26df27c12a1dd0959aa856db6d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classinterface_1_1pgcli_1_1_map_view.html#a9d919d26df27c12a1dd0959aa856db6d">interface.pgcli.MapView.update_angles</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Updates the anglesX/Y according to angle and flattening parameters </pre></div> 
 </div>
 </div>
 <a class="anchor" id="a2706f8880ed0935629fce4f413155801"></a><!-- doxytag: member="interface::pgcli::MapView::updateMap" ref="a2706f8880ed0935629fce4f413155801" args="" -->

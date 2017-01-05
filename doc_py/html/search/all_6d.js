@@ -5,6 +5,8 @@ var searchData=
   ['main',['main',['../classclient_1_1_client.html#a29ca5ab810f2b176127fabe4a6e6e9f2',1,'client::Client.main()'],['../classserver_1_1_server.html#a00234be60c5d9f6fcb3dd40ce8b7eaf0',1,'server::Server.main()']]],
   ['map',['Map',['../classshared_1_1world_1_1_map.html',1,'shared::world']]],
   ['map_5fparser',['map_parser',['../namespaceparsing_1_1map__parser.html#a51e06bfd8a212d3ff282d77f9d9e642c',1,'parsing::map_parser']]],
+  ['mapcontrol',['Mapcontrol',['../classplugins_1_1map_control_1_1_mapcontrol.html',1,'plugins::mapControl']]],
+  ['mapcontrolsprite',['MapcontrolSprite',['../classplugins_1_1map_controlpygame_1_1_mapcontrol_sprite.html',1,'plugins::mapControlpygame']]],
   ['mapview',['MapView',['../classinterface_1_1cursescli_1_1_map_view.html',1,'interface::cursescli']]],
   ['mapview',['MapView',['../classinterface_1_1pgcli_1_1_map_view.html',1,'interface::pgcli']]],
   ['menuview',['MenuView',['../classplugins_1_1menucurses_1_1_menu_view.html',1,'plugins::menucurses']]],

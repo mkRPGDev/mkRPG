@@ -6,7 +6,7 @@
 """
 
 import unittest
-from src.interface import utils
+from interface import utils
 
 from pygame import Rect
 

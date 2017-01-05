@@ -54,6 +54,7 @@ void warning(const QString &s){
 #define Treat(t) readElement(dir,t,game, identCV)
 #define ReadCase(elem) case elem: read##elem(dir, tree, game, identCV); break
 #define FuncCase(elem) void read##elem(const QDir &dir, const XmlTree &tree, Game *game, QMap<int, int> &identCV)
+#define FuncCase2(elem) void read##elem(const QDir &, const XmlTree &tree, Game *game, QMap<int, int> &identCV)
 
 
 void readAttributes(GameObject &obj, const XmlTree &tree, QMap<int,int> &identCV){
@@ -92,12 +93,12 @@ FuncCase(MU_File){
     readElement(info.dir(), *t, game, identCV);
 }
 
-FuncCase(MU_World){
-
+FuncCase2(MU_World){
+    readAttributes(game->world(), tree, identCV);
 }
 
 
-FuncCase(MU_CellType){
+FuncCase2(MU_CellType){
     XmlTree *parent = tree.subTrees.first();
     CellType *ct;
     if(parent->markUp == MU_Parent){
@@ -112,7 +113,7 @@ FuncCase(MU_CellType){
 
 }
 
-FuncCase(MU_Cell){
+FuncCase2(MU_Cell){
     XmlTree *parent = tree.subTrees.at(1);
     Cell &c(game->currentMap()->cell(tree.subTrees.at(0)->attributes["x"].toInt(),
             tree.subTrees.at(0)->attributes["y"].toInt()));
@@ -121,7 +122,7 @@ FuncCase(MU_Cell){
     readAttributes(c,tree, identCV);
 }
 
-FuncCase(MU_MapType){
+FuncCase2(MU_MapType){
     XmlTree *parent = tree.subTrees.first();
     if(parent->markUp == MU_Parent){
         MapType *p = static_cast<MapType*>(game->object(identCV[parent->attributes["id"].toInt()]));
@@ -148,7 +149,7 @@ FuncCase(MU_Map){
 }
 
 
-FuncCase(MU_ObjectType){
+FuncCase2(MU_ObjectType){
     XmlTree *parent = tree.subTrees.first();
     if(parent->markUp == MU_Parent){
         ObjectType *p = static_cast<ObjectType*>(game->object(identCV[parent->attributes["id"].toInt()]));
@@ -170,7 +171,7 @@ FuncCase(MU_Object){
 }
 
 
-FuncCase(MU_EntityType){
+FuncCase2(MU_EntityType){
     XmlTree *parent = tree.subTrees.first();
     if(parent->markUp == MU_Parent){
         EntityType *p = static_cast<EntityType*>(game->object(identCV[parent->attributes["id"].toInt()]));

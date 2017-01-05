@@ -3,6 +3,7 @@ var searchData=
   ['send',['send',['../classplugins_1_1plugin_1_1_plugin.html#a977c6c1cb7ea7cbb54667f8264da135c',1,'plugins::plugin::Plugin']]],
   ['sendevent',['sendEvent',['../classshared_1_1network_1_1_network_client.html#a78d194c7e97afbf18ac808173acbac1b',1,'shared::network::NetworkClient']]],
   ['sendorder',['sendOrder',['../classshared_1_1network_1_1_network_server.html#a61fe06df661e8306b215f3d106d6f78c',1,'shared::network::NetworkServer']]],
+  ['server',['server',['../namespaceserver.html',1,'']]],
   ['server',['Server',['../classserver_1_1_server.html',1,'server']]],
   ['serverconnection',['ServerConnection',['../classshared_1_1network_1_1_server_connection.html',1,'shared::network']]],
   ['servermessage',['serverMessage',['../classplugins_1_1chat_1_1_chat.html#af8546a2537aee9bf99e09007649e2320',1,'plugins::chat::Chat.serverMessage()'],['../classplugins_1_1plugin_1_1_plugin.html#aac06ba69452a3dac4e5950116a34d3ac',1,'plugins::plugin::Plugin.serverMessage()']]],

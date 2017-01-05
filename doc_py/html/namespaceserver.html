@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>mkRPG: Packages</title>
+<title>mkRPG: server Namespace Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -69,40 +69,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li class="current"><a href="namespaces.html"><span>Packages</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li><a href="namespacemembers.html"><span>Package&#160;Functions</span></a></li>
     </ul>
   </div>
 </div>
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">Packages</div>  </div>
+<div class="title">server Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here are the packages with brief descriptions (if available):</div><table>
-  <tr><td class="indexkey"><a class="el" href="namespaceinterface_1_1const.html">interface::const</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceinterface_1_1interactions.html">interface::interactions</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceinterface_1_1interface.html">interface::interface</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceinterface_1_1pgcli.html">interface::pgcli</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespacemanagement_1_1actions.html">management::actions</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespacemanagement_1_1console.html">management::console</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1actions__parser.html">parsing::actions_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1entity__parser.html">parsing::entity_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1global__parsing.html">parsing::global_parsing</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1images__parser.html">parsing::images_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1interactions__parser.html">parsing::interactions_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1map__parser.html">parsing::map_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1objects__parser.html">parsing::objects_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1parsing__utils.html">parsing::parsing_utils</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceparsing_1_1world__parser.html">parsing::world_parser</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceplugins_1_1menucurses.html">plugins::menucurses</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceplugins_1_1plugin.html">plugins::plugin</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceplugins_1_1plugincurses.html">plugins::plugincurses</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceplugins_1_1pluginpygame.html">plugins::pluginpygame</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceserver.html">server</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceshared_1_1tools.html">shared::tools</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey"><a class="el" href="namespaceshared_1_1world.html">shared::world</a></td><td class="indexvalue"></td></tr>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classserver_1_1_server.html">Server</a></td></tr>
+<tr><td colspan="2"><h2><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ca22f386448730aef8b5bf9742a79af"></a><!-- doxytag: member="server::PARSER" ref="a1ca22f386448730aef8b5bf9742a79af" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>PARSER</b> = ArgumentParser(description=&quot;Generic game server.&quot;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><b>help</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aba8abc91d93e06ecdb4870d668590c4e"></a><!-- doxytag: member="server::ARGS" ref="aba8abc91d93e06ecdb4870d668590c4e" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>ARGS</b> = PARSER.parse_args()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af04fcf0b55792c3873d000261d0371f3"></a><!-- doxytag: member="server::SERVER" ref="af04fcf0b55792c3873d000261d0371f3" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>SERVER</b> = <a class="el" href="classserver_1_1_server.html">Server</a>(ARGS.path+&quot;/&quot;)</td></tr>
 </table>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><div class="fragment"><pre class="fragment">
+This module handles the server of the game.
+The server runs the main loop and receives the request of actions
+from the client. If the actions are allowed by the description of the game
+in the xml files, all clients are asked to execute the actions.
+</pre></div> </div><hr/><h2>Variable Documentation</h2>
+<a class="anchor" id="af10abb2787832d4726e814bb8a7e86ff"></a><!-- doxytag: member="server::help" ref="af10abb2787832d4726e814bb8a7e86ff" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string server::help</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>Initial value:</b><div class="fragment"><pre class="fragment"><a name="l00001"></a><a class="code" href="namespaceserver.html">00001</a> <span class="stringliteral">&quot;Path of the game directory, should contain game.xml.\</span>
+<a name="l00002"></a>00002 <span class="stringliteral">                         If this argument is not present, const.py will be used.&quot;</span>
+</pre></div>
+</div>
+</div>
 </div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

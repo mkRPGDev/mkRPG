@@ -1,0 +1,43 @@
+\hypertarget{namespaceserver}{\section{server \-Namespace \-Reference}
+\label{namespaceserver}\index{server@{server}}
+}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classserver_1_1_server}{\-Server}
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceserver_a1ca22f386448730aef8b5bf9742a79af}{tuple {\bfseries \-P\-A\-R\-S\-E\-R} = \-Argument\-Parser(description=\char`\"{}\-Generic game server.\char`\"{})}\label{namespaceserver_a1ca22f386448730aef8b5bf9742a79af}
+
+\item 
+string {\bfseries help}
+\item 
+\hypertarget{namespaceserver_aba8abc91d93e06ecdb4870d668590c4e}{tuple {\bfseries \-A\-R\-G\-S} = \-P\-A\-R\-S\-E\-R.\-parse\-\_\-args()}\label{namespaceserver_aba8abc91d93e06ecdb4870d668590c4e}
+
+\item 
+\hypertarget{namespaceserver_af04fcf0b55792c3873d000261d0371f3}{tuple {\bfseries \-S\-E\-R\-V\-E\-R} = \hyperlink{classserver_1_1_server}{\-Server}(\-A\-R\-G\-S.\-path+\char`\"{}/\char`\"{})}\label{namespaceserver_af04fcf0b55792c3873d000261d0371f3}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\begin{DoxyVerb}
+This module handles the server of the game.
+The server runs the main loop and receives the request of actions
+from the client. If the actions are allowed by the description of the game
+in the xml files, all clients are asked to execute the actions.
+\end{DoxyVerb}
+ 
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{namespaceserver_af10abb2787832d4726e814bb8a7e86ff}{\index{server@{server}!help@{help}}
+\index{help@{help}!server@{server}}
+\subsubsection[{help}]{\setlength{\rightskip}{0pt plus 5cm}string server\-::help}}\label{namespaceserver_af10abb2787832d4726e814bb8a7e86ff}
+{\bfseries \-Initial value\-:}
+\begin{DoxyCode}
+1 "Path of the game directory, should contain game.xml.\
+2                          If this argument is not present, const.py will be
+       used."
+\end{DoxyCode}

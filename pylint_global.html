@@ -18,7 +18,7 @@
 <td>37</td>
 <td>NC</td>
 <td>NC</td>
-<td>81.08</td>
+<td>83.78</td>
 <td>0.00</td>
 </tr>
 <tr class="odd">
@@ -61,23 +61,23 @@ management
 parsing 
   \-actions_parser (parsing.interactions_parser,parsing.global_parsing)
   \-entity_parser (parsing.global_parsing)
-  \-global_parsing (server,shared.world,client)
+  \-global_parsing (client,server,shared.world)
   \-images_parser (parsing.global_parsing)
   \-interactions_parser (parsing.global_parsing)
   \-map_parser (parsing.global_parsing)
   \-objects_parser (parsing.global_parsing)
-  \-parsing_utils (parsing.global_parsing,parsing.actions_parser,parsing.world_parser,parsing.objects_parser,parsing.map_parser,parsing.entity_parser,parsing.interactions_parser,parsing.images_parser)
+  \-parsing_utils (parsing.entity_parser,parsing.objects_parser,parsing.world_parser,parsing.map_parser,parsing.global_parsing,parsing.actions_parser,parsing.images_parser,parsing.interactions_parser)
   \-world_parser (parsing.global_parsing)
 plugins 
-  \-plugin (server,plugins.chat,client)
+  \-plugin (client,server,plugins.chat)
   \-plugincurses (plugins.menucurses,plugins.chatcurses)
-pygame (interface.utils,interface.applymatrix,interface.pgcli,plugins.pluginpygame)
+pygame (plugins.pluginpygame,interface.applymatrix,interface.utils,interface.pgcli)
   \-locals (interface.pgcli)
 shared 
-  \-network (server,client)
-  \-orders (management.actions,server,shared.world,client,shared.network)
-  \-tools (server,client)
-  \-world (server,client,shared.network)</pre></div>
+  \-network (client,server)
+  \-orders (client,server,shared.world,shared.network,management.actions)
+  \-tools (client,server)
+  \-world (client,server,shared.network)</pre></div>
 <div>
 <h2>Raw metrics</h2>
 <table>
@@ -90,28 +90,28 @@ shared
 </tr>
 <tr class="even">
 <td>code</td>
-<td>2106</td>
-<td>69.34</td>
+<td>2108</td>
+<td>69.23</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="odd">
 <td>docstring</td>
-<td>422</td>
-<td>13.90</td>
+<td>427</td>
+<td>14.02</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="even">
 <td>comment</td>
 <td>132</td>
-<td>4.35</td>
+<td>4.33</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
 <tr class="odd">
 <td>empty</td>
-<td>377</td>
+<td>378</td>
 <td>12.41</td>
 <td>NC</td>
 <td>NC</td>
@@ -152,7 +152,7 @@ shared
 </tr>
 <tr class="even">
 <td>convention</td>
-<td>466</td>
+<td>460</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
@@ -164,7 +164,7 @@ shared
 </tr>
 <tr class="even">
 <td>warning</td>
-<td>102</td>
+<td>101</td>
 <td>NC</td>
 <td>NC</td>
 </tr>
@@ -189,58 +189,58 @@ shared
 <tr class="even">
 <td>interface.pgcli</td>
 <td>33.87</td>
-<td>16.67</td>
+<td>16.83</td>
 <td>13.33</td>
-<td>19.96</td>
+<td>20.22</td>
 </tr>
 <tr class="odd">
 <td>shared.orders</td>
 <td>30.65</td>
-<td>14.71</td>
+<td>14.85</td>
 <td>13.33</td>
-<td>3.43</td>
+<td>3.48</td>
 </tr>
 <tr class="even">
 <td>interface.cursescli</td>
 <td>14.52</td>
-<td>7.84</td>
+<td>7.92</td>
 <td>0.00</td>
-<td>27.25</td>
+<td>27.61</td>
 </tr>
 <tr class="odd">
 <td>client</td>
 <td>6.45</td>
-<td>3.92</td>
+<td>3.96</td>
 <td>0.00</td>
-<td>1.93</td>
+<td>1.96</td>
 </tr>
 <tr class="even">
 <td>shared.world</td>
 <td>4.84</td>
-<td>18.63</td>
+<td>18.81</td>
 <td>20.00</td>
-<td>12.23</td>
+<td>12.39</td>
 </tr>
 <tr class="odd">
 <td>interface.interactions</td>
 <td>3.23</td>
-<td>4.90</td>
+<td>4.95</td>
 <td>0.00</td>
-<td>1.07</td>
+<td>1.09</td>
 </tr>
 <tr class="even">
 <td>plugins.chatcurses</td>
 <td>3.23</td>
-<td>0.98</td>
+<td>0.99</td>
 <td>0.00</td>
-<td>1.07</td>
+<td>1.09</td>
 </tr>
 <tr class="odd">
 <td>interface.applymatrix</td>
 <td>1.61</td>
 <td>0.00</td>
 <td>6.67</td>
-<td>8.58</td>
+<td>8.70</td>
 </tr>
 <tr class="even">
 <td>pylintrc</td>
@@ -252,58 +252,58 @@ shared
 <tr class="odd">
 <td>shared.network</td>
 <td>0.00</td>
-<td>8.82</td>
+<td>8.91</td>
 <td>6.67</td>
-<td>7.51</td>
+<td>7.61</td>
 </tr>
 <tr class="even">
 <td>plugins.plugin</td>
 <td>0.00</td>
-<td>7.84</td>
+<td>7.92</td>
 <td>0.00</td>
-<td>2.79</td>
+<td>2.83</td>
 </tr>
 <tr class="odd">
 <td>management.console</td>
 <td>0.00</td>
-<td>3.92</td>
+<td>3.96</td>
 <td>6.67</td>
-<td>3.65</td>
+<td>3.70</td>
 </tr>
 <tr class="even">
 <td>plugins.plugincurses</td>
 <td>0.00</td>
-<td>3.92</td>
+<td>3.96</td>
 <td>6.67</td>
 <td>0.43</td>
 </tr>
 <tr class="odd">
 <td>server</td>
 <td>0.00</td>
-<td>3.92</td>
+<td>2.97</td>
 <td>0.00</td>
-<td>2.36</td>
+<td>1.09</td>
 </tr>
 <tr class="even">
 <td>shared.tools</td>
 <td>0.00</td>
-<td>1.96</td>
+<td>1.98</td>
 <td>0.00</td>
-<td>1.29</td>
+<td>1.30</td>
 </tr>
 <tr class="odd">
 <td>plugins.pluginpygame</td>
 <td>0.00</td>
-<td>0.98</td>
+<td>0.99</td>
 <td>6.67</td>
-<td>0.64</td>
+<td>0.65</td>
 </tr>
 <tr class="even">
 <td>interface.utils</td>
 <td>0.00</td>
-<td>0.98</td>
+<td>0.99</td>
 <td>0.00</td>
-<td>0.64</td>
+<td>0.65</td>
 </tr>
 <tr class="odd">
 <td>parsing.global_parsing</td>
@@ -317,21 +317,21 @@ shared
 <td>0.00</td>
 <td>0.00</td>
 <td>6.67</td>
-<td>2.15</td>
+<td>2.17</td>
 </tr>
 <tr class="odd">
 <td>plugins.menucurses</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>1.93</td>
+<td>1.96</td>
 </tr>
 <tr class="even">
 <td>management.actions</td>
 <td>0.00</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>0.64</td>
+<td>0.65</td>
 </tr>
 <tr class="odd">
 <td>plugins.chat</td>
@@ -351,7 +351,7 @@ shared
 </tr>
 <tr class="even">
 <td>invalid-name</td>
-<td>283</td>
+<td>280</td>
 </tr>
 <tr class="odd">
 <td>bad-whitespace</td>
@@ -366,12 +366,12 @@ shared
 <td>40</td>
 </tr>
 <tr class="even">
-<td>missing-docstring</td>
+<td>fixme</td>
 <td>28</td>
 </tr>
 <tr class="odd">
-<td>fixme</td>
-<td>28</td>
+<td>missing-docstring</td>
+<td>27</td>
 </tr>
 <tr class="even">
 <td>attribute-defined-outside-init</td>
@@ -399,7 +399,7 @@ shared
 </tr>
 <tr class="even">
 <td>unused-import</td>
-<td>8</td>
+<td>7</td>
 </tr>
 <tr class="odd">
 <td>wrong-import-order</td>
@@ -422,43 +422,43 @@ shared
 <td>4</td>
 </tr>
 <tr class="even">
-<td>bad-continuation</td>
-<td>4</td>
-</tr>
-<tr class="odd">
 <td>unused-argument</td>
 <td>3</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>too-many-function-args</td>
 <td>3</td>
 </tr>
-<tr class="odd">
-<td>ungrouped-imports</td>
-<td>2</td>
-</tr>
 <tr class="even">
+<td>bad-continuation</td>
+<td>3</td>
+</tr>
+<tr class="odd">
 <td>trailing-newlines</td>
 <td>2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>too-many-statements</td>
 <td>2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>redefined-outer-name</td>
 <td>2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>parse-error</td>
 <td>2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>bare-except</td>
 <td>2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>wildcard-import</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>ungrouped-imports</td>
 <td>1</td>
 </tr>
 <tr class="even">
@@ -493,7 +493,7 @@ shared
 </div>
 <div>
 <h2>Global evaluation</h2>
-Your code has been rated at 5.44/10</div>
+Your code has been rated at 5.47/10</div>
 </div>
 </body>
 </html>

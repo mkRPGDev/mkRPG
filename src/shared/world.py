@@ -8,7 +8,7 @@ from math import sqrt
 from heapq import heappush, heappop
 
 from shared.const import IDLEN
-from shared.orders import Order, OrderType
+from shared.orders import Order, ORDERTYPE
 from parsing import global_parsing
 
 verbose = False
@@ -136,7 +136,7 @@ class Object:
         orders = []
         if self.creator:
             order = Order()
-            order.setType(OrderType.Create)
+            order.setType(ORDERTYPE.Create)
             order.event = ""
             order.base = str(self.creator.ident)
             order.init = ""
@@ -145,10 +145,10 @@ class Object:
             if self.params[key] != self.initParams[key]:
                 order = Order()
                 if isinstance(self.params[key], int):
-                    order.setType(OrderType.Set)
+                    order.setType(ORDERTYPE.Set)
                     order.value = str(self.params[key])
                 else:
-                    order.setType(OrderType.Setobj)
+                    order.setType(ORDERTYPE.Setobj)
                     order.value = "world.ids["+str(self.params[key].ident)+"]"
                 order.target = "world.ids["+str(self.ident)+"]"
                 order.param = key

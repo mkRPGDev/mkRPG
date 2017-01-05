@@ -5,11 +5,17 @@
 #include "ui_editor.h"
 #include "options.h"
 #include "newgame.h"
-#include "Game/xmlhandler.h"
+#include "Game/xmlreader.h"
 #include "Tabs/welcome.h"
+#include "Game/xmlwritter.h"
 #include "Tabs/worldtab.h"
 #include "Tabs/MapTab/maptab.h"
 #include "Tabs/objecttab.h"
+#include "Tabs/actiontab.h"
+
+
+
+
 
 /*!
  * \file editor.h
@@ -51,17 +57,26 @@ class Editor : public QMainWindow, private Ui::Editor
 public:
     explicit Editor(QStringList args, QWidget *parent = 0);
 
+    void setGame(Game *game);
+
 private slots:
     void on_actionRolePlayGame_triggered();
     void on_actionOpen_triggered();
     void on_actionQuit_triggered();
+    void on_actionExport_triggered();
+    void on_actionSave_as_triggered();
+    void on_actionImportImage_triggered();
+
 
 
 private slots:
     void saveGeom();
     void editMap();
 
+    void setCurrentTab(int i);
+
 private:
+    bool getSaveDirectory(QDir &d, const QString &m);
     void addTab(const QString& n, const QPixmap& p, TabWidget *w);
 
 
@@ -75,10 +90,14 @@ private:
     void moveEvent(QMoveEvent *me);
     void closeEvent(QCloseEvent *ce);
 
+    Welcome *welcome;
     WorldTab *worldEditor;
     MapsTab *mapsEditor;
     ObjectTab *objectEditor;
+    ActionTab *actionEditor;
 
+
+    Game *currentGame;
 };
 
 /* Template de jeu

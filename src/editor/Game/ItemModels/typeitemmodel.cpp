@@ -6,7 +6,7 @@ TypeTreeItem::TypeTreeItem(Game *game) :
 {
     TypeTreeItem *cellTypes = new TypeTreeItem("CellType", this);
     children.append(cellTypes);
-    for(CellType *c : game->world().cellTypes())
+    for(CellType *c : game->world().types().cellType().descendants())
         cellTypes->children.append(new TypeTreeItem(c, cellTypes));
 }
 
@@ -69,7 +69,7 @@ QVariant TypeTreeItem::data(int UNUSED(col), int role) const{
 
 
 
-TypeItemModel::TypeItemModel(QObject *parent) :
+TypeItemModel2::TypeItemModel2(QObject *parent) :
     QAbstractItemModel(parent),
     rootItem(nullptr)
 {
@@ -77,39 +77,39 @@ TypeItemModel::TypeItemModel(QObject *parent) :
 }
 
 
-int TypeItemModel::columnCount(const QModelIndex &UNUSED(parent)) const{
+int TypeItemModel2::columnCount(const QModelIndex &UNUSED(parent)) const{
     return 1;
 }
 
-int TypeItemModel::rowCount(const QModelIndex &parent) const{
+int TypeItemModel2::rowCount(const QModelIndex &parent) const{
     if(!parent.isValid())
         return rootItem == nullptr ? 0 : rootItem->rowCount();
     return static_cast<TypeTreeItem*>(parent.internalPointer())->rowCount();
 }
 
-Qt::ItemFlags TypeItemModel::flags(const QModelIndex &index) const{
+Qt::ItemFlags TypeItemModel2::flags(const QModelIndex &index) const{
     return QAbstractItemModel::flags(index);
 }
 
-QVariant TypeItemModel::data(const QModelIndex &index, int role) const{
+QVariant TypeItemModel2::data(const QModelIndex &index, int role) const{
     if(role == Qt::DisplayRole) return static_cast<TypeTreeItem*>(index.internalPointer())->data(index.column(), role);
     return QVariant();
 }
 
-QModelIndex TypeItemModel::index(int row, int column, const QModelIndex &parent) const{
+QModelIndex TypeItemModel2::index(int row, int column, const QModelIndex &parent) const{
     if(!parent.isValid())
         return rootItem == nullptr ? QModelIndex() : createIndex(row, column, static_cast<void*>(rootItem->child(row)));
     return createIndex(row, column, static_cast<TypeTreeItem*>(parent.internalPointer())->child(row));
 }
 
-QModelIndex TypeItemModel::parent(const QModelIndex &child) const{
+QModelIndex TypeItemModel2::parent(const QModelIndex &child) const{
     TypeTreeItem *t = static_cast<TypeTreeItem*>(child.internalPointer())->parent();
     if(t->parent() != nullptr) return createIndex(t->row(),0,static_cast<TypeTreeItem*>(t));
     return QModelIndex();
 }
 
 
-void TypeItemModel::setGame(Game *g){
+void TypeItemModel2::setGame(Game *g){
     beginResetModel();
     if(rootItem != nullptr) delete rootItem;
     if(g != nullptr)
@@ -117,10 +117,10 @@ void TypeItemModel::setGame(Game *g){
     endResetModel();
 }
 
-bool TypeItemModel::setData(const QModelIndex &UNUSED(index), const QVariant &UNUSED(value), int UNUSED(role)){
+bool TypeItemModel2::setData(const QModelIndex &UNUSED(index), const QVariant &UNUSED(value), int UNUSED(role)){
     return false;
 }
 
-QVariant TypeItemModel::headerData(int UNUSED(section), Qt::Orientation UNUSED(orientation), int UNUSED(role)) const{
+QVariant TypeItemModel2::headerData(int UNUSED(section), Qt::Orientation UNUSED(orientation), int UNUSED(role)) const{
     return QVariant();
 }

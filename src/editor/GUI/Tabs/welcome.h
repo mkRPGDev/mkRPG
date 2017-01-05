@@ -26,6 +26,10 @@ class Welcome : public TabWidget, private Ui::Welcome
 
 public:
     explicit Welcome(QWidget *parent = 0);
+
+signals:
+    void newGameS();
+    void openGameS();
 };
 
 #endif // WELCOME_H

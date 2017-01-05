@@ -26,6 +26,9 @@ public:
     explicit CellTypesDock(QWidget *parent = 0);
 
     void updateGame();
+
+private:
+    CellTypeListModel *ctModel;
 };
 
 #endif // CELLTYPESLIST_H

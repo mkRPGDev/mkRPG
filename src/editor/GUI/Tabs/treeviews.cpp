@@ -91,3 +91,89 @@ void FlagTreeView::expandView(const QModelIndex &index){
 
 
 
+
+
+EventTreeView::EventTreeView(QWidget *parent) :
+    QTreeView(parent)
+{
+    header()->setStretchLastSection(true);
+    // TODO
+    //setItemDelegateForColumn(1, new FlagItemDelegate(this));
+
+
+    setIndentation(10);
+    setAlternatingRowColors(true);
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+    setEditTriggers(editTriggers() | QAbstractItemView::CurrentChanged);
+}
+
+
+void EventTreeView::contextMenuEvent(QContextMenuEvent *me){
+    me->accept();
+    qDebug() << me->pos() << indexAt(me->pos());
+}
+
+void EventTreeView::drawRow(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    QStyleOptionViewItem newOption(option);
+    if(index.data(Qt::BackgroundRole).isValid()){
+        painter->fillRect(option.rect, index.data(Qt::BackgroundRole).value<QBrush>());
+        newOption.palette.setColor(QPalette::AlternateBase, index.data(Qt::BackgroundRole).value<QBrush>().color());
+    }
+    if(index.data(Qt::ForegroundRole).isValid())
+        newOption.palette.setColor(QPalette::Text, index.data(Qt::ForegroundRole).value<QBrush>().color());
+
+    QTreeView::drawRow(painter, newOption, index);
+}
+
+void EventTreeView::expandView(const QModelIndex &index){
+    int l = model()->rowCount(index);
+    for(int i(0); i<l; ++i){
+        QModelIndex c(model()->index(i,0,index));
+        expand(c);
+    }
+}
+
+
+
+
+OrderTreeView::OrderTreeView(QWidget *parent) :
+    QTreeView(parent)
+{
+    header()->setStretchLastSection(true);
+    // TODO
+    //setItemDelegateForColumn(1, new FlagItemDelegate(this));
+
+
+    setIndentation(10);
+    setAlternatingRowColors(true);
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+    setEditTriggers(editTriggers() | QAbstractItemView::CurrentChanged);
+}
+
+
+void OrderTreeView::contextMenuEvent(QContextMenuEvent *me){
+    me->accept();
+    qDebug() << me->pos() << indexAt(me->pos());
+}
+
+void OrderTreeView::drawRow(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+    QStyleOptionViewItem newOption(option);
+    if(index.data(Qt::BackgroundRole).isValid()){
+        painter->fillRect(option.rect, index.data(Qt::BackgroundRole).value<QBrush>());
+        newOption.palette.setColor(QPalette::AlternateBase, index.data(Qt::BackgroundRole).value<QBrush>().color());
+    }
+    if(index.data(Qt::ForegroundRole).isValid())
+        newOption.palette.setColor(QPalette::Text, index.data(Qt::ForegroundRole).value<QBrush>().color());
+
+    QTreeView::drawRow(painter, newOption, index);
+}
+
+void OrderTreeView::expandView(const QModelIndex &index){
+    int l = model()->rowCount(index);
+    for(int i(0); i<l; ++i){
+        QModelIndex c(model()->index(i,0,index));
+        expand(c);
+    }
+}

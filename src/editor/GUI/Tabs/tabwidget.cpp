@@ -14,3 +14,4 @@ void TabWidget::setIndex(int i){
 int TabWidget::index() const{
     return ind;
 }
+

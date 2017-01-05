@@ -17,14 +17,13 @@
  * \brief The MapResizeDialog class provides a dialog window
  * used to define how the map should be resized.
  */
-
 class MapResizeDialog : public QDialog, private Ui::MapResizeDialog
 {
     Q_OBJECT
 
 public:
     explicit MapResizeDialog(int w, int h, QWidget *parent = 0);
-
+    QRect newRectangle() const;
 
 private slots:
     void on_nWidth_valueChanged(int i);

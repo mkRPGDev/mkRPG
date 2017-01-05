@@ -4,13 +4,13 @@
 
 
 ObjectType::ObjectType(ObjectType &ancestor) :
-    Type(ancestor)
+    Type(ancestor), aImage(nullptr)
 {
 
 }
 
 ObjectType::ObjectType(DefaultTypes &parent) :
-    Type(parent)
+    Type(parent), aImage(nullptr)
 {
     setName(QObject::tr("ObjectTypes"));
     setName(typeName());
@@ -18,6 +18,8 @@ ObjectType::ObjectType(DefaultTypes &parent) :
     SetFlag(movable, false);
     SetFlag(interactive, false);
     setParam("life", 42);
+    setParam("x", 5);
+    setParam("y", 5);
 }
 
 
@@ -33,5 +35,7 @@ Image::Image(GameObject &parent, const QString &fileName) :
     GameObject(parent)
 {
     im.load(fileName);
+    QFileInfo in(fileName);
+    setName(in.fileName().left(in.fileName().lastIndexOf(".")));
 }
 

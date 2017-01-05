@@ -18,7 +18,16 @@
  * Meta-Object Compiler.
  */
 
-
+/*!
+ * \brief The ItemType enum describes the several types
+ * of items used in the template class GameTreeItem.
+ */
+enum ItemType{
+    ParamItem,  /**< Integer parameter */
+    FlagItem,   /**< Flag */
+    EventItem, /**< %Event */
+    OrderItem    /**< %Order */
+};
 
 /*!
  * \brief The GameTreeItem define a convienent tree item for
@@ -29,7 +38,7 @@
  *
  * \see ParamTreeItemModel, FlagTreeItemModel
  */
-template<bool ParamItem>
+template<ItemType type>
 class GameTreeItem{
     enum State{Type, Object, Attribute, Value};
 public:
@@ -37,7 +46,7 @@ public:
     explicit GameTreeItem(InheritableObject &typ);
     ~GameTreeItem();
 
-    Qt::ItemFlags flags(int col) const;
+    Qt::ItemFlags flags(int col, bool readOnly = false) const;
     QVariant data(int col, int role) const;
     GameTreeItem *parent() const ;
     GameTreeItem *child(int row) const ;
@@ -47,12 +56,13 @@ public:
     void addAttr(const QString &attr);
     void sort();
     void setAttributeRowNb(int r);
+    bool isAttr(const QString &a) const;
 
 private:
     explicit GameTreeItem(int rowNb, GameObject *obj, InheritableObject* typ, State state, GameTreeItem *parent);
     int rowNb;
-    GameTreeItem<ParamItem> *parentItem;
-    QList<GameTreeItem<ParamItem> *> children;
+    GameTreeItem<type> *parentItem;
+    QList<GameTreeItem<type>*> children;
 
     void genealogy(InheritableObject *t);
 
@@ -65,10 +75,10 @@ private:
     bool setAttrData(int col, QVariant value, int role);
     bool setValueData(int col, QVariant value, int role);
 
-    Qt::ItemFlags typeFlags(int) const;
-    Qt::ItemFlags objectFlags(int) const;
-    Qt::ItemFlags attrFlags(int col) const;
-    Qt::ItemFlags valueFlags(int col) const;
+    Qt::ItemFlags typeFlags(int, bool) const;
+    Qt::ItemFlags objectFlags(int, bool) const;
+    Qt::ItemFlags attrFlags(int col, bool readOnly) const;
+    Qt::ItemFlags valueFlags(int col, bool readOnly) const;
 
     GameObject *obj;
     InheritableObject *typ;
@@ -88,7 +98,7 @@ private:
  * \brief The ParamTreeItemModel class presents the parameters
  * of an object using the QAbstractItemModel interface.
  *
- * \see FlagTreeItemModel
+ * \see FlagTreeItemModel, EventTreeItemModel, OrderTreeItemModel
  */
 class ParamTreeItemModel : public QAbstractItemModel
 {
@@ -112,7 +122,7 @@ private:
     GameObject *obj;
     InheritableObject *type;
 
-    GameTreeItem<true> *item;
+    GameTreeItem<ParamItem> *item;
 };
 
 
@@ -120,7 +130,7 @@ private:
  * \brief The ParamTreeItemModel class presents the flags
  * of an object using the QAbstractItemModel interface.
  *
- * \see ParamTreeItemModel
+ * \see ParamTreeItemModel, EventTreeItemModel, OrderTreeItemModel
  */
 class FlagTreeItemModel : public QAbstractItemModel
 {
@@ -144,9 +154,75 @@ private:
     GameObject *obj;
     InheritableObject *type;
 
-
-    GameTreeItem<false> *item;
+    GameTreeItem<FlagItem> *item;
 };
 
 
+/*!
+ * \brief The EventTreeItemModel class presents the events
+ * of an object using the QAbstractItemModel interface.
+ *
+ * \see ParamTreeItemModel, FlagTreeItemModel, OrderTreeItemModel
+ */
+class EventTreeItemModel : public QAbstractItemModel
+{
+    Q_OBJECT
+public:
+    explicit EventTreeItemModel(QObject *parent = 0, bool readOnly = false);
+    void setObject(GameObject *o);
+    int columnCount(const QModelIndex &parent) const;
+    int rowCount(const QModelIndex &parent) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    QModelIndex parent(const QModelIndex &child) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    void addEvent(const QString &name);
+    void sortAttr(const QModelIndex &par);
+
+private:
+    Game *game;
+    GameObject *obj;
+    InheritableObject *type;
+
+    GameTreeItem<EventItem> *item;
+    bool readOnly;
+};
+
+
+
+/*!
+ * \brief The OrderTreeItemModel class presents the orders
+ * of an object using the QAbstractItemModel interface.
+ *
+ * \see ParamTreeItemModel, FlagTreeItemModel, EventTreeItemModel
+ */
+class OrderTreeItemModel : public QAbstractItemModel
+{
+    Q_OBJECT
+public:
+    explicit OrderTreeItemModel(QObject *parent = 0, bool readOnly = false);
+    void setObject(GameObject *o);
+    int columnCount(const QModelIndex &parent) const;
+    int rowCount(const QModelIndex &parent) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    QModelIndex parent(const QModelIndex &child) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    void addOrder(const QString &name);
+    void sortAttr(const QModelIndex &par);
+
+    QModelIndex findOrder(const QString &order, const QModelIndex &root = QModelIndex());
+
+private:
+    Game *game;
+    GameObject *obj;
+    InheritableObject *type;
+
+    GameTreeItem<OrderItem> *item;
+    bool readOnly;
+};
 #endif // ATTRTREEITEMMODEL_H

@@ -4,19 +4,27 @@ WorldTab::WorldTab(QWidget *parent) :
     TabWidget(parent)
 {
     setupUi(this);
+    maps = new MapsListModel(this);
+    mapsView->setModel(maps);
 }
 
 
 void WorldTab::setGame(Game *g){
     game = g;
-    mapsView->setModel(new MapsListModel(&g->world(), this));
+    updateGame();
 }
+
+void WorldTab::updateGame(){
+    maps->setWorld(game->world());
+}
+
+
 
 WorldTab::~WorldTab(){
     delete game;
 }
 
 void WorldTab::on_mapsView_doubleClicked(const QModelIndex &index){
-    game->setCurrentMap(game->world().maps().at(index.row()));
+    game->setCurrentMap(game->world().objects().maps().at(index.row()));
     emit editMap();
 }

@@ -44,7 +44,8 @@
     </widget>
    </item>
    <item row="0" column="0">
-    <widget class="MapViewer" name="mapViewer" native="true"/>
+    <widget class="MapViewer" name="mapViewer" native="true">
+    </widget>
    </item>
    <item row="0" column="2" rowspan="3">
     <widget class="BDocksZone" name="docks" native="true">
@@ -57,20 +58,19 @@
     </widget>
    </item>
    <item row="2" column="0" colspan="2">
-    <widget class="QScrollArea" name="scrollArea">
-     <property name="widgetResizable">
-      <bool>true</bool>
+    <widget class="QListView" name="mapsView">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::NoSelection</enum>
      </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>977</width>
-        <height>68</height>
-       </rect>
-      </property>
-     </widget>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>70</height>
+      </size>
+     </property>
+     <property name="viewMode">
+      <enum>QListView::IconMode</enum>
+     </property>
     </widget>
    </item>
   </layout>

@@ -46,7 +46,8 @@ addons:
 # Build your code e.g. by calling make
 script:
   - cd $TRAVIS_BUILD_DIR
-  - python3 -m unittest discover -v -t src -s pytest -p "*.py"
+  - cd src/
+  - python3 -m unittest discover -v
 
 
 # Generate and deploy documentation

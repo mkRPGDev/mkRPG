@@ -18,5 +18,6 @@
         <file>selReg.png</file>
         <file>editer.png</file>
         <file>supprimer.png</file>
+        <file>raoul.png</file>
     </qresource>
 </RCC>

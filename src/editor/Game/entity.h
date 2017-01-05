@@ -25,6 +25,7 @@ public:
     EntityType(EntityType &ancestor);
     EntityType(DefaultTypes &parent);
 
+
     inline Image* image() const{return aImage ? aImage : aTypedAncestor ? aTypedAncestor->image() : nullptr;}
     inline void setImage(Image* im){aImage = im; touch();}
 
@@ -42,6 +43,7 @@ public:
     TypeName(Entity)
     Entity(EntityType &type, GameObject &parent);
 
+    EntityType &entityType(){return *aObjectType;}
 
 };
 

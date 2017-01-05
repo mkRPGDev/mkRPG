@@ -28,10 +28,11 @@ XmlWritter::XmlWritter(const QDir &path, const QString &fileName, bool serverXml
 
 
 XmlWritter::XmlWritter(const QDir &path, Game &game, bool serverXml) :
-    XmlWritter(path, &game, serverXml)
+    XmlWritter(path, "game", serverXml)
 {
+    *this << game;
     if(serverXml){
-        *this << OpenMarkUp << "Files" << EndL;
+        *this << OpenMarkUp << "World" << EndL;
         XmlWritter world(path, game.world(), serverXml);
         *this << OpenMarkUp << "World" << path.relativeFilePath(world.fileName()) << CloseMarkUp;
         writeCreatedFiles(world);
@@ -51,6 +52,8 @@ XmlWritter::XmlWritter(const QDir &path, Game &game, bool serverXml) :
         XmlWritter images(path, game.images(), serverXml);
         *this << OpenMarkUp << "Image" << path.relativeFilePath(images.fileName()) << CloseMarkUp;
         *this << CloseMarkUp;
+        *this << OpenMarkUp << "Interactions" << CloseMarkUp;
+        *this << OpenMarkUp << "Plugins" << CloseMarkUp;
     }
     else{
 
@@ -93,6 +96,11 @@ XmlWritter::XmlWritter(const QDir &path, World &world, bool serverXml) :
     XmlWritter(path, &world, serverXml)
 {
     writeObjectAttributes(world);
+    if(serverXml){
+        *this << OpenMarkUp << "Params" << EndL;
+        *this << OpenMarkUp << "currentMap" << MarkUpParam << "id" << world.objects().maps().first()->ident() << CloseMarkUp;
+        *this << CloseMarkUp;
+    }
     *this << OpenMarkUp << "Maps" << EndL;
     XmlWritter::path.mkdir("Maps");
     XmlWritter::path.cd("Maps");
@@ -102,11 +110,17 @@ XmlWritter::XmlWritter(const QDir &path, World &world, bool serverXml) :
         XmlWritter mt(XmlWritter::path, world.types().mapType(), serverXml);
         createdFiles.append(QPair<QString,QString>("MapType", mt.fileName()));
     }
-    for(Map *m : world.objects().maps()){
-        *this << OpenMarkUp << "Map" << MarkUpParam << "id" << m->ident() << CloseMarkUp;
-        XmlWritter map(XmlWritter::path, *m, serverXml);
+    if(serverXml){
+        *this << OpenMarkUp << "Map" << MarkUpParam << "id" << world.objects().maps().first()->ident() << CloseMarkUp;
+        XmlWritter map(XmlWritter::path, *world.objects().maps().first(), serverXml);
         createdFiles.append(QPair<QString,QString>("Map", map.fileName()));
     }
+    else
+        for(Map *m : world.objects().maps()){
+            *this << OpenMarkUp << "Map" << MarkUpParam << "id" << m->ident() << CloseMarkUp;
+            XmlWritter map(XmlWritter::path, *m, serverXml);
+            createdFiles.append(QPair<QString,QString>("Map", map.fileName()));
+        }
 
     XmlWritter::path.cdUp();
     *this << CloseMarkUp;
@@ -114,15 +128,15 @@ XmlWritter::XmlWritter(const QDir &path, World &world, bool serverXml) :
     *this << OpenMarkUp << "Objects" << EndL;
     XmlWritter::path.mkdir("Objects");
     XmlWritter::path.cd("Objects");
-    if(!serverXml){
-        XmlWritter ot(XmlWritter::path, world.types().objectType(), serverXml);
-        createdFiles.append(QPair<QString,QString>("ObjectType", ot.fileName()));
-    }
+
+    XmlWritter ot(XmlWritter::path, world.types().objectType(), serverXml);
+    createdFiles.append(QPair<QString,QString>("ObjectType", ot.fileName()));
     for(Object *o : world.objects().objects()){
         *this << OpenMarkUp << "Object" << MarkUpParam << "id" << o->ident() << CloseMarkUp;
         XmlWritter object(XmlWritter::path, *o, serverXml);
         createdFiles.append(QPair<QString,QString>("Object", object.fileName()));
     }
+
     *this << CloseMarkUp;
     *this << OpenMarkUp << "Entities" << EndL;
 
@@ -133,7 +147,7 @@ XmlWritter::XmlWritter(const QDir &path, World &world, bool serverXml) :
     for(Entity *e : world.objects().entities()){
         *this << OpenMarkUp << "Entity" << MarkUpParam << "id" << e->ident() << CloseMarkUp;
         XmlWritter entity(XmlWritter::path, *e, serverXml);
-        createdFiles.append(QPair<QString,QString>("Entity", entity.fileName()));
+        createdFiles.append(QPair<QString,QString>("Entities", entity.fileName()));
     }
     XmlWritter::path.cdUp();
     *this << CloseMarkUp;
@@ -170,15 +184,27 @@ XmlWritter::XmlWritter(const QDir &path, Map &map, bool serverXml) :
 
 
 XmlWritter::XmlWritter(const QDir &path, Object &object, bool serverXml) :
-    XmlWritter(path, &object, serverXml)
+    XmlWritter(path, object.name(), serverXml)
 {
+    if(serverXml)
+        *this << OpenMarkUp << "Objects" << EndL << object;
+    else
+        *this << object;
     writeInheritableObject(object);
+    if(serverXml)
+        *this << OpenMarkUp << "Params" << OpenMarkUp << "picture" << object.objectType().image()->ident() << CloseMarkUp << CloseMarkUp << CloseMarkUp;
 }
 
 XmlWritter::XmlWritter(const QDir &path, Entity &entity, bool serverXml) :
-    XmlWritter(path, &entity, serverXml)
+    XmlWritter(path, entity.name(), serverXml)
 {
+    if(serverXml)
+        *this << OpenMarkUp << "Entities" << EndL << entity;
+    else
+        *this << entity;
     writeInheritableObject(entity);
+    if(serverXml)
+        *this << OpenMarkUp << "Params" << OpenMarkUp << "picture" << entity.entityType().image()->ident() << CloseMarkUp << CloseMarkUp << CloseMarkUp;
 }
 
 XmlWritter::XmlWritter(const QDir &path, CellType &cellType, bool serverXml) :
@@ -191,6 +217,7 @@ XmlWritter::XmlWritter(const QDir &path, CellType &cellType, bool serverXml) :
 void XmlWritter::writeCellType(CellType &c){
     *this << c;
     writeInheritableObject(c);
+
     if(c.image())
         *this << OpenMarkUp << "Background" << MarkUpParam << "id" << c.image()->ident() << CloseMarkUp;
     *this << CloseMarkUp;
@@ -260,7 +287,7 @@ void XmlWritter::writeCell(Cell &c, int x, int y){
     *this << c;
     if(serverXml){
         if(c.cellType().image())
-            *this << OpenMarkUp << "picture" << c.cellType().image()->ident() << CloseMarkUp;
+            *this << OpenMarkUp << "Params" << OpenMarkUp << "picture" << c.cellType().image()->ident() << CloseMarkUp << CloseMarkUp;
         *this << OpenMarkUp << "Params"
               << OpenMarkUp << "x" << x << CloseMarkUp
               << OpenMarkUp << "y" << y << CloseMarkUp
@@ -295,7 +322,7 @@ void XmlWritter::writeObjectAttributes(const GameObject &obj){
     if(serverXml){
         *this << OpenMarkUp << "Params" << EndL;
         for(QString f : obj.flags())
-            *this << OpenMarkUp << f << (obj.getFlag(f) ? "True" : "False") << CloseMarkUp;
+            *this << OpenMarkUp << f << (obj.getFlag(f) ? "0" : "1") << CloseMarkUp;
         for(QString p : obj.params())
             *this << OpenMarkUp << p << obj.getParam(p) << CloseMarkUp;
         *this << CloseMarkUp;

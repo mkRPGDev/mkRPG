@@ -48,6 +48,7 @@ public:
     ObjectType(ObjectType &ancestor);
     ObjectType(DefaultTypes &parent);
 
+
     inline Image* image() const{return aImage ? aImage : aTypedAncestor ? aTypedAncestor->image() : nullptr;}
     inline void setImage(Image* im){aImage = im; touch();}
 
@@ -64,6 +65,8 @@ class Object : public TypedObject<ObjectType>
 public:
     TypeName(Object)
     Object(ObjectType &type, GameObject &parent);
+
+    ObjectType &objectType(){return *aObjectType;}
 
     C0(Flag, v,V,isible)
     C0(Flag, m,M,ovable)

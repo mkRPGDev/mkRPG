@@ -83,6 +83,7 @@
     </widget>
     <addaction name="menuNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionImportImage"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
@@ -268,6 +269,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionImportImage">
+   <property name="text">
+    <string>Import Image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
  </widget>

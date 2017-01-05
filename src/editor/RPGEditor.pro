@@ -54,7 +54,8 @@ SOURCES += main.cpp\
     GUI/Tabs/newgameobject.cpp \
     GUI/Tabs/ObjectEditors/objecttypeeditor.cpp \
     Game/entity.cpp \
-    Game/xmlreader.cpp
+    Game/xmlreader.cpp \
+    GUI/Tabs/ObjectEditors/entitytypeeditor.cpp
 
 HEADERS  += \
     Game/game.h \
@@ -99,7 +100,8 @@ HEADERS  += \
     GUI/Tabs/newgameobject.h \
     GUI/Tabs/ObjectEditors/objecttypeeditor.h \
     Game/entity.h \
-    Game/xmlreader.h
+    Game/xmlreader.h \
+    GUI/Tabs/ObjectEditors/entitytypeeditor.h
 
 FORMS    += \
     GUI/editor.ui \
@@ -118,7 +120,8 @@ FORMS    += \
     GUI/Tabs/ObjectEditors/mapeditor.ui \
     GUI/Tabs/actiontab.ui \
     GUI/Tabs/newgameobject.ui \
-    GUI/Tabs/ObjectEditors/objecttypeeditor.ui
+    GUI/Tabs/ObjectEditors/objecttypeeditor.ui \
+    GUI/Tabs/ObjectEditors/entitytypeeditor.ui
 
 RESOURCES += \
     Icons/ressources.qrc

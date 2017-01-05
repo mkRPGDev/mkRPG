@@ -111,6 +111,12 @@ void Editor::on_actionSave_as_triggered(){
         XmlWritter(d,*currentGame, false);
 }
 
+void Editor::on_actionImportImage_triggered(){
+    QString f = QFileDialog::getOpenFileName(this, "Import image", "", "Image *png *jpg");
+    if(f!="" && currentGame!=nullptr){
+        currentGame->addImage(new Image(*currentGame, f));
+    }
+}
 
 void Editor::on_actionRolePlayGame_triggered(){
     NewGame g(this);
@@ -170,7 +176,8 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     CellType *ct1, *ct2, *ct3;
 
     g->addAction("moveLeft", new Action());
-
+    Image *ra = new Image(*g, ":/Icons/raoul.png");
+    g->addImage(ra);
     im = new Image(*g, ":/Icons/herbe.png");
     im->setName("Herbe");
     g->addImage(im);
@@ -223,6 +230,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     EntityType *bucheron = new EntityType(g->world().types().entityType());
     bucheron->setName("Bucheron");
     bucheron->setFlag("barbu", true);
+    bucheron->setImage(ra);
     Entity *Pierre = new Entity(*bucheron, g->world());
     Pierre->setName("Raoul");
     g->world().objects().addEntity(Pierre);
@@ -230,6 +238,7 @@ Game* Editor::open(QString UNUSED(fileName)){ // NOTE : temporaire
     ot->setName("Potion");
     ot->setParam("Amertume", 50);
     ot->setFlag("Fatal", true);
+    ot->setImage(im);
 
     Object *Cafe = new Object(*ot, g->world());
     Cafe->setName("Café");

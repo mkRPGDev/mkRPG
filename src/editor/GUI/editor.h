@@ -65,6 +65,8 @@ private slots:
     void on_actionQuit_triggered();
     void on_actionExport_triggered();
     void on_actionSave_as_triggered();
+    void on_actionImportImage_triggered();
+
 
 
 private slots:

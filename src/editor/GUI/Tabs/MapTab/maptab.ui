@@ -45,7 +45,6 @@
    </item>
    <item row="0" column="0">
     <widget class="MapViewer" name="mapViewer" native="true">
-     <zorder>mapsView</zorder>
     </widget>
    </item>
    <item row="0" column="2" rowspan="3">

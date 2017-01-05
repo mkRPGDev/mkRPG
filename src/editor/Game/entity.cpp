@@ -1,10 +1,8 @@
 #include "entity.h"
 
-
 EntityType::EntityType(EntityType &ancestor) :
     Type(ancestor), aImage(nullptr)
 {
-
 }
 
 EntityType::EntityType(DefaultTypes &parent) :
@@ -14,12 +12,13 @@ EntityType::EntityType(DefaultTypes &parent) :
     setName(typeName());
     SetFlag(sleeping, true);
     setParam("life", 79);
+    setParam("x", 5);
+    setParam("y", 5);
 }
 
 
 Entity::Entity(EntityType &type, GameObject &parent) :
     TypedObject(type,parent)
 {
-
 }
 

@@ -51,13 +51,13 @@ class MainUI:
 
 class ClientUI:
 
-    def __init__(self, run_client):
+    def __init__(self, client):
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.running = True
 
         self.log = ""
-        self.client = run_client
+        self.client = client
 
         self.S = tk.Scrollbar(self.root)
         self.prompt = tk.Text(self.root, width=70)
@@ -103,7 +103,10 @@ class ClientUI:
 
     def run_client(self):
         self.led.config(bg='green')
-        self.client()
+        try:
+            self.client()
+        except:
+            pass
         self.led.config(background='red')
 
     def log_msg(self, msg, end="\n"):
@@ -127,7 +130,7 @@ class ServerUI:
         self.running = True
 
         self.log = ""
-        self.run_server = run_server
+        self.server = run_server
 
         self.S = tk.Scrollbar(self.root)
         self.prompt = tk.Text(self.root, width=70)
@@ -179,7 +182,10 @@ class ServerUI:
 
     def run_server(self):
         self.led.config(background='green')
-        self.run_server(world.get())
+        try:
+            self.server(self.world.get())
+        except:
+            pass
         self.led.config(background='red')
 
 

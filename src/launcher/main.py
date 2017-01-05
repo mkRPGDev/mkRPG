@@ -39,6 +39,7 @@ def run_client():
             host = GUI.ip.get()
             port = int(GUI.port.get())
         except:
+            log_msg('ERROR', 'Wrong input')
             return
 
     log_msg('CONNECTION', 'Connection attempt to ' + host + ' on port ' + str(port))

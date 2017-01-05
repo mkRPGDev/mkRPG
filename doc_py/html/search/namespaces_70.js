@@ -17,5 +17,7 @@ var searchData=
   ['plugin',['plugin',['../namespaceplugins_1_1plugin.html',1,'plugins']]],
   ['plugincurses',['plugincurses',['../namespaceplugins_1_1plugincurses.html',1,'plugins']]],
   ['pluginpygame',['pluginpygame',['../namespaceplugins_1_1pluginpygame.html',1,'plugins']]],
+  ['test_5factions_5fparser',['test_actions_parser',['../namespaceparsing_1_1test__actions__parser.html',1,'parsing']]],
+  ['test_5fentity_5fparser',['test_entity_parser',['../namespaceparsing_1_1test__entity__parser.html',1,'parsing']]],
   ['world_5fparser',['world_parser',['../namespaceparsing_1_1world__parser.html',1,'parsing']]]
 ];

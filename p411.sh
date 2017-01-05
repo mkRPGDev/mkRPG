@@ -6,9 +6,9 @@
 # (note the '.' to set env correctly)
 
 CURDIR=$(pwd)
-ARCHIVE=pygame-1.9.2-build.tar.gz
+ARCHIVE=python-modules.tar.gz # ~ 41MB
 
-if [ ! -d "pygame-1.9.2-build" ];
+if [ ! -d "python-modules" ];
 then
 
     if [ ! -f $ARCHIVE ];
@@ -30,5 +30,5 @@ then
 fi
 
 echo -n "Update PYTHONPATH... "
-export PYTHONPATH=${PYTHONPATH}:$CURDIR/pygame-1.9.2-build/lib/python3.4/site-packages/
+export PYTHONPATH=${PYTHONPATH}:$CURDIR/python-modules/lib/python3.4/site-packages/
 echo "OK"

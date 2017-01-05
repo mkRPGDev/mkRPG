@@ -4,19 +4,4 @@
         <target val="perso"/>
         <event val="moveup"/>
     </Interaction>
-    <Interaction>
-        <key val="115"/> <!-- curses.key_up -->
-        <target val="perso"/>
-        <event val="movedown"/>
-    </Interaction>
-    <Interaction>
-        <key val="113"/> <!-- curses.key_left -->
-        <target val="perso"/>
-        <event val="moveleft"/>
-    </Interaction>
-    <Interaction>
-        <key val="100"/> <!-- curses.key_right -->
-        <target val="perso"/>
-        <event val="moveright"/>
-    </Interaction>
 </Interactions>

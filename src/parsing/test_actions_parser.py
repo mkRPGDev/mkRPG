@@ -11,10 +11,8 @@ import os
 from sys import path
 from os.path import abspath
 path.append(abspath("src/"))
-#from parsing import actions_parser
-from parsing import entity_parser
+from parsing import actions_parser
 
-print(os.getcwd())
 ROOT = ET.parse("parsing/test_files/actions.xml").getroot().find("Action")
 
 class GetTagTestCase(unittest.TestCase):

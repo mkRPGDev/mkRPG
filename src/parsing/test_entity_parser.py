@@ -7,12 +7,9 @@ Fichier de test pour l'entity_parser
 import unittest
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
-from os.path import abspath
-import sys
-sys.path.append(abspath("../../src"))
 from parsing import entity_parser
 
-ROOT = ET.parse("test_files/entity.xml").getroot().find("Entity")
+ROOT = ET.parse("parsing/test_files/entity.xml").getroot().find("Entity")
 
 class GetCharacteristicsTestCase(unittest.TestCase):
     def setUp(self):

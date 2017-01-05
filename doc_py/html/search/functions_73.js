@@ -8,5 +8,6 @@ var searchData=
   ['setperso',['setPerso',['../classinterface_1_1pgcli_1_1_pygame.html#ad71c314cc94a53d5d467298bc174e98b',1,'interface::pgcli::Pygame']]],
   ['setsurf',['setSurf',['../classinterface_1_1pgcli_1_1_map_view.html#ae910bd3f2658fefda2adb3f7991fd35b',1,'interface::pgcli::MapView']]],
   ['settype',['setType',['../classshared_1_1orders_1_1_order.html#a3ac33fe06d9a4454150cca3bee3343c0',1,'shared::orders::Order']]],
+  ['setup',['setUp',['../classshared_1_1test__world_1_1_map_test_case.html#a796155ca848518467438df28493a7c6c',1,'shared::test_world::MapTestCase']]],
   ['show',['show',['../classshared_1_1tools_1_1_perf.html#a49dc229212649947ae4fc3782825bf0f',1,'shared::tools::Perf']]]
 ];

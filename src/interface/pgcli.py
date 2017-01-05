@@ -308,6 +308,7 @@ class MapView:
     def pointToCell(self, x, y):
         """ Convert map coordinates to cell related coordinates """
         d = -cos(self.angleX)*sin(self.angleY)+sin(self.angleX)*cos(self.angleY)
+        if d == 0 : d = 0.1
         x += self.nbCellsY*cos(self.angleY)*self.cellWidth
         y += -(self.nbCellsX*sin(self.angleX)+self.nbCellsY*sin(self.angleY))*self.cellWidth
         return (round((-sin(self.angleY)*x -cos(self.angleY)*y)/d/self.cellWidth),
@@ -319,9 +320,10 @@ class MapView:
 
             @param step the angle step to be applied, may be negative
         """
-        if self.angle + step > 0 and self.angle + step < 90:
+        if self.angle + step > 15 and self.angle + step < 75:
             self.angle += step
             self.update_angles()
+            self.updateVisibleScene()
 
     def flatten(self, step):
         """
@@ -329,9 +331,10 @@ class MapView:
 
             @param step the flattening step to be applied, may be negative
         """
-        if self.flattening + step > -1 and self.flattening + step < 1:
+        if self.flattening + step > -.8 and self.flattening + step < .8:
             self.flattening += step
             self.update_angles()
+            self.updateVisibleScene()
 
     def update_angles(self):
         """ Updates the anglesX/Y according to angle and flattening parameters """

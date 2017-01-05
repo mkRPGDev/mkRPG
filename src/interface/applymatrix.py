@@ -8,7 +8,7 @@ try:
 except OSError:
     print("Compilation de applymatrix.c")
     system("gcc -fPIC -std=c99 -shared interface/applymatrix.c -o interface/applymatrix.a")
-    sleep(.5) 
+    sleep(.5)
     dll = CDLL("interface/applymatrix.a")
 
 #void trans(int* src, int sw, int sh, int* dst, int dh,
@@ -16,7 +16,7 @@ except OSError:
 
 def prod(m, p):
     """ Computes the product of matrix m and vector p """
-    return (p[0]*m[0] + p[1]*m[1], p[0]*m[2] + p[1]*m[3]) 
+    return (p[0]*m[0] + p[1]*m[1], p[0]*m[2] + p[1]*m[3])
 
 def applyMatrix(surf, mat):
     """
@@ -29,7 +29,9 @@ def applyMatrix(surf, mat):
     if len(mat)==2: m=(mat[0][0], mat[0][1], mat[1][0], mat[1][1])
     else: m=[mat[0], mat[2], mat[1], mat[3]] # for compatibility with Qt .transformed
     d = m[0]*m[3]-m[1]*m[2]
-    if not d: raise ValueError("Non-inversible matrix")
+    if not d: #raise ValueError("Non-inversible matrix")
+        m = (m[0]+0.1, mat[1]+0.1, mat[2]+0.1, mat[3]+0.1)
+        return applyMatrix(surf, m)
     im = (m[3]/d, -m[1]/d, -m[2]/d, m[0]/d)
     w,h = surf.get_size()
     x1,y1 = prod(m, (w, 0)) # position of transformed angles

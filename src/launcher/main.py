@@ -62,8 +62,8 @@ def run_client():
     log_msg('TRANSFER', 'Starting transfer protocol')
 
     while True:
-        filename = s.recv(BUF)
-        if filename == b'done':
+        filename = s.recv(BUF).decode('utf-8')
+        if filename == 'done':
             log_msg('TRANSFER', 'Transfer protocol ended. All files synchronized.')
             break
 
@@ -91,6 +91,7 @@ def run_client():
             f.close()
         log_msg('TRANSFER', 'File ' + filename + 'synchronized')
 
+    log_msg('CONNECTION', 'Closing connection')
     s.shutdown(socket.SHUT_WR)
     s.close()
 
@@ -106,6 +107,7 @@ def run_server(folder):
 
     for filename in filesToSend:
         log_msg('FILES', '\t '+ filename)
+    filesToSend = glob.iglob(PATH + folder + '/*', recursive=True)
 
     try:
         port = SYNC_PORT if GUI is None else int(GUI.port.get())
@@ -133,16 +135,14 @@ def run_server(folder):
 
         if pid == 0:
             log_msg('TRANSFER', 'Starting transfer protocol')
-
             for filename in filesToSend:
-                print(filename)
                 csock.send(filename.encode('utf-8'))
                 log_msg('TRANSFER', 'Processing file ' + filename)
                 f = open(filename, 'rb')
                 filemd5 = hashlib.md5(f.read()).hexdigest().encode('utf-8')
-                log_msg('DEBUG', 'Expecting md5 : ' + filemd5)
+                log_msg('DEBUG', 'Expecting md5 : ' + filemd5.decode('utf-8'))
                 recvmd5 = csock.recv(BUF)
-                log_msg('DEBUG', 'Got md5 : ' + recvmd5)
+                log_msg('DEBUG', 'Got md5 : ' + recvmd5.decode('utf-8'))
                 if recvmd5 != filemd5:
                     log_msg('DEBUG', 'Missing file or wrong version')
                     csock.send(b'ms')
@@ -188,7 +188,9 @@ if __name__ == "__main__":
         if GUI.server is None:
             exit(0)
         elif GUI.server:
-            GUI = gui.ServerUI(run_server)
+            world_list = [d for d in os.listdir(PATH)
+                          if os.path.isdir(os.path.join(PATH, d))]
+            GUI = gui.ServerUI(run_server, world_list)
         else:
             GUI = gui.ClientUI(run_client)
 

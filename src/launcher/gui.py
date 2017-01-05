@@ -124,7 +124,7 @@ class ClientUI:
 
 class ServerUI:
 
-    def __init__(self, run_server):
+    def __init__(self, run_server, world_list):
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.running = True
@@ -143,9 +143,9 @@ class ServerUI:
         tk.Label(self.root, text ='Port : ').grid(row=3, column=0)
         self.port = tk.Entry(self.root)
 
-        available_worlds = ("world1", "world2")
+        self.available_worlds = tuple([''] + world_list)
         self.world = tk.StringVar()
-        tk.OptionMenu(self.root, self.world, *available_worlds).grid(row=1, column=3, sticky='E')
+        tk.OptionMenu(self.root, self.world, *self.available_worlds).grid(row=1, column=3, sticky='E')
 
         tk.Button(self.root, text='Run', command=self.run_server, width=20).grid(row=2, column=3, sticky='E')
         tk.Button(self.root, text='Quit', command=self.on_closing, width=20).grid(row=3, column=3, sticky='E')

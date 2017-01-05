@@ -107,6 +107,7 @@ class Client:
                 await asyncio.sleep(0)
             for key in keys:
                 if key == skeys.QUIT:
+                    self.__del__()
                     return
                 elif key == skeys.PAUSE:
                     await self.net.sendEvent(self.world, "pause")

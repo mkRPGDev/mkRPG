@@ -17,7 +17,7 @@ Image = namedtuple("Image", "ascii image")
 def parse_image(image_tag, dir_path):
     """ Parses an image tag."""
     _glyph = image_tag.find("Glyph")
-    _identifier = image_tag.find("Identifier")
+    _identifier = image_tag.find("Ident")
     _path = image_tag.find("Path")
 
     if _glyph is None:
@@ -29,7 +29,7 @@ def parse_image(image_tag, dir_path):
             sys.exit(1)
 
     if _identifier is None:
-        parsing_utils.fail_not_found("Identifier")
+        parsing_utils.fail_not_found("Ident")
     identifier = parsing_utils.format_type(_identifier.text)
     if not isinstance(identifier, int):
         print("Fail : identifier couldn't be cast in integer.")

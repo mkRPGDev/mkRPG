@@ -52,6 +52,8 @@ class Object:
         if identifier is None:
             Object.numid[0] -= 1
             identifier = Object.numid[0]
+        if identifier in Object.ids:
+            print("Id en double",identifier)
         assert identifier != 0 # l'id 0 est réservé pour les plugins
         assert identifier not in Object.ids # un id est en double
         Object.ids[identifier] = self

@@ -128,7 +128,8 @@ def game_parser(dir_path):
         image_files = image_tag.findall('Image')
         image_files = [join(dir_path, image.text.replace('/', sep)) for
                        image in image_files]
-
+    else:
+        image_files = []
     result.update({"Images": gp.parse_multiple_files(dir_path, *image_files)})
     # Gets the plugins names.
     plugin_tag = root.find('Plugins')

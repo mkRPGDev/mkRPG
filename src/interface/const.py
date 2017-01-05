@@ -10,8 +10,8 @@ CELL_WIDTH = 32
 ANGLE = 45
 FLATTENING = 0
 MOV_OFFSET = 40
-FLAT_STEP = 0.1
-ROT_STEP = 5
+FLAT_STEP = 0.001
+ROT_STEP = 0.1
 
 # Default values for the gui_loading
 DEFAULT_GUI_VALUES = {

@@ -1,26 +1,26 @@
 <Images>
   <Image>
-    <Identifier>32</Identifier>
+    <Ident>32</Ident>
     <Path>images/sol.png</Path>
     <Glyph>32</Glyph>
   </Image>
   <Image>
-    <Identifier>79</Identifier>
+    <Ident>79</Ident>
     <Path>images/head.png</Path>
     <Glyph>79</Glyph>
   </Image>
   <Image>
-    <Identifier>88</Identifier>
+    <Ident>88</Ident>
     <Path>images/head2.png</Path>
     <Glyph>88</Glyph>
   </Image>
   <Image>
-    <Identifier>111</Identifier>
+    <Ident>111</Ident>
     <Path>images/head.png</Path>
     <Glyph>111</Glyph>
   </Image>
   <Image>
-    <Identifier>120</Identifier>
+    <Ident>120</Ident>
     <Path>images/apple.png</Path>
     <Glyph>111</Glyph>
   </Image>

@@ -1,21 +1,21 @@
 <Images>
   <Image>
-    <Identifier>13</Identifier>
+    <Ident>13</Ident>
     <Path>images/herbe.png</Path>
     <Glyph>171</Glyph>
   </Image>
   <Image>
-    <Identifier>10</Identifier>
+    <Ident>10</Ident>
     <Path>images/glace.png</Path>
     <Glyph>95</Glyph>
   </Image>
   <Image>
-    <Identifier>8</Identifier>
+    <Ident>8</Ident>
     <Path>images/mer.png</Path>
     <Glyph>126</Glyph>
   </Image>
   <Image>
-    <Identifier>88</Identifier>
+    <Ident>88</Ident>
     <Path>images/head.png</Path>
     <Glyph>88</Glyph>
   </Image>

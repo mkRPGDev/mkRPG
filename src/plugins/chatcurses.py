@@ -1,8 +1,17 @@
+"""
+This file describes a ncurses chat for the game.
+This chat can be used when using the terminal mode of the game.
+"""
+
 import curses
 from plugins.plugincurses import CursesPlugin
 
 
 class ChatView(CursesPlugin):
+    """
+    This describes a view from the chat, to be displayed on the screen
+    at runtime.
+    """
     MINW = 1000
     MINH = 9
     X = 0
@@ -17,6 +26,7 @@ class ChatView(CursesPlugin):
         self.text = bytearray()
 
     def reset(self):
+        """ Resets the object attributes. """
         self.writing = False
         self.text = bytearray()
 
@@ -41,10 +51,11 @@ class ChatView(CursesPlugin):
         return True
 
     def draw(self):
+        """ Draws the chat on the screen and the texts. """
         super().draw()
         self.win.erase()
         self.win.border()
-        # Anciens messages
+        # Older messages
         for k in range(1, self.height-2):
             if len(self.netPlugin.msgs) < k:
                 break

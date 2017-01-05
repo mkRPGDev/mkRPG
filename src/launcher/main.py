@@ -5,6 +5,12 @@ from const import *
 import os
 import glob
 
+HOST = "localhost"
+PATH = "./test/"
+SYNC_PORT = 12345
+BUF = 1024
+SYNC_MAX_SERVER_QUEUE = 5
+
 LINE_NUM = 1
 GUI = None
 

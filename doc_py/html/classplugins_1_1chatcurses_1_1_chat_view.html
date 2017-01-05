@@ -92,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><b>plugins</b>      </li>
-      <li class="navelem"><b>chatcurses</b>      </li>
+      <li class="navelem"><a class="el" href="namespaceplugins_1_1chatcurses.html">chatcurses</a>      </li>
       <li class="navelem"><a class="el" href="classplugins_1_1chatcurses_1_1_chat_view.html">ChatView</a>      </li>
     </ul>
   </div>
@@ -122,8 +122,7 @@ Inheritance diagram for plugins.chatcurses.ChatView:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24955bbd50c58d0dad24d710a564742e"></a><!-- doxytag: member="plugins::chatcurses::ChatView::__init__" ref="a24955bbd50c58d0dad24d710a564742e" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abdccabe6bc73dacc4e01354b992f4cf6"></a><!-- doxytag: member="plugins::chatcurses::ChatView::reset" ref="abdccabe6bc73dacc4e01354b992f4cf6" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplugins_1_1chatcurses_1_1_chat_view.html#abdccabe6bc73dacc4e01354b992f4cf6">reset</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplugins_1_1chatcurses_1_1_chat_view.html#a96c4c19690f0c756a121226ce681eb03">handleKey</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplugins_1_1chatcurses_1_1_chat_view.html#a7f542a8a2cf51ecabf42f5da627e36c3">draw</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
@@ -149,7 +148,11 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>NAME</b> = &quot;Ch
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae45f6d26952be89fc2c3924e450c2ee"></a><!-- doxytag: member="plugins::chatcurses::ChatView::HELP" ref="aae45f6d26952be89fc2c3924e450c2ee" args="" -->
 string&#160;</td><td class="memItemRight" valign="bottom"><b>HELP</b> = &quot;space : begin message&quot;</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><div class="fragment"><pre class="fragment">
+This describes a view from the chat, to be displayed on the screen
+at runtime.
+</pre></div> </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a7f542a8a2cf51ecabf42f5da627e36c3"></a><!-- doxytag: member="plugins::chatcurses::ChatView::draw" ref="a7f542a8a2cf51ecabf42f5da627e36c3" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -164,7 +167,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>HELP</b> = &quot;sp
       </table>
 </div>
 <div class="memdoc">
-<div class="fragment"><pre class="fragment">don't call self.win.noutrefresh, it will be done when needed </pre></div> 
+<div class="fragment"><pre class="fragment">Draws the chat on the screen and the texts. </pre></div> 
 <p>Reimplemented from <a class="el" href="classplugins_1_1plugincurses_1_1_curses_plugin.html#a54904428b032d020b8c2ad81f03b74f0">plugins.plugincurses.CursesPlugin</a>.</p>
 
 </div>
@@ -196,6 +199,23 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>HELP</b> = &quot;sp
 <div class="fragment"><pre class="fragment">return True if the key has been used </pre></div> 
 <p>Reimplemented from <a class="el" href="classplugins_1_1plugincurses_1_1_curses_plugin.html#acea30dc25e5a20e911e257845b8ac430">plugins.plugincurses.CursesPlugin</a>.</p>
 
+</div>
+</div>
+<a class="anchor" id="abdccabe6bc73dacc4e01354b992f4cf6"></a><!-- doxytag: member="plugins::chatcurses::ChatView::reset" ref="abdccabe6bc73dacc4e01354b992f4cf6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classplugins_1_1chatcurses_1_1_chat_view.html#abdccabe6bc73dacc4e01354b992f4cf6">plugins.chatcurses.ChatView.reset</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">Resets the object attributes. </pre></div> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

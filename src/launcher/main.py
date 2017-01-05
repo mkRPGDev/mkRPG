@@ -86,43 +86,64 @@ def run_client():
     s.shutdown(socket.SHUT_WR)
     s.close()
 
-def run_server(folder):
-    print('Fichiers à synchroniser :')
-    filesToSend = glob.iglob(PATH+'/*', recursive=True)
-    for filename in filesToSend:
-        print('\t'+filename)
 
-    psock = socket.socket()
-    psock.bind(("", SYNC_PORT))
-    psock.listen(SYNC_MAX_SERVER_QUEUE)
+def run_server(folder):
+
+    filesToSend = glob.iglob(PATH + folder + '/*', recursive=True)
+    log_msg('FILES', 'Folder ' + PATH + folder + ' is selected for synchronization')
+    log_msg('FILES', 'Files to be synchronized :')
+
+    for filename in filesToSend:
+        log_msg('FILES', '\t '+ filename)
+
+    try:
+        port = SYNC_PORT if GUI is None else int(GUI.port.get())
+    except:
+        log_msg('ERROR', 'Wrong input')
+        return
+
+    log_msg('CONNECTION', 'Establishing server on port ' + str(port))
+    try:
+        psock = socket.socket()
+        psock.bind(("", port))
+        psock.listen(SYNC_MAX_SERVER_QUEUE)
+    except:
+        log_msg('ERROR', 'Socket error : unable to establish server')
+        return
 
     forkedpids = []
-    print('Waiting for clients.')
+    log_msg('CONNECTION', 'Waiting for clients')
 
     while True:
         csock, addr = psock.accept()
+        log_msg('CONNECTION', 'Accepted connection from ' + str(addr))
+
         pid = os.fork()
         if pid == 0:
+            log_msg('TRANSFER', 'Starting transfer protocol')
+
             for filename in filesToSend:
                 csock.send(filename.encode('utf-8'))
-                print('Requesting file ', filename)
+                log_msg('TRANSFER', 'Processing file ' + filename)
                 f = open(filename, 'rb')
                 filemd5 = hashlib.md5(f.read()).hexdigest().encode('utf-8')
-                print('\tExpecting md5 ', filemd5)
+                log_msg('DEBUG', 'Expecting md5 : ' + filemd5)
                 recvmd5 = csock.recv(BUF)
-                print('\tGot ', recvmd5)
+                log_msg('DEBUG', 'Got md5 : ' + recvmd5)
                 if recvmd5 != filemd5:
-                    print('\tMissing file, sending...')
+                    log_msg('DEBUG', 'Missing file or wrong version')
                     csock.send(b'ms')
                     buf = f.read(BUF)
                     while (buf):
-                        buf = f.read(BUF)
                         csock.send(buf)
+                        buf = f.read(BUF)
                 else:
-                    print('\tAlready have file.')
+                    log_msg('DEBUG', 'Correct file version')
                     csock.send(b'ok')
                 f.close()
-                print('Complete.')
+                log_msg('TRANSFER', 'File ' + filename + ' complete')
+
+            log_msg('TRANSFER', 'Transfer protocol ended. All files synchronized.')
             csock.send(b'done')
             csock.close()
             exit(0)

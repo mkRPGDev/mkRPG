@@ -1,10 +1,16 @@
+# -*- coding: utf-8 -*-
+
+"""
+    GUI module for file synchronizer
+"""
+
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 from urllib.request import urlopen
 import socket
 
-
 class MainUI:
+    """ Main GUI with Client/Server buttons """
 
     def __init__(self):
         self.server = None
@@ -31,14 +37,17 @@ class MainUI:
         self.root.update()
 
     def on_closing(self):
+        """ Closes the window """
         self.running = False
         self.root.destroy()
 
     def run_client(self):
+        """ To be called on client selection """
         self.server = False
         self.on_closing()
 
     def run_server(self):
+        """ To be called on server selection """
         self.server = True
         self.on_closing()
 
@@ -50,8 +59,14 @@ class MainUI:
         self.root.mainloop()
 
 class ClientUI:
+    """ Client window class """
 
     def __init__(self, client):
+        """
+            Client window class constructor
+
+            @param client the client core function to be called on running
+        """
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.running = True
@@ -98,18 +113,21 @@ class ClientUI:
         self.root.update()
 
     def on_closing(self):
+        """ Closes the window """
         self.running = False
         self.root.destroy()
 
     def run_client(self):
+        """ Runs the client core and toogles the led """
         self.led.config(bg='green')
         try:
             self.client()
         except:
-            pass
+            self.led.config(background='red')
         self.led.config(background='red')
 
     def log_msg(self, msg, end="\n"):
+        """ Logs a message into the prompt area """
         self.log += msg+end
         self.prompt.delete('1.0', tk.END)
         self.prompt.insert(tk.END, self.log)
@@ -123,8 +141,16 @@ class ClientUI:
         self.root.mainloop()
 
 class ServerUI:
+    """ Server window class """
+
 
     def __init__(self, run_server, world_list):
+        """
+            Server window class constructor
+
+            @param run_server the server core function to be called on running
+            @param world_list the world list to be potentially synchronized
+        """
         self.root = tk.Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.running = True
@@ -177,10 +203,12 @@ class ServerUI:
         self.root.update()
 
     def on_closing(self):
+        """ Closes the window """
         self.running = False
         self.root.destroy()
 
     def run_server(self):
+        """ Runs the client core and toogles the led """
         self.led.config(background='green')
         try:
             self.server(self.world.get())
@@ -190,6 +218,7 @@ class ServerUI:
 
 
     def log_msg(self, msg, end="\n"):
+        """ Logs a message into the prompt area """
         self.log += msg+end
         self.prompt.delete('1.0', tk.END)
         self.prompt.insert(tk.END, self.log)

@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+
+"""
+    File synchronizer
+
+    @todo Multithread server and GUI for smooth GUI
+    @todo Add folder creation to protocol
+"""
+
 import gui
 import socket
 import hashlib
@@ -36,6 +45,7 @@ def log_msg(tag, msg):
         print(msg)
 
 def run_client():
+    """ Runs the client core """
     done = False
 
     s = socket.socket()
@@ -97,6 +107,11 @@ def run_client():
 
 
 def run_server(folder):
+    """
+        Runs the server core
+
+        @param folder the PATH subfolder to be synchronized
+    """
 
     if GUI is None:
         folder = input('Enter world name : ')

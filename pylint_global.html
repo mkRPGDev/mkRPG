@@ -50,39 +50,39 @@
 <div>
 <h2>External dependencies</h2>
 <pre>interface (interface.pgcli)
-  \-const (interface.gui.gui_window,plugins.mapControlpygame)
+  \-const (plugins.mapControlpygame,interface.gui.gui_window)
   \-cursescli (client)
   \-gui 
   | \-gui_elements (plugins.mapControlpygame)
   \-interactions (client)
-  \-interface (interface.cursescli,interface.pgcli,client)
+  \-interface (interface.pgcli,interface.cursescli,client)
   \-pgcli (client)
-  \-utils (interface.test_utils,plugins.mapControlpygame,interface.pgcli)
+  \-utils (interface.pgcli,plugins.mapControlpygame,interface.test_utils)
 management 
   \-actions (server)
   \-console (server)
 parsing 
-  \-actions_parser (parsing.test_actions_parser,parsing.interactions_parser,parsing.global_parsing)
+  \-actions_parser (parsing.interactions_parser,parsing.global_parsing,parsing.test_actions_parser)
   \-entity_parser (parsing.global_parsing,parsing.test_entity_parser)
-  \-global_parsing (server,shared.world,client)
+  \-global_parsing (shared.world,client,server)
   \-gui_parser (interface.gui.gui_window)
   \-images_parser (parsing.global_parsing)
   \-interactions_parser (parsing.test_interactions_parser,parsing.global_parsing)
   \-map_parser (parsing.global_parsing)
   \-objects_parser (parsing.global_parsing)
-  \-parsing_utils (parsing.entity_parser,parsing.images_parser,parsing.objects_parser,parsing.interactions_parser,parsing.global_parsing,parsing.actions_parser,parsing.gui_parser,parsing.world_parser,parsing.map_parser,parsing.test_parsing_utils)
+  \-parsing_utils (parsing.global_parsing,parsing.gui_parser,parsing.actions_parser,parsing.interactions_parser,parsing.world_parser,parsing.objects_parser,parsing.test_parsing_utils,parsing.images_parser,parsing.entity_parser,parsing.map_parser)
   \-world_parser (parsing.global_parsing)
 plugins 
-  \-plugin (server,interface.gui.gui_window,plugins.chat,plugins.mapControl,client)
+  \-plugin (interface.gui.gui_window,plugins.chat,client,server,plugins.mapControl)
   \-plugincurses (plugins.chatcurses,plugins.menucurses)
   \-pluginpygame (plugins.mapControlpygame)
-pygame (interface.test_utils,plugins.pluginpygame,plugins.mapControlpygame,interface.utils,interface.pgcli,interface.applymatrix,interface.gui.nontravistest_gui,interface.gui.gui_elements)
-  \-locals (interface.gui.nontravistest_gui,plugins.mapControlpygame,interface.gui.gui_elements,interface.pgcli)
+pygame (interface.gui.gui_elements,interface.utils,plugins.mapControlpygame,interface.gui.nontravistest_gui,interface.pgcli,interface.test_utils,plugins.pluginpygame,interface.applymatrix)
+  \-locals (interface.pgcli,plugins.mapControlpygame,interface.gui.nontravistest_gui,interface.gui.gui_elements)
 shared 
-  \-network (server,client)
-  \-orders (management.actions,shared.world,shared.network,server,client)
-  \-tools (server,client)
-  \-world (server,shared.network,shared.test_world,client)</pre></div>
+  \-network (client,server)
+  \-orders (server,shared.world,shared.network,client,management.actions)
+  \-tools (client,server)
+  \-world (shared.test_world,shared.network,client,server)</pre></div>
 <div>
 <h2>Raw metrics</h2>
 <table>

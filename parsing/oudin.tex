@@ -72,7 +72,7 @@
 
 \subsection{Actions}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{\subsecname}
     \begin{figure}
         \begin{adjustwidth}{0.1\textwidth}{}
@@ -90,7 +90,7 @@
                         \item[Param] is the parameter to be modified by the
                             action.
                         \item[Value] is the code to be runned. (Yes, by
-                            \mintinline{python3}{eval})
+                            \verb|eval|)
                     \end{description}
             \end{description}
         \end{adjustwidth}
@@ -148,11 +148,11 @@
 
 \subsection{Parsing with Python}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{\subsecname}
     \begin{block}{Library}
-        Use the python library \mintinline{python3}{xml}, more precisely
-        the module \mintinline{python3}{xml.etree.ElementTree}
+        Use the python library \verb|xml|, more precisely
+        the module \verb|xml.etree.ElementTree|
     \end{block}
     The parser is integrated, most of the work consisted in organizing
     the parsing, and finding the good data structures.
@@ -164,27 +164,23 @@
 \begin{frame}[fragile]
     \frametitle{\subsecname}
     \begin{alertblock}{First try}
-        Use \mintinline{python3}{dict}. However, dicts iterates in an arbitrary order,
+        Use \verb|dict|. However, dicts iterates in an arbitrary order,
         so the \verb|id|s weren't the same client-side and server-side
     \end{alertblock}
 
     \pause
 
     \begin{alertblock}{Second try}
-        \mintinline{python3}{dict} and \verb|id|s in the xml. It still fails
+        \verb|dict| and \verb|id|s in the xml. It still fails
         since some data was created at runtime with different \verb|id|s.
     \end{alertblock}
 
     \pause
 
     \begin{block}{Third try}
-        Use \mintinline{python3}{collection.OrderedDict}s in order to solve
+        Use \verb|collection.OrderedDict|s in order to solve
         all the issues.
     \end{block}
 \end{frame}
 
-\subsection{Keep a general parsing}
-
-\begin{frame}
-\end{frame}
 \end{document}

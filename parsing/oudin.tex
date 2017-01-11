@@ -161,6 +161,30 @@
 
 \subsection{Formatting data}
 
+\begin{frame}[fragile]
+    \frametitle{\subsecname}
+    \begin{alertblock}{First try}
+        Use \mintinline{python3}{dict}. However, dicts iterates in an arbitrary order,
+        so the \verb|id|s weren't the same client-side and server-side
+    \end{alertblock}
+
+    \pause
+
+    \begin{alertblock}{Second try}
+        \mintinline{python3}{dict} and \verb|id|s in the xml. It still fails
+        since some data was created at runtime with different \verb|id|s.
+    \end{alertblock}
+
+    \pause
+
+    \begin{block}{Third try}
+        Use \mintinline{python3}{collection.OrderedDict}s in order to solve
+        all the issues.
+    \end{block}
+\end{frame}
+
+\subsection{Keep a general parsing}
+
 \begin{frame}
 \end{frame}
 \end{document}

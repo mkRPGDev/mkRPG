@@ -1,0 +1,56 @@
+# Fichiers de swap Vim/Emacs
+.*.swp
+.*.swo
+.#*
+*~
+
+# Fichiers compilés
+*.a
+*.o
+*.class
+*.pyc
+
+src/__make_cells.py
+
+# Fichiers de logs
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# Fichiers d'éditeur
+src/build-RPGEditor-*
+src/editor/RPGEditor.pro.user
+
+# Fichiers de cache Python
+src/__pycache__
+
+#Fichers mac
+.DS_Store
+
+# Fichiers de l'éditeur
+.directory
+src/build-RPGEditor-*
+src/editor/RPGEditor.pro.user
+src/editor/doc.doxy
+
+# Fichiers PyCharm
+.idea
+
+# Fichiers de doc et Pylint
+*.html
+
+# Fichiers pour la salle 411
+python-modules.tar.gz
+python-modules/
+
+# Fichiers Latex
+presentation/*.aux
+presentation/*.log
+presentation/*.nav
+presentation/*.out
+presentation/*.pdf
+presentation/*.gz
+presentation/*.snm
+presentation/*.toc

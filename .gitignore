@@ -9,6 +9,7 @@
 *.log
 *.out
 *.toc
+*.vrb
 *.synctex.gz
 
 # Fichiers d'éditeur

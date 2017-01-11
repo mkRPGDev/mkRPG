@@ -1,0 +1,7 @@
+<Interactions>
+    <Interaction>
+        <key val="122"/> <!-- curses.key_bot -->
+        <target val="perso"/>
+        <event val="moveup"/>
+    </Interaction>
+</Interactions>

@@ -1,0 +1,166 @@
+\documentclass[a4paper, 11pt]{beamer}
+
+\usepackage{amsfonts, amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{minted}
+\usepackage{changepage}
+
+\author{Rémi Oudin}
+\title{Parsing XML Files}
+\date{}
+\institute{ENS Cachan}
+
+\usetheme{Hannover}
+\usecolortheme{whale}
+
+\setbeamertemplate{navigation symbols}{
+    \usebeamerfont{footline}
+    \usebeamercolor[fg]{footline}
+    \hspace{1em}
+    \insertframenumber/\inserttotalframenumber
+}
+
+\AtBeginSection[]{
+    \begin{frame}
+        \frametitle{Contents}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\section*{Introduction}
+
+\begin{frame}
+    \frametitle{\secname}
+    \begin{itemize}
+        \item A game is described by XML files
+        \item Need to parse and get the whole data in a quite safe way
+        \item Create all instances of a game with  the parsed data.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname~: What is needed.}
+    \begin{itemize}
+        \item Define a format for the XML files that is compliant with the
+            expectations.
+        \item Have it general enough for description, and usable in order to
+            generate the instances.
+        \item Use the good data structures in order to keep parsed data.
+        \item Generate instances.
+    \end{itemize}
+\end{frame}
+
+\section{XML description files}
+
+\begin{frame}
+    \frametitle{What needs to be defined}
+    \begin{itemize}
+        \item Interactions~:reaction to the keys
+        \item Actions~: Link between interactions and the world, reaction to
+            collision,\dots
+        \item Objects~: Entities, objects, maps, cells,\dots
+    \end{itemize}
+\end{frame}
+
+
+\subsection{Actions}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{figure}
+        \begin{adjustwidth}{0.1\textwidth}{}
+            \scriptsize{\inputminted{xml}{test_files/actions.xml}}
+        \end{adjustwidth}
+        \caption{An Action XML tag}
+    \end{figure}
+    \begin{small}
+        \begin{adjustwidth}{-0.1\textwidth}{}
+            \begin{description}
+                \item[Event] is the interaction that triggers this action.
+                \item[Order] is the orders to be executed~:
+                    \begin{description}
+                        \item[Target] is the target of the action
+                        \item[Param] is the parameter to be modified by the
+                            action.
+                        \item[Value] is the code to be runned. (Yes, by
+                            \mintinline{python3}{eval})
+                    \end{description}
+            \end{description}
+        \end{adjustwidth}
+    \end{small}
+\end{frame}
+
+\subsection{Interactions}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{figure}
+        \begin{adjustwidth}{0.1\textwidth}{}
+            \scriptsize{\inputminted{xml}{test_files/interactions.xml}}
+        \end{adjustwidth}
+        \caption{An Interaction XML tag}
+    \end{figure}
+    \begin{small}
+        \begin{description}
+            \item[Key] is the \emph{keycode} associated to the interaction
+            \item[Target] is the target of the interaction~: the player, the
+                map,\dots
+            \item[Event] is the event to be triggered by the action
+        \end{description}
+    \end{small}
+\end{frame}
+
+\subsection{Entities}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{figure}
+        \begin{adjustwidth}{0.1\textwidth}{}
+            \scriptsize{\inputminted{xml}{test_files/entity.xml}}
+        \end{adjustwidth}
+        \caption{An Entity XML tag}
+    \end{figure}
+    \begin{small}
+        \begin{adjustwidth}{-0.1\textwidth}{}
+            \begin{description}
+                \item[Ident] is the numerical identifier of the entity
+                \item[Params] describes the parameters of an entity~:
+                    \begin{description}
+                        \item[Picture] an identifier corresponding to the image
+                            representing the character.
+                        \item[X, Y] are the starting coordinates
+                        \item[Map] is the map on which the entity should be
+                            when starting a game.
+                    \end{description}
+            \end{description}
+        \end{adjustwidth}
+    \end{small}
+\end{frame}
+
+\section{Parsing XML Files}
+
+\subsection{Parsing with Python}
+
+\begin{frame}
+    \frametitle{\subsecname}
+    \begin{block}{Library}
+        Use the python library \mintinline{python3}{xml}, more precisely
+        the module \mintinline{python3}{xml.etree.ElementTree}
+    \end{block}
+    The parser is integrated, most of the work consisted in organizing
+    the parsing, and finding the good data structures.
+    A big work also was to keep a general enough parsing.
+\end{frame}
+
+\subsection{Formatting data}
+
+\begin{frame}
+\end{frame}
+\end{document}

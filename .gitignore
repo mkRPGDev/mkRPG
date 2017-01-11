@@ -11,6 +11,14 @@
 *.toc
 *.synctex.gz
 
+# Fichiers d'éditeur
+src/build-RPGEditor-*
+src/editor/RPGEditor.pro.user
+
+# Fichiers de cache Python
+src/__pycache__
+_minted*
+
 #Fichers mac
 .DS_Store
 

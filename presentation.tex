@@ -28,9 +28,64 @@
 \tableofcontents
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interface}
+    \begin{frame}
+        \frametitle{Contents}
+        \tableofcontents[currentsection]
+    \end{frame}
+
+\begin{frame}{Architecture}
+	\begin{center}\includegraphics[scale=0.21]{uml_pygame.png}\end{center}
+\end{frame}
+
+\begin{frame}{Interface pygame : features}
+	\begin{itemize}
+		\item mise en cache
+    \item changement de cartes
+    \item rotation de carte
+    \item zoom/dezoom
+    \item affichage d'objets
+    \item système de gui
+    \item plugins d'affichage
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Interface pygame}
+	\begin{itemize}
+    \item performances : raisonnables, 30 FPS, quelques lags quand on affiche des parties trop importantes de la map
+		\item[]
+    \item stabilité : quelques exceptions non capturées (rotation de carte), sinon affichage très stable
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Interface pygame}
+	\begin{center}\includegraphics[scale=0.2]{game_screenshot.png}\end{center}
+\end{frame}
+
+\begin{frame}{Interface pygame : GUI}
+	\begin{center}\includegraphics[scale=0.25]{gui_uml.png}\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
 \setbeamertemplate{navigation symbols}{} 
 \renewcommand{\insertnavigation}[1]{\hfill\includegraphics[scale=.5]{main.png}~\vspace{-.2cm}}
 \section{Éditeur}
+
+    \begin{frame}
+        \frametitle{Contents}
+        \tableofcontents[currentsection]
+    \end{frame}
+
 \subsection{Objectifs}
 \begin{frame}{Objectifs}
 	\begin{itemize}
@@ -166,21 +221,55 @@
 
 
 \section{Commentaires}
+
+    \begin{frame}
+        \frametitle{Contents}
+        \tableofcontents[currentsection]
+    \end{frame}
+    
 \begin{frame}{Difficultés - Choix discutables \textit{a posteriori}}
+	\textbf{Pygame}
+	\begin{itemize}
+		\item efficace pour de petits projets
+		\item pas adapté aux moyens/gros projets
+		\item quelques problèmes de compatibilité
+		\item manque de documentation avancée et/ou d'exemples d'utilisation avancés suffisamment commentés
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Remarques}
+	\textbf{Général}
 	\begin{itemize}
 		\item Préciser les architectures avant de coder
-		\item Choix d'outils : éviter de re-coder la roue
 		\item Faire avancer les différents composants à la même vitesse
+		\item On a sous-estimé la charge de travail liée à l'affichage
+		\item[]
+		\item Quelques problèmes de communication en cours de route
+		\item Gros problème de partage des taches malgré quelques tentatives pour mieux les répartir
+		\item[]
+		\item difficile à tester
 	\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Perspectives}
+	\textbf{Interface}
+	\begin{itemize}
+		\item architecture de l'interface cohérente et pratique
+		\item système de plugin tout puissant (tout est modifiable à travers des plugins)
+		\item interface soutenable a moyen terme pour des jeux de taille moyenne
+	\end{itemize}
+	
+	~
+	
+	\textbf{Éditeur}
 	\begin{itemize}
 		\item Définition d'un langage d'ordre
 		\item Ajout d'abstractions dans l'éditeur
 		\item Révisions du XML (pour que XML serveur $\subset$ XML éditeur)
 	\end{itemize}
 \end{frame}
+
 
 \end{document}

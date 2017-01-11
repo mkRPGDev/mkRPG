@@ -102,8 +102,9 @@
 \begin{frame}
     \frametitle{\secname~: Why ?}
     \begin{itemize}
-        \item readable and understandable
-        \item debug
+        \item readable for the writer
+        \item understandable by others 
+        \item easy debug
     \end{itemize}
 \end{frame}
 
@@ -115,6 +116,43 @@
         \item html or tex
         \item nice graphs
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname~: Doxygen}
+\includegraphics[scale=0.3]{doxygen}
+\end{frame}
+
+\section{Tests}
+\begin{frame}
+    \frametitle{\secname~}
+    \begin{itemize}
+    	\item \textit{"There ARE bugs in your code."}
+        \item Static analysis (pylint)
+        \item Unit testing (unittest)
+    \end{itemize}
+\end{frame}
+
+\subsection{Unit testing}
+\begin{frame}
+    \frametitle{\secname~: Unittest}
+\includegraphics[scale=0.4]{unittest}
+\end{frame}
+
+\subsection{Continuons Integration}
+\begin{frame}
+    \frametitle{\secname~: Travis}
+    Every modification of code runs code on server to check if anything bad happend
+    \begin{itemize}
+    	 \item Unittest (unit testing)
+        \item Doxygen (documentation)
+        \item Pylint (static code analysis)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\secname~: Travis}
+\includegraphics[scale=0.3]{travis}
 \end{frame}
 
 

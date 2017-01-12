@@ -1,0 +1,11 @@
+<Entities>
+    <Entity name="moi">
+        <Ident>1</Ident>
+        <Params>
+            <picture>88</picture>
+            <x>15</x>
+            <y>15</y>
+            <map id="maiin"/>
+        </Params>
+    </Entity>
+</Entities>
